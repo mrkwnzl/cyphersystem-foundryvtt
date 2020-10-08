@@ -42,7 +42,7 @@ In the Settings Tab, you’ll find the following settings:
 - **Additional Recovery Rolls:** This adds additional checkboxes to the 1 Action recovery rolls. If you play in Unmasked Mode, those get only added to your Mask Form, as they most likely come from Power Shifts.
 - **Lasting/Permanent Damage:** This adds a list for lastinf and permanent damage to your Combat Tab. Use this when you use the optional rule for lasting damage (Cypher System,  436; Numenera Discovery, 344) or when playing Vurt.
 - **Currency:** This adds a currency field in the Equipment Tab. You can rename the  currency for your game.
-- **Cyphers, Artifacts, and Oddities:** This adds lists for cyphers, artifacts, and oddities in the Equipment Tab. Use this if your game has these.
+- **Cyphers, Artifacts, Oddities, and Crafting Material:** This adds lists for cyphers, artifacts, oddities, and crafting material in the Equipment Tab. Use this if your game has these. You can rename the crafting material to something fitting for your game.
 
 ### The NPC Sheet
 
