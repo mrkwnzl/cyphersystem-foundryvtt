@@ -103,6 +103,11 @@
   justify-content: space-between;
 }
 
+.app.sheet .editor-content {
+    height: auto;
+    overflow-y: auto;
+}
+
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .sheet-header {
