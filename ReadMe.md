@@ -4,7 +4,7 @@ This is a simple system for the Cypher System family of games (Cypher System, Nu
 
 At this point, it’s just a simple, yet very flexible digital character sheet, without any kind of automation. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
 
-If you want a prettier, more elaborate character sheet with roll macros, SolarBear has you covered: [](https://foundryvtt.com/packages/numenera/)
+If you want a prettier, more elaborate character sheet with roll macros, SolarBear has you covered: [https://foundryvtt.com/packages/numenera/](https://foundryvtt.com/packages/numenera/)
 
 ## Highlights
 
@@ -16,11 +16,11 @@ If you want a prettier, more elaborate character sheet with roll macros, SolarBe
 
 ## Recommended Modules
 
-Since this system does not come with any dice macros (I plan to add that in the future), I recommend to use [Simple Dice Roller]() and [Dice So Nice!](). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
+Since this system does not come with any dice macros (I plan to add that in the future), I recommend to use [Simple Dice Roller](https://foundryvtt.com/packages/simple-dice-roller/) and [Dice So Nice!](https://foundryvtt.com/packages/dice-so-nice/). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
 
 ## Actor Types
 
-There are 5 Actor Types, all with their own sheets, included:
+There are 5 Actor Types, all with their own sheets:
 
 1. PC
 2. NPC
