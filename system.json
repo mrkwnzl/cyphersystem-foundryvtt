@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A Simple Cypher System for FoundryVTT.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "minimumCoreVersion": "0.6.6",
   "compatibleCoreVersion": "0.6.6",
   "templateVersion": 2,
@@ -13,7 +13,7 @@
   "languages": [],
   "gridDistance": 1.5,
   "gridUnits": "m",
-  "url": "",
-  "manifest": "",
-  "download": ""
+  "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
+  "manifest": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/master/system.json",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/archive/v1.0.0.zip"
 }
