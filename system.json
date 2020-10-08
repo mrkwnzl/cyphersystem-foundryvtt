@@ -14,6 +14,6 @@
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
-  "manifest": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/master/system.json",
+  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/system.json",
   "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/archive/v1.0.0.zip"
 }
