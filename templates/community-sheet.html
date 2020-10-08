@@ -1,0 +1,62 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        <div style="margin-top: auto; margin-bottom: auto;">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" style="font-weight:bold"/>
+            &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.rank" type="text" value="{{data.rank}}" data-dtype="Number" placeholder="Rank"/></div>
+          </div>
+          <div class="resource-content flexrow flex-center">
+            <div class="resources grid grid-3col">
+              <div class="resource flex-group-center">
+                <label class="resource-label">Health</label>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
+                  &nbsp;/&nbsp;
+                  <input name="data.health.max" type="text" value="{{data.health.max}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <div class="resource flex-group-center">
+                <label class="resource-label">Infrastructure</label>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input name="data.infrastructure.value" type="text" value="{{data.infrastructure.value}}" data-dtype="Number"/>
+                  &nbsp;/&nbsp;
+                  <input name="data.infrastructure.max" type="text" value="{{data.infrastructure.max}}" data-dtype="Number"/>
+                </div>
+              </div>
+              <div class="resource flex-group-center">
+                <div class="resource-content flexrow flex-center flex-between">
+                  <label class="resource-label">Damage</label>
+                  <label class="resource-label">Armor</label>
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input name="data.damage" type="text" value="{{data.damage}}" data-dtype="Number"/>&nbsp;
+                  <input name="data.armor" type="text" value="{{data.armor}}" data-dtype="Number"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>
+

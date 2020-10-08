@@ -1,0 +1,38 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+      <div class="flexrow flex-center">
+        Armor Rating:&nbsp;
+        <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number" style="width: 50px"/>
+        &nbsp;&nbsp;Type:&nbsp;
+        <select name="data.armorType">
+          {{#select data.armorType}}
+          <option value="{{data.armorLight}}">{{data.armorLight}}</option>
+          <option value="{{data.armorMedium}}">{{data.armorMedium}}</option>
+          <option value="{{data.armorHeavy}}">{{data.armorHeavy}}</option>
+          <option value="{{data.armorSpecial}}">{{data.armorSpecial}}</option>
+          {{/select}}
+        </select>
+        &nbsp;&nbsp;Speed Cost:&nbsp;
+        <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number" style="width: 50px"/>
+        &nbsp;&nbsp;Active:&nbsp;
+        <input type="checkbox" name="data.armorActive" data-dtype="boolean" {{checked data.armorActive}}>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>

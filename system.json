@@ -1,0 +1,19 @@
+{
+  "name": "cyphersystem",
+  "title": "Cypher System",
+  "description": "A Simple Cypher System for FoundryVTT.",
+  "version": "0.0.1",
+  "minimumCoreVersion": "0.6.6",
+  "compatibleCoreVersion": "0.6.6",
+  "templateVersion": 2,
+  "author": "Marko Wenzel",
+  "esmodules": ["module/cyphersystem.js"],
+  "styles": ["cyphersystem.css"],
+  "packs": [],
+  "languages": [],
+  "gridDistance": 1.5,
+  "gridUnits": "m",
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

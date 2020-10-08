@@ -1,0 +1,38 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+      <div class="flexrow flex-center">
+        Damage Points:&nbsp;
+        <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
+        &nbsp;&nbsp;Pool:&nbsp;
+        <select name="data.lastingDamagePool">
+          {{#select data.lastingDamagePool}}
+          <option value="{{data.lastingDamageMight}}">{{data.lastingDamageMight}}</option>
+          <option value="{{data.lastingDamageSpeed}}">{{data.lastingDamageSpeed}}</option>
+          <option value="{{data.lastingDamageIntellect}}">{{data.lastingDamageIntellect}}</option>
+          {{/select}}
+        </select>
+        &nbsp;&nbsp;Permanent:&nbsp;
+        <input type="checkbox" name="data.permanentDamage" data-dtype="boolean" {{checked data.permanentDamage}}>
+      </div>
+      <div class="flexrow flex-center">
+        Effect:&nbsp;
+        <input type="text" name="data.lastingDamageEffect" value="{{data.lastingDamageEffect}}" data-dtype="String"/>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>

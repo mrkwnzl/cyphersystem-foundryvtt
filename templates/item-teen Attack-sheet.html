@@ -1,0 +1,49 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+      <div class="flexrow flex-center">
+        Damage:&nbsp;
+        <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number" style="width: 50px"/>
+        &nbsp;&nbsp;Type:&nbsp;
+        <select name="data.attackType">
+          {{#select data.attackType}}
+          <option value="{{data.typeLight}}">{{data.typeLight}}</option>
+          <option value="{{data.typeMedium}}">{{data.typeMedium}}</option>
+          <option value="{{data.typeHeavy}}">{{data.typeHeavy}}</option>
+          <option value="{{data.typeSpecial}}">{{data.typeSpecial}}</option>
+          {{/select}}
+        </select>
+        &nbsp;&nbsp;
+        <select name="data.modified">
+          {{#select data.modified}}
+          <option value="{{data.attackEased}}">{{data.attackEased}}</option>
+          <option value="{{data.attackHindered}}">{{data.attackHindered}}</option>
+          {{/select}}
+        </select>
+        &nbsp;&nbsp;by:&nbsp;
+        <input type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number" style="width: 50px"/>
+      </div>
+      <div class="flexrow flex-center">
+        <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="Range"/>
+      </div>
+      <div class="flexrow flex-center">
+        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>

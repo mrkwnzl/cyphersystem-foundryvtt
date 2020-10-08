@@ -1,0 +1,36 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+      <div class="resource-content" style="float: right; text-align: center;">
+        &nbsp;&nbsp;Pool:&nbsp;
+        <select name="data.costPool">
+          {{#select data.costPool}}
+          <option value="{{data.costMight}}">{{data.costMight}}</option>
+          <option value="{{data.costSpeed}}">{{data.costSpeed}}</option>
+          <option value="{{data.costIntellect}}">{{data.costIntellect}}</option>
+          <option value="{{data.costAny}}">{{data.costAny}}</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="resource-content" style="float: right; text-align: center;">
+        Point Cost:&nbsp;
+        <input type="text" name="data.costPoints" value="{{data.costPoints}}" data-dtype="Number" style="width: 50px"/>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>
