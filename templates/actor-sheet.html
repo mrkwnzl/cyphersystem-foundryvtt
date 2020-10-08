@@ -497,7 +497,7 @@
           {{#if data.settings.currency.active}}
           <div class="flexrow">
             <ol class="items-list">
-              <li class="item flexrow item-header">
+              <li class="item flexrow item-header" style="border-bottom: none; padding: 0px 0px">
                 <div class="item-name"></div>
                 <div class="item-right" style="flex: 0 0 200px">{{#if (eq data.settings.currency.name "")}}Shins{{else}}{{data.settings.currency.name}}{{/if}}: <input type="text" name="data.settings.currency.quantity" value="{{data.settings.currency.quantity}}" data-dtype="Number" style="width: 80px; text-align: center;"/></div>
               </li>

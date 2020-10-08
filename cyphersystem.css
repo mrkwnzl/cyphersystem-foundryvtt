@@ -289,16 +289,16 @@
   align-items: center;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="datetime-local"] {
+.cyphersystem input[type="text"],
+.cyphersystem input[type="password"],
+.cyphersystem input[type="datetime-local"] {
   margin-bottom: 2px;
   margin-top: 2px;
   width: 100%;
   text-align: center;
 }
 
-input[type="checkbox"] {
+.cyphersystem input[type="checkbox"] {
   margin: 0px 0px;
   height: 13px;
   width: 13px;
