@@ -70,4 +70,4 @@ Right now, it’s pretty feature complete for my use cases. I plan to add some d
 
 Let me know if you miss anything and I’ll see what I can do.
 
-I don’t plan on any automation. So no automatic calculation of stat pool costs for using Effort and abilities or automatically calculated recovery rolls. This is way too dynamic in play and in my experience, filling out a form to make a roll is neither fun nor quicker than just doing it in your head. SolarBear’s Numenera System does this well, if you want that kind of automation in your VTT.
+I don’t plan on any automation. So no automatic calculation of stat pool costs for using Effort and abilities or automatically calculated recovery rolls. This is way too dynamic in play and in my experience, filling out a form to make a roll is neither fun nor quicker than just doing it in your head. [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/) does this well, if you want that kind of automation in your VTT.
