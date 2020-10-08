@@ -1,8 +1,8 @@
 {
   "name": "cyphersystem",
   "title": "Cypher System",
-  "description": "A Simple Cypher System for FoundryVTT.",
-  "version": "1.0.0",
+  "description": "A Simple Cypher System for Foundry VTT.",
+  "version": "1.0.1",
   "minimumCoreVersion": "0.6.6",
   "compatibleCoreVersion": "0.6.6",
   "templateVersion": 2,

@@ -60,6 +60,7 @@ export class CypherActorSheet extends ActorSheet {
     const teenAttacks = [];
     const teenArmor = [];
     const teenLastingDamage = [];
+    const materials = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -112,6 +113,9 @@ export class CypherActorSheet extends ActorSheet {
       }
       else if (i.type === 'teen lasting Damage') {
         teenLastingDamage.push(i);
+      }
+      else if (i.type === 'material') {
+        materials.push(i);
       }
     }
     
@@ -309,6 +313,19 @@ export class CypherActorSheet extends ActorSheet {
       }
       return 0;
     });
+    
+    materials.sort((a, b) => {
+      let fa = a.name.toLowerCase(),
+      fb = b.name.toLowerCase();
+
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
 
     // let, weil der Wert selbst verändert wird.
     let armorTotal = 0;
@@ -350,6 +367,7 @@ export class CypherActorSheet extends ActorSheet {
     actorData.teenAttacks = teenAttacks;
     actorData.teenArmor = teenArmor;
     actorData.teenLastingDamage = teenLastingDamage;
+    actorData.materials = materials;
   
   }
 

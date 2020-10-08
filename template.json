@@ -91,7 +91,9 @@
           "equipment": {
             "cyphers": false,
             "artifacts": false,
-            "oddities": false
+            "oddities": false,
+            "materials": false,
+            "materialName": ""
           },
           "additionalSentence": {
             "active": false,
@@ -197,13 +199,18 @@
     }
   },
   "Item": {
-    "types": ["equipment", "ability", "skill", "armor", "attack", "lasting Damage", "teen lasting Damage", "power Shift", "cypher", "artifact", "oddity", "teen Skill", "teen Ability", "teen Attack", "teen Armor"],
+    "types": ["equipment", "ability", "skill", "armor", "attack", "lasting Damage", "teen lasting Damage", "power Shift", "cypher", "artifact", "oddity", "teen Skill", "teen Ability", "teen Attack", "teen Armor", "material"],
     "templates": {
       "core": {
         "description": ""
       }
     },
     "equipment": {
+      "templates": ["core"],
+      "quantity": 1,
+      "weight": 0
+    },
+    "material": {
       "templates": ["core"],
       "quantity": 1,
       "weight": 0
@@ -251,7 +258,8 @@
       "armorLight": "light armor",
       "armorMedium": "medium armor",
       "armorHeavy": "heavy armor",
-      "armorSpecial": "special ability"
+      "armorSpecial": "special ability",
+      "notes": ""
     },
     "teen Armor": {
       "templates": ["core"],
@@ -262,7 +270,8 @@
       "armorLight": "light armor",
       "armorMedium": "medium armor",
       "armorHeavy": "heavy armor",
-      "armorSpecial": "special ability"
+      "armorSpecial": "special ability",
+      "notes": ""
     },
     "attack": {
       "templates": ["core"],
