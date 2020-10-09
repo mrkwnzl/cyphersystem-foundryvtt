@@ -119,215 +119,37 @@ export class CypherActorSheet extends ActorSheet {
       }
     }
     
-    equipment.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
+    function byNameAscending(itemA, itemB) {
+      let nameA = itemA.name.toLowerCase();
+      let nameB = itemB.name.toLowerCase();
 
-      if (fa < fb) {
+      if (nameA < nameB) {
         return -1;
       }
-      if (fa > fb) {
+      if (nameA > nameB) {
         return 1;
       }
       return 0;
-    });
-
-    abilities.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    skills.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    attacks.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    armor.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    lastingDamage.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    powerShifts.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
+    }
     
-    cyphers.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
+    equipment.sort(byNameAscending);
+    abilities.sort(byNameAscending);
+    skills.sort(byNameAscending);
+    attacks.sort(byNameAscending);
+    armor.sort(byNameAscending);
+    lastingDamage.sort(byNameAscending);
+    powerShifts.sort(byNameAscending);
+    cyphers.sort(byNameAscending);
+    artifacts.sort(byNameAscending);
+    oddities.sort(byNameAscending);
+    teenSkills.sort(byNameAscending);
+    teenAbilities.sort(byNameAscending);
+    teenAttacks.sort(byNameAscending);
+    teenArmor.sort(byNameAscending);
+    teenLastingDamage.sort(byNameAscending);
+    materials.sort(byNameAscending);
 
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    artifacts.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    oddities.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    teenSkills.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    teenAbilities.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    teenAttacks.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    teenArmor.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    teenLastingDamage.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    
-    materials.sort((a, b) => {
-      let fa = a.name.toLowerCase(),
-      fb = b.name.toLowerCase();
-
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-
-    // let, weil der Wert selbst verändert wird.
+    // let, weil der Wert selbst verändert wird: const würde erwarten, dass er unverändert bleibt
     let armorTotal = 0;
     let speedCostTotal = 0;
     let teenArmorTotal = 0;
@@ -374,26 +196,39 @@ export class CypherActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
-
+    
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
     
-    // Add Inventory Item
-    html.find('.item-create').click(this._onItemCreate.bind(this));
-
-    // Update Inventory Item
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+    function showSheetForActorAndItemWithID(actor, itemID) {
+      const item = actor.getOwnedItem(itemID);
       item.sheet.render(true);
+    }
+    
+    function itemForClickEvent(clickEvent) {
+      return $(clickEvent.currentTarget).parents(".item");
+    }
+    
+    // Add Inventory Item
+    html.find('.item-create').click(clickEvent => {
+      const itemCreatedPromise = this._onItemCreate(clickEvent);
+      itemCreatedPromise.then(itemData => {
+        showSheetForActorAndItemWithID(this.actor, itemData._id);
+      });
     });
-
+    
+    // Update Inventory Item
+    html.find('.item-edit').click(clickEvent => {
+      const editedItem = itemForClickEvent(clickEvent);
+      showSheetForActorAndItemWithID(this.actor, editedItem.data("itemId"));
+    });
+    
     // Delete Inventory Item
-    html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
+    html.find('.item-delete').click(clickEvent => {
+      const deletedItem = itemForClickEvent(clickEvent);
+      this.actor.deleteOwnedItem(deletedItem.data("itemId"));
       li.slideUp(200, () => this.render(false));
     });
   }
