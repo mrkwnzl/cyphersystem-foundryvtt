@@ -103,6 +103,49 @@
   justify-content: space-between;
 }
 
+.app.sheet .editor-content {
+    height: 400px;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.pc {
+  min-width: 600px;
+  min-height: 797px;
+}
+
+.community,
+.npc,
+.token {
+  min-width: 600px;
+  min-height: 608px;
+}
+
+.companion {
+  min-width: 600px;
+  min-height: 685px;
+}
+
+.skill {
+  min-width: 520px;
+  min-height: 544px;
+}
+
+.attack {
+  min-width: 520px;
+  min-height: 600px;
+}
+
+.armor {
+  min-width: 520px;
+  min-height: 572px;
+}
+
+.oddity {
+  min-width: 520px;
+  min-height: 516px;
+}
+
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .sheet-header {
@@ -123,10 +166,6 @@
   -ms-flex-pack: start;
   justify-content: flex-start;
   margin-bottom: 0px;
-}
-
-.sheet {
-  min-width: 560px;
 }
 
 .cyphersystem .sheet-header .profile-img {
@@ -273,7 +312,7 @@
 }
 
 .cyphersystem .tox .tox-editor-container {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .centered-content {

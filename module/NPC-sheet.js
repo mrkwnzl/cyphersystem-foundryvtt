@@ -7,10 +7,10 @@ export class CypherNPCSheet extends ActorSheet {
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
-  	  classes: ["cyphersystem", "sheet", "actor"],
+  	  classes: ["cyphersystem", "sheet", "actor", "npc"],
   	  template: "systems/cyphersystem/templates/NPC-sheet.html",
       width: 600,
-      height: 700,
+      height: 608,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });

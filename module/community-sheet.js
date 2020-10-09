@@ -7,10 +7,10 @@ export class CypherCommunitySheet extends ActorSheet {
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
-  	  classes: ["cyphersystem", "sheet", "actor"],
+  	  classes: ["cyphersystem", "sheet", "actor", "community"],
   	  template: "systems/cyphersystem/templates/community-sheet.html",
       width: 600,
-      height: 700,
+      height: 608,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });

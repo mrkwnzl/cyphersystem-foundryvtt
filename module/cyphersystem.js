@@ -6,12 +6,16 @@
 
 // Import Modules
 import { CypherActor } from "./actor.js";
-import { CypherItemSheet } from "./item-sheet.js";
+// import { CypherItemSheet } from "./item-sheet.js";
 import { CypherActorSheet } from "./actor-sheet.js";
 import { CypherNPCSheet } from "./NPC-sheet.js";
 import { CypherTokenSheet } from "./token-sheet.js";
 import { CypherCommunitySheet } from "./community-sheet.js";
 import { CypherCompanionSheet } from "./companion-sheet.js";
+import { CypherSkillSheet } from "./skill-sheet.js";
+import { CypherAttackSheet } from "./attack-sheet.js";
+import { CypherArmorSheet } from "./armor-sheet.js";
+import { CypherOdditySheet } from "./oddity-sheet.js";
 
 
 /* -------------------------------------------- */
@@ -41,5 +45,9 @@ Hooks.once("init", async function() {
   Actors.registerSheet("cypher", CypherCommunitySheet, {types: ['Community'], makeDefault: false});
   Actors.registerSheet("cypher", CypherCompanionSheet, {types: ['Companion'], makeDefault: false});
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
+  // Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
+  Items.registerSheet("cypher", CypherSkillSheet, {types: ['skill', 'ability', 'equipment', 'cypher', 'artifact', 'material', 'power Shift', 'teen Skill', 'teen Ability'], makeDefault: false});
+  Items.registerSheet("cypher", CypherAttackSheet, {types: ['attack', 'teen Attack'], makeDefault: false});
+  Items.registerSheet("cypher", CypherArmorSheet, {types: ['armor', 'teen Armor', 'lasting Damage', 'teen lasting Damage'], makeDefault: false});
+  Items.registerSheet("cypher", CypherOdditySheet, {types: ['oddity'], makeDefault: false});
 });

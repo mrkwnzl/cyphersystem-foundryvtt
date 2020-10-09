@@ -2,15 +2,15 @@
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class CypherItemSheet extends ItemSheet {
+export class CypherArmorSheet extends ItemSheet {
 
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
-			classes: ["cyphersystem", "sheet", "item", "item-sheet"],
+			classes: ["cyphersystem", "sheet", "item", "armor"],
 			template: "systems/cyphersystem/templates/item-sheet.html",
 			width: 520,
-			height: 480,
+			height: 572,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}]
 		});
   }
