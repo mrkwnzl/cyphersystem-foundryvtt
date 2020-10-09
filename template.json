@@ -60,7 +60,11 @@
           "additionalPoolName": "",
           "additionalPoolValue": 3,
           "additionalPoolMax": 3,
-          "active": false
+          "active": false,
+          "additionalTeenPoolName": "",
+          "additionalTeenPoolValue": 3,
+          "additionalTeenPoolMax": 3,
+          "teenActive": false
         },
         "settings": {
           "powerShifts":{

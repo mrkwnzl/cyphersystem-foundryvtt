@@ -106,7 +106,6 @@
 .app.sheet .editor-content {
     height: 400px;
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .pc {
@@ -205,7 +204,7 @@
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 99%;
+  height: 100%;
 }
 
 .cyphersystem .resource-label {

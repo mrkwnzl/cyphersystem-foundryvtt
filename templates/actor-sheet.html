@@ -89,7 +89,7 @@
         {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
-          <div class="resources grid grid-{{#if data.additionalPool.active}}4{{else}}3{{/if}}col">
+          <div class="resources grid grid-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{#if data.additionalPool.teenActive}}4{{else}}3{{/if}}{{else}}{{#if data.additionalPool.active}}4{{else}}3{{/if}}{{/if}}col">
             <div class="resource flex-group-center">
               <label for="data.pools.might" class="resource-label">Might</label>
               <div class="resource-content flexrow flex-center flex-between">
@@ -159,6 +159,22 @@
                 {{/if}}
               </div>
             </div>
+            {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+            {{#if data.additionalPool.teenActive}}
+            <div class="resource flex-group-center">
+              <label for="data.additionalPool.additionalTeenPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="text" name="data.additionalPool.additionalTeenPoolValue" value="{{data.additionalPool.additionalTeenPoolValue}}" data-dtype="Number"/>
+              </div>
+              <div class="resource-content flexrow flex-center flex-between">
+                <label for="data.additionalPool.additionalTeenPoolMax" class="resource-label-normal">Pool</label>
+              </div>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="text" name="data.additionalPool.additionalTeenPoolMax" value="{{data.additionalPool.additionalTeenPoolMax}}" data-dtype="Number"/>&nbsp;
+              </div>
+            </div>
+            {{/if}}
+            {{else}}
             {{#if data.additionalPool.active}}
             <div class="resource flex-group-center">
               <label for="data.additionalPool.additionalPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalPoolName "")}}Luck{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</label>
@@ -166,12 +182,13 @@
                 <input type="text" name="data.additionalPool.additionalPoolValue" value="{{data.additionalPool.additionalPoolValue}}" data-dtype="Number"/>
               </div>
               <div class="resource-content flexrow flex-center flex-between">
-                <label for="data.pools.intellectPool" class="resource-label-normal">Pool</label>
+                <label for="data.additionalPool.additionalPoolMax" class="resource-label-normal">Pool</label>
               </div>
               <div class="resource-content flexrow flex-center flex-between">
                 <input type="text" name="data.additionalPool.additionalPoolMax" value="{{data.additionalPool.additionalPoolMax}}" data-dtype="Number"/>&nbsp;
               </div>
             </div>
+            {{/if}}
             {{/if}}
           </div>
         </div>
@@ -703,8 +720,14 @@
                 <div class="item-quantity"><input name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="God of Dominion" style="width: auto;"/></div>
               </li>
               <li class="item flexrow item-settings">
-                <div class="item-name"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}> Additional Pool</div>
+                <div class="item-name"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}> {{#if (eq data.settings.gameMode.current "Unmasked")}}Additional Pool on Mask Sheet{{else}}Additional Pool{{/if}}</div>
                 <div class="item-quantity"><input name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
+              </li>
+              {{#if (eq data.settings.gameMode.current "Unmasked")}}
+              <li class="item flexrow item-settings">
+                <div class="item-name"><input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}> Additional Pool on Teen Sheet</div>
+                <div class="item-quantity"><input name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
+                {{/if}}
               </li>
             </ol>
           </div>
