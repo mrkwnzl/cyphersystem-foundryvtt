@@ -4,15 +4,16 @@ This is a simple system for the Cypher System family of games (Cypher System, Nu
 
 At this point, it’s just a simple, yet very flexible digital character sheet, without any kind of automation. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
 
-If you want a prettier, more elaborate character sheet with roll macros, SolarBear has you covered: [https://foundryvtt.com/packages/numenera/](https://foundryvtt.com/packages/numenera/)
+For an explanation of the various options, see ReadMe.
+If you want a prettier, more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
 
 ## Highlights
 
-- Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall). You can use it for The Strange as well, but I couldn’t figure out an elegant way to handle recursions. See below for how I would approach The Strange.
-- A flexible character sheet with lots of options for all your needs, such as:
-	- an additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
-	- Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in *Stay Alive!*. The Power Shifts can be renamed to anything you like.
-	- an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
+- Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall). You can use it for The Strange as well, but I couldn’t figure out an elegant way to handle recursions, so there are some creative ideas needed.
+- An Unmaksed mode in which you can switch between your Teen Form and Mask Form.
+- An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
+- Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
+- An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 
 ## Recommended Modules
 
