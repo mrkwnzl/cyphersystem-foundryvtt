@@ -76,3 +76,5 @@ I don’t plan on any automation. So no automatic calculation of stat pool costs
 ## Credits
 
 I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the [Boilerplate System](https://foundry-vtt-community.github.io/wiki/SD01-Getting-started/) by @asacolips#1867. I used the tutorials on the [Foundry VTT Wiki](https://foundry-vtt-community.github.io/wiki/).
+
+My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
