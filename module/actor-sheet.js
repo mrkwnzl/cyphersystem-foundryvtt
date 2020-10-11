@@ -235,7 +235,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-delete').click(clickEvent => {
       const deletedItem = itemForClickEvent(clickEvent);
       this.actor.deleteOwnedItem(deletedItem.data("itemId"));
-      li.slideUp(200, () => this.render(false));
+      deletedItem.slideUp(200, () => this.render(false));
     });
     
     // Show Item Description
