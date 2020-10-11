@@ -10,7 +10,7 @@ export class CypherActorSheet extends ActorSheet {
   	  classes: ["cyphersystem", "sheet", "actor", "pc"],
   	  template: "systems/cyphersystem/templates/actor-sheet.html",
       width: 600,
-      height: 797,
+      height: 798,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
@@ -61,6 +61,7 @@ export class CypherActorSheet extends ActorSheet {
     const teenArmor = [];
     const teenLastingDamage = [];
     const materials = [];
+    const ammo = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -71,6 +72,9 @@ export class CypherActorSheet extends ActorSheet {
       // Append to containers.
       if (i.type === 'equipment') {
         equipment.push(i);
+      }
+      else if (i.type === 'ammo') {
+        ammo.push(i);
       }
       else if (i.type === 'ability') {
         abilities.push(i);
@@ -148,6 +152,7 @@ export class CypherActorSheet extends ActorSheet {
     teenArmor.sort(byNameAscending);
     teenLastingDamage.sort(byNameAscending);
     materials.sort(byNameAscending);
+    ammo.sort(byNameAscending);
 
     // let, weil der Wert selbst verändert wird: const würde erwarten, dass er unverändert bleibt
     let armorTotal = 0;
@@ -190,6 +195,7 @@ export class CypherActorSheet extends ActorSheet {
     actorData.teenArmor = teenArmor;
     actorData.teenLastingDamage = teenLastingDamage;
     actorData.materials = materials;
+    actorData.ammo = ammo;
   
   }
 
@@ -231,6 +237,137 @@ export class CypherActorSheet extends ActorSheet {
       this.actor.deleteOwnedItem(deletedItem.data("itemId"));
       li.slideUp(200, () => this.render(false));
     });
+    
+    // Show Item Description
+    html.find('.item-description').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      if (item.data.showDescription === true) {
+        item.data.showDescription = false;
+      }
+      else {
+        item.data.showDescription = true;
+      }
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
+    // Add 1 to Quantity
+    html.find('.plus-one').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      item.data.quantity = item.data.quantity + 1;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
+    // Subtract 1 from Quantity
+    html.find('.minus-one').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      item.data.quantity = item.data.quantity - 1;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
+    // Reset Might
+    html.find('.reset-might').click(clickEvent => {
+        this.actor.update({
+          "data.pools.might": this.actor.data.data.pools.mightPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Speed
+    html.find('.reset-speed').click(clickEvent => {
+        this.actor.update({
+          "data.pools.speed": this.actor.data.data.pools.speedPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Intellect
+    html.find('.reset-intellect').click(clickEvent => {
+        this.actor.update({
+          "data.pools.intellect": this.actor.data.data.pools.intellectPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Additional Pool
+    html.find('.reset-additionalPool').click(clickEvent => {
+        this.actor.update({
+          "data.additionalPool.additionalPoolValue": this.actor.data.data.additionalPool.additionalPoolMax
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Additional Teen Pool
+    html.find('.reset-teen-additionalPool').click(clickEvent => {
+        this.actor.update({
+          "data.additionalPool.additionalTeenPoolValue": this.actor.data.data.additionalPool.additionalTeenPoolMax
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Teen Might
+    html.find('.reset-teen-might').click(clickEvent => {
+        this.actor.update({
+          "data.teen.pools.might": this.actor.data.data.teen.pools.mightPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Teen Speed
+    html.find('.reset-teen-speed').click(clickEvent => {
+        this.actor.update({
+          "data.teen.pools.speed": this.actor.data.data.teen.pools.speedPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Teen Might
+    html.find('.reset-teen-intellect').click(clickEvent => {
+        this.actor.update({
+          "data.teen.pools.intellect": this.actor.data.data.teen.pools.intellectPool
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Advancements
+    html.find('.reset-advancement').click(clickEvent => {
+        this.actor.update({
+          "data.advancement.advStats": false,
+          "data.advancement.advEffort": false,
+          "data.advancement.advEdge": false,
+          "data.advancement.advSkill": false,
+          "data.advancement.advOther": false
+        }).then(item => {
+            this.render();
+        });
+    });
+    
+    // Reset Recovery Rolls
+    html.find('.reset-recovery-rolls').click(clickEvent => {
+        this.actor.update({
+          "data.recoveries.oneAction": false,
+          "data.recoveries.oneActionTwo": false,
+          "data.recoveries.oneActionThree": false,
+          "data.recoveries.oneActionFour": false,
+          "data.recoveries.oneActionFive": false,
+          "data.recoveries.tenMinutes": false,
+          "data.recoveries.oneHour": false,
+          "data.recoveries.tenHours": false
+        }).then(item => {
+            this.render();
+        });
+    });
+    
   }
   
   /**

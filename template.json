@@ -48,9 +48,11 @@
           "hale": "Hale",
           "impaired": "Impaired",
           "debilitated": "Debilitated",
+          "dead": "Dead",
           "haleEffect": "No effect.",
           "impairedEffect": "",
-          "debilitatedEffect": ""
+          "debilitatedEffect": "",
+          "deadEffect": ""
         },
         "armor": {
           "speedCostTotal": 0,
@@ -83,6 +85,7 @@
           "lastingDamage": {
             "active": false
           },
+          "ammo": false,
           "initiative": {
             "initiativeBonus": 0,
             "active": true
@@ -203,13 +206,19 @@
     }
   },
   "Item": {
-    "types": ["equipment", "ability", "skill", "armor", "attack", "lasting Damage", "teen lasting Damage", "power Shift", "cypher", "artifact", "oddity", "teen Skill", "teen Ability", "teen Attack", "teen Armor", "material"],
+    "types": ["equipment", "ammo", "ability", "skill", "armor", "attack", "lasting Damage", "teen lasting Damage", "power Shift", "cypher", "artifact", "oddity", "teen Skill", "teen Ability", "teen Attack", "teen Armor", "material"],
     "templates": {
       "core": {
-        "description": ""
+        "description": "",
+        "showDescription": false
       }
     },
     "equipment": {
+      "templates": ["core"],
+      "quantity": 1,
+      "weight": 0
+    },
+    "ammo": {
       "templates": ["core"],
       "quantity": 1,
       "weight": 0

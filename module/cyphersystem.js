@@ -46,8 +46,8 @@ Hooks.once("init", async function() {
   Actors.registerSheet("cypher", CypherCompanionSheet, {types: ['Companion'], makeDefault: false});
   Items.unregisterSheet("core", ItemSheet);
   // Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
-  Items.registerSheet("cypher", CypherSkillSheet, {types: ['skill', 'ability', 'equipment', 'cypher', 'artifact', 'material', 'power Shift', 'teen Skill', 'teen Ability'], makeDefault: false});
+  Items.registerSheet("cypher", CypherSkillSheet, {types: ['skill', 'ability', 'equipment', 'ammo', 'cypher', 'artifact', 'material', 'power Shift', 'teen Skill', 'teen Ability', 'lasting Damage', 'teen lasting Damage'], makeDefault: false});
   Items.registerSheet("cypher", CypherAttackSheet, {types: ['attack', 'teen Attack'], makeDefault: false});
-  Items.registerSheet("cypher", CypherArmorSheet, {types: ['armor', 'teen Armor', 'lasting Damage', 'teen lasting Damage'], makeDefault: false});
+  Items.registerSheet("cypher", CypherArmorSheet, {types: ['armor', 'teen Armor'], makeDefault: false});
   Items.registerSheet("cypher", CypherOdditySheet, {types: ['oddity'], makeDefault: false});
 });

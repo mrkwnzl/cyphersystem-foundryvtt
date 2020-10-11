@@ -115,7 +115,7 @@
 
 .pc {
   min-width: 600px;
-  min-height: 797px;
+  min-height: 798px;
 }
 
 .community,
@@ -256,6 +256,14 @@
 .cyphersystem .items-list .item {
   line-height: 1.4;
   padding: 3px 5px;
+  /*border-bottom: 1px solid #BBB;*/
+}
+
+.cyphersystem .item~.item{
+  border-top: 1px solid #BBB;
+}
+
+.cyphersystem li:last-child {
   border-bottom: 1px solid #BBB;
 }
 
@@ -273,6 +281,14 @@
 .cyphersystem .items-list .item-name {
   margin: 0;
   line-height: 1.4;
+  padding-left: 12px;
+  text-indent: -12px;
+}
+
+.cyphersystem .items-list .item-name p {
+  margin: 3px 0px;
+  line-height: 1.4;
+  font-size: 13px;
 }
 
 .cyphersystem .items-list .item-damage {
@@ -287,8 +303,8 @@
   -ms-flex: 0 0 45px;
   flex: 0 0 45px;
   text-align: right;
-  margin-top: auto;
-  margin-bottom: auto;
+/*  margin-top: auto;
+  margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-quantity {
@@ -296,8 +312,8 @@
   -ms-flex: 0 0 75px;
   flex: 0 0 75px;
   text-align: center;
-  margin-top: auto;
-  margin-bottom: auto;
+/*  margin-top: auto;
+  margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-right {
@@ -308,6 +324,21 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.cyphersystem .items-list .description {
+  text-align: left;
+  line-height: 1.4;
+  border-top-style: dashed;
+  border-color: rgba(187, 187, 187);
+  border-top-width: 1px;
+  padding-left: 17px;
+}  
+
+.cyphersystem .items-list .description p {
+  font-size: 13px;
+  border-style: none;
+  margin: 3px 0px;
+}  
 
 .cyphersystem .items-list .item-skillLevel {
   -webkit-box-flex: 0;
@@ -343,7 +374,7 @@
 }
 
 .cyphersystem input[type="checkbox"] {
-  margin: 0px 0px;
+  margin: auto;
   height: 13px;
   width: 13px;
 }
@@ -355,4 +386,17 @@
   font-family: "Signika", sans-serif;
   font-size: 14px;
   text-align-last: center;
+}
+
+.cyphersystem .item-angle {
+  width: 12px; 
+  text-align: center; 
+  padding-left: 9px;
+  padding-right: 3px;
+}
+
+.cyphersystem .number {
+  display: inline-block;
+  margin: auto;
+  min-width: 30px;
 }
