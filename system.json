@@ -2,18 +2,26 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "Cypher System for Foundry VTT with minimal automation for maximum flexibility.",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "minimumCoreVersion": "0.6.6",
   "compatibleCoreVersion": "0.6.6",
   "templateVersion": 2,
   "author": "Marko Wenzel",
   "esmodules": ["module/cyphersystem.js"],
   "styles": ["cyphersystem.css"],
-  "packs": [],
+  "packs": [
+    {
+      "name": "dice-macros",
+      "label": "Cypher System Macros",
+      "system": "cyphersystem",
+      "path": "packs/dice-macros.db",
+      "entity": "Macro"
+    }
+  ],
   "languages": [],
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/archive/v1.1.1.zip"
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/archive/v1.2.0.zip"
 }

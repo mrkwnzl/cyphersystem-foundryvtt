@@ -10,7 +10,7 @@ export class CypherArmorSheet extends ItemSheet {
 			classes: ["cyphersystem", "sheet", "item", "armor"],
 			template: "systems/cyphersystem/templates/item-sheet.html",
 			width: 520,
-			height: 572,
+			height: 580,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}]
 		});
   }

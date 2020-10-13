@@ -11,7 +11,7 @@
                     </div>
                     <div class="resource-content flexrow flex-center">
                         <label style="flex: 0 0 65px;">is&nbsp;a</label>
-                        <input name="data.disposition" type="text" value="{{data.descriptor}}" data-dtype="String" placeholder="Disposition"/>
+                        <input name="data.disposition" type="text" value="{{data.disposition}}" data-dtype="String" placeholder="Disposition"/>
                         &nbsp;<input name="data.category" type="text" value="{{data.category}}" data-dtype="String" placeholder="Category"/>
                     </div>
                     <div class="resource-content flexrow flex-center">
@@ -29,7 +29,10 @@
                     </div>
                 </div>
                 <div class="resource flex-group-center">
-                    <label class="resource-label">Health</label>
+                    <div class="flexrow">
+                        <label for="data.health.value" class="resource-label" style="padding-left: 20px">Health</label>
+                        <div style="max-width: 20px"><a class="item-control reset-health" title="Reset Health"><i class="fas fa-sync-alt"></i></a></div>
+                    </div>
                     <div class="resource-content flexrow flex-center flex-between">
                         <input name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
                         &nbsp;/&nbsp;
@@ -54,14 +57,14 @@
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="skills">Skills & Abilities</a>
-        <a class="item" data-tab="description">Notes</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Notes</a>
     </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         
-        {{!-- Biography Tab --}}
-        <div class="tab items" data-group="primary" data-tab="skills">
+        {{!-- Skills & Abilities Tab --}}
+        <div class="tab skills" data-group="primary" data-tab="skills">
             <div class="flexrow">
                 <ol class="items-list">
                     <li class="item flexrow item-header">
@@ -73,13 +76,18 @@
                     </li>
                     {{#each actor.skills as |item id|}}
                     <li class="item flexrow" data-item-id="{{item._id}}">
-                        <h4 class="item-name">{{item.name}}</h4>
+                        <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
                         <div class="item-quantity" style="color: {{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}">{{data.skillLevel}}</div>
                         <div class="item-controls">
                             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                             <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                         </div>
                     </li>
+                    {{#if data.showDescription}}
+                    <li class="item-desc flexrow">
+                        <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                    </li>
+                    {{/if}}
                     {{/each}}
                 </ol>
             </div>
@@ -94,20 +102,17 @@
                     </li>
                     {{#each actor.abilities as |item id|}}
                     <li class="item flexrow" data-item-id="{{item._id}}">
-                        {{#if (lt data.costPoints 1)}}
-                        <h4 class="item-name">{{item.name}}</h4>
-                        {{/if}}
-                        {{#if (eq data.costPoints 1)}}
-                        <h4 class="item-name">{{item.name}} ({{data.costPoints}} {{data.costPool}} point)</h4>
-                        {{/if}}
-                        {{#if (gt data.costPoints 1)}}
-                        <h4 class="item-name">{{item.name}} ({{data.costPoints}} {{data.costPool}} points)</h4>
-                        {{/if}}
+<h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#if (gt data.costPoints 0)}} ({{data.costPoints}} {{data.costPool}} point{{#if (gt data.costPoints 1)}}s{{/if}}){{/if}}</a></h4>
                         <div class="item-controls">
                             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                             <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                         </div>
                     </li>
+                    {{#if data.showDescription}}
+                    <li class="item-desc flexrow">
+                        <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                    </li>
+                    {{/if}}
                     {{/each}}
                 </ol>
             </div>

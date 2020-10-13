@@ -1,16 +1,16 @@
 /**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
- */
+* Extend the basic ActorSheet with some very simple modifications
+* @extends {ActorSheet}
+*/
 export class CypherCommunitySheet extends ActorSheet {
 
   /** @override */
-	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
-  	  classes: ["cyphersystem", "sheet", "actor", "community"],
-  	  template: "systems/cyphersystem/templates/community-sheet.html",
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["cyphersystem", "sheet", "actor", "community"],
+      template: "systems/cyphersystem/templates/community-sheet.html",
       width: 600,
-      height: 608,
+      height: 610,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
@@ -24,8 +24,36 @@ export class CypherCommunitySheet extends ActorSheet {
     data.dtypes = ["String", "Number", "Boolean"];
     /**for ( let attr of Object.values(data.data.attributes) ) {
       attr.isCheckbox = attr.dtype === "Boolean";
-    }*/
+      }*/
 
-    return data;
+      return data;
+    }
+  
+    /* -------------------------------------------- */
+
+    /** @override */
+    activateListeners(html) {
+      super.activateListeners(html);
+
+      // Everything below here is only needed if the sheet is editable
+      if (!this.options.editable) return;
+
+      // Reset Infrastructure
+      html.find('.reset-infrastructure').click(clickEvent => {
+        this.actor.update({
+          "data.infrastructure.value": this.actor.data.data.infrastructure.max
+        }).then(item => {
+          this.render();
+        });
+      });
+      
+      // Reset Health
+      html.find('.reset-health').click(clickEvent => {
+        this.actor.update({
+          "data.health.value": this.actor.data.data.health.max
+        }).then(item => {
+          this.render();
+        });
+      });
+    }
   }
-}

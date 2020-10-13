@@ -1,4 +1,9 @@
 /* Global styles */
+
+form.cyphersystem {
+  height: 100%;
+}
+
 .grid,
 .grid-2col {
   display: grid;
@@ -115,39 +120,39 @@
 
 .pc {
   min-width: 600px;
-  min-height: 798px;
+  min-height: 805px;
 }
 
 .community,
 .npc,
 .token {
   min-width: 600px;
-  min-height: 608px;
+  min-height: 610px;
 }
 
 .companion {
   min-width: 600px;
-  min-height: 685px;
+  min-height: 690px;
 }
 
 .skill {
   min-width: 520px;
-  min-height: 544px;
+  min-height: 550px;
 }
 
 .attack {
   min-width: 520px;
-  min-height: 600px;
+  min-height: 610px;
 }
 
 .armor {
   min-width: 520px;
-  min-height: 572px;
+  min-height: 580px;
 }
 
 .oddity {
   min-width: 520px;
-  min-height: 516px;
+  min-height: 520px;
 }
 
 /* Styles limited to cyphersystem sheets */
@@ -209,8 +214,8 @@
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 100%;
-  overflow: auto;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .cyphersystem .resource-label {
@@ -263,7 +268,11 @@
   border-top: 1px solid #BBB;
 }
 
-.cyphersystem li:last-child {
+.cyphersystem .item:last-child {
+  border-bottom: 1px solid #BBB;
+}
+
+.cyphersystem .item-desc:last-child {
   border-bottom: 1px solid #BBB;
 }
 

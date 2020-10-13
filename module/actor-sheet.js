@@ -10,8 +10,9 @@ export class CypherActorSheet extends ActorSheet {
   	  classes: ["cyphersystem", "sheet", "actor", "pc"],
   	  template: "systems/cyphersystem/templates/actor-sheet.html",
       width: 600,
-      height: 798,
+      height: 805,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
+      scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
   }
@@ -270,7 +271,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Might
     html.find('.reset-might').click(clickEvent => {
         this.actor.update({
-          "data.pools.might": this.actor.data.data.pools.mightPool
+          "data.pools.might.value": this.actor.data.data.pools.might.max
         }).then(item => {
             this.render();
         });
@@ -279,7 +280,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Speed
     html.find('.reset-speed').click(clickEvent => {
         this.actor.update({
-          "data.pools.speed": this.actor.data.data.pools.speedPool
+          "data.pools.speed.value": this.actor.data.data.pools.speed.max
         }).then(item => {
             this.render();
         });
@@ -288,7 +289,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Intellect
     html.find('.reset-intellect').click(clickEvent => {
         this.actor.update({
-          "data.pools.intellect": this.actor.data.data.pools.intellectPool
+          "data.pools.intellect.value": this.actor.data.data.pools.intellect.max
         }).then(item => {
             this.render();
         });
@@ -297,7 +298,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Additional Pool
     html.find('.reset-additionalPool').click(clickEvent => {
         this.actor.update({
-          "data.additionalPool.additionalPoolValue": this.actor.data.data.additionalPool.additionalPoolMax
+          "data.pools.additional.value": this.actor.data.data.pools.additional.max
         }).then(item => {
             this.render();
         });
@@ -306,7 +307,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Additional Teen Pool
     html.find('.reset-teen-additionalPool').click(clickEvent => {
         this.actor.update({
-          "data.additionalPool.additionalTeenPoolValue": this.actor.data.data.additionalPool.additionalTeenPoolMax
+          "data.teen.pools.additional.value": this.actor.data.data.teen.pools.additional.max
         }).then(item => {
             this.render();
         });
@@ -315,7 +316,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Teen Might
     html.find('.reset-teen-might').click(clickEvent => {
         this.actor.update({
-          "data.teen.pools.might": this.actor.data.data.teen.pools.mightPool
+          "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max
         }).then(item => {
             this.render();
         });
@@ -324,7 +325,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Teen Speed
     html.find('.reset-teen-speed').click(clickEvent => {
         this.actor.update({
-          "data.teen.pools.speed": this.actor.data.data.teen.pools.speedPool
+          "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max
         }).then(item => {
             this.render();
         });
@@ -333,7 +334,7 @@ export class CypherActorSheet extends ActorSheet {
     // Reset Teen Might
     html.find('.reset-teen-intellect').click(clickEvent => {
         this.actor.update({
-          "data.teen.pools.intellect": this.actor.data.data.teen.pools.intellectPool
+          "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max
         }).then(item => {
             this.render();
         });

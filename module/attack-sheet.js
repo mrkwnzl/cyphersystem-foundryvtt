@@ -10,7 +10,7 @@ export class CypherAttackSheet extends ItemSheet {
 			classes: ["cyphersystem", "sheet", "item", "attack"],
 			template: "systems/cyphersystem/templates/item-sheet.html",
 			width: 520,
-			height: 600,
+			height: 610,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}]
 		});
   }

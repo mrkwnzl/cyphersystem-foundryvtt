@@ -10,7 +10,7 @@ export class CypherTokenSheet extends ActorSheet {
   	  classes: ["cyphersystem", "sheet", "actor", "token"],
   	  template: "systems/cyphersystem/templates/token-sheet.html",
       width: 600,
-      height: 608,
+      height: 610,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });

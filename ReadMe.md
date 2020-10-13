@@ -2,7 +2,7 @@
 
 This is a simple system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery).
 
-At this point, it’s just a simple, yet very flexible digital character sheet, without any kind of automation. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
+It’s a very simple, yet very flexible digital character sheet, without any kind of automation. Included are some dice macros for the usual rolls in Cypher games. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
 
 For an explanation of the various options, see ReadMe.
 If you want a prettier, more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
@@ -17,7 +17,11 @@ If you want a prettier, more elaborate character sheet with roll macros, SolarBe
 
 ## Recommended Modules
 
-Since this system does not come with any dice macros (I plan to add that in the future), I recommend to use [Simple Dice Roller](https://foundryvtt.com/packages/simple-dice-roller/) and [Dice So Nice!](https://foundryvtt.com/packages/dice-so-nice/). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
+Although this system does come with dice macros, I recommend to use [Simple Dice Roller](https://foundryvtt.com/packages/simple-dice-roller/) and [Dice So Nice!](https://foundryvtt.com/packages/dice-so-nice/). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
+
+For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). I use these settings:
+
+
 
 ## Actor Types
 
@@ -65,11 +69,29 @@ The Token Sheet is a catch-all sheet for everything else. I use it for actual to
 
 It comes with a field for a level and a quantity, you that you can use it to count stuff.
 
+## Dice Macros
+
+In the compendium tab, you find a number of dice macros you can copy to your macro bar. These are:
+
+### Quick Roll
+
+This is intended for quick and simple stat rolls. It rolls a d20 and tells you what difficulty you beat, and whether a GM Intrusion occurs, whether you deal extra damage, and whether a minor or major effect occurs.
+
+### Eased/Hindered Roll
+
+This works like the quick roll, but you can tell the GM by how many steps the roll should be eased or hindered. This is useful in situations where your GM does not tell the difficulty beforehand or in situations where multiple players make simultaneous rolls, each eased or hindered differently, so that it’s easy for the GM to see if the rolls succeeded or not.
+
+### Eased/Hindered Roll (Effective Difficulty)
+
+This works like the eased/hindered rolls, but the steps eased or hindered are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll an 11 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead.
+
+### d6/d10/d20/d100
+
+Those are the other dice rolls often needed in Cypher games, for rolling on tables, depletion rolls, recovery rolls, and so on.
+
 ## Roadmap
 
-Right now, it’s pretty feature complete for my use cases. I plan to add some dice macros some time in the future, which you can add to your macro bar for quick access.
-
-Let me know if you miss anything and I’ll see what I can do.
+Right now, it’s pretty feature complete for my use cases. Let me know if you miss anything and I’ll see what I can do.
 
 I don’t plan on any automation. So no automatic calculation of stat pool costs for using Effort and abilities or automatically calculated recovery rolls. This is way too dynamic in play and in my experience, filling out a form to make a roll is neither fun nor quicker than just doing it in your head. [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/) does this well, if you want that kind of automation in your VTT.
 
@@ -78,3 +100,5 @@ I don’t plan on any automation. So no automatic calculation of stat pool costs
 I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the [Boilerplate System](https://foundry-vtt-community.github.io/wiki/SD01-Getting-started/) by @asacolips#1867. I used the tutorials on the [Foundry VTT Wiki](https://foundry-vtt-community.github.io/wiki/).
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
+
+@Macaroons#6574 on Discord provided me with valuable feedback and ideas. Thanks!
