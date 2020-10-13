@@ -21,7 +21,9 @@ Although this system does come with dice macros, I recommend to use [Simple Dice
 
 For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). I use these settings:
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/token-tooltip-alt-settings.png)
+- Red fa-raised-fist pools.might
+- green fa-running pools.speed
+- blue fa-brain pools.intellect
 
 ## Actor Types
 
