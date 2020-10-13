@@ -10,7 +10,7 @@ If you want a prettier, more elaborate character sheet with roll macros, SolarBe
 ## Highlights
 
 - Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall). You can use it for The Strange as well, but I couldn’t figure out an elegant way to handle recursions, so there are some creative ideas needed.
-- An Unmaksed mode in which you can switch between your Teen Form and Mask Form.
+- An Unmasked mode in which you can switch between your Teen Form and Mask Form.
 - An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
