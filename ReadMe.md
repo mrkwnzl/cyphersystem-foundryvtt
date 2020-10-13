@@ -20,10 +20,11 @@ If you want a prettier, more elaborate character sheet with roll macros, SolarBe
 Although this system does come with dice macros, I recommend to use [Simple Dice Roller](https://foundryvtt.com/packages/simple-dice-roller/) and [Dice So Nice!](https://foundryvtt.com/packages/dice-so-nice/). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
 
 For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). I use these settings:
-
-- Red fa-raised-fist pools.might
-- green fa-running pools.speed
-- blue fa-brain pools.intellect
+|color | icon | value |
+|------|------|-------|
+| Red | fa-raised-fist | pools.might |
+| green | fa-running | pools.speed |
+| blue | fa-brain | pools.intellect |
 
 ## Actor Types
 
