@@ -4,7 +4,7 @@
   "description": "Cypher System for Foundry VTT with minimal automation for maximum flexibility.",
   "version": "1.2.0",
   "minimumCoreVersion": "0.6.6",
-  "compatibleCoreVersion": "0.6.6",
+  "compatibleCoreVersion": "0.7.3",
   "templateVersion": 2,
   "author": "Marko Wenzel",
   "esmodules": ["module/cyphersystem.js"],
