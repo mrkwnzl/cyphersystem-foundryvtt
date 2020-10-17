@@ -753,7 +753,7 @@
                                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                                 {{#each actor.teenAbilities as |item id|}}
                                 <li class="item flexrow" data-item-id="{{item._id}}">
-                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#if (gt data.costPoints 0)}} ({{data.costPoints}} {{data.costPool}} point{{#if (gt data.costPoints 1)}}s{{/if}}){{/if}}</a></h4>
+                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
                                     <div class="item-controls">
                                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
@@ -768,7 +768,7 @@
                                 {{else}}
                                 {{#each actor.abilities as |item id|}}
                                 <li class="item flexrow" data-item-id="{{item._id}}">
-                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#if (gt data.costPoints 0)}} ({{data.costPoints}} {{data.costPool}} point{{#if (gt data.costPoints 1)}}s{{/if}}){{/if}}</a></h4>
+                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
                                     <div class="item-controls">
                                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>

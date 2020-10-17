@@ -108,10 +108,10 @@ form.cyphersystem {
   justify-content: space-between;
 }
 
-.app.sheet .editor-content {
+/*.app.sheet .editor-content {
     height: 400px;
     overflow-y: auto;
-}
+}*/
 
 .editor-edit {
     top: 10px;
@@ -153,6 +153,11 @@ form.cyphersystem {
 .oddity {
   min-width: 520px;
   min-height: 520px;
+}
+
+.flavor-text {
+  line-height: 1.4;
+  margin-bottom: 3px;
 }
 
 /* Styles limited to cyphersystem sheets */
