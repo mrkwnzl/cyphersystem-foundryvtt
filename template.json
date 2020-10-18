@@ -278,10 +278,6 @@
       "speedCost": 0,
       "armorActive": true,
       "armorType": "light armor",
-      "armorLight": "light armor",
-      "armorMedium": "medium armor",
-      "armorHeavy": "heavy armor",
-      "armorSpecial": "special ability",
       "notes": ""
     },
     "teen Armor": {
@@ -290,19 +286,11 @@
       "speedCost": 0,
       "armorActive": true,
       "armorType": "light armor",
-      "armorLight": "light armor",
-      "armorMedium": "medium armor",
-      "armorHeavy": "heavy armor",
-      "armorSpecial": "special ability",
       "notes": ""
     },
     "attack": {
       "templates": ["core"],
       "attackType": "light weapon",
-      "typeLight": "light weapon",
-      "typeMedium": "medium weapon",
-      "typeHeavy": "heavy weapon",
-      "typeSpecial": "special ability",
       "damage": 0,
       "attackEased": "eased",
       "attackHindered": "hindered",
@@ -314,10 +302,6 @@
     "teen Attack": {
       "templates": ["core"],
       "attackType": "light weapon",
-      "typeLight": "light weapon",
-      "typeMedium": "medium weapon",
-      "typeHeavy": "heavy weapon",
-      "typeSpecial": "special ability",
       "damage": 0,
       "attackEased": "eased",
       "attackHindered": "hindered",

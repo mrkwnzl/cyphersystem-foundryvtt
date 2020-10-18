@@ -252,6 +252,19 @@ export class CypherActorSheet extends ActorSheet {
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
     
+    // Change Armor Active
+    html.find('.armor-active').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      if (item.data.armorActive === true) {
+        item.data.armorActive = false;
+      }
+      else {
+        item.data.armorActive = true;
+      }
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
     // Add 1 to Quantity
     html.find('.plus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
@@ -265,6 +278,22 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
       item.data.quantity = item.data.quantity - 1;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
+    // Add 1 to Lasting Damage
+    html.find('.plus-one-damage').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      item.data.lastingDamageAmount = item.data.lastingDamageAmount + 1;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+    
+    // Subtract 1 from Lasting Damage
+    html.find('.minus-one-damage').click(clickEvent => {
+      const shownItem = itemForClickEvent(clickEvent);
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      item.data.lastingDamageAmount = item.data.lastingDamageAmount - 1;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
     
