@@ -1,6 +1,5 @@
 # Cypher System for Foundry VTT
 
-![Downloads](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
 ![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 
