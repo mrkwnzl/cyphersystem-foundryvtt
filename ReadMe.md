@@ -12,7 +12,7 @@ For an explanation of the various options, see ReadMe.
 
 If you want a more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
 
-
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/character_sheet_example_01.jpg)
 
 ## Highlights
 
