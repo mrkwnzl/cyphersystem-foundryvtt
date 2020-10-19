@@ -26,7 +26,7 @@ Although this system does come with dice macros, I recommend to use [Simple Dice
 For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). I use these settings:
 |color | icon | value |
 |------|------|-------|
-| Red | fa-fist-raised | pools.might |
+| red | fa-fist-raised | pools.might |
 | green | fa-running | pools.speed |
 | blue | fa-brain | pools.intellect |
 
