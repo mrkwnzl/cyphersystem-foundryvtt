@@ -50,12 +50,18 @@ The PC sheet consists of the basic information in the sheet header and tabs for 
 In the Settings Tab, you’ll find the following settings:
 
 - **Game Mode:** Here you can choose between the default Cypher System and Unmasked. If you choose *Unmasked*, The Mask and Teen Sheet gets activated. Your character defaults to the mask form, but you’ll find a switch next to your character name where you can switch to the teen form. Your pools, skills, Combat Sheet, and abilities get replaced with the ones from the teen. You still only have shared recovery rolls, though, as per the rules.
+
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/teen_sheet_pools.png)
+
 - **Bonus to Initiative Rolls:** Here you can add a bonus or malus to the initiative roll in the combat tracker. This is to support the optional rule in Cypher to act in order of the initiative roll result. Add -3/3/6 for inability/trained/specialized in initiative rolls.
 - **Additional Sentence Field:** This add another text field next to your focus. Use this for your domain in Gods of the Fall, your race in Shotguns & Sorcery, or the flavor of your type. You can rename this field.
 - **Additional Pool:** This adds a fourth pool to your stat pools. This one doesn’t have an Edge, though. Use this for Luck, Determination, or the Datasphere. You can rename this pool.
 - **Power Shifts:** This adds a list of Power Shifts to the Skill Tab. You can rename those, for example to “Divine Shifts” (Gods of the Fall) or “Blood Shifts” (Stay Alive!).
 - **Additional Recovery Rolls:** This adds additional checkboxes to the 1 Action recovery rolls. If you play in Unmasked Mode, those get only added to your Mask Form, as they most likely come from Power Shifts.
 - **Lasting/Permanent Damage:** This adds a list for lastinf and permanent damage to your Combat Tab. Use this when you use the optional rule for lasting damage (Cypher System,  436; Numenera Discovery, 344) or when playing Vurt.
+
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/combat_options.png)
+
 - **Currency:** This adds a currency field in the Equipment Tab. You can rename the  currency for your game.
 - **Cyphers, Artifacts, Oddities, and Crafting Material:** This adds lists for cyphers, artifacts, oddities, and crafting material in the Equipment Tab. Use this if your game has these. You can rename the crafting material to something fitting for your game.
 
