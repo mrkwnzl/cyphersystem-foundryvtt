@@ -14,6 +14,8 @@ If you want a more elaborate character sheet with roll macros, SolarBear has you
 
 ![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/character_sheet_example_01.jpg)
 
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/roll_macros.jpg)
+
 ## Highlights
 
 - Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall). You can use it for The Strange as well, but I couldn’t figure out an elegant way to handle recursions, so there are some creative ideas needed.
@@ -50,18 +52,12 @@ The PC sheet consists of the basic information in the sheet header and tabs for 
 In the Settings Tab, you’ll find the following settings:
 
 - **Game Mode:** Here you can choose between the default Cypher System and Unmasked. If you choose *Unmasked*, The Mask and Teen Sheet gets activated. Your character defaults to the mask form, but you’ll find a switch next to your character name where you can switch to the teen form. Your pools, skills, Combat Sheet, and abilities get replaced with the ones from the teen. You still only have shared recovery rolls, though, as per the rules.
-
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/teen_sheet_pools.png)
-
 - **Bonus to Initiative Rolls:** Here you can add a bonus or malus to the initiative roll in the combat tracker. This is to support the optional rule in Cypher to act in order of the initiative roll result. Add -3/3/6 for inability/trained/specialized in initiative rolls.
 - **Additional Sentence Field:** This add another text field next to your focus. Use this for your domain in Gods of the Fall, your race in Shotguns & Sorcery, or the flavor of your type. You can rename this field.
 - **Additional Pool:** This adds a fourth pool to your stat pools. This one doesn’t have an Edge, though. Use this for Luck, Determination, or the Datasphere. You can rename this pool.
 - **Power Shifts:** This adds a list of Power Shifts to the Skill Tab. You can rename those, for example to “Divine Shifts” (Gods of the Fall) or “Blood Shifts” (Stay Alive!).
 - **Additional Recovery Rolls:** This adds additional checkboxes to the 1 Action recovery rolls. If you play in Unmasked Mode, those get only added to your Mask Form, as they most likely come from Power Shifts.
 - **Lasting/Permanent Damage:** This adds a list for lastinf and permanent damage to your Combat Tab. Use this when you use the optional rule for lasting damage (Cypher System,  436; Numenera Discovery, 344) or when playing Vurt.
-
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/combat_options.png)
-
 - **Currency:** This adds a currency field in the Equipment Tab. You can rename the  currency for your game.
 - **Cyphers, Artifacts, Oddities, and Crafting Material:** This adds lists for cyphers, artifacts, oddities, and crafting material in the Equipment Tab. Use this if your game has these. You can rename the crafting material to something fitting for your game.
 
@@ -93,19 +89,13 @@ In the compendium tab, you find a number of dice macros you can copy to your mac
 
 This is intended for quick and simple stat rolls. It rolls a d20 and tells you what difficulty you beat, and whether a GM Intrusion occurs, whether you deal extra damage, and whether a minor or major effect occurs.
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/quick_roll.png)
-
 ### Eased/Hindered Roll
 
 This works like the quick roll, but you can tell the GM by how many steps the roll should be eased or hindered. This is useful in situations where your GM does not tell the difficulty beforehand or in situations where multiple players make simultaneous rolls, each eased or hindered differently, so that it’s easy for the GM to see if the rolls succeeded or not.
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/eased_roll.png)
-
 ### Eased/Hindered Roll (Effective Difficulty)
 
 This works like the eased/hindered rolls, but the steps eased or hindered are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll an 11 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead.
-
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/eased_roll_effective_difficulty.png)
 
 ### d6/d10/d20/d100
 
