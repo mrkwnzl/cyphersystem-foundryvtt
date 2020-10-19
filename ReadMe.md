@@ -12,6 +12,8 @@ For an explanation of the various options, see ReadMe.
 
 If you want a more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
 
+## Screenshots
+
 ![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/character_sheet_example_01.jpg)
 
 ![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/roll_macros.jpg)
@@ -28,12 +30,7 @@ If you want a more elaborate character sheet with roll macros, SolarBear has you
 
 Although this system does come with dice macros, I recommend to use [Simple Dice Roller](https://foundryvtt.com/packages/simple-dice-roller/) and [Dice So Nice!](https://foundryvtt.com/packages/dice-so-nice/). With that, you have all the dice you need for a Cypher game right in the toolbar. And they’re 3D, too!
 
-For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). I use these settings:
-|color | icon | value |
-|------|------|-------|
-| red | fa-fist-raised | pools.might |
-| green | fa-running | pools.speed |
-| blue | fa-brain | pools.intellect |
+For a quick overview of your stats, I recommend [Token Tooltip Alt](https://foundryvtt.com/packages/token-tooltip-alt/). It includes a preset for the Cypher System, so that it works right out the box for all three pools.
 
 ## Actor Types
 
