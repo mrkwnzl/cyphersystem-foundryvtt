@@ -93,13 +93,19 @@ In the compendium tab, you find a number of dice macros you can copy to your mac
 
 This is intended for quick and simple stat rolls. It rolls a d20 and tells you what difficulty you beat, and whether a GM Intrusion occurs, whether you deal extra damage, and whether a minor or major effect occurs.
 
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/quick_roll.png)
+
 ### Eased/Hindered Roll
 
 This works like the quick roll, but you can tell the GM by how many steps the roll should be eased or hindered. This is useful in situations where your GM does not tell the difficulty beforehand or in situations where multiple players make simultaneous rolls, each eased or hindered differently, so that it’s easy for the GM to see if the rolls succeeded or not.
 
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/eased_roll.png)
+
 ### Eased/Hindered Roll (Effective Difficulty)
 
 This works like the eased/hindered rolls, but the steps eased or hindered are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll an 11 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead.
+
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/eased_roll_effective_difficulty.png)
 
 ### d6/d10/d20/d100
 
