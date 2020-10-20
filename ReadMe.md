@@ -4,7 +4,7 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
 ![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 
-This is a simple system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery).
+This is a simple system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
 
 It’s a very simple, yet very flexible digital character sheet, without any kind of automation. Included are some dice macros for the usual rolls in Cypher games. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
 
@@ -103,6 +103,10 @@ Those are the other dice rolls often needed in Cypher games, for rolling on tabl
 Right now, it’s pretty feature complete for my use cases. Let me know if you miss anything and I’ll see what I can do.
 
 I don’t plan on any automation. So no automatic calculation of stat pool costs for using Effort and abilities or automatically calculated recovery rolls. This is way too dynamic in play and in my experience, filling out a form to make a roll is neither fun nor quicker than just doing it in your head. [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/) does this well, if you want that kind of automation in your VTT.
+
+## Fan Use Policy
+
+*The Monte Cook Games logo, Numenera, and the Numenera logo are trademarks of Monte Cook Games, LLC in the U.S.A. and other countries. All Monte Cook Games characters and character names, and the distinctive likenesses thereof, are trademarks of Monte Cook Games, LLC. Content on this site or associated files derived from Monte Cook Games publications is © 2013-2019 Monte Cook Games, LLC. Monte Cook Games permits web sites and similar fan-created publications for their games, subject to the policy given at [https://www.montecookgames.com/fan-use-policy/](). The contents of this site are for personal, non-commercial use only. Monte Cook Games is not responsible for this site or any of the content, that did not originate directly from Monte Cook Games, on or in it. Use of Monte Cook Games’s trademarks and copyrighted materials anywhere on this site and its associated files should not be construed as a challenge to those trademarks or copyrights. Materials on this site may not be reproduced or distributed except with the permission of the site owner and in compliance with Monte Cook Games policy given at [https://www.montecookgames.com/fan-use-policy/]().*
 
 ## Credits
 
