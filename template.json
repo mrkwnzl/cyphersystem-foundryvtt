@@ -177,7 +177,12 @@
       },
       "level": "",
       "damage": 0,
-      "armor": 0
+      "armor": 0,
+      "settings": {
+        "initiative": {
+          "initiativeBonus": 0
+        }
+      }
     },
     "Token": {
       "biography": "",

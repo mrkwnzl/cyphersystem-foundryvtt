@@ -41,17 +41,17 @@
                     {{/unless}}
             
                     <div class="resource-content flexrow flex-center" style="margin-top: 5px">
-                        <div style="padding-left: 20px">
+                        <div style="padding-left: 20px; display: flex; justify-content: center">
                             <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
-                            +4 Stat Pools&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;+4 Stat Pools&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="data.advancement.advEffort" data-dtype="boolean" {{checked data.advancement.advEffort}}>
-                            +1 Effort&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;+1 Effort&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="data.advancement.advEdge" data-dtype="boolean" {{checked data.advancement.advEdge}}>
-                            +1 Edge&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;+1 Edge&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="data.advancement.advSkill" data-dtype="boolean" {{checked data.advancement.advSkill}}>
-                            Skill&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;Skill&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="data.advancement.advOther" data-dtype="boolean" {{checked data.advancement.advOther}}>
-                            Other</div>
+                            &nbsp;Other</div>
                             <div style="max-width: 20px"><a class="item-control reset-advancement" title="Reset Advancement"><i class="fas fa-sync-alt"></i></a></div>
                         </div>
                     </div>
@@ -358,7 +358,7 @@
                                 <li class="item flexrow">
                                     <div class="item-quantity"><input style="line-height: normal; margin: auto; width: 92px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1"/></div>
                                     <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
-                                        <div style="padding-left: 20px">
+                                        <div style="padding-left: 20px; display: flex; justify-content: center">
                                             <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}}/>
                                             {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
                                             {{#if data.settings.additionalRecoveries.active}}
@@ -368,13 +368,13 @@
                                             {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 4)}}<input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked data.recoveries.oneActionFive}}/>{{/if}}
                                             {{/if}}
                                             {{/unless}}
-                                            1 Action&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;1 Action&nbsp;&nbsp;&nbsp;&nbsp;
                                             <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked data.recoveries.tenMinutes}}/>
-                                            10 Minutes&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;10 Minutes&nbsp;&nbsp;&nbsp;&nbsp;
                                             <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked data.recoveries.oneHour}}/>
-                                            1 Hour&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;1 Hour&nbsp;&nbsp;&nbsp;&nbsp;
                                             <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}}/>
-                                            10 Hours</div>
+                                            &nbsp;10 Hours</div>
                                             <div style="max-width: 14px"><a class="item-control reset-recovery-rolls" title="Reset Recovery Rolls"><i class="fas fa-sync-alt"></i></a></div>
                                         </div>
                                     </li>
@@ -792,7 +792,7 @@
                                         <div class="item-name">General Settings</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled> Game Mode</div> 
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>&nbsp;Game Mode</div> 
                                         <div class="item-quantity"><select name="data.settings.gameMode.current" style="width: 135px">
                                             {{#select data.settings.gameMode.current}}
                                             <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
@@ -801,20 +801,20 @@
                                         </select></div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled> Bonus to Initiative Rolls</div> 
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled>&nbsp;Bonus to Initiative Rolls</div> 
                                         <div class="item-quantity"><input name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked data.settings.additionalSentence.active}}> Additional Sentence Field</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked data.settings.additionalSentence.active}}>&nbsp;Additional Sentence Field</div>
                                         <div class="item-quantity"><input name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="God of Dominion" style="width: auto;"/></div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}> {{#if (eq data.settings.gameMode.current "Unmasked")}}Additional Pool on Mask Sheet{{else}}Additional Pool{{/if}}</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}>&nbsp;{{#if (eq data.settings.gameMode.current "Unmasked")}}Additional Pool on Mask Sheet{{else}}Additional Pool{{/if}}</div>
                                         <div class="item-quantity"><input name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
                                     </li>
                                     {{#if (eq data.settings.gameMode.current "Unmasked")}}
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}> Additional Pool on Teen Sheet</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}>&nbsp;Additional Pool on Teen Sheet</div>
                                         <div class="item-quantity"><input name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
                                         {{/if}}
                                     </li>
@@ -826,7 +826,7 @@
                                         <div class="item-name">Skills Tab</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}> Power Shifts</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}>&nbsp;Power Shifts</div>
                                         <div class="item-quantity"><input name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="Power Shifts" style="width: auto;"/></div>
                                     </li>
                                 </ol>
@@ -837,7 +837,7 @@
                                         <div class="item-name">Combat Tab</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}> Additional Recovery Rolls</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>&nbsp;Additional Recovery Rolls</div>
                                         <div class="item-quantity"><select name="data.settings.additionalRecoveries.howManyRecoveries" style="width: 135px">
                                             {{#select data.settings.additionalRecoveries.howManyRecoveries}}
                                             <option value="{{data.settings.additionalRecoveries.additionalOne}}">{{data.settings.additionalRecoveries.additionalOne}}</option>
@@ -848,10 +848,10 @@
                                         </select></div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}> Lasting/Permanent Damage</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}>&nbsp;Lasting/Permanent Damage</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.ammo" data-dtype="boolean" {{checked data.settings.ammo}}> Ammo List</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.ammo" data-dtype="boolean" {{checked data.settings.ammo}}>&nbsp;Ammo List</div>
                                     </li>
                                 </ol>
                             </div>
@@ -861,20 +861,20 @@
                                         <div class="item-name">Equipment Tab</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked data.settings.currency.active}}> Currency</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked data.settings.currency.active}}>&nbsp;Currency</div>
                                         <div class="item-quantity"><input name="data.settings.currency.name" type="text" value="{{data.settings.currency.name}}" data-dtype="String" placeholder="Shins" style="width: auto;"/></div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}> Cyphers</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;Cyphers</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}> Artifacts</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;Artifacts</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}> Oddities</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;Oddities</div>
                                     </li>
                                     <li class="item flexrow item-settings">
-                                        <div class="item-name"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}> Crafting Material</div>
+                                        <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;Crafting Material</div>
                                         <div class="item-quantity"><input name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="Iotum & Parts" style="width: auto;"/></div>
                                     </li>
                                 </ol>
