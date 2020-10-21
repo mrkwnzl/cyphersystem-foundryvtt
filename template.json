@@ -204,7 +204,12 @@
       },
       "rank": "",
       "damage": 0,
-      "armor": 0
+      "armor": 0,
+      "settings": {
+        "initiative": {
+          "initiativeBonus": 0
+        }
+      }
     },
     "Companion": {
       "biography": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
@@ -217,7 +222,12 @@
       "interactionLevel": 1,
       "armor": 0,
       "damage": 1,
-      "ownedBy": ""      
+      "ownedBy": "",
+      "settings": {
+        "initiative": {
+          "initiativeBonus": 0
+        }
+      }    
     }
   },
   "Item": {
