@@ -10,6 +10,10 @@ It’s a very simple, yet very flexible digital character sheet, without any kin
 
 If you want a more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
 
+## Support
+
+I appreciate any feedback and questions. You can reach me on Discord (@mrkwnzl#7407). If the Cypher System system makes your games more accesible and fun, I appreciate your support:
+
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="40"></a>
 
 ## Screenshots
