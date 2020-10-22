@@ -8,7 +8,7 @@ This is a game system for the Cypher System family of games (Cypher System, Nume
 
 It’s a very simple, yet very flexible digital character sheet, with very little automation. Included are some dice macros for the usual rolls in Cypher games. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system.
 
-If you want a more elaborate character sheet with roll macros, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
+If you want a more elaborate character sheet with more automation, SolarBear has you covered: [SolarBear’s Numenera System](https://foundryvtt.com/packages/numenera/)
 
 ## Support
 
