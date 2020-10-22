@@ -1,8 +1,9 @@
 # Cypher System for Foundry VTT
 
-![GitHub Latest Release](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=for-the-badge)
-![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=for-the-badge)
-![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=for-the-badge)
+![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=fflat-square)
+![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A42HHC3)
 
 This is a simple system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
