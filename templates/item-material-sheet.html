@@ -1,11 +1,19 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     <header class="sheet-header">
         <div class="header-fields">
-          <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
-          <div class="resource-content" style="float: right; text-align: center;">
-            Units:&nbsp;
-            <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number" style="width: 50px"/>
-          </div>
+            <div class="flexrow">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+                <div class="centered-fields">
+                    <div class="resource-content flexrow flex-center">
+                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="Number" placeholder="Level"/></div>
+                    </div>
+                    <div class="resource-content flexrow flex-center" style="float: right; text-align: center;">
+                        Units:&nbsp;
+                        <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number" style="width: 50px"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 

@@ -1,42 +1,47 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-  <header class="sheet-header">
-    <div class="header-fields">
-      <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
-      <div class="flexrow flex-center">
-        Speed Cost:&nbsp;
-        <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number" style="width: 50px"/>
-        &nbsp;&nbsp;Armor Rating:&nbsp;
-        <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number" style="width: 50px"/>
-        &nbsp;&nbsp;Type:&nbsp;
-        <select name="data.armorType">
-          {{#select data.armorType}}
-          <option value="light armor">light armor</option>
-          <option value="medium armor">medium armor</option>
-          <option value="heavy armor">heavy armor</option>
-          <option value="artifact">artifact</option>
-          <option value="special ability">special ability</option>
-          {{/select}}
-        </select>
-        &nbsp;&nbsp;Active:&nbsp;
-        <input type="checkbox" name="data.armorActive" data-dtype="boolean" {{checked data.armorActive}}>
-      </div>
-      <div class="flexrow flex-center">
-        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
-      </div>
-    </div>
-  </header>
+    <header class="sheet-header">
+        <div class="header-fields">
+            <div class="flexrow">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+                <div class="centered-fields">
+                    <div class="resource-content flexrow flex-center">
+                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                    </div>
+                    <div class="flexrow flex-center">
+                        Speed Cost:&nbsp;
+                        <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number" style="width: 50px"/>
+                        &nbsp;&nbsp;Armor Rating:&nbsp;
+                        <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number" style="width: 50px"/>
+                        &nbsp;&nbsp;Type:&nbsp;
+                        <select name="data.armorType">
+                            {{#select data.armorType}}
+                            <option value="light armor">light armor</option>
+                            <option value="medium armor">medium armor</option>
+                            <option value="heavy armor">heavy armor</option>
+                            <option value="artifact">artifact</option>
+                            <option value="special ability">special ability</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="flexrow flex-center">
+                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
-  </nav>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
+    </nav>
 
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
 
-    {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-    </div>
-  </section>
+        {{!-- Description Tab --}}
+        <div class="tab" data-group="primary" data-tab="description">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
 </form>

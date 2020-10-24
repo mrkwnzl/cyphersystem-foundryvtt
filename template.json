@@ -231,11 +231,12 @@
     }
   },
   "Item": {
-    "types": ["equipment", "ammo", "ability", "skill", "armor", "attack", "lasting Damage", "teen lasting Damage", "power Shift", "cypher", "artifact", "oddity", "teen Skill", "teen Ability", "teen Attack", "teen Armor", "material"],
+    "types": ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting Damage", "material", "oddity", "power Shift", "skill", "teen Ability", "teen Armor", "teen Attack", "teen lasting Damage", "teen Skill"],
     "templates": {
       "core": {
         "description": "",
-        "showDescription": false
+        "showDescription": false,
+        "level": ""
       }
     },
     "equipment": {
@@ -273,19 +274,11 @@
     },
     "skill": {
       "templates": ["core"],
-      "skillLevel": "Trained",
-      "inability": "Inability",
-      "practiced": "Practiced",
-      "trained": "Trained",
-      "specialized": "Specialized"
+      "skillLevel": "Trained"
     },
-    "teen Skill": {
+    "teen skill": {
       "templates": ["core"],
-      "skillLevel": "Trained",
-      "inability": "Inability",
-      "practiced": "Practiced",
-      "trained": "Trained",
-      "specialized": "Specialized"
+      "skillLevel": "Trained"
     },
     "armor": {
       "templates": ["core"],
@@ -307,8 +300,6 @@
       "templates": ["core"],
       "attackType": "light weapon",
       "damage": 0,
-      "attackEased": "eased",
-      "attackHindered": "hindered",
       "modified": "",
       "modifiedBy": 0,
       "range": "",
@@ -318,8 +309,6 @@
       "templates": ["core"],
       "attackType": "light weapon",
       "damage": 0,
-      "attackEased": "eased",
-      "attackHindered": "hindered",
       "modified": "",
       "modifiedBy": 0,
       "range": "",
@@ -351,12 +340,10 @@
     },
     "cypher": {
       "templates": ["core"],
-      "level": 1,
       "weight": 0
     },
     "artifact": {
       "templates": ["core"],
-      "level": 1,
       "depletion": "1 in d6",
       "weight": 0
     },

@@ -135,29 +135,18 @@ form.cyphersystem {
   min-height: 690px;
 }
 
-.skill {
-  min-width: 520px;
-  min-height: 550px;
-}
-
-.attack {
+.item-sheet {
   min-width: 520px;
   min-height: 610px;
-}
-
-.armor {
-  min-width: 520px;
-  min-height: 580px;
-}
-
-.oddity {
-  min-width: 520px;
-  min-height: 520px;
 }
 
 .flavor-text {
   line-height: 1.4;
   margin-bottom: 3px;
+}
+
+#entity-create > div:nth-child(2) > div > select {
+  text-transform: capitalize;
 }
 
 /* Styles limited to cyphersystem sheets */
@@ -189,6 +178,9 @@ form.cyphersystem {
   height: 120px;
   width: 120px;
   margin-right: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  border-radius: 3px;
 }
 
 .cyphersystem .sheet-header .header-fields {
@@ -233,7 +225,7 @@ form.cyphersystem {
   /*text-transform: uppercase;*/
 }
 
-.cyphersystem .tabs {
+.sheet nav.sheet-tabs {
   height: 35px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
@@ -419,4 +411,18 @@ form.cyphersystem {
   padding-left: 0px;
   text-indent: 0px;
   display: flex;
+}
+
+#chat-log .message .message-content p, ul, ol {
+  margin: 0;
+}
+
+#chat-log .message .message-content blockquote {
+  margin: 0 0 0 10px;
+  padding: 0 0 0 10px;
+}
+
+.cyphersystem .centered-fields {
+  margin-top: auto; 
+  margin-bottom: auto;
 }
