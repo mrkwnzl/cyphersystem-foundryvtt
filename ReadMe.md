@@ -1,6 +1,7 @@
 # Cypher System for Foundry VTT
 
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
 ![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 
@@ -118,4 +119,6 @@ I used code snippets from [Simple Worldbuilding System](https://gitlab.com/found
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
-@Macaroons#6574 on Discord provided me with valuable feedback and ideas. Thanks!
+@Macaroons#6574 and Junk Warlord#2894 on Discord provided me with valuable feedback and ideas. Thanks!
+
+Icons from [game-icons.net](https://game-icons.net)
