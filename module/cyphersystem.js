@@ -45,11 +45,11 @@ Hooks.once("init", async function() {
 });
 
 Hooks.on("preCreateItem", (itemData) => {
-    itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
+    if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
 });
 
 Hooks.on("preCreateOwnedItem", (actor, itemData) => {
-    itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
+    if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
 });
 
 // Hooks.on("preUpdateItem", (itemData) => {
