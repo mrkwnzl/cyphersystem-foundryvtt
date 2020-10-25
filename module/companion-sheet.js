@@ -158,6 +158,18 @@ export class CypherCompanionSheet extends ActorSheet {
                 });
             });
     
+            // Drag events for macros.
+            if (this.actor.owner) {
+                let handler = ev => this._onDragStart(ev);
+                // Find all items on the character sheet.
+                html.find('li.item').each((i, li) => {
+                    // Ignore for the header row.
+                    if (li.classList.contains("item-header")) return;
+                    // Add draggable attribute and dragstart listener.
+                    li.setAttribute("draggable", true);
+                    li.addEventListener("dragstart", handler, false);
+                });
+            }
         }
   
         /**
@@ -186,4 +198,5 @@ export class CypherCompanionSheet extends ActorSheet {
             // Finally, create the item!
             return this.actor.createOwnedItem(itemData);
         }
+        
     }

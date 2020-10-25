@@ -218,7 +218,6 @@ export class CypherActorSheet extends ActorSheet {
             function itemForClickEvent(clickEvent) {
                 return $(clickEvent.currentTarget).parents(".item");
             }
-  
     
             // Add Inventory Item
             html.find('.item-create').click(clickEvent => {
@@ -261,7 +260,6 @@ export class CypherActorSheet extends ActorSheet {
                     this.actor.updateEmbeddedEntity('OwnedItem', item);
                 }
             });
-    
     
             // Change Armor Active
             html.find('.armor-active').click(clickEvent => {
@@ -408,7 +406,20 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+            
+            // Drag events for macros.
+            if (this.actor.owner) {
+                let handler = ev => this._onDragStart(ev);
+                // Find all items on the character sheet.
+                html.find('li.item').each((i, li) => {
+                    // Ignore for the header row.
+                    if (li.classList.contains("item-header")) return;
+                    // Add draggable attribute and dragstart listener.
+                    li.setAttribute("draggable", true);
+                    li.addEventListener("dragstart", handler, false);
+                });
+            }
+            
         }
   
         /**
