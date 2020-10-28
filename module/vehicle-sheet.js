@@ -2,18 +2,18 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherCompanionSheet extends ActorSheet {
+export class CypherVehicleSheet extends ActorSheet {
 
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["cyphersystem", "sheet", "actor", "companion"],
-            template: "systems/cyphersystem/templates/companion-sheet.html",
+            classes: ["cyphersystem", "sheet", "actor", "vehicle"],
+            template: "systems/cyphersystem/templates/vehicle-sheet.html",
             width: 600,
-            height: 690,
+            height: 610,
             resizable: false,
-            tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
-            scrollY: [".sheet-body", ".tab", ".skills", ".biography"],
+            tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
+            scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
         });
     }
@@ -27,15 +27,15 @@ export class CypherCompanionSheet extends ActorSheet {
         /**for ( let attr of Object.values(data.data.attributes) ) {
             attr.isCheckbox = attr.dtype === "Boolean";
             }*/
-      
+
             // Prepare items.
-            if (this.actor.data.type == 'Companion') {
+            if (this.actor.data.type == 'Vehicle') {
                 this.cyphersystem(data);
             }
-
+            
             return data;
         }
-  
+
         /**
         * Organize and classify Items for Character sheets.
         *
@@ -47,8 +47,6 @@ export class CypherCompanionSheet extends ActorSheet {
             const actorData = sheetData.actor;
 
             // Initialize containers. Const, weil es ein container ist, dessen Inhalt veränderbar ist.
-            const abilities = [];
-            const skills = [];
             const equipment = [];
             const armor = [];
             const cyphers = [];
@@ -64,13 +62,7 @@ export class CypherCompanionSheet extends ActorSheet {
                 i.img = i.img || DEFAULT_TOKEN;
       
                 // Append to containers.
-                if (i.type === 'ability') {
-                    abilities.push(i);
-                }
-                else if (i.type === 'skill') {
-                    skills.push(i);
-                }
-                else if (i.type === 'equipment') {
+                if (i.type === 'equipment') {
                     equipment.push(i);
                 }
                 else if (i.type === 'ammo') {
@@ -105,9 +97,7 @@ export class CypherCompanionSheet extends ActorSheet {
                 }
                 return 0;
             }
-            
-            abilities.sort(byNameAscending);
-            skills.sort(byNameAscending);
+    
             equipment.sort(byNameAscending);
             armor.sort(byNameAscending);
             cyphers.sort(byNameAscending);
@@ -117,8 +107,6 @@ export class CypherCompanionSheet extends ActorSheet {
             ammo.sort(byNameAscending);
 
             // Assign and return
-            actorData.abilities = abilities;
-            actorData.skills = skills;
             actorData.equipment = equipment;
             actorData.armor = armor;
             actorData.cyphers = cyphers;
@@ -172,22 +160,21 @@ export class CypherCompanionSheet extends ActorSheet {
             html.find('.item-description').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
                 const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-                if (item.data.showDescription === true) {
-                    item.data.showDescription = false;
+                if (window.event.ctrlKey || window.event.metaKey) {
+                    let message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + "<br>" + item.data.description;
+                    ChatMessage.create({
+                        speaker: ChatMessage.getSpeaker(),
+                        content: message
+                    })
+                } else {
+                    if (item.data.showDescription === true) {
+                        item.data.showDescription = false;
+                    }
+                    else {
+                        item.data.showDescription = true;
+                    }
+                    this.actor.updateEmbeddedEntity('OwnedItem', item);
                 }
-                else {
-                    item.data.showDescription = true;
-                }
-                this.actor.updateEmbeddedEntity('OwnedItem', item);
-            });
-    
-            // Reset Health
-            html.find('.reset-health').click(clickEvent => {
-                this.actor.update({
-                    "data.health.value": this.actor.data.data.health.max
-                }).then(item => {
-                    this.render();
-                });
             });
             
             // Add 1 to Quantity
@@ -205,7 +192,7 @@ export class CypherCompanionSheet extends ActorSheet {
                 item.data.quantity = item.data.quantity - 1;
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+            
             // Drag events for macros.
             if (this.actor.owner) {
                 let handler = ev => this._onDragStart(ev);
@@ -219,7 +206,7 @@ export class CypherCompanionSheet extends ActorSheet {
                 });
             }
         }
-  
+        
         /**
         * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
         * @param {Event} event   The originating click event

@@ -81,7 +81,7 @@ export class CypherActorSheet extends ActorSheet {
                 else if (i.type === 'ability') {
                     abilities.push(i);
                 }
-                else if (i.type === 'skill' || i.type === 'Skill') {
+                else if (i.type === 'skill') {
                     skills.push(i);
                 }
                 else if (i.type === 'attack') {
@@ -177,10 +177,10 @@ export class CypherActorSheet extends ActorSheet {
             }
 
             // Assign and return
-            actorData.data.armor.armorValueTotal = armorTotal;
-            actorData.data.armor.speedCostTotal = speedCostTotal;
-            actorData.data.teen.armor.armorValueTotal = teenArmorTotal;
-            actorData.data.teen.armor.speedCostTotal = teenSpeedCostTotal;
+            this.actor.update({"data.armor.armorValueTotal": armorTotal});
+            this.actor.update({"data.armor.speedCostTotal": speedCostTotal});
+            this.actor.update({"data.teen.armor.armorValueTotal": teenArmorTotal});
+            this.actor.update({"data.teen.armor.speedCostTotal": teenSpeedCostTotal});
             actorData.equipment = equipment;
             actorData.abilities = abilities;
             actorData.skills = skills;

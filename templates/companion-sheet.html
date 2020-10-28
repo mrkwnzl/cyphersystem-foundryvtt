@@ -57,7 +57,9 @@
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="skills">Skills & Abilities</a>
+        <a class="item" data-tab="items" style="border-top: none; border-bottom: none;">Inventory</a>
         <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Notes</a>
+                <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
     </nav>
 
     {{!-- Sheet Body --}}
@@ -118,10 +120,19 @@
             </div>
         </div>
         
+        {{!-- Owned Items Tab --}}
+        <div class="tab items" data-group="primary" data-tab="items">
+            {{> systems/cyphersystem/templates/equipment.html}}
+        </div>
 
         {{!-- Biography Tab --}}
         <div class="tab biography" data-group="primary" data-tab="description">
             {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+        </div>
+        
+        {{!-- Settings Tab --}}
+        <div class="tab settings" data-group="primary" data-tab="settings">
+            {{> systems/cyphersystem/templates/equipment-settings.html}}
         </div>
         
     </section>

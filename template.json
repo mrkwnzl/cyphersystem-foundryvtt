@@ -1,6 +1,6 @@
 {
     "Actor": {
-        "types": ["PC", "NPC", "Companion", "Community", "Token"],
+        "types": ["PC", "NPC", "Companion", "Community", "Vehicle", "Token"],
         "templates": {
             "core": {
                 "basic": {
@@ -181,6 +181,14 @@
             "settings": {
                 "initiative": {
                     "initiativeBonus": 0
+                },
+                "equipment": {
+                    "cyphers": false,
+                    "artifacts": false,
+                    "oddities": false,
+                    "materials": false,
+                    "ammo": false,
+                    "armor": false
                 }
             }
         },
@@ -208,6 +216,14 @@
             "settings": {
                 "initiative": {
                     "initiativeBonus": 0
+                },
+                "equipment": {
+                    "cyphers": false,
+                    "artifacts": false,
+                    "oddities": false,
+                    "materials": false,
+                    "ammo": false,
+                    "armor": false
                 }
             }
         },
@@ -226,8 +242,32 @@
             "settings": {
                 "initiative": {
                     "initiativeBonus": 0
+                },
+                "equipment": {
+                    "cyphers": false,
+                    "artifacts": false,
+                    "oddities": false,
+                    "materials": false,
+                    "ammo": false,
+                    "armor": false
                 }
             }    
+        },
+        "Vehicle": {
+            "biography": "",
+            "level": 1,
+            "crew": 1,
+            "weaponSystems": 1,
+            "settings": {
+                "equipment": {
+                    "cyphers": false,
+                    "artifacts": false,
+                    "oddities": false,
+                    "materials": false,
+                    "ammo": false,
+                    "armor": false
+                }
+            }
         }
     },
     "Item": {
