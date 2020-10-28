@@ -13,6 +13,7 @@ import { CypherNPCSheet } from "./NPC-sheet.js";
 import { CypherTokenSheet } from "./token-sheet.js";
 import { CypherCommunitySheet } from "./community-sheet.js";
 import { CypherCompanionSheet } from "./companion-sheet.js";
+import { CypherVehicleSheet } from "./vehicle-sheet.js";
 
 
 /* -------------------------------------------- */
@@ -31,7 +32,8 @@ Hooks.once("init", async function() {
         easedRollEffectiveMacro,
         hinderedRollEffectiveMacro,
         diceRollMacro,
-        recoveryRollMacro
+        recoveryRollMacro,
+        spendEffortMacro
     };
 
     /**
@@ -54,9 +56,21 @@ Hooks.once("init", async function() {
     Actors.registerSheet("cypher", CypherTokenSheet, {types: ['Token'], makeDefault: false});
     Actors.registerSheet("cypher", CypherCommunitySheet, {types: ['Community'], makeDefault: false});
     Actors.registerSheet("cypher", CypherCompanionSheet, {types: ['Companion'], makeDefault: false});
+    Actors.registerSheet("cypher", CypherVehicleSheet, {types: ['Vehicle'], makeDefault: false});
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
+    
+    //Pre-load HTML templates
+    preloadHandlebarsTemplates();
 });
+
+async function preloadHandlebarsTemplates() {
+    const templatePaths = [
+        "systems/cyphersystem/templates/equipment.html",
+        "systems/cyphersystem/templates/equipment-settings.html"
+    ];
+    return loadTemplates(templatePaths);
+}
 
 Hooks.once("ready", async function() {
     // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
@@ -416,11 +430,60 @@ function diceRollMacro(dice) {
     });
 }
 
-function recoveryRollMacro(recoveryRoll) {
-    let roll = new Roll(recoveryRoll).roll();
+function recoveryRollMacro(actor) {
+    if (actor && actor.data.type == "PC") {
+        let roll = new Roll(actor.data.data.recoveries.recoveryRoll).roll();
 
-    roll.toMessage({
-        speaker: ChatMessage.getSpeaker(),
-        flavor: "<b>Recovery Roll</b>"
-    });
+        roll.toMessage({
+            speaker: ChatMessage.getSpeaker(),
+            flavor: "<b>Recovery Roll</b>"
+        });
+    } else {
+        ui.notifications.warn(`This macro only applies to PCs.`)
+    }
+}
+
+function spendEffortMacro(actor) {
+    if (actor && actor.data.type == "PC") {
+        let d = new Dialog({
+            title: "Spend Effort",
+            content: "<b>Pool: </b><select name='pool' id='pool'><option value='Might'>Might</option><option value='Speed'>Speed</option><option value='Intellect'>Intellect</option></select>&nbsp;&nbsp;<b>Levels of Effort:</b> <input name='level' id='level' style='width: 50px;margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/>",
+            buttons: {
+                roll: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: "Apply",
+                    callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Cancel",
+                    callback: () => { }
+                }
+            },
+            default: "roll",
+            close: () => { }
+        });
+        d.render(true);
+        
+        function applyToPool(pool, level) {
+            if (pool == "Might") {
+                let effortValue = (level * 2) + 1 - actor.data.data.pools.mightEdge;
+                if (effortValue > actor.data.data.pools.might.value) return ui.notifications.notify(`You don’t have enough Might points.`);
+                let newMight = actor.data.data.pools.might.value - effortValue;
+                actor.update({"data.pools.might.value": newMight})
+            } else if (pool == "Speed") {
+                let effortValue = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) - actor.data.data.pools.speedEdge;
+                if (effortValue > actor.data.data.pools.speed.value) return ui.notifications.notify(`You don’t have enough Speed points.`);
+                let newSpeed = actor.data.data.pools.speed.value - effortValue;
+                actor.update({"data.pools.speed.value": newSpeed})
+            } else if (pool == "Intellect") {
+                let effortValue = (level * 2) + 1 - actor.data.data.pools.intellectEdge;
+                if (effortValue > actor.data.data.pools.intellect.value) return ui.notifications.notify(`You don’t have enough Intellect points.`);
+                let newintellect = actor.data.data.pools.intellect.value - effortValue;
+                actor.update({"data.pools.intellect.value": newintellect})
+            }
+        }
+    } else {
+        ui.notifications.warn(`This macro only applies to PCs.`)
+    }
 }
