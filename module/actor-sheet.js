@@ -10,7 +10,7 @@ export class CypherActorSheet extends ActorSheet {
             classes: ["cyphersystem", "sheet", "actor", "pc"],
             template: "systems/cyphersystem/templates/actor-sheet.html",
             width: 600,
-            height: 805,
+            height: 750,
             resizable: false,
             tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
             scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"],

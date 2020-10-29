@@ -10,7 +10,7 @@ export class CypherCompanionSheet extends ActorSheet {
             classes: ["cyphersystem", "sheet", "actor", "companion"],
             template: "systems/cyphersystem/templates/companion-sheet.html",
             width: 600,
-            height: 690,
+            height: 640,
             resizable: false,
             tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
             scrollY: [".sheet-body", ".tab", ".skills", ".biography"],
