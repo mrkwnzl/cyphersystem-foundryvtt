@@ -118,7 +118,7 @@ form.cyphersystem {
     right: 10px;
 }
 
-.pc {
+/*.pc {
   min-width: 600px;
   min-height: 805px;
 }
@@ -138,7 +138,7 @@ form.cyphersystem {
 .item-sheet {
   min-width: 520px;
   min-height: 610px;
-}
+}*/
 
 .flavor-text {
   line-height: 1.4;
@@ -211,7 +211,7 @@ form.cyphersystem {
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 400px;
+  height: 350px;
   overflow-y: auto;
 }
 
