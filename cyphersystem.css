@@ -9,8 +9,8 @@ form.cyphersystem {
   display: grid;
   grid-column: span 2 / span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
+  gap: 5px;
+  margin: 5px 0;
   padding: 0;
 }
 
@@ -229,7 +229,7 @@ form.cyphersystem {
   height: 35px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
-  margin-bottom: 0px;
+  margin: 5px 0 0 0;
   padding: 0px 5px 0px 19px;
 }
 
@@ -376,6 +376,10 @@ form.cyphersystem {
   margin-top: 2px;
   width: 100%;
   text-align: center;
+}
+
+.cyphersystem input[name="name"] {
+    font-weight: bold;
 }
 
 .cyphersystem input[type="checkbox"] {

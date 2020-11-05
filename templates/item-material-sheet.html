@@ -8,9 +8,25 @@
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                         &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="Number" placeholder="Level"/></div>
                     </div>
-                    <div class="resource-content flexrow flex-center" style="float: right; text-align: center;">
-                        Units:&nbsp;
-                        <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number" style="width: 50px"/>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Value</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.value" value="{{data.value}}" data-dtype="String"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Weight</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="String"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Units</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

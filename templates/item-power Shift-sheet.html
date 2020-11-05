@@ -7,9 +7,13 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="resource-content flexrow flex-center" style="float: right; text-align: center;">
-                        Shifts:&nbsp;
-                        <input name="data.powerShiftValue" type="text" value="{{data.powerShiftValue}}" data-dtype="Number" style="width: 50px"/>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Shifts</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input name="data.powerShiftValue" type="text" value="{{data.powerShiftValue}}" data-dtype="Number"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

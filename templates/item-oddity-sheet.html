@@ -7,6 +7,20 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Value</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.value" value="{{data.value}}" data-dtype="String"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Weight</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="String"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
