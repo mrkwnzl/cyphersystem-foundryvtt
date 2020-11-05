@@ -9,7 +9,7 @@ export class CypherItemSheet extends ItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["cyphersystem", "sheet", "item", "item-sheet"],
             template: "systems/cyphersystem/templates/item-sheet.html",
-            width: 520,
+            width: 550,
             height: 560,
             resizable: false,
             tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],

@@ -131,7 +131,8 @@
                 "basic": {
                     "name": "",
                     "descriptor": "",
-                    "notes": ""
+                    "notes": "",
+                    "image": "icons/actors/PC.svg"
                 },
                 "pools": {
                     "might": {
@@ -282,26 +283,25 @@
         "equipment": {
             "templates": ["core"],
             "quantity": 1,
-            "weight": 0
+            "weight": "",
+            "price": ""
         },
         "ammo": {
             "templates": ["core"],
             "quantity": 1,
-            "weight": 0
+            "weight": "",
+            "price": ""
         },
         "material": {
             "templates": ["core"],
             "quantity": 1,
-            "weight": 0
+            "weight": "",
+            "value": ""
         },
         "ability": {
             "templates": ["core"],
             "costPoints": 0,
-            "costPool": "Might",
-            "costMight": "Might",
-            "costSpeed": "Speed",
-            "costIntellect": "Intellect",
-            "costAny": "Pool"
+            "costPool": "Might"
         },
         "teen Ability": {
             "templates": ["core"],
@@ -326,7 +326,8 @@
             "speedCost": 0,
             "armorActive": true,
             "armorType": "light armor",
-            "notes": ""
+            "notes": "",
+            "price": ""
         },
         "teen Armor": {
             "templates": ["core"],
@@ -334,7 +335,8 @@
             "speedCost": 0,
             "armorActive": true,
             "armorType": "light armor",
-            "notes": ""
+            "notes": "",
+            "value": ""
         },
         "attack": {
             "templates": ["core"],
@@ -359,10 +361,8 @@
             "lastingDamageAmount": 0,
             "lastingDamageEffect": "",
             "lastingDamagePool": "Might",
-            "lastingDamageMight": "Might",
-            "lastingDamageSpeed": "Speed",
-            "lastingDamageIntellect": "Intellect",
-            "permanentDamage": false
+            "permanentDamage": false,
+            "damageType": "Lasting"
         },
         "teen lasting Damage": {
             "templates": ["core"],
@@ -380,16 +380,19 @@
         },
         "cypher": {
             "templates": ["core"],
-            "weight": 0
+            "weight": "",
+            "value": ""
         },
         "artifact": {
             "templates": ["core"],
             "depletion": "1 in d6",
-            "weight": 0
+            "weight": "",
+            "value": ""
         },
         "oddity": {
             "templates": ["core"],
-            "weight": 0
+            "weight": "",
+            "value": ""
         }
     }
 }

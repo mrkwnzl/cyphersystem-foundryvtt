@@ -7,16 +7,20 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="resource-content flexrow flex-center" style="float: right; text-align: center;">
-                        Rating:&nbsp;
-                        <select name="data.skillLevel">
-                            {{#select data.skillLevel}}
-                            <option value="Specialized">Specialized</option>
-                            <option value="Trained">Trained</option>
-                            <option value="Practiced">Practiced</option>
-                            <option value="Inability">Inability</option>
-                            {{/select}}
-                        </select>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Rating</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.skillLevel">
+                                    {{#select data.skillLevel}}
+                                    <option value="Specialized">Specialized</option>
+                                    <option value="Trained">Trained</option>
+                                    <option value="Practiced">Practiced</option>
+                                    <option value="Inability">Inability</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

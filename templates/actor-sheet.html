@@ -8,9 +8,9 @@
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
                         {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                        <input name="data.teen.basic.name" type="text" value="{{data.teen.basic.name}}" placeholder="Name" style="font-weight:bold"/>
+                        <input name="data.teen.basic.name" type="text" value="{{data.teen.basic.name}}" placeholder="Name"/>
                         {{else}}
-                        <input name="name" type="text" value="{{actor.name}}" placeholder="Name" style="font-weight:bold"/>
+                        <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
                         {{/if}}
                         {{#if (eq data.settings.gameMode.current "Unmasked")}}
                         &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><select name="data.settings.gameMode.currentSheet" style="width: 80px;">
@@ -214,7 +214,7 @@
             </header>
 
             {{!-- Sheet Tab Navigation --}}
-            <nav class="sheet-tabs tabs" data-group="primary">
+            <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0">
                 <a class="item" data-tab="skills" style="border-top: none;">Skills</a>
                 <a class="item" data-tab="combat" style="border-top: none;">Combat</a>
                 <a class="item" data-tab="abilities" style="border-top: none;">Abilities</a>
@@ -257,7 +257,7 @@
                                 </div>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                             </li>
@@ -274,7 +274,7 @@
                             </li>
                             {{#if data.showDescription}}
                             <li class="item-desc flexrow">
-                                <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                             </li>
                             {{/if}}
                             {{/each}}
@@ -304,7 +304,7 @@
                             </li>
                             {{#if data.showDescription}}
                             <li class="item-desc flexrow">
-                                <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                             </li>
                             {{/if}}
                             {{/each}}
@@ -399,7 +399,7 @@
                                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                                 {{#each actor.teenLastingDamage as |item id|}}
                                 <li class="item flexrow" data-item-id="{{item._id}}">
-                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if data.permanentDamage}}, permanent{{/if}})</a></h4>
+                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                                     <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                                     <div class="item-controls">
                                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -408,14 +408,14 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
                                 {{else}}
                                 {{#each actor.lastingDamage as |item id|}}
                                 <li class="item flexrow" data-item-id="{{item._id}}">
-                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if data.permanentDamage}}, permanent{{/if}})</a></h4>
+                                    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                                     <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                                     <div class="item-controls">
                                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -424,7 +424,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -458,7 +458,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -474,7 +474,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -503,7 +503,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -540,7 +540,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -558,7 +558,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -613,7 +613,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -641,7 +641,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -672,7 +672,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -699,7 +699,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -728,7 +728,7 @@
                                 </li>
                                 {{#if data.showDescription}}
                                 <li class="item-desc flexrow">
-                                    <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                                 </li>
                                 {{/if}}
                                 {{/each}}
@@ -762,7 +762,7 @@
                             </li>
                             {{#if data.showDescription}}
                             <li class="item-desc flexrow">
-                                <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                             </li>
                             {{/if}}
                             {{/each}}
@@ -777,7 +777,7 @@
                             </li>
                             {{#if data.showDescription}}
                             <li class="item-desc flexrow">
-                                <div class="description">{{#if (eq data.description "")}}<p>—</p>{{else}}{{{data.description}}}{{/if}}</div>
+                                <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                             </li>
                             {{/if}}
                             {{/each}}
