@@ -7,18 +7,26 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="resource-content flexrow flex-center" style="float: right; text-align: center;">
-                        &nbsp;&nbsp;Point Cost:&nbsp;
-                        <input type="text" name="data.costPoints" value="{{data.costPoints}}" data-dtype="String" style="width: 50px"/>
-                        &nbsp;&nbsp;Pool:&nbsp;
-                        <select name="data.costPool">
-                            {{#select data.costPool}}
-                            <option value="{{data.costMight}}">{{data.costMight}}</option>
-                            <option value="{{data.costSpeed}}">{{data.costSpeed}}</option>
-                            <option value="{{data.costIntellect}}">{{data.costIntellect}}</option>
-                            <option value="{{data.costAny}}">{{data.costAny}}</option>
-                            {{/select}}
-                        </select>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Point Cost</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.costPoints" value="{{data.costPoints}}" data-dtype="String"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Pool</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.costPool">
+                                    {{#select data.costPool}}
+                                    <option value="Might">Might</option>
+                                    <option value="Speed">Speed</option>
+                                    <option value="Intellect">Intellect</option>
+                                    <option value="Any">Any</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
