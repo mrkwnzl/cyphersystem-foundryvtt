@@ -7,23 +7,35 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="flexrow flex-center">
-                        Speed Cost:&nbsp;
-                        <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number" style="width: 50px"/>
-                        &nbsp;&nbsp;Armor Rating:&nbsp;
-                        <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number" style="width: 50px"/>
-                        &nbsp;&nbsp;Type:&nbsp;
-                        <select name="data.armorType">
-                            {{#select data.armorType}}
-                            <option value="light armor">light armor</option>
-                            <option value="medium armor">medium armor</option>
-                            <option value="heavy armor">heavy armor</option>
-                            <option value="artifact">artifact</option>
-                            <option value="special ability">special ability</option>
-                            {{/select}}
-                        </select>
+                    <div class="resources grid grid-3col" style="margin-bottom: 0">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Speed Cost</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Armor Rating</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Type</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.armorType">
+                                    {{#select data.armorType}}
+                                    <option value="light armor">light armor</option>
+                                    <option value="medium armor">medium armor</option>
+                                    <option value="heavy armor">heavy armor</option>
+                                    <option value="artifact">artifact</option>
+                                    <option value="special ability">special ability</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flexrow flex-center">
+                    <div class="resource flex-center">
                         <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
                     </div>
                 </div>

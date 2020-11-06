@@ -7,19 +7,36 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="resource-content flexrow flex-center">
-                        Damage Points:&nbsp;
-                        <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
-                        &nbsp;Pool:&nbsp;
-                        <select name="data.lastingDamagePool">
-                            {{#select data.lastingDamagePool}}
-                            <option value="{{data.lastingDamageMight}}">{{data.lastingDamageMight}}</option>
-                            <option value="{{data.lastingDamageSpeed}}">{{data.lastingDamageSpeed}}</option>
-                            <option value="{{data.lastingDamageIntellect}}">{{data.lastingDamageIntellect}}</option>
-                            {{/select}}
-                        </select>
-                        &nbsp;Permanent:&nbsp;
-                        <input type="checkbox" name="data.permanentDamage" data-dtype="boolean" {{checked data.permanentDamage}}>
+                    <div class="resources grid grid-3col">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Damage Points</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Pool</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.lastingDamagePool">
+                                    {{#select data.lastingDamagePool}}
+                                    <option value="Might">Might</option>
+                                    <option value="Speed">Speed</option>
+                                    <option value="Intellect">Intellect</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Damage Type</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.damageType">
+                                    {{#select data.damageType}}
+                                    <option value="Lasting">Lasting</option>
+                                    <option value="Permanent">Permanent</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

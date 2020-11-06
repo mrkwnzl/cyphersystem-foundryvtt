@@ -7,32 +7,40 @@
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
                     </div>
-                    <div class="resource-content flexrow flex-center">
-                        Damage:&nbsp;
-                        <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>&nbsp;
-                        Type:&nbsp;
-                        <select name="data.attackType">
-                            {{#select data.attackType}}
-                            <option value="light weapon">light weapon</option>
-                            <option value="medium weapon">medium weapon</option>
-                            <option value="heavy weapon">heavy weapon</option>
-                            <option value="artifact">artifact</option>
-                            <option value="special ability">special ability</option>
-                            {{/select}}
-                        </select>
+                    <div class="resources grid grid-3col" style="margin-bottom: 0">
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Damage</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>
+                            </div>
+                        </div>
+                        <div class="resource flex-center">
+                            <label class="resource-label-normal">Type</label>
+                            <div class="resource-content flexrow flex-center flex-between">
+                                <select name="data.attackType">
+                                    {{#select data.attackType}}
+                                    <option value="light weapon">light weapon</option>
+                                    <option value="medium weapon">medium weapon</option>
+                                    <option value="heavy weapon">heavy weapon</option>
+                                    <option value="artifact">artifact</option>
+                                    <option value="special ability">special ability</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="resource flexrow flex-between flex-center" >
+                            <label class="resource-label-normal">Modifier</label>
+                            <select name="data.modified">
+                                {{#select data.modified}}
+                                <option value="eased">eased by</option>
+                                <option value="hindered">hindered by</option>
+                                {{/select}}
+                            </select>
+                            <input type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number"/>
+                        </div>
                     </div>
-                    <div class="resource-content flexrow flex-center">
-                        <select name="data.modified">
-                            {{#select data.modified}}
-                            <option value="eased">eased</option>
-                            <option value="hindered">hindered</option>
-                            {{/select}}
-                        </select>
-                        &nbsp;by&nbsp;
-                        <input type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number"/>
-                        &nbsp;<input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="Range"  style="min-width: 50%"/>
-                    </div>
-                    <div class="resource-content flexrow flex-center">
+                    <div class="flexrow flex-between">
+                        <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="Range"/>&nbsp;
                         <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
                     </div>
                 </div>
