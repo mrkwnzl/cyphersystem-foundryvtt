@@ -277,7 +277,7 @@
             "core": {
                 "description": "",
                 "showDescription": false,
-                "level": 1
+                "level": ""
             }
         },
         "equipment": {
