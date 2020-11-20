@@ -1,0 +1,15 @@
+{{#each actor.teenSkillsSortedByRating as |item id|}}
+<li class="item flexrow" data-item-id="{{item._id}}">
+    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+    <div class="item-quantity" style="color: {{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}">{{data.skillLevel}}</div>
+    <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    </div>
+</li>
+{{#if data.showDescription}}
+<li class="item-desc flexrow">
+    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
+</li>
+{{/if}}
+{{/each}}

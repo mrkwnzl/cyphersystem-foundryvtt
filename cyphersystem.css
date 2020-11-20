@@ -1,116 +1,126 @@
 /* Global styles */
 
 form.cyphersystem {
-  height: 100%;
+    height: 100%;
 }
 
 .grid,
 .grid-2col {
-  display: grid;
-  grid-column: span 2 / span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5px;
-  margin: 5px 0;
-  padding: 0;
+    display: grid;
+    grid-column: span 2 / span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    margin: 5px 0;
+    padding: 0;
 }
 
 .grid-3col {
-  grid-column: span 3 / span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 3 / span 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-4col {
-  grid-column: span 4 / span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 4 / span 4;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-5col {
-  grid-column: span 5 / span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 5 / span 5;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .grid-6col {
-  grid-column: span 5 / span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 6 / span 6;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-7col {
-  grid-column: span 7 / span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 7 / span 7;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .grid-8col {
-  grid-column: span 8 / span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 8 / span 8;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-9col {
-  grid-column: span 9 / span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 9 / span 9;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 
 .grid-10col {
-  grid-column: span 10 / span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 10 / span 10;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .grid-11col {
-  grid-column: span 11 / span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 11 / span 11;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
 }
 
 .grid-12col {
-  grid-column: span 12 / span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 12 / span 12;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: center;
-  padding: 5px;
-  border: 1px solid #999;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #999;
 }
 
 .flex-group-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  text-align: left;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .flex-group-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  text-align: right;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .flex-center {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .flex-between {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
 }
 
 /*.app.sheet .editor-content {
-    height: 400px;
-    overflow-y: auto;
+height: 400px;
+overflow-y: auto;
 }*/
 
 .editor-edit {
@@ -119,263 +129,262 @@ form.cyphersystem {
 }
 
 /*.pc {
-  min-width: 600px;
-  min-height: 805px;
+min-width: 600px;
+min-height: 805px;
 }
 
 .community,
 .npc,
 .token {
-  min-width: 600px;
-  min-height: 610px;
+min-width: 600px;
+min-height: 610px;
 }
 
 .companion {
-  min-width: 600px;
-  min-height: 690px;
+min-width: 600px;
+min-height: 690px;
 }
 
 .item-sheet {
-  min-width: 520px;
-  min-height: 610px;
+min-width: 520px;
+min-height: 610px;
 }*/
 
 .flavor-text {
-  line-height: 1.4;
-  margin-bottom: 3px;
+    line-height: 1.4;
+    margin-bottom: 3px;
 }
 
 #entity-create > div:nth-child(2) > div > select {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .sheet-header {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 auto;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  margin-bottom: 0px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 210px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    margin-bottom: 0px;
 }
 
 .cyphersystem .sheet-header .profile-img {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  height: 120px;
-  width: 120px;
-  margin-right: 10px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #7a7971;
-  border-radius: 3px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100px;
+    flex: 0 0 100px;
+    height: 120px;
+    width: 120px;
+    margin-right: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #7a7971;
+    border-radius: 3px;
 }
 
 .cyphersystem .sheet-header .header-fields {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 }
 
 .cyphersystem .sheet-header h1.charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 0;
+    height: 50px;
+    padding: 0px;
+    margin: 5px 0;
+    border-bottom: 0;
 }
 
 .cyphersystem .sheet-header h1.charname input {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 .cyphersystem .sheet-tabs {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
+    -webkit-box-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
 }
 
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 350px;
-  overflow-y: auto;
+    height: 350px;
+    overflow-y: auto;
 }
 
 .cyphersystem .resource-label {
-  font-weight: bold;
-  /*text-transform: uppercase;*/
+    font-weight: bold;
+    /*text-transform: uppercase;*/
 }
 
 .cyphersystem .resource-label-normal {
-  /*font-weight: bold;*/
-  /*text-transform: uppercase;*/
+    /*font-weight: bold;*/
+    /*text-transform: uppercase;*/
 }
 
 .sheet nav.sheet-tabs {
-  height: 35px;
-  border-top: 1px solid #AAA;
-  border-bottom: 1px solid #AAA;
-  margin: 5px 0 0 0;
-  padding: 0px 5px 0px 19px;
+    height: 35px;
+    border-top: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
+    margin: 5px 0 0 0;
+    padding: 0px 5px 0px 19px;
 }
 
 .cyphersystem .tabs .item {
-  line-height: 35px;
-  font-weight: bold;
+    line-height: 35px;
+    font-weight: bold;
 }
 
 .cyphersystem .tabs .item.active {
-  text-decoration: underline;
-  text-shadow: none;
+    text-decoration: underline;
+    text-shadow: none;
 }
 
 .cyphersystem .items-list {
-  list-style: none;
-  margin: 7px 0;
-  padding: 0;
-  overflow-y: auto;
+    list-style: none;
+    margin: 7px 0;
+    padding: 0;
+    overflow-y: auto;
 }
 
 .cyphersystem .items-list .item-header {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .cyphersystem .items-list .item {
-  line-height: 1.4;
-  padding: 3px 5px;
-  /*border-bottom: 1px solid #BBB;*/
+    line-height: 1.4;
+    padding: 3px 5px;
+    /*border-bottom: 1px solid #BBB;*/
 }
 
 .cyphersystem .item~.item{
-  border-top: 1px solid #BBB;
+    border-top: 1px solid #BBB;
 }
 
 .cyphersystem .item:last-child {
-  border-bottom: 1px solid #BBB;
+    border-bottom: 1px solid #BBB;
 }
 
 .cyphersystem .item-desc:last-child {
-  border-bottom: 1px solid #BBB;
+    border-bottom: 1px solid #BBB;
 }
 
 .cyphersystem .items-list .item .item-image {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 24px;
-  flex: 0 0 24px;
-  margin-right: 5px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 24px;
+    flex: 0 0 24px;
+    margin-right: 5px;
 }
 
 .cyphersystem .items-list .item img {
-  display: block;
+    display: block;
 }
 
 .cyphersystem .items-list .item-name {
-  margin: 0;
-  line-height: 1.4;
-  padding-left: 12px;
-  text-indent: -12px;
+    margin: 0;
+    line-height: 1.4;
+    padding-left: 12px;
+    text-indent: -12px;
 }
 
 .cyphersystem .items-list .item-name p {
-  margin: 3px 0px;
-  line-height: 1.4;
-  font-size: 13px;
+    margin: 3px 0px;
+    line-height: 1.4;
+    font-size: 13px;
 }
 
 .cyphersystem .items-list .item-damage {
-  flex: 0;
-  margin-right: 10px;
-  margin-top: auto;
-  margin-bottom: auto;
+    flex: 0;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .cyphersystem .items-list .item-controls {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 45px;
-  flex: 0 0 45px;
-  text-align: right;
-/*  margin-top: auto;
-  margin-bottom: auto;*/
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 45px;
+    flex: 0 0 45px;
+    text-align: right;
+    /*  margin-top: auto;
+    margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-quantity {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 75px;
-  flex: 0 0 75px;
-  text-align: center;
-/*  margin-top: auto;
-  margin-bottom: auto;*/
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 75px;
+    flex: 0 0 75px;
+    text-align: center;
+    /*  margin-top: auto;
+    margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-right {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 80px;
-  flex: 0 0 80px;
-  text-align: right;
-  margin-top: auto;
-  margin-bottom: auto;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 80px;
+    flex: 0 0 80px;
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .cyphersystem .items-list .description {
-  text-align: left;
-  line-height: 1.4;
-  border-top-style: dashed;
-  border-color: rgba(187, 187, 187);
-  border-top-width: 1px;
-  padding-left: 17px;
+    text-align: left;
+    line-height: 1.4;
+    border-top-style: dashed;
+    border-color: rgba(187, 187, 187);
+    border-top-width: 1px;
+    padding-left: 17px;
 }  
 
 .cyphersystem .items-list .description p {
-  font-size: 13px;
-  border-style: none;
-  margin: 3px 0px;
+    font-size: 13px;
+    border-style: none;
+    margin: 3px 0px;
 }  
 
 .cyphersystem .items-list .item-skillLevel {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 80px;
-  flex: 0 0 80px;
-  text-align: center;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 80px;
+    flex: 0 0 80px;
+    text-align: center;
 }
 
 .cyphersystem .tox .tox-editor-container {
-  background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.centered-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.cyphersystem .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.item-settings {
-  height: 35px;
-  display: flex;
-  align-items: center;
+.cyphersystem .item-settings {
+    height: 35px;
+    align-items: center;
 }
 
 .cyphersystem input[type="text"],
 .cyphersystem input[type="password"],
 .cyphersystem input[type="datetime-local"] {
-  margin-bottom: 2px;
-  margin-top: 2px;
-  width: 100%;
-  text-align: center;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    width: 100%;
+    text-align: center;
 }
 
 .cyphersystem input[name="name"] {
@@ -383,50 +392,55 @@ form.cyphersystem {
 }
 
 .cyphersystem input[type="checkbox"] {
-  flex: 0 0 15px;
-  margin: auto 0px;
-  height: 13px;
-  width: 13px;
+    flex: 0 0 15px;
+    margin: auto 0px;
+    height: 13px;
+    width: 13px;
 }
 
 .cyphersystem select {
-  height: 26px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  font-family: "Signika", sans-serif;
-  font-size: 14px;
-  text-align-last: center;
+    height: 26px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-family: "Signika", sans-serif;
+    font-size: 14px;
+    text-align-last: center;
+    padding: 1px 3px;
 }
 
 .cyphersystem .item-angle {
-  width: 12px; 
-  text-align: center; 
-  padding-left: 9px;
-  padding-right: 3px;
+    width: 12px; 
+    text-align: center; 
+    padding-left: 9px;
+    padding-right: 3px;
 }
 
 .cyphersystem .number {
-  display: inline-block;
-  margin: auto;
-  min-width: 30px;
+    display: inline-block;
+    margin: auto;
+    min-width: 30px;
 }
 
 .cyphersystem .settings-list {
-  padding-left: 0px;
-  text-indent: 0px;
-  display: flex;
+    padding-left: 0px;
+    text-indent: 0px;
+    display: flex;
 }
 
 #chat-log .message .message-content p, ul, ol {
-  margin: 0;
+    margin: 0;
 }
 
 #chat-log .message .message-content blockquote {
-  margin: 0 0 0 10px;
-  padding: 0 0 0 10px;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 10px;
 }
 
 .cyphersystem .centered-fields {
-  margin-top: auto; 
-  margin-bottom: auto;
+    margin-top: auto; 
+    margin-bottom: auto;
+}
+
+.cyphersystem .auto-margin {
+    margin: auto !important;
 }

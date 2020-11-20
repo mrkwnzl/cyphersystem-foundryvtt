@@ -76,21 +76,11 @@
                             <a class="item-control item-create" title="Create item" data-type="skill"><i class="fas fa-plus"></i></a>
                         </div>
                     </li>
-                    {{#each actor.skills as |item id|}}
-                    <li class="item flexrow" data-item-id="{{item._id}}">
-                        <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
-                        <div class="item-quantity" style="color: {{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}">{{data.skillLevel}}</div>
-                        <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                        </div>
-                    </li>
-                    {{#if data.showDescription}}
-                    <li class="item-desc flexrow">
-                        <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
-                    </li>
+                    {{#if data.settings.skills.sortByRating}}
+                        {{> systems/cyphersystem/templates/skillsSortedByRating.html}}
+                    {{else}}
+                        {{> systems/cyphersystem/templates/skills.html}}
                     {{/if}}
-                    {{/each}}
                 </ol>
             </div>
 
@@ -132,6 +122,16 @@
         
         {{!-- Settings Tab --}}
         <div class="tab settings" data-group="primary" data-tab="settings">
+            <div class="flexrow">
+                <ol class="items-list">
+                    <li class="item flexrow item-header">
+                        <div class="item-name">Skills & Abilities Tab</div>
+                    </li>
+                    <li class="item flexrow item-settings">
+                        <div class="settings-list"><input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>&nbsp;Sort Skills by Rating</div>
+                    </li>
+                </ol>
+            </div>
             {{> systems/cyphersystem/templates/equipment-settings.html}}
         </div>
         

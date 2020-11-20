@@ -67,7 +67,11 @@ Hooks.once("init", async function() {
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "systems/cyphersystem/templates/equipment.html",
-        "systems/cyphersystem/templates/equipment-settings.html"
+        "systems/cyphersystem/templates/equipment-settings.html",
+        "systems/cyphersystem/templates/skills.html",
+        "systems/cyphersystem/templates/skillsSortedByRating.html",
+        "systems/cyphersystem/templates/teenSkills.html",
+        "systems/cyphersystem/templates/teenSkillsSortedByRating.html"
     ];
     return loadTemplates(templatePaths);
 }
@@ -486,4 +490,58 @@ function spendEffortMacro(actor) {
     } else {
         ui.notifications.warn(`This macro only applies to PCs.`)
     }
+}
+
+function allInOneRollMacro(actor) {
+    let content = `<b>Pool: </b>
+        <select name='pool' id='pool'>
+            <option value='Might'>Might</option>
+            <option value='Speed'>Speed</option>
+            <option value='Intellect'>Intellect</option>
+        </select><br>
+        <b>Skill Rating: </b>
+        <select name='skillRating' id='skillRating'>
+            <option value='2'>Specialized</option>
+            <option value='1'>Trained</option>
+            <option value='0'>Practiced</option>
+            <option value='-1'>Inability</option>
+        </select><br>
+        <b>Assets: </b>
+        <select name='assets' id='assets'>
+            <option value='0'>0</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+        </select><br>
+        <b>Levels of Effort: </b>
+        <select name='assets' id='assets'>
+            <option value='0'>0</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+        </select><br>
+        `;
+    let d = new Dialog({
+        title: "All in One Roll",
+        content: content,
+        buttons: {
+            roll: {
+                icon: '<i class="fas fa-check"></i>',
+                label: "Apply",
+                callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
+            },
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: "Cancel",
+                callback: () => { }
+            }
+        },
+        default: "roll",
+        close: () => { }
+    });
+    d.render(true);
+    
+    
 }

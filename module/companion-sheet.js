@@ -49,6 +49,7 @@ export class CypherCompanionSheet extends ActorSheet {
             // Initialize containers. Const, weil es ein container ist, dessen Inhalt veränderbar ist.
             const abilities = [];
             const skills = [];
+            const skillsSortedByRating = [];
             const equipment = [];
             const armor = [];
             const cyphers = [];
@@ -69,6 +70,7 @@ export class CypherCompanionSheet extends ActorSheet {
                 }
                 else if (i.type === 'skill') {
                     skills.push(i);
+                    skillsSortedByRating.push(i);
                 }
                 else if (i.type === 'equipment') {
                     equipment.push(i);
@@ -108,6 +110,7 @@ export class CypherCompanionSheet extends ActorSheet {
             
             abilities.sort(byNameAscending);
             skills.sort(byNameAscending);
+            skillsSortedByRating.sort(byNameAscending);
             equipment.sort(byNameAscending);
             armor.sort(byNameAscending);
             cyphers.sort(byNameAscending);
@@ -115,10 +118,37 @@ export class CypherCompanionSheet extends ActorSheet {
             oddities.sort(byNameAscending);
             materials.sort(byNameAscending);
             ammo.sort(byNameAscending);
+            
+            // sort skills
+            function bySkillRating(itemA, itemB) {
+                let ratingA;
+                let ratingB;
+                
+                if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
+                else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
+                else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
+                else if (itemA.data.skillLevel === 'Inability') {ratingA = 4}
+
+                if (itemB.data.skillLevel === 'Specialized') {ratingB = 1}
+                else if (itemB.data.skillLevel === 'Trained') {ratingB = 2}
+                else if (itemB.data.skillLevel === 'Practiced') {ratingB = 3}
+                else if (itemB.data.skillLevel === 'Inability') {ratingB = 4}
+
+                if (ratingA < ratingB) {
+                    return -1;
+                }
+                if (ratingA > ratingB) {
+                    return 1;
+                }
+                return 0;
+            }
+            
+            skillsSortedByRating.sort(bySkillRating);
 
             // Assign and return
             actorData.abilities = abilities;
             actorData.skills = skills;
+            actorData.skillsSortedByRating = skillsSortedByRating;
             actorData.equipment = equipment;
             actorData.armor = armor;
             actorData.cyphers = cyphers;
