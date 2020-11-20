@@ -98,8 +98,20 @@
                     },
                     "currency": {
                         "active": false,
+                        "namesHidden": false,
+                        "howMany": 1,
                         "name": "",
-                        "quantity": 0
+                        "name2": "",
+                        "name3": "",
+                        "name4": "",
+                        "name5": "",
+                        "name6": "",
+                        "quantity": 0,
+                        "quantity2": 0,
+                        "quantity3": 0,
+                        "quantity4": 0,
+                        "quantity5": 0,
+                        "quantity6": 0
                     },
                     "equipment": {
                         "cyphers": false,
@@ -112,7 +124,7 @@
                         "active": false,
                         "name": ""
                     },
-                    "gameMode":{
+                    "gameMode": {
                         "active": true,
                         "current": "Cypher System",
                         "cypher": "Cypher System",
@@ -120,6 +132,9 @@
                         "currentSheet": "Mask",
                         "maskForm": "Mask",
                         "teenForm": "Teen"
+                    },
+                    "skills": {
+                        "sortByRating": false
                     }
                 }
             }
@@ -251,6 +266,9 @@
                     "materials": false,
                     "ammo": false,
                     "armor": false
+                },
+                "skills": {
+                    "sortByRating": false
                 }
             }    
         },
@@ -316,7 +334,7 @@
             "templates": ["core"],
             "skillLevel": "Trained"
         },
-        "teen skill": {
+        "teen Skill": {
             "templates": ["core"],
             "skillLevel": "Trained"
         },

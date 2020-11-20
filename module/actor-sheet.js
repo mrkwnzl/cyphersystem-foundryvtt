@@ -50,6 +50,7 @@ export class CypherActorSheet extends ActorSheet {
             const equipment = [];
             const abilities = [];
             const skills = [];
+            const skillsSortedByRating = [];
             const attacks = [];
             const armor = [];
             const lastingDamage = [];
@@ -58,6 +59,7 @@ export class CypherActorSheet extends ActorSheet {
             const artifacts = [];
             const oddities = [];
             const teenSkills = [];
+            const teenSkillsSortedByRating = [];
             const teenAbilities = [];
             const teenAttacks = [];
             const teenArmor = [];
@@ -83,6 +85,7 @@ export class CypherActorSheet extends ActorSheet {
                 }
                 else if (i.type === 'skill') {
                     skills.push(i);
+                    skillsSortedByRating.push(i);
                 }
                 else if (i.type === 'attack') {
                     attacks.push(i);
@@ -107,6 +110,7 @@ export class CypherActorSheet extends ActorSheet {
                 }
                 else if (i.type === 'teen Skill') {
                     teenSkills.push(i);
+                    teenSkillsSortedByRating.push(i);
                 }
                 else if (i.type === 'teen Ability') {
                     teenAbilities.push(i);
@@ -141,6 +145,7 @@ export class CypherActorSheet extends ActorSheet {
             equipment.sort(byNameAscending);
             abilities.sort(byNameAscending);
             skills.sort(byNameAscending);
+            skillsSortedByRating.sort(byNameAscending);
             attacks.sort(byNameAscending);
             armor.sort(byNameAscending);
             lastingDamage.sort(byNameAscending);
@@ -149,12 +154,40 @@ export class CypherActorSheet extends ActorSheet {
             artifacts.sort(byNameAscending);
             oddities.sort(byNameAscending);
             teenSkills.sort(byNameAscending);
+            teenSkillsSortedByRating.sort(byNameAscending);
             teenAbilities.sort(byNameAscending);
             teenAttacks.sort(byNameAscending);
             teenArmor.sort(byNameAscending);
             teenLastingDamage.sort(byNameAscending);
             materials.sort(byNameAscending);
             ammo.sort(byNameAscending);
+            
+            // sort skills
+            function bySkillRating(itemA, itemB) {
+                let ratingA;
+                let ratingB;
+                
+                if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
+                else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
+                else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
+                else if (itemA.data.skillLevel === 'Inability') {ratingA = 4}
+
+                if (itemB.data.skillLevel === 'Specialized') {ratingB = 1}
+                else if (itemB.data.skillLevel === 'Trained') {ratingB = 2}
+                else if (itemB.data.skillLevel === 'Practiced') {ratingB = 3}
+                else if (itemB.data.skillLevel === 'Inability') {ratingB = 4}
+
+                if (ratingA < ratingB) {
+                    return -1;
+                }
+                if (ratingA > ratingB) {
+                    return 1;
+                }
+                return 0;
+            }
+            
+            skillsSortedByRating.sort(bySkillRating);
+            teenSkillsSortedByRating.sort(bySkillRating);
 
             // let, weil der Wert selbst verändert wird: const würde erwarten, dass er unverändert bleibt
             let armorTotal = 0;
@@ -184,6 +217,7 @@ export class CypherActorSheet extends ActorSheet {
             actorData.equipment = equipment;
             actorData.abilities = abilities;
             actorData.skills = skills;
+            actorData.skillsSortedByRating = skillsSortedByRating;
             actorData.attacks = attacks;
             actorData.armor = armor;
             actorData.lastingDamage = lastingDamage;
@@ -192,6 +226,7 @@ export class CypherActorSheet extends ActorSheet {
             actorData.artifacts = artifacts;
             actorData.oddities = oddities;
             actorData.teenSkills = teenSkills;
+            actorData.teenSkillsSortedByRating = teenSkillsSortedByRating;
             actorData.teenAbilities = teenAbilities;
             actorData.teenAttacks = teenAttacks;
             actorData.teenArmor = teenArmor;
