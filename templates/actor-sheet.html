@@ -39,7 +39,7 @@
                         {{#if data.settings.additionalSentence.active}}&nbsp;<input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}God of Dominion{{else}}{{data.settings.additionalSentence.name}}{{/if}}"/>{{/if}}
                     </div>
                     {{/unless}}
-            
+
                     <div class="resource-content flexrow flex-center" style="margin-top: 5px">
                         <div style="padding-left: 20px; display: flex; justify-content: center">
                             <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
                     use both the "grid" and "grid-Ncol" class where "N" can be any number
                     from 1 to 12 and will create that number of columns.  --}}
@@ -237,7 +237,7 @@
                         <ol class="items-list">
                             <li class="item flexrow item-header">
                                 <div class="item-name">Skills</div>
-                                <div class="item-quantity">Rating</div>
+                                <div class="item-quantity">Level</div>
                                 <div class="item-controls">
                                     {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                                     <a class="item-control item-create" title="Create item" data-type="teen Skill"><i class="fas fa-plus"></i></a>
@@ -261,7 +261,7 @@
                             {{/if}}
                         </ol>
                     </div>
-          
+
                     {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
                     {{#if data.settings.powerShifts.active}}
                     <div class="flexrow">
@@ -293,7 +293,7 @@
                     {{/if}}
                     {{/unless}}
                 </div>
-        
+
                 {{!-- Combat Tab --}}
                 <div class="tab combat" data-group="primary" data-tab="combat">
                     <div class="flexrow">
@@ -361,7 +361,7 @@
                                 </li>
                             </ol>
                         </div>
-          
+
                         {{#if data.settings.lastingDamage.active}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -412,7 +412,7 @@
                             </ol>
                         </div>
                         {{/if}}
-           
+
                         <div class="flexrow">
                             <ol class="items-list">
                                 <li class="item flexrow item-header">
@@ -461,7 +461,7 @@
                                 {{/if}}
                             </ol>
                         </div>
-                            
+
                         {{#if data.settings.ammo}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -490,7 +490,7 @@
                             </ol>
                         </div>
                         {{/if}}
-        
+
                         <div class="flexrow">
                             <ol class="items-list">
                                 <li class="item flexrow item-header">
@@ -561,7 +561,7 @@
 
                     {{!-- Owned Items Tab --}}
                     <div class="tab items" data-group="primary" data-tab="items">
-          
+
                         {{#if data.settings.currency.active}}
                         <div class="flexrow">
                             <!-- <ol class="items-list">
@@ -571,7 +571,7 @@
                                 </li>
                             </ol> -->
                             <div class="resources grid grid-6col" style="margin-bottom: 0px">
-                                
+
                                 {{#if (gte data.settings.currency.howMany 6)}}
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name6 "")}}Adamantine{{else}}{{data.settings.currency.name6}}{{/if}}</b></label>{{/unless}}
@@ -580,7 +580,7 @@
                                     </div>
                                 </div>
                                 {{else}}<div></div>{{/if}}
-                                
+
                                 {{#if (gte data.settings.currency.howMany 5)}}
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name5 "")}}Mithral{{else}}{{data.settings.currency.name5}}{{/if}}</b></label>{{/unless}}
@@ -589,7 +589,7 @@
                                     </div>
                                 </div>
                                 {{else}}<div></div>{{/if}}
-                                
+
                                 {{#if (gte data.settings.currency.howMany 4)}}
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name4 "")}}Platinum{{else}}{{data.settings.currency.name4}}{{/if}}</b></label>{{/unless}}
@@ -598,7 +598,7 @@
                                     </div>
                                 </div>
                                 {{else}}<div></div>{{/if}}
-                                
+
                                 {{#if (gte data.settings.currency.howMany 3)}}
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name3 "")}}Gold{{else}}{{data.settings.currency.name3}}{{/if}}</b></label>{{/unless}}
@@ -607,7 +607,7 @@
                                     </div>
                                 </div>
                                 {{else}}<div></div>{{/if}}
-                                
+
                                 {{#if (gte data.settings.currency.howMany 2)}}
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name2 "")}}Silver{{else}}{{data.settings.currency.name2}}{{/if}}</b></label>{{/unless}}
@@ -616,18 +616,18 @@
                                     </div>
                                 </div>
                                 {{else}}<div></div>{{/if}}
-                                
+
                                 <div class="resource flex-center">
                                     {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name "")}}{{#if (eq data.settings.currency.howMany "1")}}Shins{{/if}}{{#if (gte data.settings.currency.howMany 2)}}Copper{{/if}}{{else}}{{data.settings.currency.name}}{{/if}}</b></label>{{/unless}}
                                     <div class="resource-content flexrow flex-center flex-between">
                                         <input title="{{#if (eq data.settings.currency.name '')}}{{#if (eq data.settings.currency.howMany '1')}}Shins{{/if}}{{#if (gte data.settings.currency.howMany 2)}}Copper{{/if}}{{else}}{{data.settings.currency.name}}{{/if}}" type="text" name="data.settings.currency.quantity" value="{{data.settings.currency.quantity}}"/>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         {{/if}}
-          
+
                         <div class="flexrow">
                             <ol class="items-list">
                                 <li class="item flexrow item-header">
@@ -654,7 +654,7 @@
                                 {{/each}}
                             </ol>
                         </div>
-        
+
                         {{#if data.settings.equipment.cyphers}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -683,7 +683,7 @@
                             </ol>
                         </div>
                         {{/if}}
-          
+
                         {{#if data.settings.equipment.artifacts}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -714,7 +714,7 @@
                             </ol>
                         </div>
                         {{/if}}
-        
+
                         {{#if data.settings.equipment.oddities}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -741,7 +741,7 @@
                             </ol>
                         </div>
                         {{/if}}
-          
+
                         {{#if data.settings.equipment.materials}}
                         <div class="flexrow">
                             <ol class="items-list">
@@ -770,7 +770,7 @@
                             </ol>
                         </div>
                         {{/if}}
-          
+
                     </div>
 
                     {{!-- Owned Abilities Tab --}}
@@ -828,7 +828,7 @@
                                     <div class="item-name">General Settings</div>
                                 </li>
                                 <li class="item flexrow item-settings">
-                                    <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>&nbsp;Game Mode</div> 
+                                    <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>&nbsp;Game Mode</div>
                                     <div class="item-quantity"><select class="auto-margin" name="data.settings.gameMode.current" style="width: 135px">
                                         {{#select data.settings.gameMode.current}}
                                         <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
@@ -837,7 +837,7 @@
                                     </select></div>
                                 </li>
                                 <li class="item flexrow item-settings">
-                                    <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled>&nbsp;Bonus to Initiative Rolls</div> 
+                                    <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled>&nbsp;Bonus to Initiative Rolls</div>
                                     <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
                                 </li>
                                 <li class="item flexrow item-settings">
@@ -942,8 +942,8 @@
                                 </li>
                             </ol>
                         </div>
-          
+
                     </div>
-        
+
                 </section>
             </form>
