@@ -119,6 +119,6 @@ I used code snippets from [Simple Worldbuilding System](https://gitlab.com/found
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
-@Macaroons#6574 and @Junk Warlord#2894 on Discord provided me with valuable feedback and ideas. Thanks!
+@Macaroons#6574, @Junk Warlord#2894, and @Sharkey#2946 on Discord provided me with valuable feedback and ideas. Thanks!
 
 Icons from [game-icons.net](https://game-icons.net)
