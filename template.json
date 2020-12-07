@@ -189,7 +189,7 @@
             "biography": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
             "health": {
                 "value": 3,
-                "max": 3 
+                "max": 3
             },
             "level": 1,
             "damage": 1,
@@ -247,7 +247,7 @@
             "biography": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
             "health": {
                 "value": 8,
-                "max": 8 
+                "max": 8
             },
             "disposition": "",
             "category": "",
@@ -270,7 +270,7 @@
                 "skills": {
                     "sortByRating": false
                 }
-            }    
+            }
         },
         "Vehicle": {
             "biography": "",
@@ -398,11 +398,13 @@
         },
         "cypher": {
             "templates": ["core"],
+            "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p>",
             "weight": "",
             "value": ""
         },
         "artifact": {
             "templates": ["core"],
+            "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>",
             "depletion": "1 in d6",
             "weight": "",
             "value": ""

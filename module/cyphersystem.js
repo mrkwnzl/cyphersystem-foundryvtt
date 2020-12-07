@@ -1,9 +1,3 @@
-/**
-* A simple and flexible system for world-building using an arbitrary collection of character and item attributes
-* Author: Atropos
-* Software License: GNU GPLv3
-*/
-
 // Import Modules
 import { CypherActor } from "./actor.js";
 import { CypherItem } from "./item.js";
@@ -51,7 +45,7 @@ Hooks.once("init", async function() {
 
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: "Item Macros Use All-in-One Dialog",
-    hint: "With this setting, the item macros created by dragging an item to the macro bar uses the All-in-One roll macro instead of the quick roll macro.",
+    hint: "With this setting, the item macros created by dragging an item to the macro bar uses the All-in-One Roll macro instead of the Quick Roll macro.",
     scope: "world",
     type: Boolean,
     default: false,
@@ -297,6 +291,8 @@ function hinderedRollEffectiveMacro() {
 }
 
 function diceRollMacro(dice) {
+  if (dice.charAt(0) == "d") dice = "1" + dice;
+
   let roll = new Roll(dice).roll();
 
   roll.toMessage({
@@ -377,6 +373,7 @@ function payPoolPoints(actor, cost, pool){
 
   if (pool == "might") {
     let finalCost = cost - actor.data.data.pools.mightEdge;
+    if (finalCost < 0) finalCost = 0;
     if (finalCost > actor.data.data.pools.might.value) {
       ui.notifications.notify(`You don’t have enough Might points.`);
       return false;
@@ -385,6 +382,7 @@ function payPoolPoints(actor, cost, pool){
     actor.update({"data.pools.might.value": newMight})
   } else if (pool == "speed") {
     let finalCost = cost - actor.data.data.pools.speedEdge;
+    if (finalCost < 0) finalCost = 0;
     if (finalCost > actor.data.data.pools.speed.value) {
       ui.notifications.notify(`You don’t have enough Speed points.`);
       return false;
@@ -393,6 +391,7 @@ function payPoolPoints(actor, cost, pool){
     actor.update({"data.pools.speed.value": newSpeed})
   } else if (pool == "intellect") {
     let finalCost = cost - actor.data.data.pools.intellectEdge;
+    if (finalCost < 0) finalCost = 0;
     if (finalCost > actor.data.data.pools.intellect.value) {
       ui.notifications.notify(`You don’t have enough Intellect points.`);
       return false;
@@ -408,8 +407,6 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
   if (!actor || actor.data.type != "PC") {
     return ui.notifications.warn(`This macro only applies to PCs.`)
   }
-
-  if (title == "") title = pool + " Roll";
 
   let content = `<div align="center">
   <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Basic Modifiers</b></label><br>
@@ -520,7 +517,23 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 
     if (pool == "Speed") armorCost = parseInt(effort) * parseInt(actor.data.data.armor.speedCostTotal);
 
-    if (effort > 0) cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost);
+    let edge = 0;
+
+    if (pool == "Might") {
+      edge = actor.data.data.pools.mightEdge;
+    } else if (pool == "Speed") {
+      edge = actor.data.data.pools.speedEdge;
+    } else if (pool == "Intellect") {
+      edge = actor.data.data.pools.intellectEdge;
+    }
+
+    if (effort > 0) {
+      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) - edge;
+    } else {
+      cost = parseInt(additionalCost) - edge;
+    }
+
+    if (cost < 0) cost = 0;
 
     if (pool == "Might" && cost > actor.data.data.pools.might.value || pool == "Speed" && cost > actor.data.data.pools.speed.value || pool == "Intellect" && cost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
@@ -531,6 +544,8 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     if (additionalSteps == 1) steps = " step";
 
     if (cost == 1) points = " point";
+
+    if (title == "") title = pool + " Roll";
 
     let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Levels of Effort: " + effort + "<br>" + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
 
