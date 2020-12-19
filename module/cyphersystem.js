@@ -502,6 +502,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     let skillRating = "Practiced";
     let steps = " steps";
     let points = " points";
+    let rollEffort = "";
 
     if (skill == 2) skillRating = "Specialized";
     if (skill == 1) skillRating = "Trained";
@@ -547,7 +548,11 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 
     if (title == "") title = pool + " Roll";
 
-    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Levels of Effort: " + effort + "<br>" + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
+    if (effort1 == 1) rollEffort = " (roll eased by " + effort1 + " step)";
+
+    if (effort1 >= 2) rollEffort = " (roll eased by " + effort1 + " steps)";
+
+    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Levels of Effort: " + effort + rollEffort + "<br>" + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
 
     allInOneRollMacro(actor, title, info, cost, pool, modifier);
   }
