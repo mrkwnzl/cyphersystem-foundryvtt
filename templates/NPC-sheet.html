@@ -14,8 +14,8 @@
             <div class="resources grid grid-2col">
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                    <label for="data.health.value" class="resource-label" style="padding-left: 20px">Health</label>
-                    <div style="max-width: 20px"><a class="item-control reset-health" title="Reset Health"><i class="fas fa-sync-alt"></i></a></div>
+                  <label for="data.health.value" class="resource-label" style="padding-left: 20px">Health</label>
+                  <div style="max-width: 20px"><a class="item-control reset-health" title="Reset Health"><i class="fas fa-sync-alt"></i></a></div>
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
@@ -54,17 +54,27 @@
     <div class="tab biography" data-group="primary" data-tab="description">
       {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
     </div>
-    
+
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
-        {{> systems/cyphersystem/templates/equipment.html}}
+      {{> systems/cyphersystem/templates/equipment.html}}
     </div>
-    
+
     {{!-- Settings Tab --}}
     <div class="tab settings" data-group="primary" data-tab="settings">
-        {{> systems/cyphersystem/templates/equipment-settings.html}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">General Settings</div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" checked disabled>&nbsp;Bonus to Initiative</div>
+            <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
+          </li>
+        </ol>
+      </div>
+      {{> systems/cyphersystem/templates/equipment-settings.html}}
     </div>
-    
+
   </section>
 </form>
-

@@ -57,6 +57,7 @@ Hooks.once("init", async function() {
     formula: "1d20 + @settings.initiative.initiativeBonus",
     decimals: 2
   };
+  Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
 
   // Define custom Entity classes
   CONFIG.Actor.entityClass = CypherActor;
@@ -101,6 +102,18 @@ Hooks.on("preCreateItem", (itemData) => {
 Hooks.on("preCreateOwnedItem", (actor, itemData) => {
   if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
 });
+
+const _getInitiativeFormula = function(combatant) {
+  if (combatant.actor.data.type == "PC") {
+    return "1d20 + @settings.initiative.initiativeBonus";
+  } else if (combatant.actor.data.type == "NPC" || combatant.actor.data.type == "Companion") {
+    return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus";
+  } else if (combatant.actor.data.type == "Community") {
+    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
+  } else {
+    return String(combatant.actor.data.data.level * 3);
+  }
+}
 
 /**
 * Set default values for new actors' tokens
