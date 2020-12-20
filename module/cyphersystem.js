@@ -150,6 +150,20 @@ Hooks.on("preCreateActor", (actorData) => {
   })
 })
 
+Hooks.on("updateCombat", function() {
+    let combatant = game.combat.combatant;
+
+    if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
+        let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+        let newQuantity = token.actor.data.data.quantity.value - 1;
+        token.update({"actorData.data.quantity.value": newQuantity});
+    } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
+        let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+        let newQuantity = token.actor.data.data.quantity.value + 1;
+        token.update({"actorData.data.quantity.value": newQuantity});
+      }
+});
+
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */

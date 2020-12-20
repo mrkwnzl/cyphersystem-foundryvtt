@@ -214,7 +214,11 @@
                 "value": 0,
                 "max": 0
             },
-            "level": "0"
+            "level": "0",
+            "settings": {
+              "isCounter": true,
+              "counting": "down"
+            }
         },
         "Community": {
             "biography": "<p><strong>Government:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p>",
