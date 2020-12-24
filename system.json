@@ -16,6 +16,20 @@
       "system": "cyphersystem",
       "path": "packs/macros.db",
       "entity": "Macro"
+    },
+    {
+      "name": "marker",
+      "label": "Cypher System Markers",
+      "system": "cyphersystem",
+      "path": "packs/markers.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "scenes",
+      "label": "Cypher System Scenes",
+      "system": "cyphersystem",
+      "path": "packs/scenes.db",
+      "entity": "Scene"
     }
   ],
   "languages": [],
