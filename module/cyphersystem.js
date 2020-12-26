@@ -57,6 +57,7 @@ Hooks.once("init", async function() {
     formula: "1d20 + @settings.initiative.initiativeBonus",
     decimals: 2
   };
+  Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
 
   // Define custom Entity classes
   CONFIG.Actor.entityClass = CypherActor;
@@ -84,7 +85,9 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/skills.html",
     "systems/cyphersystem/templates/skillsSortedByRating.html",
     "systems/cyphersystem/templates/teenSkills.html",
-    "systems/cyphersystem/templates/teenSkillsSortedByRating.html"
+    "systems/cyphersystem/templates/teenSkillsSortedByRating.html",
+    "systems/cyphersystem/templates/currenciesUpToThree.html",
+    "systems/cyphersystem/templates/currenciesUpToSix.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -101,6 +104,18 @@ Hooks.on("preCreateItem", (itemData) => {
 Hooks.on("preCreateOwnedItem", (actor, itemData) => {
   if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
 });
+
+const _getInitiativeFormula = function(combatant) {
+  if (combatant.actor.data.type == "PC") {
+    return "1d20 + @settings.initiative.initiativeBonus";
+  } else if (combatant.actor.data.type == "NPC" || combatant.actor.data.type == "Companion") {
+    return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus";
+  } else if (combatant.actor.data.type == "Community") {
+    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
+  } else {
+    return String(combatant.actor.data.data.level * 3);
+  }
+}
 
 /**
 * Set default values for new actors' tokens
@@ -137,6 +152,20 @@ Hooks.on("preCreateActor", (actorData) => {
   })
 })
 
+Hooks.on("updateCombat", function() {
+  let combatant = game.combat.combatant;
+
+  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
+    let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+    let newQuantity = token.actor.data.data.quantity.value - 1;
+    token.update({"actorData.data.quantity.value": newQuantity});
+  } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
+    let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+    let newQuantity = token.actor.data.data.quantity.value + 1;
+    token.update({"actorData.data.quantity.value": newQuantity});
+  }
+});
+
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -154,7 +183,58 @@ async function createCyphersystemMacro(data, slot) {
   const item = data.data;
 
   // Create the macro command
-  const command = `game.cyphersystem.itemRollMacro(actor, "${item._id}");`;
+  const command = `// Change the defaults for the macro dialog.
+// Depending on the item type, some defaults cannot be changed.
+// Change the values after the equal sign.
+// Keep the quotation marks where there are any.
+
+// What Pool is used to pay the cost?
+// Might, Speed, or Intellect?
+// Cannot be changed for Abilities.
+let pool = "Might";
+
+// What is the skill level?
+// Inability, Practiced, Trained, or Specialized?
+// Cannot be changed for Skills and Attacks.
+let skill = "Practiced";
+
+// How many assets do you have?
+// 0, 1, or 2?
+let assets = 0;
+
+// How many levels of Effort to ease the task?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortTask = 0;
+
+// How many levels of Effort for other uses?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortOther = 0;
+
+// How many steps is the roll eased or hindered (excl. Effort)?
+// Eased: positive value. Hindered: negative value.
+// Cannot be changed for Attacks and Power Shifts.
+let modifier = 0;
+
+// How many additional Pool points does it cost (excl. Effort)?
+// Cannot be changed for Abilities.
+let poolPointCost = 0;
+
+// How much damage?
+// Cannot be changed for Attacks.
+let damage = 0;
+
+// How many levels of Effort for extra damage?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortDamage = 0;
+
+// How much extra damage per level of Effort?
+// Generally, this is 3.
+// Area attacks usually only deal 2 points of damage per level.
+let damagePerLevel = 3;
+
+
+// Do not change anything below
+game.cyphersystem.itemRollMacro(actor, "${item._id}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel);`;
   let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
     macro = await Macro.create({
@@ -243,7 +323,7 @@ function easedRollMacro() {
     <input style='width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
     buttons: {
       roll: {
-        icon: '<i class="fas fa-check"></i>',
+        icon: '<i class="fas fa-dice-d20"></i>',
         label: "Roll",
         callback: (html) => diceRoller("Stat Roll", "", html.find('input').val(), 0)
       },
@@ -266,7 +346,7 @@ function hinderedRollMacro() {
     <input style='width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
     buttons: {
       roll: {
-        icon: '<i class="fas fa-check"></i>',
+        icon: '<i class="fas fa-dice-d20"></i>',
         label: "Roll",
         callback: (html) => diceRoller("Stat Roll", "", html.find('input').val()*-1, 0)
       },
@@ -315,6 +395,8 @@ function recoveryRollMacro(actor) {
 }
 
 function spendEffortMacro(actor) {
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs can’t spend Effort.`)
+
   if (actor && actor.data.type == "PC") {
     let d = new Dialog({
       title: "Spend Effort",
@@ -345,11 +427,14 @@ function spendEffortMacro(actor) {
 
     function applyToPool(pool, level) {
       let cost;
+      let impaired = 0;
+
+      if (actor.data.data.damage.damageTrack == "Impaired") impaired = level;
 
       if (pool == "Might" || pool == "Intellect") {
-        cost = (level * 2) + 1;
+        cost = (level * 2) + 1 + parseInt(impaired);
       } else if (pool == "Speed") {
-        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal)
+        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(impaired);
       }
 
       payPoolPoints(actor, cost, pool);
@@ -363,6 +448,8 @@ function allInOneRollMacro(actor, title, info, cost, pool, modifier) {
   if (!actor || actor.data.type != "PC") {
     return ui.notifications.warn(`This macro only applies to PCs.`)
   }
+
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs may not take actions.`)
 
   const pointsPaid = payPoolPoints(actor, cost, pool);
   if (pointsPaid == true) diceRoller(title, info, modifier);
@@ -403,85 +490,26 @@ function payPoolPoints(actor, cost, pool){
   return true;
 }
 
-function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title) {
+function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
   if (!actor || actor.data.type != "PC") {
     return ui.notifications.warn(`This macro only applies to PCs.`)
   }
 
-  let content = `<div align="center">
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Basic Modifiers</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Pool:</label>
-  <select name='pool' id='pool' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value='Might' ${(pool == "Might" ? "selected" : "")}>Might</option>
-  <option value='Speed' ${(pool == "Speed" ? "selected" : "")}>Speed</option>
-  <option value='Intellect' ${(pool == "Intellect" ? "selected" : "")}>Intellect</option>
-  </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Skill level:</label>
-  <select name='skill' id='skill' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  {{#select skill}}
-  <option value=-1 ${(skill == "Inability" ? "selected" : "")}>Inability</option>
-  <option value=0 ${(skill == "Practiced" ? "selected" : "")}>Practiced</option>
-  <option value=1 ${(skill == "Trained" ? "selected" : "")}>Trained</option>
-  <option value=2 ${(skill == "Specialized" ? "selected" : "")}>Specialized</option>
-  {{/select}}
-  </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Assets:</label>
-  <select name='assets' id='assets' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(assets == 0 ? "selected" : "")}>0</option>
-  <option value=1 ${(assets == 1 ? "selected" : "")}>1</option>
-  <option value=2 ${(assets == 2 ? "selected" : "")}>2</option>
-  </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Levels of Effort (ease task):</label>
-  <select name='effort1' id='effort1' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort1 == 0 ? "selected" : "")}>0</option>
-  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1</option>
-  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2</option>
-  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3</option>
-  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4</option>
-  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5</option>
-  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6</option>
-  </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Levels of Effort (other uses):</label>
-  <select name='effort2' id='effort2' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort2 == 0 ? "selected" : "")}>0</option>
-  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1</option>
-  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2</option>
-  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3</option>
-  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4</option>
-  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5</option>
-  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6</option>
-  </select><br>
-  <hr>
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Additional Modifiers</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Difficulty:</label>
-  <select name='stepModifier' id='stepModifier' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>eased by</option>
-  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>hindered by</option>
-  </select>
-  <input name='additionalSteps' id='additionalSteps' type='number' value=${additionalSteps} style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Pool point cost:</label>
-  <input name='additionalCost' id='additionalCost' type='number' value=${additionalCost} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
-  <hr>
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Character Info</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Effort:</label>
-  <input name='effort' id='effort' type='number' value=${actor.data.data.basic.effort} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Might Pool (Edge):</label>
-  <input name='might' id='might' type='text' value='${actor.data.data.pools.might.value}/${actor.data.data.pools.might.max} (${actor.data.data.pools.mightEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Speed Pool (Edge):</label>
-  <input name='speed' id='speed' type='text' value='${actor.data.data.pools.speed.value}/${actor.data.data.pools.speed.max} (${actor.data.data.pools.speedEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Intellect Pool (Edge):</label>
-  <input name='intellect' id='intellect' type='text' value='${actor.data.data.pools.intellect.value}/${actor.data.data.pools.intellect.max} (${actor.data.data.pools.intellectEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  </div>
-  `;
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs may not take actions.`)
+
+  if (!damage) damage = 0;
+  if (!damagePerLOE) damagePerLOE = 3;
 
   let d = new Dialog({
     title: "All-in-One Roll",
-    content: content,
+    content: createContent(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE),
     buttons: {
       roll: {
-        icon: '<i class="fas fa-check"></i>',
-        label: "Apply",
-        callback: (html) => applyToMacro(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title)
+        icon: '<i class="fas fa-dice-d20"></i>',
+        label: "Roll",
+        callback: (html) => {
+          applyToMacro(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val());
+        }
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -494,15 +522,20 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
   });
   d.render(true);
 
-  function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title) {
+  function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
     let cost = parseInt(additionalCost);
-    let effort = parseInt(effort1) + parseInt(effort2);
+    let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
     if (stepModifier == "hindered") additionalSteps = parseInt(additionalSteps) * -1;
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
     let skillRating = "Practiced";
     let steps = " steps";
     let points = " points";
-    let rollEffort = "";
+    let rollEffort = " levels";
+    let otherEffort = " levels";
+    let damageEffortLevel = " levels";
+    let attackModifier = "";
+    let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
+    let totalDamage = parseInt(damage) + parseInt(damageEffort);
 
     if (skill == 2) skillRating = "Specialized";
     if (skill == 1) skillRating = "Trained";
@@ -528,8 +561,12 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
       edge = actor.data.data.pools.intellectEdge;
     }
 
+    let impaired = 0;
+
+    if (actor.data.data.damage.damageTrack == "Impaired") impaired = effort;
+
     if (effort > 0) {
-      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) - edge;
+      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) - edge + parseInt(impaired);
     } else {
       cost = parseInt(additionalCost) - edge;
     }
@@ -548,14 +585,107 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 
     if (title == "") title = pool + " Roll";
 
-    if (effort1 == 1) rollEffort = " (roll eased by " + effort1 + " step)";
+    if (effort1 == 1) rollEffort = " level";
 
-    if (effort1 >= 2) rollEffort = " (roll eased by " + effort1 + " steps)";
+    if (effort2 == 1) otherEffort = " level";
 
-    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Levels of Effort: " + effort + rollEffort + "<br>" + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
+    if (damageEffort == 1) damageEffortLevel = " level";
+
+    if (damage != 0 || effort3 != 0) {
+      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>Effort for extra damage: " + effort3 + damageEffortLevel + "<br>Damage: " + totalDamage + " (" + damage + "+" + damageEffort + ")" + "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
+    } else {
+      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>"
+    }
+
+    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Effort to ease task: " + effort1 + rollEffort + "<br>" + "Effort for other uses: " + effort2 + otherEffort + attackModifier + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
 
     allInOneRollMacro(actor, title, info, cost, pool, modifier);
   }
+}
+
+function createContent(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
+  let content = `<div align="center">
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Basic Modifiers</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Pool:</label>
+  <select name='pool' id='pool' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value='Might' ${(pool == "Might" ? "selected" : "")}>Might</option>
+  <option value='Speed' ${(pool == "Speed" ? "selected" : "")}>Speed</option>
+  <option value='Intellect' ${(pool == "Intellect" ? "selected" : "")}>Intellect</option>
+  </select><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Skill level:</label>
+  <select name='skill' id='skill' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  {{#select skill}}
+  <option value=-1 ${(skill == "Inability" ? "selected" : "")}>Inability</option>
+  <option value=0 ${(skill == "Practiced" ? "selected" : "")}>Practiced</option>
+  <option value=1 ${(skill == "Trained" ? "selected" : "")}>Trained</option>
+  <option value=2 ${(skill == "Specialized" ? "selected" : "")}>Specialized</option>
+  {{/select}}
+  </select><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Assets:</label>
+  <select name='assets' id='assets' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value=0 ${(assets == 0 ? "selected" : "")}>0</option>
+  <option value=1 ${(assets == 1 ? "selected" : "")}>1</option>
+  <option value=2 ${(assets == 2 ? "selected" : "")}>2</option>
+  </select><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Effort to ease the task:</label>
+  <select name='effort1' id='effort1' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value=0 ${(effort1 == 0 ? "selected" : "")}>None</option>
+  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 level</option>
+  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 levels</option>
+  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 levels</option>
+  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 levels</option>
+  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 levels</option>
+  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 levels</option>
+  </select><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Effort for other uses:</label>
+  <select name='effort2' id='effort2' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value=0 ${(effort2 == 0 ? "selected" : "")}>None</option>
+  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1 level</option>
+  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2 levels</option>
+  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3 levels</option>
+  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4 levels</option>
+  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 levels</option>
+  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 levels</option>
+  </select><br>
+  <hr>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Attack Modifiers</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Damage:</label>
+  <input name='damage' id='damage' type='number' value=${damage} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Effort for extra damage:</label>
+  <select name='effort3' id='effort3' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value=0 ${(effort1 == 0 ? "selected" : "")}>None</option>
+  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 level</option>
+  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 levels</option>
+  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 levels</option>
+  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 levels</option>
+  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 levels</option>
+  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 levels</option>
+  </select><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Damage per level of Effort:</label>
+  <input name='damagePerLOE' id='damagePerLOE' type='number' value=${damagePerLOE} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
+  <hr>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Additional Modifiers</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Difficulty:</label>
+  <select name='stepModifier' id='stepModifier' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>eased by</option>
+  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>hindered by</option>
+  </select>
+  <input name='additionalSteps' id='additionalSteps' type='number' value=${additionalSteps} style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Pool point cost:</label>
+  <input name='additionalCost' id='additionalCost' type='number' value=${additionalCost} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
+  <hr>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Character Info</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Effort:</label>
+  <input name='effort' id='effort' type='number' value=${actor.data.data.basic.effort} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Might Pool (Edge):</label>
+  <input name='might' id='might' type='text' value='${actor.data.data.pools.might.value}/${actor.data.data.pools.might.max} (${actor.data.data.pools.mightEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Speed Pool (Edge):</label>
+  <input name='speed' id='speed' type='text' value='${actor.data.data.pools.speed.value}/${actor.data.data.pools.speed.max} (${actor.data.data.pools.speedEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>Intellect Pool (Edge):</label>
+  <input name='intellect' id='intellect' type='text' value='${actor.data.data.pools.intellect.value}/${actor.data.data.pools.intellect.max} (${actor.data.data.pools.intellectEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
+  </div>
+  `;
+  return content;
 }
 
 function titleCase (phrase) {
@@ -568,8 +698,9 @@ function titleCase (phrase) {
   return words.join(" ");
 }
 
-function itemRollMacro (actor, itemID) {
+function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE) {
   const owner = game.actors.find(actor => actor.items.get(itemID));
+  let pointsPaid = true;
 
   if (!actor || actor.data.type != "PC") {
     return ui.notifications.warn(`This macro can only be used by ${owner.name}.`)
@@ -582,14 +713,18 @@ function itemRollMacro (actor, itemID) {
   }
 
   if (game.settings.get("cyphersystem", "itemMacrosUseAllInOne")) {
-    let pool = "Might";
-    let skill = "Practiced";
-    let assets = 0;
-    let effort1 = 0;
-    let effort2 = 0;
-    let additionalCost = 0;
-    let additionalSteps = 0;
-    let stepModifier = "eased";
+    if (!skill) skill = "Practiced";
+    if (!assets) assets = 0;
+    if (!effort1) effort1 = 0;
+    if (!effort2) effort2 = 0;
+    if (!effort3) effort3 = 0;
+    if (!additionalCost) additionalCost = 0;
+    if (!additionalSteps) additionalSteps = 0;
+    if (!damage) damage = 0;
+    if (!pool) pool = "Might";
+    if (!damagePerLOE) damagePerLOE = 3;
+
+    let stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
 
     if (item.type == "skill" || item.type == "teen Skill") {
       skill = item.data.data.skillLevel;
@@ -600,8 +735,10 @@ function itemRollMacro (actor, itemID) {
     }
 
     if (item.type == "attack" || item.type == "teen Attack") {
+      skill = "Practiced";
       additionalSteps = item.data.data.modifiedBy;
       stepModifier = item.data.data.modified;
+      damage = item.data.data.damage;
     }
 
     if (item.type == "ability" || item.type == "teen Ability") {
@@ -614,7 +751,8 @@ function itemRollMacro (actor, itemID) {
         additionalCost = parseInt(cost);
       }
     }
-    allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, item.name)
+
+    allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, item.name, damage, effort3, damagePerLOE)
   } else {
     itemRollMacroQuick(actor, itemID);
   }
@@ -626,6 +764,7 @@ function itemRollMacroQuick (actor, itemID) {
 
   let info = "";
   let modifier = 0;
+  let pointsPaid = true;
 
   if (item.type == "skill" || item.type == "teen Skill") {
     info = titleCase(item.type) + ". Level: " + item.data.data.skillLevel;
@@ -658,6 +797,7 @@ function itemRollMacroQuick (actor, itemID) {
       cost = ". Cost: " + item.data.data.costPoints + " " + item.data.data.costPool + points;
     }
     info = titleCase(item.type) + cost
+    pointsPaid = payPoolPoints(actor, item.data.data.costPoints, item.data.data.costPool)
   } else if (item.type == "cypher") {
     let level = "";
     if (item.data.data.level != "") level = " Level: " + item.data.data.level;
@@ -670,5 +810,7 @@ function itemRollMacroQuick (actor, itemID) {
     info = titleCase(item.type)
   }
 
-  diceRoller(item.name, info, modifier, 0);
+  if (pointsPaid == true) {
+    diceRoller(item.name, info, modifier, 0);
+  }
 }

@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "Cypher System for Foundry VTT with minimal automation for maximum flexibility.",
-  "version": "1.8.3",
+  "version": "1.9.0",
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.7.9",
   "templateVersion": 2,
@@ -16,6 +16,20 @@
       "system": "cyphersystem",
       "path": "packs/macros.db",
       "entity": "Macro"
+    },
+    {
+      "name": "marker",
+      "label": "Cypher System Markers",
+      "system": "cyphersystem",
+      "path": "packs/markers.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "scenes",
+      "label": "Cypher System Scenes",
+      "system": "cyphersystem",
+      "path": "packs/scenes.db",
+      "entity": "Scene"
     }
   ],
   "languages": [],
@@ -23,6 +37,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.8.3/cyphersystem-foundryvtt-v1.8.3.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.9.0/cyphersystem-foundryvtt-v1.9.0.zip",
   "license": "LICENSE.txt"
 }
