@@ -85,7 +85,9 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/skills.html",
     "systems/cyphersystem/templates/skillsSortedByRating.html",
     "systems/cyphersystem/templates/teenSkills.html",
-    "systems/cyphersystem/templates/teenSkillsSortedByRating.html"
+    "systems/cyphersystem/templates/teenSkillsSortedByRating.html",
+    "systems/cyphersystem/templates/currenciesUpToThree.html",
+    "systems/cyphersystem/templates/currenciesUpToSix.html"
   ];
   return loadTemplates(templatePaths);
 }
