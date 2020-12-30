@@ -743,7 +743,8 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
 
     if (item.type == "ability" || item.type == "teen Ability") {
       pool = item.data.data.costPool;
-      if (item.data.data.costPoints.slice(-1) == "+") {
+      let checkPlus = item.data.data.costPoints.slice(-1)
+      if (checkPlus == "+") {
         let cost = item.data.data.costPoints.slice(0, -1);
         additionalCost = parseInt(cost);
       } else {
