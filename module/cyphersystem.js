@@ -431,10 +431,12 @@ function spendEffortMacro(actor) {
 
       if (actor.data.data.damage.damageTrack == "Impaired") impaired = level;
 
-      if (pool == "Might" || pool == "Intellect") {
-        cost = (level * 2) + 1 + parseInt(impaired);
+      if (pool == "Might") {
+        cost = (level * 2) + 1 + parseInt(impaired) - actor.data.data.pools.mightEdge;
+      } else if (pool == "Intellect") {
+        cost = (level * 2) + 1 + parseInt(impaired) - actor.data.data.pools.intellectEdge;
       } else if (pool == "Speed") {
-        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(impaired);
+        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(impaired) - actor.data.data.pools.speedEdge;
       }
 
       payPoolPoints(actor, cost, pool);
@@ -459,31 +461,28 @@ function payPoolPoints(actor, cost, pool){
   pool = pool.toLowerCase();
 
   if (pool == "might") {
-    let finalCost = cost - actor.data.data.pools.mightEdge;
-    if (finalCost < 0) finalCost = 0;
-    if (finalCost > actor.data.data.pools.might.value) {
+    if (cost < 0) cost = 0;
+    if (cost > actor.data.data.pools.might.value) {
       ui.notifications.notify(`You don’t have enough Might points.`);
       return false;
     }
-    let newMight = actor.data.data.pools.might.value - finalCost;
+    let newMight = actor.data.data.pools.might.value - cost;
     actor.update({"data.pools.might.value": newMight})
   } else if (pool == "speed") {
-    let finalCost = cost - actor.data.data.pools.speedEdge;
-    if (finalCost < 0) finalCost = 0;
-    if (finalCost > actor.data.data.pools.speed.value) {
+    if (cost < 0) cost = 0;
+    if (cost > actor.data.data.pools.speed.value) {
       ui.notifications.notify(`You don’t have enough Speed points.`);
       return false;
     }
-    let newSpeed = actor.data.data.pools.speed.value - finalCost;
+    let newSpeed = actor.data.data.pools.speed.value - cost;
     actor.update({"data.pools.speed.value": newSpeed})
   } else if (pool == "intellect") {
-    let finalCost = cost - actor.data.data.pools.intellectEdge;
-    if (finalCost < 0) finalCost = 0;
-    if (finalCost > actor.data.data.pools.intellect.value) {
+    if (cost < 0) cost = 0;
+    if (cost > actor.data.data.pools.intellect.value) {
       ui.notifications.notify(`You don’t have enough Intellect points.`);
       return false;
     }
-    let newIntellect = actor.data.data.pools.intellect.value - finalCost;
+    let newIntellect = actor.data.data.pools.intellect.value - cost;
     actor.update({"data.pools.intellect.value": newIntellect})
   }
 
