@@ -652,13 +652,13 @@ function createContent(actor, pool, skill, assets, effort1, effort2, additionalC
   <input name='damage' id='damage' type='number' value=${damage} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
   <label style='display: inline-block; width: 170px; text-align: right'>Effort for extra damage:</label>
   <select name='effort3' id='effort3' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort1 == 0 ? "selected" : "")}>None</option>
-  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 level</option>
-  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 levels</option>
-  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 levels</option>
-  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 levels</option>
-  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 levels</option>
-  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 levels</option>
+  <option value=0 ${(effort3 == 0 ? "selected" : "")}>None</option>
+  <option value=1 ${(effort3 == 1 ? "selected" : "")}>1 level</option>
+  <option value=2 ${(effort3 == 2 ? "selected" : "")}>2 levels</option>
+  <option value=3 ${(effort3 == 3 ? "selected" : "")}>3 levels</option>
+  <option value=4 ${(effort3 == 4 ? "selected" : "")}>4 levels</option>
+  <option value=5 ${(effort3 == 5 ? "selected" : "")}>5 levels</option>
+  <option value=6 ${(effort3 == 6 ? "selected" : "")}>6 levels</option>
   </select><br>
   <label style='display: inline-block; width: 170px; text-align: right'>Damage per level of Effort:</label>
   <input name='damagePerLOE' id='damagePerLOE' type='number' value=${damagePerLOE} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
