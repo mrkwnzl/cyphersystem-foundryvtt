@@ -1,9 +1,9 @@
 {
   "name": "cyphersystem",
   "title": "Cypher System",
-  "description": "Cypher System for Foundry VTT with minimal automation for maximum flexibility.",
+  "description": "A very modular implementation of the Cypher System for Foundry VTT.",
   "version": "1.10.0",
-  "minimumCoreVersion": "0.7.5",
+  "minimumCoreVersion": "0.7.9",
   "compatibleCoreVersion": "0.7.9",
   "templateVersion": 2,
   "author": "Marko Wenzel",
