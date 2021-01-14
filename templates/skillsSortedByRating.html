@@ -1,14 +1,14 @@
 {{#each actor.skillsSortedByRating as |item id|}}
-<li class="item flexrow" data-item-id="{{item._id}}">
-    <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
-    <div class="item-quantity" style="color: {{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}">{{data.skillLevel}}</div>
+<li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+    <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+    <div class="item-quantity" style="color: {{#if data.archived}}grey{{else}}{{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}{{/if}}">{{data.skillLevel}}</div>
     <div class="item-controls">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
     </div>
 </li>
 {{#if data.showDescription}}
-<li class="item-desc flexrow">
+<li class="item-desc flexrow"  style="color: {{#if data.archived}}grey{{/if}}">
     <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
 </li>
 {{/if}}

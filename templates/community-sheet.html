@@ -68,7 +68,33 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
+
       {{> systems/cyphersystem/templates/equipment.html}}
+
+      {{#if data.settings.equipment.ammo}}
+      {{> systems/cyphersystem/templates/ammo.html}}
+      {{/if}}
+
+      {{#if data.settings.equipment.armor}}
+      {{> systems/cyphersystem/templates/armorWithoutTotal.html}}
+      {{/if}}
+
+      {{#if data.settings.equipment.cyphers}}
+      {{> systems/cyphersystem/templates/cyphers.html}}
+      {{/if}}
+
+      {{#if data.settings.equipment.artifacts}}
+      {{> systems/cyphersystem/templates/artifacts.html}}
+      {{/if}}
+
+      {{#if data.settings.equipment.oddities}}
+      {{> systems/cyphersystem/templates/oddities.html}}
+      {{/if}}
+
+      {{#if data.settings.equipment.materials}}
+      {{> systems/cyphersystem/templates/materials.html}}
+      {{/if}}
+
     </div>
 
     {{!-- Settings Tab --}}
@@ -81,6 +107,9 @@
           <li class="item flexrow item-settings">
             <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" checked disabled>&nbsp;Bonus to Initiative</div>
             <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;Hide Archive</div>
           </li>
         </ol>
       </div>

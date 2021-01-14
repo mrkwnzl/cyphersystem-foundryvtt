@@ -1,0 +1,34 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">Armor</div>
+      <div class="item-quantity">Active</div>
+      <div class="item-quantity">Speed Cost</div>
+      <div class="item-quantity">Rating</div>
+      <div class="item-controls">
+        {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+        <a class="item-control item-create" title="Create item" data-type="teen Armor"><i class="fas fa-plus"></i></a>
+        {{else}}
+        <a class="item-control item-create" title="Create item" data-type="armor"><i class="fas fa-plus"></i></a>
+        {{/if}}
+      </div>
+    </li>
+    {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{> systems/cyphersystem/templates/teenArmor.html}}
+    {{else}}
+      {{> systems/cyphersystem/templates/armor.html}}
+    {{/if}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+      <h4 class="item-name"><b>Total</b></h4>
+      {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+      <div class="item-quantity"><b>{{data.teen.armor.speedCostTotal}}</b></div>
+      <div class="item-quantity"><b>{{data.teen.armor.armorValueTotal}}</b></div>
+      {{else}}
+      <div class="item-quantity"><b>{{data.armor.speedCostTotal}}</b></div>
+      <div class="item-quantity"><b>{{data.armor.armorValueTotal}}</b></div>
+      {{/if}}
+      <div class="item-controls">
+      </div>
+    </li>
+  </ol>
+</div>
