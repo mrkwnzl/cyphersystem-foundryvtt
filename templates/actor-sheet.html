@@ -275,11 +275,11 @@
               </li>
               {{#each actor.powerShifts as |item id|}}
               <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+                <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
                 <div class="item-quantity">{{data.powerShiftValue}}</div>
                 <div class="item-controls">
                   <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                  <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                  <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>
               {{#if data.showDescription}}
@@ -379,11 +379,11 @@
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#each actor.teenLastingDamage as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                   <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
@@ -395,11 +395,11 @@
                 {{else}}
                 {{#each actor.lastingDamage as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                   <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
@@ -429,11 +429,11 @@
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#each actor.teenAttacks as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
                   <div class="item-quantity">{{data.damage}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
@@ -445,11 +445,11 @@
                 {{else}}
                 {{#each actor.attacks as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
                   <div class="item-quantity">{{data.damage}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
