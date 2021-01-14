@@ -27,7 +27,7 @@ export class CypherActorSheet extends ActorSheet {
         /**for ( let attr of Object.values(data.data.attributes) ) {
             attr.isCheckbox = attr.dtype === "Boolean";
             }*/
-      
+
             // Prepare items.
             if (this.actor.data.type == 'PC') {
                 this.cyphersystem(data);
@@ -35,7 +35,7 @@ export class CypherActorSheet extends ActorSheet {
 
             return data;
         }
-  
+
         /**
         * Organize and classify Items for Character sheets.
         *
@@ -72,7 +72,7 @@ export class CypherActorSheet extends ActorSheet {
             for (let i of sheetData.items) {
                 // let item = i.data;
                 i.img = i.img || DEFAULT_TOKEN;
-      
+
                 // Append to containers.
                 if (i.type === 'equipment') {
                     equipment.push(i);
@@ -128,7 +128,7 @@ export class CypherActorSheet extends ActorSheet {
                     materials.push(i);
                 }
             }
-    
+
             function byNameAscending(itemA, itemB) {
                 let nameA = itemA.name.toLowerCase();
                 let nameB = itemB.name.toLowerCase();
@@ -141,7 +141,7 @@ export class CypherActorSheet extends ActorSheet {
                 }
                 return 0;
             }
-    
+
             equipment.sort(byNameAscending);
             abilities.sort(byNameAscending);
             skills.sort(byNameAscending);
@@ -161,12 +161,12 @@ export class CypherActorSheet extends ActorSheet {
             teenLastingDamage.sort(byNameAscending);
             materials.sort(byNameAscending);
             ammo.sort(byNameAscending);
-            
+
             // sort skills
             function bySkillRating(itemA, itemB) {
                 let ratingA;
                 let ratingB;
-                
+
                 if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
                 else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
                 else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
@@ -185,9 +185,53 @@ export class CypherActorSheet extends ActorSheet {
                 }
                 return 0;
             }
-            
+
             skillsSortedByRating.sort(bySkillRating);
             teenSkillsSortedByRating.sort(bySkillRating);
+
+            function byArchiveStatus(itemA, itemB) {
+              let ratingA;
+              let ratingB;
+
+              if (!itemA.data.archived) itemA.data.archived = false;
+              if (!itemB.data.archived) itemB.data.archived = false;
+
+              if (itemA.data.archived === false) {ratingA = 1}
+              else if (itemA.data.archived === true) {ratingA = 2}
+
+              if (itemB.data.archived === false) {ratingB = 1}
+              else if (itemB.data.archived === true) {ratingB = 2}
+
+              if (ratingA < ratingB) {
+                  return -1;
+              }
+              if (ratingA > ratingB) {
+                  return 1;
+              }
+              return 0;
+            }
+
+            equipment.sort(byArchiveStatus);
+            abilities.sort(byArchiveStatus);
+            skills.sort(byArchiveStatus);
+            skillsSortedByRating.sort(byArchiveStatus);
+            attacks.sort(byArchiveStatus);
+            armor.sort(byArchiveStatus);
+            lastingDamage.sort(byArchiveStatus);
+            powerShifts.sort(byArchiveStatus);
+            cyphers.sort(byArchiveStatus);
+            artifacts.sort(byArchiveStatus);
+            oddities.sort(byArchiveStatus);
+            teenSkills.sort(byArchiveStatus);
+            teenSkillsSortedByRating.sort(byArchiveStatus);
+            teenAbilities.sort(byArchiveStatus);
+            teenAttacks.sort(byArchiveStatus);
+            teenArmor.sort(byArchiveStatus);
+            teenLastingDamage.sort(byArchiveStatus);
+            materials.sort(byArchiveStatus);
+            ammo.sort(byArchiveStatus);
+            skillsSortedByRating.sort(byArchiveStatus);
+            teenSkillsSortedByRating.sort(byArchiveStatus);
 
             // let, weil der Wert selbst verändert wird: const würde erwarten, dass er unverändert bleibt
             let armorTotal = 0;
@@ -196,14 +240,14 @@ export class CypherActorSheet extends ActorSheet {
             let teenSpeedCostTotal = 0;
 
             for (let piece of armor) {
-                if (piece.data.armorActive === true) {
+                if (piece.data.armorActive === true && piece.data.archived === false) {
                     armorTotal = armorTotal + piece.data.armorValue;
                     speedCostTotal = speedCostTotal + piece.data.speedCost;
                 }
             }
-    
+
             for (let piece of teenArmor) {
-                if (piece.data.armorActive === true) {
+                if (piece.data.armorActive === true && piece.data.archived === false) {
                     teenArmorTotal = teenArmorTotal + piece.data.armorValue;
                     teenSpeedCostTotal = teenSpeedCostTotal + piece.data.speedCost;
                 }
@@ -233,7 +277,7 @@ export class CypherActorSheet extends ActorSheet {
             actorData.teenLastingDamage = teenLastingDamage;
             actorData.materials = materials;
             actorData.ammo = ammo;
-  
+
         }
 
         /* -------------------------------------------- */
@@ -241,19 +285,19 @@ export class CypherActorSheet extends ActorSheet {
         /** @override */
         activateListeners(html) {
             super.activateListeners(html);
-    
+
             // Everything below here is only needed if the sheet is editable
             if (!this.options.editable) return;
-    
+
             function showSheetForActorAndItemWithID(actor, itemID) {
                 const item = actor.getOwnedItem(itemID);
                 item.sheet.render(true);
             }
-    
+
             function itemForClickEvent(clickEvent) {
                 return $(clickEvent.currentTarget).parents(".item");
             }
-    
+
             // Add Inventory Item
             html.find('.item-create').click(clickEvent => {
                 const itemCreatedPromise = this._onItemCreate(clickEvent);
@@ -261,25 +305,38 @@ export class CypherActorSheet extends ActorSheet {
                     showSheetForActorAndItemWithID(this.actor, itemData._id);
                 });
             });
-    
+
             // Update Inventory Item
             html.find('.item-edit').click(clickEvent => {
                 const editedItem = itemForClickEvent(clickEvent);
                 showSheetForActorAndItemWithID(this.actor, editedItem.data("itemId"));
             });
-    
+
             // Delete Inventory Item
             html.find('.item-delete').click(clickEvent => {
                 const deletedItem = itemForClickEvent(clickEvent);
-                this.actor.deleteOwnedItem(deletedItem.data("itemId"));
-                deletedItem.slideUp(200, () => this.render(false));
+                if (event.ctrlKey || event.metaKey) {
+                  this.actor.deleteOwnedItem(deletedItem.data("itemId"));
+                  deletedItem.slideUp(200, () => this.render(false));
+                } else {
+                  const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", deletedItem.data("itemId")));
+
+                  if (item.data.archived === true) {
+                      item.data.archived = false;
+                  }
+                  else {
+                      item.data.archived = true;
+                  }
+
+                  this.actor.updateEmbeddedEntity('OwnedItem', item);
+                }
             });
-    
+
             // Show Item Description
             html.find('.item-description').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
                 const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-                if (window.event.ctrlKey || window.event.metaKey) {
+                if (event.ctrlKey || event.metaKey) {
                     let message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + "<br>" + item.data.description;
                     ChatMessage.create({
                         speaker: ChatMessage.getSpeaker(),
@@ -295,7 +352,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.actor.updateEmbeddedEntity('OwnedItem', item);
                 }
             });
-    
+
             // Change Armor Active
             html.find('.armor-active').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
@@ -308,7 +365,7 @@ export class CypherActorSheet extends ActorSheet {
                 }
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+
             // Add 1 to Quantity
             html.find('.plus-one').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
@@ -316,7 +373,7 @@ export class CypherActorSheet extends ActorSheet {
                 item.data.quantity = item.data.quantity + 1;
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+
             // Subtract 1 from Quantity
             html.find('.minus-one').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
@@ -324,7 +381,7 @@ export class CypherActorSheet extends ActorSheet {
                 item.data.quantity = item.data.quantity - 1;
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+
             // Add 1 to Lasting Damage
             html.find('.plus-one-damage').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
@@ -332,7 +389,7 @@ export class CypherActorSheet extends ActorSheet {
                 item.data.lastingDamageAmount = item.data.lastingDamageAmount + 1;
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+
             // Subtract 1 from Lasting Damage
             html.find('.minus-one-damage').click(clickEvent => {
                 const shownItem = itemForClickEvent(clickEvent);
@@ -340,7 +397,7 @@ export class CypherActorSheet extends ActorSheet {
                 item.data.lastingDamageAmount = item.data.lastingDamageAmount - 1;
                 this.actor.updateEmbeddedEntity('OwnedItem', item);
             });
-    
+
             // Reset Might
             html.find('.reset-might').click(clickEvent => {
                 this.actor.update({
@@ -349,7 +406,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Speed
             html.find('.reset-speed').click(clickEvent => {
                 this.actor.update({
@@ -358,7 +415,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Intellect
             html.find('.reset-intellect').click(clickEvent => {
                 this.actor.update({
@@ -367,7 +424,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Additional Pool
             html.find('.reset-additionalPool').click(clickEvent => {
                 this.actor.update({
@@ -376,7 +433,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Additional Teen Pool
             html.find('.reset-teen-additionalPool').click(clickEvent => {
                 this.actor.update({
@@ -385,7 +442,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Teen Might
             html.find('.reset-teen-might').click(clickEvent => {
                 this.actor.update({
@@ -394,7 +451,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Teen Speed
             html.find('.reset-teen-speed').click(clickEvent => {
                 this.actor.update({
@@ -403,7 +460,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Teen Might
             html.find('.reset-teen-intellect').click(clickEvent => {
                 this.actor.update({
@@ -412,7 +469,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Advancements
             html.find('.reset-advancement').click(clickEvent => {
                 this.actor.update({
@@ -425,7 +482,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-    
+
             // Reset Recovery Rolls
             html.find('.reset-recovery-rolls').click(clickEvent => {
                 this.actor.update({
@@ -441,7 +498,7 @@ export class CypherActorSheet extends ActorSheet {
                     this.render();
                 });
             });
-            
+
             // Drag events for macros.
             if (this.actor.owner) {
                 let handler = ev => this._onDragStart(ev);
@@ -454,9 +511,9 @@ export class CypherActorSheet extends ActorSheet {
                     li.addEventListener("dragstart", handler, false);
                 });
             }
-            
+
         }
-  
+
         /**
         * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
         * @param {Event} event   The originating click event

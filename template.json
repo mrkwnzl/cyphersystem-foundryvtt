@@ -299,7 +299,8 @@
             "core": {
                 "description": "",
                 "showDescription": false,
-                "level": ""
+                "level": "",
+                "archived": false
             }
         },
         "equipment": {

@@ -274,16 +274,16 @@
                 </div>
               </li>
               {{#each actor.powerShifts as |item id|}}
-              <li class="item flexrow" data-item-id="{{item._id}}">
+              <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                 <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
                 <div class="item-quantity">{{data.powerShiftValue}}</div>
                 <div class="item-controls">
                   <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                  <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>
               {{#if data.showDescription}}
-              <li class="item-desc flexrow">
+              <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                 <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
               </li>
               {{/if}}
@@ -378,32 +378,32 @@
                 </li>
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#each actor.teenLastingDamage as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                   <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
                 {{/each}}
                 {{else}}
                 {{#each actor.lastingDamage as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
                   <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
@@ -428,32 +428,32 @@
                 </li>
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#each actor.teenAttacks as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
                   <div class="item-quantity">{{data.damage}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
                 {{/each}}
                 {{else}}
                 {{#each actor.attacks as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
                   <div class="item-quantity">{{data.damage}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
@@ -473,16 +473,16 @@
                   </div>
                 </li>
                 {{#each actor.ammo as |item id|}}
-                <li class="item resource-content flexrow" data-item-id="{{item._id}}">
+                <li class="item resource-content flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
                   <div class="item-quantity"><a class="item-control minus-one" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.quantity}}&nbsp;</p><a class="item-control plus-one" title="Add One"><i class="fas fa-angle-up"></i></a></div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
@@ -508,36 +508,36 @@
                 </li>
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#each actor.teenArmor as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.armorType}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-                  <div class="item-quantity"><a class="item-control armor-active" title="Armor Active"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.armorActive}}black{{else}}gray{{/if}}"></i></a></div>
+                  <div class="item-quantity"><a class="item-control armor-active" title="Armor Active"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.archived}}grey{{else}}{{#unless data.armorActive}}grey{{/unless}}{{/if}}"></i></a></div>
                   <div class="item-quantity">{{data.speedCost}}</div>
                   <div class="item-quantity">{{data.armorValue}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
                 {{/each}}
                 {{else}}
                 {{#each actor.armor as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
                   <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.armorType}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-                  <div class="item-quantity"><a class="item-control armor-active" title="Armor Active"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.armorActive}}black{{else}}gray{{/if}}"></i></a></div>
+                  <div class="item-quantity"><a class="item-control armor-active" title="Armor Active"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.archived}}grey{{else}}{{#unless data.armorActive}}grey{{/unless}}{{/if}}"></i></a></div>
                   <div class="item-quantity">{{data.speedCost}}</div>
                   <div class="item-quantity">{{data.armorValue}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                   </div>
                 </li>
                 {{#if data.showDescription}}
-                <li class="item-desc flexrow">
+                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
                   <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
                 </li>
                 {{/if}}
@@ -583,16 +583,16 @@
               </div>
             </li>
             {{#each actor.equipment as |item id|}}
-            <li class="item resource-content flexrow" data-item-id="{{item._id}}">
+            <li class="item resource-content flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity"><a class="item-control minus-one" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.quantity}}&nbsp;</p><a class="item-control plus-one" title="Add One"><i class="fas fa-angle-up"></i></a></div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             {{#if data.showDescription}}
-            <li class="item-desc flexrow">
+            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
               <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
             </li>
             {{/if}}
@@ -611,16 +611,16 @@
               </div>
             </li>
             {{#each actor.cyphers as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}">
+            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity">{{data.level}}</div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             {{#if data.showDescription}}
-            <li class="item-desc flexrow">
+            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
               <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
             </li>
             {{/if}}
@@ -641,17 +641,17 @@
               </div>
             </li>
             {{#each actor.artifacts as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}">
+            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity">{{data.depletion}}</div>
               <div class="item-quantity">{{data.level}}</div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             {{#if data.showDescription}}
-            <li class="item-desc flexrow">
+            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
               <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
             </li>
             {{/if}}
@@ -670,15 +670,15 @@
               </div>
             </li>
             {{#each actor.oddities as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}">
+            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             {{#if data.showDescription}}
-            <li class="item-desc flexrow">
+            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
               <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
             </li>
             {{/if}}
@@ -698,16 +698,16 @@
               </div>
             </li>
             {{#each actor.materials as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}">
+            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity"><a class="item-control minus-one" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.quantity}}&nbsp;</p><a class="item-control plus-one" title="Add One"><i class="fas fa-angle-up"></i></a></div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             {{#if data.showDescription}}
-            <li class="item-desc flexrow">
+            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
               <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
             </li>
             {{/if}}
@@ -733,30 +733,30 @@
           </li>
           {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
           {{#each actor.teenAbilities as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}">
+          <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
             <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+              <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
             </div>
           </li>
           {{#if data.showDescription}}
-          <li class="item-desc flexrow">
+          <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
             <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
           </li>
           {{/if}}
           {{/each}}
           {{else}}
           {{#each actor.abilities as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}">
+          <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
             <h4 class="item-name"><a class="item-control item-description" title="Show Description"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+              <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl-click to delete){{else}}Archive Item (ctrl-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
             </div>
           </li>
           {{#if data.showDescription}}
-          <li class="item-desc flexrow">
+          <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
             <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
           </li>
           {{/if}}
