@@ -1,13 +1,13 @@
 // Import Modules
-import { CypherActor } from "./actor.js";
-import { CypherItem } from "./item.js";
-import { CypherItemSheet } from "./item-sheet.js";
-import { CypherActorSheet } from "./actor-sheet.js";
-import { CypherNPCSheet } from "./NPC-sheet.js";
-import { CypherTokenSheet } from "./token-sheet.js";
-import { CypherCommunitySheet } from "./community-sheet.js";
-import { CypherCompanionSheet } from "./companion-sheet.js";
-import { CypherVehicleSheet } from "./vehicle-sheet.js";
+import {CypherActor} from "./actor.js";
+import {CypherItem} from "./item.js";
+import {CypherItemSheet} from "./item-sheet.js";
+import {CypherActorSheet} from "./actor-sheet.js";
+import {CypherNPCSheet} from "./NPC-sheet.js";
+import {CypherTokenSheet} from "./token-sheet.js";
+import {CypherCommunitySheet} from "./community-sheet.js";
+import {CypherCompanionSheet} from "./companion-sheet.js";
+import {CypherVehicleSheet} from "./vehicle-sheet.js";
 
 
 /* -------------------------------------------- */
@@ -87,7 +87,19 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/teenSkills.html",
     "systems/cyphersystem/templates/teenSkillsSortedByRating.html",
     "systems/cyphersystem/templates/currenciesUpToThree.html",
-    "systems/cyphersystem/templates/currenciesUpToSix.html"
+    "systems/cyphersystem/templates/currenciesUpToSix.html",
+    "systems/cyphersystem/templates/abilities.html",
+    "systems/cyphersystem/templates/teenAbilities.html",
+    "systems/cyphersystem/templates/equipment.html",
+    "systems/cyphersystem/templates/ammo.html",
+    "systems/cyphersystem/templates/armor.html",
+    "systems/cyphersystem/templates/armorTotal.html",
+    "systems/cyphersystem/templates/armorWithoutTotal.html",
+    "systems/cyphersystem/templates/artifacts.html",
+    "systems/cyphersystem/templates/cyphers.html",
+    "systems/cyphersystem/templates/materials.html",
+    "systems/cyphersystem/templates/oddities.html",
+    "systems/cyphersystem/templates/teenArmor.html"
   ];
   return loadTemplates(templatePaths);
 }
