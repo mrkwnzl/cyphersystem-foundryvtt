@@ -276,57 +276,57 @@ async function createCyphersystemMacro(data, slot) {
 
   // Create the macro command
   const command = `// Change the defaults for the macro dialog.
-  // Depending on the item type, some defaults cannot be changed.
-  // Change the values after the equal sign.
-  // Keep the quotation marks where there are any.
+// Depending on the item type, some defaults cannot be changed.
+// Change the values after the equal sign.
+// Keep the quotation marks where there are any.
 
-  // What Pool is used to pay the cost?
-  // Might, Speed, or Intellect?
-  // Cannot be changed for Abilities.
-  let pool = "Might";
+// What Pool is used to pay the cost?
+// Might, Speed, or Intellect?
+// Cannot be changed for Abilities.
+let pool = "Might";
 
-  // What is the skill level?
-  // Inability, Practiced, Trained, or Specialized?
-  // Cannot be changed for Skills and Attacks.
-  let skill = "Practiced";
+// What is the skill level?
+// Inability, Practiced, Trained, or Specialized?
+// Cannot be changed for Skills and Attacks.
+let skill = "Practiced";
 
-  // How many assets do you have?
-  // 0, 1, or 2?
-  let assets = 0;
+// How many assets do you have?
+// 0, 1, or 2?
+let assets = 0;
 
-  // How many levels of Effort to ease the task?
-  // 0, 1, 2, 3, 4, 5, or 6?
-  let effortTask = 0;
+// How many levels of Effort to ease the task?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortTask = 0;
 
-  // How many levels of Effort for other uses?
-  // 0, 1, 2, 3, 4, 5, or 6?
-  let effortOther = 0;
+// How many levels of Effort for other uses?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortOther = 0;
 
-  // How many steps is the roll eased or hindered (excl. Effort)?
-  // Eased: positive value. Hindered: negative value.
-  // Cannot be changed for Attacks and Power Shifts.
-  let modifier = 0;
+// How many steps is the roll eased or hindered (excl. Effort)?
+// Eased: positive value. Hindered: negative value.
+// Cannot be changed for Attacks and Power Shifts.
+let modifier = 0;
 
-  // How many additional Pool points does it cost (excl. Effort)?
-  // Cannot be changed for Abilities.
-  let poolPointCost = 0;
+// How many additional Pool points does it cost (excl. Effort)?
+// Cannot be changed for Abilities.
+let poolPointCost = 0;
 
-  // How much damage?
-  // Cannot be changed for Attacks.
-  let damage = 0;
+// How much damage?
+// Cannot be changed for Attacks.
+let damage = 0;
 
-  // How many levels of Effort for extra damage?
-  // 0, 1, 2, 3, 4, 5, or 6?
-  let effortDamage = 0;
+// How many levels of Effort for extra damage?
+// 0, 1, 2, 3, 4, 5, or 6?
+let effortDamage = 0;
 
-  // How much extra damage per level of Effort?
-  // Generally, this is 3.
-  // Area attacks usually only deal 2 points of damage per level.
-  let damagePerLevel = 3;
+// How much extra damage per level of Effort?
+// Generally, this is 3.
+// Area attacks usually only deal 2 points of damage per level.
+let damagePerLevel = 3;
 
 
-  // Do not change anything below
-  game.cyphersystem.itemRollMacro(actor, "${item._id}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel);`;
+// Do not change anything below
+game.cyphersystem.itemRollMacro(actor, "${item._id}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel);`;
   let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
     macro = await Macro.create({
