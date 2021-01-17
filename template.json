@@ -369,7 +369,9 @@
       "modified": "",
       "modifiedBy": 0,
       "range": "",
-      "notes": ""
+      "notes": "",
+      "skillRating": "Practiced",
+      "totalModified": ""
     },
     "teen Attack": {
       "templates": ["core"],

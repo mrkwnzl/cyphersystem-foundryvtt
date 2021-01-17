@@ -670,7 +670,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
       return ui.notifications.notify(`You don’t have enough ${pool} points.`);
     }
 
-    if (additionalSteps == 1) steps = " step";
+    if (additionalSteps == 1 || additionalSteps == -1) steps = " step";
 
     if (cost == 1) points = " point";
 
@@ -826,7 +826,7 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
     }
 
     if (item.type == "attack" || item.type == "teen Attack") {
-      skill = "Practiced";
+      skill = item.data.data.skillRating;
       additionalSteps = item.data.data.modifiedBy;
       stepModifier = item.data.data.modified;
       damage = item.data.data.damage;
@@ -875,12 +875,14 @@ function itemRollMacroQuick (actor, itemID) {
     info = name + ". " + item.data.data.powerShiftValue + shifts;
     modifier = item.data.data.powerShiftValue;
   } else if (item.type == "attack" || item.type == "teen Attack") {
+    let modifiedBy = item.data.data.modifiedBy;
     info = titleCase(item.type) + ". Damage: " + item.data.data.damage;
-    if (item.data.data.modified == "hindered") {
-      modifier = item.data.data.modifiedBy * -1;
-    } else if (item.data.data.modified == "eased") {
-      modifier = item.data.data.modifiedBy;
-    }
+    if (item.data.data.modified == "hindered") modifiedBy = item.data.data.modifiedBy * -1;
+    let skillRating = 0;
+    if (item.data.data.skillRating == "Inability") skillRating = -1;
+    if (item.data.data.skillRating == "Trained") skillRating = 1;
+    if (item.data.data.skillRating == "Specialized") skillRating = 2;
+    modifier = skillRating + modifiedBy;
   } else if (item.type == "ability" || item.type == "teen Ability") {
     let cost = "";
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
