@@ -108,6 +108,7 @@ Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
+  // Calculate totalModified for existing characters
   for (let a of game.actors.entities) {
     for (let i of a.data.items) {
       if (i.type == "attack" || i.type == "teen Attack") {
