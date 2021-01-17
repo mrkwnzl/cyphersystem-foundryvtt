@@ -307,18 +307,18 @@ async function createCyphersystemMacro(data, slot) {
 
   // Create the macro command
   const command = `// Change the defaults for the macro dialog.
-// Depending on the item type, some defaults cannot be changed.
+// Some values are overwritten by the items and can’t be changed.
 // Change the values after the equal sign.
 // Keep the quotation marks where there are any.
 
 // What Pool is used to pay the cost?
 // Might, Speed, or Intellect?
-// Cannot be changed for Abilities.
+// Abilities overwrite this value.
 let pool = "Might";
 
 // What is the skill level?
 // Inability, Practiced, Trained, or Specialized?
-// Cannot be changed for Skills and Attacks.
+// Skills and Attacks overwrite this value.
 let skill = "Practiced";
 
 // How many assets do you have?
@@ -339,11 +339,11 @@ let effortOther = 0;
 let modifier = 0;
 
 // How many additional Pool points does it cost (excl. Effort)?
-// Cannot be changed for Abilities.
+// Abilities overwrite this value.
 let poolPointCost = 0;
 
 // How much damage?
-// Cannot be changed for Attacks.
+// Attacks overwrite this value.
 let damage = 0;
 
 // How many levels of Effort for extra damage?
@@ -357,6 +357,7 @@ let damagePerLevel = 3;
 
 
 // Do not change anything below
+
 game.cyphersystem.itemRollMacro(actor, "${item._id}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel);`;
   let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
