@@ -107,6 +107,36 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
+
+  for (let a of game.actors.entities) {
+    for (let i of a.data.items) {
+      if (i.type == "attack" || i.type == "teen Attack") {
+        if (i.data.totalModified == "") {
+          let skillRating = 0;
+          let modifiedBy = i.data.modifiedBy;
+          let totalModifier = 0;
+          let totalModified = "";
+
+          if (i.data.skillRating == "Inability") skillRating = -1;
+          if (i.data.skillRating == "Trained") skillRating = 1;
+          if (i.data.skillRating == "Specialized") skillRating = 2;
+
+          if (i.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+
+          totalModifier = skillRating + modifiedBy;
+
+          if (totalModifier == 1) totalModified = "eased";
+          if (totalModifier >= 2) totalModified = "eased by " + totalModifier + " steps";
+          if (totalModifier == -1) totalModified = "hindered";
+          if (totalModifier <= -2) totalModified = "hindered by " + Math.abs(totalModifier) + " steps";
+
+          i.data.totalModified = totalModified;
+
+          a.updateEmbeddedEntity('OwnedItem', i)
+        }
+      }
+    }
+  }
 });
 
 Hooks.on("preCreateItem", (itemData) => {
