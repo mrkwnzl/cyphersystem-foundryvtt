@@ -202,7 +202,37 @@ export class CypherTokenSheet extends ActorSheet {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
       if (event.ctrlKey || event.metaKey) {
-        let message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + "<br>" + item.data.description;
+        let message = "";
+        let brackets = "";
+        let description = "";
+        if (item.data.description != "") description = "<hr style='margin:3px 0;'>" + item.data.description;
+        let points = " points";
+        let notes = "";
+        if (item.data.notes != "") notes = ", " + item.data.notes;
+        if (item.type == "skill" || item.type == "teen Skill") {
+          brackets = " (" + item.data.skillLevel + ")";
+        } else if (item.type == "power Shift") {
+          brackets = " (" + item.data.powerShiftValue + " Shifts)"
+        } else if (item.type == "ability" || item.type == "teen Ability") {
+          if (item.data.costPoints == "1") points = " point"
+          if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")"
+        } else if (item.type == "attack") {
+          if (item.data.damage == 1) points = " point"
+          let damage = ", " + item.data.damage + points + " of damage"
+          let attackType = item.data.attackType;
+          let range = "";
+          if (item.data.range != "") range = ", " + item.data.range;
+          brackets = " (" + attackType + damage + range + notes + ")";
+        } else if (item.type == "armor" || item.type == "teen Armor") {
+          brackets = " (" + item.data.armorType + notes + ")";
+        } else if (item.type == "lasting Damage"){
+          let permanent = "";
+          if (item.data.damageType == "Permanent") permanent = ", permanent";
+          brackets = " (" + item.data.lastingDamagePool + permanent + ")";
+        } else {
+          if (item.data.level != "") brackets = " (level " + item.data.level + ")";
+        }
+        message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + brackets + description;
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker(),
           content: message
