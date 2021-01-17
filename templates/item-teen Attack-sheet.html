@@ -6,6 +6,17 @@
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
                         <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        &nbsp;
+                        <div class="item-quantity" style="flex: 0 0 80px;">
+                          <select name="data.skillRating">
+                              {{#select data.skillRating}}
+                              <option value="Inability">Inability</option>
+                              <option value="Practiced">Practiced</option>
+                              <option value="Trained">Trained</option>
+                              <option value="Specialized">Specialized</option>
+                              {{/select}}
+                          </select>
+                        </div>
                     </div>
                     <div class="resources grid grid-3col" style="margin-bottom: 0">
                         <div class="resource flex-center">

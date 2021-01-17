@@ -445,7 +445,7 @@
                 {{else}}
                 {{#each actor.attacks as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#unless (eq data.totalModified "")}}, {{data.totalModified}}{{/unless}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
                   <div class="item-quantity">{{data.damage}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>

@@ -107,6 +107,37 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
+
+  // Calculate totalModified for existing characters
+  for (let a of game.actors.entities) {
+    for (let i of a.data.items) {
+      if (i.type == "attack" || i.type == "teen Attack") {
+        if (i.data.totalModified == "") {
+          let skillRating = 0;
+          let modifiedBy = i.data.modifiedBy;
+          let totalModifier = 0;
+          let totalModified = "";
+
+          if (i.data.skillRating == "Inability") skillRating = -1;
+          if (i.data.skillRating == "Trained") skillRating = 1;
+          if (i.data.skillRating == "Specialized") skillRating = 2;
+
+          if (i.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+
+          totalModifier = skillRating + modifiedBy;
+
+          if (totalModifier == 1) totalModified = "eased";
+          if (totalModifier >= 2) totalModified = "eased by " + totalModifier + " steps";
+          if (totalModifier == -1) totalModified = "hindered";
+          if (totalModifier <= -2) totalModified = "hindered by " + Math.abs(totalModifier) + " steps";
+
+          i.data.totalModified = totalModified;
+
+          a.updateEmbeddedEntity('OwnedItem', i)
+        }
+      }
+    }
+  }
 });
 
 Hooks.on("preCreateItem", (itemData) => {
@@ -163,6 +194,86 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER
   })
 })
+
+Hooks.on("preCreateToken", function(_scene, data) {
+  if (!data.actorId) return;
+  console.log(data.actorId);
+  let actor = game.actors.get(data.actorId);
+  if (actor.data.type === "PC") {
+    setProperty(data, "flags.barbrawl.resourceBars", {
+      "bar1": {
+        id: "bar1",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "bottom-inner",
+        attribute: "pools.intellect",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      },
+      "bar2": {
+        id: "bar2",
+        mincolor: "#00FF00",
+        maxcolor: "#00FF00",
+        position: "bottom-inner",
+        attribute: "pools.speed",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      },
+      "bar3": {
+        id: "bar3",
+        mincolor: "#FF0000",
+        maxcolor: "#FF0000",
+        position: "bottom-inner",
+        attribute: "pools.might",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      }
+    })
+  } else if (actor.data.type === "NPC" || actor.data.type === "NPC") {
+    setProperty(data, "flags.barbrawl.resourceBars", {
+      "bar1": {
+        id: "bar1",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "top-inner",
+        attribute: "level",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      },
+      "bar2": {
+        id: "bar2",
+        mincolor: "#FF0000",
+        maxcolor: "#FF0000",
+        position: "bottom-inner",
+        attribute: "health",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      }
+    })
+  } else if (actor.data.type === "Community") {
+    setProperty(data, "flags.barbrawl.resourceBars", {
+      "bar1": {
+        id: "bar1",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "top-inner",
+        attribute: "rank",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      },
+      "bar2": {
+        id: "bar2",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "bottom-inner",
+        attribute: "infrastructure",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      },
+      "bar3": {
+        id: "bar3",
+        mincolor: "#FF0000",
+        maxcolor: "#FF0000",
+        position: "bottom-inner",
+        attribute: "health",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      }
+    })
+  }
+});
 
 Hooks.on("updateCombat", function() {
   let combatant = game.combat.combatant;
@@ -590,7 +701,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
       return ui.notifications.notify(`You don’t have enough ${pool} points.`);
     }
 
-    if (additionalSteps == 1) steps = " step";
+    if (additionalSteps == 1 || additionalSteps == -1) steps = " step";
 
     if (cost == 1) points = " point";
 
@@ -746,7 +857,7 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
     }
 
     if (item.type == "attack" || item.type == "teen Attack") {
-      skill = "Practiced";
+      skill = item.data.data.skillRating;
       additionalSteps = item.data.data.modifiedBy;
       stepModifier = item.data.data.modified;
       damage = item.data.data.damage;
@@ -795,12 +906,14 @@ function itemRollMacroQuick (actor, itemID) {
     info = name + ". " + item.data.data.powerShiftValue + shifts;
     modifier = item.data.data.powerShiftValue;
   } else if (item.type == "attack" || item.type == "teen Attack") {
+    let modifiedBy = item.data.data.modifiedBy;
     info = titleCase(item.type) + ". Damage: " + item.data.data.damage;
-    if (item.data.data.modified == "hindered") {
-      modifier = item.data.data.modifiedBy * -1;
-    } else if (item.data.data.modified == "eased") {
-      modifier = item.data.data.modifiedBy;
-    }
+    if (item.data.data.modified == "hindered") modifiedBy = item.data.data.modifiedBy * -1;
+    let skillRating = 0;
+    if (item.data.data.skillRating == "Inability") skillRating = -1;
+    if (item.data.data.skillRating == "Trained") skillRating = 1;
+    if (item.data.data.skillRating == "Specialized") skillRating = 2;
+    modifier = skillRating + modifiedBy;
   } else if (item.type == "ability" || item.type == "teen Ability") {
     let cost = "";
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
