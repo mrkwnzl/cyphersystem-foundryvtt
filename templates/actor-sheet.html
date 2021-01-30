@@ -83,7 +83,9 @@
               </div>
             </div>
             <div class="resource flex-group-center">
-              <label for="data.basic.xp" class="resource-label">XP</label>
+              <a class="item-control decrease-xp" title="Subract 1 XP (ctrl/cmd-click to subract 10 XP)"><i class="fas fa-angle-down"></i></a>&nbsp;
+              <label for="data.basic.xp" class="resource-label">XP</label>&nbsp;
+              <a class="item-control increase-xp" title="Add 1 XP (ctrl/cmd-click to add 10 XP)"><i class="fas fa-angle-up"></i></a>
               <div class="resource-content flexrow flex-center flex-between">
                 <input type="text" name="data.basic.xp" value="{{data.basic.xp}}" data-dtype="Number"/>
               </div>
@@ -94,10 +96,10 @@
             from 1 to 12 and will create that number of columns.  --}}
             <div class="resources grid grid-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{#if data.additionalPool.teenActive}}4{{else}}3{{/if}}{{else}}{{#if data.additionalPool.active}}4{{else}}3{{/if}}{{/if}}col">
               <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.pools.might" class="resource-label" style="padding-left: 20px">Might</label>
-                  <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="Reset Might"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
+                <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="Subract 1 Might point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="Reset Might"><label for="data.pools.might" class="resource-label">Might</label></a>&nbsp;
+                <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="Add 1 Might point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
+                <!-- <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="Reset Might"><i class="fas fa-sync-alt"></i></a></div> -->
                 <div class="resource-content flexrow flex-center flex-between">
                   {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                   <input type="text" name="data.teen.pools.might.value" value="{{data.teen.pools.might.value}}" data-dtype="Number"/>
@@ -120,10 +122,9 @@
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.pools.speed" class="resource-label" style="padding-left: 20px">Speed</label>
-                  <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="Reset Speed"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
+                <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="Subract 1 Speed point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="Reset Speed"><label for="data.pools.speed" class="resource-label">Speed</label></a>&nbsp;
+                <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="Add 1 Speed point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
                 <div class="resource-content flexrow flex-center flex-between">
                   {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                   <input type="text" name="data.teen.pools.speed.value" value="{{data.teen.pools.speed.value}}" data-dtype="Number"/>
@@ -146,257 +147,134 @@
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.pools.intellect" class="resource-label" style="padding-left: 20px">Intellect</label>
-                  <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="Reset Intellect"><i class="fas fa-sync-alt"></i></a></div>
+                <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="Subract 1 Intellect point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="Reset Intellect"><label for="data.pools.intellect" class="resource-label">Intellect</label></a>&nbsp;
+                  <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="Add 1 Intellect point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                    <input type="text" name="data.teen.pools.intellect.value" value="{{data.teen.pools.intellect.value}}" data-dtype="Number"/>
+                    {{else}}
+                    <input type="text" name="data.pools.intellect.value" value="{{data.pools.intellect.value}}" data-dtype="Number"/>
+                    {{/if}}
+                  </div>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <label for="data.pools.intellect.max" class="resource-label-normal">Pool</label>
+                    <label for="data.pools.intellectEdge" class="resource-label-normal">Edge</label>
+                  </div>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                    <input type="text" name="data.teen.pools.intellect.max" value="{{data.teen.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
+                    <input type="text" name="data.teen.pools.intellectEdge" value="{{data.teen.pools.intellectEdge}}" data-dtype="Number"/>
+                    {{else}}
+                    <input type="text" name="data.pools.intellect.max" value="{{data.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
+                    <input type="text" name="data.pools.intellectEdge" value="{{data.pools.intellectEdge}}" data-dtype="Number"/>
+                    {{/if}}
+                  </div>
                 </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                  <input type="text" name="data.teen.pools.intellect.value" value="{{data.teen.pools.intellect.value}}" data-dtype="Number"/>
-                  {{else}}
-                  <input type="text" name="data.pools.intellect.value" value="{{data.pools.intellect.value}}" data-dtype="Number"/>
-                  {{/if}}
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <label for="data.pools.intellect.max" class="resource-label-normal">Pool</label>
-                  <label for="data.pools.intellectEdge" class="resource-label-normal">Edge</label>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                  <input type="text" name="data.teen.pools.intellect.max" value="{{data.teen.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
-                  <input type="text" name="data.teen.pools.intellectEdge" value="{{data.teen.pools.intellectEdge}}" data-dtype="Number"/>
-                  {{else}}
-                  <input type="text" name="data.pools.intellect.max" value="{{data.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
-                  <input type="text" name="data.pools.intellectEdge" value="{{data.pools.intellectEdge}}" data-dtype="Number"/>
-                  {{/if}}
-                </div>
-              </div>
-              {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              {{#if data.additionalPool.teenActive}}
-              <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.additionalPool.additionalTeenPoolName" class="resource-label" style="padding-left: 20px">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</label>
-                  <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}additionalPool" title="Reset Additional Pool"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input type="text" name="data.teen.pools.additional.value" value="{{data.teen.pools.additional.value}}" data-dtype="Number"/>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <label for="data.teen.pools.additional.max" class="resource-label-normal">Pool</label>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input type="text" name="data.teen.pools.additional.max" value="{{data.teen.pools.additional.max}}" data-dtype="Number"/>&nbsp;
-                </div>
-              </div>
-              {{/if}}
-              {{else}}
-              {{#if data.additionalPool.active}}
-              <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.additionalPool.additionalPoolName" class="resource-label" style="padding-left: 20px">{{#if (eq data.additionalPool.additionalPoolName "")}}Luck{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</label>
-                  <div style="max-width: 20px"><a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}additionalPool" title="Reset Additional Pool"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input type="text" name="data.pools.additional.value" value="{{data.pools.additional.value}}" data-dtype="Number"/>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <label for="data.pools.additional.max" class="resource-label-normal">Pool</label>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input type="text" name="data.pools.additional.max" value="{{data.pools.additional.max}}" data-dtype="Number"/>&nbsp;
-                </div>
-              </div>
-              {{/if}}
-              {{/if}}
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {{!-- Sheet Tab Navigation --}}
-      <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0">
-        <a class="item" data-tab="skills" style="border-top: none;">Skills</a>
-        <a class="item" data-tab="combat" style="border-top: none;">Combat</a>
-        <a class="item" data-tab="abilities" style="border-top: none;">Abilities</a>
-        <a class="item" data-tab="items" style="border-top: none;">Equipment</a>
-        <a class="item" data-tab="description" style="border-top: none;">Notes</a>
-        <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
-      </nav>
-
-      {{!-- Sheet Body --}}
-      <section class="sheet-body">
-
-        {{!-- Biography Tab --}}
-        <div class="tab biography" data-group="primary" data-tab="description">
-          {{editor content=data.basic.notes target="data.basic.notes" button=true owner=owner editable=editable}}
-        </div>
-
-        {{!-- Owned Skills Tab --}}
-        <div class="tab skills" data-group="primary" data-tab="skills">
-          <div class="flexrow">
-            <ol class="items-list">
-              <li class="item flexrow item-header">
-                <div class="item-name">Skills</div>
-                <div class="item-quantity">Level</div>
-                <div class="item-controls">
-                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                  <a class="item-control item-create" title="Create item" data-type="teen Skill"><i class="fas fa-plus"></i></a>
-                  {{else}}
-                  <a class="item-control item-create" title="Create item" data-type="skill"><i class="fas fa-plus"></i></a>
-                  {{/if}}
-                </div>
-              </li>
-              {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              {{#if data.settings.skills.sortByRating}}
-              {{> systems/cyphersystem/templates/teenSkillsSortedByRating.html}}
-              {{else}}
-              {{> systems/cyphersystem/templates/teenSkills.html}}
-              {{/if}}
-              {{else}}
-              {{#if data.settings.skills.sortByRating}}
-              {{> systems/cyphersystem/templates/skillsSortedByRating.html}}
-              {{else}}
-              {{> systems/cyphersystem/templates/skills.html}}
-              {{/if}}
-              {{/if}}
-            </ol>
-          </div>
-
-          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
-          {{#if data.settings.powerShifts.active}}
-          <div class="flexrow">
-            <ol class="items-list">
-              <li class="item flexrow item-header">
-                <div class="item-name">{{#if (eq data.settings.powerShifts.powerShiftsName "")}}Power Shifts{{else}}{{data.settings.powerShifts.powerShiftsName}}{{/if}}</div>
-                <div class="item-quantity">Shifts</div>
-                <div class="item-controls">
-                  <a class="item-control item-create" title="Create item" data-type="power Shift"><i class="fas fa-plus"></i></a>
-                </div>
-              </li>
-              {{#each actor.powerShifts as |item id|}}
-              <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
-                <div class="item-quantity">{{data.powerShiftValue}}</div>
-                <div class="item-controls">
-                  <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                  <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
-                </div>
-              </li>
-              {{#if data.showDescription}}
-              <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-                <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
-              </li>
-              {{/if}}
-              {{/each}}
-            </ol>
-          </div>
-          {{/if}}
-          {{/unless}}
-        </div>
-
-        {{!-- Combat Tab --}}
-        <div class="tab combat" data-group="primary" data-tab="combat">
-          <div class="flexrow">
-            <ol class="items-list">
-              <li class="item flexrow item-header">
-                <div class="item-name">Damage Track & Recovery Rolls</div>
-              </li>
-              <li class="item flexrow">
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                <div class="item-damage">
-                  <select name="data.teen.damage.damageTrack" style="width: 95px">
-                    {{#select data.teen.damage.damageTrack}}
-                    <option value="{{data.teen.damage.hale}}">{{data.teen.damage.hale}}</option>
-                    <option value="{{data.teen.damage.impaired}}">{{data.teen.damage.impaired}}</option>
-                    <option value="{{data.teen.damage.debilitated}}">{{data.teen.damage.debilitated}}</option>
-                    {{/select}}
-                  </select>
-                </div>
-                <div class="centered-content" style="height: 38px; line-height: 1.4">
-                  {{#if (eq data.teen.damage.damageTrack "Hale")}}No effect.{{/if}}
-                  {{#if (eq data.teen.damage.damageTrack "Impaired")}}Effort costs +1 per level. Ignore minor and major effect results on rolls.<br>Combat roll of 17-20 deals only +1 damage.{{/if}}
-                  {{#if (eq data.teen.damage.damageTrack "Debilitated")}}Can’t take actions other than moving an immediate distance.<br>Cannot move if Speed Pool is 0.{{/if}}
-                </div>
-                {{else}}
-                <div class="item-damage">
-                  <select name="data.damage.damageTrack" style="width: 95px">
-                    {{#select data.damage.damageTrack}}
-                    <option value="{{data.damage.hale}}">{{data.damage.hale}}</option>
-                    <option value="{{data.damage.impaired}}">{{data.damage.impaired}}</option>
-                    <option value="{{data.damage.debilitated}}">{{data.damage.debilitated}}</option>
-                    <option value="{{data.damage.dead}}">{{data.damage.dead}}</option>
-                    {{/select}}
-                  </select>
-                </div>
-                <div class="centered-content" style="height: 38px; line-height: 1.4">
-                  {{#if (eq data.damage.damageTrack "Hale")}}No effect.{{/if}}
-                  {{#if (eq data.damage.damageTrack "Impaired")}}Effort costs +1 per level. Ignore minor and major effect results on rolls.<br>Combat roll of 17-20 deals only +1 damage.{{/if}}
-                  {{#if (eq data.damage.damageTrack "Debilitated")}}Can’t take actions other than moving an immediate distance.<br>Cannot move if Speed Pool is 0.{{/if}}
-                  {{#if (eq data.damage.damageTrack "Dead")}}You are dead.{{/if}}
+                {{#if data.additionalPool.teenActive}}
+                <div class="resource flex-group-center">
+                    <a class="item-control decrease-teen-additional" title="Subract 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                    <a class="item-control reset-teen-additionalPool" title="Reset Additional Pool"><label for="data.additionalPool.additionalTeenPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</label></a>&nbsp;
+                    <a class="item-control increase-teen-additional" title="Add 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <input type="text" name="data.teen.pools.additional.value" value="{{data.teen.pools.additional.value}}" data-dtype="Number"/>
+                  </div>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <label for="data.teen.pools.additional.max" class="resource-label-normal">Pool</label>
+                  </div>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <input type="text" name="data.teen.pools.additional.max" value="{{data.teen.pools.additional.max}}" data-dtype="Number"/>&nbsp;
+                  </div>
                 </div>
                 {{/if}}
-              </li>
-              <li class="item flexrow">
-                <div class="item-quantity"><input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1"/></div>
-                <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
-                  <div style="padding-left: 20px; display: flex; justify-content: center">
-                    <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}}/>
-                    {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
-                    {{#if data.settings.additionalRecoveries.active}}
-                    {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 1)}}<input type="checkbox" name="data.recoveries.oneActionTwo" data-dtype="boolean" {{checked data.recoveries.oneActionTwo}}/>{{/if}}
-                    {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 2)}}<input type="checkbox" name="data.recoveries.oneActionThree" data-dtype="boolean" {{checked data.recoveries.oneActionThree}}/>{{/if}}
-                    {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 3)}}<input type="checkbox" name="data.recoveries.oneActionFour" data-dtype="boolean" {{checked data.recoveries.oneActionFour}}/>{{/if}}
-                    {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 4)}}<input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked data.recoveries.oneActionFive}}/>{{/if}}
-                    {{/if}}
-                    {{/unless}}
-                    &nbsp;1 Action&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked data.recoveries.tenMinutes}}/>
-                    &nbsp;10 Minutes&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked data.recoveries.oneHour}}/>
-                    &nbsp;1 Hour&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}}/>
-                    &nbsp;10 Hours</div>
-                    <div style="max-width: 14px"><a class="item-control reset-recovery-rolls" title="Reset Recovery Rolls"><i class="fas fa-sync-alt"></i></a></div>
+                {{else}}
+                {{#if data.additionalPool.active}}
+                <div class="resource flex-group-center">
+                    <a class="item-control decrease-additional" title="Subract 1 {{#if (eq data.additionalPool.additionalPoolName '')}}Luck{{else}}{{data.additionalPool.additionalPoolName}}{{/if}} point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                    <a class="item-control reset-additionalPool" title="Reset Additional Pool"><label for="data.additionalPool.additionalPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalPoolName "")}}Luck{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</label></a>&nbsp;
+                    <a class="item-control increase-additional" title="Add 1 {{#if (eq data.additionalPool.additionalPoolName '')}}Luck{{else}}{{data.additionalPool.additionalPoolName}}{{/if}} point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <input type="text" name="data.pools.additional.value" value="{{data.pools.additional.value}}" data-dtype="Number"/>
                   </div>
-                </li>
-              </ol>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <label for="data.pools.additional.max" class="resource-label-normal">Pool</label>
+                  </div>
+                  <div class="resource-content flexrow flex-center flex-between">
+                    <input type="text" name="data.pools.additional.max" value="{{data.pools.additional.max}}" data-dtype="Number"/>&nbsp;
+                  </div>
+                </div>
+                {{/if}}
+                {{/if}}
+              </div>
             </div>
+          </div>
+        </header>
 
-            {{#if data.settings.lastingDamage.active}}
+        {{!-- Sheet Tab Navigation --}}
+        <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0">
+          <a class="item" data-tab="skills" style="border-top: none;">Skills</a>
+          <a class="item" data-tab="combat" style="border-top: none;">Combat</a>
+          <a class="item" data-tab="abilities" style="border-top: none;">Abilities</a>
+          <a class="item" data-tab="items" style="border-top: none;">Equipment</a>
+          <a class="item" data-tab="description" style="border-top: none;">Notes</a>
+          <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
+        </nav>
+
+        {{!-- Sheet Body --}}
+        <section class="sheet-body">
+
+          {{!-- Biography Tab --}}
+          <div class="tab biography" data-group="primary" data-tab="description">
+            {{editor content=data.basic.notes target="data.basic.notes" button=true owner=owner editable=editable}}
+          </div>
+
+          {{!-- Owned Skills Tab --}}
+          <div class="tab skills" data-group="primary" data-tab="skills">
             <div class="flexrow">
               <ol class="items-list">
                 <li class="item flexrow item-header">
-                  <div class="item-name">Lasting Damage</div>
-                  <div class="item-quantity">Damage</div>
+                  <div class="item-name">Skills</div>
+                  <div class="item-quantity">Level</div>
                   <div class="item-controls">
                     {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                    <a class="item-control item-create" title="Create item" data-type="teen lasting Damage"><i class="fas fa-plus"></i></a>
+                    <a class="item-control item-create" title="Create item" data-type="teen Skill"><i class="fas fa-plus"></i></a>
                     {{else}}
-                    <a class="item-control item-create" title="Create item" data-type="lasting Damage"><i class="fas fa-plus"></i></a>
+                    <a class="item-control item-create" title="Create item" data-type="skill"><i class="fas fa-plus"></i></a>
                     {{/if}}
                   </div>
                 </li>
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                {{#each actor.teenLastingDamage as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
-                  <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
-                  <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
-                  </div>
-                </li>
-                {{#if data.showDescription}}
-                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-                  <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
-                </li>
-                {{/if}}
-                {{/each}}
+                {{#if data.settings.skills.sortByRating}}
+                {{> systems/cyphersystem/templates/teenSkillsSortedByRating.html}}
                 {{else}}
-                {{#each actor.lastingDamage as |item id|}}
+                {{> systems/cyphersystem/templates/teenSkills.html}}
+                {{/if}}
+                {{else}}
+                {{#if data.settings.skills.sortByRating}}
+                {{> systems/cyphersystem/templates/skillsSortedByRating.html}}
+                {{else}}
+                {{> systems/cyphersystem/templates/skills.html}}
+                {{/if}}
+                {{/if}}
+              </ol>
+            </div>
+
+            {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+            {{#if data.settings.powerShifts.active}}
+            <div class="flexrow">
+              <ol class="items-list">
+                <li class="item flexrow item-header">
+                  <div class="item-name">{{#if (eq data.settings.powerShifts.powerShiftsName "")}}Power Shifts{{else}}{{data.settings.powerShifts.powerShiftsName}}{{/if}}</div>
+                  <div class="item-quantity">Shifts</div>
+                  <div class="item-controls">
+                    <a class="item-control item-create" title="Create item" data-type="power Shift"><i class="fas fa-plus"></i></a>
+                  </div>
+                </li>
+                {{#each actor.powerShifts as |item id|}}
                 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
-                  <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract One"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add One"><i class="fas fa-angle-up"></i></a></div>
+                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+                  <div class="item-quantity">{{data.powerShiftValue}}</div>
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                     <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
@@ -408,248 +286,368 @@
                 </li>
                 {{/if}}
                 {{/each}}
-                {{/if}}
               </ol>
             </div>
             {{/if}}
+            {{/unless}}
+          </div>
 
+          {{!-- Combat Tab --}}
+          <div class="tab combat" data-group="primary" data-tab="combat">
             <div class="flexrow">
               <ol class="items-list">
                 <li class="item flexrow item-header">
-                  <div class="item-name">Attacks</div>
-                  <div class="item-quantity">Damage</div>
-                  <div class="item-controls">
-                    {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                    <a class="item-control item-create" title="Create item" data-type="teen Attack"><i class="fas fa-plus"></i></a>
-                    {{else}}
-                    <a class="item-control item-create" title="Create item" data-type="attack"><i class="fas fa-plus"></i></a>
-                    {{/if}}
+                  <div class="item-name">Damage Track & Recovery Rolls</div>
+                </li>
+                <li class="item flexrow">
+                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                  <div class="item-damage">
+                    <select name="data.teen.damage.damageTrack" style="width: 95px">
+                      {{#select data.teen.damage.damageTrack}}
+                      <option value="{{data.teen.damage.hale}}">{{data.teen.damage.hale}}</option>
+                      <option value="{{data.teen.damage.impaired}}">{{data.teen.damage.impaired}}</option>
+                      <option value="{{data.teen.damage.debilitated}}">{{data.teen.damage.debilitated}}</option>
+                      {{/select}}
+                    </select>
                   </div>
-                </li>
-                {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                {{#each actor.teenAttacks as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-                  <div class="item-quantity">{{data.damage}}</div>
-                  <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                  <div class="centered-content" style="height: 38px; line-height: 1.4">
+                    {{#if (eq data.teen.damage.damageTrack "Hale")}}No effect.{{/if}}
+                    {{#if (eq data.teen.damage.damageTrack "Impaired")}}Effort costs +1 per level. Ignore minor and major effect results on rolls.<br>Combat roll of 17-20 deals only +1 damage.{{/if}}
+                    {{#if (eq data.teen.damage.damageTrack "Debilitated")}}Can’t take actions other than moving an immediate distance.<br>Cannot move if Speed Pool is 0.{{/if}}
                   </div>
-                </li>
-                {{#if data.showDescription}}
-                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-                  <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
-                </li>
-                {{/if}}
-                {{/each}}
-                {{else}}
-                {{#each actor.attacks as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                  <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#unless (eq data.totalModified "")}}, {{data.totalModified}}{{/unless}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-                  <div class="item-quantity">{{data.damage}}</div>
-                  <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                  {{else}}
+                  <div class="item-damage">
+                    <select name="data.damage.damageTrack" style="width: 95px">
+                      {{#select data.damage.damageTrack}}
+                      <option value="{{data.damage.hale}}">{{data.damage.hale}}</option>
+                      <option value="{{data.damage.impaired}}">{{data.damage.impaired}}</option>
+                      <option value="{{data.damage.debilitated}}">{{data.damage.debilitated}}</option>
+                      <option value="{{data.damage.dead}}">{{data.damage.dead}}</option>
+                      {{/select}}
+                    </select>
                   </div>
+                  <div class="centered-content" style="height: 38px; line-height: 1.4">
+                    {{#if (eq data.damage.damageTrack "Hale")}}No effect.{{/if}}
+                    {{#if (eq data.damage.damageTrack "Impaired")}}Effort costs +1 per level. Ignore minor and major effect results on rolls.<br>Combat roll of 17-20 deals only +1 damage.{{/if}}
+                    {{#if (eq data.damage.damageTrack "Debilitated")}}Can’t take actions other than moving an immediate distance.<br>Cannot move if Speed Pool is 0.{{/if}}
+                    {{#if (eq data.damage.damageTrack "Dead")}}You are dead.{{/if}}
+                  </div>
+                  {{/if}}
                 </li>
-                {{#if data.showDescription}}
-                <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-                  <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
-                </li>
-                {{/if}}
-                {{/each}}
-                {{/if}}
-              </ol>
-            </div>
+                <li class="item flexrow">
+                  <div class="item-quantity"><input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1"/></div>
+                  <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
+                    <div style="padding-left: 20px; display: flex; justify-content: center">
+                      <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}}/>
+                      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+                      {{#if data.settings.additionalRecoveries.active}}
+                      {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 1)}}<input type="checkbox" name="data.recoveries.oneActionTwo" data-dtype="boolean" {{checked data.recoveries.oneActionTwo}}/>{{/if}}
+                      {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 2)}}<input type="checkbox" name="data.recoveries.oneActionThree" data-dtype="boolean" {{checked data.recoveries.oneActionThree}}/>{{/if}}
+                      {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 3)}}<input type="checkbox" name="data.recoveries.oneActionFour" data-dtype="boolean" {{checked data.recoveries.oneActionFour}}/>{{/if}}
+                      {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 4)}}<input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked data.recoveries.oneActionFive}}/>{{/if}}
+                      {{/if}}
+                      {{/unless}}
+                      &nbsp;1 Action&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked data.recoveries.tenMinutes}}/>
+                      &nbsp;10 Minutes&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked data.recoveries.oneHour}}/>
+                      &nbsp;1 Hour&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}}/>
+                      &nbsp;10 Hours</div>
+                      <div style="max-width: 14px"><a class="item-control reset-recovery-rolls" title="Reset Recovery Rolls"><i class="fas fa-sync-alt"></i></a></div>
+                    </div>
+                  </li>
+                </ol>
+              </div>
 
-            {{#if data.settings.ammo}}
+              {{#if data.settings.lastingDamage.active}}
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">Lasting Damage</div>
+                    <div class="item-quantity">Damage</div>
+                    <div class="item-controls">
+                      {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                      <a class="item-control item-create" title="Create item" data-type="teen lasting Damage"><i class="fas fa-plus"></i></a>
+                      {{else}}
+                      <a class="item-control item-create" title="Create item" data-type="lasting Damage"><i class="fas fa-plus"></i></a>
+                      {{/if}}
+                    </div>
+                  </li>
+                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                  {{#each actor.teenLastingDamage as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+                    <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
+                    <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract 1 (ctrl/cmd-click to subtract 10)"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add 1 (ctrl/cmd-click to add 10)"><i class="fas fa-angle-up"></i></a></div>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    </div>
+                  </li>
+                  {{#if data.showDescription}}
+                  <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
+                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
+                  </li>
+                  {{/if}}
+                  {{/each}}
+                  {{else}}
+                  {{#each actor.lastingDamage as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+                    <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, permanent{{/if}})</a></h4>
+                    <div class="item-quantity"><a class="item-control minus-one-damage" title="Subtract 1 (ctrl/cmd-click to subtract 10)"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="Add 1 (ctrl/cmd-click to add 10)"><i class="fas fa-angle-up"></i></a></div>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    </div>
+                  </li>
+                  {{#if data.showDescription}}
+                  <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
+                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
+                  </li>
+                  {{/if}}
+                  {{/each}}
+                  {{/if}}
+                </ol>
+              </div>
+              {{/if}}
+
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">Attacks</div>
+                    <div class="item-quantity">Damage</div>
+                    <div class="item-controls">
+                      {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                      <a class="item-control item-create" title="Create item" data-type="teen Attack"><i class="fas fa-plus"></i></a>
+                      {{else}}
+                      <a class="item-control item-create" title="Create item" data-type="attack"><i class="fas fa-plus"></i></a>
+                      {{/if}}
+                    </div>
+                  </li>
+                  {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                  {{#each actor.teenAttacks as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+                    <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#if (eq data.modifiedBy 1)}}, {{data.modified}}{{/if}}{{#if (gt data.modifiedBy 1)}}, {{data.modified}} by {{data.modifiedBy}} steps{{/if}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
+                    <div class="item-quantity">{{data.damage}}</div>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    </div>
+                  </li>
+                  {{#if data.showDescription}}
+                  <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
+                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
+                  </li>
+                  {{/if}}
+                  {{/each}}
+                  {{else}}
+                  {{#each actor.attacks as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+                    <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.attackType}}{{#unless (eq data.totalModified "")}}, {{data.totalModified}}{{/unless}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
+                    <div class="item-quantity">{{data.damage}}</div>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                    </div>
+                  </li>
+                  {{#if data.showDescription}}
+                  <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
+                    <div class="description">{{#if data.description}}{{{data.description}}}{{else}}<p>—</p>{{/if}}</div>
+                  </li>
+                  {{/if}}
+                  {{/each}}
+                  {{/if}}
+                </ol>
+              </div>
+
+              {{#if data.settings.ammo}}
               {{> systems/cyphersystem/templates/ammo.html}}
-            {{/if}}
-
-            {{> systems/cyphersystem/templates/armorTotal.html}}
-
-          </div>
-
-          {{!-- Owned Items Tab --}}
-          <div class="tab items" data-group="primary" data-tab="items">
-            {{#if data.settings.currency.active}}
-              {{#if data.settings.currency.namesHidden}}
-                {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
-              {{else}}
-                {{#if (gte data.settings.currency.howMany 4)}}
-                  {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
-                {{else}}
-                  {{> systems/cyphersystem/templates/currenciesUpToThree.html}}
-                {{/if}}
               {{/if}}
-            {{/if}}
 
-            {{> systems/cyphersystem/templates/equipment.html}}
+              {{> systems/cyphersystem/templates/armorTotal.html}}
 
-        {{#if data.settings.equipment.cyphers}}
-          {{> systems/cyphersystem/templates/cyphers.html}}
-        {{/if}}
-
-        {{#if data.settings.equipment.artifacts}}
-          {{> systems/cyphersystem/templates/artifacts.html}}
-        {{/if}}
-
-        {{#if data.settings.equipment.oddities}}
-          {{> systems/cyphersystem/templates/oddities.html}}
-        {{/if}}
-
-        {{#if data.settings.equipment.materials}}
-          {{> systems/cyphersystem/templates/materials.html}}
-        {{/if}}
-
-      </div>
-
-      {{!-- Owned Abilities Tab --}}
-      <div class="tab abilities" data-group="primary" data-tab="abilities">
-        <ol class="items-list">
-          <li class="item flexrow item-header">
-            <div class="item-name">Abilities</div>
-            <div class="item-controls">
-              {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              <a class="item-control item-create" title="Create item" data-type="teen Ability"><i class="fas fa-plus"></i></a>
-              {{else}}
-              <a class="item-control item-create" title="Create item" data-type="ability"><i class="fas fa-plus"></i></a>
-              {{/if}}
             </div>
-          </li>
-          {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-            {{> systems/cyphersystem/templates/teenAbilities.html}}
-          {{else}}
-            {{> systems/cyphersystem/templates/abilities.html}}
-          {{/if}}
-        </ol>
-      </div>
 
-      {{!-- Settings Tab --}}
-      <div class="tab settings" data-group="primary" data-tab="settings">
-        <div class="flexrow">
-          <ol class="items-list">
-            <li class="item flexrow item-header">
-              <div class="item-name">General Settings</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>&nbsp;Game Mode</div>
-              <div class="item-quantity"><select class="auto-margin" name="data.settings.gameMode.current" style="width: 135px">
-                {{#select data.settings.gameMode.current}}
-                <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
-                <option value="{{data.settings.gameMode.unmasked}}">{{data.settings.gameMode.unmasked}}</option>
-                {{/select}}
-              </select></div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled>&nbsp;Bonus to Initiative Rolls</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked data.settings.additionalSentence.active}}>&nbsp;Additional Sentence Field</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="God of Dominion" style="width: auto;"/></div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}>&nbsp;{{#if (eq data.settings.gameMode.current "Unmasked")}}Additional Pool on Mask Sheet{{else}}Additional Pool{{/if}}</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
-            </li>
-            {{#if (eq data.settings.gameMode.current "Unmasked")}}
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}>&nbsp;Additional Pool on Teen Sheet</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
+            {{!-- Owned Items Tab --}}
+            <div class="tab items" data-group="primary" data-tab="items">
+              {{#if data.settings.currency.active}}
+              {{#if data.settings.currency.namesHidden}}
+              {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
+              {{else}}
+              {{#if (gte data.settings.currency.howMany 4)}}
+              {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
+              {{else}}
+              {{> systems/cyphersystem/templates/currenciesUpToThree.html}}
               {{/if}}
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;Hide Archive</div>
-            </li>
-          </ol>
-        </div>
-        <div class="flexrow">
-          <ol class="items-list">
-            <li class="item flexrow item-header">
-              <div class="item-name">Skills Tab</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>&nbsp;Sort Skills by Rating</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}>&nbsp;Power Shifts</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="Power Shifts" style="width: auto;"/></div>
-            </li>
-          </ol>
-        </div>
-        <div class="flexrow">
-          <ol class="items-list">
-            <li class="item flexrow item-header">
-              <div class="item-name">Combat Tab</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>&nbsp;Additional Recovery Rolls</div>
-              <div class="item-quantity"><select class="auto-margin" name="data.settings.additionalRecoveries.howManyRecoveries" style="width: 135px">
-                {{#select data.settings.additionalRecoveries.howManyRecoveries}}
-                <option value="{{data.settings.additionalRecoveries.additionalOne}}">{{data.settings.additionalRecoveries.additionalOne}}</option>
-                <option value="{{data.settings.additionalRecoveries.additionalTwo}}">{{data.settings.additionalRecoveries.additionalTwo}}</option>
-                <option value="{{data.settings.additionalRecoveries.additionalThree}}">{{data.settings.additionalRecoveries.additionalThree}}</option>
-                <option value="{{data.settings.additionalRecoveries.additionalFour}}">{{data.settings.additionalRecoveries.additionalFour}}</option>
-                {{/select}}
-              </select></div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}>&nbsp;Lasting/Permanent Damage</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.ammo" data-dtype="boolean" {{checked data.settings.ammo}}>&nbsp;Ammo List</div>
-            </li>
-          </ol>
-        </div>
-        <div class="flexrow">
-          <ol class="items-list">
-            <li class="item flexrow item-header">
-              <div class="item-name">Equipment Tab</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked data.settings.currency.active}}>&nbsp;Currency</div>
-              <div class="item-quantity"><select class="auto-margin" name="data.settings.currency.howMany" style="width: 135px" type="Number">
-                {{#select data.settings.currency.howMany}}
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                {{/select}}
-              </select></div>
-            </li>
-            {{#if data.settings.currency.active}}
-            <li class="item flexrow item-settings" style="border-top-style: dashed">
-              <div class="settings-list"><input type="checkbox" name="data.settings.currency.namesHidden" data-dtype="boolean" {{checked data.settings.currency.namesHidden}}>&nbsp;Hide Currency Names in Equipment Tab (Tooltip-only Mode)</div>
-            </li>
-            <li class="item flexrow item-settings" style="border-top-style: dashed">
-              <div class="grid grid-6col" style="margin: 0px">
-                <input class="auto-margin" name="data.settings.currency.name6" type="text" value="{{data.settings.currency.name6}}" data-dtype="String" placeholder="Adamantine" {{#unless (gte data.settings.currency.howMany 6)}}disabled>{{else}}>{{/unless}}
-                <input class="auto-margin" name="data.settings.currency.name5" type="text" value="{{data.settings.currency.name5}}" data-dtype="String" placeholder="Mithral" {{#unless (gte data.settings.currency.howMany 5)}}disabled>{{else}}>{{/unless}}
-                <input class="auto-margin" name="data.settings.currency.name4" type="text" value="{{data.settings.currency.name4}}" data-dtype="String" placeholder="Platinum" {{#unless (gte data.settings.currency.howMany 4)}}disabled>{{else}}>{{/unless}}
-                <input class="auto-margin" name="data.settings.currency.name3" type="text" value="{{data.settings.currency.name3}}" data-dtype="String" placeholder="Gold" {{#unless (gte data.settings.currency.howMany 3)}}disabled>{{else}}>{{/unless}}
-                <input class="auto-margin" name="data.settings.currency.name2" type="text" value="{{data.settings.currency.name2}}" data-dtype="String" placeholder="Silver" {{#unless (gte data.settings.currency.howMany 2)}}disabled>{{else}}>{{/unless}}
-                <input class="auto-margin" name="data.settings.currency.name" type="text" value="{{data.settings.currency.name}}" data-dtype="String" placeholder="{{#if (eq data.settings.currency.howMany '1')}}Shins{{else}}Copper{{/if}}">
+              {{/if}}
+              {{/if}}
+
+              {{> systems/cyphersystem/templates/equipment.html}}
+
+              {{#if data.settings.equipment.cyphers}}
+              {{> systems/cyphersystem/templates/cyphers.html}}
+              {{/if}}
+
+              {{#if data.settings.equipment.artifacts}}
+              {{> systems/cyphersystem/templates/artifacts.html}}
+              {{/if}}
+
+              {{#if data.settings.equipment.oddities}}
+              {{> systems/cyphersystem/templates/oddities.html}}
+              {{/if}}
+
+              {{#if data.settings.equipment.materials}}
+              {{> systems/cyphersystem/templates/materials.html}}
+              {{/if}}
+
+            </div>
+
+            {{!-- Owned Abilities Tab --}}
+            <div class="tab abilities" data-group="primary" data-tab="abilities">
+              <ol class="items-list">
+                <li class="item flexrow item-header">
+                  <div class="item-name">Abilities</div>
+                  <div class="item-controls">
+                    {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                    <a class="item-control item-create" title="Create item" data-type="teen Ability"><i class="fas fa-plus"></i></a>
+                    {{else}}
+                    <a class="item-control item-create" title="Create item" data-type="ability"><i class="fas fa-plus"></i></a>
+                    {{/if}}
+                  </div>
+                </li>
+                {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+                {{> systems/cyphersystem/templates/teenAbilities.html}}
+                {{else}}
+                {{> systems/cyphersystem/templates/abilities.html}}
+                {{/if}}
+              </ol>
+            </div>
+
+            {{!-- Settings Tab --}}
+            <div class="tab settings" data-group="primary" data-tab="settings">
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">General Settings</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>&nbsp;Game Mode</div>
+                    <div class="item-quantity"><select class="auto-margin" name="data.settings.gameMode.current" style="width: 135px">
+                      {{#select data.settings.gameMode.current}}
+                      <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
+                      <option value="{{data.settings.gameMode.unmasked}}">{{data.settings.gameMode.unmasked}}</option>
+                      {{/select}}
+                    </select></div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked data.settings.initiative.active}} disabled>&nbsp;Bonus to Initiative Rolls</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked data.settings.additionalSentence.active}}>&nbsp;Additional Sentence Field</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="God of Dominion" style="width: auto;"/></div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}>&nbsp;{{#if (eq data.settings.gameMode.current "Unmasked")}}Additional Pool on Mask Sheet{{else}}Additional Pool{{/if}}</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
+                  </li>
+                  {{#if (eq data.settings.gameMode.current "Unmasked")}}
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}>&nbsp;Additional Pool on Teen Sheet</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="Luck" style="width: auto;"/></div>
+                    {{/if}}
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;Hide Archive</div>
+                  </li>
+                </ol>
               </div>
-            </li>
-            {{/if}}
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;Cyphers</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;Artifacts</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;Oddities</div>
-            </li>
-            <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;Crafting Material</div>
-              <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="Iotum & Parts" style="width: auto;"/></div>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-  </form>
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">Skills Tab</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>&nbsp;Sort Skills by Rating</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}>&nbsp;Power Shifts</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="Power Shifts" style="width: auto;"/></div>
+                  </li>
+                </ol>
+              </div>
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">Combat Tab</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>&nbsp;Additional Recovery Rolls</div>
+                    <div class="item-quantity"><select class="auto-margin" name="data.settings.additionalRecoveries.howManyRecoveries" style="width: 135px">
+                      {{#select data.settings.additionalRecoveries.howManyRecoveries}}
+                      <option value="{{data.settings.additionalRecoveries.additionalOne}}">{{data.settings.additionalRecoveries.additionalOne}}</option>
+                      <option value="{{data.settings.additionalRecoveries.additionalTwo}}">{{data.settings.additionalRecoveries.additionalTwo}}</option>
+                      <option value="{{data.settings.additionalRecoveries.additionalThree}}">{{data.settings.additionalRecoveries.additionalThree}}</option>
+                      <option value="{{data.settings.additionalRecoveries.additionalFour}}">{{data.settings.additionalRecoveries.additionalFour}}</option>
+                      {{/select}}
+                    </select></div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}>&nbsp;Lasting/Permanent Damage</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.ammo" data-dtype="boolean" {{checked data.settings.ammo}}>&nbsp;Ammo List</div>
+                  </li>
+                </ol>
+              </div>
+              <div class="flexrow">
+                <ol class="items-list">
+                  <li class="item flexrow item-header">
+                    <div class="item-name">Equipment Tab</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked data.settings.currency.active}}>&nbsp;Currency</div>
+                    <div class="item-quantity"><select class="auto-margin" name="data.settings.currency.howMany" style="width: 135px" type="Number">
+                      {{#select data.settings.currency.howMany}}
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      {{/select}}
+                    </select></div>
+                  </li>
+                  {{#if data.settings.currency.active}}
+                  <li class="item flexrow item-settings" style="border-top-style: dashed">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.currency.namesHidden" data-dtype="boolean" {{checked data.settings.currency.namesHidden}}>&nbsp;Hide Currency Names in Equipment Tab (Tooltip-only Mode)</div>
+                  </li>
+                  <li class="item flexrow item-settings" style="border-top-style: dashed">
+                    <div class="grid grid-6col" style="margin: 0px">
+                      <input class="auto-margin" name="data.settings.currency.name6" type="text" value="{{data.settings.currency.name6}}" data-dtype="String" placeholder="Adamantine" {{#unless (gte data.settings.currency.howMany 6)}}disabled>{{else}}>{{/unless}}
+                      <input class="auto-margin" name="data.settings.currency.name5" type="text" value="{{data.settings.currency.name5}}" data-dtype="String" placeholder="Mithral" {{#unless (gte data.settings.currency.howMany 5)}}disabled>{{else}}>{{/unless}}
+                      <input class="auto-margin" name="data.settings.currency.name4" type="text" value="{{data.settings.currency.name4}}" data-dtype="String" placeholder="Platinum" {{#unless (gte data.settings.currency.howMany 4)}}disabled>{{else}}>{{/unless}}
+                      <input class="auto-margin" name="data.settings.currency.name3" type="text" value="{{data.settings.currency.name3}}" data-dtype="String" placeholder="Gold" {{#unless (gte data.settings.currency.howMany 3)}}disabled>{{else}}>{{/unless}}
+                      <input class="auto-margin" name="data.settings.currency.name2" type="text" value="{{data.settings.currency.name2}}" data-dtype="String" placeholder="Silver" {{#unless (gte data.settings.currency.howMany 2)}}disabled>{{else}}>{{/unless}}
+                      <input class="auto-margin" name="data.settings.currency.name" type="text" value="{{data.settings.currency.name}}" data-dtype="String" placeholder="{{#if (eq data.settings.currency.howMany '1')}}Shins{{else}}Copper{{/if}}">
+                    </div>
+                  </li>
+                  {{/if}}
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;Cyphers</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;Artifacts</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;Oddities</div>
+                  </li>
+                  <li class="item flexrow item-settings">
+                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;Crafting Material</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="Iotum & Parts" style="width: auto;"/></div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </section>
+        </form>

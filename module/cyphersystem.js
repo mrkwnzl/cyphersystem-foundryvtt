@@ -17,6 +17,8 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Cypher System`);
 
+  CONFIG.debug.hooks = true;
+
   game.cyphersystem = {
     CypherActor,
     CypherItem,
@@ -359,6 +361,7 @@ let damagePerLevel = 3;
 // Do not change anything below
 
 game.cyphersystem.itemRollMacro(actor, "${item._id}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel);`;
+
   let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
     macro = await Macro.create({

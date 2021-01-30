@@ -347,13 +347,13 @@ min-height: 610px;
     border-color: rgba(187, 187, 187);
     border-top-width: 1px;
     padding-left: 17px;
-}  
+}
 
 .cyphersystem .items-list .description p {
     font-size: 13px;
     border-style: none;
     margin: 3px 0px;
-}  
+}
 
 .cyphersystem .items-list .item-skillLevel {
     -webkit-box-flex: 0;
@@ -409,8 +409,8 @@ min-height: 610px;
 }
 
 .cyphersystem .item-angle {
-    width: 12px; 
-    text-align: center; 
+    width: 12px;
+    text-align: center;
     padding-left: 9px;
     padding-right: 3px;
 }
@@ -437,7 +437,7 @@ min-height: 610px;
 }
 
 .cyphersystem .centered-fields {
-    margin-top: auto; 
+    margin-top: auto;
     margin-bottom: auto;
 }
 

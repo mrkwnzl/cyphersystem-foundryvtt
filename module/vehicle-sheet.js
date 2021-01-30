@@ -251,7 +251,11 @@ export class CypherVehicleSheet extends ActorSheet {
     html.find('.plus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity + 1;
+      if (event.ctrlKey || event.metaKey) {
+        item.data.quantity = item.data.quantity + 10;
+      } else {
+        item.data.quantity = item.data.quantity + 1;
+      }
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -259,7 +263,11 @@ export class CypherVehicleSheet extends ActorSheet {
     html.find('.minus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity - 1;
+      if (event.ctrlKey || event.metaKey) {
+        item.data.quantity = item.data.quantity - 10;
+      } else {
+        item.data.quantity = item.data.quantity - 1;
+      }
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -274,6 +282,38 @@ export class CypherVehicleSheet extends ActorSheet {
         li.setAttribute("draggable", true);
         li.addEventListener("dragstart", handler, false);
       });
+    }
+  }
+
+  /**
+   * Handle dropping of an item reference or item data onto an Actor Sheet
+   * @param {DragEvent} event     The concluding DragEvent which contains drop data
+   * @param {Object} data         The data transfer extracted from the event
+   * @return {Promise<Object>}    A data object which describes the result of the drop
+   * @private
+   */
+  async _onDropItem(event, data) {
+    event.preventDefault();
+    if (!this.actor.owner) return false;
+    const item = await Item.fromDropData(data);
+    const itemData = duplicate(item.data);
+
+    // Handle item sorting within the same Actor
+    const actor = this.actor;
+    let sameActor = (data.actorId === actor._id) || (actor.isToken && (data.tokenId === actor.token.id));
+    if (sameActor) return this._onSortItem(event, itemData);
+
+    // Create the owned item or increase quantity
+    const itemOwned = actor.items.find(i => i.data.name === item.data.name)
+    let hasQuantity = false;
+
+    if ("quantity" in item.data.data) hasQuantity = true;
+
+    if (!itemOwned || !hasQuantity) {
+      return this._onDropItemCreate(itemData);
+    } else {
+      let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
+      itemOwned.update({"data.quantity": newQuantity});
     }
   }
 

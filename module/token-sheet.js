@@ -155,6 +155,29 @@ export class CypherTokenSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+    // Reset Quantity
+    html.find('.reset-quantity').click(clickEvent => {
+      this.actor.update({
+        "data.quantity.value": this.actor.data.data.quantity.max
+      }).then(item => {
+        this.render();
+      });
+    });
+
+    // Increase Quantity
+    html.find('.increase-quantity').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.quantity.value + amount;
+      this.actor.update({"data.quantity.value": newValue});
+    });
+
+    // Decrease Quantity
+    html.find('.decrease-quantity').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.quantity.value - amount;
+      this.actor.update({"data.quantity.value": newValue});
+    });
+
     function showSheetForActorAndItemWithID(actor, itemID) {
       const item = actor.getOwnedItem(itemID);
       item.sheet.render(true);
@@ -252,7 +275,11 @@ export class CypherTokenSheet extends ActorSheet {
     html.find('.plus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity + 1;
+      if (event.ctrlKey || event.metaKey) {
+        item.data.quantity = item.data.quantity + 10;
+      } else {
+        item.data.quantity = item.data.quantity + 1;
+      }
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -260,7 +287,11 @@ export class CypherTokenSheet extends ActorSheet {
     html.find('.minus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity - 1;
+      if (event.ctrlKey || event.metaKey) {
+        item.data.quantity = item.data.quantity - 10;
+      } else {
+        item.data.quantity = item.data.quantity - 1;
+      }
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -275,6 +306,38 @@ export class CypherTokenSheet extends ActorSheet {
         li.setAttribute("draggable", true);
         li.addEventListener("dragstart", handler, false);
       });
+    }
+  }
+
+  /**
+   * Handle dropping of an item reference or item data onto an Actor Sheet
+   * @param {DragEvent} event     The concluding DragEvent which contains drop data
+   * @param {Object} data         The data transfer extracted from the event
+   * @return {Promise<Object>}    A data object which describes the result of the drop
+   * @private
+   */
+  async _onDropItem(event, data) {
+    event.preventDefault();
+    if (!this.actor.owner) return false;
+    const item = await Item.fromDropData(data);
+    const itemData = duplicate(item.data);
+
+    // Handle item sorting within the same Actor
+    const actor = this.actor;
+    let sameActor = (data.actorId === actor._id) || (actor.isToken && (data.tokenId === actor.token.id));
+    if (sameActor) return this._onSortItem(event, itemData);
+
+    // Create the owned item or increase quantity
+    const itemOwned = actor.items.find(i => i.data.name === item.data.name)
+    let hasQuantity = false;
+
+    if ("quantity" in item.data.data) hasQuantity = true;
+
+    if (!itemOwned || !hasQuantity) {
+      return this._onDropItemCreate(itemData);
+    } else {
+      let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
+      itemOwned.update({"data.quantity": newQuantity});
     }
   }
 
