@@ -28,9 +28,7 @@ I appreciate any feedback and questions. You can reach me on Discord (@mrkwnzl#7
 
 ## Screenshots
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/character_sheet_example_01.jpg)
-
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/roll_macros.jpg)
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/cyphersystem_summary.png)
 
 ## Roadmap
 
