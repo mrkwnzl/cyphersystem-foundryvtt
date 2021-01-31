@@ -13,10 +13,9 @@
           <div class="resource-content flexrow flex-center">
             <div class="resources grid grid-3col">
               <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.health.value" class="resource-label" style="padding-left: 20px">Health</label>
-                  <div style="max-width: 20px"><a class="item-control reset-health" title="Reset Health"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
+                <a class="item-control decrease-health" title="Subract 1 Health point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                <a class="item-control reset-health" title="Reset Health"><label for="data.health.value" class="resource-label">Health</label></a>&nbsp;
+                <a class="item-control increase-health" title="Add 1 Health point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
                   &nbsp;/&nbsp;
@@ -24,10 +23,9 @@
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <div class="flexrow">
-                  <label for="data.health.value" class="resource-label" style="padding-left: 20px">Infrastructure</label>
-                  <div style="max-width: 20px"><a class="item-control reset-infrastructure" title="Reset Infrastructure"><i class="fas fa-sync-alt"></i></a></div>
-                </div>
+                <a class="item-control decrease-infrastructure" title="Subract 1 Infrastructure point (ctrl/cmd-click to subract 10 points)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                  <a class="item-control reset-infrastructure" title="Reset Infrastructure"><label for="data.health.value" class="resource-label">Infrastructure</label></a>&nbsp;
+                  <a class="item-control increase-infrastructure" title="Add 1 Infrastructure point (ctrl/cmd-click to add 10 points)"><i class="fas fa-angle-up"></i></a>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.infrastructure.value" type="text" value="{{data.infrastructure.value}}" data-dtype="Number"/>
                   &nbsp;/&nbsp;

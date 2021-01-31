@@ -324,7 +324,6 @@ export class CypherActorSheet extends ActorSheet {
         else {
           item.data.archived = true;
         }
-
         this.actor.updateEmbeddedEntity('OwnedItem', item);
       }
     });
@@ -393,11 +392,138 @@ export class CypherActorSheet extends ActorSheet {
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
+    // Increase Might
+    html.find('.increase-might').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.might.value + amount;
+      this.actor.update({"data.pools.might.value": newValue});
+    });
+
+    // Decrease Might
+    html.find('.decrease-might').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.might.value - amount;
+      this.actor.update({"data.pools.might.value": newValue});
+    });
+
+    // Increase Teen Might
+    html.find('.increase-teen-might').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.might.value + amount;
+      this.actor.update({"data.teen.pools.might.value": newValue});
+    });
+
+    // Decrease Teen Might
+    html.find('.decrease-teen-might').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.might.value - amount;
+      this.actor.update({"data.teen.pools.might.value": newValue});
+    });
+
+    // Increase Speed
+    html.find('.increase-speed').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.speed.value + amount;
+      this.actor.update({"data.pools.speed.value": newValue});
+    });
+
+    // Decrease Speed
+    html.find('.decrease-speed').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.speed.value - amount;
+      this.actor.update({"data.pools.speed.value": newValue});
+    });
+
+    // Increase Teen Speed
+    html.find('.increase-teen-speed').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.speed.value + amount;
+      this.actor.update({"data.teen.pools.speed.value": newValue});
+    });
+
+    // Decrease Teen Speed
+    html.find('.decrease-teen-speed').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.speed.value - amount;
+      this.actor.update({"data.teen.pools.speed.value": newValue});
+    });
+
+    // Increase Intellect
+    html.find('.increase-intellect').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.intellect.value + amount;
+      this.actor.update({"data.pools.intellect.value": newValue});
+    });
+
+    // Decrease Intellect
+    html.find('.decrease-intellect').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.intellect.value - amount;
+      this.actor.update({"data.pools.intellect.value": newValue});
+    });
+
+    // Increase Teen Intellect
+    html.find('.increase-teen-intellect').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.intellect.value + amount;
+      this.actor.update({"data.teen.pools.intellect.value": newValue});
+    });
+
+    // Decrease Teen Intellect
+    html.find('.decrease-teen-intellect').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.intellect.value - amount;
+      this.actor.update({"data.teen.pools.intellect.value": newValue});
+    });
+
+    // Increase Additional
+    html.find('.increase-additional').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.additional.value + amount;
+      this.actor.update({"data.pools.additional.value": newValue});
+    });
+
+    // Decrease Additional
+    html.find('.decrease-additional').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.pools.additional.value - amount;
+      this.actor.update({"data.pools.additional.value": newValue});
+    });
+
+    // Increase Teen Additional
+    html.find('.increase-teen-additional').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.additional.value + amount;
+      this.actor.update({"data.teen.pools.additional.value": newValue});
+    });
+
+    // Decrease Teen Additional
+    html.find('.decrease-teen-additional').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.teen.pools.additional.value - amount;
+      this.actor.update({"data.teen.pools.additional.value": newValue});
+    });
+
+    // Increase XP
+    html.find('.increase-xp').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.basic.xp + amount;
+      this.actor.update({"data.basic.xp": newValue});
+    });
+
+    // Decrease XP
+    html.find('.decrease-xp').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.basic.xp - amount;
+      this.actor.update({"data.basic.xp": newValue});
+    });
+
     // Add 1 to Quantity
     html.find('.plus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity + 1;
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.quantity = item.data.quantity + amount;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -405,7 +531,8 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.minus-one').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.quantity = item.data.quantity - 1;
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.quantity = item.data.quantity - amount;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -413,7 +540,8 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.plus-one-damage').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.lastingDamageAmount = item.data.lastingDamageAmount + 1;
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.lastingDamageAmount = item.data.lastingDamageAmount + amount;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -421,7 +549,8 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.minus-one-damage').click(clickEvent => {
       const shownItem = itemForClickEvent(clickEvent);
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      item.data.lastingDamageAmount = item.data.lastingDamageAmount - 1;
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.lastingDamageAmount = item.data.lastingDamageAmount - amount;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
 
@@ -539,6 +668,38 @@ export class CypherActorSheet extends ActorSheet {
       });
     }
   }
+
+/**
+ * Handle dropping of an item reference or item data onto an Actor Sheet
+ * @param {DragEvent} event     The concluding DragEvent which contains drop data
+ * @param {Object} data         The data transfer extracted from the event
+ * @return {Promise<Object>}    A data object which describes the result of the drop
+ * @private
+ */
+async _onDropItem(event, data) {
+  event.preventDefault();
+  if (!this.actor.owner) return false;
+  const item = await Item.fromDropData(data);
+  const itemData = duplicate(item.data);
+
+  // Handle item sorting within the same Actor
+  const actor = this.actor;
+  let sameActor = (data.actorId === actor._id) || (actor.isToken && (data.tokenId === actor.token.id));
+  if (sameActor) return this._onSortItem(event, itemData);
+
+  // Create the owned item or increase quantity
+  const itemOwned = actor.items.find(i => i.data.name === item.data.name)
+  let hasQuantity = false;
+
+  if ("quantity" in item.data.data) hasQuantity = true;
+
+  if (!itemOwned || !hasQuantity) {
+    return this._onDropItemCreate(itemData);
+  } else {
+    let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
+    itemOwned.update({"data.quantity": newQuantity});
+  }
+}
 
   /**
   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset

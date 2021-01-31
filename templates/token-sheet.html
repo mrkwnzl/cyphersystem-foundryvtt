@@ -17,7 +17,9 @@
               <div class="resource">
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label">Quantity</label>
+                <a class="item-control decrease-quantity" title="Subract 1 (ctrl/cmd-click to subract 10)"><i class="fas fa-angle-down"></i></a>&nbsp;
+                <a class="item-control reset-quantity" title="Reset Quantity"><label class="resource-label">Quantity</label></a>&nbsp;
+                <a class="item-control increase-quantity" title="Add 1 (ctrl/cmd-click to add 10)"><i class="fas fa-angle-up"></i></a>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.quantity.value" type="text" value="{{data.quantity.value}}" data-dtype="Number"/>
                   &nbsp;/&nbsp;
