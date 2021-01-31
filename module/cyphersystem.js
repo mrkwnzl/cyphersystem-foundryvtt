@@ -54,6 +54,15 @@ Hooks.once("init", async function() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "welcomeMessage", {
+    name: "Show Welcome Message",
+    hint: "Show or hide the welcome message at every launch of Foundry.",
+    scope: "world",
+    type: Boolean,
+    default: true,
+    config: true
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
@@ -140,7 +149,17 @@ Hooks.once("ready", async function() {
       }
     }
   }
+
+  if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
+
 });
+
+function sendWelcomeMessage() {
+  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>Welcome to the Cypher System!</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>Getting Started</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>User Manual</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues'>GitHub</a></p>";
+  ChatMessage.create({
+    content: message
+  })
+}
 
 Hooks.on("preCreateItem", (itemData) => {
   if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
