@@ -19,6 +19,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 - A robust pre-made macro system which you can use to customize the game for your own needs.
+- A pre-made scene of a tabletop. Play just like you do at a physical table!
 
 ## Support
 
