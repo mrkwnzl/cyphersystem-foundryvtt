@@ -155,7 +155,7 @@ Hooks.once("ready", async function() {
 });
 
 function sendWelcomeMessage() {
-  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>Welcome to the Cypher System!</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>Getting Started</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>User Manual</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues'>GitHub</a></p>";
+  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>Welcome to the Cypher System!</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>Getting Started</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>User Manual</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt'>GitHub</a></p>";
   ChatMessage.create({
     content: message
   })
