@@ -47,7 +47,7 @@ Hooks.once("init", async function() {
 
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: "Item Macros Use All-in-One Dialog",
-    hint: "With this setting, the item macros created by dragging an item to the macro bar uses the All-in-One Roll macro instead of the Quick Roll macro.",
+    hint: "With this setting, the item macros created by dragging an item to the macro bar use the All-in-One Roll macro instead of the Quick Roll macro.",
     scope: "world",
     type: Boolean,
     default: false,
@@ -56,7 +56,7 @@ Hooks.once("init", async function() {
 
   game.settings.register("cyphersystem", "welcomeMessage", {
     name: "Show Welcome Message",
-    hint: "Show or hide the welcome message at every launch of Foundry.",
+    hint: "Show the welcome message at every launch of this world.",
     scope: "world",
     type: Boolean,
     default: true,
