@@ -7,7 +7,7 @@
 
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
 
-At its core, this system is just a rather simple digital character sheet. Included are dice macros for the usual rolls in Cypher games. Macros allow for customization of the macro bar and even customization of the macros themselves, to use the Cypher system exactly like you need. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system. In addition, a pre-made tabletop scene, and some tokens that can be used as markers, are included in the system, so that your game is ready in a few minutes.
+At its core, this system is just a rather simple digital character sheet. Included are dice macros for the usual rolls in Cypher games. Macros allow for customization of the macro bar and even customization of the macros themselves, to use the Cypher system exactly like you need. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system. In addition, a pre-made tabletop scene and some tokens that can be used as markers, are included in the system, so that your game is ready in a few minutes.
 
 Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started) | [User Manual](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki) | [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt)
 
