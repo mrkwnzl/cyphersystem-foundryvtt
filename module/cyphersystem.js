@@ -150,6 +150,14 @@ Hooks.once("ready", async function() {
     }
   }
 
+  // Fix for case-sensitive OSs
+  for (let a of game.actors.entities) {
+    for (let i of a.data.items) {
+      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
+      a.updateEmbeddedEntity('OwnedItem', i)
+    }
+  }
+
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 
 });
@@ -162,11 +170,11 @@ function sendWelcomeMessage() {
 }
 
 Hooks.on("preCreateItem", (itemData) => {
-  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
+  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
 });
 
 Hooks.on("preCreateOwnedItem", (actor, itemData) => {
-  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type}.svg`;
+  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
 });
 
 const _getInitiativeFormula = function(combatant) {
@@ -185,7 +193,7 @@ const _getInitiativeFormula = function(combatant) {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", (actorData) => {
-  if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type}.svg`;
+  if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
 
   if (actorData.type == "NPC")
   mergeObject(actorData, {
