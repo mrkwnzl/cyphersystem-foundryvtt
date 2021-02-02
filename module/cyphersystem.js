@@ -183,7 +183,7 @@ const _getInitiativeFormula = function(combatant) {
   } else if (combatant.actor.data.type == "NPC" || combatant.actor.data.type == "Companion") {
     return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
   } else if (combatant.actor.data.type == "Community") {
-    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
   } else {
     return String(combatant.actor.data.data.level * 3) + "- 0.5";
   }
