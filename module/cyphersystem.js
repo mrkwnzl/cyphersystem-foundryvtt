@@ -66,7 +66,7 @@ Hooks.once("init", async function() {
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
-    decimals: 2
+    decimals: 0
   };
   Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
 
@@ -181,11 +181,11 @@ const _getInitiativeFormula = function(combatant) {
   if (combatant.actor.data.type == "PC") {
     return "1d20 + @settings.initiative.initiativeBonus";
   } else if (combatant.actor.data.type == "NPC" || combatant.actor.data.type == "Companion") {
-    return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus";
+    return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
   } else if (combatant.actor.data.type == "Community") {
-    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
+    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
   } else {
-    return String(combatant.actor.data.data.level * 3);
+    return String(combatant.actor.data.data.level * 3) + "- 0.5";
   }
 }
 
