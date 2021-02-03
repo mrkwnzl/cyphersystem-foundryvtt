@@ -2,6 +2,7 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">{{#if (eq actor.type "PC")}}{{#if (eq data.settings.equipment.materialName "")}}Iotum & Parts{{else}}{{data.settings.equipment.materialName}}{{/if}}{{else}}Crafting Material{{/if}}</div>
+      <div class="item-quantity">Level</div>
       <div class="item-quantity">Units</div>
       <div class="item-controls">
         <a class="item-control item-create" title="Create item" data-type="material"><i class="fas fa-plus"></i></a>
@@ -10,6 +11,7 @@
     {{#each actor.materials as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
       <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+      <div class="item-quantity">{{#if (eq data.level "")}}—{{else}}{{data.level}}{{/if}}</div>
       <div class="item-quantity"><a class="item-control minus-one" title="Subtract 1 (ctrl/cmd-click to subtract 10)"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.quantity}}&nbsp;</p><a class="item-control plus-one" title="Add 1 (ctrl/cmd-click to add 10)"><i class="fas fa-angle-up"></i></a></div>
       <div class="item-controls">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
