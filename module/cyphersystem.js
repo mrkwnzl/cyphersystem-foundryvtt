@@ -193,6 +193,15 @@ const _getInitiativeFormula = function(combatant) {
   }
 }
 
+Hooks.once("dragRuler.ready", () => {
+	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
+})
+
+function mySpeedProvider(token, playerColor) {
+	const ranges = [{range: 3, color: 0x008000}, {range: 15, color: 0xFFFF00}, {range: 30, color: 0xFF8000}, {range: 30, color: 0xFF0000}]
+	return ranges
+}
+
 /**
 * Set default values for new actors' tokens
 */
