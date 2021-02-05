@@ -148,6 +148,10 @@ Hooks.once("ready", async function() {
         }
       }
     }
+    if (!a.data.data.settings.equipment.cyphersName) a.update({"data.settings.equipment.cyphersName": ""});
+    if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
+    if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
+    if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
   }
 
   // Fix for case-sensitive OSs

@@ -1,7 +1,7 @@
 <div class="flexrow">
   <ol class="items-list">
     <li class="item flexrow item-header">
-      <div class="item-name">Oddities</div>
+      <div class="item-name">{{#if (eq data.settings.equipment.odditiesName "")}}Oddities{{else}}{{data.settings.equipment.odditiesName}}{{/if}}</div>
       <div class="item-controls">
         <a class="item-control item-create" title="Create item" data-type="oddity"><i class="fas fa-plus"></i></a>
       </div>

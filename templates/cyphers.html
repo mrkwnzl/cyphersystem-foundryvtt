@@ -1,7 +1,7 @@
 <div class="flexrow">
   <ol class="items-list">
     <li class="item flexrow item-header">
-      <div class="item-name">Cyphers</div>
+      <div class="item-name">{{#if (eq data.settings.equipment.cyphersName "")}}Cyphers{{else}}{{data.settings.equipment.cyphersName}}{{/if}}</div>
       <div class="item-quantity">Level</div>
       <div class="item-controls">
         <a class="item-control item-create" title="Create item" data-type="cypher"><i class="fas fa-plus"></i></a>

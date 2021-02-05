@@ -1,7 +1,7 @@
 <div class="flexrow">
   <ol class="items-list">
     <li class="item flexrow item-header">
-      <div class="item-name">Artifacts</div>
+      <div class="item-name">{{#if (eq data.settings.equipment.artifactsName "")}}Artifacts{{else}}{{data.settings.equipment.artifactsName}}{{/if}}</div>
       <div class="item-quantity">Depletion</div>
       <div class="item-quantity">Level</div>
       <div class="item-controls">

@@ -299,7 +299,7 @@
                 <li class="item flexrow item-header">
                   <div class="item-name">Damage Track & Recovery Rolls</div>
                 </li>
-                <li class="item flexrow">
+                <li class="item flexrow non-draggable">
                   {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
                   <div class="item-damage">
                     <select name="data.teen.damage.damageTrack" style="width: 95px">
@@ -334,7 +334,7 @@
                   </div>
                   {{/if}}
                 </li>
-                <li class="item flexrow">
+                <li class="item flexrow non-draggable">
                   <div class="item-quantity"><input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1"/></div>
                   <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
                     <div style="padding-left: 20px; display: flex; justify-content: center">
@@ -635,12 +635,15 @@
                   {{/if}}
                   <li class="item flexrow item-settings">
                     <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;Cyphers</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="Cyphers" style="width: auto;"/></div>
                   </li>
                   <li class="item flexrow item-settings">
                     <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;Artifacts</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="Artifacts" style="width: auto;"/></div>
                   </li>
                   <li class="item flexrow item-settings">
                     <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;Oddities</div>
+                    <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="Oddities" style="width: auto;"/></div>
                   </li>
                   <li class="item flexrow item-settings">
                     <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;Crafting Material</div>
