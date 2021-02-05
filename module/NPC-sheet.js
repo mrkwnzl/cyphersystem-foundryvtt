@@ -306,6 +306,8 @@ activateListeners(html) {
     html.find('li.item').each((i, li) => {
       // Ignore for the header row.
       if (li.classList.contains("item-header")) return;
+      if (li.classList.contains("non-draggable")) return;
+      if (li.classList.contains("item-settings")) return;
       // Add draggable attribute and dragstart listener.
       li.setAttribute("draggable", true);
       li.addEventListener("dragstart", handler, false);

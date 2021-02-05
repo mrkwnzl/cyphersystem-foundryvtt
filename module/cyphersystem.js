@@ -148,6 +148,10 @@ Hooks.once("ready", async function() {
         }
       }
     }
+    if (!a.data.data.settings.equipment.cyphersName) a.update({"data.settings.equipment.cyphersName": ""});
+    if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
+    if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
+    if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
   }
 
   // Fix for case-sensitive OSs
@@ -187,6 +191,15 @@ const _getInitiativeFormula = function(combatant) {
   } else {
     return String(combatant.actor.data.data.level * 3) + "- 0.5";
   }
+}
+
+Hooks.once("dragRuler.ready", () => {
+	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
+})
+
+function mySpeedProvider(token, playerColor) {
+	const ranges = [{range: 3, color: 0x008000}, {range: 15, color: 0xFFFF00}, {range: 30, color: 0xFF8000}, {range: 30, color: 0xFF0000}]
+	return ranges
 }
 
 /**
