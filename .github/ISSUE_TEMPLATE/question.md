@@ -7,13 +7,13 @@ assignees: mrkwnzl
 
 ---
 
-**My question**
+**My question**  
 Write your question here.
 
-**Setup:**
+**Setup**  
  - Cypher System Version: [e.g. 1.8.3]
  - Foundry VTT Version: [e.g. 0.7.9]
  - Native App/Browser: [e.g. chrome, safari]
  
- **Additional context**
+ **Additional context**  
 Add any other context about the question here.
