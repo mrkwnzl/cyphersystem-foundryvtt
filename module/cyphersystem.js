@@ -198,7 +198,17 @@ Hooks.once("dragRuler.ready", () => {
 })
 
 function mySpeedProvider(token, playerColor) {
-	const ranges = [{range: 3, color: 0x008000}, {range: 15, color: 0xFFFF00}, {range: 30, color: 0xFF8000}, {range: 30, color: 0xFF0000}]
+  let immediate = 10;
+  let short = 50;
+  let long = 100;
+  let veryLong = 500;
+  if (token.scene.data.gridUnits == "m") {
+    immediate = 3;
+    short = 15;
+    long = 30;
+    veryLong = 150;
+  }
+	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFFF00}, {range: veryLong, color: 0xFFA500}]
 	return ranges
 }
 
