@@ -3,7 +3,7 @@
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
-![License](https://img.shields.io/github/license/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+![Support](https://img.shields.io/badge/support-Buy%20Me%20A%20Coffee-blue?style=flat-square)
 
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
 
@@ -23,7 +23,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Support
 
-I appreciate any feedback and questions. You can reach me on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt) and Discord (@mrkwnzl#7407). If the Cypher  System for Foundry makes your games more accessible and fun, I’m grateful for your support:
+I appreciate any feedback and questions. You can reach me on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt) and Discord (@mrkwnzl#7407). If the Cypher  System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
 
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="40"></a>
 
