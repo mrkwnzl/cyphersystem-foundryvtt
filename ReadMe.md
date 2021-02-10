@@ -3,7 +3,7 @@
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
-![Support](https://img.shields.io/badge/support-Buy%20Me%20A%20Coffee-blue?style=flat-square)
+<a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
 
