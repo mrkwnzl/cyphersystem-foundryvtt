@@ -194,6 +194,7 @@ const _getInitiativeFormula = function(combatant) {
 }
 
 Hooks.once("dragRuler.ready", () => {
+  // Support for Drag Ruler
 	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
 })
 
@@ -248,8 +249,8 @@ Hooks.on("preCreateActor", (actorData) => {
 })
 
 Hooks.on("preCreateToken", function(_scene, data) {
+  // Support for Bar Brawl
   if (!data.actorId) return;
-  console.log(data.actorId);
   let actor = game.actors.get(data.actorId);
   if (actor.data.type === "PC") {
     setProperty(data, "flags.barbrawl.resourceBars", {
