@@ -12,7 +12,7 @@ export class CypherCompanionSheet extends ActorSheet {
       width: 600,
       height: 640,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });

@@ -12,8 +12,8 @@ export class CypherTokenSheet extends ActorSheet {
       width: 600,
       height: 560,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
-      scrollY: [".sheet-body", ".tab", ".skills", ".description",".items",".settings"],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
   }

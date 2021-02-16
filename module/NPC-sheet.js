@@ -12,7 +12,7 @@ export class CypherNPCSheet extends ActorSheet {
       width: 600,
       height: 560,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
