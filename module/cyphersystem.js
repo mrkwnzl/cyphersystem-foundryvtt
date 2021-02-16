@@ -203,13 +203,15 @@ function mySpeedProvider(token, playerColor) {
   let short = 50;
   let long = 100;
   let veryLong = 500;
+  let beyond = 1000000000;
   if (token.scene.data.gridUnits == "m") {
     immediate = 3;
     short = 15;
     long = 30;
     veryLong = 150;
+    beyond = 1000000000;
   }
-	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFFF00}, {range: veryLong, color: 0xFFA500}]
+	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFA500}, {range: veryLong, color: 0xFF0000}, {range: beyond, color: 0x000000}]
 	return ranges
 }
 
