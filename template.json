@@ -76,6 +76,7 @@
         },
         "settings": {
           "hideArchived": false,
+          "initialTab": "items",
           "powerShifts":{
             "active": false,
             "powerShiftsName": ""

@@ -251,8 +251,8 @@ export class CypherCommunitySheet extends ActorSheet {
       if (event.ctrlKey || event.metaKey) {
         let message = "";
         let brackets = "";
-        let description = "";
-        if (item.data.description != "") description = "<hr style='margin:3px 0;'>" + item.data.description;
+        // let description = "";
+        let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
         let points = " points";
         let notes = "";
         if (item.data.notes != "") notes = ", " + item.data.notes;
@@ -364,7 +364,7 @@ export class CypherCommunitySheet extends ActorSheet {
     if (originActor) { originItem = originActor.items.find(i => i.data._id === item.data._id) };
 
     // Create the owned item or increase quantity
-    const itemOwned = actor.items.find(i => i.data.name === item.data.name);
+    const itemOwned = actor.items.find(i => i.data.name === item.data.name && i.data.type === item.data.type);
 
     let hasQuantity = false;
 

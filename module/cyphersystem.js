@@ -17,7 +17,7 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Cypher System`);
 
-  CONFIG.debug.hooks = true;
+  // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -157,7 +157,7 @@ Hooks.once("ready", async function() {
   // Fix for case-sensitive OSs
   for (let a of game.actors.entities) {
     for (let i of a.data.items) {
-      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
+      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg` || i.img == `icons/svg/mystery-man.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
       a.updateEmbeddedEntity('OwnedItem', i)
     }
   }
