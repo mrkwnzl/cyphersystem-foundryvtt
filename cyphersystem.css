@@ -347,12 +347,18 @@ min-height: 610px;
     border-color: rgba(187, 187, 187);
     border-top-width: 1px;
     padding-left: 17px;
+    padding-bottom: 4px;
 }
 
 .cyphersystem .items-list .description p {
     font-size: 13px;
     border-style: none;
-    margin: 3px 0px;
+    margin: 3px 0 4px 0;
+}
+.cyphersystem .items-list .description p:last-of-type {
+    font-size: 13px;
+    border-style: none;
+    margin: 3px 0 0 0;
 }
 
 .cyphersystem .items-list .item-skillLevel {
@@ -427,8 +433,16 @@ min-height: 610px;
     display: flex;
 }
 
-#chat-log .message .message-content p, ul, ol {
+#chat-log .message .message-content ul, ol {
     margin: 0;
+}
+
+#chat-log .message .message-content p {
+    margin: 0 0 0.5em 0;
+}
+
+#chat-log .message .message-content p:last-of-type {
+    margin: 0 0 0 0;
 }
 
 #chat-log .message .message-content blockquote {
@@ -443,4 +457,14 @@ min-height: 610px;
 
 .cyphersystem .auto-margin {
     margin: auto !important;
+}
+
+.cyphersystem .description-image {
+  float: left;
+  margin: 4px 5px 0 0;
+}
+
+.description-image-chat {
+  float: left;
+  margin: 0 5px 0 0;
 }

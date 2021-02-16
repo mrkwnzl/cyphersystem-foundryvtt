@@ -12,7 +12,7 @@ export class CypherCompanionSheet extends ActorSheet {
       width: 600,
       height: 640,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills"}],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
@@ -276,8 +276,8 @@ activateListeners(html) {
     if (event.ctrlKey || event.metaKey) {
       let message = "";
       let brackets = "";
-      let description = "";
-      if (item.data.description != "") description = "<hr style='margin:3px 0;'>" + item.data.description;
+      // let description = "";
+      let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
       let points = " points";
       let notes = "";
       if (item.data.notes != "") notes = ", " + item.data.notes;
@@ -361,15 +361,15 @@ activateListeners(html) {
 }
 
 /**
- * Handle dropping of an item reference or item data onto an Actor Sheet
- * @param {DragEvent} event     The concluding DragEvent which contains drop data
- * @param {Object} data         The data transfer extracted from the event
- * @return {Promise<Object>}    A data object which describes the result of the drop
- * @private
- */
+* Handle dropping of an item reference or item data onto an Actor Sheet
+* @param {DragEvent} event     The concluding DragEvent which contains drop data
+* @param {Object} data         The data transfer extracted from the event
+* @return {Promise<Object>}    A data object which describes the result of the drop
+* @private
+*/
 async _onDropItem(event, data) {
   event.preventDefault();
-  if (!this.actor.owner) return false;
+  // if (!this.actor.owner) return false;
   const item = await Item.fromDropData(data);
   const itemData = duplicate(item.data);
 
@@ -378,17 +378,135 @@ async _onDropItem(event, data) {
   let sameActor = (data.actorId === actor._id) || (actor.isToken && (data.tokenId === actor.token.id));
   if (sameActor) return this._onSortItem(event, itemData);
 
+  // Get origin actor. If any, get originItem
+  let originActor;
+  if (!data.tokenId) {
+    originActor = game.actors.get(data.actorId);
+  } else {
+    originActor = canvas.tokens.get(data.tokenId).actor;
+  }
+  let originItem;
+  if (originActor) { originItem = originActor.items.find(i => i.data._id === item.data._id) };
+
   // Create the owned item or increase quantity
-  const itemOwned = actor.items.find(i => i.data.name === item.data.name)
+  const itemOwned = actor.items.find(i => i.data.name === item.data.name && i.data.type === item.data.type);
+
   let hasQuantity = false;
 
   if ("quantity" in item.data.data) hasQuantity = true;
 
-  if (!itemOwned || !hasQuantity) {
-    return this._onDropItemCreate(itemData);
+  // Activate settings for items
+  if (itemData.type == "artifact") actor.update({"data.settings.equipment.artifacts": true});
+  if (itemData.type == "cypher") actor.update({"data.settings.equipment.cyphers": true});
+  if (itemData.type == "oddity") actor.update({"data.settings.equipment.oddities": true});
+  if (itemData.type == "material") actor.update({"data.settings.equipment.materials": true});
+  if (itemData.type == "ammo") actor.update({"data.settings.equipment.ammo": true});
+  if (itemData.type == "power Shift") actor.update({"data.settings.powerShifts.active": true});
+  if (itemData.type == "lasting Damage") actor.update({"data.settings.lastingDamage.active": true});
+  if (itemData.type == "teen lasting Damage") actor.update({"data.settings.lastingDamage.active": true});
+
+  if (!hasQuantity) {
+    if (!itemOwned) this._onDropItemCreate(itemData);
+    if (itemOwned) return ui.notifications.warn(`${actor.name} already has this item.`);
+    if ((event.ctrlKey || event.metaKey) && originActor) {
+      let d = new Dialog({
+        title: "Should the Item be Archived or Deleted?",
+        content: "",
+        buttons: {
+          move: {
+            icon: '<i class="fas fa-archive"></i>',
+            label: "Archive",
+            callback: (html) => archiveItem()
+          },
+          moveAll: {
+            icon: '<i class="fas fa-trash"></i>',
+            label: "Delete",
+            callback: (html) => deleteItem()
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel",
+            callback: () => { }
+          }
+        },
+        default: "move",
+        close: () => { }
+      });
+      d.render(true);
+
+      function archiveItem() {
+        originItem.update({"data.archived": true})
+      }
+
+      function deleteItem() {
+        originItem.delete();
+      }
+    }
   } else {
-    let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
-    itemOwned.update({"data.quantity": newQuantity});
+    if ((event.ctrlKey || event.metaKey) || item.data.data.quantity == null) {
+      let maxQuantity = item.data.data.quantity;
+      if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(`You can’t move items you don’t have.`);
+      let quantity = 1;
+      moveDialog(quantity, itemData);
+
+      function moveDialog(quantity, itemData) {
+        // if (!quantity) quanitity = 1;
+        let d = new Dialog({
+          title: `Move ${itemData.name}`,
+          content: createContent(quantity),
+          buttons: buttons(),
+          default: "move",
+          close: () => { }
+        });
+        d.render(true);
+      }
+
+      function createContent(quantity) {
+        let maxQuantityText = "";
+        if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;of ${maxQuantity}`;
+        let content = `<div align="center">
+        <label style='display: inline-block; width: 98px; text-align: right'><b>Quantity/Units: </b></label>
+        <input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=${quantity} data-dtype='Number'/>` + maxQuantityText + `</div>`;
+        return content;
+      }
+
+      function buttons() {
+        if (maxQuantity != null) {
+          return ({move: {icon: '<i class="fas fa-share-square"></i>', label: "Move", callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, moveAll: {icon: '<i class="fas fa-share-square"></i>', label: "Move All", callback: (html) => moveItems(maxQuantity, itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: "Cancel", callback: () => { }}})
+        } else {
+          return ({move: {icon: '<i class="fas fa-share-square"></i>', label: "Move", callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: "Cancel", callback: () => { }}})
+        }
+      }
+
+      function moveItems(quantity, itemData) {
+        quantity = parseInt(quantity);
+        if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
+          moveDialog(quantity, itemData);
+          return ui.notifications.warn(`You can only move between 1 and ${item.data.data.quantity} items.`);
+        }
+        if (item.data.data.quantity && originActor) {
+          let oldQuantity = item.data.data.quantity - parseInt(quantity);
+          originItem.update({"data.quantity": oldQuantity});
+        }
+        if (!itemOwned) {
+          itemData.data.quantity = quantity;
+          actor.createOwnedItem(itemData);
+        } else {
+          let newQuantity = parseInt(itemOwned.data.data.quantity) + parseInt(quantity);
+          itemOwned.update({"data.quantity": newQuantity});
+        }
+      }
+    } else {
+      if (!itemOwned) {
+        if (!item.data.data.quantity) {
+          itemData.data.quantity = 0;
+        }
+        this._onDropItemCreate(itemData);
+      } else {
+        let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
+        itemOwned.update({"data.quantity": newQuantity});
+      }
+    }
   }
 }
 

@@ -17,7 +17,7 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Cypher System`);
 
-  CONFIG.debug.hooks = true;
+  // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -157,7 +157,7 @@ Hooks.once("ready", async function() {
   // Fix for case-sensitive OSs
   for (let a of game.actors.entities) {
     for (let i of a.data.items) {
-      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
+      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg` || i.img == `icons/svg/mystery-man.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
       a.updateEmbeddedEntity('OwnedItem', i)
     }
   }
@@ -194,6 +194,7 @@ const _getInitiativeFormula = function(combatant) {
 }
 
 Hooks.once("dragRuler.ready", () => {
+  // Support for Drag Ruler
 	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
 })
 
@@ -202,13 +203,15 @@ function mySpeedProvider(token, playerColor) {
   let short = 50;
   let long = 100;
   let veryLong = 500;
+  let beyond = 1000000000;
   if (token.scene.data.gridUnits == "m") {
     immediate = 3;
     short = 15;
     long = 30;
     veryLong = 150;
+    beyond = 1000000000;
   }
-	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFFF00}, {range: veryLong, color: 0xFFA500}]
+	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFA500}, {range: veryLong, color: 0xFF0000}, {range: beyond, color: 0x000000}]
 	return ranges
 }
 
@@ -248,8 +251,8 @@ Hooks.on("preCreateActor", (actorData) => {
 })
 
 Hooks.on("preCreateToken", function(_scene, data) {
+  // Support for Bar Brawl
   if (!data.actorId) return;
-  console.log(data.actorId);
   let actor = game.actors.get(data.actorId);
   if (actor.data.type === "PC") {
     setProperty(data, "flags.barbrawl.resourceBars", {
