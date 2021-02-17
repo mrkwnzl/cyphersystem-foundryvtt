@@ -193,8 +193,8 @@ const _getInitiativeFormula = function(combatant) {
   }
 }
 
+// Support for Drag Ruler
 Hooks.once("dragRuler.ready", () => {
-  // Support for Drag Ruler
 	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
 })
 
@@ -226,7 +226,8 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar1": {"attribute": "health"},
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
 
   if (actorData.type == "Companion")
@@ -235,18 +236,21 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
     "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
     "token.actorLink": true
   })
 
   if (actorData.type == "PC" || actorData.type == "Community")
   mergeObject(actorData, {
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+    "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
     "token.actorLink": true
   })
 
   if (actorData.type == "Token")
   mergeObject(actorData, {
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER
+    "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+    "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
 })
 
