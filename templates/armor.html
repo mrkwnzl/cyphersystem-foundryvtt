@@ -11,7 +11,7 @@
 </li>
 {{#if data.showDescription}}
 <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-  <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{#if data.description}}{{{data.description}}}{{/if}}</div>
+  <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{{data.description}}}</div>
 </li>
 {{/if}}
 {{/each}}
