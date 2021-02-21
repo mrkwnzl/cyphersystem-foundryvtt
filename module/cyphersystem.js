@@ -252,7 +252,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.actor.data.type === "Token") {
+      if (token.actor.data.type === "Token" || token.actor.data.type === "Community") {
         return false
       } else {
         return true
