@@ -194,26 +194,74 @@ const _getInitiativeFormula = function(combatant) {
 }
 
 // Support for Drag Ruler
-Hooks.once("dragRuler.ready", () => {
-	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
-})
+// Hooks.once("dragRuler.ready", () => {
+// 	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
+// })
+//
+// function mySpeedProvider(token, playerColor) {
+//   let immediate = 10;
+//   let short = 50;
+//   let long = 100;
+//   let veryLong = 500;
+//   let beyond = 1000000000;
+//   if (token.scene.data.gridUnits == "m") {
+//     immediate = 3;
+//     short = 15;
+//     long = 30;
+//     veryLong = 150;
+//     beyond = 1000000000;
+//   }
+// 	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFA500}, {range: veryLong, color: 0xFF0000}, {range: beyond, color: 0x000000}]
+// 	return ranges
+// }
 
-function mySpeedProvider(token, playerColor) {
-  let immediate = 10;
-  let short = 50;
-  let long = 100;
-  let veryLong = 500;
-  let beyond = 1000000000;
-  if (token.scene.data.gridUnits == "m") {
-    immediate = 3;
-    short = 15;
-    long = 30;
-    veryLong = 150;
-    beyond = 1000000000;
+Hooks.once("dragRuler.ready", (SpeedProvider) => {
+  class CypherSystemSpeedProvider extends SpeedProvider {
+    get colors() {
+      return [
+        {id: "immediate", default: 0x0000FF, name: "immediate"},
+        {id: "short", default: 0x008000, name: "short"},
+        {id: "long", default: 0xFFA500, name: "long"},
+        {id: "veryLong", default: 0xFF0000, name: "very long"}
+      ]
+    }
+
+    getRanges(token) {
+      let immediate = 10;
+      let short = 50;
+      let long = 100;
+      let veryLong = 500;
+      if (token.scene.data.gridUnits == "m") {
+        immediate = 3;
+        short = 15;
+        long = 30;
+        veryLong = 150;
+      }
+
+      const ranges = [
+        {range: immediate, color: "immediate"},
+        {range: short, color: "short"},
+        {range: long, color: "long"},
+        {range: veryLong, color: "veryLong"}
+      ]
+      return ranges
+    }
+
+    get defaultUnreachableColor() {
+      return 0x000000
+    }
+
+    usesRuler(token) {
+      if (token.actor.data.type === "Token") {
+        return false
+      } else {
+        return true
+      }
+    }
   }
-	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFA500}, {range: veryLong, color: 0xFF0000}, {range: beyond, color: 0x000000}]
-	return ranges
-}
+
+  dragRuler.registerSystem("cyphersystem", CypherSystemSpeedProvider)
+})
 
 /**
 * Set default values for new actors' tokens
