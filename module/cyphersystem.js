@@ -32,7 +32,9 @@ Hooks.once("init", async function() {
     spendEffortMacro,
     itemRollMacro,
     allInOneRollMacro,
-    allInOneRollDialog
+    allInOneRollDialog,
+    toggleDragRuler,
+    resetDragRulerDefaults
   };
 
   // Register system settings
@@ -164,6 +166,19 @@ Hooks.once("ready", async function() {
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 
+  for (let t of canvas.tokens.objects.children) {
+    // t.setFlag("cyphersystem", "toggleDragRuler");
+    if (t.getFlag("cyphersystem", "toggleDragRuler")) {
+      // do nothing
+    } else {
+      if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+        t.setFlag("cyphersystem", "toggleDragRuler", true);
+      } else {
+        t.setFlag("cyphersystem", "toggleDragRuler", false);
+      }
+    }
+  }
+
 });
 
 function sendWelcomeMessage() {
@@ -192,28 +207,6 @@ const _getInitiativeFormula = function(combatant) {
     return String(combatant.actor.data.data.level * 3) + "- 0.5";
   }
 }
-
-// Support for Drag Ruler
-// Hooks.once("dragRuler.ready", () => {
-// 	dragRuler.registerSystem("cyphersystem", mySpeedProvider)
-// })
-//
-// function mySpeedProvider(token, playerColor) {
-//   let immediate = 10;
-//   let short = 50;
-//   let long = 100;
-//   let veryLong = 500;
-//   let beyond = 1000000000;
-//   if (token.scene.data.gridUnits == "m") {
-//     immediate = 3;
-//     short = 15;
-//     long = 30;
-//     veryLong = 150;
-//     beyond = 1000000000;
-//   }
-// 	const ranges = [{range: immediate, color: 0x0000FF}, {range: short, color: 0x008000}, {range: long, color: 0xFFA500}, {range: veryLong, color: 0xFF0000}, {range: beyond, color: 0x000000}]
-// 	return ranges
-// }
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
@@ -252,10 +245,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.actor.data.type === "Token" || token.actor.data.type === "Community") {
-        return false
-      } else {
+      if (token.data.flags.cyphersystem.toggleDragRuler) {
         return true
+      } else {
+        return false
       }
     }
   }
@@ -303,9 +296,18 @@ Hooks.on("preCreateActor", (actorData) => {
 })
 
 Hooks.on("preCreateToken", function(_scene, data) {
-  // Support for Bar Brawl
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
+
+  // Support for Drag Ruler
+  if (actor.data.type !== "Token" && actor.data.type !== "Community") {
+    setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
+    console.log("HERE!");
+  } else {
+    setProperty(data, "flags.cyphersystem.toggleDragRuler", false)
+  }
+
+  // Support for Bar Brawl
   if (actor.data.type === "PC") {
     setProperty(data, "flags.barbrawl.resourceBars", {
       "bar1": {
@@ -664,11 +666,11 @@ function spendEffortMacro(actor) {
       if (actor.data.data.damage.damageTrack == "Impaired") impaired = level;
 
       if (pool == "Might") {
-        cost = (level * 2) + 1 + parseInt(impaired) - actor.data.data.pools.mightEdge;
+        cost = (level * 2) + 1 + parseInt(impaired);
       } else if (pool == "Intellect") {
-        cost = (level * 2) + 1 + parseInt(impaired) - actor.data.data.pools.intellectEdge;
+        cost = (level * 2) + 1 + parseInt(impaired);
       } else if (pool == "Speed") {
-        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(impaired) - actor.data.data.pools.speedEdge;
+        cost = (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(impaired);
       }
 
       payPoolPoints(actor, cost, pool);
@@ -693,6 +695,7 @@ function payPoolPoints(actor, cost, pool){
   pool = pool.toLowerCase();
 
   if (pool == "might") {
+    cost = cost - actor.data.data.pools.mightEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.might.value) {
       ui.notifications.notify(`You don’t have enough Might points.`);
@@ -701,6 +704,7 @@ function payPoolPoints(actor, cost, pool){
     let newMight = actor.data.data.pools.might.value - cost;
     actor.update({"data.pools.might.value": newMight})
   } else if (pool == "speed") {
+    cost = cost - actor.data.data.pools.mightEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.speed.value) {
       ui.notifications.notify(`You don’t have enough Speed points.`);
@@ -709,6 +713,7 @@ function payPoolPoints(actor, cost, pool){
     let newSpeed = actor.data.data.pools.speed.value - cost;
     actor.update({"data.pools.speed.value": newSpeed})
   } else if (pool == "intellect") {
+    cost = cost - actor.data.data.pools.mightEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.intellect.value) {
       ui.notifications.notify(`You don’t have enough Intellect points.`);
@@ -797,12 +802,13 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     if (actor.data.data.damage.damageTrack == "Impaired") impaired = effort;
 
     if (effort > 0) {
-      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) - edge + parseInt(impaired);
+      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired);
     } else {
-      cost = parseInt(additionalCost) - edge;
+      cost = parseInt(additionalCost);
     }
 
-    if (cost < 0) cost = 0;
+    let totalCost = cost - edge;
+    if (totalCost < 0) totalCost = 0;
 
     if (pool == "Might" && cost > actor.data.data.pools.might.value || pool == "Speed" && cost > actor.data.data.pools.speed.value || pool == "Intellect" && cost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
@@ -828,7 +834,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
       attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>"
     }
 
-    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Effort to ease task: " + effort1 + rollEffort + "<br>" + "Effort for other uses: " + effort2 + otherEffort + attackModifier + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + cost + " " + pool + points
+    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Effort to ease task: " + effort1 + rollEffort + "<br>" + "Effort for other uses: " + effort2 + otherEffort + attackModifier + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + totalCost + " " + pool + points
 
     allInOneRollMacro(actor, title, info, cost, pool, modifier);
   }
@@ -1025,10 +1031,23 @@ function itemRollMacroQuick (actor, itemID) {
     modifier = skillRating + modifiedBy;
   } else if (item.type == "ability" || item.type == "teen Ability") {
     let cost = "";
+    let pointCost;
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
       let points = " points";
+      let edge;
+      let edgeText = "";
+      if (item.data.data.costPool == "Might") {
+        edge = actor.data.data.pools.mightEdge;
+      } else if (item.data.data.costPool == "Speed") {
+        edge = actor.data.data.pools.speedEdge;
+      } else if (item.data.data.costPool == "Intellect") {
+        edge = actor.data.data.pools.intellectEdge;
+      }
+      pointCost = item.data.data.costPoints - edge;
+      if (pointCost < 0) pointCost = 0;
       if (item.data.data.costPoints == "1") points = " point";
-      cost = ". Cost: " + item.data.data.costPoints + " " + item.data.data.costPool + points;
+      if (edge > 0) edgeText = " (" + item.data.data.costPoints + "-" + edge + ") ";
+      cost = ". Cost: " + item.data.data.costPoints + edgeText + " " + item.data.data.costPool + points;
     }
     info = titleCase(item.type) + cost
     pointsPaid = payPoolPoints(actor, item.data.data.costPoints, item.data.data.costPool)
@@ -1047,4 +1066,31 @@ function itemRollMacroQuick (actor, itemID) {
   if (pointsPaid == true) {
     diceRoller(item.name, info, modifier, 0);
   }
+}
+
+function toggleDragRuler(token) {
+  if (!token) {
+    return ui.notifications.warn(`Please select a token.`)
+  }
+  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn("You need to activate the module Drag Ruler to use this macro.");
+
+  if (!token.data.flags.cyphersystem.toggleDragRuler) {
+    token.setFlag("cyphersystem", "toggleDragRuler", true)
+    ui.notifications.info(`Drag Ruler is now enabled for ${token.name}.`);
+  } else if (token.data.flags.cyphersystem.toggleDragRuler) {
+    token.setFlag("cyphersystem", "toggleDragRuler", false)
+    ui.notifications.info(`Drag Ruler is now disabled for ${token.name}.`);
+  }
+}
+
+function resetDragRulerDefaults() {
+  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn("You need to activate the module Drag Ruler to use this macro.");
+  for (let t of canvas.tokens.objects.children) {
+    if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+      t.setFlag("cyphersystem", "toggleDragRuler", true);
+    } else {
+      t.setFlag("cyphersystem", "toggleDragRuler", false);
+    }
+  }
+  ui.notifications.info(`All tokens now use the Drag Ruler default.`)
 }

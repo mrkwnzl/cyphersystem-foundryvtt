@@ -30,6 +30,13 @@
       "system": "cyphersystem",
       "path": "packs/scenes.db",
       "entity": "Scene"
+    },
+    {
+      "name": "utility-macros",
+      "label": "Cypher System Utility Macros",
+      "system": "cyphersystem",
+      "path": "packs/utility-macros.db",
+      "entity": "Macro"
     }
   ],
   "languages": [],
