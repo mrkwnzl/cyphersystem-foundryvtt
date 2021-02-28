@@ -117,6 +117,38 @@ async function preloadHandlebarsTemplates() {
   return loadTemplates(templatePaths);
 }
 
+Hooks.on("canvasReady", canvas => {
+  console.log(`The canvas was just rendered for scene: ${canvas.scene._id}`);
+  for (let t of canvas.tokens.objects.children) {
+    if (t.getFlag("cyphersystem", "toggleDragRuler")) {
+      // do nothing
+    } else {
+      if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+        t.setFlag("cyphersystem", "toggleDragRuler", true);
+      } else {
+        t.setFlag("cyphersystem", "toggleDragRuler", false);
+      }
+    }
+  }
+});
+
+// Hooks.once("canvasReady", canvas => {
+//   console.log("Hallo");
+//   for (let t of canvas.tokens.objects.children) {
+//
+//     console.log(t.getFlag("cyphersystem", "toggleDragRuler"));
+//     if (t.getFlag("cyphersystem", "toggleDragRuler") == true) {
+//       // do nothing
+//     } else {
+//       if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+//         t.setFlag("cyphersystem", "toggleDragRuler", true);
+//       } else {
+//         t.setFlag("cyphersystem", "toggleDragRuler", false);
+//       }
+//     }
+//   }
+// });
+
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
@@ -165,20 +197,6 @@ Hooks.once("ready", async function() {
   }
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
-
-  for (let t of canvas.tokens.objects.children) {
-    // t.setFlag("cyphersystem", "toggleDragRuler");
-    if (t.getFlag("cyphersystem", "toggleDragRuler")) {
-      // do nothing
-    } else {
-      if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
-        t.setFlag("cyphersystem", "toggleDragRuler", true);
-      } else {
-        t.setFlag("cyphersystem", "toggleDragRuler", false);
-      }
-    }
-  }
-
 });
 
 function sendWelcomeMessage() {
