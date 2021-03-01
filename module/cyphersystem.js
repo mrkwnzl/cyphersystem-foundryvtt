@@ -722,7 +722,7 @@ function payPoolPoints(actor, cost, pool){
     let newMight = actor.data.data.pools.might.value - cost;
     actor.update({"data.pools.might.value": newMight})
   } else if (pool == "speed") {
-    cost = cost - actor.data.data.pools.mightEdge;
+    cost = cost - actor.data.data.pools.speedEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.speed.value) {
       ui.notifications.notify(`You don’t have enough Speed points.`);
@@ -731,7 +731,7 @@ function payPoolPoints(actor, cost, pool){
     let newSpeed = actor.data.data.pools.speed.value - cost;
     actor.update({"data.pools.speed.value": newSpeed})
   } else if (pool == "intellect") {
-    cost = cost - actor.data.data.pools.mightEdge;
+    cost = cost - actor.data.data.pools.intellectEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.intellect.value) {
       ui.notifications.notify(`You don’t have enough Intellect points.`);
