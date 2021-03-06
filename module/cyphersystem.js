@@ -238,15 +238,20 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     getRanges(token) {
-      let immediate = 10;
-      let short = 50;
-      let long = 100;
-      let veryLong = 500;
-      if (token.scene.data.gridUnits == "m") {
+      let immediate = 0;
+      let short = 0;
+      let long = 0;
+      let veryLong = 0;
+      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre") {
         immediate = 3;
         short = 15;
         long = 30;
         veryLong = 150;
+      } else if (token.scene.data.gridUnits == "ft" || token.scene.data.gridUnits == "ft." || token.scene.data.gridUnits == "feet") {
+        immediate = 10;
+        short = 50;
+        long = 100;
+        veryLong = 500;
       }
 
       const ranges = [
