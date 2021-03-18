@@ -5,46 +5,46 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'ACTOR.name' }}"/>
                         &nbsp;
                         <div class="item-quantity" style="flex: 0 0 80px;">
                           <select name="data.skillRating">
                               {{#select data.skillRating}}
-                              <option value="Inability">Inability</option>
-                              <option value="Practiced">Practiced</option>
-                              <option value="Trained">Trained</option>
-                              <option value="Specialized">Specialized</option>
+                              <option value="Inability">{{ localize 'SKILL.inability' }}</option>
+                              <option value="Practiced">{{ localize 'SKILL.practiced' }}</option>
+                              <option value="Trained">{{ localize 'SKILL.trained' }}</option>
+                              <option value="Specialized">{{ localize 'SKILL.specialized' }}</option>
                               {{/select}}
                           </select>
                         </div>
                     </div>
                     <div class="resources grid grid-3col" style="margin-bottom: 0">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Damage</label>
+                            <label class="resource-label-normal">{{ localize 'ITEM.damage' }}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Type</label>
+                            <label class="resource-label-normal">{{ localize 'ITEM.type' }}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.attackType">
                                     {{#select data.attackType}}
-                                    <option value="light weapon">light weapon</option>
-                                    <option value="medium weapon">medium weapon</option>
-                                    <option value="heavy weapon">heavy weapon</option>
-                                    <option value="artifact">artifact</option>
-                                    <option value="special ability">special ability</option>
+                                    <option value="light weapon">{{ localize 'ITEM.weaponLight' }}</option>
+                                    <option value="medium weapon">{{ localize 'ITEM.weaponMedium' }}</option>
+                                    <option value="heavy weapon">{{ localize 'ITEM.weaponHeavy' }}</option>
+                                    <option value="artifact">{{ localize 'ITEM.specialArtifact' }}</option>
+                                    <option value="special ability">{{ localize 'ITEM.specialAbility' }}</option>
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
                         <div class="resource flexrow flex-between flex-center" >
-                            <label class="resource-label-normal">Modifier</label>
+                            <label class="resource-label-normal">{{ localize 'MISC.modifier' }}</label>
                             <select name="data.modified">
                                 {{#select data.modified}}
-                                <option value="eased">eased by</option>
-                                <option value="hindered">hindered by</option>
+                                <option value="eased">{{ localize 'MISC.eased' }}</option>
+                                <option value="hindered">{{ localize 'MISC.hindered' }}</option>
                                 {{/select}}
                             </select>
                             &nbsp;
@@ -52,8 +52,8 @@
                         </div>
                     </div>
                     <div class="flexrow flex-between">
-                        <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="Range"/>&nbsp;
-                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
+                        <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="{{ localize 'ITEM.weaponRange' }}"/>&nbsp;
+                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{ localize 'ACTOR.tab.notes.name' }}"/>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{ localize 'MISC.description' }}</a>
     </nav>
 
     {{!-- Sheet Body --}}
