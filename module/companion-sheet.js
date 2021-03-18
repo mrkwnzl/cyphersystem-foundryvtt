@@ -9,8 +9,8 @@ export class CypherCompanionSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "companion"],
       template: "systems/cyphersystem/templates/companion-sheet.html",
-      width: 600,
-      height: 640,
+      width: 640,
+      height: 680,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items"],
