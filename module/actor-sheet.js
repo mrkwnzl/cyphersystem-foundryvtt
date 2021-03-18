@@ -10,8 +10,8 @@ export class CypherActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
       template: "systems/cyphersystem/templates/actor-sheet.html",
-      width: 600,
-      height: 735,
+      width: 640,
+      height: 785,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"],
