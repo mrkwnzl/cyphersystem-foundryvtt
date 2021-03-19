@@ -22,7 +22,7 @@
             {{/if}}
           </div>
           <div class="resource-content flexrow flex-center">
-            <label style="flex: 0 0 40px;">{{#if (eq data.settings.gameMode.currentSheet "Teen")}}{{ localize 'ACTOR.is' }}{{else}}{{ localize 'ACTOR.isA' }}{{/if}}</label>
+            <label style="flex: 0 0 35px;">{{#if (eq data.settings.gameMode.currentSheet "Teen")}}{{ localize 'ACTOR.is' }}{{else}}{{ localize 'ACTOR.isA' }}{{/if}}</label>
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
             <input name="data.teen.basic.descriptor" type="text" value="{{data.teen.basic.descriptor}}" data-dtype="String" placeholder="{{ localize 'ACTOR.descriptor' }}"/>
             {{else}}
@@ -34,7 +34,7 @@
           </div>
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <div class="resource-content flexrow flex-center">
-            <label style="flex: 0 0 40px;">{{ localize 'ACTOR.who' }}</label>
+            <label style="flex: 0 0 35px;">{{ localize 'ACTOR.who' }}</label>
             <input name="data.basic.focus" type="text" value="{{data.basic.focus}}" data-dtype="String" placeholder="{{ localize 'ACTOR.focus' }}"/>
             {{#if data.settings.additionalSentence.active}}&nbsp;<input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}{{ localize 'ACTOR.additionalSentence' }}{{else}}{{data.settings.additionalSentence.name}}{{/if}}"/>{{/if}}
           </div>
