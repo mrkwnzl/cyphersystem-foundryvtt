@@ -9,8 +9,8 @@ export class CypherTokenSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "token"],
       template: "systems/cyphersystem/templates/token-sheet.html",
-      width: 640,
-      height: 595,
+      width: 600,
+      height: 560,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"],
