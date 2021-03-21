@@ -1,29 +1,29 @@
 <div class="flexrow">
     <ol class="items-list">
         <li class="item flexrow item-header">
-            <div class="item-name">{{#if (eq actor.type "NPC")}}Inventory{{/if}}{{#if (eq actor.type "Companion")}}Inventory{{/if}}{{#if (eq actor.type "Community")}}Storage{{/if}}{{#if (eq actor.type "Vehicle")}}Storage{{/if}}{{#if (eq actor.type "Token")}}Items{{/if}} Tab</div>
+            <div class="item-name">{{#if (eq actor.type "NPC")}}{{ localize 'ACTOR.tab.inventory.name' }}{{/if}}{{#if (eq actor.type "Companion")}}{{ localize 'ACTOR.tab.inventory.name' }}{{/if}}{{#if (eq actor.type "Community")}}{{ localize 'MISC.storage' }}{{/if}}{{#if (eq actor.type "Vehicle")}}{{ localize 'MISC.storage' }}{{/if}}{{#if (eq actor.type "Token")}}{{ localize 'ITEM.name' }}{{/if}} {{ localize 'ACTOR.tab.name' }}</div>
         </li>
         <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.equipment.ammo" data-dtype="boolean" {{checked data.settings.equipment.ammo}}>&nbsp;Ammo</div>
+            <div class="settings-list"><input type="checkbox" name="data.settings.equipment.ammo" data-dtype="boolean" {{checked data.settings.equipment.ammo}}>&nbsp;{{ localize 'ITEM.ammo' }}</div>
         </li>
         <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.equipment.armor" data-dtype="boolean" {{checked data.settings.equipment.armor}}>&nbsp;Armor</div>
+            <div class="settings-list"><input type="checkbox" name="data.settings.equipment.armor" data-dtype="boolean" {{checked data.settings.equipment.armor}}>&nbsp;{{ localize 'ITEM.armor' }}</div>
         </li>
         <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;Cyphers</div>
-          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="Cyphers" style="width: auto;"/></div>
+          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;{{ localize 'ITEM.cyphers' }}</div>
+          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{ localize 'ITEM.cyphers' }}" style="width: auto;"/></div>
         </li>
         <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;Artifacts</div>
-          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="Artifacts" style="width: auto;"/></div>
+          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;{{ localize 'ITEM.artifacts' }}</div>
+          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="{{ localize 'ITEM.artifacts' }}" style="width: auto;"/></div>
         </li>
         <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;Oddities</div>
-          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="Oddities" style="width: auto;"/></div>
+          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;{{ localize 'ITEM.oddities' }}</div>
+          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="{{ localize 'ITEM.oddities' }}" style="width: auto;"/></div>
         </li>
         <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;Crafting Material</div>
-          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="Iotum & Parts" style="width: auto;"/></div>
+          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;{{ localize 'ITEM.craftMaterials' }}</div>
+          <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="{{ localize 'NUMENERA.iotum' }}" style="width: auto;"/></div>
         </li>
     </ol>
 </div>

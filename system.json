@@ -39,7 +39,18 @@
       "entity": "Macro"
     }
   ],
-  "languages": [],
+  "languages": [
+	{
+		"lang": "en",
+		"name": "English",
+		"path": "lang/en.json"
+	},
+	{
+		"lang": "fr",
+		"name": "Français",
+		"path": "lang/fr.json"
+	}
+  ],
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",

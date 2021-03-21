@@ -3,45 +3,45 @@
 
   {{#if (gte data.settings.currency.howMany 6)}}
   <div class="resource flex-center">
-    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name6 "")}}Adamantine{{else}}{{data.settings.currency.name6}}{{/if}}</b></label>{{/unless}}
+    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name6 "")}}{{ localize 'MISC.adamantine' }}{{else}}{{data.settings.currency.name6}}{{/if}}</b></label>{{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name6 '')}}Adamantine{{else}}{{data.settings.currency.name6}}{{/if}}" type="text" name="data.settings.currency.quantity6" value="{{data.settings.currency.quantity6}}"/>
+      <input title="{{#if (eq data.settings.currency.name6 '')}}{{ localize 'MISC.adamantine' }}{{else}}{{data.settings.currency.name6}}{{/if}}" type="text" name="data.settings.currency.quantity6" value="{{data.settings.currency.quantity6}}"/>
     </div>
   </div>
   {{else}}<div></div>{{/if}}
 
   {{#if (gte data.settings.currency.howMany 5)}}
   <div class="resource flex-center">
-    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name5 "")}}Mithral{{else}}{{data.settings.currency.name5}}{{/if}}</b></label>{{/unless}}
+    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name5 "")}}{{ localize 'MISC.mithral' }}{{else}}{{data.settings.currency.name5}}{{/if}}</b></label>{{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name5 '')}}Mithral{{else}}{{data.settings.currency.name5}}{{/if}}" type="text" name="data.settings.currency.quantity5" value="{{data.settings.currency.quantity5}}"/>
+      <input title="{{#if (eq data.settings.currency.name5 '')}}{{ localize 'MISC.mithral' }}{{else}}{{data.settings.currency.name5}}{{/if}}" type="text" name="data.settings.currency.quantity5" value="{{data.settings.currency.quantity5}}"/>
     </div>
   </div>
   {{else}}<div></div>{{/if}}
 
   {{#if (gte data.settings.currency.howMany 4)}}
   <div class="resource flex-center">
-    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name4 "")}}Platinum{{else}}{{data.settings.currency.name4}}{{/if}}</b></label>{{/unless}}
+    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name4 "")}}{{ localize 'MISC.platinum' }}{{else}}{{data.settings.currency.name4}}{{/if}}</b></label>{{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name4 '')}}Platinum{{else}}{{data.settings.currency.name4}}{{/if}}" type="text" name="data.settings.currency.quantity4" value="{{data.settings.currency.quantity4}}"/>
+      <input title="{{#if (eq data.settings.currency.name4 '')}}{{ localize 'MISC.platinum' }}{{else}}{{data.settings.currency.name4}}{{/if}}" type="text" name="data.settings.currency.quantity4" value="{{data.settings.currency.quantity4}}"/>
     </div>
   </div>
   {{else}}<div></div>{{/if}}
 
   {{#if (gte data.settings.currency.howMany 3)}}
   <div class="resource flex-center">
-    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name3 "")}}Gold{{else}}{{data.settings.currency.name3}}{{/if}}</b></label>{{/unless}}
+    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name3 "")}}{{ localize 'MISC.gold' }}{{else}}{{data.settings.currency.name3}}{{/if}}</b></label>{{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name3 '')}}Gold{{else}}{{data.settings.currency.name3}}{{/if}}" type="text" name="data.settings.currency.quantity3" value="{{data.settings.currency.quantity3}}"/>
+      <input title="{{#if (eq data.settings.currency.name3 '')}}{{ localize 'MISC.gold' }}{{else}}{{data.settings.currency.name3}}{{/if}}" type="text" name="data.settings.currency.quantity3" value="{{data.settings.currency.quantity3}}"/>
     </div>
   </div>
   {{else}}<div></div>{{/if}}
 
   {{#if (gte data.settings.currency.howMany 2)}}
   <div class="resource flex-center">
-    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name2 "")}}Silver{{else}}{{data.settings.currency.name2}}{{/if}}</b></label>{{/unless}}
+    {{#unless data.settings.currency.namesHidden}}<label class="resource-label-normal"><b>{{#if (eq data.settings.currency.name2 "")}}{{ localize 'MISC.silver' }}{{else}}{{data.settings.currency.name2}}{{/if}}</b></label>{{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name2 '')}}Silver{{else}}{{data.settings.currency.name2}}{{/if}}" type="text" name="data.settings.currency.quantity2" value="{{data.settings.currency.quantity2}}"/>
+      <input title="{{#if (eq data.settings.currency.name2 '')}}{{ localize 'MISC.silver' }}{{else}}{{data.settings.currency.name2}}{{/if}}" type="text" name="data.settings.currency.quantity2" value="{{data.settings.currency.quantity2}}"/>
     </div>
   </div>
   {{else}}<div></div>{{/if}}
@@ -50,13 +50,13 @@
     {{#unless data.settings.currency.namesHidden}}
     <label class="resource-label-normal"><b>
       {{#if (eq data.settings.currency.name "")}}
-      {{#if (eq data.settings.currency.howMany "1")}}Shins{{/if}}
-      {{#if (gte data.settings.currency.howMany 2)}}Copper{{/if}}
+      {{#if (eq data.settings.currency.howMany "1")}}{{ localize 'ITEM.shins' }}{{/if}}
+      {{#if (gte data.settings.currency.howMany 2)}}{{ localize 'MISC.copper' }}{{/if}}
       {{else}}{{data.settings.currency.name}}{{/if}}
     </b></label>
     {{/unless}}
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name '')}}{{#if (eq data.settings.currency.howMany '1')}}Shins{{/if}}{{#if (gte data.settings.currency.howMany 2)}}Copper{{/if}}{{else}}{{data.settings.currency.name}}{{/if}}" type="text" name="data.settings.currency.quantity" value="{{data.settings.currency.quantity}}"/>
+      <input title="{{#if (eq data.settings.currency.name '')}}{{#if (eq data.settings.currency.howMany '1')}}{{ localize 'ITEM.shins' }}{{/if}}{{#if (gte data.settings.currency.howMany 2)}}{{ localize 'MISC.copper' }}{{/if}}{{else}}{{data.settings.currency.name}}{{/if}}" type="text" name="data.settings.currency.quantity" value="{{data.settings.currency.quantity}}"/>
     </div>
   </div>
 
