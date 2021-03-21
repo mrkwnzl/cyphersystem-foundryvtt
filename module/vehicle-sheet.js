@@ -9,7 +9,7 @@ export class CypherVehicleSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "vehicle"],
       template: "systems/cyphersystem/templates/vehicle-sheet.html",
-      width: 600,
+      width: 650,
       height: 560,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],

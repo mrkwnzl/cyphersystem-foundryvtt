@@ -2,13 +2,13 @@
     <header class="sheet-header">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
         <div class="header-fields">
-            <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'ACTOR.name' }}"/>
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'ACTOR.name'}}"/>
             <div class="resource">
-            	<label>{{ localize 'ITEM.quantity' }}</label>
+            	<label>{{localize 'ITEM.quantity'}}</label>
                 <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
             </div>
             <div class="resource">
-            	<label>{{ localize 'ITEM.weight' }}</label>
+            	<label>{{localize 'ITEM.weight'}}</label>
                 <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number"/>
             </div>
         </div>
@@ -16,8 +16,8 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">{{ localize 'MISC.description' }}</a>
-        <a class="item" data-tab="attributes">{{ localize 'ITEM.attributes' }}</a>
+        <a class="item" data-tab="description">{{localize 'MISC.description'}}</a>
+        <a class="item" data-tab="attributes">{{localize 'ITEM.attributes'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}
@@ -31,10 +31,10 @@
         {{!-- Attributes Tab --}}
         <div class="tab attributes" data-group="primary" data-tab="attributes">
             <header class="attributes-header flexrow">
-                <span class="attribute-key">{{ localize 'ITEM.attributeKey' }}</span>
-                <span class="attribute-value">{{ localize 'ITEM.value' }}</span>
-                <span class="attribute-label">{{ localize 'ITEM.label' }}</span>
-                <span class="attribute-dtype">{{ localize 'ITEM.dataType' }}</span>
+                <span class="attribute-key">{{localize 'ITEM.attributeKey'}}</span>
+                <span class="attribute-value">{{localize 'ITEM.value'}}</span>
+                <span class="attribute-label">{{localize 'ITEM.label'}}</span>
+                <span class="attribute-dtype">{{localize 'ITEM.dataType'}}</span>
                 <a class="attribute-control" data-action="create"><i class="fas fa-plus"></i></a>
             </header>
 

@@ -5,34 +5,34 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'ACTOR.name' }}"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'ACTOR.name'}}"/>
                     </div>
                     <div class="resources grid grid-3col">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">{{ localize 'ACTOR.tab.combat.damage.points' }}</label>
+                            <label class="resource-label-normal">{{localize 'ACTOR.tab.combat.damage.points'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">{{ localize 'ACTOR.basic.pool' }}</label>
+                            <label class="resource-label-normal">{{localize 'ACTOR.basic.pool'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.lastingDamagePool">
                                     {{#select data.lastingDamagePool}}
-                                    <option value="Might">{{ localize 'ACTOR.pool.might.name' }}</option>
-                                    <option value="Speed">{{ localize 'ACTOR.pool.speed.name' }}</option>
-                                    <option value="Intellect">{{ localize 'ACTOR.pool.intellect.name' }}</option>
+                                    <option value="Might">{{localize 'ACTOR.pool.might.name'}}</option>
+                                    <option value="Speed">{{localize 'ACTOR.pool.speed.name'}}</option>
+                                    <option value="Intellect">{{localize 'ACTOR.pool.intellect.name'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">{{ localize 'ACTOR.tab.combat.damage.type' }}</label>
+                            <label class="resource-label-normal">{{localize 'ACTOR.tab.combat.damage.type'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.damageType">
                                     {{#select data.damageType}}
-                                    <option value="Lasting">{{ localize '"ACTOR.tab.combat.damage.lasting"' }}</option>
-                                    <option value="Permanent">{{ localize 'ACTOR.tab.combat.damage.permanent' }}</option>
+                                    <option value="Lasting">{{localize '"ACTOR.tab.combat.damage.lasting"'}}</option>
+                                    <option value="Permanent">{{localize 'ACTOR.tab.combat.damage.permanent'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
@@ -45,7 +45,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{ localize 'MISC.description' }}</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'MISC.description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

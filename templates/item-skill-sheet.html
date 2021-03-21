@@ -5,18 +5,18 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'ACTOR.name' }}"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'ACTOR.name'}}"/>
                     </div>
                     <div class="resources grid grid-3col">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">{{ localize 'ITEM.rating' }}</label>
+                            <label class="resource-label-normal">{{localize 'ITEM.rating'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.skillLevel">
                                     {{#select data.skillLevel}}
-                                    <option value="Specialized">{{ localize 'SKILL.specialized' }}</option>
-                                    <option value="Trained">{{ localize 'SKILL.trained' }}</option>
-                                    <option value="Practiced">{{ localize 'SKILL.practiced' }}</option>
-                                    <option value="Inability">{{ localize 'SKILL.inability' }}</option>
+                                    <option value="Specialized">{{localize 'SKILL.specialized'}}</option>
+                                    <option value="Trained">{{localize 'SKILL.trained'}}</option>
+                                    <option value="Practiced">{{localize 'SKILL.practiced'}}</option>
+                                    <option value="Inability">{{localize 'SKILL.inability'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
@@ -29,7 +29,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{ localize 'MISC.description' }}</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'MISC.description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

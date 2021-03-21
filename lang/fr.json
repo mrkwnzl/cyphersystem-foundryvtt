@@ -1,7 +1,7 @@
 {
 	"ACTOR.name": "Nom",
 	"ACTOR.is": "est",
-	"ACTOR.isA": "est&nbsp;un",
+	"ACTOR.isA": "est un",
 	"ACTOR.descriptor": "Descripteur",
 	"ACTOR.type": "Type",
 	"ACTOR.who": "qui",
@@ -24,9 +24,9 @@
 	"ACTOR.community.infrastructure.increase": "Ajouter 1 point d'Infrastructure (ctrl/cmd-clic pour ajouter 10 points)",
 	"ACTOR.community.infrastructure.reset": "Réinitialiser l'Infrastructure",
 
-	"ACTOR.advancement.pool": "+4&nbsp;Réserves",
-	"ACTOR.advancement.effort": "+1&nbsp;Effort",
-	"ACTOR.advancement.edge": "+1&nbsp;Avantage",
+	"ACTOR.advancement.pool": "+4 Réserves",
+	"ACTOR.advancement.effort": "+1 Effort",
+	"ACTOR.advancement.edge": "+1 Avantage",
 	"ACTOR.advancement.skill": "Compétence",
 	"ACTOR.advancement.other": "Autre",
 	"ACTOR.advancement.reset": "Réinitialiser l'Avancement",
@@ -127,7 +127,7 @@
 	"ITEM.armorLight": "armure légère",
 	"ITEM.armorMedium": "armure moyenne",
 	"ITEM.armorHeavy": "armure lourde",
-	"ITEM.armorSpeedCost" : "Coût en Célérité",
+	"ITEM.armorSpeedCost" : "Coût",
 	"ITEM.armorActive": "Armure Active",
 
 	"ITEM.weapon": "Armes",

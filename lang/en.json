@@ -13,33 +13,33 @@
 	"ACTOR.ownedBy": "owned by",
 	"ACTOR.owner": "Owner",
 	"ACTOR.interactionLevel": "Interaction Level",
-	
+
 	"ACTOR.health.name": "Health",
 	"ACTOR.health.decrease": "Subract 1 Health point (ctrl/cmd-click to subract 10 points)",
 	"ACTOR.health.increase": "Add 1 Health point (ctrl/cmd-click to add 10 points)",
 	"ACTOR.health.reset": "Reset Health",
-	
+
 	"ACTOR.community.infrastructure.name": "Infrastructure",
 	"ACTOR.community.infrastructure.decrease": "Subract 1 Infrastructure point (ctrl/cmd-click to subract 10 points)",
 	"ACTOR.community.infrastructure.increase": "Add 1 Infrastructure point (ctrl/cmd-click to add 10 points)",
 	"ACTOR.community.infrastructure.reset": "Reset Infrastructure",
-	
+
 	"ACTOR.advancement.pool": "+4 Stat Pools",
 	"ACTOR.advancement.effort": "+1 Effort",
 	"ACTOR.advancement.edge": "+1 Edge",
 	"ACTOR.advancement.skill": "Skill",
 	"ACTOR.advancement.other": "Other",
 	"ACTOR.advancement.reset": "Reset Advancement",
-	
+
 	"ACTOR.basic.tier": "Tier",
 	"ACTOR.basic.effort": "Effort",
 	"ACTOR.basic.cypherLimit": "Cypher Limit",
 	"ACTOR.basic.xp": "XP",
 	"ACTOR.basic.xpDecrease": "Subract 1 XP (ctrl/cmd-click to subract 10 XP)",
-	"ACTOR.basic.xpIncrease": "Add 1 XP (ctrl/cmd-click to add 10 XP)",	
+	"ACTOR.basic.xpIncrease": "Add 1 XP (ctrl/cmd-click to add 10 XP)",
 	"ACTOR.basic.pool": "Pool",
-	"ACTOR.basic.edge": "Edge",	
-	
+	"ACTOR.basic.edge": "Edge",
+
 	"ACTOR.pool.might.name": "Might",
 	"ACTOR.pool.might.decrease": "Subract 1 Might point (ctrl/cmd-click to subract 10 points)",
 	"ACTOR.pool.might.increase": "Add 1 Might point (ctrl/cmd-click to add 10 points)",
@@ -57,24 +57,25 @@
 	"ACTOR.pool.additional.increase": "Add 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Luck{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-click to add 10 points)",
 	"ACTOR.pool.additional.reset": "Reset Additional Pool",
 	"ACTOR.pool.any.name": "Any Pool",
-	
+
 	"ACTOR.tab.name": "Tab",
-	
+
 	"ACTOR.tab.equipment.name": "Equipment",
 	"ACTOR.tab.inventory.name": "Inventory",
 	"ACTOR.tab.notes.name": "Notes",
-	
+
 	"ACTOR.tab.skills.name": "Skills",
 	"ACTOR.tab.skills.abilities": "Skills & Abilities",
 	"ACTOR.tab.skills.powerShifts": "Power Shifts",
-	"ACTOR.tab.skills.shifts": "Shifts",	
-	
+	"ACTOR.tab.skills.shifts": "Shifts",
+
 	"ACTOR.tab.combat.name": "Combat",
 	"ACTOR.tab.combat.damageTrackRecoveryRolls": "Damage Track & Recovery Rolls",
 	"ACTOR.tab.combat.damage.hale.name": "Hale",
 	"ACTOR.tab.combat.damage.hale.effect": "No effect.",
 	"ACTOR.tab.combat.damage.impaired.name": "Impaired",
-	"ACTOR.tab.combat.damage.impaired.effect": "Effort costs +1 per level. Ignore minor and major effect results on rolls.<br>Combat roll of 17-20 deals only +1 damage.",
+	"ACTOR.tab.combat.damage.impaired.effect1": "Effort costs +1 per level. Ignore minor and major effect results on rolls.",
+	"ACTOR.tab.combat.damage.impaired.effect2": "Combat roll of 17-20 deals only +1 damage.",
 	"ACTOR.tab.combat.damage.debilitated.name": "Debilitated",
 	"ACTOR.tab.combat.damage.debilitated.effect": "Can’t take actions other than moving an immediate distance.<br>Cannot move if Speed Pool is 0.",
 	"ACTOR.tab.combat.damage.dead.name": "Dead",
@@ -89,10 +90,10 @@
 	"ACTOR.tab.combat.recovery.hours": "10 Hours",
 	"ACTOR.tab.combat.recovery.reset": "Reset Recovery Rolls",
 	"ACTOR.tab.combat.attacks": "Attacks",
-	
+
 	"ACTOR.tab.abilities.name": "Abilities",
 	"ACTOR.tab.abilities.cost": "Point Cost",
-	
+
 	"ACTOR.tab.settings.general": "General Settings",
 	"ACTOR.tab.settings.gameMode": "Game Mode",
 	"ACTOR.tab.settings.default": "Default Tab",
@@ -113,15 +114,15 @@
 	"ACTOR.tab.settings.equipmentTab": "Equipment Tab",
 	"ACTOR.tab.settings.equipmentCurrency": "Currency",
 	"ACTOR.tab.settings.equipmentHideCurrency": "Hide Currency Names in Equipment Tab (Tooltip-only Mode)",
-	
+
 	"SKILL.inability": "Inability",
 	"SKILL.practiced": "Practiced",
 	"SKILL.trained": "Trained",
 	"SKILL.specialized": "Specialized",
-	
+
 	"ITEM.name": "Items",
 	"ITEM.ammo": "Ammo",
-	
+
 	"ITEM.armor": "Armor",
 	"ITEM.armorRating": "Armor Rating",
 	"ITEM.armorLight": "light armor",
@@ -129,32 +130,32 @@
 	"ITEM.armorHeavy": "heavy armor",
 	"ITEM.armorSpeedCost" : "Speed Cost",
 	"ITEM.armorActive": "Armor Active",
-	
+
 	"ITEM.weapon": "Weapon",
 	"ITEM.weaponLight": "light weapon",
 	"ITEM.weaponMedium": "medium weapon",
 	"ITEM.weaponHeavy": "heavy weapon",
 	"ITEM.weaponRange": "Range",
-	
+
 	"ITEM.specialArtifact": "artifact",
 	"ITEM.specialAbility": "special ability",
-	
-	"ITEM.active": "Active",	
-	"ITEM.rating": "Rating",	
+
+	"ITEM.active": "Active",
+	"ITEM.rating": "Rating",
 	"ITEM.damage": "Damage",
-	
+
 	"ITEM.attributes": "Attributes",
 	"ITEM.attributeKey": "Attribute Key",
 	"ITEM.value": "Value",
 	"ITEM.label": "Label",
 	"ITEM.dataType": "Data Type",
-	
+
 	"ITEM.quantity": "Quantity",
 	"ITEM.weight": "Weight",
 	"ITEM.units": "Units",
 	"ITEM.level": "Level",
 	"ITEM.type": "Type",
-	
+
 	"ITEM.create": "Create Item",
 	"ITEM.edit": "Edit Item",
 	"ITEM.showDescription": "Show Description (ctrl/cmd-click to send description to chat)",
@@ -163,7 +164,7 @@
 	"ITEM.resetQuantity": "Reset Quantity",
 	"ITEM.decrease": "Subtract 1 (ctrl/cmd-click to subtract 10)",
 	"ITEM.increase": "Add 1 (ctrl/cmd-click to add 10)",
-	
+
 	"ITEM.shins": "Shins",
 	"ITEM.cyphers": "Cyphers",
 	"ITEM.artifacts": "Artifacts",
@@ -171,20 +172,20 @@
 	"ITEM.oddities": "Oddities",
 	"ITEM.craftMaterials": "Crafting Material",
 	"NUMENERA.iotum": "Iotum & Parts",
-	
+
 	"MISC.modifier": "Modifier",
 	"MISC.eased": "eased by",
 	"MISC.hindered": "hindered by",
-	
+
 	"MISC.up": "Up",
 	"MISC.down": "Down",
-	
+
 	"MISC.description": "Description",
 	"MISC.storage": "Storage",
 	"MISC.crew": "Crew",
 	"MISC.weaponSystem": "Weapon Systems",
 	"MISC.total": "Total",
-	
+
 	"MISC.adamantine": "Adamantine",
 	"MISC.mithral": "Mithral",
 	"MISC.platinum": "Platinum",
