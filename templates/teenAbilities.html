@@ -1,9 +1,9 @@
 {{#each actor.teenAbilities as |item id|}}
 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-  <h4 class="item-name"><a class="item-control item-description" title="{{localize 'ITEM.showDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
+  <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}} {{data.costPool}} point{{#unless (eq data.costPoints "1")}}s{{/unless}}){{/unless}}</a></h4>
   <div class="item-controls">
-      <a class="item-control item-edit" title="{{localize 'ITEM.edit'}}"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'ITEM.unarchive'}}{{else}}{{localize 'ITEM.archive'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+      <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+      <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
   </div>
 </li>
 {{#if data.showDescription}}
