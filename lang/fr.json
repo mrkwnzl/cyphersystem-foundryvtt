@@ -1,7 +1,7 @@
 {
 	"ACTOR.name": "Nom",
 	"ACTOR.is": "est",
-	"ACTOR.isA": "est un",
+	"ACTOR.isA": "est&nbsp;un",
 	"ACTOR.descriptor": "Descripteur",
 	"ACTOR.type": "Type",
 	"ACTOR.who": "qui",
@@ -13,33 +13,33 @@
 	"ACTOR.ownedBy": "appartient à",
 	"ACTOR.owner": "Propriétaire",
 	"ACTOR.interactionLevel": "Niveau d'interaction",
-	
+
 	"ACTOR.health.name": "Santé",
 	"ACTOR.health.decrease": "Soustraire 1 point de Santé (ctrl/cmd-clic pour soustraire 10 points)",
 	"ACTOR.health.increase": "Ajouter 1 point de Santé (ctrl/cmd-clic pour ajouter 10 points)",
 	"ACTOR.health.reset": "Réinitialiser la Santé",
-	
+
 	"ACTOR.community.infrastructure.name": "Infrastructure",
 	"ACTOR.community.infrastructure.decrease": "Soustraire 1 point d'Infrastructure (ctrl/cmd-clic pour soustraire 10 points)",
 	"ACTOR.community.infrastructure.increase": "Ajouter 1 point d'Infrastructure (ctrl/cmd-clic pour ajouter 10 points)",
 	"ACTOR.community.infrastructure.reset": "Réinitialiser l'Infrastructure",
-	
-	"ACTOR.advancement.pool": "+4 Réserves",
-	"ACTOR.advancement.effort": "+1 Effort",
-	"ACTOR.advancement.edge": "+1 Avantage",
+
+	"ACTOR.advancement.pool": "+4&nbsp;Réserves",
+	"ACTOR.advancement.effort": "+1&nbsp;Effort",
+	"ACTOR.advancement.edge": "+1&nbsp;Avantage",
 	"ACTOR.advancement.skill": "Compétence",
 	"ACTOR.advancement.other": "Autre",
 	"ACTOR.advancement.reset": "Réinitialiser l'Avancement",
-	
+
 	"ACTOR.basic.tier": "Tier",
 	"ACTOR.basic.effort": "Effort",
 	"ACTOR.basic.cypherLimit": "Limite de Cypher",
 	"ACTOR.basic.xp": "XP",
 	"ACTOR.basic.xpDecrease": "Soustraire 1 XP (ctrl/cmd-clic pour soustraire 10 XP)",
-	"ACTOR.basic.xpIncrease": "Ajouter 1 XP (ctrl/cmd-clic pour ajouter 10 XP)",	
+	"ACTOR.basic.xpIncrease": "Ajouter 1 XP (ctrl/cmd-clic pour ajouter 10 XP)",
 	"ACTOR.basic.pool": "Réserve",
-	"ACTOR.basic.edge": "Avantage",	
-	
+	"ACTOR.basic.edge": "Avantage",
+
 	"ACTOR.pool.might.name": "Puissance",
 	"ACTOR.pool.might.decrease": "Soustraire 1 point de Puissance (ctrl/cmd-clic pour soustraire 10 points)",
 	"ACTOR.pool.might.increase": "Ajouter 1 point de Puissance (ctrl/cmd-clic pour ajouter 10 points)",
@@ -57,18 +57,18 @@
 	"ACTOR.pool.additional.increase": "Ajouter 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Chance{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-clic pour ajouter 10 points)",
 	"ACTOR.pool.additional.reset": "Réinitialiser la Réserve Additionnelle",
 	"ACTOR.pool.any.name": "Toute Réserve",
-	
+
 	"ACTOR.tab.name": "Onglet",
-	
+
 	"ACTOR.tab.equipment.name": "Équipement",
 	"ACTOR.tab.inventory.name": "Inventaire",
 	"ACTOR.tab.notes.name": "Notes",
-	
+
 	"ACTOR.tab.skills.name": "Compétences",
 	"ACTOR.tab.skills.abilities": "Compétences et Aptitudes",
 	"ACTOR.tab.skills.powerShifts": "Transferts de Pouvoir",
-	"ACTOR.tab.skills.shifts": "Transferts",	
-	
+	"ACTOR.tab.skills.shifts": "Transferts",
+
 	"ACTOR.tab.combat.name": "Combat",
 	"ACTOR.tab.combat.damageTrackRecoveryRolls": "Table des Dommages & Jets de Récupération",
 	"ACTOR.tab.combat.damage.hale.name": "Vigoureux",
@@ -89,10 +89,10 @@
 	"ACTOR.tab.combat.recovery.hours": "10 Heures",
 	"ACTOR.tab.combat.recovery.reset": "Réinitialiser les Jets de Récupération",
 	"ACTOR.tab.combat.attacks": "Attaques",
-	
+
 	"ACTOR.tab.abilities.name": "Aptitudes",
 	"ACTOR.tab.abilities.cost": "Coût",
-	
+
 	"ACTOR.tab.settings.general": "Paramètres Généraux",
 	"ACTOR.tab.settings.gameMode": "Mode de Jeu",
 	"ACTOR.tab.settings.default": "Onglet par Défaut",
@@ -113,15 +113,15 @@
 	"ACTOR.tab.settings.equipmentTab": "Onglet Équipement",
 	"ACTOR.tab.settings.equipmentCurrency": "Devises",
 	"ACTOR.tab.settings.equipmentHideCurrency": "Masquer les Noms des Devises dans l'!onglet Équipement (mode info-bulle uniquement)",
-	
+
 	"SKILL.inability": "Incapacité",
 	"SKILL.practiced": "Pratiqué",
 	"SKILL.trained": "Entraîné",
 	"SKILL.specialized": "Spécialisé",
-	
+
 	"ITEM.name": "Objets",
 	"ITEM.ammo": "Munitions",
-	
+
 	"ITEM.armor": "Armure",
 	"ITEM.armorRating": "Valeur d'Armure",
 	"ITEM.armorLight": "armure légère",
@@ -129,32 +129,32 @@
 	"ITEM.armorHeavy": "armure lourde",
 	"ITEM.armorSpeedCost" : "Coût en Célérité",
 	"ITEM.armorActive": "Armure Active",
-	
+
 	"ITEM.weapon": "Armes",
 	"ITEM.weaponLight": "arme légère",
 	"ITEM.weaponMedium": "arme moyenne",
 	"ITEM.weaponHeavy": "arme lourde",
 	"ITEM.weaponRange": "Portée",
-	
+
 	"ITEM.specialArtifact": "artefact",
 	"ITEM.specialAbility": "aptitude spéciale",
-	
-	"ITEM.active": "Active",	
-	"ITEM.rating": "Classement",	
+
+	"ITEM.active": "Active",
+	"ITEM.rating": "Classement",
 	"ITEM.damage": "Dégâts",
-	
+
 	"ITEM.attributes": "Attributs",
 	"ITEM.attributeKey": "Clé d'Attributs",
 	"ITEM.value": "Valeur",
 	"ITEM.label": "Étiquette",
 	"ITEM.dataType": "Type de Données",
-	
+
 	"ITEM.quantity": "Quantité",
 	"ITEM.weight": "Poids",
 	"ITEM.units": "Unités",
 	"ITEM.level": "Niveau",
 	"ITEM.type": "Type",
-	
+
 	"ITEM.create": "Créer un Élément",
 	"ITEM.edit": "Editer l'Élément",
 	"ITEM.showDescription": "Afficher la Description (ctrl/cmd-clic pour envoyer la description au tchat)",
@@ -163,7 +163,7 @@
 	"ITEM.resetQuantity": "Réinitialiser la Quantité",
 	"ITEM.decrease": "Soustraire 1 (ctrl/cmd-clic pour soustraire 10)",
 	"ITEM.increase": "Ajouter 1 (ctrl/cmd-clic pour ajouter 10)",
-	
+
 	"ITEM.shins": "Shins",
 	"ITEM.cyphers": "Cyphers",
 	"ITEM.artifacts": "Artefacts",
@@ -171,20 +171,20 @@
 	"ITEM.oddities": "Curiosités",
 	"ITEM.craftMaterials": "Matériau d'artisanat",
 	"NUMENERA.iotum": "Iotum & Pièces",
-	
+
 	"MISC.modifier": "Modificateur",
 	"MISC.eased": "facilité par",
 	"MISC.hindered": "entravé par",
-	
+
 	"MISC.up": "Haut",
 	"MISC.down": "Bas",
-	
+
 	"MISC.description": "Description",
 	"MISC.storage": "Stockage",
 	"MISC.crew": "Equipage",
 	"MISC.weaponSystem": "Systèmes d'armement",
 	"MISC.total": "Total",
-	
+
 	"MISC.adamantine": "Adamant",
 	"MISC.mithral": "Mithril",
 	"MISC.platinum": "Platine",
