@@ -20,9 +20,9 @@
 	"CYPHERSYSTEM.ResetHealth": "Reset Health",
 
 	"CYPHERSYSTEM.Infrastructure": "Infrastructure",
-	"CYPHERSYSTEM.Infrastructure.Decrease": "Subtract 1 Infrastructure point (ctrl/cmd-click to subtract 10 points)",
-	"CYPHERSYSTEM.Infrastructure.Increase": "Add 1 Infrastructure point (ctrl/cmd-click to add 10 points)",
-	"CYPHERSYSTEM.Infrastructure.Reset": "Reset Infrastructure",
+	"CYPHERSYSTEM.SubtractInfrastructure": "Subtract 1 Infrastructure point (ctrl/cmd-click to subtract 10 points)",
+	"CYPHERSYSTEM.AddInfrastructure": "Add 1 Infrastructure point (ctrl/cmd-click to add 10 points)",
+	"CYPHERSYSTEM.ResetInfrastructure": "Reset Infrastructure",
 
 	"CYPHERSYSTEM.AdvancementPool": "+4 Stat Pools",
 	"CYPHERSYSTEM.AdvancementEffort": "+1 Effort",

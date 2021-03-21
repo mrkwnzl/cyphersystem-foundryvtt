@@ -20,9 +20,9 @@
 	"CYPHERSYSTEM.ResetHealth": "Réinitialiser la Santé",
 
 	"CYPHERSYSTEM.Infrastructure": "Infrastructure",
-	"CYPHERSYSTEM.Infrastructure.Decrease": "Soustraire 1 point d'Infrastructure (ctrl/cmd-clic pour soustraire 10 points)",
-	"CYPHERSYSTEM.Infrastructure.Increase": "Ajouter 1 point d'Infrastructure (ctrl/cmd-clic pour ajouter 10 points)",
-	"CYPHERSYSTEM.Infrastructure.Reset": "Réinitialiser l'Infrastructure",
+	"CYPHERSYSTEM.SubtractInfrastructure": "Soustraire 1 point d'Infrastructure (ctrl/cmd-clic pour soustraire 10 points)",
+	"CYPHERSYSTEM.AddInfrastructure": "Ajouter 1 point d'Infrastructure (ctrl/cmd-clic pour ajouter 10 points)",
+	"CYPHERSYSTEM.ResetInfrastructure": "Réinitialiser l'Infrastructure",
 
 	"CYPHERSYSTEM.AdvancementPool": "+4 Réserves",
 	"CYPHERSYSTEM.AdvancementEffort": "+1 Effort",
