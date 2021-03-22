@@ -54,9 +54,9 @@ export class CypherItemSheet extends ItemSheet {
     totalModifier = skillRating + modifiedBy;
 
     if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased").toLowerCase();
-    if (totalModifier >= 2) totalModified = game.i18n.localize("CYPHERSYSTEM.EasedBy").toLowerCase() + " " + totalModifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+    if (totalModifier >= 2) totalModified = game.i18n.localize("CYPHERSYSTEM.EasedBy") + " " + totalModifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
     if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered").toLowerCase();
-    if (totalModifier <= -2) totalModified = game.i18n.localize("CYPHERSYSTEM.HinderedBy").toLowerCase() + " " + Math.abs(totalModifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+    if (totalModifier <= -2) totalModified = game.i18n.localize("CYPHERSYSTEM.HinderedBy") + " " + Math.abs(totalModifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
 
     // Assign and return
     this.item.update({"data.totalModified": totalModified});

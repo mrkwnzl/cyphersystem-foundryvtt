@@ -222,9 +222,9 @@
 
 	"CYPHERSYSTEM.Modifier": "Modifier",
 	"CYPHERSYSTEM.Eased": "Eased",
-	"CYPHERSYSTEM.EasedBy": "Eased by",
+	"CYPHERSYSTEM.EasedBy": "eased by",
 	"CYPHERSYSTEM.Hindered": "Hindered",
-	"CYPHERSYSTEM.HinderedBy": "Hindered by",
+	"CYPHERSYSTEM.HinderedBy": "hindered by",
 	"CYPHERSYSTEM.By": "by",
 	"CYPHERSYSTEM.Steps": "steps",	
 
@@ -249,7 +249,7 @@
 	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "You can only move between 1 and ",
 	"CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems": "You can only create macros for owned Items.",
 	"CYPHERSYSTEM.MacroOnlyAppliesToPC": "This macro only applies to PCs.",
-	"CYPHERSYSTEM.DeabilitedPCEffort": "Debilitated PCs can’t spend Effort.",
+	"CYPHERSYSTEM.DebilitatedPCEffort": "Debilitated PCs can’t spend Effort.",
 	"CYPHERSYSTEM.NotEnoughMight": "You don’t have enough Might points.",
 	"CYPHERSYSTEM.NotEnoughSpeed": "You don’t have enough Speed points.",
 	"CYPHERSYSTEM.NotEnoughIntellect": "You don’t have enough Intellect points.",

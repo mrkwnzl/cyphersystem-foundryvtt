@@ -172,9 +172,9 @@ Hooks.once("ready", async function() {
           totalModifier = skillRating + modifiedBy;
 
           if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased").toLowerCase();
-		  if (totalModifier >= 2) totalModified = game.i18n.localize("CYPHERSYSTEM.EasedBy").toLowerCase() + " " + totalModifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+		  if (totalModifier >= 2) totalModified = game.i18n.localize("CYPHERSYSTEM.EasedBy") + " " + totalModifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
 		  if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered").toLowerCase();
-		  if (totalModifier <= -2) totalModified = game.i18n.localize("CYPHERSYSTEM.HinderedBy").toLowerCase() + " " + Math.abs(totalModifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+		  if (totalModifier <= -2) totalModified = game.i18n.localize("CYPHERSYSTEM.HinderedBy") + " " + Math.abs(totalModifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
 
           i.data.totalModified = totalModified;
 
@@ -652,7 +652,7 @@ function recoveryRollMacro(actor) {
 }
 
 function spendEffortMacro(actor) {
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DeabilitedPCEffort"))
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   if (actor && actor.data.type == "PC") {
     let d = new Dialog({
@@ -708,7 +708,7 @@ function allInOneRollMacro(actor, title, info, cost, pool, modifier) {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DeabilitedPCEffort"))
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   const pointsPaid = payPoolPoints(actor, cost, pool);
   if (pointsPaid == true) diceRoller(title, info, modifier);
@@ -754,7 +754,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DeabilitedPCEffort"))
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   if (!damage) damage = 0;
   if (!damagePerLOE) damagePerLOE = 3;
@@ -927,8 +927,8 @@ function createContent(actor, pool, skill, assets, effort1, effort2, additionalC
   <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AdditionalModifiers")}</b></label><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Difficulty")}:</label>
   <select name='stepModifier' id='stepModifier' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.EasedBy").toLowerCase()}</option>
-  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.HinderedBy").toLowerCase()}</option>
+  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}</option>
+  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}</option>
   </select>
   <input name='additionalSteps' id='additionalSteps' type='number' value=${additionalSteps} style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.PoolCost")}:</label>
