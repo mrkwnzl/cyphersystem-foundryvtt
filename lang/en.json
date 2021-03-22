@@ -13,6 +13,10 @@
 	"CYPHERSYSTEM.OwnedBy": "owned by",
 	"CYPHERSYSTEM.Owner": "Owner",
 	"CYPHERSYSTEM.InteractionLevel": "Interaction Level",
+	
+	"CYPHERSYSTEM.Point": "point",
+	"CYPHERSYSTEM.Points": "points",
+	"CYPHERSYSTEM.OfDamage": "of damage",
 
 	"CYPHERSYSTEM.Health": "Health",
 	"CYPHERSYSTEM.SubtractHealth": "Subtract 1 Health point (ctrl/cmd-click to subtract 10 points)",
@@ -76,7 +80,7 @@
 	"CYPHERSYSTEM.ImpairedEffect2": "Combat roll of 17-20 deals only +1 damage.",
 	"CYPHERSYSTEM.Debilitated": "Debilitated",
 	"CYPHERSYSTEM.DebilitatedEffect1": "Can’t take actions other than moving an immediate distance.",
-  "CYPHERSYSTEM.DebilitatedEffect2": "Cannot move if Speed Pool is 0.",
+	"CYPHERSYSTEM.DebilitatedEffect2": "Cannot move if Speed Pool is 0.",
 	"CYPHERSYSTEM.Dead": "Dead",
 	"CYPHERSYSTEM.DeadEffect": "You are dead.",
 	"CYPHERSYSTEM.LastingDamage": "Lasting Damage",
@@ -165,8 +169,11 @@
 	"CYPHERSYSTEM.IotumAndParts": "Iotum & Parts",
 
 	"CYPHERSYSTEM.Modifier": "Modifier",
+	"CYPHERSYSTEM.Eased": "eased",
 	"CYPHERSYSTEM.EasedBy": "eased by",
+	"CYPHERSYSTEM.Hindered": "hindered",
 	"CYPHERSYSTEM.HinderedBy": "hindered by",
+	"CYPHERSYSTEM.Steps": "steps",	
 
 	"CYPHERSYSTEM.Up": "Up",
 	"CYPHERSYSTEM.Down": "Down",
@@ -182,5 +189,17 @@
 	"CYPHERSYSTEM.Platinum": "Platinum",
 	"CYPHERSYSTEM.Gold": "Gold",
 	"CYPHERSYSTEM.Silver": "Silver",
-	"CYPHERSYSTEM.Copper": "Copper"
+	"CYPHERSYSTEM.Copper": "Copper",
+	
+	"CYPHERSYSTEM.AlreadyHasThisItem": "already has this item.",
+	"CYPHERSYSTEM.CannotMoveNotOwnedItem": "You can’t move items you don’t have.",	
+	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "You can only move between 1 and ",
+	
+	"CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Should the Item be Archived or Deleted?",
+	"CYPHERSYSTEM.Archive": "Archive",
+	"CYPHERSYSTEM.Delete": "Delete",
+	"CYPHERSYSTEM.Move": "Move",
+	"CYPHERSYSTEM.MoveAll": "Move All",
+	"CYPHERSYSTEM.Cancel": "Cancel",
+	"CYPHERSYSTEM.Of": "of"
 }

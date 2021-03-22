@@ -13,6 +13,10 @@
 	"CYPHERSYSTEM.OwnedBy": "appartient à",
 	"CYPHERSYSTEM.Owner": "Propriétaire",
 	"CYPHERSYSTEM.InteractionLevel": "Niveau d'interaction",
+	
+	"CYPHERSYSTEM.Point": "point",
+	"CYPHERSYSTEM.Points": "points",
+	"CYPHERSYSTEM.OfDamage": "de dégât",
 
 	"CYPHERSYSTEM.Health": "Santé",
 	"CYPHERSYSTEM.SubtractHealth": "Soustraire 1 point de Santé (ctrl/cmd-clic pour soustraire 10 points)",
@@ -53,8 +57,6 @@
 	"CYPHERSYSTEM.AddIntellect": "Ajouter 1 point de Intellect (ctrl/cmd-clic pour ajouter 10 points)",
 	"CYPHERSYSTEM.ResetIntellect": "Réinitialiser l'Intellect",
 	"CYPHERSYSTEM.AdditionalPool": "Chance",
-	"CYPHERSYSTEM.additional.Decrease": "Soustraire 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Chance{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-clic pour soustraire 10 points)",
-	"CYPHERSYSTEM.additional.Increase": "Ajouter 1 {{#if (eq data.additionalPool.additionalTeenPoolName '')}}Chance{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}} point (ctrl/cmd-clic pour ajouter 10 points)",
 	"CYPHERSYSTEM.ResetAdditionalPool": "Réinitialiser la Réserve Additionnelle",
 	"CYPHERSYSTEM.AnyPool": "Toute Réserve",
 
@@ -167,8 +169,11 @@
 	"CYPHERSYSTEM.IotumAndParts": "Iotum & Pièces",
 
 	"CYPHERSYSTEM.Modifier": "Modificateur",
+	"CYPHERSYSTEM.Eased": "facilité",
 	"CYPHERSYSTEM.EasedBy": "facilité par",
+	"CYPHERSYSTEM.Hindered": "entravé",
 	"CYPHERSYSTEM.HinderedBy": "entravé par",
+	"CYPHERSYSTEM.Steps": "niveaux",	
 
 	"CYPHERSYSTEM.Up": "Haut",
 	"CYPHERSYSTEM.Down": "Bas",
@@ -184,5 +189,17 @@
 	"CYPHERSYSTEM.Platinum": "Platine",
 	"CYPHERSYSTEM.Gold": "Or",
 	"CYPHERSYSTEM.Silver": "Argent",
-	"CYPHERSYSTEM.Copper": "Cuivre"
+	"CYPHERSYSTEM.Copper": "Cuivre",
+	
+	"CYPHERSYSTEM.AlreadyHasThisItem": "possède déjà cet objet.",
+	"CYPHERSYSTEM.CannotMoveNotOwnedItem": "Vous ne pouvez pas déplacer un objet non possédé.",	
+	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "Vous pouvez déplacer seulement entre 1 et ",
+	
+	"CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Archiver ou Supprimer l'objet ?",
+	"CYPHERSYSTEM.Archive": "Archiver",
+	"CYPHERSYSTEM.Delete": "Supprimer",
+	"CYPHERSYSTEM.Move": "Déplacer",
+	"CYPHERSYSTEM.MoveAll": "Tout Déplacer",
+	"CYPHERSYSTEM.Cancel": "Annuler",
+	"CYPHERSYSTEM.Of": "de"
 }

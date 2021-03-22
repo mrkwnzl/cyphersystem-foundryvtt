@@ -229,19 +229,19 @@ export class CypherTokenSheet extends ActorSheet {
         let brackets = "";
         // let description = "";
         let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
-        let points = " points";
+        let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
         let notes = "";
         if (item.data.notes != "") notes = ", " + item.data.notes;
         if (item.type == "skill" || item.type == "teen Skill") {
           brackets = " (" + item.data.skillLevel + ")";
         } else if (item.type == "power Shift") {
-          brackets = " (" + item.data.powerShiftValue + " Shifts)"
+          brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")"
         } else if (item.type == "ability" || item.type == "teen Ability") {
-          if (item.data.costPoints == "1") points = " point"
+          if (item.data.costPoints == "1") points = " " + game.i18n.localize("CYPHERSYSTEM.Point")
           if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")"
         } else if (item.type == "attack") {
-          if (item.data.damage == 1) points = " point"
-          let damage = ", " + item.data.damage + points + " of damage"
+          if (item.data.damage == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point")
+          let damage = ", " + item.data.damage + points + " " + game.i18n.localize("CYPHERSYSTEM.OfDamage")
           let attackType = item.data.attackType;
           let range = "";
           if (item.data.range != "") range = ", " + item.data.range;
@@ -250,10 +250,10 @@ export class CypherTokenSheet extends ActorSheet {
           brackets = " (" + item.data.armorType + notes + ")";
         } else if (item.type == "lasting Damage"){
           let permanent = "";
-          if (item.data.damageType == "Permanent") permanent = ", permanent";
+          if (item.data.damageType == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.Permanent").toLowerCase();
           brackets = " (" + item.data.lastingDamagePool + permanent + ")";
         } else {
-          if (item.data.level != "") brackets = " (level " + item.data.level + ")";
+          if (item.data.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.Level").toLowerCase() + " " + item.data.level + ")";
         }
         message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + brackets + description;
         ChatMessage.create({
@@ -358,25 +358,25 @@ export class CypherTokenSheet extends ActorSheet {
 
     if (!hasQuantity) {
       if (!itemOwned) this._onDropItemCreate(itemData);
-      if (itemOwned) return ui.notifications.warn(`${actor.name} already has this item.`);
+      if (itemOwned) return ui.notifications.warn(`${actor.name} ${game.i18n.localize("CYPHERSYSTEM.AlreadyHasThisItem")}`);
       if ((event.ctrlKey || event.metaKey) && originActor) {
         let d = new Dialog({
-          title: "Should the Item be Archived or Deleted?",
+          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
           content: "",
           buttons: {
             move: {
               icon: '<i class="fas fa-archive"></i>',
-              label: "Archive",
+              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
               callback: (html) => archiveItem()
             },
             moveAll: {
               icon: '<i class="fas fa-trash"></i>',
-              label: "Delete",
+              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
               callback: (html) => deleteItem()
             },
             cancel: {
               icon: '<i class="fas fa-times"></i>',
-              label: "Cancel",
+              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => { }
             }
           },
@@ -396,14 +396,14 @@ export class CypherTokenSheet extends ActorSheet {
     } else {
       if ((event.ctrlKey || event.metaKey) || item.data.data.quantity == null) {
         let maxQuantity = item.data.data.quantity;
-        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(`You can’t move items you don’t have.`);
+        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
         let quantity = 1;
         moveDialog(quantity, itemData);
 
         function moveDialog(quantity, itemData) {
           // if (!quantity) quanitity = 1;
           let d = new Dialog({
-            title: `Move ${itemData.name}`,
+            title: `${game.i18n.localize("CYPHERSYSTEM.Move")} ${itemData.name}`,
             content: createContent(quantity),
             buttons: buttons(),
             default: "move",
@@ -414,18 +414,18 @@ export class CypherTokenSheet extends ActorSheet {
 
         function createContent(quantity) {
           let maxQuantityText = "";
-          if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;of ${maxQuantity}`;
+          if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
           let content = `<div align="center">
-          <label style='display: inline-block; width: 98px; text-align: right'><b>Quantity/Units: </b></label>
+          <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label>
           <input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=${quantity} data-dtype='Number'/>` + maxQuantityText + `</div>`;
           return content;
         }
 
         function buttons() {
           if (maxQuantity != null) {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: "Move", callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, moveAll: {icon: '<i class="fas fa-share-square"></i>', label: "Move All", callback: (html) => moveItems(maxQuantity, itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: "Cancel", callback: () => { }}})
+            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, moveAll: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.MoveAll"), callback: (html) => moveItems(maxQuantity, itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
           } else {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: "Move", callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: "Cancel", callback: () => { }}})
+            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
           }
         }
 
@@ -433,7 +433,7 @@ export class CypherTokenSheet extends ActorSheet {
           quantity = parseInt(quantity);
           if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
             moveDialog(quantity, itemData);
-            return ui.notifications.warn(`You can only move between 1 and ${item.data.data.quantity} items.`);
+            return ui.notifications.warn(`${game.i18n.localize("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems")} ${item.data.data.quantity} ${game.i18n.localize("CYPHERSYSTEM.Items").toLowerCase()}.`);
           }
           if (item.data.data.quantity && originActor) {
             let oldQuantity = item.data.data.quantity - parseInt(quantity);
