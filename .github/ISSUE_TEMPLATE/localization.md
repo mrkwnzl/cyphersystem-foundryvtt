@@ -1,7 +1,6 @@
 ---
 name: Localization
 about: Create a report to help improve the the translation of the Cypher System for Foundry VTT
-title: "[Localization] "
 labels: localization
 
 ---
