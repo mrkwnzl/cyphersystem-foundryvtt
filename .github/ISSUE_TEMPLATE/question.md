@@ -1,7 +1,6 @@
 ---
 name: Question
 about: Ask a question about the Cypher System for Foundry VTT
-title: "[Question] "
 labels: question
 assignees: mrkwnzl
 
