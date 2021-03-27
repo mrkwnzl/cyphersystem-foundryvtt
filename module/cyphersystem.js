@@ -833,7 +833,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     let totalCost = cost - edge;
     if (totalCost < 0) totalCost = 0;
 
-    if (pool == "Might" && cost > actor.data.data.pools.might.value || pool == "Speed" && cost > actor.data.data.pools.speed.value || pool == "Intellect" && cost > actor.data.data.pools.intellect.value) {
+    if (pool == "Might" && totalCost > actor.data.data.pools.might.value || pool == "Speed" && totalCost > actor.data.data.pools.speed.value || pool == "Intellect" && totalCost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
       allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
       return ui.notifications.notify(`You don’t have enough ${pool} points.`);
