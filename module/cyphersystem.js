@@ -652,9 +652,8 @@ function recoveryRollMacro(actor) {
 }
 
 function spendEffortMacro(actor) {
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs can’t spend Effort.`)
-
   if (actor && actor.data.type == "PC") {
+    if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs can’t spend Effort.`)
     let d = new Dialog({
       title: "Spend Effort",
       content: `<div align="center">
