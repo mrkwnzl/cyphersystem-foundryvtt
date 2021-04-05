@@ -1,13 +1,27 @@
 {{#each actor.abilities as |item id|}}
 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
   <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
-	{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}} 
-		{{#if (eq data.costPool "Might")}}
-			{{localize 'CYPHERSYSTEM.Might'}}
-		{{else if (eq data.costPool "Speed")}}
-			{{localize 'CYPHERSYSTEM.Speed'}}
+	{{item.name}}{{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}} ({{data.costPoints}}
+		{{#if (eq data.costPoints "1")}}
+			{{#if (eq data.costPool "Might")}}
+				{{localize 'CYPHERSYSTEM.MightPoint'}}
+			{{else if (eq data.costPool "Speed")}}
+				{{localize 'CYPHERSYSTEM.SpeedPoint'}}
+			{{else if (eq data.costPool "Intellect")}}
+				{{localize 'CYPHERSYSTEM.IntellectPoint'}}
+			{{else}}
+				{{localize 'CYPHERSYSTEM.AdditionalPoolPoint'}}
+			{{/if}}
 		{{else}}
-			{{localize 'CYPHERSYSTEM.Intellect'}}
+			{{#if (eq data.costPool "Might")}}
+				{{localize 'CYPHERSYSTEM.MightPoints'}}
+			{{else if (eq data.costPool "Speed")}}
+				{{localize 'CYPHERSYSTEM.SpeedPoints'}}
+			{{else if (eq data.costPool "Intellect")}}
+				{{localize 'CYPHERSYSTEM.IntellectPoints'}}
+			{{else}}
+				{{localize 'CYPHERSYSTEM.AdditionalPoolPoints'}}
+			{{/if}}
 		{{/if}}
 	){{/unless}}
   </a></h4>

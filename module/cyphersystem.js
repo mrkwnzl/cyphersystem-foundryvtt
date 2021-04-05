@@ -15,7 +15,7 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 /* -------------------------------------------- */
 
 Hooks.once("init", async function() {
-  console.log(game.i18n.localize("CYPHERSYSTEM.Init"));
+  console.log("Initializing Cypher System");
 
   // CONFIG.debug.hooks = true;
 
@@ -118,7 +118,7 @@ async function preloadHandlebarsTemplates() {
 }
 
 Hooks.on("canvasReady", canvas => {
-  console.log(`${game.i18n.localize("CYPHERSYSTEM.CanvasRendered")} ${canvas.scene._id}`);
+  console.log(`The canvas was just rendered for scene: ${canvas.scene._id}`);
   for (let t of canvas.tokens.objects.children) {
     if (t.getFlag("cyphersystem", "toggleDragRuler")) {
       // do nothing
@@ -171,10 +171,10 @@ Hooks.once("ready", async function() {
 
           totalModifier = skillRating + modifiedBy;
 
-          if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased").toLowerCase();
-		  if (totalModifier >= 2) totalModified = game.i18n.localize("CYPHERSYSTEM.EasedBy") + " " + totalModifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
-		  if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered").toLowerCase();
-		  if (totalModifier <= -2) totalModified = game.i18n.localize("CYPHERSYSTEM.HinderedBy") + " " + Math.abs(totalModifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+          if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased");
+		  if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+		  if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered");
+		  if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
 
           i.data.totalModified = totalModified;
 
@@ -242,7 +242,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       let short = 0;
       let long = 0;
       let veryLong = 0;
-      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre") {
+      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre" || token.scene.data.gridUnits == "mètre") {
         immediate = 3;
         short = 15;
         long = 30;
@@ -784,14 +784,14 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
   function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
     let cost = parseInt(additionalCost);
     let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
-    if (stepModifier.toLowerCase() == "hindered") additionalSteps = parseInt(additionalSteps) * -1;
+    if (stepModifier == "hindered") additionalSteps = parseInt(additionalSteps) * -1;
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
     let skillRating = game.i18n.localize("CYPHERSYSTEM.Practiced");
     let steps = " " + game.i18n.localize("CYPHERSYSTEM.Steps");
     let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
-    let rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.Levels").toLowerCase();
-    let otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.Levels").toLowerCase();
-    let damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.Levels").toLowerCase();
+    let rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
+    let otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
+    let damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.levels");
     let attackModifier = "";
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
@@ -836,20 +836,20 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     if (pool == "Might" && cost > actor.data.data.pools.might.value || pool == "Speed" && cost > actor.data.data.pools.speed.value || pool == "Intellect" && cost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
       allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
-      return ui.notifications.notify(`${game.i18n.localize("CYPHERSYSTEM.NotEnoughPoint")} ${pool}.`);
+      return ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: pool}));
     }
 
-    if (additionalSteps == 1 || additionalSteps == -1) steps = " step";
+    if (additionalSteps == 1 || additionalSteps == -1) steps = " " + game.i18n.localize("CYPHERSYSTEM.Step");
 
     if (cost == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
 
     if (title == "") title = pool + " " + game.i18n.localize("CYPHERSYSTEM.Roll");
 
-    if (effort1 == 1) rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.Level").toLowerCase();
+    if (effort1 == 1) rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
-    if (effort2 == 1) otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.Level").toLowerCase();
+    if (effort2 == 1) otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
-    if (damageEffort == 1) damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.Level").toLowerCase();
+    if (damageEffort == 1) damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
     if (damage != 0 || effort3 != 0) {
       attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>" + game.i18n.localize("CYPHERSYSTEM.EffortForDamage") + ": " + effort3 + damageEffortLevel + "<br>" + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + totalDamage + " (" + damage + "+" + damageEffort + ")" + "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
@@ -963,13 +963,13 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
   let pointsPaid = true;
 
   if (!actor || actor.data.type != "PC") {
-    return ui.notifications.warn(`${game.i18n.localize("CYPHERSYSTEM.MacroOnlyUsedBy")} ${owner.name}.`)
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
   }
 
   const item = actor.getOwnedItem(itemID);
 
   if (item == null) {
-    return ui.notifications.warn(`${game.i18n.localize("CYPHERSYSTEM.MacroOnlyUsedBy")} ${owner.name}.`)
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
   }
 
   if (game.settings.get("cyphersystem", "itemMacrosUseAllInOne")) {
@@ -984,7 +984,7 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
     if (!pool) pool = game.i18n.localize("CYPHERSYSTEM.Might");
     if (!damagePerLOE) damagePerLOE = 3;
 
-    let stepModifier = (additionalSteps < 0) ? game.i18n.localize("CYPHERSYSTEM.Hindered").toLowerCase() : game.i18n.localize("CYPHERSYSTEM.Eased").toLowerCase();
+    let stepModifier = (additionalSteps < 0) ? game.i18n.localize("CYPHERSYSTEM.Hindered") : game.i18n.localize("CYPHERSYSTEM.Eased");
 
     if (item.type == "skill" || item.type == "teen Skill") {
       skill = item.data.data.skillLevel;
@@ -1034,10 +1034,7 @@ function itemRollMacroQuick (actor, itemID) {
     if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Specialized")) modifier = 2;
   } else if (item.type == "power Shift") {
     let name = game.i18n.localize("CYPHERSYSTEM.PowerShifts");
-    let shifts = " " + game.i18n.localize("CYPHERSYSTEM.Shifts");
-    if (item.data.data.powerShiftValue == 1) {
-      shifts = " " + game.i18n.localize("CYPHERSYSTEM.Shift")
-    }
+    let shifts = (item.data.data.powerShiftValue == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.Shift") : " " + game.i18n.localize("CYPHERSYSTEM.Shifts");
     if (actor.data.data.settings.powerShifts.powerShiftsName != 0) {
       name = actor.data.data.settings.powerShifts.powerShiftsName.slice(0, -1);
     }
@@ -1099,10 +1096,10 @@ function toggleDragRuler(token) {
 
   if (!token.data.flags.cyphersystem.toggleDragRuler) {
     token.setFlag("cyphersystem", "toggleDragRuler", true)
-    ui.notifications.info(`${game.i18n.localize("CYPHERSYSTEM.EnabledDragRuler")} ${token.name}.`);
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
   } else if (token.data.flags.cyphersystem.toggleDragRuler) {
     token.setFlag("cyphersystem", "toggleDragRuler", false)
-    ui.notifications.info(`${game.i18n.localize("CYPHERSYSTEM.DisabledDragRuler")} ${token.name}.`);
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler, {name: token.name}));
   }
 }
 

@@ -337,19 +337,19 @@ export class CypherActorSheet extends ActorSheet {
         let brackets = "";
         // let description = "";
         let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
-        let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
+		let points = "";
         let notes = "";
         if (item.data.notes != "") notes = ", " + item.data.notes;
         if (item.type == "skill" || item.type == "teen Skill") {
           brackets = " (" + item.data.skillLevel + ")";
         } else if (item.type == "power Shift") {
-          brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")"
+          brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
         } else if (item.type == "ability" || item.type == "teen Ability") {
-          if (item.data.costPoints == "1") points = " " + game.i18n.localize("CYPHERSYSTEM.Point")
-          if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")"
+		  points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
+          if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")";
         } else if (item.type == "attack") {
-          if (item.data.damage == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point")
-          let damage = ", " + item.data.damage + points + " " + game.i18n.localize("CYPHERSYSTEM.OfDamage")
+		  points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
+          let damage = ", " + item.data.damage + " " + points;
           let attackType = item.data.attackType;
           let range = "";
           if (item.data.range != "") range = ", " + item.data.range;
@@ -358,10 +358,10 @@ export class CypherActorSheet extends ActorSheet {
           brackets = " (" + item.data.armorType + notes + ")";
         } else if (item.type == "lasting Damage"){
           let permanent = "";
-          if (item.data.damageType == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.Permanent").toLowerCase();
+          if (item.data.damageType == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
           brackets = " (" + item.data.lastingDamagePool + permanent + ")";
         } else {
-          if (item.data.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.Level").toLowerCase() + " " + item.data.level + ")";
+          if (item.data.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.data.level + ")";
         }
         message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + brackets + description;
         ChatMessage.create({
@@ -718,7 +718,7 @@ export class CypherActorSheet extends ActorSheet {
 
     if (!hasQuantity) {
       if (!itemOwned) this._onDropItemCreate(itemData);
-      if (itemOwned) return ui.notifications.warn(`${actor.name} ${game.i18n.localize("CYPHERSYSTEM.AlreadyHasThisItem")}`);
+      if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", {actor: actor.name}));
       if ((event.ctrlKey || event.metaKey) && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
@@ -763,7 +763,7 @@ export class CypherActorSheet extends ActorSheet {
         function moveDialog(quantity, itemData) {
           // if (!quantity) quanitity = 1;
           let d = new Dialog({
-            title: `${game.i18n.localize("CYPHERSYSTEM.Move")} ${itemData.name}`,
+            title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: itemData.name}),
             content: createContent(quantity),
             buttons: buttons(),
             default: "move",
@@ -793,7 +793,7 @@ export class CypherActorSheet extends ActorSheet {
           quantity = parseInt(quantity);
           if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
             moveDialog(quantity, itemData);
-            return ui.notifications.warn(`${game.i18n.localize("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems")} ${item.data.data.quantity} ${game.i18n.localize("CYPHERSYSTEM.Items").toLowerCase()}.`);
+            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: item.data.data.quantity}));
           }
           if (item.data.data.quantity && originActor) {
             let oldQuantity = item.data.data.quantity - parseInt(quantity);
