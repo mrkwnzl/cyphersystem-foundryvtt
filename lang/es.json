@@ -219,7 +219,7 @@
     "CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "Sólo puedes mover entre 1 y {max} objetos.",
     "CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems": "Sólo puedes crear macros de objetos que poseas.",
     "CYPHERSYSTEM.MacroOnlyAppliesToPC": "Esta macro sólo se aplica a PJs.",
-    "CYPHERSYSTEM.DeabilitedPCEffort": "Los PJs debilitados no pueden gastar Esfuerzo.",
+    "CYPHERSYSTEM.DebilitatedPCEffort": "Los PJs debilitados no pueden gastar Esfuerzo.",
     "CYPHERSYSTEM.NotEnoughMight": "No tienes suficientes puntos de Vigor.",
     "CYPHERSYSTEM.NotEnoughSpeed": "No tienes suficientes puntos de Velocidad.",
     "CYPHERSYSTEM.NotEnoughIntellect": "No tienes suficientes puntos de Intelecto.",
