@@ -17,7 +17,7 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Cypher System`);
 
-  // CONFIG.debug.hooks = true;
+   CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -284,6 +284,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 */
 Hooks.on("preCreateActor", (actorData) => {
   if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
+  // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
   if (actorData.type == "NPC")
   mergeObject(actorData, {
