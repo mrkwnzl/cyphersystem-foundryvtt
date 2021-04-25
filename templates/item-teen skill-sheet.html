@@ -5,18 +5,18 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
                     </div>
                     <div class="resources grid grid-3col">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Rating</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Rating'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.skillLevel">
                                     {{#select data.skillLevel}}
-                                    <option value="Specialized">Specialized</option>
-                                    <option value="Trained">Trained</option>
-                                    <option value="Practiced">Practiced</option>
-                                    <option value="Inability">Inability</option>
+                                    <option value="Specialized">{{localize 'CYPHERSYSTEM.Specialized'}}</option>
+                                    <option value="Trained">{{localize 'CYPHERSYSTEM.Trained'}}</option>
+                                    <option value="Practiced">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
+                                    <option value="Inability">{{localize 'CYPHERSYSTEM.Inability'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
@@ -29,7 +29,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

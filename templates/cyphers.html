@@ -1,19 +1,19 @@
 <div class="flexrow">
   <ol class="items-list">
     <li class="item flexrow item-header">
-      <div class="item-name">{{#if (eq data.settings.equipment.cyphersName "")}}Cyphers{{else}}{{data.settings.equipment.cyphersName}}{{/if}}</div>
-      <div class="item-quantity">Level</div>
+      <div class="item-name">{{#if (eq data.settings.equipment.cyphersName "")}}{{localize 'CYPHERSYSTEM.Cyphers'}}{{else}}{{data.settings.equipment.cyphersName}}{{/if}}</div>
+      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
       <div class="item-controls">
-        <a class="item-control item-create" title="Create item" data-type="cypher"><i class="fas fa-plus"></i></a>
+        <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher"><i class="fas fa-plus"></i></a>
       </div>
     </li>
     {{#each actor.cyphers as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="Show Description (ctrl/cmd-click to send description to chat)"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
       <div class="item-quantity">{{data.level}}</div>
       <div class="item-controls">
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-control item-delete" title="{{#if data.archived}}Unarchive Item (ctrl/cmd-click to delete){{else}}Archive Item (ctrl/cmd-click to delete){{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>
     {{#if data.showDescription}}
