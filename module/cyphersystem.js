@@ -1099,7 +1099,7 @@ function toggleDragRuler(token) {
     ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
   } else if (token.data.flags.cyphersystem.toggleDragRuler) {
     token.setFlag("cyphersystem", "toggleDragRuler", false)
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler, {name: token.name}));
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
   }
 }
 

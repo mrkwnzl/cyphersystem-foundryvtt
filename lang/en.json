@@ -1,15 +1,15 @@
-{	
+{
 	"CYPHERSYSTEM.SettingRollMacro": "Roll Macros Use Effective Difficulty",
 	"CYPHERSYSTEM.SettingRollMacroHint": "With this setting, the steps eased or hindered for roll macros are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll a 9 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead. With this option deactivated, it will tell you that you have beaten difficulty 3.",
 	"CYPHERSYSTEM.SettingMacroAllInOne": "Item Macros Use All-in-One Dialog",
 	"CYPHERSYSTEM.SettingMacroAllInOneHint": "With this setting, the item macros created by dragging an item to the macro bar use the All-in-One Roll macro instead of the Quick Roll macro.",
 	"CYPHERSYSTEM.SettingShowWelcome": "Show Welcome Message",
 	"CYPHERSYSTEM.SettingShowWelcomeHint": "Show the welcome message at every launch of this world.",
-	
+
 	"CYPHERSYSTEM.WelcomeMessage": "Welcome to the Cypher System!",
 	"CYPHERSYSTEM.GettingStarted": "Getting Started",
 	"CYPHERSYSTEM.UserManual": "User Manual",
-	
+
 	"CYPHERSYSTEM.GMIntrusion": "GM Intrusion!",
 	"CYPHERSYSTEM.OneDamage": "+1 Damage",
 	"CYPHERSYSTEM.TwoDamage": "+2 Damage",
@@ -17,14 +17,14 @@
 	"CYPHERSYSTEM.MajorEffectRoll": "Major Effect or +4 Damage",
 	"CYPHERSYSTEM.Difficulty": "Difficulty",
 	"CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
-	
+
 	"CYPHERSYSTEM.Roll": "Roll",
 	"CYPHERSYSTEM.StatRoll": "Stat Roll",
 	"CYPHERSYSTEM.RecoveryRoll": "Recovery Roll",
 	"CYPHERSYSTEM.EasedStatRoll": "Eased Stat Roll",
 	"CYPHERSYSTEM.HinderedStatRoll": "Hindered Stat Roll",
 	"CYPHERSYSTEM.AllInOneRoll": "All-in-One Roll",
-	
+
 	"CYPHERSYSTEM.LevelOfEffort": "Level of Effort",
 	"CYPHERSYSTEM.SpendEffort": "Spend Effort",
 	"CYPHERSYSTEM.EffortForDamage": "Effort for extra damage",
@@ -41,8 +41,8 @@
 	"CYPHERSYSTEM.BasicModifiers": "Basic Modifiers",
 	"CYPHERSYSTEM.AttackModifiers": "Attack Modifiers",
 	"CYPHERSYSTEM.AdditionalModifiers": "Additional Modifiers",
-	"CYPHERSYSTEM.Additional": "additional",	
-	
+	"CYPHERSYSTEM.Additional": "additional",
+
 	"CYPHERSYSTEM.Name": "Name",
 	"CYPHERSYSTEM.Is": "is",
 	"CYPHERSYSTEM.IsA": "is a",
@@ -58,7 +58,7 @@
 	"CYPHERSYSTEM.Owner": "Owner",
 	"CYPHERSYSTEM.InteractionLevel": "Interaction Level",
 	"CYPHERSYSTEM.CharacterInfo": "Character Info",
-	
+
 	"CYPHERSYSTEM.Point": "point",
 	"CYPHERSYSTEM.Points": "points",
 	"CYPHERSYSTEM.PointOfDamage": "point of damage",
@@ -231,11 +231,11 @@
 	"CYPHERSYSTEM.IotumAndParts": "Iotum & Parts",
 
 	"CYPHERSYSTEM.Modifier": "Modifier",
-	"CYPHERSYSTEM.Eased": "eased",
+	"CYPHERSYSTEM.Eased": "Eased",
 	"CYPHERSYSTEM.easedBy": "eased by",
 	"CYPHERSYSTEM.EasedBy": "Eased by",
 	"CYPHERSYSTEM.EasedBySteps": "eased by {amount} steps",
-	"CYPHERSYSTEM.Hindered": "hindered",
+	"CYPHERSYSTEM.Hindered": "Hindered",
 	"CYPHERSYSTEM.hinderedBy": "hindered by",
 	"CYPHERSYSTEM.HinderedBy": "Hindered by",
 	"CYPHERSYSTEM.HinderedBySteps": "hindered by {amount} steps",
@@ -258,7 +258,7 @@
 	"CYPHERSYSTEM.Gold": "Gold",
 	"CYPHERSYSTEM.Silver": "Silver",
 	"CYPHERSYSTEM.Copper": "Copper",
-	
+
 	"CYPHERSYSTEM.AlreadyHasThisItem": "{actor} already has this item.",
 	"CYPHERSYSTEM.CannotMoveNotOwnedItem": "You can’t move items you don’t have.",
 	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "You can only move between 1 and {max} Items.",
@@ -273,13 +273,13 @@
 	"CYPHERSYSTEM.MacroOnlyUsedBy": "This macro can only be used by {name}.",
 	"CYPHERSYSTEM.SelectAToken": "Please select a token.",
 	"CYPHERSYSTEM.ActivateDragRuler": "You need to activate the module Drag Ruler to use this macro.",
-	
+
 	"CYPHERSYSTEM.EasedRollEffectiveMacro": "This macro has been deprecated. Use the “Eased Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.",
 	"CYPHERSYSTEM.HinderedRollEffectiveMacro": "This macro has been deprecated. Use the “Hindered Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.",
 	"CYPHERSYSTEM.AllTokenDragRuler": "All tokens now use the Drag Ruler default.",
 	"CYPHERSYSTEM.EnabledDragRuler": "Drag Ruler is now enabled for {name}.",
 	"CYPHERSYSTEM.DisabledDragRuler": "Drag Ruler is now disabled for {name}.",
-	
+
 	"CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Should the Item be Archived or Deleted?",
 	"CYPHERSYSTEM.Archive": "Archive",
 	"CYPHERSYSTEM.Delete": "Delete",
