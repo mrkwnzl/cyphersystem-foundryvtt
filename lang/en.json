@@ -264,7 +264,7 @@
 	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "You can only move between 1 and {max} Items.",
 	"CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems": "You can only create macros for owned Items.",
 	"CYPHERSYSTEM.MacroOnlyAppliesToPC": "This macro only applies to PCs.",
-	"CYPHERSYSTEM.DeabilitedPCEffort": "Debilitated PCs can’t spend Effort.",
+	"CYPHERSYSTEM.DebilitatedPCEffort": "Debilitated PCs can’t spend Effort.",
 	"CYPHERSYSTEM.NotEnoughMight": "You don’t have enough Might points.",
 	"CYPHERSYSTEM.NotEnoughSpeed": "You don’t have enough Speed points.",
 	"CYPHERSYSTEM.NotEnoughIntellect": "You don’t have enough Intellect points.",
