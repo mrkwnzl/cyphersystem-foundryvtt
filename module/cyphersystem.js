@@ -17,7 +17,7 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 Hooks.once("init", async function() {
   console.log("Initializing Cypher System");
 
-  // CONFIG.debug.hooks = true;
+   CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -284,6 +284,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 */
 Hooks.on("preCreateActor", (actorData) => {
   if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
+  // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
   if (actorData.type == "NPC")
   mergeObject(actorData, {
@@ -833,7 +834,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     let totalCost = cost - edge;
     if (totalCost < 0) totalCost = 0;
 
-    if (pool == "Might" && cost > actor.data.data.pools.might.value || pool == "Speed" && cost > actor.data.data.pools.speed.value || pool == "Intellect" && cost > actor.data.data.pools.intellect.value) {
+    if (pool == "Might" && totalCost > actor.data.data.pools.might.value || pool == "Speed" && totalCost > actor.data.data.pools.speed.value || pool == "Intellect" && totalCost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
       allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
       return ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: pool}));

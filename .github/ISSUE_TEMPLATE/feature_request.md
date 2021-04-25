@@ -1,7 +1,6 @@
 ---
 name: Feature request
 about: Suggest an idea for the Cypher System for Foundry VTT
-title: "[Feature Request] "
 labels: enhancement
 assignees: mrkwnzl
 

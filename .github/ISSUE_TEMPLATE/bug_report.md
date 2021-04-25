@@ -1,7 +1,6 @@
 ---
 name: Bug report
 about: Create a report to help improve the Cypher System for Foundry VTT
-title: "[Bug] "
 labels: bug
 assignees: mrkwnzl
 
