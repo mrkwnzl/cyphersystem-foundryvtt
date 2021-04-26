@@ -1,3 +1,21 @@
 {
-    "CYPHERSYSTEM.SettingRollMacro": "Le Macro dei Roll utilizzano le Difficoltà Effettive"
+    "CYPHERSYSTEM.SettingRollMacro": "Le Macro dei Roll utilizzano le Difficoltà Effettive",
+    "ITEM.TypeAmmo": "Munizioni",
+    "ITEM.TypeArmor": "Armatura",
+    "ITEM.TypeAttack": "Attacco",
+    "ITEM.TypeCypher": "Crypto",
+    "ITEM.TypeEquipment": "Equipaggiamento",
+    "ITEM.TypeOddity": "Arcani",
+    "ITEM.TypeAbility": "Capacità Speciali",
+    "ITEM.TypeSkill": "Abilità",
+    "ACTOR.TypePC": "PG",
+    "CYPHERSYSTEM.SettingMacroAllInOne": "Le Macro degli Oggetti utilizzano la funzione Tutto-in-Uno",
+    "ACTOR.TypeNPC": "PNG",
+    "CYPHERSYSTEM.SettingShowWelcome": "Mostra messaggio di Benvenuto",
+    "CYPHERSYSTEM.SettingShowWelcomeHint": "Mostra il messaggio di benvenuto ogni volta che viene aperto il mondo.",
+    "CYPHERSYSTEM.WelcomeMessage": "Benvenuto nel Cypher System!",
+    "ACTOR.TypeVehicle": "Veicolo",
+    "ACTOR.TypeToken": "Segnalino",
+    "ITEM.TypeArtifact": "Artefatto",
+    "CYPHERSYSTEM.SettingMacroAllInOneHint": "Con questa impostazione, le Macro degli Oggetti creati trascinando gli oggetti nella barra delle macro, utilizzeranno la funzione Tutto-in-Uno invece della macro del Roll Rapido."
 }
