@@ -192,7 +192,7 @@
     "CYPHERSYSTEM.EditItem": "Gegenstand bearbeiten",
     "CYPHERSYSTEM.ShowDescription": "Beschreibung anzeigen (Strg/cmd-Klick um die Beschreibung an den Chat zu senden)",
     "CYPHERSYSTEM.ArchiveItem": "Gegenstand archivieren (Strg/cmd-Klick, um zu löschen)",
-    "CYPHERSYSTEM.UnarchiveItem": "Gegenstand aus dem Archiv holen(ctrl/cmd-click um zu löschen)",
+    "CYPHERSYSTEM.UnarchiveItem": "Gegenstand aus dem Archiv holen(Strg/cmd-Klick um zu löschen)",
     "CYPHERSYSTEM.ResetQuantity": "Anzahl zurücksetzen",
     "CYPHERSYSTEM.SubtractQuantity": "Ziehe 1 ab (ctrl/cmd-klick um 10 abzuziehen)",
     "CYPHERSYSTEM.AddQuantity": "Füge 1 hinzu(ctrl/cmd-click um 10 hinzuzufügen)",
