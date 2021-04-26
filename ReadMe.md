@@ -61,4 +61,6 @@ Icons from [game-icons.net](https://game-icons.net)
 
 **Italian:** Eligor#5278
 
+**Portuguese (Brazil):** AgostinhoMestre#8636
+
 **Spanish:** ParvusDomus#9612
