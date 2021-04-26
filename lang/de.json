@@ -63,7 +63,7 @@
     "CYPHERSYSTEM.ResetHealth": "Lebenskraft zurücksetzen",
     "CYPHERSYSTEM.Infrastructure": "Infrastruktur",
     "CYPHERSYSTEM.SubtractInfrastructure": "1 Infrastruktur Punkt abziehen (Strg/cmd-Klick um 10 Punkte abzuziehen)",
-    "CYPHERSYSTEM.AddInfrastructure": "1 Infrastruktur Punkt hinzufügen(Strg/cmd-Klick um 10 Punkte hinzuzufügen)",
+    "CYPHERSYSTEM.AddInfrastructure": "1 Infrastruktur Punkt hinzufügen (Strg/cmd-Klick um 10 Punkte hinzuzufügen)",
     "CYPHERSYSTEM.ResetInfrastructure": "Infrastruktur zurücksetzen",
     "CYPHERSYSTEM.AdvancementPool": "+4 Werte-Pools",
     "CYPHERSYSTEM.AdvancementEffort": "+1 Anstrengung",
