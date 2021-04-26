@@ -191,16 +191,16 @@
     "CYPHERSYSTEM.CreateItem": "Gegenstand erstellen",
     "CYPHERSYSTEM.EditItem": "Gegenstand bearbeiten",
     "CYPHERSYSTEM.ShowDescription": "Beschreibung anzeigen (Strg/cmd-Klick um die Beschreibung an den Chat zu senden)",
-    "CYPHERSYSTEM.ArchiveItem": "Item archivieren (Strg/cmd-Klick, um zu löschen)",
-    "CYPHERSYSTEM.UnarchiveItem": "Item aus dem Archiv holen (Strg/cmd-Klick, um zu löschen)",
+    "CYPHERSYSTEM.ArchiveItem": "Item archivieren (Strg/cmd-Klick um zu löschen)",
+    "CYPHERSYSTEM.UnarchiveItem": "Item aus dem Archiv holen (Strg/cmd-Klick um zu löschen)",
     "CYPHERSYSTEM.ResetQuantity": "Anzahl zurücksetzen",
     "CYPHERSYSTEM.SubtractQuantity": "Ziehe 1 ab (Strg/cmd-Klick um 10 abzuziehen)",
-    "CYPHERSYSTEM.AddQuantity": "Füge 1 hinzu(Strg/cmd-Klick um 10 hinzuzufügen)",
+    "CYPHERSYSTEM.AddQuantity": "Füge 1 hinzu (Strg/cmd-Klick um 10 hinzuzufügen)",
     "CYPHERSYSTEM.Shins": "Shins",
     "CYPHERSYSTEM.Cyphers": "Cypher",
     "CYPHERSYSTEM.Artifacts": "Artefakte",
     "CYPHERSYSTEM.Depletion": "Aufzehrung",
-    "CYPHERSYSTEM.Oddities": "Oddities",
+    "CYPHERSYSTEM.Oddities": "Kuriositäten",
     "CYPHERSYSTEM.CraftingMaterial": "Herstellungsmaterial",
     "CYPHERSYSTEM.IotumAndParts": "Iotum & Teile",
     "CYPHERSYSTEM.Modifier": "Modifikator",
@@ -277,5 +277,6 @@
     "ACTOR.TypeToken": "Marker",
     "ITEM.TypeAbility": "Sonderfähigkeit",
     "ITEM.TypeMaterial": "Herstellungsmaterial",
-    "ACTOR.TypeCompanion": "Gefährte"
+    "ACTOR.TypeCompanion": "Gefährte",
+    "ITEM.TypeOddity": "Kuriosität"
 }
