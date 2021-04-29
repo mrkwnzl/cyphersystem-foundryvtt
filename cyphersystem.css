@@ -155,10 +155,6 @@ min-height: 610px;
   margin-bottom: 3px;
 }
 
-#entity-create > div:nth-child(2) > div > select {
-  text-transform: capitalize;
-}
-
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .sheet-header {
