@@ -87,15 +87,6 @@
             <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
           </li>
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.initialTab" data-dtype="boolean" checked disabled>&nbsp;{{localize 'CYPHERSYSTEM.DefaultTab'}}</div>
-            <div class="item-quantity"><select class="auto-margin" name="data.settings.counting" style="width: 135px">
-                {{#select data.settings.counting}}
-                <option value="up">{{localize 'CYPHERSYSTEM.Up'}}</option>
-                <option value="down">{{localize 'CYPHERSYSTEM.Down'}}</option>
-                {{/select}}
-            </select></div>
-          </li>
-          <li class="item flexrow item-settings">
             <div class="settings-list"><input type="checkbox" name="data.settings.isCounter" data-dtype="boolean" {{checked data.settings.isCounter}}>&nbsp;{{localize 'CYPHERSYSTEM.CountQuantityOnInitiative'}}</div>
             <div class="item-quantity"><select class="auto-margin" name="data.settings.counting" style="width: 135px">
                 {{#select data.settings.counting}}
