@@ -856,7 +856,7 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 				title = game.i18n.localize("CYPHERSYSTEM.IntellectRoll");
 				break;
 			default:
-				title = pool + " " + game.i18n.localize("CYPHERSYSTEM.Roll");
+				title = game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool});
 				break;
 		}
 	};

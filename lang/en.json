@@ -47,6 +47,7 @@
 	"CYPHERSYSTEM.MightRoll": "Might Roll",
 	"CYPHERSYSTEM.SpeedRoll": "Speed Roll",
 	"CYPHERSYSTEM.IntellectRoll": "Intellect Roll",
+	"CYPHERSYSTEM.AdditionalPoolRoll": "{pool} Roll"
 	"CYPHERSYSTEM.StatRoll": "Stat Roll",
 	"CYPHERSYSTEM.RecoveryRoll": "Recovery Roll",
 	"CYPHERSYSTEM.EasedStatRoll": "Eased Stat Roll",
