@@ -278,5 +278,13 @@
     "ITEM.TypeTeen Armor": "Armure (Adolescent)",
     "ITEM.TypeTeen Attack": "Attaque (Adolescent)",
     "ITEM.TypeTeen Lasting Damage": "Dégât persistant (Adolescent)",
-    "ITEM.TypeTeen Skill": "Compétence (Adolescent)"
+    "ITEM.TypeTeen Skill": "Compétence (Adolescent)",
+    "CYPHERSYSTEM.SpeedRoll": "Jet de Célérité",
+    "CYPHERSYSTEM.IntellectRoll": "Jet d'Intellect",
+    "CYPHERSYSTEM.AdditionalPoolRoll": "Jet de {pool}",
+    "CYPHERSYSTEM.AnyPoolPoints": "Points de Réserve",
+    "CYPHERSYSTEM.hindered": "entravé",
+    "CYPHERSYSTEM.MightRoll": "Jet de Puissance",
+    "CYPHERSYSTEM.AnyPoolPoint": "Point de Réserve",
+    "CYPHERSYSTEM.eased": "facilité"
 }
