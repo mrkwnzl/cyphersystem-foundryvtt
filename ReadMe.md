@@ -32,8 +32,6 @@ I appreciate any feedback and questions.
 
 The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the future of the system is discussed, but where you can also come to share best practices, ask questions on how to use the system, and share self-created resources for your games. My Discord username: @mrkwnzl#7407.
 
-<iframe src="https://discord.com/widget?id=836885417197436958&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-
 You can also ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose).
 
 If the Cypher System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
