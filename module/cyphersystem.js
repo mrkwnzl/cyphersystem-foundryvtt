@@ -172,9 +172,9 @@ Hooks.once("ready", async function() {
           totalModifier = skillRating + modifiedBy;
 
           if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased");
-		  if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
-		  if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered");
-		  if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
+		      if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+		      if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered");
+		      if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
 
           i.data.totalModified = totalModified;
 
@@ -186,6 +186,7 @@ Hooks.once("ready", async function() {
     if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
     if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
     if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
+    if (!a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
   }
 
   // Fix for case-sensitive OSs

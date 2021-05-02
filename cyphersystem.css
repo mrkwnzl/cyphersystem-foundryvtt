@@ -326,6 +326,14 @@ min-height: 610px;
   /*  margin-top: auto;
   margin-bottom: auto;*/
 }
+.cyphersystem .items-list .item-cypher-limit {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  text-align: center;
+  /*  margin-top: auto;
+  margin-bottom: auto;*/
+}
 
 .cyphersystem .items-list .item-right {
   -webkit-box-flex: 0;
@@ -383,6 +391,13 @@ min-height: 610px;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.cyphersystem .input-cypher-limit {
+  width: 40px !important;
+  margin: -2px 0 !important;
+  height: auto !important;
+  padding: 0 !important;
 }
 
 .cyphersystem .item-settings {

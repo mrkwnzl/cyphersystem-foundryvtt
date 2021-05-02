@@ -60,7 +60,7 @@
         {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
-          <div class="resources grid grid-4col">
+          <div class="resources grid grid-3col">
             {{!-- "flex-group-center" is also defined in the _grid.scss file
             and it will add a small amount of padding, a border, and will
             center all of its child elements content and text. --}}
@@ -76,12 +76,12 @@
                 <input type="text" name="data.basic.effort" value="{{data.basic.effort}}" data-dtype="Number"/>
               </div>
             </div>
-            <div class="resource flex-group-center">
+            <!-- <div class="resource flex-group-center">
               <label for="data.basic.cypherLimit" class="resource-label">{{localize 'CYPHERSYSTEM.CypherLimit'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
                 <input type="text" name="data.basic.cypherLimit" value="{{data.basic.cypherLimit}}" data-dtype="Number"/>
               </div>
-            </div>
+            </div> -->
             <div class="resource flex-group-center">
               <a class="item-control decrease-xp" title="{{localize 'CYPHERSYSTEM.SubtractXP'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
               <label for="data.basic.xp" class="resource-label">{{localize 'CYPHERSYSTEM.XP'}}</label>&nbsp;
@@ -484,9 +484,7 @@
 
               {{> systems/cyphersystem/templates/equipment.html}}
 
-              {{#if data.settings.equipment.cyphers}}
               {{> systems/cyphersystem/templates/cyphers.html}}
-              {{/if}}
 
               {{#if data.settings.equipment.artifacts}}
               {{> systems/cyphersystem/templates/artifacts.html}}
@@ -634,7 +632,7 @@
                   </li>
                   {{/if}}
                   <li class="item flexrow item-settings">
-                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}</div>
+                    <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}} disabled>&nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}</div>
                     <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" style="width: auto;"/></div>
                   </li>
                   <li class="item flexrow item-settings">

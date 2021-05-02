@@ -107,7 +107,7 @@
 
 	"CYPHERSYSTEM.Tier": "Tier",
 	"CYPHERSYSTEM.Effort": "Effort",
-	"CYPHERSYSTEM.CypherLimit": "Cypher Limit",
+	"CYPHERSYSTEM.CypherLimit": "Limit",
 	"CYPHERSYSTEM.XP": "XP",
 	"CYPHERSYSTEM.SubtractXP": "Subtract 1 XP (ctrl/cmd-click to subtract 10 XP)",
 	"CYPHERSYSTEM.AddXP": "Add 1 XP (ctrl/cmd-click to add 10 XP)",
