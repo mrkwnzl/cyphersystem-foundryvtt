@@ -278,5 +278,13 @@
     "ITEM.TypeTeen Armor": "Armadura (Adolescente)",
     "ITEM.TypeTeen Attack": "Ataque (Adolescente)",
     "ITEM.TypeTeen Lasting Damage": "Daño Persistente (Adolescente)",
-    "ITEM.TypeTeen Skill": "Habilidad (Adolescente)"
+    "ITEM.TypeTeen Skill": "Habilidad (Adolescente)",
+    "CYPHERSYSTEM.SpeedRoll": "Tirada de Velocidad",
+    "CYPHERSYSTEM.IntellectRoll": "Tirada de Intelecto",
+    "CYPHERSYSTEM.AdditionalPoolRoll": "Tirada de {pool}",
+    "CYPHERSYSTEM.AnyPoolPoint": "Punto de Resserva",
+    "CYPHERSYSTEM.AnyPoolPoints": "Puntos de Reserva",
+    "CYPHERSYSTEM.hindered": "dificultada",
+    "CYPHERSYSTEM.MightRoll": "Tirada de Vigor",
+    "CYPHERSYSTEM.eased": "facilitada"
 }

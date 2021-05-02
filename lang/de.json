@@ -73,7 +73,7 @@
     "CYPHERSYSTEM.ResetAdvancement": "Aufstiegsschritte zurücksetzen",
     "CYPHERSYSTEM.Tier": "Rang",
     "CYPHERSYSTEM.Effort": "Anstrengung",
-    "CYPHERSYSTEM.CypherLimit": "Cypher-Verwendung",
+    "CYPHERSYSTEM.CypherLimit": "Verwendung",
     "CYPHERSYSTEM.XP": "XP",
     "CYPHERSYSTEM.SubtractXP": "Ziehe 1 XP ab (Strg/cmd-Klick um 10 XP abzuziehen)",
     "CYPHERSYSTEM.AddXP": "Füge 1 XP hinzu (Strg/cmd-Klick um 10 XP hinzuzufügen)",
@@ -159,7 +159,7 @@
     "CYPHERSYSTEM.Currency": "Währung",
     "CYPHERSYSTEM.HideCurrency": "Verberge Währungsnamen im Ausrüstungs-Reiter (Tooltip-only Modus)",
     "CYPHERSYSTEM.Inability": "Unfähigkeit",
-    "CYPHERSYSTEM.Practiced": "Geübt",
+    "CYPHERSYSTEM.Practiced": "Fähig",
     "CYPHERSYSTEM.Trained": "Geübt",
     "CYPHERSYSTEM.Specialized": "Spezialisiert",
     "CYPHERSYSTEM.Items": "Gegenstände",
@@ -278,5 +278,13 @@
     "ITEM.TypeAbility": "Sonderfähigkeit",
     "ITEM.TypeMaterial": "Herstellungsmaterial",
     "ACTOR.TypeCompanion": "Gefährte",
-    "ITEM.TypeOddity": "Kuriosität"
+    "ITEM.TypeOddity": "Kuriosität",
+    "CYPHERSYSTEM.SpeedRoll": "Geschwindigkeits-Probe",
+    "CYPHERSYSTEM.IntellectRoll": "Intellekt-Probe",
+    "CYPHERSYSTEM.AdditionalPoolRoll": "{pool}-Probe",
+    "CYPHERSYSTEM.MightRoll": "Kraft-Probe",
+    "CYPHERSYSTEM.AnyPoolPoint": "Pool-Punkt",
+    "CYPHERSYSTEM.AnyPoolPoints": "Pool-Punkte",
+    "CYPHERSYSTEM.eased": "erleichtert",
+    "CYPHERSYSTEM.hindered": "erschwert"
 }
