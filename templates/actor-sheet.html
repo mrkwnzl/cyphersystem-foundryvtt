@@ -51,15 +51,15 @@
           <div class="resource-content flexrow flex-center" style="margin-top: 5px">
             <div style="padding-left: 0px; display: flex; justify-content: center">
               <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
-              {{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
+              {{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEffort" data-dtype="boolean" {{checked data.advancement.advEffort}}>
-              {{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEdge" data-dtype="boolean" {{checked data.advancement.advEdge}}>
-              {{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advSkill" data-dtype="boolean" {{checked data.advancement.advSkill}}>
-              {{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advOther" data-dtype="boolean" {{checked data.advancement.advOther}}>
-              {{localize 'CYPHERSYSTEM.AdvancementOther'}}</div>
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}</div>
               <div style="max-width: 20px"><a class="item-control reset-advancement" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}"><i class="fas fa-sync-alt"></i></a></div>
             </div>
 
@@ -148,7 +148,7 @@
           <div class="resource flex-group-center">
             <a class="item-control decrease-teen-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
             <a class="item-control reset-teen-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><label for="data.additionalPool.additionalTeenPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</label></a>&nbsp;
-            <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.Quantity.<input type="text" name="" value="">crease'}}"><i class="fas fa-angle-up"></i></a>
+            <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="fas fa-angle-up"></i></a>
             <div class="resource-content flexrow flex-center flex-between">
               <input type="text" name="data.teen.pools.additional.value" value="{{data.teen.pools.additional.value}}" data-dtype="Number"/>
             </div>
