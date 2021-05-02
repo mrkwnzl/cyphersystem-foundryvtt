@@ -25,15 +25,15 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Support & Community
 
-The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the development of the system is coordinated and its future discussed, but anyone is welcome to join and share best practices, ask questions on how to use the system, and share self-created resources for your games. 
+The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the development of the system is coordinated and its future discussed, but anyone is welcome to join and share best practices, ask questions on how to use the system, and share self-created resources for your games.
 
 You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl#7407.
 
 Last, but not least, you can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose).
 
-## Support Me
+## Buy Me A Coffee
 
-If the Cypher System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
+If the Cypher System for Foundry VTT makes your games more accessible and fun, I’m grateful for a coffee:
 
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="40"></a>
 
