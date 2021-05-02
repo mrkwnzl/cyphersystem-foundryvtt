@@ -4,6 +4,7 @@
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
+![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
 
@@ -25,9 +26,17 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 The Cypher System for Foundry VTT is available in English, French, German, Italian, and Spanish.
 
-## Support
+## Support, Feedback & Contributing
 
-I appreciate any feedback and questions. You can reach me on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt) and Discord (@mrkwnzl#7407). If the Cypher  System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
+I appreciate any feedback and questions.
+
+The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the future of the system is discussed, but where you can also come to share best practices, ask questions on how to use the system, and share self-created resources for your games. My Discord username: @mrkwnzl#7407.
+
+<iframe src="https://discord.com/widget?id=836885417197436958&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
+You can also ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose).
+
+If the Cypher System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
 
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="40"></a>
 
