@@ -73,7 +73,7 @@
     "CYPHERSYSTEM.ResetAdvancement": "Réinitialiser l'Avancement",
     "CYPHERSYSTEM.Tier": "Rang",
     "CYPHERSYSTEM.Effort": "Effort",
-    "CYPHERSYSTEM.CypherLimit": "Limite de Cypher",
+    "CYPHERSYSTEM.CypherLimit": "Limite",
     "CYPHERSYSTEM.XP": "XP",
     "CYPHERSYSTEM.SubtractXP": "Soustraire 1 XP (ctrl/cmd-clic pour soustraire 10 XP)",
     "CYPHERSYSTEM.AddXP": "Ajouter 1 XP (ctrl/cmd-clic pour ajouter 10 XP)",
