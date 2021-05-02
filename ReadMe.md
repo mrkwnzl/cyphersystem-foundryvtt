@@ -3,6 +3,7 @@
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
+![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
@@ -20,10 +21,19 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 - A robust pre-made macro system which you can use to customize the game for your own needs.
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
+- The Cypher System for Foundry VTT is available in English, French, German, Italian, and Spanish.
 
-## Support
+## Support & Community
 
-I appreciate any feedback and questions. You can reach me on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt) and Discord (@mrkwnzl#7407). If the Cypher  System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
+The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the development of the system is coordinated and its future discussed, but anyone is welcome to join and share best practices, ask questions on how to use the system, and share self-created resources for your games. 
+
+You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl#7407.
+
+Last, but not least, you can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose).
+
+## Support Me
+
+If the Cypher System for Foundry VTT makes your games more accessible and fun, I’m grateful for your support:
 
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="40"></a>
 
@@ -33,7 +43,7 @@ I appreciate any feedback and questions. You can reach me on [GitHub](https://gi
 
 ## Roadmap
 
-Right now, it’s pretty feature complete for my use cases. Let me know if you miss anything and I’ll see what I can do.
+You can find the current [Roadmap](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Roadmap) in the wiki.
 
 ## Fan Use Policy
 
@@ -46,3 +56,17 @@ I used code snippets from [Simple Worldbuilding System](https://gitlab.com/found
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
 Icons from [game-icons.net](https://game-icons.net)
+
+### Translators
+
+**Weblate-Admin:** JuanV#8807 ([Ko-Fi](https://ko-fi.com/C0C43ZT90))
+
+**French:** Nice to see you#6655
+
+**German:** Kadomi#9719, smaug18#2066
+
+**Italian:** Eligor#5278
+
+**Portuguese (Brazil):** AgostinhoMestre#8636
+
+**Spanish:** ParvusDomus#9612

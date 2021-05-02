@@ -5,34 +5,34 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
                     </div>
                     <div class="resources grid grid-3col">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Damage Points</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamagePoints'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Pool</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.lastingDamagePool">
                                     {{#select data.lastingDamagePool}}
-                                    <option value="Might">Might</option>
-                                    <option value="Speed">Speed</option>
-                                    <option value="Intellect">Intellect</option>
+                                    <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
+                                    <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
+                                    <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Damage Type</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamageType'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <select name="data.damageType">
+                                <select name="data.damageType" style="text-overflow: ellipsis; width: 100%">
                                     {{#select data.damageType}}
-                                    <option value="Lasting">Lasting</option>
-                                    <option value="Permanent">Permanent</option>
+                                    <option value="Lasting">{{localize 'CYPHERSYSTEM.LastingDamage'}}</option>
+                                    <option value="Permanent">{{localize 'CYPHERSYSTEM.Permanent'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
@@ -45,7 +45,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

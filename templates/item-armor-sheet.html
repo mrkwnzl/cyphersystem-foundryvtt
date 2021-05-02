@@ -5,38 +5,38 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
                     </div>
                     <div class="resources grid grid-3col" style="margin-bottom: 0">
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Speed Cost</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.SpeedCost'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number"/>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Armor Rating</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.ArmorRating'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number"/>
                             </div>
                         </div>
                         <div class="resource flex-center">
-                            <label class="resource-label-normal">Type</label>
+                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Type'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
                                 <select name="data.armorType">
                                     {{#select data.armorType}}
-                                    <option value="light armor">light armor</option>
-                                    <option value="medium armor">medium armor</option>
-                                    <option value="heavy armor">heavy armor</option>
-                                    <option value="artifact">artifact</option>
-                                    <option value="special ability">special ability</option>
+                                    <option value="light armor">{{localize 'CYPHERSYSTEM.LightArmor'}}</option>
+                                    <option value="medium armor">{{localize 'CYPHERSYSTEM.MediumArmor'}}</option>
+                                    <option value="heavy armor">{{localize 'CYPHERSYSTEM.HeavyArmor'}}</option>
+                                    <option value="artifact">{{localize 'CYPHERSYSTEM.Artifact'}}</option>
+                                    <option value="special ability">{{localize 'CYPHERSYSTEM.SpecialAbility'}}</option>
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="resource flex-center">
-                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="Notes"/>
+                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}"/>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
+        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

@@ -7,21 +7,21 @@
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         <div style="margin-top: auto; margin-bottom: auto;">
           <div class="resource-content flexrow flex-center">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" style="font-weight:bold"/>
-            &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="Number" placeholder="Level" title="Level"/></div>
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold"/>
+            &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}"/></div>
           </div>
           <div class="resource-content flexrow flex-center">
             <div class="resources grid grid-3col">
               <div class="resource">
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label">Crew</label>
+                <label class="resource-label">{{localize 'CYPHERSYSTEM.Crew'}}</label>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.crew" type="text" value="{{data.crew}}" data-dtype="Number"/>
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label">Weapon Systems</label>
+                <label class="resource-label">{{localize 'CYPHERSYSTEM.WeaponSystems'}}</label>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.weaponSystems" type="text" value="{{data.weaponSystems}}" data-dtype="Number"/>
                 </div>
@@ -35,8 +35,8 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">Description</a>
-    <a class="item" data-tab="items" style="border-top: none; border-bottom: none;">Storage</a>
+    <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    <a class="item" data-tab="items" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Storage'}}</a>
     <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
   </nav>
 
@@ -84,14 +84,14 @@
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
-            <div class="item-name">General Settings</div>
+            <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
           </li>
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" checked disabled>&nbsp;Bonus to Initiative</div>
+            <div class="settings-list"><input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" checked disabled>&nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}</div>
             <div class="item-quantity"><input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;"/></div>
           </li>
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;Hide Archive</div>
+            <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}</div>
           </li>
         </ol>
       </div>

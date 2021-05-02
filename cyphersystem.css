@@ -155,10 +155,6 @@ min-height: 610px;
   margin-bottom: 3px;
 }
 
-#entity-create > div:nth-child(2) > div > select {
-  text-transform: capitalize;
-}
-
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .sheet-header {
@@ -185,8 +181,8 @@ min-height: 610px;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
   flex: 0 0 100px;
-  height: 120px;
-  width: 120px;
+  height: 115px;
+  width: 115px;
   margin-right: 10px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
@@ -221,12 +217,13 @@ min-height: 610px;
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 350px;
+  height: 420px;
   overflow-y: auto;
 }
 
 .cyphersystem .resource-label {
   font-weight: bold;
+  text-overflow: ellipsis
   /*text-transform: uppercase;*/
 }
 
@@ -330,6 +327,14 @@ min-height: 610px;
   /*  margin-top: auto;
   margin-bottom: auto;*/
 }
+.cyphersystem .items-list .item-cypher-limit {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  text-align: center;
+  /*  margin-top: auto;
+  margin-bottom: auto;*/
+}
 
 .cyphersystem .items-list .item-right {
   -webkit-box-flex: 0;
@@ -387,6 +392,13 @@ min-height: 610px;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.cyphersystem .input-cypher-limit {
+  width: 40px !important;
+  margin: -2px 0 !important;
+  height: auto !important;
+  padding: 0 !important;
 }
 
 .cyphersystem .item-settings {
@@ -478,4 +490,10 @@ min-height: 610px;
 .description-image-chat {
   float: right;
   margin: 0 0 0 5px;
+}
+
+.cyphersystem .label-basic-info {
+  flex: 0 0 50px;
+  text-align: right;
+  padding: 0 3px 0 6px;
 }

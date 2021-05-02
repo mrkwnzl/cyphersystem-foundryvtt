@@ -15,9 +15,9 @@ import {CypherVehicleSheet} from "./vehicle-sheet.js";
 /* -------------------------------------------- */
 
 Hooks.once("init", async function() {
-  console.log(`Initializing Cypher System`);
+  console.log("Initializing Cypher System");
 
-  // CONFIG.debug.hooks = true;
+   // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -39,8 +39,8 @@ Hooks.once("init", async function() {
 
   // Register system settings
   game.settings.register("cyphersystem", "effectiveDifficulty", {
-    name: "Roll Macros Use Effective Difficulty",
-    hint: "With this setting, the steps eased or hindered for roll macros are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll a 9 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead. With this option deactivated, it will tell you that you have beaten difficulty 3.",
+    name: game.i18n.localize("CYPHERSYSTEM.SettingRollMacro"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingRollMacroHint"),
     scope: "world",
     type: Boolean,
     default: false,
@@ -48,8 +48,8 @@ Hooks.once("init", async function() {
   });
 
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
-    name: "Item Macros Use All-in-One Dialog",
-    hint: "With this setting, the item macros created by dragging an item to the macro bar use the All-in-One Roll macro instead of the Quick Roll macro.",
+    name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
     scope: "world",
     type: Boolean,
     default: false,
@@ -57,8 +57,8 @@ Hooks.once("init", async function() {
   });
 
   game.settings.register("cyphersystem", "welcomeMessage", {
-    name: "Show Welcome Message",
-    hint: "Show the welcome message at every launch of this world.",
+    name: game.i18n.localize("CYPHERSYSTEM.SettingShowWelcome"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowWelcomeHint"),
     scope: "world",
     type: Boolean,
     default: true,
@@ -171,10 +171,10 @@ Hooks.once("ready", async function() {
 
           totalModifier = skillRating + modifiedBy;
 
-          if (totalModifier == 1) totalModified = "eased";
-          if (totalModifier >= 2) totalModified = "eased by " + totalModifier + " steps";
-          if (totalModifier == -1) totalModified = "hindered";
-          if (totalModifier <= -2) totalModified = "hindered by " + Math.abs(totalModifier) + " steps";
+          if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.Eased");
+		      if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+		      if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.Hindered");
+		      if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
 
           i.data.totalModified = totalModified;
 
@@ -186,6 +186,7 @@ Hooks.once("ready", async function() {
     if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
     if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
     if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
+    if (!a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
   }
 
   // Fix for case-sensitive OSs
@@ -200,7 +201,7 @@ Hooks.once("ready", async function() {
 });
 
 function sendWelcomeMessage() {
-  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>Welcome to the Cypher System!</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>Getting Started</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>User Manual</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt'>GitHub</a></p>";
+  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>" + game.i18n.localize("CYPHERSYSTEM.WelcomeMessage") + "</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>" + game.i18n.localize("CYPHERSYSTEM.GettingStarted") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>" + game.i18n.localize("CYPHERSYSTEM.UserManual") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt'>GitHub</a></p>";
   ChatMessage.create({
     content: message
   })
@@ -212,6 +213,33 @@ Hooks.on("preCreateItem", (itemData) => {
 
 Hooks.on("preCreateOwnedItem", (actor, itemData) => {
   if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
+});
+
+Hooks.on("updateOwnedItem", (actor, itemData) => {
+  if (itemData.type == 'attack' || itemData.type == 'teen Attack') {
+    const item = itemData;
+
+    let skillRating = 0;
+    let modifiedBy = item.data.modifiedBy;
+    let totalModifier = 0;
+    let totalModified = "";
+
+    if (item.data.skillRating == "Inability") skillRating = -1;
+    if (item.data.skillRating == "Trained") skillRating = 1;
+    if (item.data.skillRating == "Specialized") skillRating = 2;
+
+    if (item.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+
+    totalModifier = skillRating + modifiedBy;
+
+    if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
+    if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+    if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
+    if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
+
+    // Assign and return
+    itemData.data.totalModified = totalModified;
+  }
 });
 
 const _getInitiativeFormula = function(combatant) {
@@ -242,7 +270,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       let short = 0;
       let long = 0;
       let veryLong = 0;
-      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre") {
+      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre" || token.scene.data.gridUnits == "mètre") {
         immediate = 3;
         short = 15;
         long = 30;
@@ -283,7 +311,8 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", (actorData) => {
-  if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
+  // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
+  // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
   if (actorData.type == "NPC")
   mergeObject(actorData, {
@@ -411,13 +440,13 @@ Hooks.on("updateCombat", function() {
   let combatant = game.combat.combatant;
 
   if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
-    let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+    let token = canvas.tokens.get(combatant.tokenId);
     let newQuantity = token.actor.data.data.quantity.value - 1;
-    token.update({"actorData.data.quantity.value": newQuantity});
+    token.actor.update({"data.quantity.value": newQuantity});
   } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
-    let token = canvas.tokens.ownedTokens.filter(el => el.actor.data._id == combatant.actor.data._id)[0];
+    let token = canvas.tokens.get(combatant.tokenId);
     let newQuantity = token.actor.data.data.quantity.value + 1;
-    token.update({"actorData.data.quantity.value": newQuantity});
+    token.actor.update({"data.quantity.value": newQuantity});
   }
 });
 
@@ -434,7 +463,7 @@ Hooks.on("updateCombat", function() {
 */
 async function createCyphersystemMacro(data, slot) {
   if (data.type !== "Item") return;
-  if (!("data" in data)) return ui.notifications.warn("You can only create macros for owned Items.");
+  if (!("data" in data)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems"));
   const item = data.data;
 
   // Create the macro command
@@ -519,25 +548,25 @@ function diceRoller(title, info, modifier) {
   let modifiedBy = "";
 
   if (roll.result == 1) {
-    effect = "<span style='color:red'><b>GM Intrusion!</b></span>";
+    effect = "<span style='color:red'><b>" + game.i18n.localize("CYPHERSYSTEM.GMIntrusion") + "</b></span>";
   } else if (roll.result == 17) {
-    effect = "<span style='color:blue'><b>+1 Damage</b></span>"
+    effect = "<span style='color:blue'><b>" + game.i18n.localize("CYPHERSYSTEM.OneDamage") + "</b></span>"
   } else if (roll.result == 18) {
-    effect = "<span style='color:blue'><b>+2 Damage</b></span>"
+    effect = "<span style='color:blue'><b>" + game.i18n.localize("CYPHERSYSTEM.TwoDamage") + "</b></span>"
   } else if (roll.result == 19) {
-    effect = "<span style='color:green'><b>Minor Effect or +3 Damage</b></span>"
+    effect = "<span style='color:green'><b>" + game.i18n.localize("CYPHERSYSTEM.MinorEffectRoll") + "</b></span>"
   } else if (roll.result == 20) {
-    effect = "<span style='color:green'><b>Major Effect or +4 Damage</b></span>"
+    effect = "<span style='color:green'><b>" + game.i18n.localize("CYPHERSYSTEM.MajorEffectRoll") + "</b></span>"
   }
 
   if (modifier > 1) {
-    modifiedBy = "Eased by " + modifier + " steps. "
+    modifiedBy = game.i18n.localize("CYPHERSYSTEM.EasedBy") + " " + modifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps") + ". "
   } else if (modifier == 1) {
-    modifiedBy = "Eased. "
+    modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased") + ". "
   } else if (modifier == -1) {
-    modifiedBy = "Hindered. "
+    modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered") + ". "
   } else if (modifier < -1) {
-    modifiedBy = "Hindered by " + Math.abs(modifier) + " steps. "
+    modifiedBy = game.i18n.localize("CYPHERSYSTEM.HinderedBy") + " " + Math.abs(modifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps") + ". "
   }
 
   if (info != "") {
@@ -546,7 +575,7 @@ function diceRoller(title, info, modifier) {
     info = "<hr style='margin-top: 1px; margin-bottom: 2px;'>"
   }
 
-  let flavor = "<b>" + title + "</b>" + info + modifiedBy + "Beats difficulty " + difficultyResult + "<br>" + effect;
+  let flavor = "<b>" + title + "</b>" + info + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + "<br>" + effect;
 
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
@@ -575,18 +604,18 @@ function quickRollMacro(title) {
 
 function easedRollMacro() {
   let d = new Dialog({
-    title: "Eased Stat Roll",
-    content: `<div align="center"><label style='display: inline-block; text-align: right'><b>Eased by: </b></label>
+    title: game.i18n.localize("CYPHERSYSTEM.EasedStatRoll"),
+    content: `<div align="center"><label style='display: inline-block; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}: </b></label>
     <input style='width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
-        label: "Roll",
-        callback: (html) => diceRoller("Stat Roll", "", html.find('input').val(), 0)
+        label: game.i18n.localize("CYPHERSYSTEM.Roll"),
+        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0)
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
-        label: "Cancel",
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => { }
       }
     },
@@ -598,18 +627,18 @@ function easedRollMacro() {
 
 function hinderedRollMacro() {
   let d = new Dialog({
-    title: "Hindered Stat Roll",
-    content: `<div align="center"><label style='display: inline-block; text-align: right'><b>Hindered by: </b></label>
+    title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll"),
+    content: `<div align="center"><label style='display: inline-block; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}: </b></label>
     <input style='width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
-        label: "Roll",
-        callback: (html) => diceRoller("Stat Roll", "", html.find('input').val()*-1, 0)
+        label: game.i18n.localize("CYPHERSYSTEM.Roll"),
+        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val()*-1, 0)
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
-        label: "Cancel",
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => { }
       }
     },
@@ -620,11 +649,11 @@ function hinderedRollMacro() {
 }
 
 function easedRollEffectiveMacro() {
-  ui.notifications.warn(`This macro has been deprecated. Use the “Eased Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.`)
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.EasedRollEffectiveMacro"))
 }
 
 function hinderedRollEffectiveMacro() {
-  ui.notifications.warn(`This macro has been deprecated. Use the “Hindered Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.`)
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.HinderedRollEffectiveMacro"))
 }
 
 function diceRollMacro(dice) {
@@ -634,7 +663,7 @@ function diceRollMacro(dice) {
 
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + dice + " Roll</b>"
+    flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>"
   });
 }
 
@@ -644,36 +673,36 @@ function recoveryRollMacro(actor) {
 
     roll.toMessage({
       speaker: ChatMessage.getSpeaker(),
-      flavor: "<b>Recovery Roll</b>"
+      flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>"
     });
   } else {
-    ui.notifications.warn(`This macro only applies to PCs.`)
+    ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 }
 
 function spendEffortMacro(actor) {
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs can’t spend Effort.`)
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   if (actor && actor.data.type == "PC") {
     let d = new Dialog({
-      title: "Spend Effort",
+      title: game.i18n.localize("CYPHERSYSTEM.SpendEffort"),
       content: `<div align="center">
-      <label style='display: inline-block; width: 98px; text-align: right'><b>Pool: </b></label>
-      <select name='pool' id='pool' style='width: 75px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-      <option value='Might'>Might</option><option value='Speed'>Speed</option>
-      <option value='Intellect'>Intellect</option>
+      <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Pool")}: </b></label>
+      <select name='pool' id='pool' style='width: 98px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+      <option value='Might'>${game.i18n.localize("CYPHERSYSTEM.Might")}</option><option value='Speed'>${game.i18n.localize("CYPHERSYSTEM.Speed")}</option>
+      <option value='Intellect'>${game.i18n.localize("CYPHERSYSTEM.Intellect")}</option>
       </select><br>
-      <label style='display: inline-block; width: 98px; text-align: right'><b>Levels of Effort: </b></label>
-      <input name='level' id='level' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
+      <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.LevelOfEffort")}: </b></label>
+      <input name='level' id='level' style='width: 98px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`,
       buttons: {
         roll: {
           icon: '<i class="fas fa-check"></i>',
-          label: "Apply",
+          label: game.i18n.localize("CYPHERSYSTEM.Apply"),
           callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
         },
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: "Cancel",
+          label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
           callback: () => { }
         }
       },
@@ -699,16 +728,16 @@ function spendEffortMacro(actor) {
       payPoolPoints(actor, cost, pool);
     }
   } else {
-    ui.notifications.warn(`This macro only applies to PCs.`)
+    ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 }
 
 function allInOneRollMacro(actor, title, info, cost, pool, modifier) {
   if (!actor || actor.data.type != "PC") {
-    return ui.notifications.warn(`This macro only applies to PCs.`)
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs may not take actions.`)
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   const pointsPaid = payPoolPoints(actor, cost, pool);
   if (pointsPaid == true) diceRoller(title, info, modifier);
@@ -721,7 +750,7 @@ function payPoolPoints(actor, cost, pool){
     cost = cost - actor.data.data.pools.mightEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.might.value) {
-      ui.notifications.notify(`You don’t have enough Might points.`);
+      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
     let newMight = actor.data.data.pools.might.value - cost;
@@ -730,7 +759,7 @@ function payPoolPoints(actor, cost, pool){
     cost = cost - actor.data.data.pools.speedEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.speed.value) {
-      ui.notifications.notify(`You don’t have enough Speed points.`);
+      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
     let newSpeed = actor.data.data.pools.speed.value - cost;
@@ -739,7 +768,7 @@ function payPoolPoints(actor, cost, pool){
     cost = cost - actor.data.data.pools.intellectEdge;
     if (cost < 0) cost = 0;
     if (cost > actor.data.data.pools.intellect.value) {
-      ui.notifications.notify(`You don’t have enough Intellect points.`);
+      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
     let newIntellect = actor.data.data.pools.intellect.value - cost;
@@ -751,28 +780,28 @@ function payPoolPoints(actor, cost, pool){
 
 function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
   if (!actor || actor.data.type != "PC") {
-    return ui.notifications.warn(`This macro only applies to PCs.`)
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"))
   }
 
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(`Debilitated PCs may not take actions.`)
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
 
   if (!damage) damage = 0;
   if (!damagePerLOE) damagePerLOE = 3;
 
   let d = new Dialog({
-    title: "All-in-One Roll",
+    title: game.i18n.localize("CYPHERSYSTEM.AllInOneRoll"),
     content: createContent(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE),
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
-        label: "Roll",
+        label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => {
           applyToMacro(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val());
         }
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
-        label: "Cancel",
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => { }
       }
     },
@@ -786,24 +815,24 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
     if (stepModifier == "hindered") additionalSteps = parseInt(additionalSteps) * -1;
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
-    let skillRating = "Practiced";
-    let steps = " steps";
-    let points = " points";
-    let rollEffort = " levels";
-    let otherEffort = " levels";
-    let damageEffortLevel = " levels";
+    let skillRating = game.i18n.localize("CYPHERSYSTEM.Practiced");
+    let steps = " " + game.i18n.localize("CYPHERSYSTEM.Steps");
+    let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
+    let rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
+    let otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
+    let damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.levels");
     let attackModifier = "";
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
 
-    if (skill == 2) skillRating = "Specialized";
-    if (skill == 1) skillRating = "Trained";
-    if (skill == -1) skillRating = "Inability";
+    if (skill == 2) skillRating = game.i18n.localize("CYPHERSYSTEM.Specialized");
+    if (skill == 1) skillRating = game.i18n.localize("CYPHERSYSTEM.Trained");
+    if (skill == -1) skillRating = game.i18n.localize("CYPHERSYSTEM.Inability");
 
     if (effort > actor.data.data.basic.effort) {
       additionalSteps = Math.abs(additionalSteps);
       allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
-      return ui.notifications.notify(`You tried to apply more Effort than your Effort score allows.`);
+      return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
     }
 
     let armorCost = 0;
@@ -836,28 +865,43 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
     if (pool == "Might" && totalCost > actor.data.data.pools.might.value || pool == "Speed" && totalCost > actor.data.data.pools.speed.value || pool == "Intellect" && totalCost > actor.data.data.pools.intellect.value) {
       additionalSteps = Math.abs(additionalSteps);
       allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
-      return ui.notifications.notify(`You don’t have enough ${pool} points.`);
+      return ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: pool}));
     }
 
-    if (additionalSteps == 1 || additionalSteps == -1) steps = " step";
+    if (additionalSteps == 1 || additionalSteps == -1) steps = " " + game.i18n.localize("CYPHERSYSTEM.Step");
 
-    if (cost == 1) points = " point";
+    if (cost == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
 
-    if (title == "") title = pool + " Roll";
+	if (title == "") {
+		switch (pool) {
+			case "Might":
+				title = game.i18n.localize("CYPHERSYSTEM.MightRoll");
+				break;
+			case "Speed":
+				title = game.i18n.localize("CYPHERSYSTEM.SpeedRoll");
+				break;
+			case "Intellect":
+				title = game.i18n.localize("CYPHERSYSTEM.IntellectRoll");
+				break;
+			default:
+				title = game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool});
+				break;
+		}
+	};
 
-    if (effort1 == 1) rollEffort = " level";
+    if (effort1 == 1) rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
-    if (effort2 == 1) otherEffort = " level";
+    if (effort2 == 1) otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
-    if (damageEffort == 1) damageEffortLevel = " level";
+    if (damageEffort == 1) damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
     if (damage != 0 || effort3 != 0) {
-      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>Effort for extra damage: " + effort3 + damageEffortLevel + "<br>Damage: " + totalDamage + " (" + damage + "+" + damageEffort + ")" + "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
+      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>" + game.i18n.localize("CYPHERSYSTEM.EffortForDamage") + ": " + effort3 + damageEffortLevel + "<br>" + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + totalDamage + " (" + damage + "+" + damageEffort + ")" + "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
     } else {
       attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>"
     }
 
-    let info = "Skill level: " + skillRating + "<br>" + "Assets: " + assets + "<br>" + "Effort to ease task: " + effort1 + rollEffort + "<br>" + "Effort for other uses: " + effort2 + otherEffort + attackModifier + "Difficulty: " + titleCase(stepModifier) + " by " + Math.abs(additionalSteps) + " additional " + steps + "<br>" + "Total cost: " + totalCost + " " + pool + points
+    let info = game.i18n.localize("CYPHERSYSTEM.SkillLevel") + ": " + skillRating + "<br>" + game.i18n.localize("CYPHERSYSTEM.Assets") + ": " + assets + "<br>" + game.i18n.localize("CYPHERSYSTEM.EffortForTask") + ": " + effort1 + rollEffort + "<br>" + game.i18n.localize("CYPHERSYSTEM.EffortForOther") + ": " + effort2 + otherEffort + attackModifier + game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + titleCase(stepModifier) + " " + game.i18n.localize("CYPHERSYSTEM.By") + " " + Math.abs(additionalSteps) + " " + game.i18n.localize("CYPHERSYSTEM.Additional") + " " + steps + "<br>" + game.i18n.localize("CYPHERSYSTEM.TotalCost") + ": " + totalCost + " " + pool + points
 
     allInOneRollMacro(actor, title, info, cost, pool, modifier);
   }
@@ -865,83 +909,83 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 
 function createContent(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
   let content = `<div align="center">
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Basic Modifiers</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Pool:</label>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.BasicModifiers")}</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Pool")}:</label>
   <select name='pool' id='pool' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value='Might' ${(pool == "Might" ? "selected" : "")}>Might</option>
-  <option value='Speed' ${(pool == "Speed" ? "selected" : "")}>Speed</option>
-  <option value='Intellect' ${(pool == "Intellect" ? "selected" : "")}>Intellect</option>
+  <option value='Might' ${(pool == "Might" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Might")}</option>
+  <option value='Speed' ${(pool == "Speed" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Speed")}</option>
+  <option value='Intellect' ${(pool == "Intellect" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Intellect")}</option>
   </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Skill level:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}:</label>
   <select name='skill' id='skill' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   {{#select skill}}
-  <option value=-1 ${(skill == "Inability" ? "selected" : "")}>Inability</option>
-  <option value=0 ${(skill == "Practiced" ? "selected" : "")}>Practiced</option>
-  <option value=1 ${(skill == "Trained" ? "selected" : "")}>Trained</option>
-  <option value=2 ${(skill == "Specialized" ? "selected" : "")}>Specialized</option>
+  <option value=-1 ${(skill == "Inability" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Inability")}</option>
+  <option value=0 ${(skill == "Practiced" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Practiced")}</option>
+  <option value=1 ${(skill == "Trained" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Trained")}</option>
+  <option value=2 ${(skill == "Specialized" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Specialized")}</option>
   {{/select}}
   </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Assets:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Assets")}:</label>
   <select name='assets' id='assets' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   <option value=0 ${(assets == 0 ? "selected" : "")}>0</option>
   <option value=1 ${(assets == 1 ? "selected" : "")}>1</option>
   <option value=2 ${(assets == 2 ? "selected" : "")}>2</option>
   </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Effort to ease the task:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}:</label>
   <select name='effort1' id='effort1' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort1 == 0 ? "selected" : "")}>None</option>
-  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 level</option>
-  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 levels</option>
-  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 levels</option>
-  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 levels</option>
-  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 levels</option>
-  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 levels</option>
+  <option value=0 ${(effort1 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
+  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
+  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
   </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Effort for other uses:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}:</label>
   <select name='effort2' id='effort2' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort2 == 0 ? "selected" : "")}>None</option>
-  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1 level</option>
-  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2 levels</option>
-  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3 levels</option>
-  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4 levels</option>
-  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 levels</option>
-  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 levels</option>
+  <option value=0 ${(effort2 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
+  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
+  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
   </select><br>
   <hr>
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Attack Modifiers</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Damage:</label>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AttackModifiers")}</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Damage")}:</label>
   <input name='damage' id='damage' type='number' value=${damage} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Effort for extra damage:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}:</label>
   <select name='effort3' id='effort3' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value=0 ${(effort3 == 0 ? "selected" : "")}>None</option>
-  <option value=1 ${(effort3 == 1 ? "selected" : "")}>1 level</option>
-  <option value=2 ${(effort3 == 2 ? "selected" : "")}>2 levels</option>
-  <option value=3 ${(effort3 == 3 ? "selected" : "")}>3 levels</option>
-  <option value=4 ${(effort3 == 4 ? "selected" : "")}>4 levels</option>
-  <option value=5 ${(effort3 == 5 ? "selected" : "")}>5 levels</option>
-  <option value=6 ${(effort3 == 6 ? "selected" : "")}>6 levels</option>
+  <option value=0 ${(effort3 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
+  <option value=1 ${(effort3 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
+  <option value=2 ${(effort3 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=3 ${(effort3 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=4 ${(effort3 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=5 ${(effort3 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=6 ${(effort3 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
   </select><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Damage per level of Effort:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.DamageLevelEffort")}:</label>
   <input name='damagePerLOE' id='damagePerLOE' type='number' value=${damagePerLOE} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
   <hr>
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Additional Modifiers</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Difficulty:</label>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AdditionalModifiers")}</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Difficulty")}:</label>
   <select name='stepModifier' id='stepModifier' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>eased by</option>
-  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>hindered by</option>
+  <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}</option>
+  <option value='hindered' ${(stepModifier == 'hindered' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}</option>
   </select>
   <input name='additionalSteps' id='additionalSteps' type='number' value=${additionalSteps} style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Pool point cost:</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.PoolCost")}:</label>
   <input name='additionalCost' id='additionalCost' type='number' value=${additionalCost} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
   <hr>
-  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>Character Info</b></label><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Effort:</label>
+  <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.CharacterInfo")}</b></label><br>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Effort")}:</label>
   <input name='effort' id='effort' type='number' value=${actor.data.data.basic.effort} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Might Pool (Edge):</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.MightPoolEdge")}:</label>
   <input name='might' id='might' type='text' value='${actor.data.data.pools.might.value}/${actor.data.data.pools.might.max} (${actor.data.data.pools.mightEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Speed Pool (Edge):</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.SpeedPoolEdge")}:</label>
   <input name='speed' id='speed' type='text' value='${actor.data.data.pools.speed.value}/${actor.data.data.pools.speed.max} (${actor.data.data.pools.speedEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
-  <label style='display: inline-block; width: 170px; text-align: right'>Intellect Pool (Edge):</label>
+  <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.IntellectPoolEdge")}:</label>
   <input name='intellect' id='intellect' type='text' value='${actor.data.data.pools.intellect.value}/${actor.data.data.pools.intellect.max} (${actor.data.data.pools.intellectEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
   </div>
   `;
@@ -963,17 +1007,17 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
   let pointsPaid = true;
 
   if (!actor || actor.data.type != "PC") {
-    return ui.notifications.warn(`This macro can only be used by ${owner.name}.`)
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
   }
 
   const item = actor.getOwnedItem(itemID);
 
   if (item == null) {
-    return ui.notifications.warn(`This macro can only be used by ${owner.name}.`)
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
   }
 
   if (game.settings.get("cyphersystem", "itemMacrosUseAllInOne")) {
-    if (!skill) skill = "Practiced";
+    if (!skill) skill = game.i18n.localize("CYPHERSYSTEM.Practiced");
     if (!assets) assets = 0;
     if (!effort1) effort1 = 0;
     if (!effort2) effort2 = 0;
@@ -981,10 +1025,10 @@ function itemRollMacro (actor, itemID, pool, skill, assets, effort1, effort2, ad
     if (!additionalCost) additionalCost = 0;
     if (!additionalSteps) additionalSteps = 0;
     if (!damage) damage = 0;
-    if (!pool) pool = "Might";
+    if (!pool) pool = game.i18n.localize("CYPHERSYSTEM.Might");
     if (!damagePerLOE) damagePerLOE = 3;
 
-    let stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
+    let stepModifier = (additionalSteps < 0) ? game.i18n.localize("CYPHERSYSTEM.Hindered") : game.i18n.localize("CYPHERSYSTEM.Eased");
 
     if (item.type == "skill" || item.type == "teen Skill") {
       skill = item.data.data.skillLevel;
@@ -1028,16 +1072,13 @@ function itemRollMacroQuick (actor, itemID) {
   let pointsPaid = true;
 
   if (item.type == "skill" || item.type == "teen Skill") {
-    info = titleCase(item.type) + ". Level: " + item.data.data.skillLevel;
-    if (item.data.data.skillLevel == "Inability") modifier = -1;
-    if (item.data.data.skillLevel == "Trained") modifier = 1;
-    if (item.data.data.skillLevel == "Specialized") modifier = 2;
+    info = titleCase(item.type) + ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.skillLevel;
+    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Inability")) modifier = -1;
+    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Trained")) modifier = 1;
+    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Specialized")) modifier = 2;
   } else if (item.type == "power Shift") {
-    let name = "Power Shift";
-    let shifts = " Shifts";
-    if (item.data.data.powerShiftValue == 1) {
-      shifts = " Shift"
-    }
+    let name = game.i18n.localize("CYPHERSYSTEM.PowerShifts");
+    let shifts = (item.data.data.powerShiftValue == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.Shift") : " " + game.i18n.localize("CYPHERSYSTEM.Shifts");
     if (actor.data.data.settings.powerShifts.powerShiftsName != 0) {
       name = actor.data.data.settings.powerShifts.powerShiftsName.slice(0, -1);
     }
@@ -1045,18 +1086,18 @@ function itemRollMacroQuick (actor, itemID) {
     modifier = item.data.data.powerShiftValue;
   } else if (item.type == "attack" || item.type == "teen Attack") {
     let modifiedBy = item.data.data.modifiedBy;
-    info = titleCase(item.type) + ". Damage: " + item.data.data.damage;
+    info = titleCase(item.type) + ". " + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + item.data.data.damage;
     if (item.data.data.modified == "hindered") modifiedBy = item.data.data.modifiedBy * -1;
     let skillRating = 0;
-    if (item.data.data.skillRating == "Inability") skillRating = -1;
-    if (item.data.data.skillRating == "Trained") skillRating = 1;
-    if (item.data.data.skillRating == "Specialized") skillRating = 2;
+    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Inability")) skillRating = -1;
+    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Trained")) skillRating = 1;
+    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Specialized")) skillRating = 2;
     modifier = skillRating + modifiedBy;
   } else if (item.type == "ability" || item.type == "teen Ability") {
     let cost = "";
     let pointCost;
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
-      let points = " points";
+      let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
       let edge;
       let edgeText = "";
       if (item.data.data.costPool == "Might") {
@@ -1068,20 +1109,20 @@ function itemRollMacroQuick (actor, itemID) {
       }
       pointCost = item.data.data.costPoints - edge;
       if (pointCost < 0) pointCost = 0;
-      if (item.data.data.costPoints == "1") points = " point";
+      if (item.data.data.costPoints == "1") points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
       if (edge > 0) edgeText = " (" + item.data.data.costPoints + "-" + edge + ") ";
-      cost = ". Cost: " + item.data.data.costPoints + edgeText + " " + item.data.data.costPool + points;
+      cost = ". " + game.i18n.localize("CYPHERSYSTEM.Cost") + ": " + item.data.data.costPoints + edgeText + " " + item.data.data.costPool + points;
     }
     info = titleCase(item.type) + cost
     pointsPaid = payPoolPoints(actor, item.data.data.costPoints, item.data.data.costPool)
   } else if (item.type == "cypher") {
     let level = "";
-    if (item.data.data.level != "") level = " Level: " + item.data.data.level;
+    if (item.data.data.level != "") level = " " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level;
     info = "Cypher." + level;
   } else if (item.type == "artifact") {
     let level = "";
-    if (item.data.data.level != "") level = " Level: " + item.data.data.level + ".";
-    info = "Artifact." + level + " Depletion: " + item.data.data.depletion;
+    if (item.data.data.level != "") level = " " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level + ".";
+    info = game.i18n.localize("CYPHERSYSTEM.Artifact") + "." + level + " " + game.i18n.localize("CYPHERSYSTEM.Depletion") + ": " + item.data.data.depletion;
   } else {
     info = titleCase(item.type)
   }
@@ -1093,21 +1134,21 @@ function itemRollMacroQuick (actor, itemID) {
 
 function toggleDragRuler(token) {
   if (!token) {
-    return ui.notifications.warn(`Please select a token.`)
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"))
   }
-  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn("You need to activate the module Drag Ruler to use this macro.");
+  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
 
   if (!token.data.flags.cyphersystem.toggleDragRuler) {
     token.setFlag("cyphersystem", "toggleDragRuler", true)
-    ui.notifications.info(`Drag Ruler is now enabled for ${token.name}.`);
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
   } else if (token.data.flags.cyphersystem.toggleDragRuler) {
     token.setFlag("cyphersystem", "toggleDragRuler", false)
-    ui.notifications.info(`Drag Ruler is now disabled for ${token.name}.`);
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
   }
 }
 
 function resetDragRulerDefaults() {
-  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn("You need to activate the module Drag Ruler to use this macro.");
+  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
   for (let t of canvas.tokens.objects.children) {
     if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
       t.setFlag("cyphersystem", "toggleDragRuler", true);
@@ -1115,5 +1156,5 @@ function resetDragRulerDefaults() {
       t.setFlag("cyphersystem", "toggleDragRuler", false);
     }
   }
-  ui.notifications.info(`All tokens now use the Drag Ruler default.`)
+  ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"))
 }
