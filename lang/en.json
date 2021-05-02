@@ -1,3 +1,4 @@
+  
 {
 	"ACTOR.TypePC": "PC",
 	"ACTOR.TypeNPC": "NPC",
@@ -43,6 +44,10 @@
 	"CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
 
 	"CYPHERSYSTEM.Roll": "Roll",
+	"CYPHERSYSTEM.MightRoll": "Might Roll",
+	"CYPHERSYSTEM.SpeedRoll": "Speed Roll",
+	"CYPHERSYSTEM.IntellectRoll": "Intellect Roll",
+	"CYPHERSYSTEM.AdditionalPoolRoll": "{pool} Roll",
 	"CYPHERSYSTEM.StatRoll": "Stat Roll",
 	"CYPHERSYSTEM.RecoveryRoll": "Recovery Roll",
 	"CYPHERSYSTEM.EasedStatRoll": "Eased Stat Roll",
@@ -255,10 +260,12 @@
 	"CYPHERSYSTEM.IotumAndParts": "Iotum & Parts",
 
 	"CYPHERSYSTEM.Modifier": "Modifier",
+	"CYPHERSYSTEM.eased": "eased",
 	"CYPHERSYSTEM.Eased": "Eased",
 	"CYPHERSYSTEM.easedBy": "eased by",
 	"CYPHERSYSTEM.EasedBy": "Eased by",
 	"CYPHERSYSTEM.EasedBySteps": "eased by {amount} steps",
+	"CYPHERSYSTEM.hindered": "hindered",
 	"CYPHERSYSTEM.Hindered": "Hindered",
 	"CYPHERSYSTEM.hinderedBy": "hindered by",
 	"CYPHERSYSTEM.HinderedBy": "Hindered by",

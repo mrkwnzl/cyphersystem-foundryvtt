@@ -845,7 +845,22 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 
     if (cost == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
 
-    if (title == "") title = pool + " " + game.i18n.localize("CYPHERSYSTEM.Roll");
+	if (title == "") {
+		switch (pool) {
+			case "Might":
+				title = game.i18n.localize("CYPHERSYSTEM.MightRoll");
+				break;
+			case "Speed":
+				title = game.i18n.localize("CYPHERSYSTEM.SpeedRoll");
+				break;
+			case "Intellect":
+				title = game.i18n.localize("CYPHERSYSTEM.IntellectRoll");
+				break;
+			default:
+				title = game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool});
+				break;
+		}
+	};
 
     if (effort1 == 1) rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
 
