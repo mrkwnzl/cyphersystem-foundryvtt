@@ -215,6 +215,33 @@ Hooks.on("preCreateOwnedItem", (actor, itemData) => {
   if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
 });
 
+Hooks.on("updateOwnedItem", (actor, itemData) => {
+  if (itemData.type == 'attack' || itemData.type == 'teen Attack') {
+    const item = itemData;
+
+    let skillRating = 0;
+    let modifiedBy = item.data.modifiedBy;
+    let totalModifier = 0;
+    let totalModified = "";
+
+    if (item.data.skillRating == "Inability") skillRating = -1;
+    if (item.data.skillRating == "Trained") skillRating = 1;
+    if (item.data.skillRating == "Specialized") skillRating = 2;
+
+    if (item.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+
+    totalModifier = skillRating + modifiedBy;
+
+    if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
+    if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+    if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
+    if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
+
+    // Assign and return
+    itemData.data.totalModified = totalModified;
+  }
+});
+
 const _getInitiativeFormula = function(combatant) {
   if (combatant.actor.data.type == "PC") {
     return "1d20 + @settings.initiative.initiativeBonus";

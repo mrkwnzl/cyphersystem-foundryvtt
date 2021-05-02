@@ -1,4 +1,4 @@
-  
+
 {
 	"ACTOR.TypePC": "PC",
 	"ACTOR.TypeNPC": "NPC",
@@ -139,8 +139,8 @@
 	"CYPHERSYSTEM.AddIntellect": "Add 1 Intellect point (ctrl/cmd-click to add 10 points)",
 	"CYPHERSYSTEM.ResetIntellect": "Reset Intellect",
 	"CYPHERSYSTEM.AdditionalPool": "Luck",
-	"CYPHERSYSTEM.AdditionalPoolPoint": "AdditionalPool point",
-	"CYPHERSYSTEM.AdditionalPoolPoints": "AdditionalPool points",
+	"CYPHERSYSTEM.AnyPoolPoint": "Pool point",
+	"CYPHERSYSTEM.AnyPoolPoints": "Pool points",
 	"CYPHERSYSTEM.ResetAdditionalPool": "Reset Additional Pool",
 	"CYPHERSYSTEM.AnyPool": "Any Pool",
 

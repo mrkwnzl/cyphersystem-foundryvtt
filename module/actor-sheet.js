@@ -10,7 +10,7 @@ export class CypherActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
       template: "systems/cyphersystem/templates/actor-sheet.html",
-      width: 650,
+      width: 700,
       height: 735,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
@@ -232,7 +232,6 @@ export class CypherActorSheet extends ActorSheet {
     skillsSortedByRating.sort(byArchiveStatus);
     teenSkillsSortedByRating.sort(byArchiveStatus);
 
-    // let, weil der Wert selbst verändert wird: const würde erwarten, dass er unverändert bleibt
     let armorTotal = 0;
     let speedCostTotal = 0;
     let teenArmorTotal = 0;
