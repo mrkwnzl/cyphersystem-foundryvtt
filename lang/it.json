@@ -266,5 +266,10 @@
     "ITEM.TypeTeen Skill": "Abilità (Adolescente)",
     "CYPHERSYSTEM.SpeedRoll": "Tiro di Prontezza",
     "CYPHERSYSTEM.MightRoll": "Tiro di Vigore",
-    "CYPHERSYSTEM.IntellectRoll": "Tiro di Intelletto"
+    "CYPHERSYSTEM.IntellectRoll": "Tiro di Intelletto",
+    "CYPHERSYSTEM.AdditionalPoolRoll": "Tiro di {pool}",
+    "CYPHERSYSTEM.AnyPoolPoints": "punti Riserva",
+    "CYPHERSYSTEM.AnyPoolPoint": "punto Riserva",
+    "CYPHERSYSTEM.eased": "diminuito",
+    "CYPHERSYSTEM.hindered": "ostacolato"
 }
