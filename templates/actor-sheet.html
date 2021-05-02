@@ -20,6 +20,8 @@
               {{/select}}
             </select></div>
             {{/if}}
+            <label class="label-basic-info">{{localize 'CYPHERSYSTEM.Tier'}}</label>
+            <input style="flex:0 0 30px" type="text" name="data.basic.tier" value="{{data.basic.tier}}" data-dtype="Number"/>
           </div>
           <div class="resource-content flexrow flex-center">
             <label style="flex: 0 0 55px;">{{#if (eq data.settings.gameMode.currentSheet "Teen")}}{{localize 'CYPHERSYSTEM.Is'}}{{else}}{{localize 'CYPHERSYSTEM.IsA'}}{{/if}}</label>
@@ -31,66 +33,39 @@
             {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
             &nbsp;<input name="data.basic.type" type="text" value="{{data.basic.type}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Type'}}"/>
             {{/unless}}
+            <label class="label-basic-info">{{localize 'CYPHERSYSTEM.Effort'}}</label>
+            <input style="flex:0 0 30px" type="text" name="data.basic.effort" value="{{data.basic.effort}}" data-dtype="Number"/>
           </div>
-          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <div class="resource-content flexrow flex-center">
+            {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+            <div></div>
+            {{else}}
             <label style="flex: 0 0 55px;">{{localize 'CYPHERSYSTEM.Who'}}</label>
             <input name="data.basic.focus" type="text" value="{{data.basic.focus}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}"/>
             {{#if data.settings.additionalSentence.active}}&nbsp;<input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{else}}{{data.settings.additionalSentence.name}}{{/if}}"/>{{/if}}
+            {{/if}}
+            <label class="label-basic-info"><a class="item-control decrease-xp" title="{{localize 'CYPHERSYSTEM.SubtractXP'}}"><i class="fas fa-angle-down"></i></a>&nbsp;{{localize 'CYPHERSYSTEM.XP'}}&nbsp;<a class="item-control increase-xp" title="{{localize 'CYPHERSYSTEM.AddXP'}}"><i class="fas fa-angle-up"></i></a></label>
+            <input style="flex:0 0 30px" type="text" name="data.basic.xp" value="{{data.basic.xp}}" data-dtype="Number"/>
           </div>
-          {{/unless}}
 
           <div class="resource-content flexrow flex-center" style="margin-top: 5px">
-            <div style="padding-left: 20px; display: flex; justify-content: center">
+            <div style="padding-left: 0px; display: flex; justify-content: center">
               <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;&nbsp;&nbsp;
+              {{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEffort" data-dtype="boolean" {{checked data.advancement.advEffort}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;&nbsp;&nbsp;
+              {{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEdge" data-dtype="boolean" {{checked data.advancement.advEdge}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;&nbsp;&nbsp;
+              {{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advSkill" data-dtype="boolean" {{checked data.advancement.advSkill}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;&nbsp;&nbsp;
+              {{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advOther" data-dtype="boolean" {{checked data.advancement.advOther}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}</div>
+              {{localize 'CYPHERSYSTEM.AdvancementOther'}}</div>
               <div style="max-width: 20px"><a class="item-control reset-advancement" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}"><i class="fas fa-sync-alt"></i></a></div>
             </div>
+
           </div>
         </div>
 
-        {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-          <div class="resources grid grid-3col">
-            {{!-- "flex-group-center" is also defined in the _grid.scss file
-            and it will add a small amount of padding, a border, and will
-            center all of its child elements content and text. --}}
-            <div class="resource flex-group-center">
-              <label for="data.basic.tier" class="resource-label">{{localize 'CYPHERSYSTEM.Tier'}}</label>
-              <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.basic.tier" value="{{data.basic.tier}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="resource flex-group-center">
-              <label for="data.basic.effort" class="resource-label">{{localize 'CYPHERSYSTEM.Effort'}}</label>
-              <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.basic.effort" value="{{data.basic.effort}}" data-dtype="Number"/>
-              </div>
-            </div>
-            <!-- <div class="resource flex-group-center">
-            <label for="data.basic.cypherLimit" class="resource-label">{{localize 'CYPHERSYSTEM.CypherLimit'}}</label>
-            <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.basic.cypherLimit" value="{{data.basic.cypherLimit}}" data-dtype="Number"/>
-          </div>
-        </div> -->
-        <div class="resource flex-group-center">
-          <a class="item-control decrease-xp" title="{{localize 'CYPHERSYSTEM.SubtractXP'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-          <label for="data.basic.xp" class="resource-label">{{localize 'CYPHERSYSTEM.XP'}}</label>&nbsp;
-          <a class="item-control increase-xp" title="{{localize 'CYPHERSYSTEM.AddXP'}}"><i class="fas fa-angle-up"></i></a>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.basic.xp" value="{{data.basic.xp}}" data-dtype="Number"/>
-          </div>
-        </div>
-      </div>
         <div class="resources grid grid-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{#if data.additionalPool.teenActive}}4{{else}}3{{/if}}{{else}}{{#if data.additionalPool.active}}4{{else}}3{{/if}}{{/if}}col">
           <div class="resource flex-group-center">
             <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
