@@ -263,5 +263,8 @@
     "ITEM.TypeTeen Armor": "Armatura (Adolescente)",
     "ITEM.TypeTeen Attack": "Attacco (Adolescente)",
     "ITEM.TypeTeen Lasting Damage": "Danno Duraturo (Adolescente)",
-    "ITEM.TypeTeen Skill": "Abilità (Adolescente)"
+    "ITEM.TypeTeen Skill": "Abilità (Adolescente)",
+    "CYPHERSYSTEM.SpeedRoll": "Tiro di Prontezza",
+    "CYPHERSYSTEM.MightRoll": "Tiro di Vigore",
+    "CYPHERSYSTEM.IntellectRoll": "Tiro di Intelletto"
 }
