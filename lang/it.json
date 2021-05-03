@@ -271,5 +271,7 @@
     "CYPHERSYSTEM.AnyPoolPoints": "punti Riserva",
     "CYPHERSYSTEM.AnyPoolPoint": "punto Riserva",
     "CYPHERSYSTEM.eased": "diminuito",
-    "CYPHERSYSTEM.hindered": "ostacolato"
+    "CYPHERSYSTEM.hindered": "ostacolato",
+    "CYPHERSYSTEM.Mask": "Maschera",
+    "CYPHERSYSTEM.Teen": "Adolescente"
 }
