@@ -119,6 +119,8 @@
 	"CYPHERSYSTEM.Pool": "Pool",
 	"CYPHERSYSTEM.Edge": "Edge",
 	"CYPHERSYSTEM.Assets": "Assets",
+	"CYPHERSYSTEM.Mask": "Mask",
+	"CYPHERSYSTEM.Teen": "Teen",
 
 	"CYPHERSYSTEM.Might": "Might",
 	"CYPHERSYSTEM.MightPoint": "Might point",
