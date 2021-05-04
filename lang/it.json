@@ -90,7 +90,7 @@
     "CYPHERSYSTEM.ResetAdvancement": "Resetta Avanzamento",
     "CYPHERSYSTEM.Tier": "Rango",
     "CYPHERSYSTEM.Effort": "Tenacia",
-    "CYPHERSYSTEM.CypherLimit": "Limite Crypto",
+    "CYPHERSYSTEM.CypherLimit": "Limite",
     "CYPHERSYSTEM.XP": "PE",
     "CYPHERSYSTEM.AddXP": "Aggiungi 1 PE (ctrl/cmd-click per aggiungere 10 PE)",
     "CYPHERSYSTEM.Pool": "Riserva",
@@ -273,5 +273,7 @@
     "CYPHERSYSTEM.eased": "diminuito",
     "CYPHERSYSTEM.hindered": "ostacolato",
     "CYPHERSYSTEM.Mask": "Maschera",
-    "CYPHERSYSTEM.Teen": "Adolescente"
+    "CYPHERSYSTEM.Teen": "Adolescente",
+    "CYPHERSYSTEM.InteractionLevel": "Livello di Interazione",
+    "CYPHERSYSTEM.Disposition": "Indole"
 }
