@@ -286,5 +286,7 @@
     "CYPHERSYSTEM.AnyPoolPoints": "Puntos de Reserva",
     "CYPHERSYSTEM.hindered": "dificultada",
     "CYPHERSYSTEM.MightRoll": "Tirada de Vigor",
-    "CYPHERSYSTEM.eased": "facilitada"
+    "CYPHERSYSTEM.eased": "facilitada",
+    "CYPHERSYSTEM.Mask": "Máscara",
+    "CYPHERSYSTEM.Teen": "Adolescente"
 }
