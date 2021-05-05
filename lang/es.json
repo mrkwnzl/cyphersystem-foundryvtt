@@ -29,7 +29,7 @@
     "CYPHERSYSTEM.Infrastructure": "Infraestructura",
     "CYPHERSYSTEM.SubtractInfrastructure": "Resta 1 punto de Infraestructura (ctrl/cmd-click para restar 10 puntos)",
     "CYPHERSYSTEM.ResetInfrastructure": "Resetear Infraestructura",
-    "CYPHERSYSTEM.AdvancementPool": "+4 a una Reserva",
+    "CYPHERSYSTEM.AdvancementPool": "+4 a las Reservas",
     "CYPHERSYSTEM.AdvancementEffort": "+1 a Esfuerzo",
     "CYPHERSYSTEM.AdvancementEdge": "+1 a Ventaja",
     "CYPHERSYSTEM.AdvancementOther": "Otro",
