@@ -272,5 +272,19 @@
     "CYPHERSYSTEM.NotEnoughMight": "Você não possui pontos de Potência suficientes.",
     "CYPHERSYSTEM.NotEnoughSpeed": "Você não possui pontos de Velocidade suficientes.",
     "CYPHERSYSTEM.HeavyArmor": "armadura pesada",
-    "CYPHERSYSTEM.None": "Nenhum"
+    "CYPHERSYSTEM.None": "Nenhum",
+    "CYPHERSYSTEM.AdditionalPoolTeen": "Reserva Adicional na Planilha Teen",
+    "ITEM.TypeTeen Attack": "Ataque (Teen)",
+    "CYPHERSYSTEM.AdditionalSentence": "God of Dominion",
+    "CYPHERSYSTEM.PowerShifts": "Power Shifts",
+    "CYPHERSYSTEM.Shift": "Shift",
+    "CYPHERSYSTEM.Shifts": "Shifts",
+    "CYPHERSYSTEM.AdditionalPoolUnmasked": "Reserva Adicional na Planilha Mask",
+    "ITEM.TypePower Shift": "Power Shift",
+    "CYPHERSYSTEM.Mask": "Mask",
+    "CYPHERSYSTEM.Teen": "Teen",
+    "ITEM.TypeTeen Ability": "Atributo (Teen)",
+    "ITEM.TypeTeen Armor": "Armadura (Teen)",
+    "ITEM.TypeTeen Lasting Damage": "Dano Residual (Teen)",
+    "ITEM.TypeTeen Skill": "Perícia (Teen)"
 }
