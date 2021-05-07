@@ -22,6 +22,7 @@
 	"ITEM.TypeTeenAttack": "Attack (Teen)",
 	"ITEM.TypeTeenLastingDamage": "Lasting Damage (Teen)",
 	"ITEM.TypeTeenSkill": "Skill (Teen)",
+	"ITEM.NewItem": "[New {item}]",
 
 	"CYPHERSYSTEM.SettingRollMacro": "Roll Macros Use Effective Difficulty",
 	"CYPHERSYSTEM.SettingRollMacroHint": "With this setting, the steps eased or hindered for roll macros are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll a 9 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead. With this option deactivated, it will tell you that you have beaten difficulty 3.",

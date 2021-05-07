@@ -478,7 +478,28 @@ _onItemCreate(event) {
   // Grab any data associated with this control.
   const data = duplicate(header.dataset);
   // Initialize a default name.
-  const name = `[New ${type.capitalize()}]`;
+  let types = {
+		"Ability": game.i18n.localize("ITEM.TypeAbility"),
+		"Ammo": game.i18n.localize("ITEM.TypeAmmo"),
+		"Armor": game.i18n.localize("ITEM.TypeArmor"),
+		"Artifact": game.i18n.localize("ITEM.TypeArtifact"),
+		"Attack": game.i18n.localize("ITEM.TypeAttack"),
+		"Cypher": game.i18n.localize("ITEM.TypeCypher"),
+		"Equipment": game.i18n.localize("ITEM.TypeEquipment"),
+		"Lasting Damage": game.i18n.localize("ITEM.TypeLastingDamage"),
+		"Material": game.i18n.localize("ITEM.TypeMaterial"),
+		"Oddity": game.i18n.localize("ITEM.TypeOddity"),
+		"Power Shift": game.i18n.localize("ITEM.TypePowerShift"),
+		"Skill": game.i18n.localize("ITEM.TypeSkill"),
+		"Teen Ability": game.i18n.localize("ITEM.TypeTeenAbility"),
+		"Teen Armor": game.i18n.localize("ITEM.TypeTeenArmor"),
+		"Teen Attack": game.i18n.localize("ITEM.TypeTeenAttack"),
+		"Teen Lasting Damage": game.i18n.localize("ITEM.TypeTeenLastingDamage"),
+		"Teen Skill": game.i18n.localize("ITEM.TypeTeenSkill"),
+		"Default": game.i18n.localize("CYPHERSYSTEM.Items")
+	};
+  let itemType = (types[type.capitalize()] || types["Default"]);
+  const name = game.i18n.format("ITEM.NewItem", {item: itemType});
   // Prepare the item object.
   const itemData = {
     name: name,
