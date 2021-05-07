@@ -814,21 +814,21 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 		
 		// Title information
 		let poolRoll = {
-			"Might": function () { return game.i18n.localize("CYPHERSYSTEM.MightRoll"); },
-			"Speed": function () { return game.i18n.localize("CYPHERSYSTEM.SpeedRoll"); },
-			"Intellect": function () { return game.i18n.localize("CYPHERSYSTEM.IntellectRoll"); },
-			"Additional": function () { return game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool}); }
+			"Might": game.i18n.localize("CYPHERSYSTEM.MightRoll"),
+			"Speed": game.i18n.localize("CYPHERSYSTEM.SpeedRoll"),
+			"Intellect": game.i18n.localize("CYPHERSYSTEM.IntellectRoll"),
+			"Additional": game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool})
 		};
-		let titleInfo = (title == "") ? (poolRoll[pool] || poolRoll["Additional"])() : title;
+		let titleInfo = (title == "") ? (poolRoll[pool] || poolRoll["Additional"]) : title;
 		
 		// Skill information
 		let skillRating = {
-			0: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`; },
-			1: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`; },
-			2: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`; }
+			0: `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`,
+			1: `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`,
+			2: `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`
 		};
 		let skillInfo = (skill >= 0) ?
-			(skillRating[skill] || skillRating[0])() :
+			(skillRating[skill] || skillRating[0]) :
 			`${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Inability")}<br>`;
 		
 		// Asset information
@@ -850,12 +850,12 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 		let cost = (effort > 0) ? (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired) : parseInt(additionalCost);
 		
 		let edgeType = {
-			"Might": function () { return actor.data.data.pools.mightEdge; },
-			"Speed": function () { return actor.data.data.pools.speedEdge; },
-			"Intellect": function () { return actor.data.data.pools.intellectEdge; },		
-			"Default": function () { return 0; }
+			"Might": actor.data.data.pools.mightEdge,
+			"Speed": actor.data.data.pools.speedEdge,
+			"Intellect": actor.data.data.pools.intellectEdge,		
+			"Default": 0
 		};
-		let edge = (edgeType[pool] || edgeType["Default"])();
+		let edge = (edgeType[pool] || edgeType["Default"]);
 		
 		let totalCost = (cost > edge) ? cost - edge : 0;
 		
@@ -905,8 +905,8 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 		
 		// Effort for other use information
 		let effortOtherInfo = (effort2 > 1) ?
-			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
-			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort2} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort2} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
 			
 		// Attack modifier information
 		let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
@@ -919,19 +919,25 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
 			`<hr style='margin-top: 1px; margin-bottom: 2px;'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}` :
 			"<hr style='margin-top: 1px; margin-bottom: 2px;'>");
 		
-		// Additional step(s) information
+		// Additional step(s) information		
+		additionalSteps = parseInt(additionalSteps)
 		let additionalRating = {
-			0: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraStep", {amount: additionalSteps})}<br>`; },
-			1: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: additionalSteps})}<br>`; },
-			2: function () { return ""; },
-			3: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraStep", {amount: additionalSteps})}<br>`; },
-			4: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: additionalSteps})}<br>`; }
-		};	
-		let additionalInfo = (stepModifier != "hindered" || additionalSteps == 0) ?
-			(additionalRating[additionalSteps + 2] || additionalRating[4])() :
-			((additionalSteps == 1) ? 
-			(additionalRating[0])():
-			(additionalRating[1])());
+			1: function () { 
+				return (additionalSteps < 2) ?
+				`${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraStep", {amount: additionalSteps})}<br>` :
+				`${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: additionalSteps})}<br>`;
+			},
+			2: function () {
+				return (additionalSteps < 2) ?
+				`${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraStep", {amount: additionalSteps})}<br>` :
+				`${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: additionalSteps})}<br>`; 
+			}
+		};
+		
+		let additionalInfo = (stepModifier != "hindered") ?
+			(additionalRating[1] || additionalRating[0])() :
+			(additionalRating[2] || additionalRating[0])();
+		additionalSteps = (stepModifier != "hindered") ? additionalSteps : additionalSteps * -1
 		
 		let info = skillInfo + assetInfo + effortTaskInfo + effortOtherInfo + attackModifierInfo + additionalInfo + costInfo;
 		
