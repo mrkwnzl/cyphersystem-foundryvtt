@@ -286,5 +286,7 @@
     "CYPHERSYSTEM.AnyPoolPoint": "Pool-Punkt",
     "CYPHERSYSTEM.AnyPoolPoints": "Pool-Punkte",
     "CYPHERSYSTEM.eased": "erleichtert",
-    "CYPHERSYSTEM.hindered": "erschwert"
+    "CYPHERSYSTEM.hindered": "erschwert",
+    "CYPHERSYSTEM.Mask": "Maske",
+    "CYPHERSYSTEM.Teen": "Teen"
 }
