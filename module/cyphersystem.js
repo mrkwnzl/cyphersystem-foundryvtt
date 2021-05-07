@@ -810,101 +810,134 @@ function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additi
   });
   d.render(true);
 
-  function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
-    let cost = parseInt(additionalCost);
-    let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
-    if (stepModifier == "hindered") additionalSteps = parseInt(additionalSteps) * -1;
-    let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
-    let skillRating = game.i18n.localize("CYPHERSYSTEM.Practiced");
-    let steps = " " + game.i18n.localize("CYPHERSYSTEM.Steps");
-    let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
-    let rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
-    let otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.levels");
-    let damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.levels");
-    let attackModifier = "";
-    let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
-    let totalDamage = parseInt(damage) + parseInt(damageEffort);
-
-    if (skill == 2) skillRating = game.i18n.localize("CYPHERSYSTEM.Specialized");
-    if (skill == 1) skillRating = game.i18n.localize("CYPHERSYSTEM.Trained");
-    if (skill == -1) skillRating = game.i18n.localize("CYPHERSYSTEM.Inability");
-
-    if (effort > actor.data.data.basic.effort) {
-      additionalSteps = Math.abs(additionalSteps);
-      allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
-      return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
-    }
-
-    let armorCost = 0;
-
-    if (pool == "Speed") armorCost = parseInt(effort) * parseInt(actor.data.data.armor.speedCostTotal);
-
-    let edge = 0;
-
-    if (pool == "Might") {
-      edge = actor.data.data.pools.mightEdge;
-    } else if (pool == "Speed") {
-      edge = actor.data.data.pools.speedEdge;
-    } else if (pool == "Intellect") {
-      edge = actor.data.data.pools.intellectEdge;
-    }
-
-    let impaired = 0;
-
-    if (actor.data.data.damage.damageTrack == "Impaired") impaired = effort;
-
-    if (effort > 0) {
-      cost = (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired);
-    } else {
-      cost = parseInt(additionalCost);
-    }
-
-    let totalCost = cost - edge;
-    if (totalCost < 0) totalCost = 0;
-
-    if (pool == "Might" && totalCost > actor.data.data.pools.might.value || pool == "Speed" && totalCost > actor.data.data.pools.speed.value || pool == "Intellect" && totalCost > actor.data.data.pools.intellect.value) {
-      additionalSteps = Math.abs(additionalSteps);
-      allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
-      return ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: pool}));
-    }
-
-    if (additionalSteps == 1 || additionalSteps == -1) steps = " " + game.i18n.localize("CYPHERSYSTEM.Step");
-
-    if (cost == 1) points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
-
-	if (title == "") {
-		switch (pool) {
-			case "Might":
-				title = game.i18n.localize("CYPHERSYSTEM.MightRoll");
-				break;
-			case "Speed":
-				title = game.i18n.localize("CYPHERSYSTEM.SpeedRoll");
-				break;
-			case "Intellect":
-				title = game.i18n.localize("CYPHERSYSTEM.IntellectRoll");
-				break;
-			default:
-				title = game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool});
-				break;
+	function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {
+		
+		// Title information
+		let poolRoll = {
+			"Might": function () { return game.i18n.localize("CYPHERSYSTEM.MightRoll"); },
+			"Speed": function () { return game.i18n.localize("CYPHERSYSTEM.SpeedRoll"); },
+			"Intellect": function () { return game.i18n.localize("CYPHERSYSTEM.IntellectRoll"); },
+			"Additional": function () { return game.i18n.format("CYPHERSYSTEM.AdditionalPoolRoll", {pool: pool}); }
+		};
+		let titleInfo = (title == "") ? (poolRoll[pool] || poolRoll["Additional"])() : title;
+		
+		// Skill information
+		let skillRating = {
+			0: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`; },
+			1: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`; },
+			2: function () { return `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`; }
+		};
+		let skillInfo = (skill >= 0) ?
+			(skillRating[skill] || skillRating[0])() :
+			`${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Inability")}<br>`;
+		
+		// Asset information
+		let assetInfo = `${game.i18n.localize("CYPHERSYSTEM.Assets")}: ${assets}<br>`;
+		
+		// Point(s) cost information
+		let costInfo;
+		// -- Effort verification
+		let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
+		
+		if (effort > actor.data.data.basic.effort) {
+			allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
+			return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
+		};
+		
+		// -- Cost calculation
+		let impaired = (actor.data.data.damage.damageTrack == "Impaired") ? effort : 0;
+		let armorCost = (pool == "Speed") ? parseInt(effort) * parseInt(actor.data.data.armor.speedCostTotal) : 0;
+		let cost = (effort > 0) ? (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired) : parseInt(additionalCost);
+		
+		let edgeType = {
+			"Might": function () { return actor.data.data.pools.mightEdge; },
+			"Speed": function () { return actor.data.data.pools.speedEdge; },
+			"Intellect": function () { return actor.data.data.pools.intellectEdge; },		
+			"Default": function () { return 0; }
+		};
+		let edge = (edgeType[pool] || edgeType["Default"])();
+		
+		let totalCost = (cost > edge) ? cost - edge : 0;
+		
+		// -- Cost verification
+		let poolVerification = {
+			"Might": function () { return (totalCost > actor.data.data.pools.might.value) ? false : true; },
+			"Speed": function () { return (totalCost > actor.data.data.pools.speed.value) ? false : true; },
+			"Intellect": function () { return (totalCost > actor.data.data.pools.intellect.value) ? false : true; },		
+			"Additional": function () { return (totalCost > actor.data.data.pools.additional.value) ? false : true; }
+		};
+		
+		// -- Information
+		let poolTypeInfo = {
+			"Might": function () { 
+				return (totalCost > 1) ?
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`; 
+			},
+			"Speed": function () { 
+				return (totalCost > 1) ?
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`; 
+			},
+			"Intellect": function () { 
+				return (totalCost > 1) ?
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`; 
+			},
+			"Additional": function () { 
+				return (totalCost > 1) ?
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+				`${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`; 
+			}
 		}
-	};
-
-    if (effort1 == 1) rollEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
-
-    if (effort2 == 1) otherEffort = " " + game.i18n.localize("CYPHERSYSTEM.level");
-
-    if (damageEffort == 1) damageEffortLevel = " " + game.i18n.localize("CYPHERSYSTEM.level");
-
-    if (damage != 0 || effort3 != 0) {
-      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>" + game.i18n.localize("CYPHERSYSTEM.EffortForDamage") + ": " + effort3 + damageEffortLevel + "<br>" + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + totalDamage + " (" + damage + "+" + damageEffort + ")" + "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
-    } else {
-      attackModifier = "<hr style='margin-top: 1px; margin-bottom: 2px;'>"
-    }
-
-    let info = game.i18n.localize("CYPHERSYSTEM.SkillLevel") + ": " + skillRating + "<br>" + game.i18n.localize("CYPHERSYSTEM.Assets") + ": " + assets + "<br>" + game.i18n.localize("CYPHERSYSTEM.EffortForTask") + ": " + effort1 + rollEffort + "<br>" + game.i18n.localize("CYPHERSYSTEM.EffortForOther") + ": " + effort2 + otherEffort + attackModifier + game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + titleCase(stepModifier) + " " + game.i18n.localize("CYPHERSYSTEM.By") + " " + Math.abs(additionalSteps) + " " + game.i18n.localize("CYPHERSYSTEM.Additional") + " " + steps + "<br>" + game.i18n.localize("CYPHERSYSTEM.TotalCost") + ": " + totalCost + " " + pool + points
-
-    allInOneRollMacro(actor, title, info, cost, pool, modifier);
-  }
+			
+		if ((poolVerification[pool] || poolVerification["Additional"])()) {
+			costInfo = (poolTypeInfo[pool] || poolTypeInfo["Additional"])()
+		} else {
+			allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier);
+			return ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: pool}));
+		}
+		
+		// Effort to ease the task information
+		let effortTaskInfo = (effort1 > 1) ?
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+		
+		// Effort for other use information
+		let effortOtherInfo = (effort2 > 1) ?
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
+			`${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effort1} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+			
+		// Attack modifier information
+		let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
+		let totalDamage = parseInt(damage) + parseInt(damageEffort);
+		let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style='margin-top: 1px; margin-bottom: 2px;'>`;
+		
+		let attackModifierInfo = (damage != 0 || effort3 > 1) ?
+			`<hr style='margin-top: 1px; margin-bottom: 2px;'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}` :
+			((damage != 0 || effort3 <= 1) ?
+			`<hr style='margin-top: 1px; margin-bottom: 2px;'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}` :
+			"<hr style='margin-top: 1px; margin-bottom: 2px;'>");
+		
+		// Additional step(s) information
+		let additionalRating = {
+			0: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraStep", {amount: additionalSteps})}<br>`; },
+			1: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: additionalSteps})}<br>`; },
+			2: function () { return ""; },
+			3: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraStep", {amount: additionalSteps})}<br>`; },
+			4: function () { return `${game.i18n.localize("CYPHERSYSTEM.Difficulty")}: ${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: additionalSteps})}<br>`; }
+		};	
+		let additionalInfo = (stepModifier != "hindered" || additionalSteps == 0) ?
+			(additionalRating[additionalSteps + 2] || additionalRating[4])() :
+			((additionalSteps == 1) ? 
+			(additionalRating[0])():
+			(additionalRating[1])());
+		
+		let info = skillInfo + assetInfo + effortTaskInfo + effortOtherInfo + attackModifierInfo + additionalInfo + costInfo;
+		
+		let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
+		allInOneRollMacro(actor, title, info, cost, pool, modifier);
+	}
 }
 
 function createContent(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE) {

@@ -1,4 +1,3 @@
-
 {
 	"ACTOR.TypePC": "PC",
 	"ACTOR.TypeNPC": "NPC",
@@ -265,11 +264,15 @@
 	"CYPHERSYSTEM.easedBy": "eased by",
 	"CYPHERSYSTEM.EasedBy": "Eased by",
 	"CYPHERSYSTEM.EasedBySteps": "eased by {amount} steps",
+	"CYPHERSYSTEM.EasedByExtraStep": "Eased by {amount} extra step",
+	"CYPHERSYSTEM.EasedByExtraSteps": "Eased by {amount} extra steps",
 	"CYPHERSYSTEM.hindered": "hindered",
 	"CYPHERSYSTEM.Hindered": "Hindered",
 	"CYPHERSYSTEM.hinderedBy": "hindered by",
 	"CYPHERSYSTEM.HinderedBy": "Hindered by",
 	"CYPHERSYSTEM.HinderedBySteps": "hindered by {amount} steps",
+	"CYPHERSYSTEM.HinderedByExtraStep": "Hindered by {amount} extra step",
+	"CYPHERSYSTEM.HinderedByExtraSteps": "Hindered by {amount} extra steps",
 	"CYPHERSYSTEM.By": "by",
 	"CYPHERSYSTEM.Step": "step",
 	"CYPHERSYSTEM.Steps": "steps",
