@@ -30,6 +30,8 @@
 	"CYPHERSYSTEM.SettingMacroAllInOneHint": "With this setting, the item macros created by dragging an item to the macro bar use the All-in-One Roll macro instead of the Quick Roll macro.",
 	"CYPHERSYSTEM.SettingShowWelcome": "Show Welcome Message",
 	"CYPHERSYSTEM.SettingShowWelcomeHint": "Show the welcome message at every launch of this world.",
+	"CYPHERSYSTEM.UnitDistanceMeter": "meter",
+	"CYPHERSYSTEM.UnitDistanceFeet": "feet",
 
 	"CYPHERSYSTEM.WelcomeMessage": "Welcome to the Cypher System!",
 	"CYPHERSYSTEM.GettingStarted": "Getting Started",
