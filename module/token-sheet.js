@@ -474,7 +474,28 @@ export class CypherTokenSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = `[New ${type.capitalize()}]`;
+    const types = {
+		"ability": game.i18n.localize("ITEM.NewAbility"),
+		"ammo": game.i18n.localize("ITEM.NewAmmo"),
+		"armor": game.i18n.localize("ITEM.NewArmor"),
+		"artifact": game.i18n.localize("ITEM.NewArtifact"),
+		"attack": game.i18n.localize("ITEM.NewAttack"),
+		"cypher": game.i18n.localize("ITEM.NewCypher"),
+		"equipment": game.i18n.localize("ITEM.NewEquipment"),
+		"lasting Damage": game.i18n.localize("ITEM.NewLastingDamage"),
+		"material": game.i18n.localize("ITEM.NewMaterial"),
+		"oddity": game.i18n.localize("ITEM.NewOddity"),
+		"power Shift": game.i18n.localize("ITEM.NewPowerShift"),
+		"skill": game.i18n.localize("ITEM.NewSkill"),
+		"teen Ability": game.i18n.localize("ITEM.NewTeenAbility"),
+		"teen Armor": game.i18n.localize("ITEM.NewTeenArmor"),
+		"teen Attack": game.i18n.localize("ITEM.NewTeenAttack"),
+		"teen lasting Damage": game.i18n.localize("ITEM.NewTeenLastingDamage"),
+		"teen Skill": game.i18n.localize("ITEM.NewTeenSkill"),
+		"default": game.i18n.localize("ITEM.NewDefault")
+	};
+	
+    const name = (types[type] || types["default"]);
     // Prepare the item object.
     const itemData = {
       name: name,
