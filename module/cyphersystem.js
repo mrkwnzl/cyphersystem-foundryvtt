@@ -132,23 +132,6 @@ Hooks.on("canvasReady", canvas => {
   }
 });
 
-// Hooks.once("canvasReady", canvas => {
-//   console.log("Hallo");
-//   for (let t of canvas.tokens.objects.children) {
-//
-//     console.log(t.getFlag("cyphersystem", "toggleDragRuler"));
-//     if (t.getFlag("cyphersystem", "toggleDragRuler") == true) {
-//       // do nothing
-//     } else {
-//       if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
-//         t.setFlag("cyphersystem", "toggleDragRuler", true);
-//       } else {
-//         t.setFlag("cyphersystem", "toggleDragRuler", false);
-//       }
-//     }
-//   }
-// });
-
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
