@@ -288,5 +288,10 @@
     "CYPHERSYSTEM.eased": "erleichtert",
     "CYPHERSYSTEM.hindered": "erschwert",
     "CYPHERSYSTEM.Mask": "Maske",
-    "CYPHERSYSTEM.Teen": "Teen"
+    "CYPHERSYSTEM.Teen": "Teen",
+    "CYPHERSYSTEM.NewArmor": "Neue Rüstung",
+    "CYPHERSYSTEM.NewArtifact": "Neues Artefakt",
+    "CYPHERSYSTEM.NewAttack": "Neuer Angriff",
+    "CYPHERSYSTEM.NewAbility": "Neue Fähigkeit",
+    "CYPHERSYSTEM.NewAmmo": "Neue Munition"
 }
