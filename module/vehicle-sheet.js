@@ -205,7 +205,7 @@ export class CypherVehicleSheet extends ActorSheet {
         let brackets = "";
         // let description = "";
         let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
-		let points = "";
+        let points = "";
         let notes = "";
         if (item.data.notes != "") notes = ", " + item.data.notes;
         if (item.type == "skill" || item.type == "teen Skill") {
@@ -213,10 +213,10 @@ export class CypherVehicleSheet extends ActorSheet {
         } else if (item.type == "power Shift") {
           brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
         } else if (item.type == "ability" || item.type == "teen Ability") {
-		  points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
+          points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
           if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")";
         } else if (item.type == "attack") {
-		  points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
+          points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
           let damage = ", " + item.data.damage + " " + points;
           let attackType = item.data.attackType;
           let range = "";
@@ -451,26 +451,26 @@ export class CypherVehicleSheet extends ActorSheet {
     const data = duplicate(header.dataset);
     // Initialize a default name.
     const types = {
-		"ability": game.i18n.localize("ITEM.NewAbility"),
-		"ammo": game.i18n.localize("ITEM.NewAmmo"),
-		"armor": game.i18n.localize("ITEM.NewArmor"),
-		"artifact": game.i18n.localize("ITEM.NewArtifact"),
-		"attack": game.i18n.localize("ITEM.NewAttack"),
-		"cypher": game.i18n.localize("ITEM.NewCypher"),
-		"equipment": game.i18n.localize("ITEM.NewEquipment"),
-		"lasting Damage": game.i18n.localize("ITEM.NewLastingDamage"),
-		"material": game.i18n.localize("ITEM.NewMaterial"),
-		"oddity": game.i18n.localize("ITEM.NewOddity"),
-		"power Shift": game.i18n.localize("ITEM.NewPowerShift"),
-		"skill": game.i18n.localize("ITEM.NewSkill"),
-		"teen Ability": game.i18n.localize("ITEM.NewTeenAbility"),
-		"teen Armor": game.i18n.localize("ITEM.NewTeenArmor"),
-		"teen Attack": game.i18n.localize("ITEM.NewTeenAttack"),
-		"teen lasting Damage": game.i18n.localize("ITEM.NewTeenLastingDamage"),
-		"teen Skill": game.i18n.localize("ITEM.NewTeenSkill"),
-		"default": game.i18n.localize("ITEM.NewDefault")
-	};
-	
+      "ability": game.i18n.localize("CYPHERSYSTEM.NewAbility"),
+      "ammo": game.i18n.localize("CYPHERSYSTEM.NewAmmo"),
+      "armor": game.i18n.localize("CYPHERSYSTEM.NewArmor"),
+      "artifact": game.i18n.localize("CYPHERSYSTEM.NewArtifact"),
+      "attack": game.i18n.localize("CYPHERSYSTEM.NewAttack"),
+      "cypher": game.i18n.localize("CYPHERSYSTEM.NewCypher"),
+      "equipment": game.i18n.localize("CYPHERSYSTEM.NewEquipment"),
+      "lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewLastingDamage"),
+      "material": game.i18n.localize("CYPHERSYSTEM.NewMaterial"),
+      "oddity": game.i18n.localize("CYPHERSYSTEM.NewOddity"),
+      "power Shift": game.i18n.localize("CYPHERSYSTEM.NewPowerShift"),
+      "skill": game.i18n.localize("CYPHERSYSTEM.NewSkill"),
+      "teen Ability": game.i18n.localize("CYPHERSYSTEM.NewTeenAbility"),
+      "teen Armor": game.i18n.localize("CYPHERSYSTEM.NewTeenArmor"),
+      "teen Attack": game.i18n.localize("CYPHERSYSTEM.NewTeenAttack"),
+      "teen lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage"),
+      "teen Skill": game.i18n.localize("CYPHERSYSTEM.NewTeenSkill"),
+      "default": game.i18n.localize("CYPHERSYSTEM.NewDefault")
+    };
+
     const name = (types[type] || types["default"]);
     // Prepare the item object.
     const itemData = {
