@@ -293,5 +293,20 @@
     "CYPHERSYSTEM.NewArtifact": "Neues Artefakt",
     "CYPHERSYSTEM.NewAttack": "Neuer Angriff",
     "CYPHERSYSTEM.NewAbility": "Neue Fähigkeit",
-    "CYPHERSYSTEM.NewAmmo": "Neue Munition"
+    "CYPHERSYSTEM.NewAmmo": "Neue Munition",
+    "CYPHERSYSTEM.NewCypher": "Neuer Cypher",
+    "CYPHERSYSTEM.NewEquipment": "Neue Ausrüstung",
+    "CYPHERSYSTEM.NewMaterial": "Neues Material",
+    "CYPHERSYSTEM.NewOddity": "Neue Kuriosität",
+    "CYPHERSYSTEM.NewSkill": "Neue Fertigkeit",
+    "CYPHERSYSTEM.NewTeenAbility": "Neue Fähigkeit (Teen)",
+    "CYPHERSYSTEM.NewTeenArmor": "Neue Rüstung (Teen)",
+    "CYPHERSYSTEM.NewTeenAttack": "Neuer Angriff (Teen)",
+    "CYPHERSYSTEM.NewTeenSkill": "Neue Fertigkeit (Teen)",
+    "CYPHERSYSTEM.NewLastingDamage": "Neuer Länger anhaltender Schaden",
+    "CYPHERSYSTEM.NewTeenLastingDamage": "Neuer Länger anhaltender Schaden (Teen)",
+    "CYPHERSYSTEM.NewPowerShift": "Neuer Power Shift",
+    "CYPHERSYSTEM.NewDefault": "Neuer Gegenstand",
+    "CYPHERSYSTEM.UnitDistanceMeter": "Meter",
+    "CYPHERSYSTEM.UnitDistanceFeet": "Fuß"
 }
