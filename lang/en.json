@@ -1,4 +1,3 @@
-
 {
 	"ACTOR.TypePC": "PC",
 	"ACTOR.TypeNPC": "NPC",
@@ -23,6 +22,25 @@
 	"ITEM.TypeTeen Attack": "Attack (Teen)",
 	"ITEM.TypeTeen Lasting Damage": "Lasting Damage (Teen)",
 	"ITEM.TypeTeen Skill": "Skill (Teen)",
+	
+	"ITEM.NewAbility": "[New Ability]",
+	"ITEM.NewAmmo": "[New Ammo]",
+	"ITEM.NewArmor": "[New Armor]",
+	"ITEM.NewArtifact": "[New Artifact]",
+	"ITEM.NewAttack": "[New Attack]",
+	"ITEM.NewCypher": "[New Cypher]",
+	"ITEM.NewEquipment": "[New Equipment]",
+	"ITEM.NewLastingDamage": "[New Lasting Damage]",
+	"ITEM.NewMaterial": "[New Material]",
+	"ITEM.NewOddity": "[New Oddity]",
+	"ITEM.NewPowerShift": "[New Power Shift]",
+	"ITEM.NewSkill": "[New Skill]",
+	"ITEM.NewTeenAbility": "[New Ability (Teen)]",
+	"ITEM.NewTeenArmor": "[New Armor (Teen)]",
+	"ITEM.NewTeenAttack": "[New Attack (Teen)]",
+	"ITEM.NewTeenLastingDamage": "[New Lasting Damage (Teen)]",
+	"ITEM.NewTeenSkill": "[New Skill (Teen)]",
+	"ITEM.NewDefault": "[New Item]",
 
 	"CYPHERSYSTEM.SettingRollMacro": "Roll Macros Use Effective Difficulty",
 	"CYPHERSYSTEM.SettingRollMacroHint": "With this setting, the steps eased or hindered for roll macros are added and subtracted from the difficulty, respectively. In effect, this gives the effective difficulty that gets beaten by the roll. For example, if you roll a 9 on a roll that is eased by one step, the macro tells you that you beat difficulty 4 (3+1). If you were hindered, it would have told you that you beat difficulty 2 (3-1) instead. With this option deactivated, it will tell you that you have beaten difficulty 3.",
@@ -30,6 +48,8 @@
 	"CYPHERSYSTEM.SettingMacroAllInOneHint": "With this setting, the item macros created by dragging an item to the macro bar use the All-in-One Roll macro instead of the Quick Roll macro.",
 	"CYPHERSYSTEM.SettingShowWelcome": "Show Welcome Message",
 	"CYPHERSYSTEM.SettingShowWelcomeHint": "Show the welcome message at every launch of this world.",
+	"CYPHERSYSTEM.UnitDistanceMeter": "meter",
+	"CYPHERSYSTEM.UnitDistanceFeet": "feet",
 
 	"CYPHERSYSTEM.WelcomeMessage": "Welcome to the Cypher System!",
 	"CYPHERSYSTEM.GettingStarted": "Getting Started",
