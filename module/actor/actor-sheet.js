@@ -309,7 +309,6 @@ export class CypherActorSheet extends ActorSheet {
     /**
     * General sheet functions
     */
-
     // Show item description or send to chat
     html.find('.item-description').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
@@ -515,9 +514,36 @@ export class CypherActorSheet extends ActorSheet {
 
         function buttons() {
           if (maxQuantity != null) {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, moveAll: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.MoveAll"), callback: (html) => moveItems(maxQuantity, itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
+            return ({
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
+              },
+              moveAll: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
+                callback: (html) => moveItems(maxQuantity, itemData)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            })
           } else {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
+            return ({
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            })
           }
         }
 
