@@ -1,13 +1,14 @@
 // Import Modules
-import {CypherActor} from "./actor.js";
-import {CypherItem} from "./item.js";
-import {CypherItemSheet} from "./item-sheet.js";
-import {CypherActorSheetPC} from "./actor-sheet-pc.js";
-import {CypherActorSheetNPC} from "./actor-sheet-npc.js";
-import {CypherActorSheetCommunity} from "./actor-sheet-community.js";
-import {CypherActorSheetCompanion} from "./actor-sheet-companion.js";
-import {CypherActorSheetToken} from "./actor-sheet-token.js";
-import {CypherActorSheetVehicle} from "./actor-sheet-vehicle.js";
+import {CypherActor} from "./actor/actor.js";
+import {CypherItem} from "./item/item.js";
+import {CypherItemSheet} from "./item/item-sheet.js";
+import {CypherActorSheet} from "./actor/actor-sheet.js";
+import {CypherActorSheetPC} from "./actor/pc-sheet.js";
+import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
+import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
+import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
+import {CypherActorSheetToken} from "./actor/token-sheet.js";
+import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
 
 
 /* -------------------------------------------- */
