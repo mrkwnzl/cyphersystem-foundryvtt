@@ -2,18 +2,18 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherVehicleSheet extends ActorSheet {
+export class CypherActorSheetToken extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "vehicle"],
-      template: "systems/cyphersystem/templates/vehicle-sheet.html",
+      classes: ["cyphersystem", "sheet", "actor", "token"],
+      template: "systems/cyphersystem/templates/token-sheet.html",
       width: 650,
       height: 630,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings"],
+      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
   }
@@ -26,13 +26,12 @@ export class CypherVehicleSheet extends ActorSheet {
     data.dtypes = ["String", "Number", "Boolean"];
 
     // Prepare items.
-    if (this.actor.data.type == 'Vehicle') {
+    if (this.actor.data.type == 'Token') {
       this.cyphersystem(data);
     }
 
     return data;
   }
-
   /**
   * Organize and classify Items for Character sheets.
   *
@@ -147,12 +146,37 @@ export class CypherVehicleSheet extends ActorSheet {
 
   }
 
+  /* -------------------------------------------- */
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
+
+    // Reset Quantity
+    html.find('.reset-quantity').click(clickEvent => {
+      this.actor.update({
+        "data.quantity.value": this.actor.data.data.quantity.max
+      }).then(item => {
+        this.render();
+      });
+    });
+
+    // Increase Quantity
+    html.find('.increase-quantity').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.quantity.value + amount;
+      this.actor.update({"data.quantity.value": newValue});
+    });
+
+    // Decrease Quantity
+    html.find('.decrease-quantity').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.quantity.value - amount;
+      this.actor.update({"data.quantity.value": newValue});
+    });
 
     function showSheetForActorAndItemWithID(actor, itemID) {
       const item = actor.getOwnedItem(itemID);

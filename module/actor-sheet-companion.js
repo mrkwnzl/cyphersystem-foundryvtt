@@ -2,18 +2,18 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherNPCSheet extends ActorSheet {
+export class CypherActorSheetCompanion extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "npc"],
-      template: "systems/cyphersystem/templates/NPC-sheet.html",
+      classes: ["cyphersystem", "sheet", "actor", "companion"],
+      template: "systems/cyphersystem/templates/companion-sheet.html",
       width: 650,
-      height: 630,
+      height: 700,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items"],
+      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
   }
@@ -29,7 +29,7 @@ export class CypherNPCSheet extends ActorSheet {
   }*/
 
   // Prepare items.
-  if (this.actor.data.type == 'NPC') {
+  if (this.actor.data.type == 'Companion') {
     this.cyphersystem(data);
   }
 
@@ -47,6 +47,9 @@ cyphersystem(sheetData) {
   const actorData = sheetData.actor;
 
   // Initialize containers. Const, weil es ein container ist, dessen Inhalt veränderbar ist.
+  const abilities = [];
+  const skills = [];
+  const skillsSortedByRating = [];
   const equipment = [];
   const armor = [];
   const cyphers = [];
@@ -65,7 +68,14 @@ cyphersystem(sheetData) {
     if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
 
     // Append to containers.
-    if (i.type === 'equipment' && !hidden) {
+    if (i.type === 'ability' && !hidden) {
+      abilities.push(i);
+    }
+    else if (i.type === 'skill' && !hidden) {
+      skills.push(i);
+      skillsSortedByRating.push(i);
+    }
+    else if (i.type === 'equipment' && !hidden) {
       equipment.push(i);
     }
     else if (i.type === 'ammo' && !hidden) {
@@ -101,6 +111,9 @@ cyphersystem(sheetData) {
     return 0;
   }
 
+  abilities.sort(byNameAscending);
+  skills.sort(byNameAscending);
+  skillsSortedByRating.sort(byNameAscending);
   equipment.sort(byNameAscending);
   armor.sort(byNameAscending);
   cyphers.sort(byNameAscending);
@@ -108,6 +121,32 @@ cyphersystem(sheetData) {
   oddities.sort(byNameAscending);
   materials.sort(byNameAscending);
   ammo.sort(byNameAscending);
+
+  // sort skills
+  function bySkillRating(itemA, itemB) {
+    let ratingA;
+    let ratingB;
+
+    if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
+    else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
+    else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
+    else if (itemA.data.skillLevel === 'Inability') {ratingA = 4}
+
+    if (itemB.data.skillLevel === 'Specialized') {ratingB = 1}
+    else if (itemB.data.skillLevel === 'Trained') {ratingB = 2}
+    else if (itemB.data.skillLevel === 'Practiced') {ratingB = 3}
+    else if (itemB.data.skillLevel === 'Inability') {ratingB = 4}
+
+    if (ratingA < ratingB) {
+      return -1;
+    }
+    if (ratingA > ratingB) {
+      return 1;
+    }
+    return 0;
+  }
+
+  skillsSortedByRating.sort(bySkillRating);
 
   function byArchiveStatus(itemA, itemB) {
     let ratingA;
@@ -131,6 +170,9 @@ cyphersystem(sheetData) {
     return 0;
   }
 
+  abilities.sort(byArchiveStatus);
+  skills.sort(byArchiveStatus);
+  skillsSortedByRating.sort(byArchiveStatus);
   equipment.sort(byArchiveStatus);
   armor.sort(byArchiveStatus);
   cyphers.sort(byArchiveStatus);
@@ -140,6 +182,9 @@ cyphersystem(sheetData) {
   ammo.sort(byArchiveStatus);
 
   // Assign and return
+  actorData.abilities = abilities;
+  actorData.skills = skills;
+  actorData.skillsSortedByRating = skillsSortedByRating;
   actorData.equipment = equipment;
   actorData.armor = armor;
   actorData.cyphers = cyphers;
@@ -155,9 +200,6 @@ cyphersystem(sheetData) {
 /** @override */
 activateListeners(html) {
   super.activateListeners(html);
-
-  // Everything below here is only needed if the sheet is editable
-  if (!this.options.editable) return;
 
   // Reset Health
   html.find('.reset-health').click(clickEvent => {
@@ -181,6 +223,9 @@ activateListeners(html) {
     let newValue = this.actor.data.data.health.value - amount;
     this.actor.update({"data.health.value": newValue});
   });
+
+  // Everything below here is only needed if the sheet is editable
+  if (!this.options.editable) return;
 
   function showSheetForActorAndItemWithID(actor, itemID) {
     const item = actor.getOwnedItem(itemID);
@@ -512,4 +557,5 @@ _onItemCreate(event) {
   // Finally, create the item!
   return this.actor.createOwnedItem(itemData);
 }
+
 }

@@ -2,12 +2,12 @@
 import {CypherActor} from "./actor.js";
 import {CypherItem} from "./item.js";
 import {CypherItemSheet} from "./item-sheet.js";
-import {CypherActorSheet} from "./actor-sheet.js";
-import {CypherNPCSheet} from "./NPC-sheet.js";
-import {CypherTokenSheet} from "./token-sheet.js";
-import {CypherCommunitySheet} from "./community-sheet.js";
-import {CypherCompanionSheet} from "./companion-sheet.js";
-import {CypherVehicleSheet} from "./vehicle-sheet.js";
+import {CypherActorSheetPC} from "./actor-sheet-pc.js";
+import {CypherActorSheetNPC} from "./actor-sheet-npc.js";
+import {CypherActorSheetCommunity} from "./actor-sheet-community.js";
+import {CypherActorSheetCompanion} from "./actor-sheet-companion.js";
+import {CypherActorSheetToken} from "./actor-sheet-token.js";
+import {CypherActorSheetVehicle} from "./actor-sheet-vehicle.js";
 
 
 /* -------------------------------------------- */
@@ -78,12 +78,12 @@ Hooks.once("init", async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheet, {types: ['PC'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherNPCSheet, {types: ['NPC'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherTokenSheet, {types: ['Token'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherCommunitySheet, {types: ['Community'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherCompanionSheet, {types: ['Companion'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherVehicleSheet, {types: ['Vehicle'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetPC, {types: ['PC'], makeDefault: true});
+  Actors.registerSheet("cypher", CypherActorSheetNPC, {types: ['NPC'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetToken, {types: ['Token'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetCommunity, {types: ['Community'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetCompanion, {types: ['Companion'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetVehicle, {types: ['Vehicle'], makeDefault: false});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
 

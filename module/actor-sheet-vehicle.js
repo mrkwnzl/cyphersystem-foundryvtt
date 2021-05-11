@@ -2,18 +2,18 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherCommunitySheet extends ActorSheet {
+export class CypherActorSheetVehicle extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "community"],
-      template: "systems/cyphersystem/templates/community-sheet.html",
+      classes: ["cyphersystem", "sheet", "actor", "vehicle"],
+      template: "systems/cyphersystem/templates/vehicle-sheet.html",
       width: 650,
       height: 630,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"],
+      scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings"],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
   }
@@ -26,7 +26,7 @@ export class CypherCommunitySheet extends ActorSheet {
     data.dtypes = ["String", "Number", "Boolean"];
 
     // Prepare items.
-    if (this.actor.data.type == 'Community') {
+    if (this.actor.data.type == 'Vehicle') {
       this.cyphersystem(data);
     }
 
@@ -147,60 +147,12 @@ export class CypherCommunitySheet extends ActorSheet {
 
   }
 
-  /* -------------------------------------------- */
-
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
-
-    // Reset Infrastructure
-    html.find('.reset-infrastructure').click(clickEvent => {
-      this.actor.update({
-        "data.infrastructure.value": this.actor.data.data.infrastructure.max
-      }).then(item => {
-        this.render();
-      });
-    });
-
-    // Reset Health
-    html.find('.reset-health').click(clickEvent => {
-      this.actor.update({
-        "data.health.value": this.actor.data.data.health.max
-      }).then(item => {
-        this.render();
-      });
-    });
-
-    // Increase Health
-    html.find('.increase-health').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.health.value + amount;
-      this.actor.update({"data.health.value": newValue});
-    });
-
-    // Decrease Health
-    html.find('.decrease-health').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.health.value - amount;
-      this.actor.update({"data.health.value": newValue});
-    });
-
-    // Increase Infrastructure
-    html.find('.increase-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.infrastructure.value + amount;
-      this.actor.update({"data.infrastructure.value": newValue});
-    });
-
-    // Decrease Infrastructure
-    html.find('.decrease-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.infrastructure.value - amount;
-      this.actor.update({"data.infrastructure.value": newValue});
-    });
 
     function showSheetForActorAndItemWithID(actor, itemID) {
       const item = actor.getOwnedItem(itemID);
