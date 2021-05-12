@@ -1,13 +1,14 @@
 // Import Modules
-import {CypherActor} from "./actor.js";
-import {CypherItem} from "./item.js";
-import {CypherItemSheet} from "./item-sheet.js";
-import {CypherActorSheet} from "./actor-sheet.js";
-import {CypherNPCSheet} from "./NPC-sheet.js";
-import {CypherTokenSheet} from "./token-sheet.js";
-import {CypherCommunitySheet} from "./community-sheet.js";
-import {CypherCompanionSheet} from "./companion-sheet.js";
-import {CypherVehicleSheet} from "./vehicle-sheet.js";
+import {CypherActor} from "./actor/actor.js";
+import {CypherItem} from "./item/item.js";
+import {CypherItemSheet} from "./item/item-sheet.js";
+import {CypherActorSheet} from "./actor/actor-sheet.js";
+import {CypherActorSheetPC} from "./actor/pc-sheet.js";
+import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
+import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
+import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
+import {CypherActorSheetToken} from "./actor/token-sheet.js";
+import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
 
 
 /* -------------------------------------------- */
@@ -78,12 +79,12 @@ Hooks.once("init", async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheet, {types: ['PC'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherNPCSheet, {types: ['NPC'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherTokenSheet, {types: ['Token'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherCommunitySheet, {types: ['Community'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherCompanionSheet, {types: ['Companion'], makeDefault: false});
-  Actors.registerSheet("cypher", CypherVehicleSheet, {types: ['Vehicle'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetPC, {types: ['PC'], makeDefault: true});
+  Actors.registerSheet("cypher", CypherActorSheetNPC, {types: ['NPC'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetToken, {types: ['Token'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetCommunity, {types: ['Community'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetCompanion, {types: ['Companion'], makeDefault: false});
+  Actors.registerSheet("cypher", CypherActorSheetVehicle, {types: ['Vehicle'], makeDefault: false});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
 
@@ -131,23 +132,6 @@ Hooks.on("canvasReady", canvas => {
     }
   }
 });
-
-// Hooks.once("canvasReady", canvas => {
-//   console.log("Hallo");
-//   for (let t of canvas.tokens.objects.children) {
-//
-//     console.log(t.getFlag("cyphersystem", "toggleDragRuler"));
-//     if (t.getFlag("cyphersystem", "toggleDragRuler") == true) {
-//       // do nothing
-//     } else {
-//       if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
-//         t.setFlag("cyphersystem", "toggleDragRuler", true);
-//       } else {
-//         t.setFlag("cyphersystem", "toggleDragRuler", false);
-//       }
-//     }
-//   }
-// });
 
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
@@ -270,12 +254,12 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       let short = 0;
       let long = 0;
       let veryLong = 0;
-      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre" || token.scene.data.gridUnits == "mètre") {
+      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre" || token.scene.data.gridUnits == "mètre" || token.scene.data.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceMeter")) {
         immediate = 3;
         short = 15;
         long = 30;
         veryLong = 150;
-      } else if (token.scene.data.gridUnits == "ft" || token.scene.data.gridUnits == "ft." || token.scene.data.gridUnits == "feet") {
+      } else if (token.scene.data.gridUnits == "ft" || token.scene.data.gridUnits == "ft." || token.scene.data.gridUnits == "feet" || token.scene.data.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceFeet")) {
         immediate = 10;
         short = 50;
         long = 100;

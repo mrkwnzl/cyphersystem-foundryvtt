@@ -15,8 +15,8 @@
             {{#if (eq data.settings.gameMode.current "Unmasked")}}
             &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><select name="data.settings.gameMode.currentSheet" style="width: 80px;">
               {{#select data.settings.gameMode.currentSheet}}
-              <option value="{{data.settings.gameMode.maskForm}}">{{data.settings.gameMode.maskForm}}</option>
-              <option value="{{data.settings.gameMode.teenForm}}">{{data.settings.gameMode.teenForm}}</option>
+              <option value="{{data.settings.gameMode.maskForm}}">{{localize 'CYPHERSYSTEM.Mask'}}</option>
+              <option value="{{data.settings.gameMode.teenForm}}">{{localize 'CYPHERSYSTEM.Teen'}}</option>
               {{/select}}
             </select></div>
             {{/if}}
@@ -51,13 +51,13 @@
           <div class="resource-content flexrow flex-center" style="margin-top: 5px">
             <div style="padding-left: 0px; display: flex; justify-content: center">
               <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
-              {{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEffort" data-dtype="boolean" {{checked data.advancement.advEffort}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advEdge" data-dtype="boolean" {{checked data.advancement.advEdge}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advSkill" data-dtype="boolean" {{checked data.advancement.advSkill}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;&nbsp;
+              &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
               <input type="checkbox" name="data.advancement.advOther" data-dtype="boolean" {{checked data.advancement.advOther}}>
               &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}</div>
               <div style="max-width: 20px"><a class="item-control reset-advancement" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}"><i class="fas fa-sync-alt"></i></a></div>
@@ -319,11 +319,11 @@
                 {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 4)}}<input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked data.recoveries.oneActionFive}}/>{{/if}}
                 {{/if}}
                 {{/unless}}
-                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;
                 <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked data.recoveries.tenMinutes}}/>
-                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryMinutes'}}&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryMinutes'}}&nbsp;&nbsp;
                 <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked data.recoveries.oneHour}}/>
-                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHour'}}&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHour'}}&nbsp;&nbsp;
                 <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}}/>
                 &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}</div>
                 <div style="max-width: 14px"><a class="item-control reset-recovery-rolls" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}"><i class="fas fa-sync-alt"></i></a></div>
@@ -349,7 +349,7 @@
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
             {{#each actor.teenLastingDamage as |item id|}}
             <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
+              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
               <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
@@ -365,7 +365,7 @@
             {{else}}
             {{#each actor.lastingDamage as |item id|}}
             <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{data.lastingDamagePool}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
+              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
               <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
               <div class="item-controls">
                 <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>

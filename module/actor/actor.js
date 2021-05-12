@@ -4,6 +4,6 @@
  */
 export class CypherActor extends Actor {
 
-
+  
 
 }

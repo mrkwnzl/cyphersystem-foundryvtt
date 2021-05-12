@@ -2,23 +2,8 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherTokenSheet extends ActorSheet {
 
-  /** @override */
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "token"],
-      template: "systems/cyphersystem/templates/token-sheet.html",
-      width: 650,
-      height: 630,
-      resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"],
-      dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
-    });
-  }
-
-  /* -------------------------------------------- */
+export class CypherActorSheet extends ActorSheet {
 
   /** @override */
   getData() {
@@ -26,12 +11,11 @@ export class CypherTokenSheet extends ActorSheet {
     data.dtypes = ["String", "Number", "Boolean"];
 
     // Prepare items.
-    if (this.actor.data.type == 'Token') {
-      this.cyphersystem(data);
-    }
+    this.cyphersystem(data);
 
     return data;
   }
+
   /**
   * Organize and classify Items for Character sheets.
   *
@@ -42,17 +26,28 @@ export class CypherTokenSheet extends ActorSheet {
   cyphersystem(sheetData) {
     const actorData = sheetData.actor;
 
-    // Initialize containers. Const, weil es ein container ist, dessen Inhalt veränderbar ist.
+    // Initialize containers
     const equipment = [];
+    const abilities = [];
+    const skills = [];
+    const skillsSortedByRating = [];
+    const attacks = [];
     const armor = [];
+    const lastingDamage = [];
+    const powerShifts = [];
     const cyphers = [];
     const artifacts = [];
     const oddities = [];
+    const teenSkills = [];
+    const teenSkillsSortedByRating = [];
+    const teenAbilities = [];
+    const teenAttacks = [];
+    const teenArmor = [];
+    const teenLastingDamage = [];
     const materials = [];
     const ammo = [];
 
     // Iterate through items, allocating to containers
-    // let totalWeight = 0;
     for (let i of sheetData.items) {
       // let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
@@ -60,15 +55,31 @@ export class CypherTokenSheet extends ActorSheet {
       let hidden = false;
       if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
 
-      // Append to containers.
+      // Append to containers
       if (i.type === 'equipment' && !hidden) {
         equipment.push(i);
       }
       else if (i.type === 'ammo' && !hidden) {
         ammo.push(i);
       }
+      else if (i.type === 'ability' && !hidden) {
+        abilities.push(i);
+      }
+      else if (i.type === 'skill' && !hidden) {
+        skills.push(i);
+        skillsSortedByRating.push(i);
+      }
+      else if (i.type === 'attack' && !hidden) {
+        attacks.push(i);
+      }
       else if (i.type === 'armor' && !hidden) {
         armor.push(i);
+      }
+      else if (i.type === 'lasting Damage' && !hidden) {
+        lastingDamage.push(i);
+      }
+      else if (i.type === 'power Shift' && !hidden) {
+        powerShifts.push(i);
       }
       else if (i.type === 'cypher' && !hidden) {
         cyphers.push(i);
@@ -79,11 +90,28 @@ export class CypherTokenSheet extends ActorSheet {
       else if (i.type === 'oddity' && !hidden) {
         oddities.push(i);
       }
+      else if (i.type === 'teen Skill' && !hidden) {
+        teenSkills.push(i);
+        teenSkillsSortedByRating.push(i);
+      }
+      else if (i.type === 'teen Ability' && !hidden) {
+        teenAbilities.push(i);
+      }
+      else if (i.type === 'teen Attack' && !hidden) {
+        teenAttacks.push(i);
+      }
+      else if (i.type === 'teen Armor' && !hidden) {
+        teenArmor.push(i);
+      }
+      else if (i.type === 'teen lasting Damage' && !hidden) {
+        teenLastingDamage.push(i);
+      }
       else if (i.type === 'material' && !hidden) {
         materials.push(i);
       }
     }
 
+    // Sort items alphabetically
     function byNameAscending(itemA, itemB) {
       let nameA = itemA.name.toLowerCase();
       let nameB = itemB.name.toLowerCase();
@@ -98,13 +126,53 @@ export class CypherTokenSheet extends ActorSheet {
     }
 
     equipment.sort(byNameAscending);
+    abilities.sort(byNameAscending);
+    skills.sort(byNameAscending);
+    skillsSortedByRating.sort(byNameAscending);
+    attacks.sort(byNameAscending);
     armor.sort(byNameAscending);
+    lastingDamage.sort(byNameAscending);
+    powerShifts.sort(byNameAscending);
     cyphers.sort(byNameAscending);
     artifacts.sort(byNameAscending);
     oddities.sort(byNameAscending);
+    teenSkills.sort(byNameAscending);
+    teenSkillsSortedByRating.sort(byNameAscending);
+    teenAbilities.sort(byNameAscending);
+    teenAttacks.sort(byNameAscending);
+    teenArmor.sort(byNameAscending);
+    teenLastingDamage.sort(byNameAscending);
     materials.sort(byNameAscending);
     ammo.sort(byNameAscending);
 
+    // sort skills by skill rating
+    function bySkillRating(itemA, itemB) {
+      let ratingA;
+      let ratingB;
+
+      if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
+      else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
+      else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
+      else if (itemA.data.skillLevel === 'Inability') {ratingA = 4}
+
+      if (itemB.data.skillLevel === 'Specialized') {ratingB = 1}
+      else if (itemB.data.skillLevel === 'Trained') {ratingB = 2}
+      else if (itemB.data.skillLevel === 'Practiced') {ratingB = 3}
+      else if (itemB.data.skillLevel === 'Inability') {ratingB = 4}
+
+      if (ratingA < ratingB) {
+        return -1;
+      }
+      if (ratingA > ratingB) {
+        return 1;
+      }
+      return 0;
+    }
+
+    skillsSortedByRating.sort(bySkillRating);
+    teenSkillsSortedByRating.sort(bySkillRating);
+
+    // Sort items by archive status
     function byArchiveStatus(itemA, itemB) {
       let ratingA;
       let ratingB;
@@ -128,25 +196,53 @@ export class CypherTokenSheet extends ActorSheet {
     }
 
     equipment.sort(byArchiveStatus);
+    abilities.sort(byArchiveStatus);
+    skills.sort(byArchiveStatus);
+    skillsSortedByRating.sort(byArchiveStatus);
+    attacks.sort(byArchiveStatus);
     armor.sort(byArchiveStatus);
+    lastingDamage.sort(byArchiveStatus);
+    powerShifts.sort(byArchiveStatus);
     cyphers.sort(byArchiveStatus);
     artifacts.sort(byArchiveStatus);
     oddities.sort(byArchiveStatus);
+    teenSkills.sort(byArchiveStatus);
+    teenSkillsSortedByRating.sort(byArchiveStatus);
+    teenAbilities.sort(byArchiveStatus);
+    teenAttacks.sort(byArchiveStatus);
+    teenArmor.sort(byArchiveStatus);
+    teenLastingDamage.sort(byArchiveStatus);
     materials.sort(byArchiveStatus);
     ammo.sort(byArchiveStatus);
+    skillsSortedByRating.sort(byArchiveStatus);
+    teenSkillsSortedByRating.sort(byArchiveStatus);
 
     // Assign and return
     actorData.equipment = equipment;
+    actorData.abilities = abilities;
+    actorData.skills = skills;
+    actorData.skillsSortedByRating = skillsSortedByRating;
+    actorData.attacks = attacks;
     actorData.armor = armor;
+    actorData.lastingDamage = lastingDamage;
+    actorData.powerShifts = powerShifts;
     actorData.cyphers = cyphers;
     actorData.artifacts = artifacts;
     actorData.oddities = oddities;
+    actorData.teenSkills = teenSkills;
+    actorData.teenSkillsSortedByRating = teenSkillsSortedByRating;
+    actorData.teenAbilities = teenAbilities;
+    actorData.teenAttacks = teenAttacks;
+    actorData.teenArmor = teenArmor;
+    actorData.teenLastingDamage = teenLastingDamage;
     actorData.materials = materials;
     actorData.ammo = ammo;
 
   }
 
-  /* -------------------------------------------- */
+  /**
+  * Event Listeners
+  */
 
   /** @override */
   activateListeners(html) {
@@ -155,55 +251,27 @@ export class CypherTokenSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Reset Quantity
-    html.find('.reset-quantity').click(clickEvent => {
-      this.actor.update({
-        "data.quantity.value": this.actor.data.data.quantity.max
-      }).then(item => {
-        this.render();
-      });
-    });
-
-    // Increase Quantity
-    html.find('.increase-quantity').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.quantity.value + amount;
-      this.actor.update({"data.quantity.value": newValue});
-    });
-
-    // Decrease Quantity
-    html.find('.decrease-quantity').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
-      let newValue = this.actor.data.data.quantity.value - amount;
-      this.actor.update({"data.quantity.value": newValue});
-    });
-
-    function showSheetForActorAndItemWithID(actor, itemID) {
-      const item = actor.getOwnedItem(itemID);
-      item.sheet.render(true);
-    }
-
-    function itemForClickEvent(clickEvent) {
-      return $(clickEvent.currentTarget).parents(".item");
-    }
+    /**
+    * Inventory management
+    */
 
     // Add Inventory Item
     html.find('.item-create').click(clickEvent => {
       const itemCreatedPromise = this._onItemCreate(clickEvent);
       itemCreatedPromise.then(itemData => {
-        showSheetForActorAndItemWithID(this.actor, itemData._id);
+        this.actor.getOwnedItem(itemData._id).sheet.render(true);
       });
     });
 
     // Update Inventory Item
     html.find('.item-edit').click(clickEvent => {
-      const editedItem = itemForClickEvent(clickEvent);
-      showSheetForActorAndItemWithID(this.actor, editedItem.data("itemId"));
+      const editedItem = $(clickEvent.currentTarget).parents(".item");
+      this.actor.getOwnedItem(editedItem.data("itemId")).sheet.render(true);
     });
 
     // Delete Inventory Item
     html.find('.item-delete').click(clickEvent => {
-      const deletedItem = itemForClickEvent(clickEvent);
+      const deletedItem = $(clickEvent.currentTarget).parents(".item");
       if (event.ctrlKey || event.metaKey) {
         this.actor.deleteOwnedItem(deletedItem.data("itemId"));
         deletedItem.slideUp(200, () => this.render(false));
@@ -220,16 +288,36 @@ export class CypherTokenSheet extends ActorSheet {
       }
     });
 
-    // Show Item Description
+    // Add to Quantity
+    html.find('.plus-one').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.quantity = item.data.quantity + amount;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+
+    // Subtract from Quantity
+    html.find('.minus-one').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      item.data.quantity = item.data.quantity - amount;
+      this.actor.updateEmbeddedEntity('OwnedItem', item);
+    });
+
+    /**
+    * General sheet functions
+    */
+    // Show item description or send to chat
     html.find('.item-description').click(clickEvent => {
-      const shownItem = itemForClickEvent(clickEvent);
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
       if (event.ctrlKey || event.metaKey) {
         let message = "";
         let brackets = "";
-        // let description = "";
         let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
-		let points = "";
+        let points = "";
         let notes = "";
         if (item.data.notes != "") notes = ", " + item.data.notes;
         if (item.type == "skill" || item.type == "teen Skill") {
@@ -237,10 +325,10 @@ export class CypherTokenSheet extends ActorSheet {
         } else if (item.type == "power Shift") {
           brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
         } else if (item.type == "ability" || item.type == "teen Ability") {
-		  points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
+          points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
           if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")";
         } else if (item.type == "attack") {
-		  points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
+          points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
           let damage = ", " + item.data.damage + " " + points;
           let attackType = item.data.attackType;
           let range = "";
@@ -271,31 +359,7 @@ export class CypherTokenSheet extends ActorSheet {
       }
     });
 
-    // Add 1 to Quantity
-    html.find('.plus-one').click(clickEvent => {
-      const shownItem = itemForClickEvent(clickEvent);
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      if (event.ctrlKey || event.metaKey) {
-        item.data.quantity = item.data.quantity + 10;
-      } else {
-        item.data.quantity = item.data.quantity + 1;
-      }
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
-    });
-
-    // Subtract 1 from Quantity
-    html.find('.minus-one').click(clickEvent => {
-      const shownItem = itemForClickEvent(clickEvent);
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
-      if (event.ctrlKey || event.metaKey) {
-        item.data.quantity = item.data.quantity - 10;
-      } else {
-        item.data.quantity = item.data.quantity - 1;
-      }
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
-    });
-
-    // Drag events for macros.
+    // Drag events for macros
     if (this.actor.owner) {
       let handler = ev => this._onDragStart(ev);
       // Find all items on the character sheet.
@@ -309,6 +373,33 @@ export class CypherTokenSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+
+    /**
+    * Health management for NPCs, Companions, and Communities
+    */
+
+    // Increase Health
+    html.find('.increase-health').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.health.value + amount;
+      this.actor.update({"data.health.value": newValue});
+    });
+
+    // Decrease Health
+    html.find('.decrease-health').click(clickEvent => {
+      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let newValue = this.actor.data.data.health.value - amount;
+      this.actor.update({"data.health.value": newValue});
+    });
+
+    // Reset Health
+    html.find('.reset-health').click(clickEvent => {
+      this.actor.update({
+        "data.health.value": this.actor.data.data.health.max
+      }).then(item => {
+        this.render();
+      });
+    });
   }
 
   /**
@@ -394,7 +485,7 @@ export class CypherTokenSheet extends ActorSheet {
         }
       }
     } else {
-      if ((event.ctrlKey || event.metaKey) || item.data.data.quantity == null) {
+      if (event.ctrlKey || event.metaKey) {
         let maxQuantity = item.data.data.quantity;
         if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
         let quantity = 1;
@@ -423,9 +514,36 @@ export class CypherTokenSheet extends ActorSheet {
 
         function buttons() {
           if (maxQuantity != null) {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, moveAll: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.MoveAll"), callback: (html) => moveItems(maxQuantity, itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
+            return ({
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
+              },
+              moveAll: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
+                callback: (html) => moveItems(maxQuantity, itemData)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            })
           } else {
-            return ({move: {icon: '<i class="fas fa-share-square"></i>', label: game.i18n.localize("CYPHERSYSTEM.Move"), callback: (html) => moveItems(html.find('#quantity').val(), itemData)}, cancel: {icon: '<i class="fas fa-times"></i>', label: game.i18n.localize("CYPHERSYSTEM.Cancel"), callback: () => { }}})
+            return ({
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            })
           }
         }
 
@@ -474,7 +592,27 @@ export class CypherTokenSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = `[New ${type.capitalize()}]`;
+    const types = {
+      "ability": "[" + game.i18n.localize("CYPHERSYSTEM.NewAbility") + "]",
+      "ammo": "[" + game.i18n.localize("CYPHERSYSTEM.NewAmmo") + "]",
+      "armor": "[" + game.i18n.localize("CYPHERSYSTEM.NewArmor") + "]",
+      "artifact": "[" + game.i18n.localize("CYPHERSYSTEM.NewArtifact") + "]",
+      "attack": "[" + game.i18n.localize("CYPHERSYSTEM.NewAttack") + "]",
+      "cypher": "[" + game.i18n.localize("CYPHERSYSTEM.NewCypher") + "]",
+      "equipment": "[" + game.i18n.localize("CYPHERSYSTEM.NewEquipment") + "]",
+      "lasting Damage": "[" + game.i18n.localize("CYPHERSYSTEM.NewLastingDamage") + "]",
+      "material": "[" + game.i18n.localize("CYPHERSYSTEM.NewMaterial") + "]",
+      "oddity": "[" + game.i18n.localize("CYPHERSYSTEM.NewOddity") + "]",
+      "power Shift": "[" + game.i18n.localize("CYPHERSYSTEM.NewPowerShift") + "]",
+      "skill": "[" + game.i18n.localize("CYPHERSYSTEM.NewSkill") + "]",
+      "teen Ability": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenAbility") + "]",
+      "teen Armor": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenArmor") + "]",
+      "teen Attack": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenAttack") + "]",
+      "teen lasting Damage": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage") + "]",
+      "teen Skill": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenSkill") + "]",
+      "default": "[" + game.i18n.localize("CYPHERSYSTEM.NewDefault") + "]"
+    };
+    const name = (types[type] || types["default"]);
     // Prepare the item object.
     const itemData = {
       name: name,
