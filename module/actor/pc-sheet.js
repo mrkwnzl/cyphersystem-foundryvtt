@@ -2,7 +2,6 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-
 import {CypherActorSheet} from "./actor-sheet.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
