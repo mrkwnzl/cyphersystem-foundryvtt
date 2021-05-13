@@ -2,7 +2,9 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-export class CypherActorSheetCommunity extends ActorSheet {
+import {CypherActorSheet} from "./actor-sheet.js";
+
+export class CypherActorSheetCommunity extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
