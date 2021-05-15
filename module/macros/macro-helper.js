@@ -20,13 +20,13 @@ export function diceRoller(title, info, modifier) {
   let modifiedBy = "";
   if (modifier != 0) {
     if (modifier > 1) {
-      modifiedBy = game.i18n.localize("CYPHERSYSTEM.EasedBy") + " " + modifier + " " + game.i18n.localize("CYPHERSYSTEM.Steps") + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: modifier}) + ". "
     } else if (modifier == 1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased") + ". "
     } else if (modifier == -1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered") + ". "
     } else if (modifier < -1) {
-      modifiedBy = game.i18n.localize("CYPHERSYSTEM.HinderedBy") + " " + Math.abs(modifier) + " " + game.i18n.localize("CYPHERSYSTEM.Steps") + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(modifier)}) + ". "
     }
   }
 
