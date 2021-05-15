@@ -21,12 +21,16 @@ import {
   recoveryRollMacro,
   spendEffortMacro,
   allInOneRollMacro,
-  allInOneRollDialog
+  allInOneRollDialog,
+  itemRollMacro,
+  toggleDragRuler,
+  resetDragRulerDefaults
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
+import {itemMacroString} from "./macros/macro-strings.js";
 
 
 /* -------------------------------------------- */
@@ -433,177 +437,4 @@ async function createCyphersystemMacro(data, slot) {
   }
   game.user.assignHotbarMacro(macro, slot);
   return false;
-}
-
-/* -------------------------------------------- */
-/*  Macros                                      */
-/* -------------------------------------------- */
-
-// Background functions
-function titleCase(phrase) {
-  const words = phrase.split(" ");
-
-  for (let i = 0; i < words.length; i++) {
-    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-  }
-
-  return words.join(" ");
-}
-
-// Macros
-function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE) {
-  const owner = game.actors.find(actor => actor.items.get(itemID));
-  let pointsPaid = true;
-
-  if (!actor || actor.data.type != "PC") {
-    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
-  }
-
-  const item = actor.getOwnedItem(itemID);
-
-  if (item == null) {
-    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}))
-  }
-
-  if (game.settings.get("cyphersystem", "itemMacrosUseAllInOne")) {
-    if (!skill) skill = "Practiced";
-    if (!assets) assets = 0;
-    if (!effort1) effort1 = 0;
-    if (!effort2) effort2 = 0;
-    if (!effort3) effort3 = 0;
-    if (!additionalCost) additionalCost = 0;
-    if (!additionalSteps) additionalSteps = 0;
-    if (!damage) damage = 0;
-    if (!pool) pool = "Might";
-    if (!damagePerLOE) damagePerLOE = 3;
-
-    let stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
-
-    if (item.type == "skill" || item.type == "teen Skill") {
-      skill = item.data.data.skillLevel;
-    }
-
-    if (item.type == "power Shift") {
-      additionalSteps = item.data.data.powerShiftValue;
-    }
-
-    if (item.type == "attack" || item.type == "teen Attack") {
-      skill = item.data.data.skillRating;
-      additionalSteps = item.data.data.modifiedBy;
-      stepModifier = item.data.data.modified;
-      damage = item.data.data.damage;
-    }
-
-    if (item.type == "ability" || item.type == "teen Ability") {
-      pool = item.data.data.costPool;
-      let checkPlus = item.data.data.costPoints.slice(-1)
-      if (checkPlus == "+") {
-        let cost = item.data.data.costPoints.slice(0, -1);
-        additionalCost = parseInt(cost);
-      } else {
-        let cost = item.data.data.costPoints;
-        additionalCost = parseInt(cost);
-      }
-    }
-
-    allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, item.name, damage, effort3, damagePerLOE)
-  } else {
-    itemRollMacroQuick(actor, itemID);
-  }
-}
-
-function itemRollMacroQuick (actor, itemID) {
-  const owner = game.actors.find(actor => actor.items.get(itemID));
-  const item = actor.getOwnedItem(itemID);
-
-  let info = "";
-  let modifier = 0;
-  let pointsPaid = true;
-
-  if (item.type == "skill" || item.type == "teen Skill") {
-    info = titleCase(item.type) + ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.skillLevel;
-    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Inability")) modifier = -1;
-    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Trained")) modifier = 1;
-    if (item.data.data.skillLevel == game.i18n.localize("CYPHERSYSTEM.Specialized")) modifier = 2;
-  } else if (item.type == "power Shift") {
-    let name = game.i18n.localize("CYPHERSYSTEM.PowerShifts");
-    let shifts = (item.data.data.powerShiftValue == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.Shift") : " " + game.i18n.localize("CYPHERSYSTEM.Shifts");
-    if (actor.data.data.settings.powerShifts.powerShiftsName != 0) {
-      name = actor.data.data.settings.powerShifts.powerShiftsName.slice(0, -1);
-    }
-    info = name + ". " + item.data.data.powerShiftValue + shifts;
-    modifier = item.data.data.powerShiftValue;
-  } else if (item.type == "attack" || item.type == "teen Attack") {
-    let modifiedBy = item.data.data.modifiedBy;
-    info = titleCase(item.type) + ". " + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + item.data.data.damage;
-    if (item.data.data.modified == "hindered") modifiedBy = item.data.data.modifiedBy * -1;
-    let skillRating = 0;
-    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Inability")) skillRating = -1;
-    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Trained")) skillRating = 1;
-    if (item.data.data.skillRating == game.i18n.localize("CYPHERSYSTEM.Specialized")) skillRating = 2;
-    modifier = skillRating + modifiedBy;
-  } else if (item.type == "ability" || item.type == "teen Ability") {
-    let cost = "";
-    let pointCost;
-    if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
-      let points = " " + game.i18n.localize("CYPHERSYSTEM.Points");
-      let edge;
-      let edgeText = "";
-      if (item.data.data.costPool == "Might") {
-        edge = actor.data.data.pools.mightEdge;
-      } else if (item.data.data.costPool == "Speed") {
-        edge = actor.data.data.pools.speedEdge;
-      } else if (item.data.data.costPool == "Intellect") {
-        edge = actor.data.data.pools.intellectEdge;
-      }
-      pointCost = item.data.data.costPoints - edge;
-      if (pointCost < 0) pointCost = 0;
-      if (item.data.data.costPoints == "1") points = " " + game.i18n.localize("CYPHERSYSTEM.Point");
-      if (edge > 0) edgeText = " (" + item.data.data.costPoints + "-" + edge + ") ";
-      cost = ". " + game.i18n.localize("CYPHERSYSTEM.Cost") + ": " + item.data.data.costPoints + edgeText + " " + item.data.data.costPool + points;
-    }
-    info = titleCase(item.type) + cost
-    pointsPaid = payPoolPoints(actor, item.data.data.costPoints, item.data.data.costPool)
-  } else if (item.type == "cypher") {
-    let level = "";
-    if (item.data.data.level != "") level = " " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level;
-    info = "Cypher." + level;
-  } else if (item.type == "artifact") {
-    let level = "";
-    if (item.data.data.level != "") level = " " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level + ".";
-    info = game.i18n.localize("CYPHERSYSTEM.Artifact") + "." + level + " " + game.i18n.localize("CYPHERSYSTEM.Depletion") + ": " + item.data.data.depletion;
-  } else {
-    info = titleCase(item.type)
-  }
-
-  if (pointsPaid == true) {
-    diceRoller(item.name, info, modifier, 0);
-  }
-}
-
-function toggleDragRuler(token) {
-  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
-  if (!token) {
-    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"))
-  }
-
-  if (!token.data.flags.cyphersystem.toggleDragRuler) {
-    token.setFlag("cyphersystem", "toggleDragRuler", true);
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
-  } else if (token.data.flags.cyphersystem.toggleDragRuler) {
-    token.setFlag("cyphersystem", "toggleDragRuler", false);
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
-  }
-}
-
-function resetDragRulerDefaults() {
-  if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
-  for (let t of canvas.tokens.objects.children) {
-    if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
-      t.setFlag("cyphersystem", "toggleDragRuler", true);
-    } else {
-      t.setFlag("cyphersystem", "toggleDragRuler", false);
-    }
-  }
-  ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
 }

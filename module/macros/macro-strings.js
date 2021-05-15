@@ -85,22 +85,22 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}:</label>
   <select name='effort1' id='effort1' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   <option value=0 ${(effort1 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
-  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
-  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=1 ${(effort1 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.level")}</option>
+  <option value=2 ${(effort1 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=3 ${(effort1 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=4 ${(effort1 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=5 ${(effort1 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=6 ${(effort1 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
   </select><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}:</label>
   <select name='effort2' id='effort2' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   <option value=0 ${(effort2 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
-  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
-  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=1 ${(effort2 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.level")}</option>
+  <option value=2 ${(effort2 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=3 ${(effort2 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=4 ${(effort2 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
   </select><br>
   <hr>
   <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AttackModifiers")}</b></label><br>
@@ -109,12 +109,12 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}:</label>
   <select name='effort3' id='effort3' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   <option value=0 ${(effort3 == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
-  <option value=1 ${(effort3 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.Level")}</option>
-  <option value=2 ${(effort3 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=3 ${(effort3 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=4 ${(effort3 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=5 ${(effort3 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
-  <option value=6 ${(effort3 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.Levels")}</option>
+  <option value=1 ${(effort3 == 1 ? "selected" : "")}>1 ${game.i18n.localize("CYPHERSYSTEM.level")}</option>
+  <option value=2 ${(effort3 == 2 ? "selected" : "")}>2 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=3 ${(effort3 == 3 ? "selected" : "")}>3 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=4 ${(effort3 == 4 ? "selected" : "")}>4 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=5 ${(effort3 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
+  <option value=6 ${(effort3 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
   </select><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.DamageLevelEffort")}:</label>
   <input name='damagePerLOE' id='damagePerLOE' type='number' value=${damagePerLOE} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
