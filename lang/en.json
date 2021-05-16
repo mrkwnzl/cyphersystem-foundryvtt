@@ -328,6 +328,8 @@
 	"CYPHERSYSTEM.MacroOnlyUsedBy": "This macro can only be used by {name}.",
 	"CYPHERSYSTEM.SelectAToken": "Please select a token.",
 	"CYPHERSYSTEM.ActivateDragRuler": "You need to activate the module Drag Ruler to use this macro.",
+	"CYPHERSYSTEM.StatNotCompatible": "{stat} is not a compatible stat.",
+	"CYPHERSYSTEM.PleaseSelectTokenStat": "Please select a token with {stat} value.",
 
 	"CYPHERSYSTEM.EasedRollEffectiveMacro": "This macro has been deprecated. Use the “Eased Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.",
 	"CYPHERSYSTEM.HinderedRollEffectiveMacro": "This macro has been deprecated. Use the “Hindered Roll” macro and the system setting “Roll Macros Use Effective Difficulty” instead.",

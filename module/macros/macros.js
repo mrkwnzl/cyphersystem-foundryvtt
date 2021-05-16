@@ -452,13 +452,13 @@ export function quickStatChange(actor, stat, modifier) {
     actor.update({"data.quantity.value": statData});
     break;
     default:
-    return ui.notifications.warn(`“${stat}” is not a compatible stat with this macro.`);
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat}));
   }
 
   // Check whether a correct token is selected
   function checkToken(actorTypes, statString) {
     if (!actor || !actorTypes.includes(actor.data.type)) {
-      ui.notifications.warn(`Please select a token with ${statString} value.`);
+      ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString}));
       return false;
     } else {
       return true;
