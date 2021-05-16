@@ -2,11 +2,15 @@ import {
   diceRoller,
   payPoolPoints,
   itemRollMacroQuick
-} from "./macro-helper.js"
+} from "./macro-helper.js";
 import {
   allInOneRollDialogString,
   spendEffortString
 } from "./macro-strings.js";
+
+/* -------------------------------------------- */
+/*  Roll Macros                                 */
+/* -------------------------------------------- */
 
 export function quickRollMacro(title) {
   diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0)
@@ -70,63 +74,6 @@ export function diceRollMacro(dice) {
     speaker: ChatMessage.getSpeaker(),
     flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>"
   });
-}
-
-export function recoveryRollMacro(actor) {
-  // Check for PC actor
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  // Roll recovery roll
-  let roll = new Roll(actor.data.data.recoveries.recoveryRoll).roll();
-
-  // Send chat message
-  roll.toMessage({
-    speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>"
-  });
-}
-
-export function spendEffortMacro(actor) {
-  // Check for PC actor
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  // Check for debilitated status
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"));
-
-  // Create dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.SpendEffort"),
-    content: spendEffortString(),
-    buttons: {
-      roll: {
-        icon: '<i class="fas fa-check"></i>',
-        label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-        callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
-      },
-      cancel: {
-        icon: '<i class="fas fa-times"></i>',
-        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
-      }
-    },
-    default: "roll",
-    close: () => { }
-  });
-  d.render(true);
-
-  // Apply points to pools
-  function applyToPool(pool, level) {
-    // Set penalty when impaired
-    let penalty = (actor.data.data.damage.damageTrack == "Impaired") ? level : 0;
-
-    // Determine point cost including penalty due to armor
-    let cost = (pool == "Speed") ?
-    (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(penalty) :
-    (level * 2) + 1 + parseInt(penalty);
-
-    // Pay pool points
-    payPoolPoints(actor, cost, pool);
-  }
 }
 
 export function allInOneRollMacro(actor, title, info, cost, pool, modifier) {
@@ -369,6 +316,67 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
     allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, item.name, damage, effort3, damagePerLOE)
   } else {
     itemRollMacroQuick(actor, itemID);
+  }
+}
+
+/* -------------------------------------------- */
+/*  Utility Macros                              */
+/* -------------------------------------------- */
+
+export function recoveryRollMacro(actor) {
+  // Check for PC actor
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Roll recovery roll
+  let roll = new Roll(actor.data.data.recoveries.recoveryRoll).roll();
+
+  // Send chat message
+  roll.toMessage({
+    speaker: ChatMessage.getSpeaker(),
+    flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>"
+  });
+}
+
+export function spendEffortMacro(actor) {
+  // Check for PC actor
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Check for debilitated status
+  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"));
+
+  // Create dialog
+  let d = new Dialog({
+    title: game.i18n.localize("CYPHERSYSTEM.SpendEffort"),
+    content: spendEffortString(),
+    buttons: {
+      roll: {
+        icon: '<i class="fas fa-check"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Apply"),
+        callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
+      },
+      cancel: {
+        icon: '<i class="fas fa-times"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+        callback: () => { }
+      }
+    },
+    default: "roll",
+    close: () => { }
+  });
+  d.render(true);
+
+  // Apply points to pools
+  function applyToPool(pool, level) {
+    // Set penalty when impaired
+    let penalty = (actor.data.data.damage.damageTrack == "Impaired") ? level : 0;
+
+    // Determine point cost including penalty due to armor
+    let cost = (pool == "Speed") ?
+    (level * 2) + 1 + (level * actor.data.data.armor.speedCostTotal) + parseInt(penalty) :
+    (level * 2) + 1 + parseInt(penalty);
+
+    // Pay pool points
+    payPoolPoints(actor, cost, pool);
   }
 }
 

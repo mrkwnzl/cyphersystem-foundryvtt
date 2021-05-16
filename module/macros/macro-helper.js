@@ -1,3 +1,7 @@
+/* -------------------------------------------- */
+/*  Macro helper                                */
+/* -------------------------------------------- */
+
 export function diceRoller(title, info, modifier) {
   // Roll dice
   let roll = new Roll("1d20").roll();
@@ -271,17 +275,10 @@ export function itemRollMacroQuick(actor, itemID) {
   }
 }
 
-function titleCase(phrase) {
-  const words = phrase.split(" ");
+/* -------------------------------------------- */
+/*  Deprecation Messages for old macros         */
+/* -------------------------------------------- */
 
-  for (let i = 0; i < words.length; i++) {
-    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-  }
-
-  return words.join(" ");
-}
-
-// Deprecation messages in case someone has old macros in their world
 export function easedRollEffectiveMacro() {
   ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.EasedRollEffectiveMacro"))
 }
@@ -289,3 +286,17 @@ export function easedRollEffectiveMacro() {
 export function hinderedRollEffectiveMacro() {
   ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.HinderedRollEffectiveMacro"))
 }
+
+/* -------------------------------------------- */
+/*  Dont really want to delete it, yet          */
+/* -------------------------------------------- */
+
+// function titleCase(phrase) {
+//   const words = phrase.split(" ");
+//
+//   for (let i = 0; i < words.length; i++) {
+//     words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+//   }
+//
+//   return words.join(" ");
+// }
