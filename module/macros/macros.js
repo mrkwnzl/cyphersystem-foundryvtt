@@ -406,3 +406,69 @@ export function resetDragRulerDefaults() {
   }
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
 }
+
+export function quickStatChange(actor, stat, modifier) {
+  // Make sure stat is case-insensitive
+  stat = stat.toLowerCase();
+
+  // Declare variable
+  let statData;
+
+  // Get stat data
+  switch(stat) {
+    case "xp":
+    if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
+    statData = calculateStatData(actor.data.data.basic.xp);
+    actor.update({"data.basic.xp": statData});
+    break;
+    case "might":
+    if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
+    statData = calculateStatData(actor.data.data.pools.might.value);
+    actor.update({"data.pools.might.value": statData});
+    break;
+    case "speed":
+    if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
+    statData = calculateStatData(actor.data.data.pools.speed.value);
+    actor.update({"data.pools.speed.value": statData});
+    break;
+    case "intellect":
+    if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
+    statData = calculateStatData(data.pools.intellect.value);
+    actor.update({"data.pools.intellect.value": statData});
+    break;
+    case "health":
+    if (!checkToken(["NPC","Community","Companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
+    statData = calculateStatData(actor.data.data.health.value);
+    actor.update({"data.health.value": statData});
+    break;
+    case "infrastructure":
+    if (!checkToken(["Community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
+    statData = calculateStatData(actor.data.data.infrastructure.value);
+    actor.update({"data.infrastructure.value": statData});
+    break;
+    case "quantity":
+    if (!checkToken(["Token"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
+    statData = calculateStatData(actor.data.data.quantity.value);
+    actor.update({"data.quantity.value": statData});
+    break;
+    default:
+    return ui.notifications.warn(`“${stat}” is not a compatible stat with this macro.`);
+  }
+
+  // Check whether a correct token is selected
+  function checkToken(actorTypes, statString) {
+    if (!actor || !actorTypes.includes(actor.data.type)) {
+      ui.notifications.warn(`Please select a token with ${statString} value.`);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // Calculate the new stat value
+  function calculateStatData(statData) {
+    statData = statData + modifier;
+    if (statData < 0) statData = 0;
+    return statData;
+  }
+}

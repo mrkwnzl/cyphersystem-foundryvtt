@@ -24,7 +24,8 @@ import {
   allInOneRollDialog,
   itemRollMacro,
   toggleDragRuler,
-  resetDragRulerDefaults
+  resetDragRulerDefaults,
+  quickStatChange
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -57,7 +58,8 @@ Hooks.once("init", async function() {
     allInOneRollMacro,
     allInOneRollDialog,
     toggleDragRuler,
-    resetDragRulerDefaults
+    resetDragRulerDefaults,
+    quickStatChange
   };
 
   // Register system settings

@@ -12,9 +12,9 @@
   "packs": [
     {
       "name": "macros",
-      "label": "Cypher System Macros",
+      "label": "Cypher System Roll Macros",
       "system": "cyphersystem",
-      "path": "packs/macros.db",
+      "path": "packs/roll-macros.db",
       "entity": "Macro"
     },
     {
