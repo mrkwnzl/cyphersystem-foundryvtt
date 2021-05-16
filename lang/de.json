@@ -308,5 +308,7 @@
     "CYPHERSYSTEM.NewPowerShift": "Neuer Power Shift",
     "CYPHERSYSTEM.NewDefault": "Neuer Gegenstand",
     "CYPHERSYSTEM.UnitDistanceMeter": "Meter",
-    "CYPHERSYSTEM.UnitDistanceFeet": "Fuß"
+    "CYPHERSYSTEM.UnitDistanceFeet": "Fuß",
+    "CYPHERSYSTEM.HinderedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erschwert",
+    "CYPHERSYSTEM.EasedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erleichtert"
 }

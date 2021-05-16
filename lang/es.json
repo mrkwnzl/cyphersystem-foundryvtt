@@ -308,5 +308,7 @@
     "CYPHERSYSTEM.NewTeenLastingDamage": "Nuevo Daño Persistente (Adolescente)",
     "CYPHERSYSTEM.UnitDistanceMeter": "metro",
     "CYPHERSYSTEM.NewEquipment": "Nueva Pieza de Equipo",
-    "CYPHERSYSTEM.UnitDistanceFeet": "pies"
+    "CYPHERSYSTEM.UnitDistanceFeet": "pies",
+    "CYPHERSYSTEM.EasedByExtraSteps": "Tarea facilitada en {amount} pasos",
+    "CYPHERSYSTEM.HinderedByExtraSteps": "Tarea dificultada en {amount} pasos"
 }
