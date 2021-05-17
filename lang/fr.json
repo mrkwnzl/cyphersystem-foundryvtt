@@ -308,5 +308,9 @@
     "CYPHERSYSTEM.NewMaterial": "Nouveau Matériau",
     "CYPHERSYSTEM.NewPowerShift": "Nouveau Transferts de Pouvoir",
     "CYPHERSYSTEM.UnitDistanceMeter": "mètre",
-    "CYPHERSYSTEM.UnitDistanceFeet": "pieds"
+    "CYPHERSYSTEM.UnitDistanceFeet": "pieds",
+    "CYPHERSYSTEM.HinderedByExtraSteps": "Tâche entravé par {amount} niveaux supplémentaire",
+    "CYPHERSYSTEM.StatNotCompatible": "{stat} n'est pas une statistique compatible.",
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Veuillez sélectionner un token avec {stat}.",
+    "CYPHERSYSTEM.EasedByExtraSteps": "Tâche facilitée par {amount} niveaux supplémentaire"
 }

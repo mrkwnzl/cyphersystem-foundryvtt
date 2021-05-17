@@ -310,5 +310,7 @@
     "CYPHERSYSTEM.UnitDistanceMeter": "Meter",
     "CYPHERSYSTEM.UnitDistanceFeet": "Fuß",
     "CYPHERSYSTEM.HinderedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erschwert",
-    "CYPHERSYSTEM.EasedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erleichtert"
+    "CYPHERSYSTEM.EasedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erleichtert",
+    "CYPHERSYSTEM.StatNotCompatible": "{stat} ist kein kompatibler Wert.",
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Bitte wähle ein Token mit {stat}-Wert."
 }
