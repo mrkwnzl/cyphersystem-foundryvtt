@@ -411,7 +411,9 @@
       "modified": "",
       "modifiedBy": 0,
       "range": "",
-      "notes": ""
+      "notes": "",
+      "skillRating": "Practiced",
+      "totalModified": ""
     },
     "lasting Damage": {
       "templates": ["core"],

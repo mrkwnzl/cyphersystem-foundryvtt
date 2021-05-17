@@ -25,6 +25,34 @@ export class CypherActorSheetPC extends CypherActorSheet {
   getData() {
     const sheetData = super.getData();
 
+    for (let i of sheetData.actor.items) {
+      if (i.type == 'attack' || i.type == 'teen Attack') {
+        const item = i;
+
+        let skillRating = 0;
+        let modifiedBy = item.data.modifiedBy;
+        let totalModifier = 0;
+        let totalModified = "";
+
+        if (item.data.skillRating == "Inability") skillRating = -1;
+        if (item.data.skillRating == "Trained") skillRating = 1;
+        if (item.data.skillRating == "Specialized") skillRating = 2;
+
+        if (item.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+
+        totalModifier = skillRating + modifiedBy;
+
+        if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
+        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+        if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
+        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
+
+        // Assign and return
+        item.data.totalModified = totalModified;
+        this.actor.updateEmbeddedEntity('OwnedItem', item);
+      }
+    }
+
     // Update armor
     let armorTotal = 0;
     let speedCostTotal = 0;

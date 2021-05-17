@@ -276,9 +276,10 @@
             <div class="item-damage">
               <select name="data.teen.damage.damageTrack" style="min-width: 95px">
                 {{#select data.teen.damage.damageTrack}}
-                <option value="{{data.teen.damage.hale}}">{{localize 'CYPHERSYSTEM.Hale'}}</option>
-                <option value="{{data.teen.damage.impaired}}">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
-                <option value="{{data.teen.damage.debilitated}}">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
+                <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
+                <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
+                <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
+                <option value="Dead">{{localize 'CYPHERSYSTEM.Dead'}}</option>
                 {{/select}}
               </select>
             </div>
@@ -286,15 +287,16 @@
               {{#if (eq data.teen.damage.damageTrack "Hale")}}{{localize 'CYPHERSYSTEM.HaleEffect'}}{{/if}}
               {{#if (eq data.teen.damage.damageTrack "Impaired")}}{{localize 'CYPHERSYSTEM.ImpairedEffect1'}}<br>{{localize 'CYPHERSYSTEM.ImpairedEffect2'}}{{/if}}
               {{#if (eq data.teen.damage.damageTrack "Debilitated")}}{{localize 'CYPHERSYSTEM.DebilitatedEffect1'}}<br>{{localize 'CYPHERSYSTEM.DebilitatedEffect2'}}{{/if}}
+              {{#if (eq data.teen.damage.damageTrack "Dead")}}{{localize 'CYPHERSYSTEM.DeadEffect'}}{{/if}}
             </div>
             {{else}}
             <div class="item-damage">
               <select name="data.damage.damageTrack" style="min-width: 95px">
                 {{#select data.damage.damageTrack}}
-                <option value="{{data.damage.hale}}">{{localize 'CYPHERSYSTEM.Hale'}}</option>
-                <option value="{{data.damage.impaired}}">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
-                <option value="{{data.damage.debilitated}}">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
-                <option value="{{data.damage.dead}}">{{localize 'CYPHERSYSTEM.Dead'}}</option>
+                <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
+                <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
+                <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
+                <option value="Dead">{{localize 'CYPHERSYSTEM.Dead'}}</option>
                 {{/select}}
               </select>
             </div>
@@ -604,7 +606,7 @@
             </li>
             {{/if}}
             <li class="item flexrow item-settings">
-              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}} disabled>&nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}</div>
+              <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" checked disabled>&nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}</div>
               <div class="item-quantity"><input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" style="width: auto;"/></div>
             </li>
             <li class="item flexrow item-settings">
