@@ -308,5 +308,7 @@
     "CYPHERSYSTEM.NewPowerShift": "Novo Power Shift",
     "CYPHERSYSTEM.HinderedByExtraSteps": "Tarefa dificultada em {quantidade} passos",
     "CYPHERSYSTEM.UnitDistanceMeter": "medidor",
-    "CYPHERSYSTEM.UnitDistanceFeet": "pé"
+    "CYPHERSYSTEM.UnitDistanceFeet": "pé",
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Selecione um token com valor de {estatística}.",
+    "CYPHERSYSTEM.StatNotCompatible": "{estatística} não é uma estatística compatível."
 }
