@@ -407,7 +407,7 @@ export function resetDragRulerDefaults() {
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
 }
 
-export function quickStatChange(actor, stat, modifier) {
+export function quickStatChange(token, stat, modifier) {
   // Make sure stat is case-insensitive
   stat = stat.toLowerCase();
 
@@ -418,38 +418,38 @@ export function quickStatChange(actor, stat, modifier) {
   switch(stat) {
     case "xp":
     if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
-    statData = calculateStatData(actor.data.data.basic.xp);
-    actor.update({"data.basic.xp": statData});
+    statData = calculateStatData(token.actor.data.data.basic.xp);
+    token.actor.update({"data.basic.xp": statData});
     break;
     case "might":
     if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
-    statData = calculateStatData(actor.data.data.pools.might.value);
-    actor.update({"data.pools.might.value": statData});
+    statData = calculateStatData(token.actor.data.data.pools.might.value);
+    token.actor.update({"data.pools.might.value": statData});
     break;
     case "speed":
     if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
-    statData = calculateStatData(actor.data.data.pools.speed.value);
-    actor.update({"data.pools.speed.value": statData});
+    statData = calculateStatData(token.actor.data.data.pools.speed.value);
+    token.actor.update({"data.pools.speed.value": statData});
     break;
     case "intellect":
     if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
-    statData = calculateStatData(data.pools.intellect.value);
-    actor.update({"data.pools.intellect.value": statData});
+    statData = calculateStatData(token.actor.data.data.pools.intellect.value);
+    token.actor.update({"data.pools.intellect.value": statData});
     break;
     case "health":
     if (!checkToken(["NPC","Community","Companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
-    statData = calculateStatData(actor.data.data.health.value);
-    actor.update({"data.health.value": statData});
+    statData = calculateStatData(token.actor.data.data.health.value);
+    token.actor.update({"data.health.value": statData});
     break;
     case "infrastructure":
     if (!checkToken(["Community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
-    statData = calculateStatData(actor.data.data.infrastructure.value);
-    actor.update({"data.infrastructure.value": statData});
+    statData = calculateStatData(token.actor.data.data.infrastructure.value);
+    token.actor.update({"data.infrastructure.value": statData});
     break;
     case "quantity":
     if (!checkToken(["Token"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
-    statData = calculateStatData(actor.data.data.quantity.value);
-    actor.update({"data.quantity.value": statData});
+    statData = calculateStatData(token.actor.data.data.quantity.value);
+    token.actor.update({"data.quantity.value": statData});
     break;
     default:
     return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat}));
@@ -457,7 +457,7 @@ export function quickStatChange(actor, stat, modifier) {
 
   // Check whether a correct token is selected
   function checkToken(actorTypes, statString) {
-    if (!actor || !actorTypes.includes(actor.data.type)) {
+    if (!token || !actorTypes.includes(token.actor.data.type)) {
       ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString}));
       return false;
     } else {
