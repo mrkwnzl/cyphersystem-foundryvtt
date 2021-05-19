@@ -326,7 +326,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "bottom-inner",
         attribute: "pools.intellect",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -334,7 +334,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#00FF00",
         position: "bottom-inner",
         attribute: "pools.speed",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar3": {
         id: "bar3",
@@ -342,7 +342,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "pools.might",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
   } else if (actor.data.type === "NPC" || actor.data.type === "NPC") {
@@ -353,7 +353,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "top-inner",
         attribute: "level",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -361,7 +361,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
   } else if (actor.data.type === "Community") {
@@ -372,7 +372,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "top-inner",
         attribute: "rank",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -380,7 +380,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "bottom-inner",
         attribute: "infrastructure",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar3": {
         id: "bar3",
@@ -388,7 +388,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
   }
