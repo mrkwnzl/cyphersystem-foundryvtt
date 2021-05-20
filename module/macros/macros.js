@@ -407,6 +407,86 @@ export function resetDragRulerDefaults() {
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
 }
 
+export function resetBarBrawlDefaults() {
+  if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
+  for (let t of canvas.tokens.objects.children) {
+    if (t.actor.data.type === "PC") {
+      t.setFlag("barbrawl", "resourceBars", {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "bottom-inner",
+          attribute: "pools.intellect",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#00FF00",
+          maxcolor: "#00FF00",
+          position: "bottom-inner",
+          attribute: "pools.speed",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar3": {
+          id: "bar3",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "pools.might",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
+      })
+    } else if (t.actor.data.type === "NPC" || t.actor.data.type === "NPC") {
+      setProperty("barbrawl", "resourceBars", {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "top-inner",
+          attribute: "level",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "health",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
+      })
+    } else if (t.actor.data.type === "Community") {
+      setProperty("barbrawl", "resourceBars", {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "top-inner",
+          attribute: "rank",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "bottom-inner",
+          attribute: "infrastructure",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar3": {
+          id: "bar3",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "health",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
+      })
+    }
+  }
+}
+
 export function quickStatChange(token, stat, modifier) {
   // Make sure stat is case-insensitive
   stat = stat.toLowerCase();

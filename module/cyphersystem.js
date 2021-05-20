@@ -25,6 +25,7 @@ import {
   itemRollMacro,
   toggleDragRuler,
   resetDragRulerDefaults,
+  resetBarBrawlDefaults,
   quickStatChange
 } from "./macros/macros.js";
 import {
@@ -59,6 +60,7 @@ Hooks.once("init", async function() {
     allInOneRollDialog,
     toggleDragRuler,
     resetDragRulerDefaults,
+    resetBarBrawlDefaults,
     quickStatChange
   };
 
@@ -312,7 +314,6 @@ Hooks.on("preCreateToken", function(_scene, data) {
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
     setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
-    console.log("HERE!");
   } else {
     setProperty(data, "flags.cyphersystem.toggleDragRuler", false)
   }
