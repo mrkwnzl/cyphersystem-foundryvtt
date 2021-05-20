@@ -312,5 +312,6 @@
     "CYPHERSYSTEM.EasedByExtraSteps": "Tarea facilitada en {amount} pasos",
     "CYPHERSYSTEM.HinderedByExtraSteps": "Tarea dificultada en {amount} pasos",
     "CYPHERSYSTEM.StatNotCompatible": "{stat} no es un Atributo compatible.",
-    "CYPHERSYSTEM.PleaseSelectTokenStat": "Por favor seleccione un token con valor {stat}."
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Por favor seleccione un token con valor {stat}.",
+    "CYPHERSYSTEM.ActivateBarBrawl": "Necesitas activar el módulo \"Bar Brawl\" para usar esta macro."
 }
