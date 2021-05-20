@@ -296,5 +296,6 @@
     "CYPHERSYSTEM.UnitDistanceMeter": "metri",
     "CYPHERSYSTEM.UnitDistanceFeet": "piedi",
     "CYPHERSYSTEM.StatNotCompatible": "{stat} non è una statistica compatibile.",
-    "CYPHERSYSTEM.PleaseSelectTokenStat": "Seleziona un token con un valore {stat}."
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Seleziona un token con un valore {stat}.",
+    "CYPHERSYSTEM.ActivateBarBrawl": "Devi attivare il modulo Bar Brawl per utilizzare questa macro."
 }
