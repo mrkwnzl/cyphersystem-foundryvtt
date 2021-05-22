@@ -162,7 +162,7 @@
     "CYPHERSYSTEM.Practiced": "Fähig",
     "CYPHERSYSTEM.Trained": "Geübt",
     "CYPHERSYSTEM.Specialized": "Spezialisiert",
-    "CYPHERSYSTEM.Items": "Gegenstände",
+    "CYPHERSYSTEM.Items": "Ausrüstung",
     "CYPHERSYSTEM.Ammo": "Munition",
     "CYPHERSYSTEM.Armor": "Rüstung",
     "CYPHERSYSTEM.ArmorRating": "Rüstungswert",
@@ -312,5 +312,6 @@
     "CYPHERSYSTEM.HinderedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erschwert",
     "CYPHERSYSTEM.EasedByExtraSteps": "Aufgabe um {amount} zusätzliche Grade erleichtert",
     "CYPHERSYSTEM.StatNotCompatible": "{stat} ist kein kompatibler Wert.",
-    "CYPHERSYSTEM.PleaseSelectTokenStat": "Bitte wähle ein Token mit {stat}-Wert."
+    "CYPHERSYSTEM.PleaseSelectTokenStat": "Bitte wähle ein Token mit {stat}-Wert.",
+    "CYPHERSYSTEM.ActivateBarBrawl": "Du musst das Modul Bar Brawl aktivieren, um dieses Makro zu verwenden."
 }

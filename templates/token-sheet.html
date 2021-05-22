@@ -53,6 +53,10 @@
 
             {{> systems/cyphersystem/templates/equipment.html}}
 
+            {{#if data.settings.equipment.attacks}}
+            {{> systems/cyphersystem/templates/attacks.html}}
+            {{/if}}
+
             {{#if data.settings.equipment.ammo}}
             {{> systems/cyphersystem/templates/ammo.html}}
             {{/if}}
@@ -88,12 +92,7 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list"><input type="checkbox" name="data.settings.isCounter" data-dtype="boolean" {{checked data.settings.isCounter}}>&nbsp;{{localize 'CYPHERSYSTEM.CountQuantityOnInitiative'}}</div>
-            <div class="item-quantity"><select class="auto-margin" name="data.settings.counting" style="width: 135px">
-                {{#select data.settings.counting}}
-                <option value="up">{{localize 'CYPHERSYSTEM.Up'}}</option>
-                <option value="down">{{localize 'CYPHERSYSTEM.Down'}}</option>
-                {{/select}}
-            </select></div>
+            <div class="item-quantity"><input class="auto-margin" name="data.settings.counting" type="number" value="{{data.settings.counting}}" data-dtype="Number" placeholder="-1" style="width: auto;"/></div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}</div>

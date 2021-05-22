@@ -385,54 +385,7 @@
         </div>
         {{/if}}
 
-        <div class="flexrow">
-          <ol class="items-list">
-            <li class="item flexrow item-header">
-              <div class="item-name">{{localize 'CYPHERSYSTEM.Attacks'}}</div>
-              <div class="item-quantity">{{localize 'CYPHERSYSTEM.Damage'}}</div>
-              <div class="item-controls">
-                {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Attack"><i class="fas fa-plus"></i></a>
-                {{else}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="attack"><i class="fas fa-plus"></i></a>
-                {{/if}}
-              </div>
-            </li>
-            {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-            {{#each actor.teenAttacks as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.attackType "light weapon")}}{{localize 'CYPHERSYSTEM.LightWeapon'}}{{else if (eq data.attackType "medium weapon")}}{{localize 'CYPHERSYSTEM.MediumWeapon'}}{{else if (eq data.attackType "heavy weapon")}}{{localize 'CYPHERSYSTEM.HeavyWeapon'}}{{else if (eq data.attackType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.attackType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{/if}}{{#unless (eq data.totalModified "")}}, {{data.totalModified}}{{/unless}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-              <div class="item-quantity">{{data.damage}}</div>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
-              </div>
-            </li>
-            {{#if data.showDescription}}
-            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-              <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{{data.description}}}</div>
-            </li>
-            {{/if}}
-            {{/each}}
-            {{else}}
-            {{#each actor.attacks as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.attackType "light weapon")}}{{localize 'CYPHERSYSTEM.LightWeapon'}}{{else if (eq data.attackType "medium weapon")}}{{localize 'CYPHERSYSTEM.MediumWeapon'}}{{else if (eq data.attackType "heavy weapon")}}{{localize 'CYPHERSYSTEM.HeavyWeapon'}}{{else if (eq data.attackType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.attackType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{/if}}{{#unless (eq data.totalModified "")}}, {{data.totalModified}}{{/unless}}{{#unless (eq data.range "")}}, {{data.range}}{{/unless}}{{#unless (eq data.notes "")}}, {{data.notes}}{{/unless}})</a></h4>
-              <div class="item-quantity">{{data.damage}}</div>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
-              </div>
-            </li>
-            {{#if data.showDescription}}
-            <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-              <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{{data.description}}}</div>
-            </li>
-            {{/if}}
-            {{/each}}
-            {{/if}}
-          </ol>
-        </div>
+        {{> systems/cyphersystem/templates/attacks.html}}
 
         {{#if data.settings.ammo}}
         {{> systems/cyphersystem/templates/ammo.html}}

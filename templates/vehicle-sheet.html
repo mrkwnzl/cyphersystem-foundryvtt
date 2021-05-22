@@ -53,6 +53,10 @@
 
       {{> systems/cyphersystem/templates/equipment.html}}
 
+      {{#if data.settings.equipment.attacks}}
+      {{> systems/cyphersystem/templates/attacks.html}}
+      {{/if}}
+
       {{#if data.settings.equipment.ammo}}
       {{> systems/cyphersystem/templates/ammo.html}}
       {{/if}}

@@ -232,7 +232,7 @@
 	"CYPHERSYSTEM.Trained": "Trained",
 	"CYPHERSYSTEM.Specialized": "Specialized",
 
-	"CYPHERSYSTEM.Items": "Items",
+	"CYPHERSYSTEM.Items": "Equipment",
 	"CYPHERSYSTEM.Ammo": "Ammo",
 
 	"CYPHERSYSTEM.Armor": "Armor",
@@ -328,6 +328,7 @@
 	"CYPHERSYSTEM.MacroOnlyUsedBy": "This macro can only be used by {name}.",
 	"CYPHERSYSTEM.SelectAToken": "Please select a token.",
 	"CYPHERSYSTEM.ActivateDragRuler": "You need to activate the module Drag Ruler to use this macro.",
+	"CYPHERSYSTEM.ActivateBarBrawl": "You need to activate the module Bar Brawl to use this macro.",
 	"CYPHERSYSTEM.StatNotCompatible": "{stat} is not a compatible stat.",
 	"CYPHERSYSTEM.PleaseSelectTokenStat": "Please select a token with {stat} value.",
 

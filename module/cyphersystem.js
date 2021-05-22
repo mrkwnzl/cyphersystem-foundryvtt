@@ -25,6 +25,7 @@ import {
   itemRollMacro,
   toggleDragRuler,
   resetDragRulerDefaults,
+  resetBarBrawlDefaults,
   quickStatChange
 } from "./macros/macros.js";
 import {
@@ -59,6 +60,7 @@ Hooks.once("init", async function() {
     allInOneRollDialog,
     toggleDragRuler,
     resetDragRulerDefaults,
+    resetBarBrawlDefaults,
     quickStatChange
   };
 
@@ -137,7 +139,9 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/cyphers.html",
     "systems/cyphersystem/templates/materials.html",
     "systems/cyphersystem/templates/oddities.html",
-    "systems/cyphersystem/templates/teenArmor.html"
+    "systems/cyphersystem/templates/teenArmor.html",
+    "systems/cyphersystem/templates/teenAttacks.html",
+    "systems/cyphersystem/templates/attacks.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -167,7 +171,9 @@ Hooks.once("ready", async function() {
     if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
     if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
     if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
-    if (!a.data.data.settings.equipment.cyphers && a.type === "PC") a.update({"data.settings.equipment.cyphers": true});
+    if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
+    if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({"data.settings.counting": -1});
+    if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({"data.settings.counting": 1});
   }
 
   // Fix for case-sensitive OSs
@@ -277,7 +283,7 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar1": {"attribute": "health"},
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
 
@@ -286,7 +292,7 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar1": {"attribute": "health"},
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
     "token.actorLink": true
   })
@@ -300,6 +306,8 @@ Hooks.on("preCreateActor", (actorData) => {
 
   if (actorData.type == "Token")
   mergeObject(actorData, {
+    "token.bar1": {"attribute": "quantity"},
+    "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
@@ -312,7 +320,6 @@ Hooks.on("preCreateToken", function(_scene, data) {
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
     setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
-    console.log("HERE!");
   } else {
     setProperty(data, "flags.cyphersystem.toggleDragRuler", false)
   }
@@ -326,7 +333,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "bottom-inner",
         attribute: "pools.intellect",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -334,7 +341,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#00FF00",
         position: "bottom-inner",
         attribute: "pools.speed",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar3": {
         id: "bar3",
@@ -342,10 +349,10 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "pools.might",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
-  } else if (actor.data.type === "NPC" || actor.data.type === "NPC") {
+  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
     setProperty(data, "flags.barbrawl.resourceBars", {
       "bar1": {
         id: "bar1",
@@ -353,7 +360,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "top-inner",
         attribute: "level",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -361,7 +368,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
   } else if (actor.data.type === "Community") {
@@ -372,7 +379,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "top-inner",
         attribute: "rank",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar2": {
         id: "bar2",
@@ -380,7 +387,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#0000FF",
         position: "bottom-inner",
         attribute: "infrastructure",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       },
       "bar3": {
         id: "bar3",
@@ -388,7 +395,26 @@ Hooks.on("preCreateToken", function(_scene, data) {
         maxcolor: "#FF0000",
         position: "bottom-inner",
         attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      }
+    })
+  } else if (actor.data.type === "Token") {
+    setProperty(data, "flags.barbrawl.resourceBars", {
+      "bar1": {
+        id: "bar1",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "top-inner",
+        attribute: "level",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      },
+      "bar2": {
+        id: "bar2",
+        mincolor: "#FF0000",
+        maxcolor: "#FF0000",
+        position: "bottom-inner",
+        attribute: "quantity",
+        visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
       }
     })
   }
@@ -397,15 +423,11 @@ Hooks.on("preCreateToken", function(_scene, data) {
 Hooks.on("updateCombat", function() {
   let combatant = game.combat.combatant;
 
-  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
-    let token = canvas.tokens.get(combatant.tokenId);
-    let newQuantity = token.actor.data.data.quantity.value - 1;
-    token.actor.update({"data.quantity.value": newQuantity});
-  } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
-    let token = canvas.tokens.get(combatant.tokenId);
-    let newQuantity = token.actor.data.data.quantity.value + 1;
-    token.actor.update({"data.quantity.value": newQuantity});
+  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true) {
+    let newQuantity = combatant.actor.data.data.quantity.value + combatant.actor.data.data.settings.counting;
+    combatant.actor.update({"data.quantity.value": newQuantity});
   }
+
 });
 
 /* -------------------------------------------- */

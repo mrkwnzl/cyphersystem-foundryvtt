@@ -162,7 +162,7 @@
     "CYPHERSYSTEM.Practiced": "Pratiqué",
     "CYPHERSYSTEM.Trained": "Entraîné",
     "CYPHERSYSTEM.Specialized": "Spécialisé",
-    "CYPHERSYSTEM.Items": "Objets",
+    "CYPHERSYSTEM.Items": "Équipement",
     "CYPHERSYSTEM.Ammo": "Munitions",
     "CYPHERSYSTEM.Armor": "Armure",
     "CYPHERSYSTEM.ArmorRating": "Valeur d'Armure",
@@ -312,5 +312,6 @@
     "CYPHERSYSTEM.HinderedByExtraSteps": "Tâche entravé par {amount} niveaux supplémentaire",
     "CYPHERSYSTEM.StatNotCompatible": "{stat} n'est pas une statistique compatible.",
     "CYPHERSYSTEM.PleaseSelectTokenStat": "Veuillez sélectionner un token avec {stat}.",
-    "CYPHERSYSTEM.EasedByExtraSteps": "Tâche facilitée par {amount} niveaux supplémentaire"
+    "CYPHERSYSTEM.EasedByExtraSteps": "Tâche facilitée par {amount} niveaux supplémentaire",
+    "CYPHERSYSTEM.ActivateBarBrawl": "Vous devez activer le module Bar Brawl pour utiliser cette macro."
 }
