@@ -283,7 +283,7 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar1": {"attribute": "health"},
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
 
@@ -292,7 +292,7 @@ Hooks.on("preCreateActor", (actorData) => {
     "token.bar1": {"attribute": "health"},
     "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
     "token.actorLink": true
   })
@@ -306,6 +306,8 @@ Hooks.on("preCreateActor", (actorData) => {
 
   if (actorData.type == "Token")
   mergeObject(actorData, {
+    "token.bar1": {"attribute": "quantity"},
+    "token.bar2": {"attribute": "level"},
     "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
     "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
   })
@@ -350,7 +352,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
-  } else if (actor.data.type === "NPC" || actor.data.type === "NPC") {
+  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
     setProperty(data, "flags.barbrawl.resourceBars", {
       "bar1": {
         id: "bar1",
@@ -396,26 +398,34 @@ Hooks.on("preCreateToken", function(_scene, data) {
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
     })
+  } else if (actor.data.type === "Token") {
+    setProperty(data, "flags.barbrawl.resourceBars", {
+      "bar1": {
+        id: "bar1",
+        mincolor: "#0000FF",
+        maxcolor: "#0000FF",
+        position: "top-inner",
+        attribute: "level",
+        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      },
+      "bar2": {
+        id: "bar2",
+        mincolor: "#FF0000",
+        maxcolor: "#FF0000",
+        position: "bottom-inner",
+        attribute: "quantity",
+        visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+      }
+    })
   }
 });
 
 Hooks.on("updateCombat", function() {
   let combatant = game.combat.combatant;
 
-  // if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
-  //   let token = canvas.tokens.get(combatant.tokenId);
-  //   let newQuantity = token.actor.data.data.quantity.value - 1;
-  //   token.actor.update({"data.quantity.value": newQuantity});
-  // } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
-  //   let token = canvas.tokens.get(combatant.tokenId);
-  //   let newQuantity = token.actor.data.data.quantity.value + 1;
-  //   token.actor.update({"data.quantity.value": newQuantity});
-  // }
-
   if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true) {
-    let token = canvas.tokens.get(combatant.tokenId);
-    let newQuantity = token.actor.data.data.quantity.value + token.actor.data.data.settings.counting;
-    token.actor.update({"data.quantity.value": newQuantity});
+    let newQuantity = combatant.actor.data.data.quantity.value + combatant.actor.data.data.settings.counting;
+    combatant.actor.update({"data.quantity.value": newQuantity});
   }
 
 });
