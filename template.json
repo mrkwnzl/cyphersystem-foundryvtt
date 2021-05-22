@@ -203,6 +203,7 @@
           "initiativeBonus": 0
         },
         "equipment": {
+          "attacks": false,
           "cyphers": false,
           "artifacts": false,
           "oddities": false,
@@ -225,8 +226,9 @@
       "level": "0",
       "settings": {
         "isCounter": true,
-        "counting": "down",
+        "counting": -1,
         "equipment": {
+          "attacks": false,
           "cyphers": false,
           "artifacts": false,
           "oddities": false,
@@ -258,6 +260,7 @@
           "initiativeBonus": 0
         },
         "equipment": {
+          "attacks": false,
           "cyphers": false,
           "artifacts": false,
           "oddities": false,
@@ -288,6 +291,7 @@
           "initiativeBonus": 0
         },
         "equipment": {
+          "attacks": false,
           "cyphers": false,
           "artifacts": false,
           "oddities": false,
@@ -311,6 +315,7 @@
       "weaponSystems": 1,
       "settings": {
         "equipment": {
+          "attacks": false,
           "cyphers": false,
           "artifacts": false,
           "oddities": false,

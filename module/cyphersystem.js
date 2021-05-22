@@ -139,7 +139,9 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/cyphers.html",
     "systems/cyphersystem/templates/materials.html",
     "systems/cyphersystem/templates/oddities.html",
-    "systems/cyphersystem/templates/teenArmor.html"
+    "systems/cyphersystem/templates/teenArmor.html",
+    "systems/cyphersystem/templates/teenAttacks.html",
+    "systems/cyphersystem/templates/attacks.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -169,7 +171,9 @@ Hooks.once("ready", async function() {
     if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
     if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
     if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
-    if (!a.data.data.settings.equipment.cyphers && a.type === "PC") a.update({"data.settings.equipment.cyphers": true});
+    if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
+    if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({"data.settings.counting": -1});
+    if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({"data.settings.counting": 1});
   }
 
   // Fix for case-sensitive OSs
@@ -398,15 +402,22 @@ Hooks.on("preCreateToken", function(_scene, data) {
 Hooks.on("updateCombat", function() {
   let combatant = game.combat.combatant;
 
-  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
+  // if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "down") {
+  //   let token = canvas.tokens.get(combatant.tokenId);
+  //   let newQuantity = token.actor.data.data.quantity.value - 1;
+  //   token.actor.update({"data.quantity.value": newQuantity});
+  // } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
+  //   let token = canvas.tokens.get(combatant.tokenId);
+  //   let newQuantity = token.actor.data.data.quantity.value + 1;
+  //   token.actor.update({"data.quantity.value": newQuantity});
+  // }
+
+  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true) {
     let token = canvas.tokens.get(combatant.tokenId);
-    let newQuantity = token.actor.data.data.quantity.value - 1;
-    token.actor.update({"data.quantity.value": newQuantity});
-  } else if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true && combatant.actor.data.data.settings.counting == "up") {
-    let token = canvas.tokens.get(combatant.tokenId);
-    let newQuantity = token.actor.data.data.quantity.value + 1;
+    let newQuantity = token.actor.data.data.quantity.value + token.actor.data.data.settings.counting;
     token.actor.update({"data.quantity.value": newQuantity});
   }
+
 });
 
 /* -------------------------------------------- */
