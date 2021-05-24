@@ -1,6 +1,6 @@
 {
 	"ACTOR.TypePC": "PC",
-	"ACTOR.TypeNPC": "NPC",
+	"ACTOR.TypeNPC": "NPC/Creature",
 	"ACTOR.TypeCompanion": "Companion",
 	"ACTOR.TypeCommunity": "Community",
 	"ACTOR.TypeVehicle": "Vehicle",
