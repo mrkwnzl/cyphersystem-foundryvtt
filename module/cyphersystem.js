@@ -97,11 +97,30 @@ Hooks.once("init", async function() {
     formula: "1d20 + @settings.initiative.initiativeBonus",
     decimals: 0
   };
-  Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
+
+  Combatant.prototype._getInitiativeFormula = function() {
+    let combatant = this.actor;
+    console.log(combatant);
+    if (combatant.data.type == "PC") {
+      return "1d20 + @settings.initiative.initiativeBonus";
+    } else if (combatant.data.type == "NPC" || combatant.data.type == "Companion") {
+      return String(combatant.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+    } else if (combatant.data.type == "Community" && combatant.hasPlayerOwner) {
+      return String(combatant.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
+    } else if (combatant.data.type == "Community" && !combatant.hasPlayerOwner) {
+      return String(combatant.data.data.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+    } else {
+      if (combatant.data.data.level >=1) {
+        return String(combatant.data.data.level * 3) + "- 0.5";
+      } else {
+        return String(combatant.data.data.level * 3)
+      }
+    }
+  }
 
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = CypherActor;
-  CONFIG.Item.entityClass = CypherItem;
+  CONFIG.Actor.documentClass = CypherActor;
+  CONFIG.Item.documentClass = CypherItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
@@ -147,8 +166,8 @@ async function preloadHandlebarsTemplates() {
 }
 
 Hooks.on("canvasReady", canvas => {
-  console.log(`The canvas was just rendered for scene: ${canvas.scene._id}`);
-  for (let t of canvas.tokens.objects.children) {
+  console.log(`The canvas was just rendered for scene: ${canvas.scene.id}`);
+  for (let t of game.scenes.viewed.tokens) {
     if (t.getFlag("cyphersystem", "toggleDragRuler")) {
       // do nothing
     } else {
@@ -166,7 +185,7 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
   // Update existing characters
-  for (let a of game.actors.entities) {
+  for (let a of game.actors.contents) {
     if (!a.data.data.settings.equipment.cyphersName) a.update({"data.settings.equipment.cyphersName": ""});
     if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
     if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
@@ -177,10 +196,10 @@ Hooks.once("ready", async function() {
   }
 
   // Fix for case-sensitive OSs
-  for (let a of game.actors.entities) {
+  for (let a of game.actors.contents) {
     for (let i of a.data.items) {
-      if (i.img == `systems/cyphersystem/icons/items/${i.type}.svg` || i.img == `icons/svg/mystery-man.svg`) i.img = `systems/cyphersystem/icons/items/${i.type.toLowerCase()}.svg`;
-      a.updateEmbeddedEntity('OwnedItem', i)
+      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/mystery-man.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
+      a.updateEmbeddedDocuments("Item", [i.toObject()])
     }
   }
 
@@ -194,29 +213,10 @@ function sendWelcomeMessage() {
   })
 }
 
-Hooks.on("preCreateItem", (itemData) => {
-  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
+Hooks.on("preCreateItem", (item) => {
+  console.log(item);
+  item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
 });
-
-Hooks.on("preCreateOwnedItem", (actor, itemData) => {
-  if (!itemData.img) itemData.img = `systems/cyphersystem/icons/items/${itemData.type.toLowerCase()}.svg`;
-});
-
-Hooks.on("updateOwnedItem", (actor, itemData) => {
-
-});
-
-const _getInitiativeFormula = function(combatant) {
-  if (combatant.actor.data.type == "PC") {
-    return "1d20 + @settings.initiative.initiativeBonus";
-  } else if (combatant.actor.data.type == "NPC" || combatant.actor.data.type == "Companion") {
-    return String(combatant.actor.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
-  } else if (combatant.actor.data.type == "Community") {
-    return String(combatant.actor.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
-  } else {
-    return String(combatant.actor.data.data.level * 3) + "- 0.5";
-  }
-}
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
@@ -260,7 +260,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.data.flags.cyphersystem.toggleDragRuler) {
+      if (token.actor.data.flags.cyphersystem.toggleDragRuler) {
         return true
       } else {
         return false
@@ -274,43 +274,39 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 /**
 * Set default values for new actors' tokens
 */
-Hooks.on("preCreateActor", (actorData) => {
+Hooks.on("preCreateActor", (actor) => {
   // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
   // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
-  if (actorData.type == "NPC")
-  mergeObject(actorData, {
-    "token.bar1": {"attribute": "health"},
-    "token.bar2": {"attribute": "level"},
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-    "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-  })
+  if (actor.data.type == "NPC") {
+    actor.data.update({"token.bar1": {"attribute": "health"}});
+    actor.data.update({"token.bar2": {"attribute": "level"}});
+    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER});
+    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER});
+    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL})
+  }
 
-  if (actorData.type == "Companion")
-  mergeObject(actorData, {
-    "token.bar1": {"attribute": "health"},
-    "token.bar2": {"attribute": "level"},
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-    "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-    "token.actorLink": true
-  })
+  if (actor.data.type == "Companion") {
+    actor.data.update({"token.bar1": {"attribute": "health"}});
+    actor.data.update({"token.bar2": {"attribute": "level"}});
+    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER});
+    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER});
+    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY})
+  }
 
-  if (actorData.type == "PC" || actorData.type == "Community")
-  mergeObject(actorData, {
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-    "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-    "token.actorLink": true
-  })
+  if (actor.data.type == "PC" || actor.data.type == "Community") {
+    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER});
+    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY});
+    actor.data.update({"token.actorLink": true});
+  }
 
-  if (actorData.type == "Token")
-  mergeObject(actorData, {
-    "token.bar1": {"attribute": "quantity"},
-    "token.bar2": {"attribute": "level"},
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-    "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-  })
+  if (actor.data.type == "Token") {
+    actor.data.update({"token.bar1": {"attribute": "quantity"}});
+    actor.data.update({"token.bar2": {"attribute": "level"}});
+    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER});
+    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS});
+    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL})
+  }
 })
 
 Hooks.on("preCreateToken", function(_scene, data) {
@@ -319,14 +315,15 @@ Hooks.on("preCreateToken", function(_scene, data) {
 
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
+    // setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
+    actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
   } else {
-    setProperty(data, "flags.cyphersystem.toggleDragRuler", false)
+    actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
   }
 
   // Support for Bar Brawl
   if (actor.data.type === "PC") {
-    setProperty(data, "flags.barbrawl.resourceBars", {
+    actor.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -351,9 +348,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "pools.might",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    })
+    }})
   } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-    setProperty(data, "flags.barbrawl.resourceBars", {
+    actor.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -370,9 +367,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "health",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    })
+    }})
   } else if (actor.data.type === "Community") {
-    setProperty(data, "flags.barbrawl.resourceBars", {
+    actor.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -397,9 +394,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "health",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    })
+    }})
   } else if (actor.data.type === "Token") {
-    setProperty(data, "flags.barbrawl.resourceBars", {
+    actor.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -416,16 +413,16 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "quantity",
         visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
       }
-    })
+    }})
   }
 });
 
 Hooks.on("updateCombat", function() {
-  let combatant = game.combat.combatant;
+  let combatant = game.combat.combatant.actor;
 
-  if (combatant.actor.data.type == "Token" && combatant.actor.data.data.settings.isCounter == true) {
-    let newQuantity = combatant.actor.data.data.quantity.value + combatant.actor.data.data.settings.counting;
-    combatant.actor.update({"data.quantity.value": newQuantity});
+  if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
+    let newQuantity = combatant.data.data.quantity.value + combatant.data.data.settings.counting;
+    combatant.update({"data.quantity.value": newQuantity});
   }
 
 });

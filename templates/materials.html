@@ -8,7 +8,7 @@
         <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="material"><i class="fas fa-plus"></i></a>
       </div>
     </li>
-    {{#each actor.materials as |item id|}}
+    {{#each actor.data.materials as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
       <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
       <div class="item-quantity">{{#if (eq data.level "")}}—{{else}}{{data.level}}{{/if}}</div>

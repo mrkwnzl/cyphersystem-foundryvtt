@@ -198,7 +198,7 @@
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      {{editor content=data.basic.notes target="data.basic.notes" button=true owner=owner editable=editable}}
+      {{editor content=data.basic.notes target="data.basic.notes" button=true owner=owner editable=true}}
     </div>
 
     {{!-- Owned Skills Tab --}}
@@ -243,7 +243,7 @@
               <a class="item-control item-create" title="Create item" data-type="power Shift"><i class="fas fa-plus"></i></a>
             </div>
           </li>
-          {{#each actor.powerShifts as |item id|}}
+          {{#each actor.data.powerShifts as |item id|}}
           <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
             <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
             <div class="item-quantity">{{data.powerShiftValue}}</div>
@@ -349,7 +349,7 @@
               </div>
             </li>
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-            {{#each actor.teenLastingDamage as |item id|}}
+            {{#each actor.data.teenLastingDamage as |item id|}}
             <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
               <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
@@ -365,7 +365,7 @@
             {{/if}}
             {{/each}}
             {{else}}
-            {{#each actor.lastingDamage as |item id|}}
+            {{#each actor.data.lastingDamage as |item id|}}
             <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
               <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
               <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>

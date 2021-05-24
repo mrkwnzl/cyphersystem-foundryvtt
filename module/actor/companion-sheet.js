@@ -8,7 +8,7 @@ export class CypherActorSheetCompanion extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "companion"],
       template: "systems/cyphersystem/templates/companion-sheet.html",
       width: 650,

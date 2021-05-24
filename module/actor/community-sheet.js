@@ -8,7 +8,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "community"],
       template: "systems/cyphersystem/templates/community-sheet.html",
       width: 650,
