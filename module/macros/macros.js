@@ -62,12 +62,12 @@ export function hinderedRollMacro() {
   d.render(true);
 }
 
-export function diceRollMacro(dice) {
+export async function diceRollMacro(dice) {
   // Check whether the dice formula is "1dX" or "dX" to assure that both ways work
   if (dice.charAt(0) == "d") dice = "1" + dice;
 
   // Roll dice
-  let roll = new Roll(dice).roll();
+  const roll = await new Roll(dice).evaluate({async: false});
 
   // Send chat message
   roll.toMessage({
@@ -323,12 +323,12 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
 /*  Utility Macros                              */
 /* -------------------------------------------- */
 
-export function recoveryRollMacro(actor) {
+export async function recoveryRollMacro(actor) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Roll recovery roll
-  let roll = new Roll(actor.data.data.recoveries.recoveryRoll).roll();
+  let roll = await new Roll(actor.data.data.recoveries.recoveryRoll).evaluate({async: true});
 
   // Send chat message
   roll.toMessage({
