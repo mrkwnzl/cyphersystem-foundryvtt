@@ -6,7 +6,7 @@ export class CypherItemSheet extends ItemSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
       template: "systems/cyphersystem/templates/item-sheet.html",
       width: 550,
@@ -27,7 +27,9 @@ export class CypherItemSheet extends ItemSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
+    const superData = super.getData();
+    const data = superData.data;
+    data.item = superData.item;
     data.dtypes = ["String", "Number", "Boolean"];
 
     return data;

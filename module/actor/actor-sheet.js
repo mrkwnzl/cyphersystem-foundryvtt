@@ -7,7 +7,14 @@ export class CypherActorSheet extends ActorSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
+    const superData = super.getData();
+    const data = superData.data;
+    data.actor = superData.actor;
+    data.items = superData.items;
+    data.owner = superData.owner;
+    data.options = superData.options;
+    data.effects = superData.effects;
+
     data.dtypes = ["String", "Number", "Boolean"];
 
     // Prepare items.
@@ -23,8 +30,8 @@ export class CypherActorSheet extends ActorSheet {
   *
   * @return {undefined}
   */
-  cyphersystem(sheetData) {
-    const actorData = sheetData.actor;
+  cyphersystem(data) {
+    const actorData = data.actor.data;
 
     // Initialize containers
     const equipment = [];
@@ -48,7 +55,7 @@ export class CypherActorSheet extends ActorSheet {
     const ammo = [];
 
     // Iterate through items, allocating to containers
-    for (let i of sheetData.items) {
+    for (let i of data.items) {
       // let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
 
@@ -259,24 +266,24 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-create').click(clickEvent => {
       const itemCreatedPromise = this._onItemCreate(clickEvent);
       itemCreatedPromise.then(itemData => {
-        this.actor.getOwnedItem(itemData._id).sheet.render(true);
+        this.actor.items.get(itemData.id).sheet.render(true);
       });
     });
 
     // Update Inventory Item
     html.find('.item-edit').click(clickEvent => {
       const editedItem = $(clickEvent.currentTarget).parents(".item");
-      this.actor.getOwnedItem(editedItem.data("itemId")).sheet.render(true);
+      this.actor.items.get(editedItem.data("itemId")).sheet.render(true);
     });
 
     // Delete Inventory Item
     html.find('.item-delete').click(clickEvent => {
       const deletedItem = $(clickEvent.currentTarget).parents(".item");
       if (event.ctrlKey || event.metaKey) {
-        this.actor.deleteOwnedItem(deletedItem.data("itemId"));
+        this.actor.deleteEmbeddedDocuments("Item", [deletedItem.data("itemId")]);
         deletedItem.slideUp(200, () => this.render(false));
       } else {
-        const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", deletedItem.data("itemId")));
+        const item = duplicate(this.actor.getEmbeddedDocument("Item", deletedItem.data("itemId")));
 
         if (item.data.archived === true) {
           item.data.archived = false;
@@ -284,26 +291,26 @@ export class CypherActorSheet extends ActorSheet {
         else {
           item.data.archived = true;
         }
-        this.actor.updateEmbeddedEntity('OwnedItem', item);
+        this.actor.updateEmbeddedDocuments("Item", [item]);
       }
     });
 
     // Add to Quantity
     html.find('.plus-one').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
       item.data.quantity = item.data.quantity + amount;
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
+      this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     // Subtract from Quantity
     html.find('.minus-one').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
       item.data.quantity = item.data.quantity - amount;
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
+      this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     /**
@@ -312,7 +319,7 @@ export class CypherActorSheet extends ActorSheet {
     // Show item description or send to chat
     html.find('.item-description').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       if (event.ctrlKey || event.metaKey) {
         let message = "";
         let brackets = "";
@@ -355,12 +362,12 @@ export class CypherActorSheet extends ActorSheet {
         else {
           item.data.showDescription = true;
         }
-        this.actor.updateEmbeddedEntity('OwnedItem', item);
+        this.actor.updateEmbeddedDocuments("Item", [item]);
       }
     });
 
     // Drag events for macros
-    if (this.actor.owner) {
+    if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('li.item').each((i, li) => {
@@ -417,7 +424,7 @@ export class CypherActorSheet extends ActorSheet {
 
     // Handle item sorting within the same Actor
     const actor = this.actor;
-    let sameActor = (data.actorId === actor._id) || (actor.isToken && (data.tokenId === actor.token.id));
+    let sameActor = (data.actorId === actor.data._id) || (actor.isToken && (data.tokenId === actor.token.id));
     if (sameActor) return this._onSortItem(event, itemData);
 
     // Get origin actor. If any, get originItem
@@ -559,7 +566,7 @@ export class CypherActorSheet extends ActorSheet {
           }
           if (!itemOwned) {
             itemData.data.quantity = quantity;
-            actor.createOwnedItem(itemData);
+            actor.createEmbeddedDocuments("Item", [itemData]);
           } else {
             let newQuantity = parseInt(itemOwned.data.data.quantity) + parseInt(quantity);
             itemOwned.update({"data.quantity": newQuantity});
@@ -613,16 +620,8 @@ export class CypherActorSheet extends ActorSheet {
       "default": "[" + game.i18n.localize("CYPHERSYSTEM.NewDefault") + "]"
     };
     const name = (types[type] || types["default"]);
-    // Prepare the item object.
-    const itemData = {
-      name: name,
-      type: type,
-      data: data
-    };
-    // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.data["type"];
 
     // Finally, create the item!
-    return this.actor.createOwnedItem(itemData);
+    return Item.create({type: type, data, name: name}, {parent: this.actor});
   }
 }

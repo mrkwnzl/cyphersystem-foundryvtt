@@ -2,9 +2,9 @@
 /*  Macro helper                                */
 /* -------------------------------------------- */
 
-export function diceRoller(title, info, modifier) {
+export async function diceRoller(title, info, modifier) {
   // Roll dice
-  let roll = new Roll("1d20").roll();
+  let roll = await new Roll("1d20").evaluate({async: true});
   let difficulty = Math.floor(roll.result / 3);
 
   // Determine result

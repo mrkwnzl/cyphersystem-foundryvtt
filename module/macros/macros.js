@@ -62,12 +62,12 @@ export function hinderedRollMacro() {
   d.render(true);
 }
 
-export function diceRollMacro(dice) {
+export async function diceRollMacro(dice) {
   // Check whether the dice formula is "1dX" or "dX" to assure that both ways work
   if (dice.charAt(0) == "d") dice = "1" + dice;
 
   // Roll dice
-  let roll = new Roll(dice).roll();
+  const roll = await new Roll(dice).evaluate({async: false});
 
   // Send chat message
   roll.toMessage({
@@ -323,12 +323,12 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
 /*  Utility Macros                              */
 /* -------------------------------------------- */
 
-export function recoveryRollMacro(actor) {
+export async function recoveryRollMacro(actor) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Roll recovery roll
-  let roll = new Roll(actor.data.data.recoveries.recoveryRoll).roll();
+  let roll = await new Roll(actor.data.data.recoveries.recoveryRoll).evaluate({async: true});
 
   // Send chat message
   roll.toMessage({
@@ -387,21 +387,22 @@ export function toggleDragRuler(token) {
   }
 
   if (!token.data.flags.cyphersystem.toggleDragRuler) {
-    token.setFlag("cyphersystem", "toggleDragRuler", true);
+    token.actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
     ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
   } else if (token.data.flags.cyphersystem.toggleDragRuler) {
-    token.setFlag("cyphersystem", "toggleDragRuler", false);
+    token.actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
     ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
   }
 }
 
 export function resetDragRulerDefaults() {
   if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
-  for (let t of canvas.tokens.objects.children) {
-    if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
-      t.setFlag("cyphersystem", "toggleDragRuler", true);
+  for (let token of canvas.tokens.objects.children) {
+    console.log(t);
+    if (token.actor.data.type !== "Token" && token.actor.data.type !== "Vehicle") {
+      t.actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
     } else {
-      t.setFlag("cyphersystem", "toggleDragRuler", false);
+      token.actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
     }
   }
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
@@ -409,9 +410,9 @@ export function resetDragRulerDefaults() {
 
 export function resetBarBrawlDefaults() {
   if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
-  for (let t of canvas.tokens.objects.children) {
-    if (t.actor.data.type === "PC") {
-      t.setFlag("barbrawl", "resourceBars", {
+  for (let token of canvas.tokens.objects.children) {
+    if (token.actor.data.type === "PC") {
+      token.actor.data.update({"flags.barbrawl.resourceBars": {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -436,9 +437,9 @@ export function resetBarBrawlDefaults() {
           attribute: "pools.might",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      })
-    } else if (t.actor.data.type === "NPC" || t.actor.data.type === "Companion") {
-      t.setFlag("barbrawl", "resourceBars", {
+      }})
+    } else if (token.actor.data.type === "NPC" || token.actor.data.type === "Companion") {
+      token.actor.data.update({"flags.barbrawl.resourceBars": {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -455,9 +456,9 @@ export function resetBarBrawlDefaults() {
           attribute: "health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      })
-    } else if (t.actor.data.type === "Community") {
-      t.setFlag("barbrawl", "resourceBars", {
+      }})
+    } else if (token.actor.data.type === "Community") {
+      token.actor.data.update({"flags.barbrawl.resourceBars": {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -482,9 +483,9 @@ export function resetBarBrawlDefaults() {
           attribute: "health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      })
-    } else if (t.actor.data.type === "Token") {
-      t.setFlag("barbrawl", "resourceBars", {
+      }})
+    } else if (token.actor.data.type === "Token") {
+      token.actor.data.update({"flags.barbrawl.resourceBars": {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -501,7 +502,7 @@ export function resetBarBrawlDefaults() {
           attribute: "quantity",
           visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
         }
-      })
+      }})
     }
   }
 }

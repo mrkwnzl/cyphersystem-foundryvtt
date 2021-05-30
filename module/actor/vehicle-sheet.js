@@ -8,7 +8,7 @@ export class CypherActorSheetVehicle extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "vehicle"],
       template: "systems/cyphersystem/templates/vehicle-sheet.html",
       width: 650,

@@ -1,4 +1,4 @@
-{{#each actor.skillsSortedByRating as |item id|}}
+{{#each actor.data.skillsSortedByRating as |item id|}}
 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
     <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
 	<div class="item-quantity" style="color: {{#if data.archived}}grey{{else}}{{#if (eq data.skillLevel 'Inability')}}red{{/if}}{{#if (eq data.skillLevel 'Trained')}}green{{/if}}{{#if (eq data.skillLevel 'Specialized')}}blue{{/if}}{{/if}}">

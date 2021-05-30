@@ -8,7 +8,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
       template: "systems/cyphersystem/templates/pc-sheet.html",
       width: 650,
@@ -23,22 +23,22 @@ export class CypherActorSheetPC extends CypherActorSheet {
   * Additional data preparations
   */
   getData() {
-    const sheetData = super.getData();
+    const data = super.getData();
+    const actorData = data.actor.data;
 
-    for (let i of sheetData.actor.items) {
+    for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {
-        const item = i;
 
         let skillRating = 0;
-        let modifiedBy = item.data.modifiedBy;
+        let modifiedBy = i.data.modifiedBy;
         let totalModifier = 0;
         let totalModified = "";
 
-        if (item.data.skillRating == "Inability") skillRating = -1;
-        if (item.data.skillRating == "Trained") skillRating = 1;
-        if (item.data.skillRating == "Specialized") skillRating = 2;
+        if (i.data.skillRating == "Inability") skillRating = -1;
+        if (i.data.skillRating == "Trained") skillRating = 1;
+        if (i.data.skillRating == "Specialized") skillRating = 2;
 
-        if (item.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+        if (i.data.modified == "hindered") modifiedBy = modifiedBy * -1;
 
         totalModifier = skillRating + modifiedBy;
 
@@ -48,8 +48,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
         if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
 
         // Assign and return
-        item.data.totalModified = totalModified;
-        this.actor.updateEmbeddedEntity('OwnedItem', item);
+        i.data.totalModified = totalModified;
+        this.actor.updateEmbeddedDocuments("Item", [i]);
       }
     }
 
@@ -59,14 +59,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     let teenArmorTotal = 0;
     let teenSpeedCostTotal = 0;
 
-    for (let piece of sheetData.actor.armor) {
+    for (let piece of actorData.armor) {
       if (piece.data.armorActive === true && piece.data.archived === false) {
         armorTotal = armorTotal + piece.data.armorValue;
         speedCostTotal = speedCostTotal + piece.data.speedCost;
       }
     }
 
-    for (let piece of sheetData.actor.teenArmor) {
+    for (let piece of actorData.teenArmor) {
       if (piece.data.armorActive === true && piece.data.archived === false) {
         teenArmorTotal = teenArmorTotal + piece.data.armorValue;
         teenSpeedCostTotal = teenSpeedCostTotal + piece.data.speedCost;
@@ -78,7 +78,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     this.actor.update({"data.teen.armor.armorValueTotal": teenArmorTotal});
     this.actor.update({"data.teen.armor.speedCostTotal": teenSpeedCostTotal});
 
-    return sheetData;
+    return data;
   }
 
   /**
@@ -92,34 +92,33 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Add to Lasting Damage
     html.find('.plus-one-damage').click(clickEvent => {
-      const shownItem = itemForClickEvent(clickEvent);
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
       item.data.lastingDamageAmount = item.data.lastingDamageAmount + amount;
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
+      this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     // Subtract from Lasting Damage
     html.find('.minus-one-damage').click(clickEvent => {
-      const shownItem = itemForClickEvent(clickEvent);
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
       item.data.lastingDamageAmount = item.data.lastingDamageAmount - amount;
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
+      this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     // Change Armor Active
     html.find('.armor-active').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", shownItem.data("itemId")));
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       if (item.data.armorActive === true) {
         item.data.armorActive = false;
       }
       else {
         item.data.armorActive = true;
       }
-      this.actor.updateEmbeddedEntity('OwnedItem', item);
-      this.actor.sheet.render(true);
+      this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     /**
