@@ -165,7 +165,7 @@ async function preloadHandlebarsTemplates() {
   return loadTemplates(templatePaths);
 }
 
-Hooks.on("canvasReady", canvas => {
+Hooks.on("canvasReady", function(canvas) {
   console.log(`The canvas was just rendered for scene: ${canvas.scene.id}`);
   for (let t of game.scenes.viewed.tokens) {
     if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
@@ -213,7 +213,7 @@ function sendWelcomeMessage() {
   })
 }
 
-Hooks.on("preCreateItem", (item) => {
+Hooks.on("preCreateItem", function(item) {
   console.log(item);
   item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
 });
@@ -274,7 +274,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 /**
 * Set default values for new actors' tokens
 */
-Hooks.on("preCreateActor", (actor) => {
+Hooks.on("preCreateActor", function(actor) {
   // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
   // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
