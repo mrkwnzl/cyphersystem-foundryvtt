@@ -386,11 +386,11 @@ export function toggleDragRuler(token) {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"))
   }
 
-  if (!token.data.flags.cyphersystem.toggleDragRuler) {
-    token.actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
+  if (!token.document.data.flags.cyphersystem.toggleDragRuler) {
+    token.document.setFlag("cyphersystem", "toggleDragRuler", true);
     ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
-  } else if (token.data.flags.cyphersystem.toggleDragRuler) {
-    token.actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
+  } else if (token.document.data.flags.cyphersystem.toggleDragRuler) {
+    token.document.setFlag("cyphersystem", "toggleDragRuler", false);
     ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
   }
 }
@@ -398,11 +398,10 @@ export function toggleDragRuler(token) {
 export function resetDragRulerDefaults() {
   if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
   for (let token of canvas.tokens.objects.children) {
-    console.log(t);
     if (token.actor.data.type !== "Token" && token.actor.data.type !== "Vehicle") {
-      t.actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
+      token.document.setFlag("cyphersystem", "toggleDragRuler", true);
     } else {
-      token.actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
+      token.document.setFlag("cyphersystem", "toggleDragRuler", false);
     }
   }
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
@@ -412,7 +411,7 @@ export function resetBarBrawlDefaults() {
   if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
   for (let token of canvas.tokens.objects.children) {
     if (token.actor.data.type === "PC") {
-      token.actor.data.update({"flags.barbrawl.resourceBars": {
+      token.document.setFlag("barbrawl", "resourceBars", {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -437,9 +436,9 @@ export function resetBarBrawlDefaults() {
           attribute: "pools.might",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      }})
+      })
     } else if (token.actor.data.type === "NPC" || token.actor.data.type === "Companion") {
-      token.actor.data.update({"flags.barbrawl.resourceBars": {
+      token.document.setFlag("barbrawl", "resourceBars", {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -456,9 +455,9 @@ export function resetBarBrawlDefaults() {
           attribute: "health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      }})
+      })
     } else if (token.actor.data.type === "Community") {
-      token.actor.data.update({"flags.barbrawl.resourceBars": {
+      token.document.setFlag("barbrawl", "resourceBars", {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -483,9 +482,9 @@ export function resetBarBrawlDefaults() {
           attribute: "health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
         }
-      }})
+      })
     } else if (token.actor.data.type === "Token") {
-      token.actor.data.update({"flags.barbrawl.resourceBars": {
+      token.document.setFlag("barbrawl", "resourceBars", {
         "bar1": {
           id: "bar1",
           mincolor: "#0000FF",
@@ -502,7 +501,7 @@ export function resetBarBrawlDefaults() {
           attribute: "quantity",
           visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
         }
-      }})
+      })
     }
   }
 }

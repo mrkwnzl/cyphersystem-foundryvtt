@@ -165,10 +165,10 @@ async function preloadHandlebarsTemplates() {
   return loadTemplates(templatePaths);
 }
 
-Hooks.on("canvasReady", canvas => {
+Hooks.on("canvasReady", function(canvas) {
   console.log(`The canvas was just rendered for scene: ${canvas.scene.id}`);
   for (let t of game.scenes.viewed.tokens) {
-    if (t.getFlag("cyphersystem", "toggleDragRuler")) {
+    if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
       // do nothing
     } else {
       if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
@@ -213,7 +213,7 @@ function sendWelcomeMessage() {
   })
 }
 
-Hooks.on("preCreateItem", (item) => {
+Hooks.on("preCreateItem", function(item) {
   console.log(item);
   item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
 });
@@ -260,7 +260,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.actor.data.flags.cyphersystem.toggleDragRuler) {
+      if (token.data.flags.cyphersystem.toggleDragRuler) {
         return true
       } else {
         return false
@@ -274,7 +274,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 /**
 * Set default values for new actors' tokens
 */
-Hooks.on("preCreateActor", (actor) => {
+Hooks.on("preCreateActor", function(actor) {
   // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
   // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
@@ -309,21 +309,20 @@ Hooks.on("preCreateActor", (actor) => {
   }
 })
 
-Hooks.on("preCreateToken", function(_scene, data) {
+Hooks.on("preCreateToken", function(doc, data, options, userId) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    // setProperty(data, "flags.cyphersystem.toggleDragRuler", true)
-    actor.data.update({"flags.cyphersystem.toggleDragRuler": true})
+    doc.data.update({"flags.cyphersystem.toggleDragRuler": true})
   } else {
-    actor.data.update({"flags.cyphersystem.toggleDragRuler": false})
+    doc.data.update({"flags.cyphersystem.toggleDragRuler": false})
   }
 
   // Support for Bar Brawl
   if (actor.data.type === "PC") {
-    actor.data.update({"flags.barbrawl.resourceBars": {
+    doc.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -348,9 +347,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "pools.might",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    }})
+    }});
   } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-    actor.data.update({"flags.barbrawl.resourceBars": {
+    doc.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -367,9 +366,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "health",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    }})
+    }});
   } else if (actor.data.type === "Community") {
-    actor.data.update({"flags.barbrawl.resourceBars": {
+    doc.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -394,9 +393,9 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "health",
         visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
       }
-    }})
+    }});
   } else if (actor.data.type === "Token") {
-    actor.data.update({"flags.barbrawl.resourceBars": {
+    doc.data.update({"flags.barbrawl.resourceBars": {
       "bar1": {
         id: "bar1",
         mincolor: "#0000FF",
@@ -413,7 +412,7 @@ Hooks.on("preCreateToken", function(_scene, data) {
         attribute: "quantity",
         visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
       }
-    }})
+    }});
   }
 });
 
