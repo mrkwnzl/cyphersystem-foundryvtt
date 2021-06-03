@@ -15,16 +15,24 @@
     </li>
     {{#each actor.data.cyphers as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
-      <div class="item-quantity">{{data.level}}</div>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{/if}}</a></h4>
+      <div class="item-quantity">{{#if data.identified}}{{data.level}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
       <div class="item-controls">
+        {{#if ../data.isGM}}
         <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+        {{else}}
+        {{#if data.identified}}
+        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+        {{else}}
+        <a class="item-control identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}"><i class="far fa-eye-slash"></i></a>
+        {{/if}}
+        {{/if}}
         <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>
     {{#if data.showDescription}}
     <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-      <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{{data.description}}}</div>
+      <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{#if data.identified}}{{{data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}</div>
     </li>
     {{/if}}
     {{/each}}

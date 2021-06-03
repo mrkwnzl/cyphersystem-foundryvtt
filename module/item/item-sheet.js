@@ -30,6 +30,7 @@ export class CypherItemSheet extends ItemSheet {
     const superData = super.getData();
     const data = superData.data;
     data.item = superData.item;
+    data.data.isGM = game.user.isGM;
     data.dtypes = ["String", "Number", "Boolean"];
 
     return data;
@@ -41,5 +42,13 @@ export class CypherItemSheet extends ItemSheet {
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
+
+    html.find('.identify-item').click(clickEvent => {
+      if (this.item.data.data.identified) {
+        this.item.update({"data.identified": false})
+      } else {
+        this.item.update({"data.identified": true})
+      }
+    });
   }
 }

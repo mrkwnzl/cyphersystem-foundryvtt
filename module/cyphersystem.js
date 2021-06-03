@@ -218,6 +218,22 @@ Hooks.on("preCreateItem", function(item) {
   item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
 });
 
+Hooks.on("renderChatMessage", function(message, html, data) {
+  html.find('.confirm').click(clickEvent => {
+    var dataItem = html.find('.confirm').data('item');
+    var dataActor = html.find('.confirm').data('actor');
+    identifyItem(dataItem, dataActor);
+  });
+});
+
+function identifyItem(dataItem, dataActor) {
+  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
+  let owner = game.actors.get(dataActor);
+  let ownedItem = owner.items.get(dataItem);
+  ownedItem.update({"data.identified": true});
+  ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
+}
+
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
     get colors() {

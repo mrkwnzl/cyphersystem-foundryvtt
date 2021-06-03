@@ -314,6 +314,17 @@
 	"CYPHERSYSTEM.Silver": "Silver",
 	"CYPHERSYSTEM.Copper": "Copper",
 
+	"CYPHERSYSTEM.UnidentifiedCypher": "Unidentified cypher",
+	"CYPHERSYSTEM.UnidentifiedArtifact": "Unidentified artifact",
+	"CYPHERSYSTEM.MarkIdentified": "Mark identified",
+	"CYPHERSYSTEM.MarkUnidentified": "Mark unidentified",
+	"CYPHERSYSTEM.???": "???",
+	"CYPHERSYSTEM.?": "?",
+	"CYPHERSYSTEM.PCAskingForIdentification": "{actor} wants to identify an unidentified item.",
+	"CYPHERSYSTEM.ConfirmIdentification": "{item} has been identified by {actor}.",
+	"CYPHERSYSTEM.OnlyGMCanIdentify": "Only the GM can confirm the identification.",
+	"CYPHERSYSTEM.WarnSentUnidentifiedToChat": "Descriptions of unidentified items cannot be sent to the chat.",
+
 	"CYPHERSYSTEM.AlreadyHasThisItem": "{actor} already has this item.",
 	"CYPHERSYSTEM.CannotMoveNotOwnedItem": "You can’t move items you don’t have.",
 	"CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems": "You can only move between 1 and {max} Items.",

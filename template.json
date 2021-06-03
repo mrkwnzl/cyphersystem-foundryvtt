@@ -2,156 +2,143 @@
   "Actor": {
     "types": ["PC", "NPC", "Companion", "Community", "Vehicle", "Token"],
     "templates": {
-      "core": {
-        "basic": {
-          "descriptor": "",
-          "type": "",
-          "focus": "",
-          "additionalSentence": "",
-          "tier": 1,
-          "effort": 1,
-          "cypherLimit": 2,
-          "xp": 0,
-          "notes": ""
-        },
-        "pools": {
-          "might": {
-            "value": 10,
-            "max": 10
-          },
-          "speed": {
-            "value": 10,
-            "max": 10
-          },
-          "intellect": {
-            "value": 10,
-            "max": 10
-          },
-          "additional": {
-            "value": 3,
-            "max": 3
-          },
-          "speedEdge": 0,
-          "mightEdge": 0,
-          "intellectEdge": 0
-        },
-        "advancement": {
-          "advStats": false,
-          "advEffort": false,
-          "advEdge": false,
-          "advSkill": false,
-          "advOther": false
-        },
-        "recoveries": {
-          "recoveryRoll": "1d6+1",
-          "oneAction": false,
-          "oneActionTwo": false,
-          "oneActionThree": false,
-          "oneActionFour": false,
-          "oneActionFive": false,
-          "tenMinutes": false,
-          "oneHour": false,
-          "tenHours": false
-        },
-        "damage": {
-          "damageTrack": "Hale",
-          "hale": "Hale",
-          "impaired": "Impaired",
-          "debilitated": "Debilitated",
-          "dead": "Dead",
-          "haleEffect": "No effect.",
-          "impairedEffect": "",
-          "debilitatedEffect": "",
-          "deadEffect": ""
-        },
-        "armor": {
-          "speedCostTotal": 0,
-          "armorValueTotal": 0
-        },
-        "additionalPool": {
-          "additionalPoolName": "",
-          "active": false,
-          "additionalTeenPoolName": "",
-          "teenActive": false
-        },
-        "settings": {
-          "hideArchived": false,
-          "powerShifts":{
-            "active": false,
-            "powerShiftsName": ""
-          },
-          "additionalRecoveries":{
-            "active": false,
-            "howManyRecoveries": 1,
-            "additionalZero":0,
-            "additionalOne": 1,
-            "additionalTwo": 2,
-            "additionalThree": 3,
-            "additionalFour": 4
-          },
-          "lastingDamage": {
-            "active": false
-          },
-          "ammo": false,
-          "initiative": {
-            "initiativeBonus": 0,
-            "active": true
-          },
-          "currency": {
-            "active": false,
-            "namesHidden": false,
-            "howMany": 1,
-            "name": "",
-            "name2": "",
-            "name3": "",
-            "name4": "",
-            "name5": "",
-            "name6": "",
-            "quantity": 0,
-            "quantity2": 0,
-            "quantity3": 0,
-            "quantity4": 0,
-            "quantity5": 0,
-            "quantity6": 0
-          },
-          "equipment": {
-            "cyphers": false,
-            "artifacts": false,
-            "oddities": false,
-            "materials": false,
-            "materialName": "",
-            "cyphersName": "",
-            "artifactsName": "",
-            "odditiesName": ""
-          },
-          "additionalSentence": {
-            "active": false,
-            "name": ""
-          },
-          "gameMode": {
-            "active": true,
-            "current": "Cypher System",
-            "cypher": "Cypher System",
-            "unmasked": "Unmasked",
-            "currentSheet": "Mask",
-            "maskForm": "Mask",
-            "teenForm": "Teen"
-          },
-          "skills": {
-            "sortByRating": false
-          }
-        }
+      "version": {
+        "version": 1
       }
     },
     "PC": {
-      "templates": ["core"],
+      "templates": ["version"],
       "biography": "",
+      "basic": {
+        "descriptor": "",
+        "type": "",
+        "focus": "",
+        "additionalSentence": "",
+        "tier": 1,
+        "effort": 1,
+        "cypherLimit": 2,
+        "xp": 0,
+        "notes": ""
+      },
+      "pools": {
+        "might": {
+          "value": 10,
+          "max": 10
+        },
+        "speed": {
+          "value": 10,
+          "max": 10
+        },
+        "intellect": {
+          "value": 10,
+          "max": 10
+        },
+        "additional": {
+          "value": 3,
+          "max": 3
+        },
+        "speedEdge": 0,
+        "mightEdge": 0,
+        "intellectEdge": 0
+      },
+      "advancement": {
+        "advStats": false,
+        "advEffort": false,
+        "advEdge": false,
+        "advSkill": false,
+        "advOther": false
+      },
+      "recoveries": {
+        "recoveryRoll": "1d6+1",
+        "oneAction": false,
+        "oneActionTwo": false,
+        "oneActionThree": false,
+        "oneActionFour": false,
+        "oneActionFive": false,
+        "tenMinutes": false,
+        "oneHour": false,
+        "tenHours": false
+      },
+      "damage": {
+        "damageTrack": "Hale"
+      },
+      "armor": {
+        "speedCostTotal": 0,
+        "armorValueTotal": 0
+      },
+      "additionalPool": {
+        "additionalPoolName": "",
+        "active": false,
+        "additionalTeenPoolName": "",
+        "teenActive": false
+      },
+      "settings": {
+        "hideArchived": false,
+        "powerShifts":{
+          "active": false,
+          "powerShiftsName": ""
+        },
+        "additionalRecoveries":{
+          "active": false,
+          "howManyRecoveries": 1
+        },
+        "lastingDamage": {
+          "active": false
+        },
+        "ammo": false,
+        "initiative": {
+          "initiativeBonus": 0,
+          "active": true
+        },
+        "currency": {
+          "active": false,
+          "namesHidden": false,
+          "howMany": 1,
+          "name": "",
+          "name2": "",
+          "name3": "",
+          "name4": "",
+          "name5": "",
+          "name6": "",
+          "quantity": 0,
+          "quantity2": 0,
+          "quantity3": 0,
+          "quantity4": 0,
+          "quantity5": 0,
+          "quantity6": 0
+        },
+        "equipment": {
+          "cyphers": false,
+          "artifacts": false,
+          "oddities": false,
+          "materials": false,
+          "materialName": "",
+          "cyphersName": "",
+          "artifactsName": "",
+          "odditiesName": ""
+        },
+        "additionalSentence": {
+          "active": false,
+          "name": ""
+        },
+        "gameMode": {
+          "active": true,
+          "current": "Cypher System",
+          "cypher": "Cypher System",
+          "unmasked": "Unmasked",
+          "currentSheet": "Mask",
+          "maskForm": "Mask",
+          "teenForm": "Teen"
+        },
+        "skills": {
+          "sortByRating": false
+        }
+      },
       "teen": {
         "basic": {
           "name": "",
           "descriptor": "",
-          "notes": "",
-          "image": "icons/actors/pc.svg"
+          "notes": ""
         },
         "pools": {
           "might": {
@@ -175,13 +162,7 @@
           "intellectEdge": 0
         },
         "damage": {
-          "damageTrack": "Hale",
-          "hale": "Hale",
-          "impaired": "Impaired",
-          "debilitated": "Debilitated",
-          "haleEffect": "No effect.",
-          "impairedEffect": "",
-          "debilitatedEffect": ""
+          "damageTrack": "Hale"
         },
         "armor": {
           "speedCostTotal": 0,
@@ -190,6 +171,7 @@
       }
     },
     "NPC": {
+      "templates": ["version"],
       "biography": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
       "health": {
         "value": 3,
@@ -218,6 +200,7 @@
       }
     },
     "Token": {
+      "templates": ["version"],
       "biography": "",
       "quantity": {
         "value": 0,
@@ -243,6 +226,7 @@
       }
     },
     "Community": {
+      "templates": ["version"],
       "biography": "<p><strong>Government:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p>",
       "health": {
         "value": 3,
@@ -275,6 +259,7 @@
       }
     },
     "Companion": {
+      "templates": ["version"],
       "biography": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
       "health": {
         "value": 8,
@@ -309,6 +294,7 @@
       }
     },
     "Vehicle": {
+      "templates": ["version"],
       "biography": "",
       "level": 1,
       "crew": 1,
@@ -338,33 +324,30 @@
         "showDescription": false,
         "level": "",
         "archived": false
+      },
+      "version": {
+        "version": 1
       }
     },
     "equipment": {
-      "templates": ["core"],
-      "quantity": 1,
-      "weight": "",
-      "price": ""
+      "templates": ["core", "version"],
+      "quantity": 1
     },
     "ammo": {
-      "templates": ["core"],
-      "quantity": 1,
-      "weight": "",
-      "price": ""
+      "templates": ["core", "version"],
+      "quantity": 1
     },
     "material": {
-      "templates": ["core"],
-      "quantity": 1,
-      "weight": "",
-      "value": ""
+      "templates": ["core", "version"],
+      "quantity": 1
     },
     "ability": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "costPoints": 0,
       "costPool": "Might"
     },
     "teen Ability": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "costPoints": 0,
       "costPool": "Might",
       "costMight": "Might",
@@ -373,15 +356,15 @@
       "costAny": "Pool"
     },
     "skill": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "skillLevel": "Trained"
     },
     "teen Skill": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "skillLevel": "Trained"
     },
     "armor": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "armorValue": 0,
       "speedCost": 0,
       "armorActive": true,
@@ -390,7 +373,7 @@
       "price": ""
     },
     "teen Armor": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "armorValue": 0,
       "speedCost": 0,
       "armorActive": true,
@@ -399,7 +382,7 @@
       "value": ""
     },
     "attack": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "attackType": "light weapon",
       "damage": 0,
       "modified": "",
@@ -410,7 +393,7 @@
       "totalModified": ""
     },
     "teen Attack": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "attackType": "light weapon",
       "damage": 0,
       "modified": "",
@@ -421,7 +404,7 @@
       "totalModified": ""
     },
     "lasting Damage": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "lastingDamageAmount": 0,
       "lastingDamageEffect": "",
       "lastingDamagePool": "Might",
@@ -429,7 +412,7 @@
       "damageType": "Lasting"
     },
     "teen lasting Damage": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "lastingDamageAmount": 0,
       "lastingDamageEffect": "",
       "lastingDamagePool": "Might",
@@ -439,26 +422,22 @@
       "permanentDamage": false
     },
     "power Shift": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "powerShiftValue": 0
     },
     "cypher": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p>",
-      "weight": "",
-      "value": ""
+      "identified": true
     },
     "artifact": {
-      "templates": ["core"],
+      "templates": ["core", "version"],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>",
       "depletion": "1 in d6",
-      "weight": "",
-      "value": ""
+      "identified": true
     },
     "oddity": {
-      "templates": ["core"],
-      "weight": "",
-      "value": ""
+      "templates": ["core", "version"]
     }
   }
 }
