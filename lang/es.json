@@ -315,5 +315,6 @@
     "CYPHERSYSTEM.PleaseSelectTokenStat": "Por favor seleccione un token con valor {stat}.",
     "CYPHERSYSTEM.ActivateBarBrawl": "Necesitas activar el módulo \"Bar Brawl\" para usar esta macro.",
     "CYPHERSYSTEM.Reroll": "Relanzar",
-    "CYPHERSYSTEM.WarnRerollUser": "Sólo el jugador original puede relanzar los resultados."
+    "CYPHERSYSTEM.WarnRerollUser": "Sólo el jugador original puede relanzar los resultados.",
+    "CYPHERSYSTEM.UnidentifiedCypher": "Dispositivo desconocido"
 }
