@@ -229,13 +229,13 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     identifyItem(dataItem, dataActor);
   });
 
-  // Event Listener for rerolls of dice rolls
-  html.find('.reroll').click(clickEvent => {
-    var user = html.find('.reroll-recovery').data('user');
+  // Event Listener for rerolls of stat rolls
+  html.find('.reroll-stat').click(clickEvent => {
+    var user = html.find('.reroll-stat').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    var title = html.find('.reroll').data('title');
-    var info = html.find('.reroll').data('info');
-    var modifier = html.find('.reroll').data('modifier');
+    var title = html.find('.reroll-stat').data('title');
+    var info = html.find('.reroll-stat').data('info');
+    var modifier = html.find('.reroll-stat').data('modifier');
     diceRoller(title, info, parseInt(modifier));
   });
 
@@ -249,6 +249,8 @@ Hooks.on("renderChatMessage", function(message, html, data) {
 
   // Event Listener for rerolls of dice rolls
   html.find('.reroll-dice-roll').click(clickEvent => {
+    var user = html.find('.reroll-dice-roll').data('user');
+    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     var dice = html.find('.reroll-dice-roll').data('dice');
     diceRollMacro(dice);
   });
