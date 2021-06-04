@@ -199,7 +199,7 @@ Hooks.once("ready", async function() {
   // Fix for case-sensitive OSs
   for (let a of game.actors.contents) {
     for (let i of a.data.items) {
-      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/mystery-man.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
+      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/item-bag.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
       a.updateEmbeddedDocuments("Item", [i.toObject()])
     }
   }
@@ -215,8 +215,9 @@ function sendWelcomeMessage() {
 }
 
 Hooks.on("preCreateItem", function(item) {
-  console.log(item);
-  item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
+  if (item.data.img == "icons/svg/item-bag.svg") {
+    item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
+  }
 });
 
 Hooks.on("renderChatMessage", function(message, html, data) {
