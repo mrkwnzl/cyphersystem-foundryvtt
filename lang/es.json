@@ -317,5 +317,14 @@
     "CYPHERSYSTEM.Reroll": "Relanzar",
     "CYPHERSYSTEM.WarnRerollUser": "Sólo el jugador original puede relanzar los resultados.",
     "CYPHERSYSTEM.UnidentifiedCypher": "Dispositivo desconocido",
-    "CYPHERSYSTEM.UnidentifiedArtifact": "Artefacto desconocido"
+    "CYPHERSYSTEM.UnidentifiedArtifact": "Artefacto desconocido",
+    "CYPHERSYSTEM.MarkIdentified": "Marcar como identificado",
+    "CYPHERSYSTEM.MarkUnidentified": "Marcar como desconocido",
+    "CYPHERSYSTEM.???": "¿¿¿???",
+    "CYPHERSYSTEM.?": "¿?",
+    "CYPHERSYSTEM.ConfirmIdentification": "{item} ha sido identificado por {actor}.",
+    "CYPHERSYSTEM.OnlyGMCanIdentify": "Sólo el DJ puede confirmar la identificación.",
+    "CYPHERSYSTEM.WarnSentUnidentifiedToChat": "No se pueden enviar las descripciones de objetos desconocidos al chat.",
+    "CYPHERSYSTEM.Confirm": "Confirmar",
+    "CYPHERSYSTEM.PCAskingForIdentification": "{actor} quiere identificar un dispositivo desconocido."
 }
