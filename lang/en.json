@@ -297,6 +297,8 @@
 	"CYPHERSYSTEM.By": "by",
 	"CYPHERSYSTEM.Step": "step",
 	"CYPHERSYSTEM.Steps": "steps",
+	"CYPHERSYSTEM.Reroll": "Reroll",
+	"CYPHERSYSTEM.WarnRerollUser": "Only the original player can reroll results.",
 
 	"CYPHERSYSTEM.Up": "Up",
 	"CYPHERSYSTEM.Down": "Down",
