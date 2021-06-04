@@ -29,6 +29,7 @@ import {
   quickStatChange
 } from "./macros/macros.js";
 import {
+  diceRoller,
   easedRollEffectiveMacro,
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
@@ -217,6 +218,49 @@ Hooks.on("preCreateItem", function(item) {
   console.log(item);
   item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
 });
+
+Hooks.on("renderChatMessage", function(message, html, data) {
+  // Event Listener to confirm identification
+  html.find('.confirm').click(clickEvent => {
+    var user = html.find('.reroll-recovery').data('user');
+    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
+    var dataItem = html.find('.confirm').data('item');
+    var dataActor = html.find('.confirm').data('actor');
+    identifyItem(dataItem, dataActor);
+  });
+
+  // Event Listener for rerolls of dice rolls
+  html.find('.reroll').click(clickEvent => {
+    var user = html.find('.reroll-recovery').data('user');
+    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
+    var title = html.find('.reroll').data('title');
+    var info = html.find('.reroll').data('info');
+    var modifier = html.find('.reroll').data('modifier');
+    diceRoller(title, info, parseInt(modifier));
+  });
+
+  // Event Listener for rerolls of recovery rolls
+  html.find('.reroll-recovery').click(clickEvent => {
+    var user = html.find('.reroll-recovery').data('user');
+    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
+    var dice = html.find('.reroll-recovery').data('dice');
+    recoveryRollMacro("", dice);
+  });
+
+  // Event Listener for rerolls of dice rolls
+  html.find('.reroll-dice-roll').click(clickEvent => {
+    var dice = html.find('.reroll-dice-roll').data('dice');
+    diceRollMacro(dice);
+  });
+});
+
+function identifyItem(dataItem, dataActor) {
+  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
+  let owner = game.actors.get(dataActor);
+  let ownedItem = owner.items.get(dataItem);
+  ownedItem.update({"data.identified": true});
+  ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
+}
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {

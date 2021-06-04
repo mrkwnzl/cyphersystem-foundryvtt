@@ -297,6 +297,8 @@
 	"CYPHERSYSTEM.By": "by",
 	"CYPHERSYSTEM.Step": "step",
 	"CYPHERSYSTEM.Steps": "steps",
+	"CYPHERSYSTEM.Reroll": "Reroll",
+	"CYPHERSYSTEM.WarnRerollUser": "Only the original player can reroll results.",
 
 	"CYPHERSYSTEM.Up": "Up",
 	"CYPHERSYSTEM.Down": "Down",
@@ -313,6 +315,17 @@
 	"CYPHERSYSTEM.Gold": "Gold",
 	"CYPHERSYSTEM.Silver": "Silver",
 	"CYPHERSYSTEM.Copper": "Copper",
+
+	"CYPHERSYSTEM.UnidentifiedCypher": "Unidentified cypher",
+	"CYPHERSYSTEM.UnidentifiedArtifact": "Unidentified artifact",
+	"CYPHERSYSTEM.MarkIdentified": "Mark identified",
+	"CYPHERSYSTEM.MarkUnidentified": "Mark unidentified",
+	"CYPHERSYSTEM.???": "???",
+	"CYPHERSYSTEM.?": "?",
+	"CYPHERSYSTEM.PCAskingForIdentification": "{actor} wants to identify an unidentified item.",
+	"CYPHERSYSTEM.ConfirmIdentification": "{item} has been identified by {actor}.",
+	"CYPHERSYSTEM.OnlyGMCanIdentify": "Only the GM can confirm the identification.",
+	"CYPHERSYSTEM.WarnSentUnidentifiedToChat": "Descriptions of unidentified items cannot be sent to the chat.",
 
 	"CYPHERSYSTEM.AlreadyHasThisItem": "{actor} already has this item.",
 	"CYPHERSYSTEM.CannotMoveNotOwnedItem": "You can’t move items you don’t have.",
@@ -346,5 +359,6 @@
 	"CYPHERSYSTEM.MoveAll": "Move All",
 	"CYPHERSYSTEM.Apply": "Apply",
 	"CYPHERSYSTEM.Cancel": "Cancel",
-	"CYPHERSYSTEM.Of": "of"
+	"CYPHERSYSTEM.Of": "of",
+	"CYPHERSYSTEM.Confirm": "Confirm"
 }

@@ -69,10 +69,13 @@ export async function diceRollMacro(dice) {
   // Roll dice
   const roll = await new Roll(dice).evaluate({async: false});
 
+  // Add reroll button
+  let reRollButton = `<div style='text-align: right'><a class='reroll-dice-roll' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>"
+    flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton
   });
 }
 
@@ -218,15 +221,15 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     // Damage information
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
-    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style='margin-top: 1px; margin-bottom: 2px;'>`;
+    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style=/"margin-top: 1px; margin-bottom: 2px;/">`;
 
     // Attack modifier information
-    let attackModifierInfo = "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
+    let attackModifierInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">";
     if (damage > 0 || effort3 > 0) {
       if (effort3 != 1) {
-        attackModifierInfo = `<hr style='margin-top: 1px; margin-bottom: 2px;'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
+        attackModifierInfo = `<hr style=\"margin-top: 1px; margin-bottom: 2px;\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
       } else {
-        attackModifierInfo = `<hr style='margin-top: 1px; margin-bottom: 2px;'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
+        attackModifierInfo = `<hr style=\"margin-top: 1px; margin-bottom: 2px;\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
       }
     }
 
@@ -323,17 +326,26 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
 /*  Utility Macros                              */
 /* -------------------------------------------- */
 
-export async function recoveryRollMacro(actor) {
-  // Check for PC actor
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+export async function recoveryRollMacro(actor, dice) {
+  // Check for dice
+  if (!dice) {
+    // Check for PC actor
+    if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+    // Define dice
+    dice = actor.data.data.recoveries.recoveryRoll;
+  }
 
   // Roll recovery roll
-  let roll = await new Roll(actor.data.data.recoveries.recoveryRoll).evaluate({async: true});
+  let roll = await new Roll(dice).evaluate({async: true});
+
+  // Add reroll button
+  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>"
+    flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>" + reRollButton
   });
 }
 

@@ -24,6 +24,13 @@
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+        {{#if data.isGM}}
+        {{#if data.identified}}
+        <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 20px; text-align: right; border-top: none; border-bottom: none;"><i class="far fa-eye"></i></a>
+        {{else}}
+        <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 20px; text-align: right; border-top: none; border-bottom: none;"><i class="far fa-eye-slash"></i></a>
+        {{/if}}
+        {{/if}}
     </nav>
 
     {{!-- Sheet Body --}}

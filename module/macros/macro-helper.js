@@ -34,13 +34,16 @@ export async function diceRoller(title, info, modifier) {
     }
   }
 
-  // Determine info
-  info = (info != "") ?
+  // Determine bars
+  let bars = (info != "") ?
   "<hr style='margin-top: 1px; margin-bottom: 2px;'>" + info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
   "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
 
+  // Add reroll button
+  let reRollButton = `<div style='text-align: right'><a class='reroll' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+
   // Put it all together into the chat flavor
-  let flavor = "<b>" + title + "</b>" + info + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + "<br>" + effect;
+  let flavor = "<b>" + title + "</b>" + bars + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + "<br>" + effect + reRollButton;
 
   // Create chat message
   roll.toMessage({

@@ -9,6 +9,7 @@ export class CypherActorSheet extends ActorSheet {
   getData() {
     const superData = super.getData();
     const data = superData.data;
+    data.data.isGM = game.user.isGM;
     data.actor = superData.actor;
     data.items = superData.items;
     data.owner = superData.owner;
@@ -202,6 +203,26 @@ export class CypherActorSheet extends ActorSheet {
       return 0;
     }
 
+    // Sort items by inditified status
+    function byIdentifiedStatus(itemA, itemB) {
+      let ratingA;
+      let ratingB;
+
+      if (itemA.data.identified === false) {ratingA = 2}
+      else if (itemA.data.identified === true) {ratingA = 1}
+
+      if (itemB.data.identified === false) {ratingB = 2}
+      else if (itemB.data.identified === true) {ratingB = 1}
+
+      if (ratingA < ratingB) {
+        return -1;
+      }
+      if (ratingA > ratingB) {
+        return 1;
+      }
+      return 0;
+    }
+
     equipment.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
@@ -210,7 +231,9 @@ export class CypherActorSheet extends ActorSheet {
     armor.sort(byArchiveStatus);
     lastingDamage.sort(byArchiveStatus);
     powerShifts.sort(byArchiveStatus);
+    cyphers.sort(byIdentifiedStatus);
     cyphers.sort(byArchiveStatus);
+    artifacts.sort(byIdentifiedStatus);
     artifacts.sort(byArchiveStatus);
     oddities.sort(byArchiveStatus);
     teenSkills.sort(byArchiveStatus);
@@ -270,10 +293,23 @@ export class CypherActorSheet extends ActorSheet {
       });
     });
 
-    // Update Inventory Item
+    // Edit Inventory Item
     html.find('.item-edit').click(clickEvent => {
       const editedItem = $(clickEvent.currentTarget).parents(".item");
       this.actor.items.get(editedItem.data("itemId")).sheet.render(true);
+    });
+
+    // Mark Item Identified
+    html.find('.identify-item').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+
+      let message = game.i18n.format("CYPHERSYSTEM.PCAskingForIdentification", {actor: this.actor.name}) + `<div style='text-align: right'><a class='confirm' data-item='${item._id}' data-actor='${this.actor.id}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Confirm")}</a></div>`;
+      ChatMessage.create({
+        content: message,
+        whisper: ChatMessage.getWhisperRecipients("GM"),
+        blind: true
+      })
     });
 
     // Delete Inventory Item
@@ -321,11 +357,13 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       if (event.ctrlKey || event.metaKey) {
+        if (item.data.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
         let brackets = "";
         let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
         let points = "";
         let notes = "";
+        let name = item.name;
         if (item.data.notes != "") notes = ", " + item.data.notes;
         if (item.type == "skill" || item.type == "teen Skill") {
           brackets = " (" + item.data.skillLevel + ")";
@@ -350,7 +388,7 @@ export class CypherActorSheet extends ActorSheet {
         } else {
           if (item.data.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.data.level + ")";
         }
-        message = "<b>" + item.type.capitalize() + ": " + item.name + "</b>" + brackets + description;
+        message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker(),
           content: message
