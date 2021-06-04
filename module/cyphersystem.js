@@ -101,11 +101,10 @@ Hooks.once("init", async function() {
 
   Combatant.prototype._getInitiativeFormula = function() {
     let combatant = this.actor;
-    console.log(combatant);
     if (combatant.data.type == "PC") {
       return "1d20 + @settings.initiative.initiativeBonus";
     } else if (combatant.data.type == "NPC" || combatant.data.type == "Companion") {
-      return String(combatant.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+      return String(combatant.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
     } else if (combatant.data.type == "Community" && combatant.hasPlayerOwner) {
       return String(combatant.data.data.rank * 3) + " + @settings.initiative.initiativeBonus";
     } else if (combatant.data.type == "Community" && !combatant.hasPlayerOwner) {
@@ -199,7 +198,7 @@ Hooks.once("ready", async function() {
   // Fix for case-sensitive OSs
   for (let a of game.actors.contents) {
     for (let i of a.data.items) {
-      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/mystery-man.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
+      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/item-bag.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
       a.updateEmbeddedDocuments("Item", [i.toObject()])
     }
   }
@@ -215,53 +214,52 @@ function sendWelcomeMessage() {
 }
 
 Hooks.on("preCreateItem", function(item) {
-  console.log(item);
-  item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
+  if (item.data.img == "icons/svg/item-bag.svg") {
+    item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
+  }
 });
 
 Hooks.on("renderChatMessage", function(message, html, data) {
   // Event Listener to confirm identification
   html.find('.confirm').click(clickEvent => {
-    var user = html.find('.reroll-recovery').data('user');
-    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    var dataItem = html.find('.confirm').data('item');
-    var dataActor = html.find('.confirm').data('actor');
-    identifyItem(dataItem, dataActor);
+    if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
+    let item = html.find('.confirm').data('item');
+    let actor = html.find('.confirm').data('actor');
+    let owner = game.actors.get(actor);
+    let ownedItem = owner.items.get(item);
+    ownedItem.update({"data.identified": true});
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
   });
 
   // Event Listener for rerolls of stat rolls
   html.find('.reroll-stat').click(clickEvent => {
-    var user = html.find('.reroll-stat').data('user');
+    let user = html.find('.reroll-stat').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    var title = html.find('.reroll-stat').data('title');
-    var info = html.find('.reroll-stat').data('info');
-    var modifier = html.find('.reroll-stat').data('modifier');
+    let title = html.find('.reroll-stat').data('title');
+    let info = html.find('.reroll-stat').data('info');
+    let modifier = html.find('.reroll-stat').data('modifier');
     diceRoller(title, info, parseInt(modifier));
   });
 
   // Event Listener for rerolls of recovery rolls
   html.find('.reroll-recovery').click(clickEvent => {
-    var user = html.find('.reroll-recovery').data('user');
+    let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    var dice = html.find('.reroll-recovery').data('dice');
+    let dice = html.find('.reroll-recovery').data('dice');
     recoveryRollMacro("", dice);
   });
 
   // Event Listener for rerolls of dice rolls
   html.find('.reroll-dice-roll').click(clickEvent => {
-    var user = html.find('.reroll-dice-roll').data('user');
+    let user = html.find('.reroll-dice-roll').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    var dice = html.find('.reroll-dice-roll').data('dice');
+    let dice = html.find('.reroll-dice-roll').data('dice');
     diceRollMacro(dice);
   });
 });
 
 function identifyItem(dataItem, dataActor) {
-  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
-  let owner = game.actors.get(dataActor);
-  let ownedItem = owner.items.get(dataItem);
-  ownedItem.update({"data.identified": true});
-  ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
+
 }
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
