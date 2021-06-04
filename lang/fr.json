@@ -313,5 +313,18 @@
     "CYPHERSYSTEM.StatNotCompatible": "{stat} n'est pas une statistique compatible.",
     "CYPHERSYSTEM.PleaseSelectTokenStat": "Veuillez sélectionner un token avec {stat}.",
     "CYPHERSYSTEM.EasedByExtraSteps": "Tâche facilitée par {amount} niveaux supplémentaire",
-    "CYPHERSYSTEM.ActivateBarBrawl": "Vous devez activer le module Bar Brawl pour utiliser cette macro."
+    "CYPHERSYSTEM.ActivateBarBrawl": "Vous devez activer le module Bar Brawl pour utiliser cette macro.",
+    "CYPHERSYSTEM.UnidentifiedArtifact": "Artefact non identifié",
+    "CYPHERSYSTEM.MarkIdentified": "Marquer comme identifié",
+    "CYPHERSYSTEM.???": "???",
+    "CYPHERSYSTEM.?": "?",
+    "CYPHERSYSTEM.PCAskingForIdentification": "{actor} souhaite déterminer un objet non identifié.",
+    "CYPHERSYSTEM.ConfirmIdentification": "{item} a été identifié par {actor}.",
+    "CYPHERSYSTEM.OnlyGMCanIdentify": "Seul le MJ peut confirmer l'identification.",
+    "CYPHERSYSTEM.WarnSentUnidentifiedToChat": "Les descriptions d'objets non identifiés ne peuvent pas être envoyées sur le chat.",
+    "CYPHERSYSTEM.Reroll": "Relancer",
+    "CYPHERSYSTEM.WarnRerollUser": "Seul le joueur initial peut relancer les résultats.",
+    "CYPHERSYSTEM.UnidentifiedCypher": "Cypher non identifié",
+    "CYPHERSYSTEM.MarkUnidentified": "Marquer comme non-identifié",
+    "CYPHERSYSTEM.Confirm": "Confirmer"
 }
