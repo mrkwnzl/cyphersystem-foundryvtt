@@ -311,5 +311,18 @@
     "CYPHERSYSTEM.UnitDistanceFeet": "pé",
     "CYPHERSYSTEM.PleaseSelectTokenStat": "Selecione um token com valor de {estatística}.",
     "CYPHERSYSTEM.StatNotCompatible": "{estatística} não é uma estatística compatível.",
-    "CYPHERSYSTEM.ActivateBarBrawl": "Você precisa ativar o módulo Bar Brawl para utilizar esta macro."
+    "CYPHERSYSTEM.ActivateBarBrawl": "Você precisa ativar o módulo Bar Brawl para utilizar esta macro.",
+    "CYPHERSYSTEM.UnidentifiedCypher": "Cifra Não Identificada",
+    "CYPHERSYSTEM.UnidentifiedArtifact": "Artefato Não Identificado",
+    "CYPHERSYSTEM.???": "???",
+    "CYPHERSYSTEM.?": "?",
+    "CYPHERSYSTEM.PCAskingForIdentification": "{personagem} quer identificar um item não identificado.",
+    "CYPHERSYSTEM.OnlyGMCanIdentify": "Somente o Mestre pode confirmar a identificação.",
+    "CYPHERSYSTEM.WarnSentUnidentifiedToChat": "Descrição de itens não identificados não podem ser enviadas ao chat.",
+    "CYPHERSYSTEM.MarkIdentified": "Marcar como identificado",
+    "CYPHERSYSTEM.MarkUnidentified": "Marcar como não identificado",
+    "CYPHERSYSTEM.Confirm": "Confirmar",
+    "CYPHERSYSTEM.Reroll": "Jogar Novamente",
+    "CYPHERSYSTEM.WarnRerollUser": "Somente o jogador original pode jogar novamente.",
+    "CYPHERSYSTEM.ConfirmIdentification": "{item} foi identificado por {personagem}."
 }
