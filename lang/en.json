@@ -357,5 +357,6 @@
 	"CYPHERSYSTEM.MoveAll": "Move All",
 	"CYPHERSYSTEM.Apply": "Apply",
 	"CYPHERSYSTEM.Cancel": "Cancel",
-	"CYPHERSYSTEM.Of": "of"
+	"CYPHERSYSTEM.Of": "of",
+	"CYPHERSYSTEM.Confirm": "Confirm"
 }
