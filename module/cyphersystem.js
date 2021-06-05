@@ -223,12 +223,10 @@ Hooks.on("renderChatMessage", function(message, html, data) {
   // Event Listener to confirm identification
   html.find('.confirm').click(clickEvent => {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
-    let item = html.find('.confirm').data('item');
-    let actor = html.find('.confirm').data('actor');
-    let owner = game.actors.get(actor);
-    let ownedItem = owner.items.get(item);
-    ownedItem.update({"data.identified": true});
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
+    let actor = game.actors.get(html.find('.confirm').data('actor'));
+    let item = actor.items.get(html.find('.confirm').data('item'));
+    item.update({"data.identified": true});
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
   });
 
   // Event Listener for rerolls of stat rolls
@@ -237,8 +235,8 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let title = html.find('.reroll-stat').data('title');
     let info = html.find('.reroll-stat').data('info');
-    let modifier = html.find('.reroll-stat').data('modifier');
-    diceRoller(title, info, parseInt(modifier));
+    let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
+    diceRoller(title, info, modifier);
   });
 
   // Event Listener for rerolls of recovery rolls
@@ -257,10 +255,6 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     diceRollMacro(dice);
   });
 });
-
-function identifyItem(dataItem, dataActor) {
-
-}
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
