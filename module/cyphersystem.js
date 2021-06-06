@@ -36,6 +36,9 @@ import {
 } from "./macros/macro-helper.js";
 import {itemMacroString} from "./macros/macro-strings.js";
 import {
+  chatCardMarkItemIdentified,
+  chatCardProposeIntrusion,
+  chatCardAskForIntrusion,
   chatCardIntrusionAccepted,
   chatCardIntrusionRefused,
   chatCardWelcomeMessage
@@ -52,8 +55,11 @@ Hooks.once("init", async function() {
   // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
+    // Actor sheets
     CypherActor,
     CypherItem,
+
+    // Macros
     quickRollMacro,
     easedRollMacro,
     hinderedRollMacro,
@@ -69,7 +75,15 @@ Hooks.once("init", async function() {
     resetDragRulerDefaults,
     resetBarBrawlDefaults,
     quickStatChange,
-    proposeIntrusion
+    proposeIntrusion,
+
+    // Chat cards
+    chatCardMarkItemIdentified,
+    chatCardProposeIntrusion,
+    chatCardAskForIntrusion,
+    chatCardIntrusionAccepted,
+    chatCardIntrusionRefused,
+    chatCardWelcomeMessage
   };
 
   // Register system settings
