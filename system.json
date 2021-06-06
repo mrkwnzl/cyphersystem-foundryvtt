@@ -9,6 +9,7 @@
   "author": "Marko Wenzel",
   "esmodules": ["module/cyphersystem.js"],
   "styles": ["cyphersystem.css"],
+  "socket": true,
   "packs": [
     {
       "name": "macros",

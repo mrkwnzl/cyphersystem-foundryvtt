@@ -49,7 +49,7 @@ import {
 Hooks.once("init", async function() {
   console.log("Initializing Cypher System");
 
-   CONFIG.debug.hooks = true;
+  // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
     CypherActor,
@@ -142,6 +142,10 @@ Hooks.once("init", async function() {
 
   //Pre-load HTML templates
   preloadHandlebarsTemplates();
+
+  game.socket.on('system.cyphersystem', (data) => {
+    if (data.operation === 'deleteChatMessage') game.messages.get(data.messageId).delete();
+  });
 });
 
 async function preloadHandlebarsTemplates() {
@@ -170,6 +174,10 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/attacks.html"
   ];
   return loadTemplates(templatePaths);
+}
+
+function deleteChatMessage(data) {
+  if (game.user.isGM) game.messages.get(data.messageId).delete();
 }
 
 Hooks.on("canvasReady", function(canvas) {
@@ -313,7 +321,9 @@ function applyXPFromIntrusion(actor, selectedActor, messageId, modifier) {
     selectedActor = game.actors.get(selectedActor);
     selectedActor.update({"data.basic.xp": selectedActor.data.data.basic.xp + modifier});
   }
-  ui.chat.deleteMessage(messageId);
+
+  // Emit a socket event
+  game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActor) : chatCardIntrusionRefused(actor, selectedActor);
 

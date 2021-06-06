@@ -623,6 +623,7 @@ export function proposeIntrusion(actor) {
     });
     d.render(true);
   } else {
+    if (actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
     askForIntrusion(actor.data._id);
   }
 
