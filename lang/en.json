@@ -54,6 +54,7 @@
 	"CYPHERSYSTEM.WelcomeMessage": "Welcome to the Cypher System!",
 	"CYPHERSYSTEM.GettingStarted": "Getting Started",
 	"CYPHERSYSTEM.UserManual": "User Manual",
+	"CYPHERSYSTEM.JoinDiscord": "Discord",
 
 	"CYPHERSYSTEM.GMIntrusion": "GM Intrusion!",
 	"CYPHERSYSTEM.OneDamage": "+1 Damage",
@@ -360,5 +361,18 @@
 	"CYPHERSYSTEM.Apply": "Apply",
 	"CYPHERSYSTEM.Cancel": "Cancel",
 	"CYPHERSYSTEM.Of": "of",
-	"CYPHERSYSTEM.Confirm": "Confirm"
+	"CYPHERSYSTEM.Confirm": "Confirm",
+	"CYPHERSYSTEM.Accept": "Accept",
+	"CYPHERSYSTEM.Refuse": "Refuse",
+
+	"CYPHERSYSTEM.ProposeIntrusion": "Propose an intrusion",
+	"CYPHERSYSTEM.ProposeIntrusionTo": "Propose an intrusion to",
+	"CYPHERSYSTEM.ProposingIntrusion": "The GM is proposing an intrusion to {actor}.",
+	"CYPHERSYSTEM.IntrusionGMWarning": "Only the GM can propose an intrusion.",
+	"CYPHERSYSTEM.IntrusionWrongPlayer": "Only the player controlling {actor} can accept or refuse an intrusion.",
+	"CYPHERSYSTEM.GiveAdditionalXP": "Give the additional XP",
+	"CYPHERSYSTEM.GiveAdditionalXPTo": "Give the additional XP to",
+	"CYPHERSYSTEM.IntrusionAccepted": "{actor} accepted the intrusion (+1 XP) and gave the additional XP to {selectedActor}.",
+	"CYPHERSYSTEM.IntrusionRefused": "{actor} refused the intrusion (-1 XP).",
+	"CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to."
 }
