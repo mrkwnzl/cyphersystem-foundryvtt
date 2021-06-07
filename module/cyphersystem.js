@@ -158,7 +158,7 @@ Hooks.once("init", async function() {
   preloadHandlebarsTemplates();
 
   game.socket.on('system.cyphersystem', (data) => {
-    if (data.operation === 'deleteChatMessage') game.messages.get(data.messageId).delete();
+    if (data.operation === 'deleteChatMessage') deleteChatMessage();
   });
 });
 
