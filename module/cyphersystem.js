@@ -237,7 +237,7 @@ Hooks.once("ready", async function() {
 
 function sendWelcomeMessage() {
   ChatMessage.create({
-    content: chatCardWelcomeMessage
+    content: chatCardWelcomeMessage()
   })
 }
 
