@@ -75,21 +75,22 @@
             <div class="resource-content flexrow flex-center flex-between">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input type="text" name="data.teen.pools.might.value" value="{{data.teen.pools.might.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.teen.pools.might.max" value="{{data.teen.pools.might.max}}" data-dtype="Number"/>
               {{else}}
               <input type="text" name="data.pools.might.value" value="{{data.pools.might.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.pools.might.max" value="{{data.pools.might.max}}" data-dtype="Number"/>
               {{/if}}
             </div>
             <div class="resource-content flexrow flex-center flex-between">
-              <label for="data.pools.might.max" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <label for="data.pools.mightEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
             </div>
-            <div class="resource-content flexrow flex-center flex-between">
+            <div class="resource-content flexrow flex-center flex-between edge-row">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              <input type="text" name="data.teen.pools.might.max" value="{{data.teen.pools.might.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.teen.pools.mightEdge" value="{{data.teen.pools.mightEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.teen.pools.mightEdge" value="{{data.teen.pools.mightEdge}}" data-dtype="Number"/>
               {{else}}
-              <input type="text" name="data.pools.might.max" value="{{data.pools.might.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.pools.mightEdge" value="{{data.pools.mightEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.pools.mightEdge" value="{{data.pools.mightEdge}}" data-dtype="Number"/>
               {{/if}}
             </div>
           </div>
@@ -100,21 +101,22 @@
             <div class="resource-content flexrow flex-center flex-between">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input type="text" name="data.teen.pools.speed.value" value="{{data.teen.pools.speed.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.teen.pools.speed.max" value="{{data.teen.pools.speed.max}}" data-dtype="Number"/>&nbsp;
               {{else}}
               <input type="text" name="data.pools.speed.value" value="{{data.pools.speed.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.pools.speed.max" value="{{data.pools.speed.max}}" data-dtype="Number"/>&nbsp;
               {{/if}}
             </div>
             <div class="resource-content flexrow flex-center flex-between">
-              <label for="data.pools.speed.max" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <label for="data.pools.speedEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
             </div>
-            <div class="resource-content flexrow flex-center flex-between">
+            <div class="resource-content flexrow flex-center flex-between edge-row">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              <input type="text" name="data.teen.pools.speed.max" value="{{data.teen.pools.speed.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.teen.pools.speedEdge" value="{{data.teen.pools.speedEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.teen.pools.speedEdge" value="{{data.teen.pools.speedEdge}}" data-dtype="Number"/>
               {{else}}
-              <input type="text" name="data.pools.speed.max" value="{{data.pools.speed.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.pools.speedEdge" value="{{data.pools.speedEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.pools.speedEdge" value="{{data.pools.speedEdge}}" data-dtype="Number"/>
               {{/if}}
             </div>
           </div>
@@ -125,21 +127,22 @@
             <div class="resource-content flexrow flex-center flex-between">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input type="text" name="data.teen.pools.intellect.value" value="{{data.teen.pools.intellect.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.teen.pools.intellect.max" value="{{data.teen.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
               {{else}}
               <input type="text" name="data.pools.intellect.value" value="{{data.pools.intellect.value}}" data-dtype="Number"/>
+              &nbsp;/&nbsp;
+              <input type="text" name="data.pools.intellect.max" value="{{data.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
               {{/if}}
             </div>
             <div class="resource-content flexrow flex-center flex-between">
-              <label for="data.pools.intellect.max" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <label for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
             </div>
-            <div class="resource-content flexrow flex-center flex-between">
+            <div class="resource-content flexrow flex-center flex-between edge-row">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-              <input type="text" name="data.teen.pools.intellect.max" value="{{data.teen.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.teen.pools.intellectEdge" value="{{data.teen.pools.intellectEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.teen.pools.intellectEdge" value="{{data.teen.pools.intellectEdge}}" data-dtype="Number"/>
               {{else}}
-              <input type="text" name="data.pools.intellect.max" value="{{data.pools.intellect.max}}" data-dtype="Number"/>&nbsp;
-              <input type="text" name="data.pools.intellectEdge" value="{{data.pools.intellectEdge}}" data-dtype="Number"/>
+              <input class="edge-input" type="text" name="data.pools.intellectEdge" value="{{data.pools.intellectEdge}}" data-dtype="Number"/>
               {{/if}}
             </div>
           </div>

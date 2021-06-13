@@ -497,3 +497,10 @@ min-height: 610px;
   text-align: right;
   padding: 0 3px 0 6px;
 }
+
+.cyphersystem .edge-row {
+  justify-content: center;
+}
+.cyphersystem .edge-row .edge-input {
+  flex: 0 0 60px;
+}
