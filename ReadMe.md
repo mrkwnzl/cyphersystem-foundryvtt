@@ -51,7 +51,7 @@ You can find the current [Roadmap](https://github.com/mrkwnzl/cyphersystem-found
 
 ## Credits
 
-I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the [Boilerplate System](https://foundry-vtt-community.github.io/wiki/SD01-Getting-started/) by @asacolips#1867. I used the tutorials on the [Foundry VTT Wiki](https://foundry-vtt-community.github.io/wiki/).
+I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the Boilerplate System by @asacolips#1867.
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
