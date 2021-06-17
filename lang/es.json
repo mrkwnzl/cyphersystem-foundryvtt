@@ -326,5 +326,18 @@
     "CYPHERSYSTEM.OnlyGMCanIdentify": "Sólo el DJ puede confirmar la identificación.",
     "CYPHERSYSTEM.WarnSentUnidentifiedToChat": "No se pueden enviar las descripciones de objetos desconocidos al chat.",
     "CYPHERSYSTEM.Confirm": "Confirmar",
-    "CYPHERSYSTEM.PCAskingForIdentification": "{actor} quiere identificar un dispositivo desconocido."
+    "CYPHERSYSTEM.PCAskingForIdentification": "{actor} quiere identificar un dispositivo desconocido.",
+    "CYPHERSYSTEM.ProposeIntrusion": "Ofrecer una intromisión",
+    "CYPHERSYSTEM.IntrusionWrongPlayer": "Sólo el jugador que controla a {actor} puede aceptar o rechazar la intromisión.",
+    "CYPHERSYSTEM.NoPCsNoIntrusion": "No hay PJs a los que puedas proponer una intromisión.",
+    "CYPHERSYSTEM.JoinDiscord": "Únete al Discord de Desarrollo de Cypher en FVTT",
+    "CYPHERSYSTEM.Accept": "Aceptar",
+    "CYPHERSYSTEM.Refuse": "Rechazar",
+    "CYPHERSYSTEM.ProposeIntrusionTo": "Ofrecer una intromisión a",
+    "CYPHERSYSTEM.ProposingIntrusion": "El DJ le está ofreciendo una intromisión a {actor}.",
+    "CYPHERSYSTEM.IntrusionGMWarning": "Sólo el DJ puede ofrecer una intromisión.",
+    "CYPHERSYSTEM.GiveAdditionalXP": "Otorgar PE adicionales",
+    "CYPHERSYSTEM.GiveAdditionalXPTo": "Otorgar PE adicionales a",
+    "CYPHERSYSTEM.IntrusionAccepted": "{actor} ha aceptado la intromisión (+1 PE) y le ha otorgado los PE adicionales a {selectedActor}.",
+    "CYPHERSYSTEM.IntrusionRefused": "{actor} ha rechazado la intromisión (-1 PE)."
 }
