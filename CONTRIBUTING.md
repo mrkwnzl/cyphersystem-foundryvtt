@@ -1,3 +1,5 @@
+# Contribution Guidelines
+
 If you want to help shape the Cypher system by contributing code, that’s very cool! Here’s how we can do that:
 
 1. Please talk to me before working hard on your feature. Most likely there are some design decisions to be made and I think it’s a good idea to talk that through beforehand. You can either [create an issue here on GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose) or we talk on the [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa), where it’s more likely that other users chime in as well.
