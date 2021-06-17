@@ -7,6 +7,10 @@ import {
   allInOneRollDialogString,
   spendEffortString
 } from "./macro-strings.js";
+import {
+  chatCardProposeIntrusion,
+  chatCardAskForIntrusion
+} from "../chat-cards.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -581,5 +585,54 @@ export function quickStatChange(token, stat, modifier) {
     statData = statData + modifier;
     if (statData < 0) statData = 0;
     return statData;
+  }
+}
+
+export function proposeIntrusion(actor) {
+  // Check if user is GM
+  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
+
+  // Check for actor
+  if (!actor) {
+    // Create list of PCs
+    let selectOptions = "";
+    for (let actor of game.actors.contents) {
+      if (actor.data.type === "PC") selectOptions = selectOptions + `<option value=${actor.data._id}>${actor.data.name}</option>`;
+    }
+
+    if (selectOptions == "") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoPCsNoIntrusion"));
+
+    // Create dialog
+    let d = new Dialog({
+      title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
+      content: chatCardProposeIntrusion(selectOptions),
+      buttons: {
+        apply: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize("CYPHERSYSTEM.Apply"),
+          callback: (html) => askForIntrusion(html.find('#selectPC').val())
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+          callback: () => { }
+        }
+      },
+      default: "apply",
+      close: () => { }
+    });
+    d.render(true);
+  } else {
+    if (actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+    askForIntrusion(actor.data._id);
+  }
+
+  // Create chat message
+  function askForIntrusion(actorId){
+    let actor = game.actors.get(actorId);
+
+    ChatMessage.create({
+      content: chatCardAskForIntrusion(actor, actorId)
+    })
   }
 }

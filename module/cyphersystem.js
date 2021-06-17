@@ -26,7 +26,8 @@ import {
   toggleDragRuler,
   resetDragRulerDefaults,
   resetBarBrawlDefaults,
-  quickStatChange
+  quickStatChange,
+  proposeIntrusion
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -34,6 +35,14 @@ import {
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
 import {itemMacroString} from "./macros/macro-strings.js";
+import {
+  chatCardMarkItemIdentified,
+  chatCardProposeIntrusion,
+  chatCardAskForIntrusion,
+  chatCardIntrusionAccepted,
+  chatCardIntrusionRefused,
+  chatCardWelcomeMessage
+} from "./chat-cards.js";
 
 
 /* -------------------------------------------- */
@@ -46,8 +55,11 @@ Hooks.once("init", async function() {
   // CONFIG.debug.hooks = true;
 
   game.cyphersystem = {
+    // Actor sheets
     CypherActor,
     CypherItem,
+
+    // Macros
     quickRollMacro,
     easedRollMacro,
     hinderedRollMacro,
@@ -62,7 +74,16 @@ Hooks.once("init", async function() {
     toggleDragRuler,
     resetDragRulerDefaults,
     resetBarBrawlDefaults,
-    quickStatChange
+    quickStatChange,
+    proposeIntrusion,
+
+    // Chat cards
+    chatCardMarkItemIdentified,
+    chatCardProposeIntrusion,
+    chatCardAskForIntrusion,
+    chatCardIntrusionAccepted,
+    chatCardIntrusionRefused,
+    chatCardWelcomeMessage
   };
 
   // Register system settings
@@ -135,6 +156,10 @@ Hooks.once("init", async function() {
 
   //Pre-load HTML templates
   preloadHandlebarsTemplates();
+
+  game.socket.on('system.cyphersystem', (data) => {
+    if (data.operation === 'deleteChatMessage') deleteChatMessage();
+  });
 });
 
 async function preloadHandlebarsTemplates() {
@@ -163,6 +188,10 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/attacks.html"
   ];
   return loadTemplates(templatePaths);
+}
+
+function deleteChatMessage(data) {
+  if (game.user.isGM) game.messages.get(data.messageId).delete();
 }
 
 Hooks.on("canvasReady", function(canvas) {
@@ -207,9 +236,8 @@ Hooks.once("ready", async function() {
 });
 
 function sendWelcomeMessage() {
-  let message = "<p style='margin:5px 0 5px 0; text-align:center'><b>" + game.i18n.localize("CYPHERSYSTEM.WelcomeMessage") + "</b></p><p style='text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>" + game.i18n.localize("CYPHERSYSTEM.GettingStarted") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>" + game.i18n.localize("CYPHERSYSTEM.UserManual") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt'>GitHub</a></p>";
   ChatMessage.create({
-    content: message
+    content: chatCardWelcomeMessage()
   })
 }
 
@@ -223,12 +251,10 @@ Hooks.on("renderChatMessage", function(message, html, data) {
   // Event Listener to confirm identification
   html.find('.confirm').click(clickEvent => {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
-    let item = html.find('.confirm').data('item');
-    let actor = html.find('.confirm').data('actor');
-    let owner = game.actors.get(actor);
-    let ownedItem = owner.items.get(item);
-    ownedItem.update({"data.identified": true});
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: ownedItem.name, actor: owner.name}));
+    let actor = game.actors.get(html.find('.confirm').data('actor'));
+    let item = actor.items.get(html.find('.confirm').data('item'));
+    item.update({"data.identified": true});
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
   });
 
   // Event Listener for rerolls of stat rolls
@@ -237,8 +263,8 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let title = html.find('.reroll-stat').data('title');
     let info = html.find('.reroll-stat').data('info');
-    let modifier = html.find('.reroll-stat').data('modifier');
-    diceRoller(title, info, parseInt(modifier));
+    let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
+    diceRoller(title, info, modifier);
   });
 
   // Event Listener for rerolls of recovery rolls
@@ -256,10 +282,68 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     let dice = html.find('.reroll-dice-roll').data('dice');
     diceRollMacro(dice);
   });
+
+  // Event Listener for accepting intrusions
+  html.find('.accept-intrusion').click(clickEvent => {
+    let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
+    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.data.name}));
+
+    // Create list of PCs
+    let list = "";
+    for (let actor of game.actors.contents) {
+      if (actor.data.type === "PC" && actor.data._id != html.find('.accept-intrusion').data('actor')) list = list + `<option value=${actor.data._id}>${actor.data.name}</option>`;
+    }
+
+    // Create dialog content
+    let content = `<div align="center"><label style='display: inline-block; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
+    <select name='selectPC' id='selectPC' style='width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>`+ list +`</select></div>`
+
+    // Create dialog
+    let d = new Dialog({
+      title: game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXP"),
+      content: content,
+      buttons: {
+        apply: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize("CYPHERSYSTEM.Apply"),
+          callback: (html) => applyXPFromIntrusion(actor, html.find('#selectPC').val(), data.message._id, 1)
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+          callback: () => { }
+        }
+      },
+      default: "apply",
+      close: () => { }
+    });
+    d.render(true);
+  });
+
+  // Event Listener for refusing intrusions
+  html.find('.refuse-intrusion').click(clickEvent => {
+    let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
+    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.data.name}));
+    applyXPFromIntrusion(actor, "", data.message._id, -1)
+  });
 });
 
-function identifyItem(dataItem, dataActor) {
+// Function to apply XP when an intrusion is accepted
+function applyXPFromIntrusion(actor, selectedActor, messageId, modifier) {
+  actor.update({"data.basic.xp": actor.data.data.basic.xp + modifier});
+  if (selectedActor) {
+    selectedActor = game.actors.get(selectedActor);
+    selectedActor.update({"data.basic.xp": selectedActor.data.data.basic.xp + modifier});
+  }
 
+  // Emit a socket event
+  game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+
+  let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActor) : chatCardIntrusionRefused(actor, selectedActor);
+
+  ChatMessage.create({
+    content: content
+  })
 }
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {

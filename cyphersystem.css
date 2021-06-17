@@ -208,6 +208,12 @@ min-height: 610px;
   margin: 0;
 }
 
+.cyphersystem .hr-pool {
+  margin: 4px 0;
+  border-bottom: 0;
+  border-top: 1px solid #999;
+}
+
 .cyphersystem .sheet-tabs {
   -webkit-box-flex: 0;
   -ms-flex: 0;
@@ -217,7 +223,7 @@ min-height: 610px;
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-body .tab,
 .cyphersystem .sheet-body .tab .editor {
-  height: 420px;
+  height: 440px;
   overflow-y: auto;
 }
 
@@ -312,8 +318,8 @@ min-height: 610px;
 
 .cyphersystem .items-list .item-controls {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 45px;
-  flex: 0 0 45px;
+  -ms-flex: 0 0 50px;
+  flex: 0 0 50px;
   text-align: right;
   /*  margin-top: auto;
   margin-bottom: auto;*/

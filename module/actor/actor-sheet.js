@@ -3,6 +3,10 @@
 * @extends {ActorSheet}
 */
 
+import {
+  chatCardMarkItemIdentified
+} from "../chat-cards.js";
+
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
@@ -304,9 +308,8 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
 
-      let message = game.i18n.format("CYPHERSYSTEM.PCAskingForIdentification", {actor: this.actor.name}) + `<div style='text-align: right'><a class='confirm' data-item='${item._id}' data-actor='${this.actor.id}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Confirm")}</a></div>`;
       ChatMessage.create({
-        content: message,
+        content: chatCardMarkItemIdentified(this.actor, item),
         whisper: ChatMessage.getWhisperRecipients("GM"),
         blind: true
       })

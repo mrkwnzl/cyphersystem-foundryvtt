@@ -23,13 +23,13 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
 - The Cypher System for Foundry VTT is available in English, French, German, Italian, and Spanish.
 
-## Support & Community
+## Support, Community, and Contributing
 
 The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the development of the system is coordinated and its future discussed, but anyone is welcome to join and share best practices, ask questions on how to use the system, and share self-created resources for your games.
 
 You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl#7407.
 
-Last, but not least, you can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose).
+You can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose). If you want to contribute code to the system directly, please refer to the [Contribution Guidelines](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/CONTRIBUTING.md) before you do.
 
 ## Buy Me A Coffee
 
@@ -51,7 +51,7 @@ You can find the current [Roadmap](https://github.com/mrkwnzl/cyphersystem-found
 
 ## Credits
 
-I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the [Boilerplate System](https://foundry-vtt-community.github.io/wiki/SD01-Getting-started/) by @asacolips#1867. I used the tutorials on the [Foundry VTT Wiki](https://foundry-vtt-community.github.io/wiki/).
+I used code snippets from [Simple Worldbuilding System](https://gitlab.com/foundrynet/worldbuilding/-/tree/master) and the Boilerplate System by @asacolips#1867.
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
