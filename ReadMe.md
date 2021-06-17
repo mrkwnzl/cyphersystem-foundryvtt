@@ -29,7 +29,7 @@ The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the develo
 
 You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl#7407.
 
-You can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose). If you want to contribute code to the system directly, please refer to the [Contribution Guidelines](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Contribution-Guidelines) before you do.
+You can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose). If you want to contribute code to the system directly, please refer to the [Contribution Guidelines](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/CONTRIBUTING.md) before you do.
 
 ## Buy Me A Coffee
 
