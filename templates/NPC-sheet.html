@@ -11,15 +11,16 @@
             &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}"/></div>
           </div>
           <div class="resource-content flexrow flex-center">
-            <div class="resources grid grid-2col">
+            <div class="resources grid grid-3col">
+              <div></div>
               <div class="resource flex-group-center">
                 <a class="item-control decrease-health" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
                 <a class="item-control reset-health" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}"><label for="data.health.value" class="resource-label">{{localize 'CYPHERSYSTEM.Health'}}</label></a>&nbsp;
                 <a class="item-control increase-health" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="fas fa-angle-up"></i></a>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
-                  &nbsp;/&nbsp;
-                  <input name="data.health.max" type="text" value="{{data.health.max}}" data-dtype="Number"/>
+                <div class="resource-content flexrow flex-center stat-pool">
+                  <input class="stat-input" name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
+                  &nbsp;{{data.slashForFractions}}&nbsp;
+                  <input class="stat-input" name="data.health.max" type="text" value="{{data.health.max}}" data-dtype="Number"/>
                 </div>
               </div>
               <div class="resource flex-group-center">
