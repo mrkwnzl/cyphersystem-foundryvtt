@@ -209,9 +209,22 @@ min-height: 610px;
 }
 
 .cyphersystem .hr-pool {
-  margin: 4px 0;
+  margin-top: 3px;
+  margin-bottom: 5px;
   border-bottom: 0;
   border-top: 1px solid #999;
+}
+
+.cyphersystem .stat-pool {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  border-radius: 3px;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+.cyphersystem .align-edge {
+  justify-content: flex-end;
 }
 
 .cyphersystem .sheet-tabs {
@@ -419,6 +432,13 @@ min-height: 610px;
   margin-top: 2px;
   width: 100%;
   text-align: center;
+}
+
+.cyphersystem input[type="text"].stat-input {
+  border: none;
+  background: none;
+  margin: -1px;
+  padding: 0;
 }
 
 .cyphersystem input[name="name"] {
