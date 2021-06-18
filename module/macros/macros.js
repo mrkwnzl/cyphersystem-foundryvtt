@@ -636,3 +636,19 @@ export function proposeIntrusion(actor) {
     })
   }
 }
+
+export function changeSymbolForFractions() {
+  let slash = game.settings.get("cyphersystem", "useSlashForFractions") ? false : true;
+  game.settings.set("cyphersystem", "useSlashForFractions", slash);
+  location.reload();
+}
+
+export function toggleAttacksOnSheet(token) {
+  let toggle = token.actor.data.data.settings.equipment.attacks ? false : true;
+  token.actor.update({"data.settings.equipment.attacks": toggle})
+}
+
+export function toggleArmorOnSheet(token) {
+  let toggle = token.actor.data.data.settings.equipment.armor ? false : true;
+  token.actor.update({"data.settings.equipment.armor": toggle})
+}

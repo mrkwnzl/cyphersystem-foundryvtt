@@ -330,7 +330,7 @@
     "CYPHERSYSTEM.JoinDiscord": "Rejoignez le serveur Discord Cypher FVTT Dev.",
     "CYPHERSYSTEM.ProposeIntrusion": "Proposer une intrusion",
     "CYPHERSYSTEM.IntrusionWrongPlayer": "Seul le joueur qui contrôle {actor} peut accepter ou refuser une intrusion.",
-    "CYPHERSYSTEM.NoPCsNoIntrusion": "Il n'y a aucun PJ à qui vous pourriez proposer une intrusion.",
+    "CYPHERSYSTEM.NoPCsNoIntrusion": "Il n’y a aucun PJ à qui vous pourriez proposer une intrusion.",
     "CYPHERSYSTEM.Accept": "Accepter",
     "CYPHERSYSTEM.Refuse": "Refuser",
     "CYPHERSYSTEM.ProposeIntrusionTo": "Proposer une intrusion à",
@@ -338,6 +338,6 @@
     "CYPHERSYSTEM.IntrusionGMWarning": "Seul le MJ peut proposer une intrusion.",
     "CYPHERSYSTEM.GiveAdditionalXP": "Donner l’XP supplémentaire",
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Donnez l’XP supplémentaire à",
-    "CYPHERSYSTEM.IntrusionAccepted": "{actor} a accepté l'intrusion (+1 XP) et a donné l’XP supplémentaire à {selectedActor}.",
+    "CYPHERSYSTEM.IntrusionAccepted": "{actor} a accepté l’intrusion (+1 XP) et a donné l’XP supplémentaire à {selectedActor}.",
     "CYPHERSYSTEM.IntrusionRefused": "{actor} a refusé l’intrusion (-1 XP)."
 }

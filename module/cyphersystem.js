@@ -27,7 +27,10 @@ import {
   resetDragRulerDefaults,
   resetBarBrawlDefaults,
   quickStatChange,
-  proposeIntrusion
+  proposeIntrusion,
+  changeSymbolForFractions,
+  toggleAttacksOnSheet,
+  toggleArmorOnSheet
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -76,6 +79,9 @@ Hooks.once("init", async function() {
     resetBarBrawlDefaults,
     quickStatChange,
     proposeIntrusion,
+    changeSymbolForFractions,
+    toggleAttacksOnSheet,
+    toggleArmorOnSheet,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -112,6 +118,13 @@ Hooks.once("init", async function() {
     type: Boolean,
     default: true,
     config: true
+  });
+
+  game.settings.register("cyphersystem", "useSlashForFractions", {
+    scope: "world",
+    type: Boolean,
+    default: true,
+    config: false
   });
 
   // Set an initiative formula for the system

@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.18.1",
+  "version": "1.18.2",
   "minimumCoreVersion": "0.8.5",
   "compatibleCoreVersion": "0.8.7",
   "templateVersion": 2,
@@ -37,6 +37,13 @@
       "label": "Cypher System Utility Macros",
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
+      "entity": "Macro"
+    },
+    {
+      "name": "secret-settings",
+      "label": "Cypher System Secret Settings",
+      "system": "cyphersystem",
+      "path": "packs/secret-settings.db",
       "entity": "Macro"
     }
   ],
@@ -76,6 +83,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.18.1/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.18.2/release.zip",
   "license": "LICENSE.txt"
 }

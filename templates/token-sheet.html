@@ -20,10 +20,10 @@
                 <a class="item-control decrease-quantity" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
                 <a class="item-control reset-quantity" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}"><label class="resource-label">{{localize 'CYPHERSYSTEM.Quantity'}}</label></a>&nbsp;
                 <a class="item-control increase-quantity" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.quantity.value" type="text" value="{{data.quantity.value}}" data-dtype="Number"/>
-                  &nbsp;/&nbsp;
-                  <input name="data.quantity.max" type="text" value="{{data.quantity.max}}" data-dtype="Number"/>
+                <div class="resource-content flexrow flex-center stat-pool">
+                  <input class="stat-input" name="data.quantity.value" type="text" value="{{data.quantity.value}}" data-dtype="Number"/>
+                  &nbsp;{{data.slashForFractions}}&nbsp;
+                  <input class="stat-input" name="data.quantity.max" type="text" value="{{data.quantity.max}}" data-dtype="Number"/>
                 </div>
               </div>
             </div>
