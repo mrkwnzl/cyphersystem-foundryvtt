@@ -339,5 +339,5 @@
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Gebe den zusätzlichen EP an",
     "CYPHERSYSTEM.IntrusionAccepted": "{actor} hat den Eingriff angenommen (+1 EP) und hat den zusätzlichen EP {selectedActor} gegeben.",
     "CYPHERSYSTEM.IntrusionRefused": "{actor} hat den Eingriff abgelehnt (-1 EP).",
-    "CYPHERSYSTEM.ProposeIntrusionTo": "Einen Eingriff vorschlagen für"
+    "CYPHERSYSTEM.ProposeIntrusionTo": "... einen Eingriff vorschlagen"
 }
