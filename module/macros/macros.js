@@ -640,7 +640,6 @@ export function proposeIntrusion(actor) {
 export function changeSymbolForFractions() {
   let slash = game.settings.get("cyphersystem", "useSlashForFractions") ? false : true;
   game.settings.set("cyphersystem", "useSlashForFractions", slash);
-  location.reload();
 }
 
 export function toggleAttacksOnSheet(token) {
