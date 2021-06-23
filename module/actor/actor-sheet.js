@@ -445,9 +445,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.reset-health').click(clickEvent => {
       this.actor.update({
         "data.health.value": this.actor.data.data.health.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 

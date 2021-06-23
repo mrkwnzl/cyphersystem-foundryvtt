@@ -10,7 +10,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
-      template: "systems/cyphersystem/templates/pc-sheet.html",
+      template: "systems/cyphersystem/templates/actor/pc-sheet.html",
       width: 650,
       height: 735,
       resizable: false,
@@ -142,9 +142,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-might').click(clickEvent => {
       this.actor.update({
         "data.pools.might.value": this.actor.data.data.pools.might.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Speed
@@ -165,9 +163,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-speed').click(clickEvent => {
       this.actor.update({
         "data.pools.speed.value": this.actor.data.data.pools.speed.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Intellect
@@ -188,9 +184,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-intellect').click(clickEvent => {
       this.actor.update({
         "data.pools.intellect.value": this.actor.data.data.pools.intellect.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Additional
@@ -211,9 +205,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-additionalPool').click(clickEvent => {
       this.actor.update({
         "data.pools.additional.value": this.actor.data.data.pools.additional.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     /**
@@ -237,9 +229,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-might').click(clickEvent => {
       this.actor.update({
         "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Teen Speed
@@ -260,9 +250,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-speed').click(clickEvent => {
       this.actor.update({
         "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Teen Intellect
@@ -283,9 +271,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-intellect').click(clickEvent => {
       this.actor.update({
         "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Increase Teen Additional
@@ -306,9 +292,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-additionalPool').click(clickEvent => {
       this.actor.update({
         "data.teen.pools.additional.value": this.actor.data.data.teen.pools.additional.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     /**
@@ -336,9 +320,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "data.advancement.advEdge": false,
         "data.advancement.advSkill": false,
         "data.advancement.advOther": false
-      }).then(item => {
-        this.render();
-      });
+      })
     });
 
     // Reset Recovery Rolls
@@ -352,9 +334,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "data.recoveries.tenMinutes": false,
         "data.recoveries.oneHour": false,
         "data.recoveries.tenHours": false
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 }

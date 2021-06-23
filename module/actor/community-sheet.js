@@ -10,7 +10,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "community"],
-      template: "systems/cyphersystem/templates/community-sheet.html",
+      template: "systems/cyphersystem/templates/actor/community-sheet.html",
       width: 650,
       height: 650,
       resizable: false,
@@ -43,9 +43,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
     html.find('.reset-infrastructure').click(clickEvent => {
       this.actor.update({
         "data.infrastructure.value": this.actor.data.data.infrastructure.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 }

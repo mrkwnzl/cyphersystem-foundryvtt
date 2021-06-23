@@ -51,34 +51,34 @@
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
 
-            {{> systems/cyphersystem/templates/equipment.html}}
+            {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
             {{#if data.settings.equipment.attacks}}
-            {{> systems/cyphersystem/templates/attacks.html}}
+            {{> systems/cyphersystem/templates/tabs/attacks.html}}
             {{/if}}
 
             {{#if data.settings.equipment.ammo}}
-            {{> systems/cyphersystem/templates/ammo.html}}
+            {{> systems/cyphersystem/templates/tabs/ammo.html}}
             {{/if}}
 
             {{#if data.settings.equipment.armor}}
-            {{> systems/cyphersystem/templates/armorWithoutTotal.html}}
+            {{> systems/cyphersystem/templates/tabs/armorWithoutTotal.html}}
             {{/if}}
 
             {{#if data.settings.equipment.cyphers}}
-            {{> systems/cyphersystem/templates/cyphers.html}}
+            {{> systems/cyphersystem/templates/tabs/cyphers.html}}
             {{/if}}
 
             {{#if data.settings.equipment.artifacts}}
-            {{> systems/cyphersystem/templates/artifacts.html}}
+            {{> systems/cyphersystem/templates/tabs/artifacts.html}}
             {{/if}}
 
             {{#if data.settings.equipment.oddities}}
-            {{> systems/cyphersystem/templates/oddities.html}}
+            {{> systems/cyphersystem/templates/tabs/oddities.html}}
             {{/if}}
 
             {{#if data.settings.equipment.materials}}
-            {{> systems/cyphersystem/templates/materials.html}}
+            {{> systems/cyphersystem/templates/tabs/materials.html}}
             {{/if}}
 
     </div>
@@ -99,7 +99,7 @@
           </li>
         </ol>
       </div>
-        {{> systems/cyphersystem/templates/equipment-settings.html}}
+        {{> systems/cyphersystem/templates/tabs/equipment-settings.html}}
     </div>
 
   </section>

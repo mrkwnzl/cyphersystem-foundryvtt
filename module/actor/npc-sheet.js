@@ -10,7 +10,7 @@ export class CypherActorSheetNPC extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "npc"],
-      template: "systems/cyphersystem/templates/NPC-sheet.html",
+      template: "systems/cyphersystem/templates/actor/npc-sheet.html",
       width: 650,
       height: 650,
       resizable: false,

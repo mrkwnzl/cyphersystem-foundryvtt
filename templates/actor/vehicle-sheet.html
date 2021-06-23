@@ -12,25 +12,18 @@
           </div>
           <div class="resource-content flexrow flex-center">
             <div class="resources grid grid-3col">
-              <div></div>
+              <div class="resource">
+              </div>
               <div class="resource flex-group-center">
-                <a class="item-control decrease-health" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-                <a class="item-control reset-health" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}"><label for="data.health.value" class="resource-label">{{localize 'CYPHERSYSTEM.Health'}}</label></a>&nbsp;
-                <a class="item-control increase-health" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="fas fa-angle-up"></i></a>
-                <div class="resource-content flexrow flex-center stat-pool">
-                  <input class="stat-input" name="data.health.value" type="text" value="{{data.health.value}}" data-dtype="Number"/>
-                  &nbsp;{{data.slashForFractions}}&nbsp;
-                  <input class="stat-input" name="data.health.max" type="text" value="{{data.health.max}}" data-dtype="Number"/>
+                <label class="resource-label">{{localize 'CYPHERSYSTEM.Crew'}}</label>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input name="data.crew" type="text" value="{{data.crew}}" data-dtype="Number"/>
                 </div>
               </div>
               <div class="resource flex-group-center">
+                <label class="resource-label">{{localize 'CYPHERSYSTEM.WeaponSystems'}}</label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <label class="resource-label">{{localize 'CYPHERSYSTEM.Damage'}}</label>
-                  <label class="resource-label">{{localize 'CYPHERSYSTEM.Armor'}}</label>
-                </div>
-                <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.damage" type="text" value="{{data.damage}}" data-dtype="Number"/>&nbsp;
-                  <input name="data.armor" type="text" value="{{data.armor}}" data-dtype="Number"/>
+                  <input name="data.weaponSystems" type="text" value="{{data.weaponSystems}}" data-dtype="Number"/>
                 </div>
               </div>
             </div>
@@ -42,8 +35,8 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description" style="border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
-    <a class="item" data-tab="items" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Inventory'}}</a>
+    <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    <a class="item" data-tab="items" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Storage'}}</a>
     <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
   </nav>
 
@@ -58,34 +51,34 @@
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
 
-      {{> systems/cyphersystem/templates/equipment.html}}
+      {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
       {{#if data.settings.equipment.attacks}}
-      {{> systems/cyphersystem/templates/attacks.html}}
+      {{> systems/cyphersystem/templates/tabs/attacks.html}}
       {{/if}}
 
       {{#if data.settings.equipment.ammo}}
-      {{> systems/cyphersystem/templates/ammo.html}}
+      {{> systems/cyphersystem/templates/tabs/ammo.html}}
       {{/if}}
 
       {{#if data.settings.equipment.armor}}
-      {{> systems/cyphersystem/templates/armorWithoutTotal.html}}
+      {{> systems/cyphersystem/templates/tabs/armorWithoutTotal.html}}
       {{/if}}
 
       {{#if data.settings.equipment.cyphers}}
-      {{> systems/cyphersystem/templates/cyphers.html}}
+      {{> systems/cyphersystem/templates/tabs/cyphers.html}}
       {{/if}}
 
       {{#if data.settings.equipment.artifacts}}
-      {{> systems/cyphersystem/templates/artifacts.html}}
+      {{> systems/cyphersystem/templates/tabs/artifacts.html}}
       {{/if}}
 
       {{#if data.settings.equipment.oddities}}
-      {{> systems/cyphersystem/templates/oddities.html}}
+      {{> systems/cyphersystem/templates/tabs/oddities.html}}
       {{/if}}
 
       {{#if data.settings.equipment.materials}}
-      {{> systems/cyphersystem/templates/materials.html}}
+      {{> systems/cyphersystem/templates/tabs/materials.html}}
       {{/if}}
 
     </div>
@@ -106,7 +99,7 @@
           </li>
         </ol>
       </div>
-      {{> systems/cyphersystem/templates/equipment-settings.html}}
+      {{> systems/cyphersystem/templates/tabs/equipment-settings.html}}
     </div>
 
   </section>

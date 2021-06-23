@@ -18,9 +18,9 @@ export class CypherItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = "systems/cyphersystem/templates";
-    const itemType = this.item.data.type.toLowerCase();
-    return `${path}/item-${itemType}-sheet.html`;
+    const path = "systems/cyphersystem/templates/item";
+    const itemType = this.item.data.type.toLowerCase().replace(/ /g, "-");
+    return `${path}/${itemType}-sheet.html`;
   }
 
   /* -------------------------------------------- */

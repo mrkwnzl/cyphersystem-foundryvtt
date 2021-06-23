@@ -197,15 +197,15 @@
             </li>
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
             {{#if data.settings.skills.sortByRating}}
-            {{> systems/cyphersystem/templates/teenSkillsSortedByRating.html}}
+            {{> systems/cyphersystem/templates/tabs/teenSkillsSortedByRating.html}}
             {{else}}
-            {{> systems/cyphersystem/templates/teenSkills.html}}
+            {{> systems/cyphersystem/templates/tabs/teenSkills.html}}
             {{/if}}
             {{else}}
             {{#if data.settings.skills.sortByRating}}
-            {{> systems/cyphersystem/templates/skillsSortedByRating.html}}
+            {{> systems/cyphersystem/templates/tabs/skillsSortedByRating.html}}
             {{else}}
-            {{> systems/cyphersystem/templates/skills.html}}
+            {{> systems/cyphersystem/templates/tabs/skills.html}}
             {{/if}}
             {{/if}}
           </ol>
@@ -364,13 +364,13 @@
           </div>
           {{/if}}
 
-          {{> systems/cyphersystem/templates/attacks.html}}
+          {{> systems/cyphersystem/templates/tabs/attacks.html}}
 
           {{#if data.settings.ammo}}
-          {{> systems/cyphersystem/templates/ammo.html}}
+          {{> systems/cyphersystem/templates/tabs/ammo.html}}
           {{/if}}
 
-          {{> systems/cyphersystem/templates/armorTotal.html}}
+          {{> systems/cyphersystem/templates/tabs/armorTotal.html}}
 
         </div>
 
@@ -378,30 +378,30 @@
         <div class="tab items" data-group="primary" data-tab="items">
           {{#if data.settings.currency.active}}
           {{#if data.settings.currency.namesHidden}}
-          {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
+          {{> systems/cyphersystem/templates/tabs/currenciesUpToSix.html}}
           {{else}}
           {{#if (gte data.settings.currency.howMany 4)}}
-          {{> systems/cyphersystem/templates/currenciesUpToSix.html}}
+          {{> systems/cyphersystem/templates/tabs/currenciesUpToSix.html}}
           {{else}}
-          {{> systems/cyphersystem/templates/currenciesUpToThree.html}}
+          {{> systems/cyphersystem/templates/tabs/currenciesUpToThree.html}}
           {{/if}}
           {{/if}}
           {{/if}}
 
-          {{> systems/cyphersystem/templates/equipment.html}}
+          {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
-          {{> systems/cyphersystem/templates/cyphers.html}}
+          {{> systems/cyphersystem/templates/tabs/cyphers.html}}
 
           {{#if data.settings.equipment.artifacts}}
-          {{> systems/cyphersystem/templates/artifacts.html}}
+          {{> systems/cyphersystem/templates/tabs/artifacts.html}}
           {{/if}}
 
           {{#if data.settings.equipment.oddities}}
-          {{> systems/cyphersystem/templates/oddities.html}}
+          {{> systems/cyphersystem/templates/tabs/oddities.html}}
           {{/if}}
 
           {{#if data.settings.equipment.materials}}
-          {{> systems/cyphersystem/templates/materials.html}}
+          {{> systems/cyphersystem/templates/tabs/materials.html}}
           {{/if}}
 
         </div>
@@ -420,9 +420,9 @@
               </div>
             </li>
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-            {{> systems/cyphersystem/templates/teenAbilities.html}}
+            {{> systems/cyphersystem/templates/tabs/teenAbilities.html}}
             {{else}}
-            {{> systems/cyphersystem/templates/abilities.html}}
+            {{> systems/cyphersystem/templates/tabs/abilities.html}}
             {{/if}}
           </ol>
         </div>
