@@ -374,5 +374,8 @@
 	"CYPHERSYSTEM.GiveAdditionalXPTo": "Give the additional XP to",
 	"CYPHERSYSTEM.IntrusionAccepted": "{actor} accepted the intrusion (+1 XP) and gave the additional XP to {selectedActor}.",
 	"CYPHERSYSTEM.IntrusionRefused": "{actor} refused the intrusion (-1 XP).",
-	"CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to."
+	"CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to.",
+
+	"CYPHERSYSTEM.PCTranslatedToRecursion": "{actor} translated to {recursion}.",
+	"CYPHERSYSTEM.OnRecursion": "on"
 }

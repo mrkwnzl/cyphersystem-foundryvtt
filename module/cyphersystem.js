@@ -30,7 +30,9 @@ import {
   proposeIntrusion,
   changeSymbolForFractions,
   toggleAttacksOnSheet,
-  toggleArmorOnSheet
+  toggleArmorOnSheet,
+  translateToRecursion,
+  unarchiveItemByTag
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -82,6 +84,8 @@ Hooks.once("init", async function() {
     changeSymbolForFractions,
     toggleAttacksOnSheet,
     toggleArmorOnSheet,
+    translateToRecursion,
+    unarchiveItemByTag,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -238,10 +242,13 @@ Hooks.once("ready", async function() {
   }
 
   // Fix for case-sensitive OSs
-  for (let a of game.actors.contents) {
-    for (let i of a.data.items) {
-      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/item-bag.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
-      a.updateEmbeddedDocuments("Item", [i.toObject()])
+  for (let actor of game.actors) {
+    for (let item of actor.items) {
+      let path = item.data.img.toLowerCase();
+      if ((path == `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` && path != item.data.img) || path == `icons/svg/item-bag.svg`) {
+        path = `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`
+        item.data.update({"img": path})
+      }
     }
   }
 
