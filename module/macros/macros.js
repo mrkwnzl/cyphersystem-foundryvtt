@@ -693,7 +693,6 @@ export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
 
   // Define default signifier & archive
   if (!signifier) signifier = "#";
-  console.log(archive);
   if (archive !== true) archive = false;
 
   // Define recursion name & workarble recursion variable
@@ -708,7 +707,6 @@ export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
     let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
     let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
     if (name.includes(tag) || description.includes(tag)) {
-      console.log(archived);
       updates.push({_id: item.id, "data.archived": archived});
     }
   }
