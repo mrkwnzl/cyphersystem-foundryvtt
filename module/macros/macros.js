@@ -651,3 +651,69 @@ export function toggleArmorOnSheet(token) {
   let toggle = token.actor.data.data.settings.equipment.armor ? false : true;
   token.actor.update({"data.settings.equipment.armor": toggle})
 }
+
+export async function translateToRecursion(actor, recursion, focus) {
+  // Check for PC
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Define recursion name & workarble recursion variable
+  let recursionName = recursion;
+  recursion = "@" + recursion.toLowerCase();
+
+  // Update Focus & Recursion
+  await actor.update({
+    "data.basic.focus": focus,
+    "data.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName
+  });
+
+  applyRecursion();
+
+  async function applyRecursion() {
+    let updates = [];
+    for (let item of actor.items) {
+      let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
+      let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+      if (name.includes(recursion) || description.includes(recursion)) {
+        updates.push({_id: item.id, "data.archived": false});
+      } else if (name.includes("@") || description.includes("@")) {
+        updates.push({_id: item.id, "data.archived": true});
+      }
+    }
+
+    await actor.updateEmbeddedDocuments("Item", updates);
+
+    // Notify about translation
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}))
+  }
+}
+
+export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
+  // Check for PC
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Define default signifier & archive
+  if (!signifier) signifier = "#";
+  if (archive !== true) archive = false;
+
+  // Define recursion name & workarble recursion variable
+  let tagName = tag;
+  tag = signifier + tag.toLowerCase();
+
+  // Define archiving or unarchiving
+  let archived = ((event.altKey && archive) || (!event.altKey && !archive)) ? false : true;
+
+  let updates = [];
+  for (let item of actor.items) {
+    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
+    let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+    if (name.includes(tag) || description.includes(tag)) {
+      updates.push({_id: item.id, "data.archived": archived});
+    }
+  }
+
+  await actor.updateEmbeddedDocuments("Item", updates);
+}
+
+export async function archiveItemsWithTag(actor, tag, signifier) {
+  await unarchiveItemsWithTag(actor, tag, signifier, true)
+}

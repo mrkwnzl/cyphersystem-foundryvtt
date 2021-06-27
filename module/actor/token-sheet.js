@@ -10,7 +10,7 @@ export class CypherActorSheetToken extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "token"],
-      template: "systems/cyphersystem/templates/token-sheet.html",
+      template: "systems/cyphersystem/templates/actor/token-sheet.html",
       width: 650,
       height: 650,
       resizable: false,
@@ -27,14 +27,14 @@ export class CypherActorSheetToken extends CypherActorSheet {
 
     // Increase Quantity
     html.find('.increase-quantity').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.quantity.value + amount;
       this.actor.update({"data.quantity.value": newValue});
     });
 
     // Decrease Quantity
     html.find('.decrease-quantity').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.quantity.value - amount;
       this.actor.update({"data.quantity.value": newValue});
     });
@@ -43,9 +43,7 @@ export class CypherActorSheetToken extends CypherActorSheet {
     html.find('.reset-quantity').click(clickEvent => {
       this.actor.update({
         "data.quantity.value": this.actor.data.data.quantity.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 }

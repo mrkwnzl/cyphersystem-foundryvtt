@@ -10,7 +10,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "community"],
-      template: "systems/cyphersystem/templates/community-sheet.html",
+      template: "systems/cyphersystem/templates/actor/community-sheet.html",
       width: 650,
       height: 650,
       resizable: false,
@@ -27,14 +27,14 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
 
     // Increase Infrastructure
     html.find('.increase-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value + amount;
       this.actor.update({"data.infrastructure.value": newValue});
     });
 
     // Decrease Infrastructure
     html.find('.decrease-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value - amount;
       this.actor.update({"data.infrastructure.value": newValue});
     });
@@ -43,9 +43,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
     html.find('.reset-infrastructure').click(clickEvent => {
       this.actor.update({
         "data.infrastructure.value": this.actor.data.data.infrastructure.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 }

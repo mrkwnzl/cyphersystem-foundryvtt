@@ -12,7 +12,7 @@
       </div>
     </li>
     {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-    {{> systems/cyphersystem/templates/teenAttacks.html}}
+    {{> systems/cyphersystem/templates/tabs/teenAttacks.html}}
     {{else}}
     {{#each actor.data.attacks as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">

@@ -30,7 +30,10 @@ import {
   proposeIntrusion,
   changeSymbolForFractions,
   toggleAttacksOnSheet,
-  toggleArmorOnSheet
+  toggleArmorOnSheet,
+  translateToRecursion,
+  archiveItemsWithTag,
+  unarchiveItemsWithTag
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -82,6 +85,9 @@ Hooks.once("init", async function() {
     changeSymbolForFractions,
     toggleAttacksOnSheet,
     toggleArmorOnSheet,
+    translateToRecursion,
+    archiveItemsWithTag,
+    unarchiveItemsWithTag,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -177,28 +183,28 @@ Hooks.once("init", async function() {
 
 async function preloadHandlebarsTemplates() {
   const templatePaths = [
-    "systems/cyphersystem/templates/equipment.html",
-    "systems/cyphersystem/templates/equipment-settings.html",
-    "systems/cyphersystem/templates/skills.html",
-    "systems/cyphersystem/templates/skillsSortedByRating.html",
-    "systems/cyphersystem/templates/teenSkills.html",
-    "systems/cyphersystem/templates/teenSkillsSortedByRating.html",
-    "systems/cyphersystem/templates/currenciesUpToThree.html",
-    "systems/cyphersystem/templates/currenciesUpToSix.html",
-    "systems/cyphersystem/templates/abilities.html",
-    "systems/cyphersystem/templates/teenAbilities.html",
-    "systems/cyphersystem/templates/equipment.html",
-    "systems/cyphersystem/templates/ammo.html",
-    "systems/cyphersystem/templates/armor.html",
-    "systems/cyphersystem/templates/armorTotal.html",
-    "systems/cyphersystem/templates/armorWithoutTotal.html",
-    "systems/cyphersystem/templates/artifacts.html",
-    "systems/cyphersystem/templates/cyphers.html",
-    "systems/cyphersystem/templates/materials.html",
-    "systems/cyphersystem/templates/oddities.html",
-    "systems/cyphersystem/templates/teenArmor.html",
-    "systems/cyphersystem/templates/teenAttacks.html",
-    "systems/cyphersystem/templates/attacks.html"
+    "systems/cyphersystem/templates/tabs/equipment.html",
+    "systems/cyphersystem/templates/tabs/equipment-settings.html",
+    "systems/cyphersystem/templates/tabs/skills.html",
+    "systems/cyphersystem/templates/tabs/skillsSortedByRating.html",
+    "systems/cyphersystem/templates/tabs/teenSkills.html",
+    "systems/cyphersystem/templates/tabs/teenSkillsSortedByRating.html",
+    "systems/cyphersystem/templates/tabs/currenciesUpToThree.html",
+    "systems/cyphersystem/templates/tabs/currenciesUpToSix.html",
+    "systems/cyphersystem/templates/tabs/abilities.html",
+    "systems/cyphersystem/templates/tabs/teenAbilities.html",
+    "systems/cyphersystem/templates/tabs/equipment.html",
+    "systems/cyphersystem/templates/tabs/ammo.html",
+    "systems/cyphersystem/templates/tabs/armor.html",
+    "systems/cyphersystem/templates/tabs/armorTotal.html",
+    "systems/cyphersystem/templates/tabs/armorWithoutTotal.html",
+    "systems/cyphersystem/templates/tabs/artifacts.html",
+    "systems/cyphersystem/templates/tabs/cyphers.html",
+    "systems/cyphersystem/templates/tabs/materials.html",
+    "systems/cyphersystem/templates/tabs/oddities.html",
+    "systems/cyphersystem/templates/tabs/teenArmor.html",
+    "systems/cyphersystem/templates/tabs/teenAttacks.html",
+    "systems/cyphersystem/templates/tabs/attacks.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -238,10 +244,13 @@ Hooks.once("ready", async function() {
   }
 
   // Fix for case-sensitive OSs
-  for (let a of game.actors.contents) {
-    for (let i of a.data.items) {
-      if (i.data.img == `systems/cyphersystem/icons/items/${i.data.type}.svg` || i.data.img == `icons/svg/item-bag.svg`) i.data.img = `systems/cyphersystem/icons/items/${i.data.type.toLowerCase()}.svg`;
-      a.updateEmbeddedDocuments("Item", [i.toObject()])
+  for (let actor of game.actors) {
+    for (let item of actor.items) {
+      let path = item.data.img.toLowerCase();
+      if ((path == `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` && path != item.data.img) || path == `icons/svg/item-bag.svg`) {
+        path = `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`
+        item.data.update({"img": path})
+      }
     }
   }
 

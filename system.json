@@ -2,9 +2,9 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.18.3",
+  "version": "1.19.0",
   "minimumCoreVersion": "0.8.5",
-  "compatibleCoreVersion": "0.8.7",
+  "compatibleCoreVersion": "0.8.8",
   "templateVersion": 2,
   "author": "Marko Wenzel",
   "esmodules": ["module/cyphersystem.js"],
@@ -83,6 +83,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.18.3/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.19.0/release.zip",
   "license": "LICENSE.txt"
 }

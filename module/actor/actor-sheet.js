@@ -319,9 +319,8 @@ export class CypherActorSheet extends ActorSheet {
     // Delete Inventory Item
     html.find('.item-delete').click(clickEvent => {
       const deletedItem = $(clickEvent.currentTarget).parents(".item");
-      if (event.ctrlKey || event.metaKey) {
+      if (event.altKey) {
         this.actor.deleteEmbeddedDocuments("Item", [deletedItem.data("itemId")]);
-        deletedItem.slideUp(200, () => this.render(false));
       } else {
         const item = duplicate(this.actor.getEmbeddedDocument("Item", deletedItem.data("itemId")));
 
@@ -339,7 +338,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.plus-one').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       item.data.quantity = item.data.quantity + amount;
       this.actor.updateEmbeddedDocuments("Item", [item]);
     });
@@ -348,7 +347,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.minus-one').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       item.data.quantity = item.data.quantity - amount;
       this.actor.updateEmbeddedDocuments("Item", [item]);
     });
@@ -360,7 +359,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-description').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      if (event.ctrlKey || event.metaKey) {
+      if (event.altKey) {
         if (item.data.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
         let brackets = "";
@@ -429,14 +428,14 @@ export class CypherActorSheet extends ActorSheet {
 
     // Increase Health
     html.find('.increase-health').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.health.value + amount;
       this.actor.update({"data.health.value": newValue});
     });
 
     // Decrease Health
     html.find('.decrease-health').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.health.value - amount;
       this.actor.update({"data.health.value": newValue});
     });
@@ -445,9 +444,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.reset-health').click(clickEvent => {
       this.actor.update({
         "data.health.value": this.actor.data.data.health.max
-      }).then(item => {
-        this.render();
-      });
+      })
     });
   }
 
@@ -499,7 +496,7 @@ export class CypherActorSheet extends ActorSheet {
     if (!hasQuantity) {
       if (!itemOwned) this._onDropItemCreate(itemData);
       if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", {actor: actor.name}));
-      if ((event.ctrlKey || event.metaKey) && originActor) {
+      if ((event.altKey) && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
           content: "",
@@ -534,7 +531,7 @@ export class CypherActorSheet extends ActorSheet {
         }
       }
     } else {
-      if (event.ctrlKey || event.metaKey) {
+      if (event.altKey) {
         let maxQuantity = item.data.data.quantity;
         if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
         let quantity = 1;
