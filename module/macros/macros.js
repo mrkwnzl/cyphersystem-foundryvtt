@@ -687,26 +687,35 @@ export async function translateToRecursion(actor, recursion, focus) {
   }
 }
 
-export async function unarchiveItemByTag(actor, tag, signifier) {
+export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
   // Check for PC
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Define default signifier & archive
+  if (!signifier) signifier = "#";
+  console.log(archive);
+  if (archive !== true) archive = false;
 
   // Define recursion name & workarble recursion variable
   let tagName = tag;
   tag = signifier + tag.toLowerCase();
 
   // Define archiving or unarchiving
-  let archived = event.altKey ? true : false;
+  let archived = ((event.altKey && archive) || (!event.altKey && !archive)) ? false : true;
 
   let updates = [];
   for (let item of actor.items) {
     let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
     let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
     if (name.includes(tag) || description.includes(tag)) {
-      console.log("Läuft");
+      console.log(archived);
       updates.push({_id: item.id, "data.archived": archived});
     }
   }
 
   await actor.updateEmbeddedDocuments("Item", updates);
+}
+
+export async function archiveItemsWithTag(actor, tag, signifier) {
+  await unarchiveItemsWithTag(actor, tag, signifier, true)
 }

@@ -94,7 +94,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.plus-one-damage').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       item.data.lastingDamageAmount = item.data.lastingDamageAmount + amount;
       this.actor.updateEmbeddedDocuments("Item", [item]);
     });
@@ -103,7 +103,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.minus-one-damage').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       item.data.lastingDamageAmount = item.data.lastingDamageAmount - amount;
       this.actor.updateEmbeddedDocuments("Item", [item]);
     });
@@ -126,14 +126,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Might
     html.find('.increase-might').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.might.value + amount;
       this.actor.update({"data.pools.might.value": newValue});
     });
 
     // Decrease Might
     html.find('.decrease-might').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.might.value - amount;
       this.actor.update({"data.pools.might.value": newValue});
     });
@@ -147,14 +147,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Speed
     html.find('.increase-speed').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.speed.value + amount;
       this.actor.update({"data.pools.speed.value": newValue});
     });
 
     // Decrease Speed
     html.find('.decrease-speed').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.speed.value - amount;
       this.actor.update({"data.pools.speed.value": newValue});
     });
@@ -168,14 +168,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Intellect
     html.find('.increase-intellect').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.intellect.value + amount;
       this.actor.update({"data.pools.intellect.value": newValue});
     });
 
     // Decrease Intellect
     html.find('.decrease-intellect').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.intellect.value - amount;
       this.actor.update({"data.pools.intellect.value": newValue});
     });
@@ -189,14 +189,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Additional
     html.find('.increase-additional').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.additional.value + amount;
       this.actor.update({"data.pools.additional.value": newValue});
     });
 
     // Decrease Additional
     html.find('.decrease-additional').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.additional.value - amount;
       this.actor.update({"data.pools.additional.value": newValue});
     });
@@ -213,14 +213,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Teen Might
     html.find('.increase-teen-might').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.might.value + amount;
       this.actor.update({"data.teen.pools.might.value": newValue});
     });
 
     // Decrease Teen Might
     html.find('.decrease-teen-might').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.might.value - amount;
       this.actor.update({"data.teen.pools.might.value": newValue});
     });
@@ -234,14 +234,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Speed
     html.find('.increase-teen-speed').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.speed.value + amount;
       this.actor.update({"data.teen.pools.speed.value": newValue});
     });
 
     // Decrease Teen Speed
     html.find('.decrease-teen-speed').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.speed.value - amount;
       this.actor.update({"data.teen.pools.speed.value": newValue});
     });
@@ -255,14 +255,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Intellect
     html.find('.increase-teen-intellect').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.intellect.value + amount;
       this.actor.update({"data.teen.pools.intellect.value": newValue});
     });
 
     // Decrease Teen Intellect
     html.find('.decrease-teen-intellect').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.intellect.value - amount;
       this.actor.update({"data.teen.pools.intellect.value": newValue});
     });
@@ -276,14 +276,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Additional
     html.find('.increase-teen-additional').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.additional.value + amount;
       this.actor.update({"data.teen.pools.additional.value": newValue});
     });
 
     // Decrease Teen Additional
     html.find('.decrease-teen-additional').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.additional.value - amount;
       this.actor.update({"data.teen.pools.additional.value": newValue});
     });
@@ -300,14 +300,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase XP
     html.find('.increase-xp').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.basic.xp + amount;
       this.actor.update({"data.basic.xp": newValue});
     });
 
     // Decrease XP
     html.find('.decrease-xp').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.basic.xp - amount;
       this.actor.update({"data.basic.xp": newValue});
     });

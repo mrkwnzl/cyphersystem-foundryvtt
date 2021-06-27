@@ -32,7 +32,8 @@ import {
   toggleAttacksOnSheet,
   toggleArmorOnSheet,
   translateToRecursion,
-  unarchiveItemByTag
+  archiveItemsWithTag,
+  unarchiveItemsWithTag
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -85,7 +86,8 @@ Hooks.once("init", async function() {
     toggleAttacksOnSheet,
     toggleArmorOnSheet,
     translateToRecursion,
-    unarchiveItemByTag,
+    archiveItemsWithTag,
+    unarchiveItemsWithTag,
 
     // Chat cards
     chatCardMarkItemIdentified,

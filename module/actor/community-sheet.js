@@ -27,14 +27,14 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
 
     // Increase Infrastructure
     html.find('.increase-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value + amount;
       this.actor.update({"data.infrastructure.value": newValue});
     });
 
     // Decrease Infrastructure
     html.find('.decrease-infrastructure').click(clickEvent => {
-      let amount = (event.ctrlKey || event.metaKey) ? 10 : 1;
+      let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value - amount;
       this.actor.update({"data.infrastructure.value": newValue});
     });
