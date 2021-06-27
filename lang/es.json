@@ -154,7 +154,7 @@
     "CYPHERSYSTEM.Is": "es",
     "CYPHERSYSTEM.Category": "Categoría",
     "CYPHERSYSTEM.SubtractHealth": "Resta 1 punto de Salud (Alt-click para restar 10 puntos)",
-    "CYPHERSYSTEM.AddInfrastructure": "Suma 1 punto de Infraestructura (Alt/click para añadir 10 puntos)",
+    "CYPHERSYSTEM.AddInfrastructure": "Suma 1 punto de Infraestructura (Alt-click para añadir 10 puntos)",
     "CYPHERSYSTEM.AdvancementSkill": "Habilidad",
     "CYPHERSYSTEM.SubtractXP": "Resta 1 PX (Alt-click para restar 10 PX)",
     "CYPHERSYSTEM.SubtractMight": "Resta 1 punto de Vigor (Alt-click para restar 10 puntos)",
@@ -339,5 +339,7 @@
     "CYPHERSYSTEM.GiveAdditionalXP": "Otorgar PE adicionales",
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Otorgar PE adicionales a",
     "CYPHERSYSTEM.IntrusionAccepted": "{actor} ha aceptado la intromisión (+1 PE) y le ha otorgado los PE adicionales a {selectedActor}.",
-    "CYPHERSYSTEM.IntrusionRefused": "{actor} ha rechazado la intromisión (-1 PE)."
+    "CYPHERSYSTEM.IntrusionRefused": "{actor} ha rechazado la intromisión (-1 PE).",
+    "CYPHERSYSTEM.PCTranslatedToRecursion": "{actor} trasladado a {recursion}.",
+    "CYPHERSYSTEM.OnRecursion": "en"
 }
