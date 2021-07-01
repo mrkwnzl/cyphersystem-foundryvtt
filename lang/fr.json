@@ -339,5 +339,9 @@
     "CYPHERSYSTEM.GiveAdditionalXP": "Donner l’XP supplémentaire",
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Donnez l’XP supplémentaire à",
     "CYPHERSYSTEM.IntrusionAccepted": "{actor} a accepté l’intrusion (+1 XP) et a donné l’XP supplémentaire à {selectedActor}.",
-    "CYPHERSYSTEM.IntrusionRefused": "{actor} a refusé l’intrusion (-1 XP)."
+    "CYPHERSYSTEM.IntrusionRefused": "{actor} a refusé l’intrusion (-1 XP).",
+    "CYPHERSYSTEM.OnRecursion": "sur",
+    "CYPHERSYSTEM.HinderedByExtraStep": "Tâche entravée d'un niveau supplémentaire",
+    "CYPHERSYSTEM.PCTranslatedToRecursion": "{acteur} transposé à {récursion}.",
+    "CYPHERSYSTEM.EasedByExtraStep": "Tâche facilitée d'un niveau supplémentaire"
 }
