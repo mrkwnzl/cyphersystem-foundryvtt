@@ -133,6 +133,12 @@ Hooks.once("init", async function() {
     config: false
   });
 
+  // Register HTML-Handlebars
+  Handlebars.registerHelper('enrichHTML', (html) => {
+    if (!html) return "";
+    return TextEditor.enrichHTML(html);
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
