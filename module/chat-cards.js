@@ -17,13 +17,14 @@ export function chatCardAskForIntrusion(actor, actorId) {
   return content
 }
 
-export function chatCardIntrusionAccepted(actor, selectedActor) {
+export function chatCardIntrusionAccepted(actor, selectedActorId) {
+  let selectedActor = game.actors.get(selectedActorId);
   let content = game.i18n.format("CYPHERSYSTEM.IntrusionAccepted", {actor: actor.data.name, selectedActor: selectedActor.data.name});
 
   return content
 }
 
-export function chatCardIntrusionRefused(actor, selectedActor) {
+export function chatCardIntrusionRefused(actor, selectedActorId) {
   let content = game.i18n.format("CYPHERSYSTEM.IntrusionRefused", {actor: actor.data.name});
 
   return content

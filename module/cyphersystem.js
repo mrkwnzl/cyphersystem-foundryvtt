@@ -183,7 +183,8 @@ Hooks.once("init", async function() {
   preloadHandlebarsTemplates();
 
   game.socket.on('system.cyphersystem', (data) => {
-    if (data.operation === 'deleteChatMessage') deleteChatMessage();
+    if (data.operation === 'deleteChatMessage') deleteChatMessage(data);
+    if (data.operation === 'giveAdditionalXP') giveAdditionalXP(data);
   });
 });
 
@@ -217,6 +218,13 @@ async function preloadHandlebarsTemplates() {
 
 function deleteChatMessage(data) {
   if (game.user.isGM) game.messages.get(data.messageId).delete();
+}
+
+function giveAdditionalXP(data) {
+  if (game.user.isGM) {
+    let selectedActor = game.actors.get(data.selectedActorId);
+    selectedActor.update({"data.basic.xp": selectedActor.data.data.basic.xp + data.modifier});
+  }
 }
 
 Hooks.on("canvasReady", function(canvas) {
@@ -357,17 +365,14 @@ Hooks.on("renderChatMessage", function(message, html, data) {
 });
 
 // Function to apply XP when an intrusion is accepted
-function applyXPFromIntrusion(actor, selectedActor, messageId, modifier) {
+function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier) {
   actor.update({"data.basic.xp": actor.data.data.basic.xp + modifier});
-  if (selectedActor) {
-    selectedActor = game.actors.get(selectedActor);
-    selectedActor.update({"data.basic.xp": selectedActor.data.data.basic.xp + modifier});
-  }
 
   // Emit a socket event
+  game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
   game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
 
-  let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActor) : chatCardIntrusionRefused(actor, selectedActor);
+  let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
 
   ChatMessage.create({
     content: content
