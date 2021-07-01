@@ -225,7 +225,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     // Damage information
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
-    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style=/"margin-top: 1px; margin-bottom: 2px;/">`;
+    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style=\"margin-top: 1px; margin-bottom: 2px;\">`;
 
     // Attack modifier information
     let attackModifierInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">";
@@ -245,13 +245,13 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       if (additionalSteps > 1) {
         additionalInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: additionalSteps})}<br>`;
       } else if (additionalSteps == 1) {
-        additionalInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraStep", {amount: additionalSteps})}<br>`;
+        additionalInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
       }
     } else {
       if (additionalSteps > 1) {
         additionalInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: additionalSteps})}<br>`;
       } else if (additionalSteps == 1) {
-        additionalInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraStep", {amount: additionalSteps})}<br>`;
+        additionalInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
       }
       additionalSteps = additionalSteps * -1;
     }
