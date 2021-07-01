@@ -341,5 +341,7 @@
     "CYPHERSYSTEM.IntrusionAccepted": "{actor} ha aceptado la intromisión (+1 PE) y le ha otorgado los PE adicionales a {selectedActor}.",
     "CYPHERSYSTEM.IntrusionRefused": "{actor} ha rechazado la intromisión (-1 PE).",
     "CYPHERSYSTEM.PCTranslatedToRecursion": "{actor} trasladado a {recursion}.",
-    "CYPHERSYSTEM.OnRecursion": "en"
+    "CYPHERSYSTEM.OnRecursion": "en",
+    "CYPHERSYSTEM.EasedByExtraStep": "Tarea facilitada en 1 paso adicional",
+    "CYPHERSYSTEM.HinderedByExtraStep": "Tarea dificultada en 1 paso adicional"
 }
