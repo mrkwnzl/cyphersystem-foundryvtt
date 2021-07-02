@@ -104,6 +104,9 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
   // Check for debilitated status
   if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"));
 
+  // Check whether pool == XP
+  if (pool == "XP") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
+
   // Set defaults for damage and damagePerLOE
   if (!damage) damage = 0;
   if (!damagePerLOE) damagePerLOE = 3;
@@ -183,7 +186,8 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     let poolVerification = {
       "Might": function () { return (totalCost > actor.data.data.pools.might.value) ? false : true; },
       "Speed": function () { return (totalCost > actor.data.data.pools.speed.value) ? false : true; },
-      "Intellect": function () { return (totalCost > actor.data.data.pools.intellect.value) ? false : true; }
+      "Intellect": function () { return (totalCost > actor.data.data.pools.intellect.value) ? false : true; },
+      "Pool": function () { return (totalCost > (actor.data.data.pools.might.value + actor.data.data.pools.speed.value + actor.data.data.pools.intellect.value)) ? false : true; }
     };
 
     // -- Information
@@ -202,6 +206,11 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
         return (totalCost != 1) ?
         `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
         `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
+      },
+      "Pool": function () {
+        return (totalCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
       }
     }
 
@@ -275,7 +284,7 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
 
   // Determine the item based on item OD
-  const item = actor.getOwnedItem(itemID);
+  const item = actor.items.get(itemID);
 
   // Check whether the item still exists on the actor
   if (item == null) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));

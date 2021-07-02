@@ -98,6 +98,12 @@ export function payPoolPoints(actor, cost, pool){
       return false;
     }
     actor.update({"data.pools.intellect.value": actor.data.data.pools.intellect.value - cost})
+  } else if (pool == "xp") {
+    if (cost > actor.data.data.basic.xp) {
+      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
+      return false;
+    }
+    actor.update({"data.basic.xp": actor.data.data.basic.xp - cost})
   }
 
   return true;
@@ -106,7 +112,7 @@ export function payPoolPoints(actor, cost, pool){
 export function itemRollMacroQuick(actor, itemID) {
   // Find actor and item based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
-  const item = actor.getOwnedItem(itemID);
+  const item = actor.items.get(itemID);
 
   // Set defaults
   let info = "";
@@ -214,23 +220,31 @@ export function itemRollMacroQuick(actor, itemID) {
 
       // Determine pool points
       let relevantPool = {
-        "Might": function () {
+        "Might": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.MightPoints") :
           game.i18n.localize("CYPHERSYSTEM.MightPoint");
         },
-        "Speed": function () {
+        "Speed": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.SpeedPoints") :
           game.i18n.localize("CYPHERSYSTEM.SpeedPoint");
         },
-        "Intellect": function () {
+        "Intellect": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.IntellectPoints") :
           game.i18n.localize("CYPHERSYSTEM.IntellectPoint");
+        },
+        "Pool": function() {
+          return (pointCost != 1) ?
+          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints") :
+          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint");
+        },
+        "XP": function() {
+          return game.i18n.localize("CYPHERSYSTEM.XP")
         }
       }
-      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Might"]());
+      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Pool"]());
 
       // Determine edge info
       let operator = (edge < 0) ? "+" : "-";
