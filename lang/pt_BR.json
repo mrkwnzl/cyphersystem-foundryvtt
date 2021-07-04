@@ -327,7 +327,7 @@
     "CYPHERSYSTEM.ConfirmIdentification": "{item} foi identificado por {personagem}.",
     "CYPHERSYSTEM.JoinDiscord": "Entre no Discord de desenvolvimento do Cypher FVTT",
     "CYPHERSYSTEM.PCTranslatedToRecursion": "{personagem} transladou para {recursão}.",
-    "CYPHERSYSTEM.OnRecursion": "on",
+    "CYPHERSYSTEM.OnRecursion": "em",
     "CYPHERSYSTEM.EasedByExtraStep": "Tarefa facilitada em 1 passo adicional",
     "CYPHERSYSTEM.HinderedByExtraStep": "Tarefa dificultada em 1 passo adicional",
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Presenteie o XP adicional para",
@@ -341,5 +341,7 @@
     "CYPHERSYSTEM.ProposingIntrusion": "O Mestre está propondo uma intromissão para {personagem}.",
     "CYPHERSYSTEM.IntrusionGMWarning": "Somente o mestre pode propor uma intromissão.",
     "CYPHERSYSTEM.IntrusionWrongPlayer": "Somente o jogador que controla {personagem} pode aceitar ou recusar uma intromissão.",
-    "CYPHERSYSTEM.GiveAdditionalXP": "Presenteie o XP adicional"
+    "CYPHERSYSTEM.GiveAdditionalXP": "Presenteie o XP adicional",
+    "CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP": "O diálogo \"All-in-One\" não pode ser usado para habilidades com custo de XP.",
+    "CYPHERSYSTEM.NotEnoughXP": "Você não tem XP suficiente."
 }
