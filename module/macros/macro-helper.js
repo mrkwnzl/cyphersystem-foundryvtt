@@ -50,8 +50,6 @@ export async function diceRoller(title, info, modifier) {
     speaker: ChatMessage.getSpeaker(),
     flavor: flavor
   });
-
-  return roll.result;
 }
 
 function determineDifficultyResult(roll, difficulty, modifier) {

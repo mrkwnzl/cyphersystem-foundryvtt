@@ -66,6 +66,11 @@ Hooks.once("init", async function() {
     CypherItem,
     CypherActorSheet,
     CypherActorSheetPC,
+    CypherActorSheetNPC,
+    CypherActorSheetCommunity,
+    CypherActorSheetCompanion,
+    CypherActorSheetVehicle,
+    CypherActorSheetToken,
 
     // Macros
     quickRollMacro,
@@ -267,17 +272,6 @@ Hooks.once("ready", async function() {
     if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
     if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({"data.settings.counting": -1});
     if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({"data.settings.counting": 1});
-  }
-
-  // Fix for case-sensitive OSs
-  for (let actor of game.actors) {
-    for (let item of actor.items) {
-      let path = item.data.img.toLowerCase();
-      if ((path == `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` && path != item.data.img) || path == `icons/svg/item-bag.svg`) {
-        path = `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`
-        item.data.update({"img": path})
-      }
-    }
   }
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
