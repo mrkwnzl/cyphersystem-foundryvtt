@@ -1,7 +1,7 @@
 {
     "CYPHERSYSTEM.SettingRollMacro": "Würfelmakros verwenden den effektiven Schwierigkeitsgrad",
     "CYPHERSYSTEM.SettingRollMacroHint": "Mit dieser Einstellung werden die Grade, die in Würfelmakros erleichtert oder erschwert werden, zur Schwierigkeit addiert bzw. von ihr subtrahiert. Dadurch ergibt sich die effektive Schwierigkeit, die durch den Wurf erreicht wird. Wenn Du z.B. eine 9 bei einem Wurf würfelst, der um eine Stufe erleichtert wird, sagt Dir das Makro, dass Du die Schwierigkeit 4 (3+1) übertriffst. Wäre es erschwert worden, würde Dir stattdessen angezeigt, dass Du die Schwierigkeit 2 (3-1) erreicht hättest. Wenn diese Option deaktiviert ist, würde angezeigt, dass Du Schwierigkeit 3 erreicht hast.",
-    "CYPHERSYSTEM.SettingMacroAllInOne": "Item-Makros benutzen All-In-One-Dialog",
+    "CYPHERSYSTEM.SettingMacroAllInOne": "All-In-One-Dialog für Item-Makros als Standard benutzen",
     "CYPHERSYSTEM.SettingMacroAllInOneHint": "Mit dieser Einstellung verwenden die Item-Makros, die durch Ziehen eines Items in die Makroleiste erstellt werden, das All-in-One-Roll-Makro anstelle des Quick-Roll-Makros.",
     "CYPHERSYSTEM.SettingShowWelcome": "Zeige Willkommensnachricht",
     "CYPHERSYSTEM.SettingShowWelcomeHint": "Zeige die Willkommensnachricht bei jedem Öffnen dieser Welt.",
