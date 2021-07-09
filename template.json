@@ -323,7 +323,20 @@
         "description": "",
         "showDescription": false,
         "level": "",
-        "archived": false
+        "archived": false,
+        "rollButton": {
+          "pool": "Pool",
+          "skill": "Practiced",
+          "assets": 0,
+          "effort1": 0,
+          "effort2": 0,
+          "effort3": 0,
+          "additionalSteps": 0,
+          "additionalCost": 0,
+          "damage": 0,
+          "damagePerLOE": 3,
+          "teen": ""
+        }
       },
       "version": {
         "version": 1

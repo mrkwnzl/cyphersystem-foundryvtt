@@ -64,6 +64,8 @@ Hooks.once("init", async function() {
     // Actor sheets
     CypherActor,
     CypherItem,
+    CypherActorSheet,
+    CypherActorSheetPC,
 
     // Macros
     quickRollMacro,
@@ -102,6 +104,15 @@ Hooks.once("init", async function() {
   game.settings.register("cyphersystem", "effectiveDifficulty", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingRollMacro"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollMacroHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
+  game.settings.register("cyphersystem", "rollButtons", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingRollButtons"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
     type: Boolean,
     default: false,
@@ -211,7 +222,8 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/oddities.html",
     "systems/cyphersystem/templates/tabs/teenArmor.html",
     "systems/cyphersystem/templates/tabs/teenAttacks.html",
-    "systems/cyphersystem/templates/tabs/attacks.html"
+    "systems/cyphersystem/templates/tabs/attacks.html",
+    "systems/cyphersystem/templates/tabs/item-settings.html"
   ];
   return loadTemplates(templatePaths);
 }

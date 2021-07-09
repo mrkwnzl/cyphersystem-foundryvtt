@@ -14,7 +14,7 @@
       <div class="item-quantity">{{#if (eq data.level "")}}—{{else}}{{{enrichHTML data.level}}}{{/if}}</div>
       <div class="item-quantity"><a class="item-control minus-one" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.quantity}}&nbsp;</p><a class="item-control plus-one" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
       <div class="item-controls">
-        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
         <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>

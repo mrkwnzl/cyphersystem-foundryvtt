@@ -7,6 +7,10 @@ import {
   chatCardMarkItemIdentified
 } from "../chat-cards.js";
 
+import {
+  itemRollMacro
+} from "../macros/macros.js";
+
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
@@ -15,6 +19,7 @@ export class CypherActorSheet extends ActorSheet {
     const data = superData.data;
     data.data.isGM = game.user.isGM;
     data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
+    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.actor = superData.actor;
     data.items = superData.items;
     data.owner = superData.owner;
@@ -208,7 +213,7 @@ export class CypherActorSheet extends ActorSheet {
       return 0;
     }
 
-    // Sort items by inditified status
+    // Sort items by indentified status
     function byIdentifiedStatus(itemA, itemB) {
       let ratingA;
       let ratingB;
@@ -353,8 +358,32 @@ export class CypherActorSheet extends ActorSheet {
     });
 
     /**
+    * Roll buttons
+    */
+
+    // Item roll buttons
+    html.find('.item-roll').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+      let pool = item.data.rollButton.pool;
+      let skill = item.data.rollButton.skill;
+      let assets = item.data.rollButton.assets;
+      let effort1 = item.data.rollButton.effort1;
+      let effort2 = item.data.rollButton.effort2;
+      let additionalSteps = item.data.rollButton.additionalSteps;
+      let additionalCost = item.data.rollButton.additionalCost;
+      let damage = item.data.rollButton.damage;
+      let effort3 = item.data.rollButton.effort3;
+      let damagePerLOE = item.data.rollButton.damagePerLOE;
+      let teen = "";
+
+      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen)
+    });
+
+    /**
     * General sheet functions
     */
+
     // Show item description or send to chat
     html.find('.item-description').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");

@@ -18,4 +18,15 @@ export class CypherActorSheetNPC extends CypherActorSheet {
       scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items"]
     });
   }
+
+  /**
+  * Additional data preparations
+  */
+  getData() {
+    const data = super.getData();
+    const actorData = data.actor.data;
+    data.data.rollButtons = false;
+    
+    return data;
+  }
 }

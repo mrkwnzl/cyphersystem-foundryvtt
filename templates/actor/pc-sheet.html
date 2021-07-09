@@ -83,6 +83,11 @@
             </div>
             <hr class="hr-pool">
             <div class="resource-content flexrow flex-center align-edge">
+              {{#if data.rollButtons}}
+              <div>
+                <a class="item-control might{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.MightRoll'}}"><i class="fas fa-dice-d20"></i></a>
+              </div>
+              {{/if}}
               <label style="flex: 0 0 0;" for="data.pools.mightEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.pools.mightEdge" value="{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{data.teen.pools.mightEdge}}{{else}}{{data.pools.mightEdge}}{{/if}}" data-dtype="Number"/>
             </div>
@@ -104,6 +109,11 @@
             </div>
             <hr class="hr-pool">
             <div class="resource-content flexrow flex-center align-edge">
+              {{#if data.rollButtons}}
+              <div>
+                <a class="item-control speed{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.SpeedRoll'}}"><i class="fas fa-dice-d20"></i></a>
+              </div>
+              {{/if}}
               <label style="flex: 0 0 0; " for="data.pools.speedEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.pools.speedEdge" value="{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{data.teen.pools.speedEdge}}{{else}}{{data.pools.speedEdge}}{{/if}}" data-dtype="Number"/>
             </div>
@@ -125,6 +135,11 @@
             </div>
             <hr class="hr-pool">
             <div class="resource-content flexrow flex-center align-edge">
+              {{#if data.rollButtons}}
+              <div>
+                <a class="item-control intellect{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.IntellectRoll'}}"><i class="fas fa-dice-d20"></i></a>
+              </div>
+              {{/if}}
               <label style="flex: 0 0 0; " for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.pools.intellectEdge" value="{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{data.teen.pools.intellectEdge}}{{else}}{{data.pools.intellectEdge}}{{/if}}" data-dtype="Number"/>
             </div>
@@ -227,7 +242,8 @@
               <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity">{{data.powerShiftValue}}</div>
               <div class="item-controls">
-                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                {{#if ../data.rollButtons}}<a class="item-control item-roll" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-file-alt"></i></a>
                 <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
@@ -290,7 +306,7 @@
             <li class="item flexrow non-draggable">
               <div class="item-quantity"><input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1"/></div>
               <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
-                <div style="padding-left: 20px; display: flex; justify-content: center">
+                <div style="padding-left: 30px; display: flex; justify-content: center">
                   <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}}/>
                   {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
                   {{#if data.settings.additionalRecoveries.active}}
@@ -307,7 +323,12 @@
                   &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHour'}}&nbsp;&nbsp;
                   <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}}/>
                   &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}</div>
-                  <div style="max-width: 14px"><a class="item-control reset-recovery-rolls" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}"><i class="fas fa-sync-alt"></i></a></div>
+                  <div class="item-controls">
+                    {{#if data.rollButtons}}
+                    <a class="item-control recovery-roll" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}"><i class="fas fa-dice-d20"></i></a>
+                    {{/if}}
+                    <a class="item-control reset-recovery-rolls" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}"><i class="fas fa-sync-alt"></i></a>
+                  </div>
                 </div>
               </li>
             </ol>
@@ -333,7 +354,8 @@
                 <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
                 <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
                 <div class="item-controls">
-                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+                  {{#if ../data.rollButtons}}<a class="item-control item-roll" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
+                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
                   <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>
@@ -349,7 +371,7 @@
                 <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.Permanent'}}{{/if}})</a></h4>
                 <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
                 <div class="item-controls">
-                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
+                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
                   <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>

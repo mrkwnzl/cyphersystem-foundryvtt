@@ -4,6 +4,16 @@
 */
 import {CypherActorSheet} from "./actor-sheet.js";
 
+import {
+  recoveryRollMacro,
+  allInOneRollDialog,
+  quickRollMacro
+} from "../macros/macros.js";
+
+import {
+  diceRoller
+} from "../macros/macro-helper.js";
+
 export class CypherActorSheetPC extends CypherActorSheet {
 
   /** @override */
@@ -43,9 +53,9 @@ export class CypherActorSheetPC extends CypherActorSheet {
         totalModifier = skillRating + modifiedBy;
 
         if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
-        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: totalModifier});
+        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", {amount: totalModifier});
         if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
-        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(totalModifier)});
+        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", {amount: Math.abs(totalModifier)});
 
         // Assign and return
         i.data.totalModified = totalModified;
@@ -293,6 +303,54 @@ export class CypherActorSheetPC extends CypherActorSheet {
       this.actor.update({
         "data.teen.pools.additional.value": this.actor.data.data.teen.pools.additional.max
       })
+    });
+
+    /**
+    * Roll buttons
+    */
+
+    // Might roll button
+    html.find('.might-roll').click(clickEvent => {
+      // Check for AiO dialog
+      let allInOneDialog = false;
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+        allInOneDialog = true;
+      };
+      if (allInOneDialog) {
+        allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "")
+      } else {
+        diceRoller(game.i18n.localize("CYPHERSYSTEM.MightRoll"), "", 0, 0)
+      }
+    });
+
+    // Speed roll button
+    html.find('.speed-roll').click(clickEvent => {
+      // Check for AiO dialog
+      let allInOneDialog = false;
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+        allInOneDialog = true;
+      };
+      if (allInOneDialog) {
+        allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "")
+      } else {
+        diceRoller(game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), "", 0, 0)
+      }
+    });
+
+    // Intellect roll button
+    html.find('.intellect-roll').click(clickEvent => {
+      // Check for AiO dialog
+      let skipDialog = false;
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+        skipDialog = true;
+      };
+      allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog)
+    });
+
+    // Recovery roll button
+    html.find('.recovery-roll').click(clickEvent => {
+      const item = $(clickEvent.currentTarget).parents(".item");
+      recoveryRollMacro(this.actor, "")
     });
 
     /**
