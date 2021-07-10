@@ -211,35 +211,62 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       "XP": function () { return (totalCost > actor.data.data.basic.xp) ? false : true; },
     };
 
-    // -- Information
-    let poolTypeInfo = {
+    // -- Information total cost
+    let totalCostInfo = {
       "Might": function () {
         return (totalCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
       },
       "Speed": function () {
         return (totalCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
       },
       "Intellect": function () {
         return (totalCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} (${cost}-${edge})  ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
       },
       "Pool": function () {
         return (totalCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost}  ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost}  ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
       },
       "XP": function () {
         return `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${totalCost} ${game.i18n.localize("CYPHERSYSTEM.XP")}`
       }
     }
 
+    // -- Information pool cost
+    let poolCostInfo = {
+      "Might": function () {
+        return (additionalCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
+      },
+      "Speed": function () {
+        return (additionalCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
+      },
+      "Intellect": function () {
+        return (additionalCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
+      },
+      "Pool": function () {
+        return (additionalCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
+      },
+      "XP": function () {
+        return `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${additionalCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`
+      }
+    }
+
     if (poolVerification[pool]()) {
-      costInfo = poolTypeInfo[pool]();
+      costInfo = poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
     } else {
       if (!skipDialog) allInOneRollDialog(actor, pool, skillRating, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, teen, skipDialog);
       if (pool == "XP") {
