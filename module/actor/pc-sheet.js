@@ -312,37 +312,29 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Might roll button
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
-      let allInOneDialog = false;
+      let skipDialog = true;
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        allInOneDialog = true;
+        skipDialog = false;
       };
-      if (allInOneDialog) {
-        allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "")
-      } else {
-        diceRoller(game.i18n.localize("CYPHERSYSTEM.MightRoll"), "", 0, 0)
-      }
+      allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog)
     });
 
     // Speed roll button
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
-      let allInOneDialog = false;
+      let skipDialog = true;
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        allInOneDialog = true;
+        skipDialog = false;
       };
-      if (allInOneDialog) {
-        allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "")
-      } else {
-        diceRoller(game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), "", 0, 0)
-      }
+      allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog)
     });
 
     // Intellect roll button
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = false;
+      let skipDialog = true;
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        skipDialog = true;
+        skipDialog = false;
       };
       allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog)
     });

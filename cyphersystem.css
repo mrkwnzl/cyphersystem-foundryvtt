@@ -227,6 +227,10 @@ min-height: 610px;
   margin-bottom: 5px;
 }
 
+.cyphersystem .stat-pool.disabled {
+  border: none;
+}
+
 .cyphersystem .align-edge {
   justify-content: flex-end;
 }
