@@ -371,6 +371,7 @@ export class CypherActorSheet extends ActorSheet {
       let assets = item.data.rollButton.assets;
       let effort1 = item.data.rollButton.effort1;
       let effort2 = item.data.rollButton.effort2;
+      let stepModifier = item.data.rollButton.stepModifier;
       let additionalSteps = item.data.rollButton.additionalSteps;
       let additionalCost = item.data.rollButton.additionalCost;
       let damage = item.data.rollButton.damage;
@@ -378,7 +379,7 @@ export class CypherActorSheet extends ActorSheet {
       let damagePerLOE = item.data.rollButton.damagePerLOE;
       let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen)
+      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier)
     });
 
     /**
