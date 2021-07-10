@@ -304,7 +304,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
   }
 }
 
-export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen) {
+export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier) {
   // Find actor based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
@@ -338,9 +338,7 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   if (!damage) damage = 0;
   if (!pool) pool = "Might";
   if (!damagePerLOE) damagePerLOE = 3;
-
-  // Set the step modifier for the difficulty
-  let stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
+  if (!stepModifier) stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
 
   // Overwrite defaults for some item types
   if (item.type == "skill" || item.type == "teen Skill") {

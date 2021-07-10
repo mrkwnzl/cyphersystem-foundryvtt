@@ -108,8 +108,15 @@
       </li>
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack") (eq item.type "power Shift"))}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.Difficulty'}}</div>
-        <div class="item-quantity"><input class="auto-margin" name="data.rollButton.additionalSteps" type="text" value="{{data.rollButton.additionalSteps}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="width: auto;"/></div>
+        <label class="settings-list">{{localize 'CYPHERSYSTEM.Difficulty'}}</label>
+          <select class="auto-margin" name="data.rollButton.stepModifier" style="max-width:99px">
+            {{#select data.rollButton.stepModifier}}
+            <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
+            <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
+            {{/select}}
+          </select>
+          &nbsp;
+          <input class="auto-margin" name="data.rollButton.additionalSteps" type="text" value="{{data.rollButton.additionalSteps}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="max-width: 32px"/>
       </li>
       {{/unless}}
       {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
