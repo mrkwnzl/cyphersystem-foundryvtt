@@ -157,6 +157,10 @@ min-height: 610px;
 
 /* Styles limited to cyphersystem sheets */
 
+.cyphersystem .body {
+  font-size: 13px;
+}
+
 .cyphersystem .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 210px;
@@ -256,7 +260,7 @@ min-height: 610px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
   margin: 5px 0 0 0;
-  padding: 0px 5px 0px 19px;
+  padding: 0px 5px 0px 5px;
 }
 
 .cyphersystem .tabs .item {

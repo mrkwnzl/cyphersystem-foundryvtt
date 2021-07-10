@@ -18,6 +18,7 @@ export class CypherActorSheet extends ActorSheet {
     const superData = super.getData();
     const data = superData.data;
     data.data.isGM = game.user.isGM;
+    data.data.isLimited = this.actor.limited;
     data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.actor = superData.actor;
