@@ -1,76 +1,83 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-    <header class="sheet-header">
-        <div class="header-fields">
-            <div class="flexrow">
-                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-                <div class="centered-fields">
-                    <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
-                        &nbsp;
-                        <div class="item-quantity" style="flex: 0 0 80px;">
-                          <select name="data.skillRating">
-                              {{#select data.skillRating}}
-                              <option value="Inability">{{localize 'CYPHERSYSTEM.Inability'}}</option>
-                              <option value="Practiced">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
-                              <option value="Trained">{{localize 'CYPHERSYSTEM.Trained'}}</option>
-                              <option value="Specialized">{{localize 'CYPHERSYSTEM.Specialized'}}</option>
-                              {{/select}}
-                          </select>
-                        </div>
-                    </div>
-                    <div class="resources grid grid-3col" style="margin-bottom: 0">
-                        <div class="resource flex-center">
-                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Damage'}}</label>
-                            <div class="resource-content flexrow flex-center flex-between">
-                                <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>
-                            </div>
-                        </div>
-                        <div class="resource flex-center">
-                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Type'}}</label>
-                            <div class="resource-content flexrow flex-center flex-between">
-                                <select name="data.attackType">
-                                    {{#select data.attackType}}
-                                    <option value="light weapon">{{localize 'CYPHERSYSTEM.LightWeapon'}}</option>
-                                    <option value="medium weapon">{{localize 'CYPHERSYSTEM.MediumWeapon'}}</option>
-                                    <option value="heavy weapon">{{localize 'CYPHERSYSTEM.HeavyWeapon'}}</option>
-                                    <option value="artifact">{{localize 'CYPHERSYSTEM.Artifact'}}</option>
-                                    <option value="special ability">{{localize 'CYPHERSYSTEM.SpecialAbility'}}</option>
-                                    {{/select}}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="resource flexrow flex-between flex-center" >
-                            <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Modifier'}}</label>
-                            <select name="data.modified" style="width:98px">
-                                {{#select data.modified}}
-                                <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
-                                <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
-                                {{/select}}
-                            </select>
-                            &nbsp;
-                            <input class="data-modifiedBy" type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number"/>
-                        </div>
-                    </div>
-                    <div class="flexrow flex-between">
-                        <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Range'}}"/>&nbsp;
-                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}"/>
-                    </div>
-                </div>
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="centered-fields">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
+            &nbsp;
+            <div class="item-quantity" style="flex: 0 0 80px;">
+              <select name="data.skillRating">
+                {{#select data.skillRating}}
+                <option value="Inability">{{localize 'CYPHERSYSTEM.Inability'}}</option>
+                <option value="Practiced">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
+                <option value="Trained">{{localize 'CYPHERSYSTEM.Trained'}}</option>
+                <option value="Specialized">{{localize 'CYPHERSYSTEM.Specialized'}}</option>
+                {{/select}}
+              </select>
             </div>
+          </div>
+          <div class="resources grid grid-3col" style="margin-bottom: 0">
+            <div class="resource flex-center">
+              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Damage'}}</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>
+              </div>
+            </div>
+            <div class="resource flex-center">
+              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Type'}}</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <select name="data.attackType">
+                  {{#select data.attackType}}
+                  <option value="light weapon">{{localize 'CYPHERSYSTEM.LightWeapon'}}</option>
+                  <option value="medium weapon">{{localize 'CYPHERSYSTEM.MediumWeapon'}}</option>
+                  <option value="heavy weapon">{{localize 'CYPHERSYSTEM.HeavyWeapon'}}</option>
+                  <option value="artifact">{{localize 'CYPHERSYSTEM.Artifact'}}</option>
+                  <option value="special ability">{{localize 'CYPHERSYSTEM.SpecialAbility'}}</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+            <div class="resource flexrow flex-between flex-center" >
+              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Modifier'}}</label>
+              <select name="data.modified" style="width:98px">
+                {{#select data.modified}}
+                <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
+                <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
+                {{/select}}
+              </select>
+              &nbsp;
+              <input class="data-modifiedBy" type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number"/>
+            </div>
+          </div>
+          <div class="flexrow flex-between">
+            <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Range'}}"/>&nbsp;
+            <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}"/>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
-    </nav>
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{#if data.rollButtons}}
+    <a class="item" data-tab="settings" style="flex: 0 0 0px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
+    {{/if}}
+  </nav>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
 
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
-        </div>
-    </section>
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Settings Tab --}}
+    {{> systems/cyphersystem/templates/tabs/item-settings.html}}
+
+  </section>
 </form>

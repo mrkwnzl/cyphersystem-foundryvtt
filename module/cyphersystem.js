@@ -64,6 +64,13 @@ Hooks.once("init", async function() {
     // Actor sheets
     CypherActor,
     CypherItem,
+    CypherActorSheet,
+    CypherActorSheetPC,
+    CypherActorSheetNPC,
+    CypherActorSheetCommunity,
+    CypherActorSheetCompanion,
+    CypherActorSheetVehicle,
+    CypherActorSheetToken,
 
     // Macros
     quickRollMacro,
@@ -102,6 +109,15 @@ Hooks.once("init", async function() {
   game.settings.register("cyphersystem", "effectiveDifficulty", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingRollMacro"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollMacroHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
+  game.settings.register("cyphersystem", "rollButtons", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingRollButtons"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
     type: Boolean,
     default: false,
@@ -211,7 +227,8 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/oddities.html",
     "systems/cyphersystem/templates/tabs/teenArmor.html",
     "systems/cyphersystem/templates/tabs/teenAttacks.html",
-    "systems/cyphersystem/templates/tabs/attacks.html"
+    "systems/cyphersystem/templates/tabs/attacks.html",
+    "systems/cyphersystem/templates/tabs/item-settings.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -255,17 +272,6 @@ Hooks.once("ready", async function() {
     if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
     if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({"data.settings.counting": -1});
     if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({"data.settings.counting": 1});
-  }
-
-  // Fix for case-sensitive OSs
-  for (let actor of game.actors) {
-    for (let item of actor.items) {
-      let path = item.data.img.toLowerCase();
-      if ((path == `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` && path != item.data.img) || path == `icons/svg/item-bag.svg`) {
-        path = `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`
-        item.data.update({"img": path})
-      }
-    }
   }
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();

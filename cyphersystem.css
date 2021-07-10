@@ -157,6 +157,10 @@ min-height: 610px;
 
 /* Styles limited to cyphersystem sheets */
 
+.cyphersystem .body {
+  font-size: 13px;
+}
+
 .cyphersystem .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 210px;
@@ -223,6 +227,10 @@ min-height: 610px;
   margin-bottom: 5px;
 }
 
+.cyphersystem .stat-pool.disabled {
+  border: none;
+}
+
 .cyphersystem .align-edge {
   justify-content: flex-end;
 }
@@ -256,7 +264,7 @@ min-height: 610px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
   margin: 5px 0 0 0;
-  padding: 0px 5px 0px 19px;
+  padding: 0px 5px 0px 5px;
 }
 
 .cyphersystem .tabs .item {
@@ -330,9 +338,9 @@ min-height: 610px;
 }
 
 .cyphersystem .items-list .item-controls {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 50px;
-  flex: 0 0 50px;
+  -webkit-box-flex: 0 0 55px;
+  -ms-flex: 0 0 55px;
+  flex: 0 0 55px;
   text-align: right;
   /*  margin-top: auto;
   margin-bottom: auto;*/
@@ -453,6 +461,16 @@ min-height: 610px;
 }
 
 .cyphersystem select {
+  height: 26px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  font-family: "Signika", sans-serif;
+  font-size: 14px;
+  text-align-last: center;
+  padding: 1px 3px;
+}
+
+.dialog-select {
   height: 26px;
   margin-bottom: 2px;
   margin-top: 2px;

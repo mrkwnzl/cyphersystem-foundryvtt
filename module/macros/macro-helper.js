@@ -61,14 +61,22 @@ function determineDifficultyResult(roll, difficulty, modifier) {
   }
 }
 
-export function payPoolPoints(actor, cost, pool){
+export async function payPoolPoints(actor, cost, pool, teen){
   pool = pool.toLowerCase();
+
+  // Determine stats
+  let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
+  let mightEdge = (teen) ? actor.data.data.teen.pools.mightEdge : actor.data.data.pools.mightEdge;
+  let speedValue = (teen) ? actor.data.data.teen.pools.speed.value : actor.data.data.pools.speed.value;
+  let speedEdge = (teen) ? actor.data.data.teen.pools.speedEdge : actor.data.data.pools.speedEdge;
+  let intellectValue = (teen) ? actor.data.data.teen.pools.intellect.value : actor.data.data.pools.intellect.value;
+  let intellectEdge = (teen) ? actor.data.data.teen.pools.intellectEdge : actor.data.data.pools.intellectEdge;
 
   // Determine edge
   let relevantEdge = {
-    "might": actor.data.data.pools.mightEdge,
-    "speed": actor.data.data.pools.speedEdge,
-    "intellect": actor.data.data.pools.intellectEdge
+    "might": mightEdge,
+    "speed": speedEdge,
+    "intellect": intellectEdge
   };
   let edge = (relevantEdge[pool] || 0);
 
@@ -81,37 +89,44 @@ export function payPoolPoints(actor, cost, pool){
 
   // Check if enough points are avalable and update actor
   if (pool == "might") {
-    if (cost > actor.data.data.pools.might.value) {
+    if (cost > mightValue) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
-    actor.update({"data.pools.might.value": actor.data.data.pools.might.value - cost})
+    (teen) ? actor.update({"data.teen.pools.might.value": mightValue - cost}) : actor.update({"data.pools.might.value": mightValue - cost})
   } else if (pool == "speed") {
-    if (cost > actor.data.data.pools.speed.value) {
+    if (cost > speedValue) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
-    actor.update({"data.pools.speed.value": actor.data.data.pools.speed.value - cost})
+    (teen) ? actor.update({"data.teen.pools.speed.value": intellectValue - cost}) : actor.update({"data.pools.speed.value": speedValue - cost})
   } else if (pool == "intellect") {
-    if (cost > actor.data.data.pools.intellect.value) {
+    if (cost > intellectValue) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
-    actor.update({"data.pools.intellect.value": actor.data.data.pools.intellect.value - cost})
+    (teen) ? actor.update({"data.teen.pools.intellect.value": intellectValue - cost}) : actor.update({"data.pools.intellect.value": intellectValue - cost})
+  } else if (pool == "xp") {
+    if (cost > actor.data.data.basic.xp) {
+      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
+      return false;
+    }
+    actor.update({"data.basic.xp": actor.data.data.basic.xp - cost})
   }
 
   return true;
 }
 
-export function itemRollMacroQuick(actor, itemID) {
+export function itemRollMacroQuick(actor, itemID, teen) {
   // Find actor and item based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
-  const item = actor.getOwnedItem(itemID);
+  const item = actor.items.get(itemID);
 
   // Set defaults
   let info = "";
   let modifier = 0;
   let pointsPaid = true;
+  if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
 
   // Set title
   let itemTypeStrings = {
@@ -200,10 +215,14 @@ export function itemRollMacroQuick(actor, itemID) {
     // Check if there is a point cost and prepare costInfo
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
       // Determine edge
+      let mightEdge = (teen) ? actor.data.data.teen.pools.mightEdge : actor.data.data.pools.mightEdge;
+      let speedEdge = (teen) ? actor.data.data.teen.pools.speedEdge : actor.data.data.pools.speedEdge;
+      let intellectEdge = (teen) ? actor.data.data.teen.pools.intellectEdge : actor.data.data.pools.intellectEdge;
+
       let relevantEdge = {
-        "Might": actor.data.data.pools.mightEdge,
-        "Speed": actor.data.data.pools.speedEdge,
-        "Intellect": actor.data.data.pools.intellectEdge
+        "Might": mightEdge,
+        "Speed": speedEdge,
+        "Intellect": intellectEdge
       };
       let edge = (relevantEdge[item.data.data.costPool] || 0)
 
@@ -214,23 +233,31 @@ export function itemRollMacroQuick(actor, itemID) {
 
       // Determine pool points
       let relevantPool = {
-        "Might": function () {
+        "Might": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.MightPoints") :
           game.i18n.localize("CYPHERSYSTEM.MightPoint");
         },
-        "Speed": function () {
+        "Speed": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.SpeedPoints") :
           game.i18n.localize("CYPHERSYSTEM.SpeedPoint");
         },
-        "Intellect": function () {
+        "Intellect": function() {
           return (pointCost != 1) ?
           game.i18n.localize("CYPHERSYSTEM.IntellectPoints") :
           game.i18n.localize("CYPHERSYSTEM.IntellectPoint");
+        },
+        "Pool": function() {
+          return (pointCost != 1) ?
+          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints") :
+          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint");
+        },
+        "XP": function() {
+          return game.i18n.localize("CYPHERSYSTEM.XP")
         }
       }
-      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Might"]());
+      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Pool"]());
 
       // Determine edge info
       let operator = (edge < 0) ? "+" : "-";
@@ -244,7 +271,7 @@ export function itemRollMacroQuick(actor, itemID) {
     info = itemType + costInfo
 
     // Pay pool points and check whether there are enough points
-    pointsPaid = payPoolPoints(actor, pointCost, item.data.data.costPool)
+    pointsPaid = payPoolPoints(actor, pointCost, item.data.data.costPool, teen)
 
   } else if (item.type == "cypher") {
     // Determine level info

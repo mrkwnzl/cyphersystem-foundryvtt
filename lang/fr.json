@@ -1,8 +1,8 @@
 {
     "CYPHERSYSTEM.SettingRollMacro": "Les Macros des Jets utilisent la Difficulté Effective",
     "CYPHERSYSTEM.SettingRollMacroHint": "Avec ce paramètre, les niveaux facilités ou entravés pour les jets des macros sont respectivement ajoutés et soustraits de la difficulté. En fait, cela donne la difficulté effective qui est obtenue par le jet. Par exemple, si vous obtenez un 9 sur un jet qui est facilité d’un niveau, la macro vous dit que vous avez battu la difficulté 4 (3+1). Si vous aviez été entravé, elle vous aurait dit que vous aviez battu la difficulté 2 (3-1). Si cette option est désactivée, elle vous dira que vous avez battu la difficulté 3.",
-    "CYPHERSYSTEM.SettingMacroAllInOne": "Les Macros d’Élément utilisent le Jet Tout-en-Un",
-    "CYPHERSYSTEM.SettingMacroAllInOneHint": "Avec ce paramètre, les macros des éléments créés en faisant glisser un élément vers la barre de macros utilisent la macro du Jet Tout-en-Un au lieu de la macro de Jet Rapide.",
+    "CYPHERSYSTEM.SettingMacroAllInOne": "Les Macros d’Élément utilisent le Jet Tout-en-Un par défaut",
+    "CYPHERSYSTEM.SettingMacroAllInOneHint": "Avec ce paramètre, les macros des éléments créés en faisant glisser un élément vers la barre de macros et les boutons de jets optionnels sur les feuilles de caractères utilisent la macro du Jet Tout-en-Un au lieu de la macro de Jet Rapide. Avec ce paramètre, vous pouvez cliquer avec la touche Alt pour effectuer un jet rapide.",
     "CYPHERSYSTEM.SettingShowWelcome": "Afficher le Message d’Accueil",
     "CYPHERSYSTEM.SettingShowWelcomeHint": "Montrez le message de bienvenue à chaque lancement de ce monde.",
     "CYPHERSYSTEM.WelcomeMessage": "Bienvenue dans le Système Cypher !",
@@ -189,7 +189,7 @@
     "CYPHERSYSTEM.levels": "niveaux",
     "CYPHERSYSTEM.Levels": "Niveaux",
     "CYPHERSYSTEM.CreateItem": "Créer un Élément",
-    "CYPHERSYSTEM.EditItem": "Editer l’Élément",
+    "CYPHERSYSTEM.EditItem": "Ouvrir la fiche de l’Élément",
     "CYPHERSYSTEM.ShowDescription": "Afficher la Description (alt-clic pour envoyer la description au tchat)",
     "CYPHERSYSTEM.ArchiveItem": "Archiver l’Élément (alt-clic pour supprimer)",
     "CYPHERSYSTEM.UnarchiveItem": "Désarchiver l’élément (alt-clic pour supprimer)",
@@ -339,5 +339,17 @@
     "CYPHERSYSTEM.GiveAdditionalXP": "Donner l’XP supplémentaire",
     "CYPHERSYSTEM.GiveAdditionalXPTo": "Donnez l’XP supplémentaire à",
     "CYPHERSYSTEM.IntrusionAccepted": "{actor} a accepté l’intrusion (+1 XP) et a donné l’XP supplémentaire à {selectedActor}.",
-    "CYPHERSYSTEM.IntrusionRefused": "{actor} a refusé l’intrusion (-1 XP)."
+    "CYPHERSYSTEM.IntrusionRefused": "{actor} a refusé l’intrusion (-1 XP).",
+    "CYPHERSYSTEM.OnRecursion": "sur",
+    "CYPHERSYSTEM.HinderedByExtraStep": "Tâche entravée d'un niveau supplémentaire",
+    "CYPHERSYSTEM.PCTranslatedToRecursion": "{acteur} transposé à {récursion}.",
+    "CYPHERSYSTEM.EasedByExtraStep": "Tâche facilitée d'un niveau supplémentaire",
+    "CYPHERSYSTEM.SettingRollButtons": "Boutons de Jet sur les feuilles de personnage",
+    "CYPHERSYSTEM.SettingRollButtonsHint": "Cela permet d'activer les boutons de jet sur toutes les feuilles de personnage.",
+    "CYPHERSYSTEM.RollItem": "Lancer le jet de l'objet",
+    "CYPHERSYSTEM.easedBySteps": "facilité par {amount} niveaux",
+    "CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP": "Le dialogue Tout-en-un ne peut pas être utilisé pour les capacités payées avec l'XP.",
+    "CYPHERSYSTEM.NotEnoughXP": "Vous n'avez pas assez d'XP.",
+    "CYPHERSYSTEM.RollButtonSettings": "Valeurs par défaut du jet",
+    "CYPHERSYSTEM.hinderedBySteps": "Entravé par {amount} niveaux"
 }

@@ -13,8 +13,9 @@
 		{{/if}}
 	</div>
     <div class="item-controls">
-		<a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-edit"></i></a>
-		<a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+      {{#if ../data.rollButtons}}<a class="item-control item-roll" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
+		  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+		  <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
     </div>
 </li>
 {{#if data.showDescription}}
