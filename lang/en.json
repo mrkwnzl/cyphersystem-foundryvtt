@@ -298,7 +298,7 @@
 	"CYPHERSYSTEM.hinderedBy": "hindered by",
 	"CYPHERSYSTEM.HinderedBy": "Hindered by",
 	"CYPHERSYSTEM.HinderedBySteps": "Hindered by {amount} steps",
-	"CYPHERSYSTEM.hinderedBySteps": "Hindered by {amount} steps",
+	"CYPHERSYSTEM.hinderedBySteps": "hindered by {amount} steps",
 	"CYPHERSYSTEM.EasedByExtraSteps": "Task eased by {amount} additional steps",
 	"CYPHERSYSTEM.HinderedByExtraSteps": "Task hindered by {amount} additional steps",
 	"CYPHERSYSTEM.EasedByExtraStep": "Task eased by 1 additional step",

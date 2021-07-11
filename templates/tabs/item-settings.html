@@ -109,7 +109,7 @@
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack") (eq item.type "power Shift"))}}
       <li class="item flexrow item-settings">
         <label class="settings-list">{{localize 'CYPHERSYSTEM.Difficulty'}}</label>
-          <select class="auto-margin" name="data.rollButton.stepModifier" style="max-width:99px">
+          <select class="auto-margin" name="data.rollButton.stepModifier" style="max-width:100px">
             {{#select data.rollButton.stepModifier}}
             <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
             <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
