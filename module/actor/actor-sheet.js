@@ -366,17 +366,17 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-roll').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let pool = item.data.rollButton.pool;
-      let skill = item.data.rollButton.skill;
-      let assets = item.data.rollButton.assets;
-      let effort1 = item.data.rollButton.effort1;
-      let effort2 = item.data.rollButton.effort2;
-      let stepModifier = item.data.rollButton.stepModifier;
-      let additionalSteps = item.data.rollButton.additionalSteps;
-      let additionalCost = item.data.rollButton.additionalCost;
-      let damage = item.data.rollButton.damage;
-      let effort3 = item.data.rollButton.effort3;
-      let damagePerLOE = item.data.rollButton.damagePerLOE;
+      let pool = "";
+      let skill = "";
+      let assets = "";
+      let effort1 = "";
+      let effort2 = "";
+      let stepModifier = "";
+      let additionalSteps = "";
+      let additionalCost = "";
+      let damage = "";
+      let effort3 = "";
+      let damagePerLOE = "";
       let teen = "";
 
       itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier)
