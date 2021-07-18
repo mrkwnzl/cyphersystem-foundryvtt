@@ -22,7 +22,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
       template: "systems/cyphersystem/templates/actor/pc-sheet.html",
       width: 650,
-      height: 735,
+      height: false,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"]

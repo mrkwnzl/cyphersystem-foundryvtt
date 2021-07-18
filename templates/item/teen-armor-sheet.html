@@ -45,7 +45,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+      <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}
@@ -55,5 +55,6 @@
         <div class="tab" data-group="primary" data-tab="description">
             {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
         </div>
+
     </section>
 </form>
