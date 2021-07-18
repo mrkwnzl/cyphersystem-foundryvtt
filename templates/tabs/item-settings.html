@@ -2,7 +2,14 @@
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
-        <div class="item-name">{{localize 'CYPHERSYSTEM.RollButtonSettings'}} – {{localize 'CYPHERSYSTEM.BasicModifiers'}}</div>
+        <div class="item-name">{{localize 'CYPHERSYSTEM.RollButtonSettings'}}</div>
+      </li>
+    </ol>
+  </div>
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow">
+        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</i></div>
       </li>
       {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
       <li class="item flexrow item-settings">
@@ -72,8 +79,8 @@
   </div>
   <div class="flexrow">
     <ol class="items-list">
-      <li class="item flexrow item-header">
-        <div class="item-name">{{localize 'CYPHERSYSTEM.RollButtonSettings'}} – {{localize 'CYPHERSYSTEM.AttackModifiers'}}</div>
+      <li class="item flexrow">
+        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</i></div>
       </li>
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack"))}}
       <li class="item flexrow item-settings">
@@ -103,8 +110,8 @@
   </div>
   <div class="flexrow">
     <ol class="items-list">
-      <li class="item flexrow item-header">
-        <div class="item-name">{{localize 'CYPHERSYSTEM.RollButtonSettings'}} – {{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</div>
+      <li class="item flexrow">
+        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</i></div>
       </li>
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack") (eq item.type "power Shift"))}}
       <li class="item flexrow item-settings">
