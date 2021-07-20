@@ -3,7 +3,7 @@ export function itemMacroString(item) {
   `// Change the defaults for the macro dialog.
   // Change the values after the equal sign.
   // Use quotation marks around words (strings). Examples: "Might", "Practiced".
-  // Don’t use quotation marks around numbers (integers). Examples: 0, 1, 2, 3.
+  // Don’t use quotation marks around numbers (integers). Examples: -1, 0, 1, 2.
   // Don’t use quotation marks around truth values (boolean). Examples: true, false.
   // Empty strings ("") mean that the defaults are used.
 
