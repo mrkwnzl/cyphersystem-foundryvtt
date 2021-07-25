@@ -344,58 +344,98 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   // Check whether the item still exists on the actor
   if (item == null) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
 
-  // Set defaults for teen
-  if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
-
   // Check for AiO dialog
-  let allInOneDialog = false;
+  let skipDialog = true;
   if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-    allInOneDialog = true;
+    skipDialog = false;
   };
 
   // Prepare data
   // Prepare defaults in case none are set by users in the macro
-  if (!skill) skill = "Practiced";
-  if (!assets) assets = 0;
-  if (!effort1) effort1 = 0;
-  if (!effort2) effort2 = 0;
-  if (!effort3) effort3 = 0;
-  if (!additionalCost) additionalCost = 0;
-  if (!additionalSteps) additionalSteps = 0;
-  if (!damage) damage = 0;
-  if (!pool) pool = "Might";
-  if (!damagePerLOE) damagePerLOE = 3;
-  if (!stepModifier) stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
-
-  // Overwrite defaults for some item types
-  if (item.type == "skill" || item.type == "teen Skill") {
-    skill = item.data.data.skillLevel;
-  } else if (item.type == "attack" || item.type == "teen Attack") {
-    skill = item.data.data.skillRating;
-    additionalSteps = item.data.data.modifiedBy;
-    stepModifier = item.data.data.modified;
-    damage = item.data.data.damage;
-  } else if (item.type == "ability"  || item.type == "teen Ability") {
-    pool = item.data.data.costPool;
-    let checkPlus = item.data.data.costPoints.slice(-1)
-    if (checkPlus == "+") {
-      let cost = item.data.data.costPoints.slice(0, -1);
-      additionalCost = parseInt(cost);
+  if (!skill) {
+    if (item.type == "skill" || item.type == "teen Skill") {
+      skill = item.data.data.skillLevel;
+    } else if (item.type == "attack" || item.type == "teen Attack") {
+      skill = item.data.data.skillRating;
     } else {
-      let cost = item.data.data.costPoints;
-      additionalCost = parseInt(cost);
+      skill = item.item.data.rollButton.skill;
     }
-  } else if (item.type == "power Shift") {
-    additionalSteps = item.data.data.powerShiftValue;
   }
+  if (!assets) assets = item.data.data.rollButton.assets;;
+  if (!effort1) effort1 = item.data.data.rollButton.effort1;
+  if (!effort2) effort2 = item.data.data.rollButton.effort2;
+  if (!effort3) effort3 = item.data.data.rollButton.effort3;
+  if (!additionalCost) {
+    if (item.type == "ability"  || item.type == "teen Ability") {
+      let checkPlus = item.data.data.costPoints.slice(-1)
+      if (checkPlus == "+") {
+        let cost = item.data.data.costPoints.slice(0, -1);
+        additionalCost = parseInt(cost);
+      } else {
+        let cost = item.data.data.costPoints;
+        additionalCost = parseInt(cost);
+      }
+    } else {
+      additionalCost = item.data.data.rollButton.additionalCost;
+    }
+  }
+  if (!additionalSteps) {
+    if (item.type == "power Shift") {
+      additionalSteps = item.data.data.powerShiftValue;
+    } else if (item.type == "attack" || item.type == "teen Attack") {
+      additionalSteps = item.data.data.modifiedBy;
+    } else {
+      additionalSteps = item.data.data.rollButton.additionalSteps;
+    }
+  }
+  if (!damage) {
+    if (item.type == "attack" || item.type == "teen Attack") {
+      damage = item.data.data.damage;
+    } else {
+      damage = item.data.data.rollButton.damage;
+    }
+  }
+  if (!pool) {
+    if (item.type == "ability"  || item.type == "teen Ability") {
+      pool = item.data.data.costPool;
+    } else {
+      pool = item.data.data.rollButton.pool;
+    }
+  }
+  if (!damagePerLOE) damagePerLOE = item.data.data.rollButton.damagePerLOE;
+  if (!stepModifier) {
+    if (item.type == "attack" || item.type == "teen Attack") {
+      stepModifier = item.data.data.modified;
+    } else {
+      stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
+    }
+  }
+  if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
 
-  // Parse data to All-in-One Dialog or Quick Roll macro
-  if (allInOneDialog) {
-    allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.name, damage, effort3, damagePerLOE, teen, false)
-  } else {
-    // itemRollMacroQuick(actor, itemID, teen);
-    allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.name, damage, effort3, damagePerLOE, teen, true)
-  }
+  // // Overwrite defaults for some item types
+  // if (item.type == "skill" || item.type == "teen Skill") {
+  //   skill = item.data.data.skillLevel;
+  // } else if (item.type == "attack" || item.type == "teen Attack") {
+  //   skill = item.data.data.skillRating;
+  //   additionalSteps = item.data.data.modifiedBy;
+  //   stepModifier = item.data.data.modified;
+  //   damage = item.data.data.damage;
+  // } else if (item.type == "ability"  || item.type == "teen Ability") {
+  //   pool = item.data.data.costPool;
+  //   let checkPlus = item.data.data.costPoints.slice(-1)
+  //   if (checkPlus == "+") {
+  //     let cost = item.data.data.costPoints.slice(0, -1);
+  //     additionalCost = parseInt(cost);
+  //   } else {
+  //     let cost = item.data.data.costPoints;
+  //     additionalCost = parseInt(cost);
+  //   }
+  // } else if (item.type == "power Shift") {
+  //   additionalSteps = item.data.data.powerShiftValue;
+  // }
+
+  // Parse data to All-in-One Dialog
+  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.name, damage, effort3, damagePerLOE, teen, skipDialog)
 }
 
 /* -------------------------------------------- */

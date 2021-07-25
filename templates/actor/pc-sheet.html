@@ -167,7 +167,7 @@
               </div>
               {{/if}}{{/unless}}
               <label style="flex: 0 0 0; " for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
-              {{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{data.teen.pools.intellectEdge}}
+              {{#if (eq data.settings.gameMode.currentSheet 'Teen')}}
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.teen.pools.intellectEdge" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.intellectEdge}}{{/if}}" data-dtype="Number"/>
               {{else}}
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.pools.intellectEdge" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.pools.intellectEdge}}{{/if}}" data-dtype="Number"/>
@@ -177,10 +177,16 @@
           {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
           {{#if data.additionalPool.teenActive}}
           <div class="resource flex-group-center">
-            <a class="item-control decrease-teen-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-            <a class="item-control reset-teen-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><label for="data.additionalPool.additionalTeenPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</label></a>&nbsp;
-            <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="fas fa-angle-up"></i></a>
-            <div class="resource-content flexrow flex-center flex-between stat-pool">
+            <label for="data.additionalPool.additionalTeenPoolName" class="resource-label">
+              {{#if data.isLimited}}
+              {{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}
+              {{else}}
+              <a class="item-control decrease-teen-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
+              <a class="item-control reset-teen-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</a>&nbsp;
+              <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="fas fa-angle-up"></i></a>
+              {{/if}}
+            </label>
+            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
               <input class="stat-input" type="text" name="data.teen.pools.additional.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.additional.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
               <input class="stat-input" type="text" name="data.teen.pools.additional.max" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.additional.max}}{{/if}}" data-dtype="Number"/>&nbsp;
@@ -191,9 +197,15 @@
           {{else}}
           {{#if data.additionalPool.active}}
           <div class="resource flex-group-center">
-            <a class="item-control decrease-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-            <a class="item-control reset-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><label for="data.additionalPool.additionalPoolName" class="resource-label">{{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</label></a>&nbsp;
-            <a class="item-control increase-additional" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a>
+            <label for="data.additionalPool.additionalPoolName" class="resource-label">
+              {{#if data.isLimited}}
+              {{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}
+              {{else}}
+              <a class="item-control decrease-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
+              <a class="item-control reset-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</a>&nbsp;
+              <a class="item-control increase-additional" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a>
+              {{/if}}
+            </label>
             <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
               <input class="stat-input" type="text" name="data.pools.additional.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.pools.additional.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
@@ -208,17 +220,17 @@
     </header>
 
     {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary" style="margin: 0">
+    <nav class="sheet-tabs tabs" data-group="primary">
       {{#unless data.isLimited}}
-      <a class="item" data-tab="skills" style="border-top: none;">{{localize 'CYPHERSYSTEM.Skills'}}</a>
-      <a class="item" data-tab="combat" style="border-top: none;">{{localize 'CYPHERSYSTEM.Combat'}}</a>
-      <a class="item" data-tab="abilities" style="border-top: none;">{{localize 'CYPHERSYSTEM.Abilities'}}</a>
-      <a class="item" data-tab="items" style="border-top: none;">{{localize 'CYPHERSYSTEM.Equipment'}}</a>
-      <a class="item" data-tab="notes" style="border-top: none;">{{localize 'CYPHERSYSTEM.Notes'}}</a>
+      <a class="item" data-tab="skills">{{localize 'CYPHERSYSTEM.Skills'}}</a>
+      <a class="item" data-tab="combat">{{localize 'CYPHERSYSTEM.Combat'}}</a>
+      <a class="item" data-tab="abilities">{{localize 'CYPHERSYSTEM.Abilities'}}</a>
+      <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Equipment'}}</a>
+      <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
       {{/unless}}
-      <a class="item" data-tab="description" style="border-top: none; border-bottom: none;">{{localize 'CYPHERSYSTEM.Description'}}</a>
+      <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
       {{#unless data.isLimited}}
-      <a class="item" data-tab="settings" style="flex: 0 0 25px; text-align: right; border-top: none; border-bottom: none;"><i class="fas fa-cog"></i></a>
+      <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fas fa-cog"></i></a>
       {{/unless}}
     </nav>
 
@@ -283,7 +295,7 @@
               <div class="item-quantity">{{data.powerShiftValue}}</div>
               <div class="item-controls">
                 {{#if ../data.rollButtons}}<a class="item-control item-roll" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
-                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-file-alt"></i></a>
+                <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
                 <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
