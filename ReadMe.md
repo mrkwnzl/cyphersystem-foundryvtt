@@ -21,7 +21,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 - A robust pre-made macro system which you can use to customize the game for your own needs.
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
-- The Cypher System for Foundry VTT is available in English, French, German, Italian, and Spanish.
+- The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil) and Spanish.
 
 ## Support, Community, and Contributing
 
