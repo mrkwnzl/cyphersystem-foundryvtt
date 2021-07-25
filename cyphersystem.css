@@ -288,6 +288,7 @@ min-height: 610px;
   border: 1px solid #999;
   border-radius: 3px 3px 0 0;
   line-height: 25px;
+  padding: 0 6px;
 }
 
 .cyphersystem .tabs .item.active {
