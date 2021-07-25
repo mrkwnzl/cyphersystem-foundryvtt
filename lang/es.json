@@ -345,11 +345,11 @@
     "CYPHERSYSTEM.EasedByExtraStep": "Tarea facilitada en 1 paso adicional",
     "CYPHERSYSTEM.HinderedByExtraStep": "Tarea dificultada en 1 paso adicional",
     "CYPHERSYSTEM.SettingRollButtons": "Botones para las Tiradas en las Hojas de Personaje",
-    "CYPHERSYSTEM.hinderedBySteps": "Dificultada en {amount} pasos",
+    "CYPHERSYSTEM.hinderedBySteps": "dificultada en {amount} pasos",
     "CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP": "El diálogo Todo-en-Uno no se puede usar para habilidades con coste de EXP.",
     "CYPHERSYSTEM.NotEnoughXP": "No tienes suficiente EXP.",
     "CYPHERSYSTEM.SettingRollButtonsHint": "Esto activa los botones para las tiradas en todas las hojas de personaje.",
-    "CYPHERSYSTEM.RollButtonSettings": "Valores por Defecto para los Botones de Tirada",
+    "CYPHERSYSTEM.RollButtonSettings": "Valores por Defecto para los Botones de Tirada y Macros de Objetos",
     "CYPHERSYSTEM.RollItem": "Tirada de Objeto",
     "CYPHERSYSTEM.easedBySteps": "facilitada en {amount} steps"
 }
