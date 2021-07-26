@@ -351,5 +351,5 @@
     "CYPHERSYSTEM.RollButtonSettings": "Würfel-Schaltflächen Standards",
     "CYPHERSYSTEM.RollItem": "Gegenstand würfeln",
     "CYPHERSYSTEM.easedBySteps": "erleichtert um {amount} Grade",
-    "CYPHERSYSTEM.hinderedBySteps": "Erschwert um {amount} Grade"
+    "CYPHERSYSTEM.hinderedBySteps": "erschwert um {amount} Grade"
 }
