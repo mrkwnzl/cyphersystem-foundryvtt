@@ -71,8 +71,16 @@ export class CypherActorSheet extends ActorSheet {
       // let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
 
+      // Check for hidden item
       let hidden = false;
       if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
+
+      // Check for roll button on level
+      if (!["[["].includes(i.data.level) && isNaN(i.data.level)) {
+        i.data.rollForLevel = true;
+      } else {
+        i.data.rollForLevel = false;
+      }
 
       // Append to containers
       if (i.type === 'equipment' && !hidden) {
@@ -356,6 +364,19 @@ export class CypherActorSheet extends ActorSheet {
       let amount = (event.altKey) ? 10 : 1;
       item.data.quantity = item.data.quantity - amount;
       this.actor.updateEmbeddedDocuments("Item", [item]);
+    });
+
+    // Roll for level
+    html.find('.rollForLevel').click(async clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+      let roll = await new Roll(item.data.level).evaluate({async: false});
+      roll.toMessage({
+        speaker: ChatMessage.getSpeaker(),
+        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", {item: item.name})
+      });
+      item.data.level = roll.total;
+      await this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
     /**

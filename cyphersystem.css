@@ -578,3 +578,16 @@ min-height: 610px;
 .cyphersystem .editor-content {
   padding: 3px 5px;
 }
+
+.cyphersystem .rollForLevel {
+  background: #DDD;
+  padding: 1px 4px;
+  border: 1px solid #4b4a44;
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.cyphersystem .rollForLevel i {
+  color: #7a7971;
+}
