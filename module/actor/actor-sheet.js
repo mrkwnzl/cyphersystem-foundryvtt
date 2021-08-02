@@ -76,7 +76,8 @@ export class CypherActorSheet extends ActorSheet {
       if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
 
       // Check for roll button on level
-      if (!["[["].includes(i.data.level) && isNaN(i.data.level)) {
+      let rollFormulaRegEx = /^((\d*[dD]\d+)(\s*[+\-*\/]\s*\d+)*)*$/gm // Check for valid roll formula
+      if (rollFormulaRegEx.test(i.data.level.toString().replace(/[()]/g, '')) && i.data.level) {
         i.data.rollForLevel = true;
       } else {
         i.data.rollForLevel = false;
