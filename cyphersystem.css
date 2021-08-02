@@ -353,6 +353,10 @@ min-height: 610px;
   text-indent: -12px;
 }
 
+.cyphersystem .item-name a.inline-roll {
+  text-indent: 0px;
+}
+
 .cyphersystem .items-list .item-name p {
   margin: 3px 0px;
   line-height: 1.4;
