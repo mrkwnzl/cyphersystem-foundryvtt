@@ -351,5 +351,7 @@
     "CYPHERSYSTEM.SettingRollButtonsHint": "Esto activa los botones para las tiradas en todas las hojas de personaje.",
     "CYPHERSYSTEM.RollButtonSettings": "Valores por Defecto para los Botones de Tirada y Macros de Objetos",
     "CYPHERSYSTEM.RollItem": "Tirada de Objeto",
-    "CYPHERSYSTEM.easedBySteps": "facilitada en {amount} steps"
+    "CYPHERSYSTEM.easedBySteps": "facilitada en {amount} steps",
+    "CYPHERSYSTEM.depletion": "agotamiento",
+    "CYPHERSYSTEM.RollForLevel": "Nivel de la tirada para {item}"
 }
