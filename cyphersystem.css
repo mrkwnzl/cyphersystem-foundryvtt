@@ -353,6 +353,10 @@ min-height: 610px;
   text-indent: -12px;
 }
 
+.cyphersystem .item-name a.inline-roll {
+  text-indent: 0px;
+}
+
 .cyphersystem .items-list .item-name p {
   margin: 3px 0px;
   line-height: 1.4;
@@ -367,29 +371,25 @@ min-height: 610px;
 }
 
 .cyphersystem .items-list .item-controls {
-  -webkit-box-flex: 0 0 55px;
-  -ms-flex: 0 0 55px;
-  flex: 0 0 55px;
+  -webkit-box-flex: 0 0 50px;
+  -ms-flex: 0 0 50px;
+  flex: 0 0 50px;
   text-align: right;
-  /*  margin-top: auto;
-  margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-quantity {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 75px;
-  flex: 0 0 75px;
+  -ms-flex: 0 0 80px;
+  flex: 0 0 80px;
   text-align: center;
-  /*  margin-top: auto;
-  margin-bottom: auto;*/
+  white-space: nowrap;
 }
+
 .cyphersystem .items-list .item-cypher-limit {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   text-align: center;
-  /*  margin-top: auto;
-  margin-bottom: auto;*/
 }
 
 .cyphersystem .items-list .item-right {
@@ -577,4 +577,17 @@ min-height: 610px;
 
 .cyphersystem .editor-content {
   padding: 3px 5px;
+}
+
+.cyphersystem .rollForLevel {
+  background: #DDD;
+  padding: 1px 4px;
+  border: 1px solid #4b4a44;
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.cyphersystem .rollForLevel i {
+  color: #7a7971;
 }

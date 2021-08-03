@@ -453,7 +453,7 @@
     "artifact": {
       "templates": ["core", "version"],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>",
-      "depletion": "1 in d6",
+      "depletion": "1 in [[/r d6 # Depletion roll]]",
       "identified": true
     },
     "oddity": {

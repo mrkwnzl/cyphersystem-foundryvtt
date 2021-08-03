@@ -277,11 +277,13 @@
 	"CYPHERSYSTEM.ResetQuantity": "Reset Quantity",
 	"CYPHERSYSTEM.SubtractQuantity": "Subtract 1 (alt-click to subtract 10)",
 	"CYPHERSYSTEM.AddQuantity": "Add 1 (alt-click to add 10)",
+	"CYPHERSYSTEM.RollForLevel": "Roll level for {item}",
 
 	"CYPHERSYSTEM.Shins": "Shins",
 	"CYPHERSYSTEM.Cyphers": "Cyphers",
 	"CYPHERSYSTEM.Artifacts": "Artifacts",
 	"CYPHERSYSTEM.Depletion": "Depletion",
+	"CYPHERSYSTEM.depletion": "depletion",
 	"CYPHERSYSTEM.Oddities": "Oddities",
 	"CYPHERSYSTEM.CraftingMaterial": "Crafting Material",
 	"CYPHERSYSTEM.IotumAndParts": "Iotum & Parts",
