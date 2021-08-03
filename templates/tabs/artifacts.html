@@ -2,7 +2,6 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">{{#if (eq data.settings.equipment.artifactsName "")}}{{localize 'CYPHERSYSTEM.Artifacts'}}{{else}}{{data.settings.equipment.artifactsName}}{{/if}}</div>
-      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Depletion'}}</div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
       <div class="item-controls">
         <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="artifact"><i class="fas fa-plus"></i></a>
@@ -10,8 +9,7 @@
     </li>
     {{#each actor.data.artifacts as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</a></h4>
-      <div class="item-quantity">{{#if data.identified}}{{{enrichHTML data.depletion}}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}</a>{{#if data.depletion}} ({{localize 'CYPHERSYSTEM.depletion'}}: {{{enrichHTML data.depletion}}}){{/if}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</h4>
       <div class="item-quantity">{{#if data.identified}}{{#if data.rollForLevel}}<a class="rollForLevel"><i class="fas fa-question"></i> {{data.level}}</a>{{else}}{{{enrichHTML data.level}}}{{/if}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
       <div class="item-controls">
         {{#if ../data.isGM}}
