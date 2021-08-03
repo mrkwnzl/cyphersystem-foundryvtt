@@ -76,7 +76,7 @@ export class CypherActorSheet extends ActorSheet {
       if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
 
       // Check for roll button on level
-      if (Roll.validate(i.data.level) && i.data.level && isNaN(i.data.level)) {
+      if (Roll.validate(i.data.level.toString()) && i.data.level && isNaN(i.data.level)) {
         i.data.rollForLevel = true;
       } else {
         i.data.rollForLevel = false;
