@@ -358,7 +358,7 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
     } else if (item.type == "attack" || item.type == "teen Attack") {
       skill = item.data.data.skillRating;
     } else {
-      skill = item.item.data.rollButton.skill;
+      skill = item.data.data.rollButton.skill;
     }
   }
   if (!assets) assets = item.data.data.rollButton.assets;;
