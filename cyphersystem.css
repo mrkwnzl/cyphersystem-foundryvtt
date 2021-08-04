@@ -353,7 +353,8 @@ min-height: 610px;
   text-indent: -12px;
 }
 
-.cyphersystem .item-name a.inline-roll {
+.cyphersystem .item-name a.inline-roll,
+.cyphersystem .item-name a.entity-link {
   text-indent: 0px;
 }
 
