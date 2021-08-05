@@ -67,9 +67,13 @@
 	"CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
 
 	"CYPHERSYSTEM.Roll": "Roll",
+	"CYPHERSYSTEM.Pay": "Pay",
 	"CYPHERSYSTEM.MightRoll": "Might Roll",
 	"CYPHERSYSTEM.SpeedRoll": "Speed Roll",
 	"CYPHERSYSTEM.IntellectRoll": "Intellect Roll",
+	"CYPHERSYSTEM.MightRollButton": "Might Roll (alt-click for All-in-One dialog)",
+	"CYPHERSYSTEM.SpeedRollButton": "Speed Roll (alt-click for All-in-One dialog)",
+	"CYPHERSYSTEM.IntellectRollButton": "Intellect Roll (alt-click for All-in-One dialog)",
 	"CYPHERSYSTEM.AdditionalPoolRoll": "{pool} Roll",
 	"CYPHERSYSTEM.StatRoll": "Stat Roll",
 	"CYPHERSYSTEM.RecoveryRoll": "Recovery Roll",
@@ -270,7 +274,8 @@
 
 	"CYPHERSYSTEM.CreateItem": "Create Item",
 	"CYPHERSYSTEM.EditItem": "Open Item Sheet",
-	"CYPHERSYSTEM.RollItem": "Roll Item",
+	"CYPHERSYSTEM.RollItem": "Roll Item (alt-click for All-in-One dialog)",
+	"CYPHERSYSTEM.PayItem": "Pay Pool Points (alt-click for All-in-One dialog)",
 	"CYPHERSYSTEM.ShowDescription": "Show Description (alt-click to send description to chat)",
 	"CYPHERSYSTEM.ArchiveItem": "Archive Item (alt-click to delete)",
 	"CYPHERSYSTEM.UnarchiveItem": "Unarchive Item (alt-click to delete)",
@@ -278,6 +283,7 @@
 	"CYPHERSYSTEM.SubtractQuantity": "Subtract 1 (alt-click to subtract 10)",
 	"CYPHERSYSTEM.AddQuantity": "Add 1 (alt-click to add 10)",
 	"CYPHERSYSTEM.RollForLevel": "Roll level for {item}",
+	"CYPHERSYSTEM.RollForLevelButton": "Roll Level",
 
 	"CYPHERSYSTEM.Shins": "Shins",
 	"CYPHERSYSTEM.Cyphers": "Cyphers",

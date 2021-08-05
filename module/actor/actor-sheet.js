@@ -400,7 +400,27 @@ export class CypherActorSheet extends ActorSheet {
       let damagePerLOE = "";
       let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier)
+      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, false)
+    });
+
+    // Item pay pool points buttons
+    html.find('.item-pay').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+      let pool = "";
+      let skill = "";
+      let assets = "";
+      let effort1 = "";
+      let effort2 = "";
+      let stepModifier = "";
+      let additionalSteps = "";
+      let additionalCost = "";
+      let damage = "";
+      let effort3 = "";
+      let damagePerLOE = "";
+      let teen = "";
+
+      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, true)
     });
 
     /**
