@@ -97,6 +97,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
     /**
     * Combat tab functions
     */

@@ -1,6 +1,6 @@
 {{#each actor.data.armor as |item id|}}
 <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-  <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{item.name}}</a> ({{#if (eq data.armorTyp "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{else if (eq data.armorType "light armor")}}{{localize 'CYPHERSYSTEM.LightArmor'}}{{else if (eq data.armorType "medium armor")}}{{localize 'CYPHERSYSTEM.MediumArmor'}}{{else if (eq data.armorType "heavy armor")}}{{localize 'CYPHERSYSTEM.HeavyArmor'}}{{else if (eq data.armorType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{/if}}{{#unless (eq data.notes "")}}, {{{enrichHTML data.notes}}}{{/unless}})</h4>
+  <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}</a> ({{#if (eq data.armorTyp "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{else if (eq data.armorType "light armor")}}{{localize 'CYPHERSYSTEM.LightArmor'}}{{else if (eq data.armorType "medium armor")}}{{localize 'CYPHERSYSTEM.MediumArmor'}}{{else if (eq data.armorType "heavy armor")}}{{localize 'CYPHERSYSTEM.HeavyArmor'}}{{else if (eq data.armorType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{/if}}{{#unless (eq data.notes "")}}, {{{enrichHTML data.notes}}}{{/unless}})</h4>
   <div class="item-quantity">{{data.speedCost}}</div>
   <div class="item-quantity">{{data.armorValue}}</div>
   <div class="item-controls">
@@ -9,9 +9,7 @@
     <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
   </div>
 </li>
-{{#if data.showDescription}}
 <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-  <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{{enrichHTML data.description}}}</div>
+  <div class="description desc-{{item._id}}" style="display: none"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50"/>{{{enrichHTML data.description}}}</div>
 </li>
-{{/if}}
 {{/each}}

@@ -19,6 +19,7 @@ export class CypherActorSheet extends ActorSheet {
     const data = superData.data;
     data.data.isGM = game.user.isGM;
     data.data.isLimited = this.actor.limited;
+    data.data.isObserver = !this.options.editable;
     data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.actor = superData.actor;
@@ -76,10 +77,12 @@ export class CypherActorSheet extends ActorSheet {
       if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
 
       // Check for roll button on level
-      if (Roll.validate(i.data.level.toString()) && i.data.level && isNaN(i.data.level)) {
-        i.data.rollForLevel = true;
-      } else {
-        i.data.rollForLevel = false;
+      if (i.type == "cypher" || i.type == "artifact") {
+        if (Roll.validate(i.data.level.toString()) && i.data.level && isNaN(i.data.level)) {
+          i.data.rollForLevel = true;
+        } else {
+          i.data.rollForLevel = false;
+        }
       }
 
       // Append to containers
@@ -294,8 +297,22 @@ export class CypherActorSheet extends ActorSheet {
   */
 
   /** @override */
-  activateListeners(html) {
+  async activateListeners(html) {
     super.activateListeners(html);
+
+    html.find('.item-description').click(clickEvent => {
+      if (!event.altKey) {
+        const shownItem = $(clickEvent.currentTarget).parents(".item");
+        const description = html.find(`.desc-${shownItem.data("itemId")}`);
+        if (description.hasClass("expanded")) {
+          description.slideUp();
+          description.toggleClass("expanded");
+        } else {
+          description.slideDown();
+          description.toggleClass("expanded");
+        }
+      }
+    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -429,9 +446,9 @@ export class CypherActorSheet extends ActorSheet {
 
     // Show item description or send to chat
     html.find('.item-description').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
       if (event.altKey) {
+        const shownItem = $(clickEvent.currentTarget).parents(".item");
+        const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
         if (item.data.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
         let brackets = "";
@@ -467,15 +484,7 @@ export class CypherActorSheet extends ActorSheet {
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker(),
           content: message
-        })
-      } else {
-        if (item.data.showDescription === true) {
-          item.data.showDescription = false;
-        }
-        else {
-          item.data.showDescription = true;
-        }
-        this.actor.updateEmbeddedDocuments("Item", [item]);
+        });
       }
     });
 

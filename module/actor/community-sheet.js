@@ -25,6 +25,8 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
     // Increase Infrastructure
     html.find('.increase-infrastructure').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;

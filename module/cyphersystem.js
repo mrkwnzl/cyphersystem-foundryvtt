@@ -325,6 +325,18 @@ Hooks.on("renderChatMessage", function(message, html, data) {
     diceRollMacro(dice);
   });
 
+  // Event Listener for description in chat
+  html.find('.chat-description').click(clickEvent => {
+    const description = html.find('.chat-card-item-description');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));

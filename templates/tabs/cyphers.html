@@ -17,7 +17,7 @@
     </li>
     {{#each actor.data.cyphers as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{/if}}</a></h4>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{/if}}</a></h4>
       <div class="item-quantity">{{#if data.identified}}{{#if data.rollForLevel}}<a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}"><i class="fas fa-question"></i> {{data.level}}</a>{{else}}{{{enrichHTML data.level}}}{{/if}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
       <div class="item-controls">
         {{#if ../data.isGM}}
@@ -32,11 +32,9 @@
         <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>
-    {{#if data.showDescription}}
     <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-      <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}</div>
+      <div class="description desc-{{item._id}}" style="display: none"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50"/>{{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}</div>
     </li>
-    {{/if}}
     {{/each}}
   </ol>
 </div>

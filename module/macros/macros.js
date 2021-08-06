@@ -97,7 +97,7 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   if (pointsPaid) diceRoller(title, info, modifier);
 }
 
-export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll) {
+export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -126,14 +126,14 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => {
-          applyToMacro(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, false);
+          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, false, itemID);
         }
       },
       pay: {
         icon: '<i class="fas fa-coins"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Pay"),
         callback: (html) => {
-          applyToMacro(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, true);
+          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, true, itemID);
         }
       },
       cancel: {
@@ -147,10 +147,10 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
   });
 
   // Skip dialog?
-  (!skipDialog) ? d.render(true) : applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll);
+  (!skipDialog) ? d.render(true) : rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID);
 
   // Prepare data and parse to allInOneRollMacro
-  function applyToMacro(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll) {
+  function rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
     // Title information
     let poolRoll = {
       "Might": game.i18n.localize("CYPHERSYSTEM.MightRoll"),
@@ -159,6 +159,16 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       "Pool": game.i18n.localize("CYPHERSYSTEM.StatRoll")
     };
     title = (title == "") ? (poolRoll[pool] || poolRoll["Might"]) : title;
+
+    // Get item
+    let itemDescription = "";
+    let itemImage = "";
+    let itemDescriptionInfo = ""
+    if (itemID) {
+      let item = actor.items.get(itemID);
+      itemDescription = (item.data.data.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + TextEditor.enrichHTML(item.data.data.description) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
+      itemDescriptionInfo = "<div style=\"display: none\" class=\"chat-card-item-description\"><hr class=\"hr-chat\"><div style=\"min-height: 51px\">" + itemDescription + "</div></div>";
+    }
 
     // Fallback for strings in skill
     if (skill == "Specialized") skill = 2;
@@ -276,10 +286,9 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     }
 
     if (poolVerification[pool]()) {
-      costInfo = poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
+      costInfo = "<hr class=\"hr-chat\">" + poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
     } else {
-      console.log(skill);
-      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen);
+      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll);
       if (pool == "XP") {
         return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"))
       } else {
@@ -300,15 +309,15 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     // Damage information
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
-    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})<hr style=\"margin-top: 1px; margin-bottom: 2px;\">`;
+    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})`;
 
     // Attack modifier information
-    let attackModifierInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">";
+    let attackModifierInfo = "";
     if (damage > 0 || effort3 > 0) {
       if (effort3 != 1) {
-        attackModifierInfo = `<hr style=\"margin-top: 1px; margin-bottom: 2px;\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
+        attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
       } else {
-        attackModifierInfo = `<hr style=\"margin-top: 1px; margin-bottom: 2px;\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
+        attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
       }
     }
 
@@ -331,24 +340,30 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       additionalSteps = additionalSteps * -1;
     }
 
+    // Basic information
+    let basicInfo = "<hr class=\"hr-chat\">" + skillInfo + assetInfo + effortTaskInfo + effortOtherInfo
+
     // Put it all together for info
-    let info = skillInfo + assetInfo + effortTaskInfo + effortOtherInfo + attackModifierInfo + additionalInfo + costInfo;
+    let info = itemDescriptionInfo + basicInfo + attackModifierInfo + additionalInfo + costInfo;
 
     // Put it all together for total modifier
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
+
+    // Add button to title if itemID
+    if (itemID) title = "<a class=\"chat-description\">" + title + "</a>";
 
     // Parse everything to allInOneRollMacro or payPoolPoints
     if (noRoll) {
       payPoolPoints(actor, cost, pool, teen);
       let effortInfo = "";
       if (effort1 > 0 && effort2 == 0) {
-        effortInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">" + effortTaskInfo;
+        effortInfo = "<hr class=\"hr-chat\">" + effortTaskInfo;
       } else if (effort1 == 0 && effort2 > 0) {
-        effortInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">" + effortOtherInfo;
+        effortInfo = "<hr class=\"hr-chat\">" + effortOtherInfo;
       } else if (effort1 > 0 && effort2 > 0) {
-        effortInfo = "<hr style=\"margin-top: 1px; margin-bottom: 2px;\">" + effortTaskInfo + effortOtherInfo;
+        effortInfo = "<hr class=\"hr-chat\">" + effortTaskInfo + effortOtherInfo;
       }
-      ChatMessage.create({content: "<b><a class=\"chat-description\">" + title + "</a></b>" + effortInfo + attackModifierInfo + additionalInfo + costInfo});
+      ChatMessage.create({content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + additionalInfo + costInfo});
     } else {
       allInOneRollMacro(actor, title, info, cost, pool, modifier, teen);
     }
@@ -462,7 +477,7 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   // }
 
   // Parse data to All-in-One Dialog
-  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll)
+  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.type.capitalize() + ": " + item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID)
 }
 
 /* -------------------------------------------- */

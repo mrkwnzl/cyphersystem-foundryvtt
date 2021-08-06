@@ -25,6 +25,8 @@ export class CypherActorSheetToken extends CypherActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
     // Increase Quantity
     html.find('.increase-quantity').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;

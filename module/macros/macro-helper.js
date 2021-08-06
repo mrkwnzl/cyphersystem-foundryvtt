@@ -36,7 +36,7 @@ export async function diceRoller(title, info, modifier) {
 
   // Determine bars
   let bars = (info != "") ?
-  "<hr style='margin-top: 1px; margin-bottom: 2px;'>" + info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
+  info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
   "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
 
   // Add reroll button
