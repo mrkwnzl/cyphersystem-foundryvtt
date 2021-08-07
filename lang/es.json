@@ -350,8 +350,15 @@
     "CYPHERSYSTEM.NotEnoughXP": "No tienes suficiente EXP.",
     "CYPHERSYSTEM.SettingRollButtonsHint": "Esto activa los botones para las tiradas en todas las hojas de personaje.",
     "CYPHERSYSTEM.RollButtonSettings": "Valores por Defecto para los Botones de Tirada y Macros de Objetos",
-    "CYPHERSYSTEM.RollItem": "Tirada de Objeto",
+    "CYPHERSYSTEM.RollItem": "Tirada de Objeto (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.easedBySteps": "facilitada en {amount} steps",
     "CYPHERSYSTEM.depletion": "agotamiento",
-    "CYPHERSYSTEM.RollForLevel": "Nivel de la tirada para {item}"
+    "CYPHERSYSTEM.RollForLevel": "Nivel de la tirada para {item}",
+    "CYPHERSYSTEM.Pay": "Pagar",
+    "CYPHERSYSTEM.MightRollButton": "Tirada de Vigor (alt-click para el diálogo Todo-en-Uno)",
+    "CYPHERSYSTEM.PayItem": "Pagar puntos de Reserva (alt-click para el diálogo Todo-en-Uno)",
+    "CYPHERSYSTEM.SpeedRollButton": "Tirada de Velocidad (alt-click para el diálogo Todo-en-Uno)",
+    "CYPHERSYSTEM.IntellectRollButton": "Tirada de Intelecto (alt-click para el diálogo Todo-en-Uno)",
+    "CYPHERSYSTEM.RollForLevelButton": "Tirar Nivel",
+    "CYPHERSYSTEM.depletionOf": "agotamiento de"
 }
