@@ -20,11 +20,11 @@
               {{/select}}
             </select></div>
             {{/if}}
-            <label class="label-basic-info">{{localize 'CYPHERSYSTEM.Tier'}}</label>
+            <label class="label-basic-info {{#if data.isObserver}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Tier'}}</label>
             <input style="flex:0 0 30px" type="text" name="data.basic.tier" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.basic.tier}}{{/if}}" data-dtype="Number"/>
           </div>
           <div class="resource-content flexrow flex-center">
-            <label style="flex: 0 0 55px;">{{#if (eq data.settings.gameMode.currentSheet "Teen")}}{{localize 'CYPHERSYSTEM.Is'}}{{else}}{{localize 'CYPHERSYSTEM.IsA'}}{{/if}}</label>
+            <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 55px;">{{#if (eq data.settings.gameMode.currentSheet "Teen")}}{{localize 'CYPHERSYSTEM.Is'}}{{else}}{{localize 'CYPHERSYSTEM.IsA'}}{{/if}}</label>
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
             <input name="data.teen.basic.descriptor" type="text" value="{{data.teen.basic.descriptor}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Descriptor'}}"/>
             {{else}}
@@ -33,24 +33,24 @@
             {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
             &nbsp;<input name="data.basic.type" type="text" value="{{data.basic.type}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Type'}}"/>
             {{/unless}}
-            <label class="label-basic-info">{{localize 'CYPHERSYSTEM.Effort'}}</label>
+            <label class="label-basic-info {{#if data.isObserver}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Effort'}}</label>
             <input style="flex:0 0 30px" type="text" name="data.basic.effort" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.basic.effort}}{{/if}}" data-dtype="Number"/>
           </div>
           <div class="resource-content flexrow flex-center">
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
             <div></div>
             {{else}}
-            <label style="flex: 0 0 55px;">{{localize 'CYPHERSYSTEM.Who'}}</label>
+            <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 55px;">{{localize 'CYPHERSYSTEM.Who'}}</label>
             <input name="data.basic.focus" type="text" value="{{data.basic.focus}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}"/>
             {{#if data.settings.additionalSentence.active}}&nbsp;<input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{else}}{{data.settings.additionalSentence.name}}{{/if}}"/>{{/if}}
             {{/if}}
-            <label class="label-basic-info">
-              {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.XP'}}{{else}}<a class="item-control decrease-xp" title="{{localize 'CYPHERSYSTEM.SubtractXP'}}"><i class="fas fa-angle-down"></i></a>&nbsp;{{localize 'CYPHERSYSTEM.XP'}}&nbsp;<a class="item-control increase-xp" title="{{localize 'CYPHERSYSTEM.AddXP'}}"><i class="fas fa-angle-up"></i></a>{{/if}}</label>
+            <label class="label-basic-info {{#if data.isObserver}}disabled{{/if}}">
+              {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.XP'}}{{else}}<a class="item-control decrease-xp {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractXP'}}"><i class="far fa-minus-square"></i></a>&nbsp;{{localize 'CYPHERSYSTEM.XP'}}&nbsp;<a class="item-control increase-xp {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddXP'}}"><i class="far fa-plus-square"></i></a>{{/if}}</label>
               <input style="flex:0 0 30px" type="text" name="data.basic.xp" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.basic.xp}}{{/if}}" data-dtype="Number"/>
             </div>
 
             <div class="resource-content flexrow flex-center" style="margin-top: 5px">
-              <div style="padding-left: 0px; display: flex; justify-content: center">
+              <div class="{{#if data.isObserver}}disabled{{/if}}" style="padding-left: 0px; display: flex; justify-content: center">
                 {{#unless data.isLimited}}
                 <input type="checkbox" name="data.advancement.advStats" data-dtype="boolean" {{checked data.advancement.advStats}}>
                 &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
@@ -65,7 +65,7 @@
                 {{/unless}}
               </div>
               {{#unless data.isLimited}}
-              <div style="max-width: 20px"><a class="item-control reset-advancement" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}"><i class="fas fa-sync-alt"></i></a></div>
+              <div style="max-width: 20px"><a class="item-control reset-advancement {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}"><i class="fas fa-sync-alt"></i></a></div>
               {{/unless}}
             </div>
           </div>
@@ -73,14 +73,14 @@
 
         <div class="resources grid grid-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}{{#if data.additionalPool.teenActive}}4{{else}}3{{/if}}{{else}}{{#if data.additionalPool.active}}4{{else}}3{{/if}}{{/if}}col">
           <div class="resource flex-group-center">
-            <label for="data.pools.might" class="resource-label">
+            <label for="data.pools.might" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Might'}}{{else}}
-              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="{{localize 'CYPHERSYSTEM.ResetMight'}}">{{localize 'CYPHERSYSTEM.Might'}}</a>&nbsp;
-              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might" title="{{localize 'CYPHERSYSTEM.AddMight'}}"><i class="fas fa-angle-up"></i></a>
+              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetMight'}}">{{localize 'CYPHERSYSTEM.Might'}}</a>&nbsp;&nbsp;
+              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}"><i class="far fa-plus-square"></i></a>
               {{/if}}
             </label>
-            <div class="resource-content flexrow flex-center stat-pool {{#if data.isLimited}}disabled{{/if}}">
+            <div class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input class="stat-input" type="text" name="data.teen.pools.might.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.might.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
@@ -95,10 +95,10 @@
             <div class="resource-content flexrow flex-center align-edge">
               {{#unless data.isLimited}}{{#if data.rollButtons}}
               <div>
-                <a class="item-control might{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}"><i class="fas fa-dice-d20"></i></a>
+                <a class="item-control might{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}"><i class="fas fa-dice-d20"></i></a>
               </div>
               {{/if}}{{/unless}}
-              <label style="flex: 0 0 0;" for="data.pools.mightEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
+              <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0;" for="data.pools.mightEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               {{#if (eq data.settings.gameMode.currentSheet 'Teen')}}
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.teen.pools.mightEdge" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.mightEdge}}{{/if}}" data-dtype="Number"/>
               {{else}}
@@ -107,14 +107,14 @@
             </div>
           </div>
           <div class="resource flex-group-center">
-            <label for="data.pools.speed" class="resource-label">
+            <label for="data.pools.speed" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Speed'}}{{else}}
-              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}">{{localize 'CYPHERSYSTEM.Speed'}}</a>&nbsp;
-              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}"><i class="fas fa-angle-up"></i></a>
+              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}">{{localize 'CYPHERSYSTEM.Speed'}}</a>&nbsp;&nbsp;
+              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}"><i class="far fa-plus-square"></i></a>
               {{/if}}
             </label>
-            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
+            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input class="stat-input" type="text" name="data.teen.pools.speed.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.speed.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
@@ -129,10 +129,10 @@
             <div class="resource-content flexrow flex-center align-edge">
               {{#unless data.isLimited}}{{#if data.rollButtons}}
               <div>
-                <a class="item-control speed{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}"><i class="fas fa-dice-d20"></i></a>
+                <a class="item-control speed{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}"><i class="fas fa-dice-d20"></i></a>
               </div>
               {{/if}}{{/unless}}
-              <label style="flex: 0 0 0; " for="data.pools.speedEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
+              <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="data.pools.speedEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               {{#if (eq data.settings.gameMode.currentSheet 'Teen')}}
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.teen.pools.speedEdge" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.speedEdge}}{{/if}}" data-dtype="Number"/>
               {{else}}
@@ -141,14 +141,14 @@
             </div>
           </div>
           <div class="resource flex-group-center">
-            <label for="data.pools.intellect" class="resource-label">
+            <label for="data.pools.intellect" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}
-              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}">{{localize 'CYPHERSYSTEM.Intellect'}}</a>&nbsp;
-              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}"><i class="fas fa-angle-up"></i></a>
+              <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}">{{localize 'CYPHERSYSTEM.Intellect'}}</a>&nbsp;&nbsp;
+              <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}"><i class="far fa-plus-square"></i></a>
               {{/if}}
             </label>
-            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
+            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <input class="stat-input" type="text" name="data.teen.pools.intellect.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.intellect.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
@@ -163,10 +163,10 @@
             <div class="resource-content flexrow flex-center align-edge">
               {{#unless data.isLimited}}{{#if data.rollButtons}}
               <div>
-                <a class="item-control intellect{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}"><i class="fas fa-dice-d20"></i></a>
+                <a class="item-control intellect{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}-teen{{/if}}-roll {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}"><i class="fas fa-dice-d20"></i></a>
               </div>
               {{/if}}{{/unless}}
-              <label style="flex: 0 0 0; " for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
+              <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
               {{#if (eq data.settings.gameMode.currentSheet 'Teen')}}
               <input style="height: 19px; margin: 0 0 0 3px; max-width: 40px" type="text" name="data.teen.pools.intellectEdge" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.intellectEdge}}{{/if}}" data-dtype="Number"/>
               {{else}}
@@ -177,16 +177,16 @@
           {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
           {{#if data.additionalPool.teenActive}}
           <div class="resource flex-group-center">
-            <label for="data.additionalPool.additionalTeenPoolName" class="resource-label">
+            <label for="data.additionalPool.additionalTeenPoolName" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if data.isLimited}}
               {{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}
               {{else}}
-              <a class="item-control decrease-teen-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-              <a class="item-control reset-teen-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</a>&nbsp;
-              <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="fas fa-angle-up"></i></a>
+              <a class="item-control decrease-teen-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}} "><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
+              <a class="item-control reset-teen-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalTeenPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalTeenPoolName}}{{/if}}</a>&nbsp;&nbsp;
+              <a class="item-control increase-teen-additional" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}} {{#if data.isObserver}}disabled{{/if}}"><i class="far fa-plus-square"></i></a>
               {{/if}}
             </label>
-            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
+            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               <input class="stat-input" type="text" name="data.teen.pools.additional.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.additional.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
               <input class="stat-input" type="text" name="data.teen.pools.additional.max" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.teen.pools.additional.max}}{{/if}}" data-dtype="Number"/>&nbsp;
@@ -197,16 +197,16 @@
           {{else}}
           {{#if data.additionalPool.active}}
           <div class="resource flex-group-center">
-            <label for="data.additionalPool.additionalPoolName" class="resource-label">
+            <label for="data.additionalPool.additionalPoolName" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               {{#if data.isLimited}}
               {{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}
               {{else}}
-              <a class="item-control decrease-additional" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-              <a class="item-control reset-additionalPool" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</a>&nbsp;
-              <a class="item-control increase-additional" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a>
+              <a class="item-control decrease-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square"></i></a>&nbsp;
+              <a class="item-control reset-additionalPool {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">{{#if (eq data.additionalPool.additionalPoolName "")}}{{localize 'CYPHERSYSTEM.AdditionalPool'}}{{else}}{{data.additionalPool.additionalPoolName}}{{/if}}</a>&nbsp;
+              <a class="item-control increase-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}} {{#if data.isObserver}}disabled{{/if}}"><i class="far fa-plus-square"></i></a>
               {{/if}}
             </label>
-            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if data.isLimited}}disabled{{/if}}">
+            <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
               <input class="stat-input" type="text" name="data.pools.additional.value" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.pools.additional.value}}{{/if}}" data-dtype="Number"/>
               &nbsp;{{data.slashForFractions}}&nbsp;
               <input class="stat-input" type="text" name="data.pools.additional.max" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.pools.additional.max}}{{/if}}" data-dtype="Number"/>&nbsp;
@@ -256,9 +256,9 @@
               <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
               <div class="item-controls">
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Skill"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Skill"><i class="fas fa-plus"></i></a>
                 {{else}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill"><i class="fas fa-plus"></i></a>
                 {{/if}}
               </div>
             </li>
@@ -286,16 +286,16 @@
               <div class="item-name">{{#if (eq data.settings.powerShifts.powerShiftsName "")}}{{localize 'CYPHERSYSTEM.PowerShifts'}}{{else}}{{data.settings.powerShifts.powerShiftsName}}{{/if}}</div>
               <div class="item-quantity">{{localize 'CYPHERSYSTEM.Shifts'}}</div>
               <div class="item-controls">
-                <a class="item-control item-create" title="Create item" data-type="power Shift"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="Create item" data-type="power Shift"><i class="fas fa-plus"></i></a>
               </div>
             </li>
             {{#each actor.data.powerShifts as |item id|}}
             <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
+              <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}</a></h4>
               <div class="item-quantity">{{data.powerShiftValue}}</div>
               <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
-                <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+                <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
               </div>
             </li>
             <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
@@ -374,9 +374,9 @@
                   &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}</div>
                   <div class="item-controls">
                     {{#if data.rollButtons}}
-                    <a class="item-control recovery-roll" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}"><i class="fas fa-dice-d20"></i></a>
+                    <a class="item-control recovery-roll {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}"><i class="fas fa-dice-d20"></i></a>
                     {{/if}}
-                    <a class="item-control reset-recovery-rolls" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}"><i class="fas fa-sync-alt"></i></a>
+                    <a class="item-control reset-recovery-rolls {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}"><i class="fas fa-sync-alt"></i></a>
                   </div>
                 </div>
               </li>
@@ -391,21 +391,21 @@
                 <div class="item-quantity">{{localize 'CYPHERSYSTEM.Damage'}}</div>
                 <div class="item-controls">
                   {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                  <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen lasting Damage"><i class="fas fa-plus"></i></a>
+                  <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen lasting Damage"><i class="fas fa-plus"></i></a>
                   {{else}}
-                  <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="lasting Damage"><i class="fas fa-plus"></i></a>
+                  <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="lasting Damage"><i class="fas fa-plus"></i></a>
                   {{/if}}
                 </div>
               </li>
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               {{#each actor.data.teenLastingDamage as |item id|}}
               <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})</a></h4>
-                <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
+                <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}</a> ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})</h4>
+                <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="item-controls">
-                  {{#if ../data.rollButtons}}<a class="item-control item-roll" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
-                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
-                  <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                  {{#if ../data.rollButtons}}<a class="item-control item-roll {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RollItem'}}"><i class="fas fa-dice-d20"></i></a>{{/if}}
+                  <a class="item-control item-edit {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+                  <a class="item-control item-delete {{#if data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>
               <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
@@ -415,11 +415,11 @@
               {{else}}
               {{#each actor.data.lastingDamage as |item id|}}
               <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-                <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}} ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})</a></h4>
-                <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="fas fa-angle-down"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="fas fa-angle-up"></i></a></div>
+                <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}</a> ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})</h4>
+                <div class="item-quantity"><a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square"></i></a><p class="number">&nbsp;{{data.lastingDamageAmount}}&nbsp;</p><a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="item-controls">
-                  <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
-                  <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+                  <a class="item-control item-edit {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+                  <a class="item-control item-delete {{#if data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
                 </div>
               </li>
               <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
@@ -480,9 +480,9 @@
               <div class="item-name">{{localize 'CYPHERSYSTEM.Abilities'}}</div>
               <div class="item-controls">
                 {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability"><i class="fas fa-plus"></i></a>
                 {{else}}
-                <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability"><i class="fas fa-plus"></i></a>
                 {{/if}}
               </div>
             </li>

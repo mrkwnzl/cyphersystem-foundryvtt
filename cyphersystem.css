@@ -523,8 +523,10 @@ min-height: 610px;
 .cyphersystem .item-angle {
   width: 12px;
   text-align: center;
-  padding-left: 9px;
-  padding-right: 3px;
+  /* padding-left: 9px;
+  padding-right: 3px; */
+  margin-left: 3px;
+  margin-right: -4px;
 }
 
 .cyphersystem .number {
@@ -581,7 +583,7 @@ min-height: 610px;
 }
 
 .cyphersystem .label-basic-info {
-  flex: 0 0 50px;
+  flex: 0 0 55px;
   text-align: right;
   padding: 0 3px 0 6px;
 }
@@ -603,7 +605,26 @@ min-height: 610px;
   color: #7a7971;
 }
 
-.cyphersystem a.isDisabled {
+.cyphersystem .disabled {
   pointer-events: none;
-  opacity: 50%;
+  color: #4b4a44;
+}
+
+.cyphersystem .item-angle {
+  transform: rotate(0deg);
+  transform-origin: 0%;
+  transition: transform 0.4s;
+}
+
+.cyphersystem .arrow-active {
+  transform: rotate(90deg);
+  transform-origin: 0;
+  transition: transform 0.4s;
+}
+
+.cyphersystem .fa-minus-square,
+.fa-plus-square {
+  font-size: 11px;
+  vertical-align: 1px;
+  opacity: 85%;
 }

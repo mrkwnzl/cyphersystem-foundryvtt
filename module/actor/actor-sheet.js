@@ -311,6 +311,9 @@ export class CypherActorSheet extends ActorSheet {
           description.slideDown();
           description.toggleClass("expanded");
         }
+
+        const arrow = html.find(`#arrow-${shownItem.data("itemId")}`)
+        arrow.toggleClass("arrow-active");
       }
     });
 

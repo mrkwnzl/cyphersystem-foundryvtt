@@ -10,12 +10,12 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold"/>
           </div>
           <div class="resource-content flexrow flex-center">
-            <label style="flex: 0 0 65px;">{{localize 'CYPHERSYSTEM.IsA'}}</label>
+            <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 65px;">{{localize 'CYPHERSYSTEM.IsA'}}</label>
             <input name="data.disposition" type="text" value="{{data.disposition}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Disposition'}}"/>
             &nbsp;<input name="data.category" type="text" value="{{data.category}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Category'}}"/>
           </div>
           <div class="resource-content flexrow flex-center">
-            <label style="flex: 0 0 65px;">{{localize 'CYPHERSYSTEM.OwnedBy'}}</label>
+            <label class="{{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 65px;">{{localize 'CYPHERSYSTEM.OwnedBy'}}</label>
             <input name="data.ownedBy" type="text" value="{{data.ownedBy}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Owner'}}"/>
           </div>
         </div>
@@ -23,20 +23,20 @@
 
       <div class="resources grid grid-3col">
         <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'CYPHERSYSTEM.InteractionLevel'}}</label>
+          <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.InteractionLevel'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input name="data.level" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}" data-dtype="Number"/>
           </div>
         </div>
         <div class="resource flex-group-center">
-          <label for="data.health.value" class="resource-label">
+          <label for="data.health.value" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
             {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Health'}}{{else}}
-            <a class="item-control decrease-health" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="fas fa-angle-down"></i></a>&nbsp;
-            <a class="item-control reset-health" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}">{{localize 'CYPHERSYSTEM.Health'}}</a>&nbsp;
-            <a class="item-control increase-health" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="fas fa-angle-up"></i></a>
+            <a class="item-control decrease-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
+            <a class="item-control reset-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}">{{localize 'CYPHERSYSTEM.Health'}}</a>&nbsp;&nbsp;
+            <a class="item-control increase-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="far fa-plus-square"></i></a>
             {{/if}}
           </label>
-          <div class="resource-content flexrow flex-center stat-pool {{#if data.isLimited}}disabled{{/if}}">
+          <div class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
             <input class="stat-input" name="data.health.value" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.health.value}}{{/if}}" data-dtype="Number"/>
             &nbsp;{{data.slashForFractions}}&nbsp;
             <input class="stat-input" name="data.health.max" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.health.max}}{{/if}}" data-dtype="Number"/>
@@ -44,8 +44,8 @@
         </div>
         <div class="resource flex-group-center">
           <div class="resource-content flexrow flex-center flex-between">
-            <label class="resource-label">{{localize 'CYPHERSYSTEM.Damage'}}</label>
-            <label class="resource-label">{{localize 'CYPHERSYSTEM.Armor'}}</label>
+            <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Damage'}}</label>
+            <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Armor'}}</label>
           </div>
           <div class="resource-content flexrow flex-center flex-between">
             <input name="data.damage" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.damage}}{{/if}}" data-dtype="Number"/>&nbsp;
@@ -81,7 +81,7 @@
             <div class="item-name">{{localize 'CYPHERSYSTEM.Skills'}}</div>
             <div class="item-quantity">{{localize 'CYPHERSYSTEM.Rating'}}</div>
             <div class="item-controls">
-              <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill"><i class="fas fa-plus"></i></a>
+              <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill"><i class="far fa-plus-square"></i></a>
             </div>
           </li>
           {{#if data.settings.skills.sortByRating}}
@@ -97,7 +97,7 @@
           <li class="item flexrow item-header">
             <div class="item-name">{{localize 'CYPHERSYSTEM.Abilities'}}</div>
             <div class="item-controls">
-              <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability"><i class="fas fa-plus"></i></a>
+              <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability"><i class="far fa-plus-square"></i></a>
             </div>
           </li>
           {{> systems/cyphersystem/templates/tabs/abilities.html}}

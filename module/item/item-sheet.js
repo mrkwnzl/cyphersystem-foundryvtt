@@ -31,6 +31,7 @@ export class CypherItemSheet extends ItemSheet {
     const data = superData.data;
     data.item = superData.item;
     data.data.isGM = game.user.isGM;
+    data.data.isObserver = !this.options.editable;
     data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.dtypes = ["String", "Number", "Boolean"];
 
