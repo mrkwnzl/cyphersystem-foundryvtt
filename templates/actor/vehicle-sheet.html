@@ -15,13 +15,13 @@
               <div class="resource">
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Crew'}}</label>
+                <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Crew'}}</label>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.crew" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.crew}}{{/if}}" data-dtype="Number"/>
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.WeaponSystems'}}</label>
+                <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.WeaponSystems'}}</label>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.weaponSystems" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.weaponSystems}}{{/if}}" data-dtype="Number"/>
                 </div>
