@@ -198,7 +198,7 @@
 	"CYPHERSYSTEM.DebilitatedEffect2": "Cannot move if Speed Pool is 0.",
 	"CYPHERSYSTEM.DebilitatedRollButton": "You are debilitated.",
 	"CYPHERSYSTEM.Dead": "Dead",
-	"CYPHERSYSTEM.ApplyStatusToRoll": "Status applies to Effort cost calculation",
+	"CYPHERSYSTEM.ApplyStatusToRoll": "Status is included in Effort cost calculation",
 	"CYPHERSYSTEM.DeadEffect": "You are dead.",
 	"CYPHERSYSTEM.lastingDamage": "lasting damage",
 	"CYPHERSYSTEM.LastingDamage": "Lasting Damage",
