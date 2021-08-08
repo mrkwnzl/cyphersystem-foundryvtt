@@ -318,6 +318,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog)
     });
 
@@ -328,6 +329,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog)
     });
 
@@ -338,6 +340,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog)
     });
 

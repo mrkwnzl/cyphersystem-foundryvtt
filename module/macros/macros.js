@@ -87,8 +87,8 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  // Check for debilitated status
-  // if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"))
+  // Remind about dead status
+  if (actor.data.data.damage.damageTrack == "Dead") ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.DeadEffect"));
 
   // Pay pool points
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
@@ -100,9 +100,6 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
 export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  // Check for debilitated status
-  // if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"));
 
   // Check whether pool == XP
   if (pool == "XP" && !skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
@@ -200,7 +197,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     };
 
     // -- Cost calculation
-    let impaired = (actor.data.data.damage.damageTrack == "Impaired") ? effort : 0;
+    let impaired = (actor.data.data.damage.damageTrack == "Impaired" || actor.data.data.damage.damageTrack == "Debilitated") ? effort : 0;
     let armorCost = (pool == "Speed") ? parseInt(effort) * parseInt(actor.data.data.armor.speedCostTotal) : 0;
     let cost = (effort > 0) ? (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired) : parseInt(additionalCost);
 
@@ -511,9 +508,6 @@ export function spendEffortMacro(actor) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  // Check for debilitated status
-  if (actor.data.data.damage.damageTrack == "Debilitated") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.DebilitatedPCEffort"));
-
   // Create dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.SpendEffort"),
@@ -538,7 +532,7 @@ export function spendEffortMacro(actor) {
   // Apply points to pools
   function applyToPool(pool, level) {
     // Set penalty when impaired
-    let penalty = (actor.data.data.damage.damageTrack == "Impaired") ? level : 0;
+    let penalty = (actor.data.data.damage.damageTrack == "Impaired" || actor.data.data.damage.damageTrack == "Impaired") ? level : 0;
 
     // Determine point cost including penalty due to armor
     let cost = (pool == "Speed") ?

@@ -196,6 +196,7 @@
 	"CYPHERSYSTEM.Debilitated": "Debilitated",
 	"CYPHERSYSTEM.DebilitatedEffect1": "Can’t take actions other than moving an immediate distance.",
 	"CYPHERSYSTEM.DebilitatedEffect2": "Cannot move if Speed Pool is 0.",
+	"CYPHERSYSTEM.DebilitatedRollButton": "You are debilitated.",
 	"CYPHERSYSTEM.Dead": "Dead",
 	"CYPHERSYSTEM.DeadEffect": "You are dead.",
 	"CYPHERSYSTEM.lastingDamage": "lasting damage",
