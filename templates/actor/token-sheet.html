@@ -17,13 +17,16 @@
               <div class="resource">
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
-                  {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Quantity'}}{{else}}
-                  <a class="item-control decrease-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
-                  <a class="item-control reset-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}">{{localize 'CYPHERSYSTEM.Quantity'}}</a>&nbsp;&nbsp;
-                  <a class="item-control increase-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="far fa-plus-square"></i></a>
-                  {{/if}}
-                </label>
+                <div class="flexrow">
+                  <label for="data.quantity.value" class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Quantity'}}</label>
+                  {{#unless data.isLimited}}
+                  <div class="nonPC-stat-buttons">
+                    <a class="item-control decrease-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square stat"></i></a>
+                    <a class="item-control increase-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="far fa-plus-square stat"></i></a>
+                    <a class="item-control reset-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}"><i class="fas fa-sync-alt stat"></i></a>
+                  </div>
+                  {{/unless}}
+                </div>
                 <div class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
                   <input class="stat-input" name="data.quantity.value" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.quantity.value}}{{/if}}" data-dtype="Number"/>
                   &nbsp;{{data.slashForFractions}}&nbsp;

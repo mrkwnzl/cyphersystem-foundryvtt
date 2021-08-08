@@ -248,6 +248,8 @@ min-height: 610px;
 
 .cyphersystem .align-edge {
   justify-content: flex-end;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .cyphersystem .sheet-tabs {
@@ -269,13 +271,19 @@ min-height: 610px;
 
 .cyphersystem .resource-label {
   font-weight: bold;
-  text-overflow: ellipsis
-  /*text-transform: uppercase;*/
+  text-overflow: ellipsis;
+  padding-left: 15px;
+  /* vertical-align: middle; */
+}
+
+.cyphersystem .resource-label-additional {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  /* vertical-align: middle; */
 }
 
 .cyphersystem .resource-label-normal {
-  /*font-weight: bold;*/
-  /*text-transform: uppercase;*/
+  vertical-align: middle;
 }
 
 .sheet nav.sheet-tabs {
@@ -482,7 +490,8 @@ min-height: 610px;
   text-align: center;
 }
 
-.cyphersystem input[type="text"].stat-input {
+.cyphersystem input[type="text"].stat-input,
+.cyphersystem input[type="number"].stat-input {
   border: none;
   background: none;
   margin: -1px;
@@ -583,7 +592,7 @@ min-height: 610px;
 }
 
 .cyphersystem .label-basic-info {
-  flex: 0 0 55px;
+  flex: 0 0 60px;
   text-align: right;
   padding: 0 3px 0 6px;
 }
@@ -622,8 +631,63 @@ min-height: 610px;
   transition: transform 0.4s;
 }
 
-.cyphersystem .fa-minus-square,
-.fa-plus-square {
-  font-size: 10px;
-  vertical-align: 1px;
+.cyphersystem .fa-minus-square.stat,
+.fa-plus-square.stat {
+  /* font-size: 12px; */
+  vertical-align: -1px;
+}
+
+.cyphersystem .stat-roll-button {
+  flex: 0 0 15px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.cyphersystem .vl {
+  border-left: 1px solid #999;
+  margin-right: 2px;
+}
+
+.cyphersystem .edge-label {
+  flex: 0 0 0;
+  padding-left: 5px;
+}
+
+.cyphersystem .stat-controls {
+  white-space: nowrap;
+  height: 19px;
+}
+.cyphersystem .all-stats {
+  margin-top: 5px;
+}
+
+.cyphersystem .stat-block + .stat-block {
+  margin-left: 5px
+}
+
+.cyphersystem .additional-block {
+  max-width: 120px;
+}
+
+.cyphersystem input[type="text"].edge-input {
+  height: 19px;
+  max-width: 40px;
+  width: auto;
+  margin: 0;
+}
+
+.cyphersystem .fa-sync-alt.stat {
+  font-size: 11px;
+  vertical-align: 0px;
+  margin-left: 1px;
+}
+
+.cyphersystem .nonPC-stat-buttons {
+  flex: 0 0 47px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.cyphersystem .nonPC-stat-label {
+  margin-right: -32px;
 }

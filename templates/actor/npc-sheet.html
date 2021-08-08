@@ -14,13 +14,16 @@
             <div class="resources grid grid-3col">
               <div></div>
               <div class="resource flex-group-center">
-                <label for="data.health.value" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
-                  {{#if data.isLimited}}{{localize 'CYPHERSYSTEM.Health'}}{{else}}
-                  <a class="item-control decrease-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="far fa-minus-square"></i></a>&nbsp;&nbsp;
-                  <a class="item-control reset-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}">{{localize 'CYPHERSYSTEM.Health'}}</a>&nbsp;&nbsp;
-                  <a class="item-control increase-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="far fa-plus-square"></i></a>
-                  {{/if}}
-                </label>
+                <div class="flexrow">
+                  <label for="data.health.value" class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Health'}}</label>
+                  {{#unless data.isLimited}}
+                  <div class="nonPC-stat-buttons">
+                    <a class="item-control decrease-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"><i class="far fa-minus-square stat"></i></a>
+                    <a class="item-control increase-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"><i class="far fa-plus-square stat"></i></a>
+                    <a class="item-control reset-health {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}"><i class="fas fa-sync-alt stat"></i></a>
+                  </div>
+                  {{/unless}}
+                </div>
                 <div class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
                   <input class="stat-input" name="data.health.value" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.health.value}}{{/if}}" data-dtype="Number"/>
                   &nbsp;{{data.slashForFractions}}&nbsp;
