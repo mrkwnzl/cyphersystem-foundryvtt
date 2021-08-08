@@ -133,6 +133,27 @@ export class CypherActorSheetPC extends CypherActorSheet {
       this.actor.updateEmbeddedDocuments("Item", [item]);
     });
 
+    // Apply damage track to rolls
+    html.find('.apply-impaired').click(clickEvent => {
+      let newValue = (this.actor.data.data.damage.applyImpaired) ? false : true;
+      this.actor.update({"data.damage.applyImpaired": newValue});
+    });
+
+    html.find('.apply-debilitated').click(clickEvent => {
+      let newValue = (this.actor.data.data.damage.applyDebilitated) ? false : true;
+      this.actor.update({"data.damage.applyDebilitated": newValue});
+    });
+
+    html.find('.apply-impaired-teen').click(clickEvent => {
+      let newValue = (this.actor.data.data.teen.damage.applyImpaired) ? false : true;
+      this.actor.update({"data.teen.damage.applyImpaired": newValue});
+    });
+
+    html.find('.apply-debilitated-teen').click(clickEvent => {
+      let newValue = (this.actor.data.data.teen.damage.applyDebilitated) ? false : true;
+      this.actor.update({"data.teen.damage.applyDebilitated": newValue});
+    });
+
     /**
     * Pool management
     */

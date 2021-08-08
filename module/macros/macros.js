@@ -196,8 +196,18 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
     };
 
+    // -- Determine impaired & debilitated status
+    let impairedStatus = false;
+    if (actor.data.data.settings.gameMode.currentSheet == "Teen") {
+      if (actor.data.data.teen.damage.damageTrack == "Impaired" && actor.data.data.teen.damage.applyImpaired) impairedStatus = true;
+      if (actor.data.data.teen.damage.damageTrack == "Debilitated" && actor.data.data.teen.damage.applyDebilitated) impairedStatus = true;
+    } else if (actor.data.data.settings.gameMode.currentSheet == "Mask") {
+      if (actor.data.data.damage.damageTrack == "Impaired" && actor.data.data.damage.applyImpaired) impairedStatus = true;
+      if (actor.data.data.damage.damageTrack == "Debilitated" && actor.data.data.damage.applyDebilitated) impairedStatus = true;
+    }
+
     // -- Cost calculation
-    let impaired = (actor.data.data.damage.damageTrack == "Impaired" || actor.data.data.damage.damageTrack == "Debilitated") ? effort : 0;
+    let impaired = (impairedStatus) ? effort : 0;
     let armorCost = (pool == "Speed") ? parseInt(effort) * parseInt(actor.data.data.armor.speedCostTotal) : 0;
     let cost = (effort > 0) ? (effort * 2) + 1 + parseInt(additionalCost) + parseInt(armorCost) + parseInt(impaired) : parseInt(additionalCost);
 
@@ -531,8 +541,18 @@ export function spendEffortMacro(actor) {
 
   // Apply points to pools
   function applyToPool(pool, level) {
+    // -- Determine impaired & debilitated status
+    let impairedStatus = false;
+    if (actor.data.data.settings.gameMode.currentSheet == "Teen") {
+      if (actor.data.data.teen.damage.damageTrack == "Impaired" && actor.data.data.teen.damage.applyImpaired) impairedStatus = true;
+      if (actor.data.data.teen.damage.damageTrack == "Debilitated" && actor.data.data.teen.damage.applyDebilitated) impairedStatus = true;
+    } else if (actor.data.data.settings.gameMode.currentSheet == "Mask") {
+      if (actor.data.data.damage.damageTrack == "Impaired" && actor.data.data.damage.applyImpaired) impairedStatus = true;
+      if (actor.data.data.damage.damageTrack == "Debilitated" && actor.data.data.damage.applyDebilitated) impairedStatus = true;
+    }
+
     // Set penalty when impaired
-    let penalty = (actor.data.data.damage.damageTrack == "Impaired" || actor.data.data.damage.damageTrack == "Impaired") ? level : 0;
+    let penalty = (impairedStatus) ? level : 0;
 
     // Determine point cost including penalty due to armor
     let cost = (pool == "Speed") ?

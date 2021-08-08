@@ -592,7 +592,7 @@ min-height: 610px;
 }
 
 .cyphersystem .label-basic-info {
-  flex: 0 0 60px;
+  flex: 0 0 45px;
   text-align: right;
   padding: 0 3px 0 6px;
 }
@@ -690,4 +690,8 @@ min-height: 610px;
 
 .cyphersystem .nonPC-stat-label {
   margin-right: -32px;
+}
+
+.cyphersystem .damage-track-apply {
+  flex: 0;
 }
