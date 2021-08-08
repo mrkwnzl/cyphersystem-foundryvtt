@@ -60,7 +60,9 @@
         "tenHours": false
       },
       "damage": {
-        "damageTrack": "Hale"
+        "damageTrack": "Hale",
+        "applyImpaired": true,
+        "applyDebilitated": true
       },
       "armor": {
         "speedCostTotal": 0,
@@ -163,7 +165,9 @@
           "intellectEdge": 0
         },
         "damage": {
-          "damageTrack": "Hale"
+          "damageTrack": "Hale",
+          "applyImpaired": true,
+          "applyDebilitated": true
         },
         "armor": {
           "speedCostTotal": 0,

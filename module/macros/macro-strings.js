@@ -56,6 +56,9 @@ export function itemMacroString(item) {
   // Don’t use quotation marks
   let damagePerLevel = "";
 
+  // Only pay points instead of rolling?
+  let noRoll = false;
+
   // Force the macro to apply to the Teen or Mask form?
   // true = apply to Teen form
   // false = apply to Mask form
@@ -65,7 +68,7 @@ export function itemMacroString(item) {
 
   // Do not change anything below
 
-  game.cyphersystem.itemRollMacro(actor, "${item}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel, teen)`
+  game.cyphersystem.itemRollMacro(actor, "${item}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel, teen, noRoll)`
 
   return content.replace(/^ +/gm, '');
 }
@@ -82,6 +85,12 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
   let intellectMax = (teen) ? actor.data.data.teen.pools.intellect.max : actor.data.data.pools.intellect.max;
   let intellectEdge = (teen) ? actor.data.data.teen.pools.intellectEdge : actor.data.data.pools.intellectEdge;
 
+  // Fallback for strings in skill
+  if (skill == 2) skill = "Specialized";
+  if (skill == 1) skill = "Trained";
+  if (skill == 0) skill = "Practiced";
+  if (skill == -1) skill = "Inability";
+
   // Create HTML
   let content =
   `<div align="center">
@@ -96,10 +105,10 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}:</label>
   <select name='skill' id='skill' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   {{#select skill}}
-  <option value=-1 ${(skill == "Inability" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Inability")}</option>
-  <option value=0 ${(skill == "Practiced" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Practiced")}</option>
-  <option value=1 ${(skill == "Trained" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Trained")}</option>
-  <option value=2 ${(skill == "Specialized" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Specialized")}</option>
+  <option value=-1 ${(skill == ("Inability") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Inability")}</option>
+  <option value=0 ${(skill == ("Practiced") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Practiced")}</option>
+  <option value=1 ${(skill == ("Trained") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Trained")}</option>
+  <option value=2 ${(skill == ("Specialized") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Specialized")}</option>
   {{/select}}
   </select><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Assets")}:</label>

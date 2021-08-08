@@ -152,8 +152,9 @@ min-height: 610px;
 }*/
 
 .flavor-text {
-  line-height: 1.4;
+  line-height: 1.3;
   margin-bottom: 3px;
+  font-size: 14px;
 }
 
 ::-webkit-scrollbar-track {
@@ -228,6 +229,11 @@ min-height: 610px;
   border-top: 1px solid #999;
 }
 
+.hr-chat {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .cyphersystem .stat-pool {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
@@ -242,6 +248,8 @@ min-height: 610px;
 
 .cyphersystem .align-edge {
   justify-content: flex-end;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .cyphersystem .sheet-tabs {
@@ -263,13 +271,19 @@ min-height: 610px;
 
 .cyphersystem .resource-label {
   font-weight: bold;
-  text-overflow: ellipsis
-  /*text-transform: uppercase;*/
+  text-overflow: ellipsis;
+  padding-left: 15px;
+  /* vertical-align: middle; */
+}
+
+.cyphersystem .resource-label-additional {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  /* vertical-align: middle; */
 }
 
 .cyphersystem .resource-label-normal {
-  /*font-weight: bold;*/
-  /*text-transform: uppercase;*/
+  vertical-align: middle;
 }
 
 .sheet nav.sheet-tabs {
@@ -404,7 +418,7 @@ min-height: 610px;
 
 .cyphersystem .items-list .description {
   text-align: left;
-  line-height: 1.4;
+  line-height: 1.2;
   border-top-style: dashed;
   border-color: rgba(187, 187, 187);
   border-top-width: 1px;
@@ -476,7 +490,8 @@ min-height: 610px;
   text-align: center;
 }
 
-.cyphersystem input[type="text"].stat-input {
+.cyphersystem input[type="text"].stat-input,
+.cyphersystem input[type="number"].stat-input {
   border: none;
   background: none;
   margin: -1px;
@@ -517,8 +532,10 @@ min-height: 610px;
 .cyphersystem .item-angle {
   width: 12px;
   text-align: center;
-  padding-left: 9px;
-  padding-right: 3px;
+  /* padding-left: 9px;
+  padding-right: 3px; */
+  margin-left: 3px;
+  margin-right: -4px;
 }
 
 .cyphersystem .number {
@@ -533,20 +550,24 @@ min-height: 610px;
   display: flex;
 }
 
-#chat-log .message .message-content ul, ol {
-  margin: 0 0 0.5em 0;
+#chat-log .message .message-content ul, ol,
+.flavor-text ul, ol {
+  margin: 0 0 0.2em 0;
   list-style-type: disc;
 }
 
-#chat-log .message .message-content p {
-  margin: 0 0 0.5em 0;
+#chat-log .message .message-content p,
+.flavor-text p {
+  margin: 0 0 0.1em 0;
 }
 
-#chat-log .message .message-content p:last-of-type {
+#chat-log .message .message-content p:last-of-type,
+.flavor-text p:last-of-type {
   margin: 0 0 0 0;
 }
 
-#chat-log .message .message-content blockquote {
+#chat-log .message .message-content blockquote,
+.flavor-text blockquote {
   margin: 0 0 0 10px;
   padding: 0 0 0 10px;
 }
@@ -571,7 +592,7 @@ min-height: 610px;
 }
 
 .cyphersystem .label-basic-info {
-  flex: 0 0 50px;
+  flex: 0 0 45px;
   text-align: right;
   padding: 0 3px 0 6px;
 }
@@ -591,4 +612,86 @@ min-height: 610px;
 
 .cyphersystem .rollForLevel i {
   color: #7a7971;
+}
+
+.cyphersystem .disabled {
+  pointer-events: none;
+  color: #4b4a44;
+}
+
+.cyphersystem .item-angle {
+  transform: rotate(0deg);
+  transform-origin: 0%;
+  transition: transform 0.4s;
+}
+
+.cyphersystem .arrow-active {
+  transform: rotate(90deg);
+  transform-origin: 0;
+  transition: transform 0.4s;
+}
+
+.cyphersystem .fa-minus-square.stat,
+.fa-plus-square.stat {
+  /* font-size: 12px; */
+  vertical-align: -1px;
+}
+
+.cyphersystem .stat-roll-button {
+  flex: 0 0 15px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.cyphersystem .vl {
+  border-left: 1px solid #999;
+  margin-right: 2px;
+}
+
+.cyphersystem .edge-label {
+  flex: 0 0 0;
+  padding-left: 5px;
+}
+
+.cyphersystem .stat-controls {
+  white-space: nowrap;
+  height: 19px;
+}
+.cyphersystem .all-stats {
+  margin-top: 5px;
+}
+
+.cyphersystem .stat-block + .stat-block {
+  margin-left: 5px
+}
+
+.cyphersystem .additional-block {
+  max-width: 120px;
+}
+
+.cyphersystem input[type="text"].edge-input {
+  height: 19px;
+  max-width: 40px;
+  width: auto;
+  margin: 0;
+}
+
+.cyphersystem .fa-sync-alt.stat {
+  font-size: 11px;
+  vertical-align: 0px;
+  margin-left: 1px;
+}
+
+.cyphersystem .nonPC-stat-buttons {
+  flex: 0 0 47px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.cyphersystem .nonPC-stat-label {
+  margin-right: -32px;
+}
+
+.cyphersystem .damage-track-apply {
+  flex: 0;
 }

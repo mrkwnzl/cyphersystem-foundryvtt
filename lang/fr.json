@@ -350,6 +350,8 @@
     "CYPHERSYSTEM.easedBySteps": "facilité par {amount} niveaux",
     "CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP": "Le dialogue Tout-en-un ne peut pas être utilisé pour les capacités payées avec l'XP.",
     "CYPHERSYSTEM.NotEnoughXP": "Vous n'avez pas assez d'XP.",
-    "CYPHERSYSTEM.RollButtonSettings": "Valeurs par défaut du jet",
-    "CYPHERSYSTEM.hinderedBySteps": "Entravé par {amount} niveaux"
+    "CYPHERSYSTEM.RollButtonSettings": "Valeurs par défaut des jets et macros d'élément",
+    "CYPHERSYSTEM.hinderedBySteps": "entravé par {amount} niveaux",
+    "CYPHERSYSTEM.depletion": "épuisement",
+    "CYPHERSYSTEM.RollForLevel": "Jet de niveau pour {item}"
 }

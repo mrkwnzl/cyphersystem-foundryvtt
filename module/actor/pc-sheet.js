@@ -97,6 +97,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
     /**
     * Combat tab functions
     */
@@ -129,6 +131,27 @@ export class CypherActorSheetPC extends CypherActorSheet {
         item.data.armorActive = true;
       }
       this.actor.updateEmbeddedDocuments("Item", [item]);
+    });
+
+    // Apply damage track to rolls
+    html.find('.apply-impaired').click(clickEvent => {
+      let newValue = (this.actor.data.data.damage.applyImpaired) ? false : true;
+      this.actor.update({"data.damage.applyImpaired": newValue});
+    });
+
+    html.find('.apply-debilitated').click(clickEvent => {
+      let newValue = (this.actor.data.data.damage.applyDebilitated) ? false : true;
+      this.actor.update({"data.damage.applyDebilitated": newValue});
+    });
+
+    html.find('.apply-impaired-teen').click(clickEvent => {
+      let newValue = (this.actor.data.data.teen.damage.applyImpaired) ? false : true;
+      this.actor.update({"data.teen.damage.applyImpaired": newValue});
+    });
+
+    html.find('.apply-debilitated-teen').click(clickEvent => {
+      let newValue = (this.actor.data.data.teen.damage.applyDebilitated) ? false : true;
+      this.actor.update({"data.teen.damage.applyDebilitated": newValue});
     });
 
     /**
@@ -316,6 +339,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog)
     });
 
@@ -326,6 +350,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog)
     });
 
@@ -336,6 +361,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
+
       allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog)
     });
 

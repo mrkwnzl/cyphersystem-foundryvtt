@@ -4,31 +4,29 @@
       <div class="item-name">{{#if (eq data.settings.equipment.artifactsName "")}}{{localize 'CYPHERSYSTEM.Artifacts'}}{{else}}{{data.settings.equipment.artifactsName}}{{/if}}</div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
       <div class="item-controls">
-        <a class="item-control item-create" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="artifact"><i class="fas fa-plus"></i></a>
+        <a class="item-control item-create {{#if ./data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="artifact"><i class="fas fa-plus"></i></a>
       </div>
     </li>
     {{#each actor.data.artifacts as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i class="fas fa-angle-{{#if data.showDescription}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}</a>{{#if data.depletion}} ({{localize 'CYPHERSYSTEM.depletionOf'}} {{{enrichHTML data.depletion}}}){{/if}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</h4>
-      <div class="item-quantity">{{#if data.identified}}{{#if data.rollForLevel}}<a class="rollForLevel"><i class="fas fa-question"></i> {{data.level}}</a>{{else}}{{{enrichHTML data.level}}}{{/if}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</a>{{#if (and data.depletion data.identified)}} ({{localize 'CYPHERSYSTEM.depletionOf'}} {{{enrichHTML data.depletion}}}){{/if}}</h4>
+      <div class="item-quantity">{{#if data.identified}}{{#if data.rollForLevel}}<a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}"><i class="fas fa-question"></i> {{data.level}}</a>{{else}}{{{enrichHTML data.level}}}{{/if}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
       <div class="item-controls">
         {{#if ../data.isGM}}
-        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
         {{else}}
         {{#if data.identified}}
-        <a class="item-control item-edit" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
+        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
         {{else}}
-        <a class="item-control identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}"><i class="far fa-eye-slash"></i></a>
+        <a class="item-control identify-item {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}"><i class="far fa-eye-slash"></i></a>
         {{/if}}
         {{/if}}
-        <a class="item-control item-delete" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
+        <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>
-    {{#if data.showDescription}}
     <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-      <div class="description"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"="50" height="50"/>{{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}</div>
+      <div class="description desc-{{item._id}}" style="display: none"><img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50"/>{{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}</div>
     </li>
-    {{/if}}
     {{/each}}
   </ol>
 </div>
