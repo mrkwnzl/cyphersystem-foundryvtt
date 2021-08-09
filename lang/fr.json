@@ -346,12 +346,21 @@
     "CYPHERSYSTEM.EasedByExtraStep": "Tâche facilitée d'un niveau supplémentaire",
     "CYPHERSYSTEM.SettingRollButtons": "Boutons de Jet sur les feuilles de personnage",
     "CYPHERSYSTEM.SettingRollButtonsHint": "Cela permet d'activer les boutons de jet sur toutes les feuilles de personnage.",
-    "CYPHERSYSTEM.RollItem": "Lancer le jet de l'objet",
+    "CYPHERSYSTEM.RollItem": "Lancer le jet de l'objet (alt-clic pour le jet Tout-en-Un)",
     "CYPHERSYSTEM.easedBySteps": "facilité par {amount} niveaux",
     "CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP": "Le dialogue Tout-en-un ne peut pas être utilisé pour les capacités payées avec l'XP.",
     "CYPHERSYSTEM.NotEnoughXP": "Vous n'avez pas assez d'XP.",
     "CYPHERSYSTEM.RollButtonSettings": "Valeurs par défaut des jets et macros d'élément",
     "CYPHERSYSTEM.hinderedBySteps": "entravé par {amount} niveaux",
     "CYPHERSYSTEM.depletion": "épuisement",
-    "CYPHERSYSTEM.RollForLevel": "Jet de niveau pour {item}"
+    "CYPHERSYSTEM.RollForLevel": "Jet de niveau pour {item}",
+    "CYPHERSYSTEM.DebilitatedRollButton": "Vous êtes neutralisé(e).",
+    "CYPHERSYSTEM.ApplyStatusToRoll": "Le statut s'applique au calcul du coût de l'Effort",
+    "CYPHERSYSTEM.RollForLevelButton": "Jet de Niveau",
+    "CYPHERSYSTEM.depletionOf": "épuisement sur",
+    "CYPHERSYSTEM.PayItem": "Payer les points de Réserves (alt-clic pour le jet Tout-en-Un)",
+    "CYPHERSYSTEM.Pay": "Payer",
+    "CYPHERSYSTEM.MightRollButton": "Jet de Puissance (alt-clic pour le jet Tout-en-Un)",
+    "CYPHERSYSTEM.SpeedRollButton": "Jet de Célérité (alt-clic pour le jet Tout-en-Un)",
+    "CYPHERSYSTEM.IntellectRollButton": "Jet d'Intellect (alt-clic pour le jet Tout-en-Un)"
 }
