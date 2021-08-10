@@ -223,7 +223,7 @@ min-height: 610px;
 }
 
 .cyphersystem .hr-pool {
-  margin-top: 3px;
+  margin-top: 5px;
   margin-bottom: 5px;
   border-bottom: 0;
   border-top: 1px solid #999;
@@ -239,7 +239,6 @@ min-height: 610px;
   border: 1px solid #7a7971;
   border-radius: 3px;
   margin-top: 2px;
-  margin-bottom: 5px;
 }
 
 .cyphersystem .stat-pool.disabled {
@@ -303,6 +302,7 @@ min-height: 610px;
   border-radius: 3px 3px 0 0;
   line-height: 25px;
   padding: 0 6px;
+  white-space: nowrap;
 }
 
 .cyphersystem .tabs .item.active {
@@ -679,11 +679,11 @@ min-height: 610px;
 .cyphersystem .fa-sync-alt.stat {
   font-size: 11px;
   vertical-align: 0px;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .cyphersystem .nonPC-stat-buttons {
-  flex: 0 0 47px;
+  flex: 0 0 50px;
   text-align: right;
   padding-right: 3px;
 }
@@ -694,4 +694,8 @@ min-height: 610px;
 
 .cyphersystem .damage-track-apply {
   flex: 0;
+}
+
+.cyphersystem .reset-stat {
+  margin-left: 5px
 }
