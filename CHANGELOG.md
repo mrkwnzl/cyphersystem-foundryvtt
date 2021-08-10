@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- I’m using a new format for the changelog.
+### Fixed
+- The hit box for the stat reset buttons don’t include the margin-left anymore.
+- The tabs on non-PC actor sheets now doesn’t line break anymore for several languages.
 
 ## [1.23.1] - 2021-08-10
 ### Changed
