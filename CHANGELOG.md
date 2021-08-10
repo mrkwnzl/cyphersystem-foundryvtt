@@ -333,7 +333,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - The initiative value of NPCs, Companions, and Tokens now correctly subtract 0.5 as a tie breaker against PCs. This shows up in the chat, but the values in the combat tracker are rounded up to show the correct value.
 
-### [1.12.2] - 2021-02-01
+## [1.12.2] - 2021-02-01
 ### Fixed
 - Item images should be fixed for case sensitive file systems. (#44)
 
@@ -379,7 +379,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Small styling errors have been fixed.
 - All sheets now keep their scroll position when changes are made, as they should.
 
-## [1.9.2] - 2021-01-10
+## [1.9.3] - 2021-01-10
 ### Fixed
 - Fixed a bug where setting the defaults for the All-in-One Roll macro was applied to the wrong values.
 
