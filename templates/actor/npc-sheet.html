@@ -32,8 +32,8 @@
               </div>
               <div class="resource flex-group-center">
                 <div class="resource-content flexrow flex-center flex-between">
-                  <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Damage'}}</label>
-                  <label class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Armor'}}</label>
+                  <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Damage'}}</label>
+                  <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Armor'}}</label>
                 </div>
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="data.damage" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.damage}}{{/if}}" data-dtype="Number"/>&nbsp;
