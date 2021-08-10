@@ -100,7 +100,7 @@
             <div class="stat-controls">
               <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"><i class="far fa-minus-square stat"></i></a>
               <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}"><i class="far fa-plus-square stat"></i></a>
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetMight'}}"><i class="fas fa-sync-alt stat"></i></a>
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}"><i class="fas fa-sync-alt stat"></i></a>
             </div>
             <div class="align-edge">
               <label class="edge-label {{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0;" for="data.pools.mightEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
@@ -133,7 +133,7 @@
             <div class="stat-controls">
               <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}"><i class="far fa-minus-square stat"></i></a>
               <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}"><i class="far fa-plus-square stat"></i></a>
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}"><i class="fas fa-sync-alt stat"></i></a>
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}"><i class="fas fa-sync-alt stat"></i></a>
             </div>
             <div class="align-edge">
               <label class="edge-label {{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="data.pools.speedEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
@@ -166,7 +166,7 @@
             <div class="stat-controls">
               <a class="item-control decrease-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}"><i class="far fa-minus-square stat"></i></a>
               <a class="item-control increase-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}"><i class="far fa-plus-square stat"></i></a>
-              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}"><i class="fas fa-sync-alt stat"></i></a>
+              <a class="item-control reset-{{#if (eq data.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}"><i class="fas fa-sync-alt stat"></i></a>
             </div>
             <div class="align-edge">
               <label class="edge-label {{#if data.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="data.pools.intellectEdge" class="resource-label-normal">{{localize 'CYPHERSYSTEM.Edge'}}</label>
@@ -193,7 +193,7 @@
             <div class="stat-controls">
               <a class="item-control decrease-teen-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square stat"></i></a>
               <a class="item-control increase-teen-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="far fa-plus-square stat"></i></a>
-              <a class="item-control reset-teen-additionalPool {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><i class="fas fa-sync-alt stat"></i></a>
+              <a class="item-control reset-teen-additionalPool {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><i class="fas fa-sync-alt stat"></i></a>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@
             <div class="stat-controls">
               <a class="item-control decrease-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square stat"></i></a>
               <a class="item-control increase-additional {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"><i class="far fa-plus-square stat"></i></a>
-              <a class="item-control reset-additionalPool {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><i class="fas fa-sync-alt stat"></i></a>
+              <a class="item-control reset-additionalPool {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"><i class="fas fa-sync-alt stat"></i></a>
             </div>
           </div>
         </div>
