@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - The hit box for the stat reset buttons don’t include the margin-left anymore.
-- The tabs on non-PC actor sheets now doesn’t line break anymore for several languages.
+- The tabs on non-PC actor sheets now don’t line break anymore for several languages.
 
 ## [1.23.1] - 2021-08-10
 ### Changed
