@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- The way tags are handled have been improved. There is a new macro replacing the two old macros to (un)archive items with tags, which combines both and allows for mutliple tags to be specified. This way, multiple equipment sets, spell books, or active abilities can be specified in a single macro and be changed with a single click.
+
 ### Fixed
 - Order of skill level on (teen) attack sheets has been reversed in order to bring it in line with the skill sheets.
 - Correction of minor typos.
