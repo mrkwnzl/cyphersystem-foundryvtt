@@ -558,7 +558,7 @@ min-height: 610px;
 
 #chat-log .message .message-content p,
 .flavor-text p {
-  margin: 0 0 0.1em 0;
+  margin: 0 0 0.2em 0;
 }
 
 #chat-log .message .message-content p:last-of-type,
