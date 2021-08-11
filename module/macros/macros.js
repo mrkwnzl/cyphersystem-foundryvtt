@@ -855,7 +855,7 @@ export async function translateToRecursion(actor, recursion, focus) {
   }
 }
 
-export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
+export async function archiveStatusByTag(actor, archiveTags, unarchiveTags, signifier, archive) {
   // Check for PC
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -863,9 +863,8 @@ export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
   if (!signifier) signifier = "#";
   if (archive !== true) archive = false;
 
-  // Define recursion name & workarble recursion variable
-  let tagName = tag;
-  tag = signifier + tag.toLowerCase();
+  // Define tag name & workarble tag variable
+  // tag = signifier + tag.toLowerCase();
 
   // Define archiving or unarchiving
   let archived = ((event.altKey && archive) || (!event.altKey && !archive)) ? false : true;
@@ -874,14 +873,27 @@ export async function unarchiveItemsWithTag(actor, tag, signifier, archive) {
   for (let item of actor.items) {
     let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
     let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-    if (name.includes(tag) || description.includes(tag)) {
-      updates.push({_id: item.id, "data.archived": archived});
+    for (let archiveTag of archiveTags) {
+      archiveTag = signifier + archiveTag.toLowerCase();
+      if (name.includes(archiveTag) || description.includes(archiveTag)) {
+        updates.push({_id: item.id, "data.archived": !archived});
+      }
+    }
+    for (let unarchiveTag of unarchiveTags) {
+      unarchiveTag = signifier + unarchiveTag.toLowerCase();
+      if (name.includes(unarchiveTag) || description.includes(unarchiveTag)) {
+        updates.push({_id: item.id, "data.archived": archived});
+      }
     }
   }
 
   await actor.updateEmbeddedDocuments("Item", updates);
 }
 
-export async function archiveItemsWithTag(actor, tag, signifier) {
-  await unarchiveItemsWithTag(actor, tag, signifier, true)
+export async function unarchiveItemsWithTag(actor, tag) {
+  await archiveStatusByTag(actor, "", [tag]);
+}
+
+export async function archiveItemsWithTag(actor, tag) {
+  await archiveStatusByTag(actor, [tag], "");
 }
