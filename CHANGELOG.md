@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Order of skill level on (teen) attack sheets has been reversed in order to bring it in line with the skill sheets.
+- Correction of minor typos.
+- Slight CSS tweaks.
 
 ## [1.23.2] - 2021-08-10
 ### Changed
