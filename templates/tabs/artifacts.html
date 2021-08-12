@@ -9,7 +9,7 @@
     </li>
     {{#each actor.data.artifacts as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
-      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</a>{{#if (and data.depletion data.identified)}} ({{localize 'CYPHERSYSTEM.depletionOf'}} {{{enrichHTML data.depletion}}}){{/if}}</h4>
+      <h4 class="item-name"><a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}"><i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}</a>{{#if (and data.depletion data.identified)}} ({{localize 'CYPHERSYSTEM.depletion'}}: {{{enrichHTML data.depletion}}}){{/if}}</h4>
       <div class="item-quantity">{{#if data.identified}}{{#if data.rollForLevel}}<a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}"><i class="fas fa-question"></i> {{data.level}}</a>{{else}}{{{enrichHTML data.level}}}{{/if}}{{else}}{{localize 'CYPHERSYSTEM.?'}}{{/if}}</div>
       <div class="item-controls">
         {{#if ../data.isGM}}

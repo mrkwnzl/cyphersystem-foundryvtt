@@ -360,5 +360,5 @@
     "CYPHERSYSTEM.SpeedRollButton": "Tirada de Velocidad (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.IntellectRollButton": "Tirada de Intelecto (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.RollForLevelButton": "Tirar Nivel",
-    "CYPHERSYSTEM.depletionOf": "agotamiento de"
+    "CYPHERSYSTEM.depletion": "agotamiento de"
 }
