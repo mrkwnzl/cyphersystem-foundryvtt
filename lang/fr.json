@@ -357,7 +357,7 @@
     "CYPHERSYSTEM.DebilitatedRollButton": "Vous êtes neutralisé(e).",
     "CYPHERSYSTEM.ApplyStatusToRoll": "Le statut s'applique au calcul du coût de l'Effort",
     "CYPHERSYSTEM.RollForLevelButton": "Jet de Niveau",
-    "CYPHERSYSTEM.depletionOf": "épuisement sur",
+    "CYPHERSYSTEM.depletion": "épuisement sur",
     "CYPHERSYSTEM.PayItem": "Payer les points de Réserves (alt-clic pour le jet Tout-en-Un)",
     "CYPHERSYSTEM.Pay": "Payer",
     "CYPHERSYSTEM.MightRollButton": "Jet de Puissance (alt-clic pour le jet Tout-en-Un)",
