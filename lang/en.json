@@ -262,6 +262,7 @@
 	"CYPHERSYSTEM.Artifact": "artifact",
 	"CYPHERSYSTEM.SpecialAbility": "special ability",
 	"CYPHERSYSTEM.Ability": "ability",
+	"CYPHERSYSTEM.n/a": "n/a",
 
 	"CYPHERSYSTEM.Active": "Active",
 	"CYPHERSYSTEM.Rating": "Rating",
