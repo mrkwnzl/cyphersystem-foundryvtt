@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Changed
 - Reset stat pool buttons now respect lasting damage.
+- Special abilities on attacks only appear as “abilties” instead of “special abilities,” in order to make it more in line with the books (which only seem to call them “special ability” in the context of type abilities) and to make it a bit shorter.
 
 ## [1.23.3] - 2021-08-12
 ### Changed
