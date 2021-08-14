@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Reset stat pool buttons now respect lasting damage (as long as it’s not archived).
 
+### Fixed
+- Task eased/hindered in roll chat output is now in the correct place.
+- Teen abilities now work with the pool point buttons.
+- Teen abilities can now be paid with XP.
+- Some minor typos
+
 ## [1.23.3] - 2021-08-12
 ### Changed
 - The way tags are handled have been improved. There is a new macro replacing the two old macros to (un)archive items with tags, which combines both and allows for multiple tags to be specified. This way, multiple equipment sets, spell books, or active abilities can be specified in a single macro and be changed with a single click.
