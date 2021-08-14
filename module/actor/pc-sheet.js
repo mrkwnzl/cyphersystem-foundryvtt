@@ -278,8 +278,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Might
     html.find('.reset-teen-might').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Might") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max
+        "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max - lastingDamage
       })
     });
 
@@ -299,8 +305,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Speed
     html.find('.reset-teen-speed').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Speed") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max
+        "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max - lastingDamage
       })
     });
 
@@ -320,8 +332,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Intellect
     html.find('.reset-teen-intellect').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Intellect") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max
+        "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max - lastingDamage
       })
     });
 
