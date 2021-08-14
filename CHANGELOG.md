@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added “n/a” as an option for weapon and armor types. Shields and some Ptolus weapons don’t have a type and this adds support for that.
 
 ### Changed
-- Reset stat pool buttons now respect lasting damage.
+- Reset stat pool buttons now respect lasting damage (as long as it’s not archived).
 
 ## [1.23.3] - 2021-08-12
 ### Changed
