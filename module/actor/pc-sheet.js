@@ -175,7 +175,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Might") {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
@@ -202,7 +202,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Speed") {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
@@ -229,7 +229,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Intellect") {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
@@ -280,7 +280,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Might") {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
@@ -307,7 +307,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Speed") {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
@@ -334,7 +334,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Intellect") {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
           lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
         }
       }
