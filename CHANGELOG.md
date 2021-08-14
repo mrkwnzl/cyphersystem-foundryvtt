@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added “n/a” as an option for weapon and armor types. Some Ptolus weapons don’t have a type and this adds support for that.
+
 ### Changed
 - Reset stat pool buttons now respect lasting damage.
-- Special abilities on attacks only appear as “abilties” instead of “special abilities,” in order to make it more in line with the books (which only seem to call them “special ability” in the context of type abilities) and to make it a bit shorter.
+- Special abilities on attacks and armor only appear as “abilities” instead of “special abilities,” in order to make it more in line with the books (which only seem to call them “special ability” in the context of type abilities) and to make it a bit shorter.
 
 ## [1.23.3] - 2021-08-12
 ### Changed
