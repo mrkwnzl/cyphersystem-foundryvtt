@@ -173,8 +173,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Might
     html.find('.reset-might').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Might") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.might.value": this.actor.data.data.pools.might.max
+        "data.pools.might.value": this.actor.data.data.pools.might.max - lastingDamage
       })
     });
 
@@ -194,8 +200,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Speed
     html.find('.reset-speed').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Speed") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.speed.value": this.actor.data.data.pools.speed.max
+        "data.pools.speed.value": this.actor.data.data.pools.speed.max - lastingDamage
       })
     });
 
@@ -215,8 +227,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Intellect
     html.find('.reset-intellect').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Intellect") {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.intellect.value": this.actor.data.data.pools.intellect.max
+        "data.pools.intellect.value": this.actor.data.data.pools.intellect.max - lastingDamage
       })
     });
 
