@@ -35,6 +35,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   getData() {
     const data = super.getData();
     const actorData = data.actor.data;
+    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
 
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {
