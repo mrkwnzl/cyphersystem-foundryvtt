@@ -39,7 +39,7 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 
 ## Screenshots
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/cyphersystem_summary.png)
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/develop/screenshots/cyphersystem_summary.png)
 
 ## License
 
