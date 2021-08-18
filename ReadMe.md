@@ -71,10 +71,10 @@ My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de
 
 ### Icons from game-icons.net
 
-- Delapouite [Website](https://delapouite.com/)
-- Lorc [Website](https://lorcblog.blogspot.com/)
-- sbed [Website](http://opengameart.org/content/95-game-icons)
-- Skoll [Website](https://game-icons.net/)
+- Delapouite ([delapouite.com](https://delapouite.com/))
+- Lorc ([lorcblog.blogspot.com](https://lorcblog.blogspot.com/))
+- sbed ([opengameart.org](http://opengameart.org/content/95-game-icons))
+- Skoll ([game-icons.net](https://game-icons.net/))
 
 ### Other graphics
 
