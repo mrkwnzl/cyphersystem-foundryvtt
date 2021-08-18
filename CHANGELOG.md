@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Teen abilities now work with the pool point buttons.
 - Teen abilities can now be paid with XP.
 - Removed roll buttons from non-PC sheets. If you need to roll for actors that aren’t PCs, please use the roll macros.
+- Clarified the licenses involved in the ReadMe.
 - Corrected some minor typos.
 
 ## [1.23.3] - 2021-08-12
