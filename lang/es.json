@@ -201,7 +201,7 @@
     "CYPHERSYSTEM.SpeedPoints": "Puntos de Velocidad",
     "CYPHERSYSTEM.IntellectPoints": "Puntos de Intelecto",
     "CYPHERSYSTEM.AdditionalPoolPoints": "Puntos de Reserva Adicional",
-    "CYPHERSYSTEM.lastingDamage": "daño persistente",
+    "CYPHERSYSTEM.lastingDamage": "persistente",
     "CYPHERSYSTEM.permanent": "permanente",
     "CYPHERSYSTEM.None": "Ninguno",
     "CYPHERSYSTEM.level": "nivel",
@@ -352,7 +352,7 @@
     "CYPHERSYSTEM.RollButtonSettings": "Valores por Defecto para los Botones de Tirada y Macros de Objetos",
     "CYPHERSYSTEM.RollItem": "Tirada de Objeto (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.easedBySteps": "facilitada en {amount} steps",
-    "CYPHERSYSTEM.depletion": "agotamiento",
+    "CYPHERSYSTEM.depletion": "agotamiento de",
     "CYPHERSYSTEM.RollForLevel": "Nivel de la tirada para {item}",
     "CYPHERSYSTEM.Pay": "Pagar",
     "CYPHERSYSTEM.MightRollButton": "Tirada de Vigor (alt-click para el diálogo Todo-en-Uno)",
@@ -360,5 +360,8 @@
     "CYPHERSYSTEM.SpeedRollButton": "Tirada de Velocidad (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.IntellectRollButton": "Tirada de Intelecto (alt-click para el diálogo Todo-en-Uno)",
     "CYPHERSYSTEM.RollForLevelButton": "Tirar Nivel",
-    "CYPHERSYSTEM.depletion": "agotamiento de"
+    "CYPHERSYSTEM.Ability": "capacidad",
+    "CYPHERSYSTEM.DebilitatedRollButton": "Estás debilitado.",
+    "CYPHERSYSTEM.ApplyStatusToRoll": "El Estado se ha incluido en el coste de Esfuerzo",
+    "CYPHERSYSTEM.n/a": "n/a"
 }
