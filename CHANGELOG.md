@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.23.4] - 2021-08-19
 ### Added
 - Added “n/a” as an option for weapon and armor types. Shields and some Ptolus weapons don’t have a type and this adds support for that.
 
 ### Changed
 - Reset stat pool buttons now respect lasting damage (as long as it’s not archived).
+- Compatibility bumped to 0.8.9.
 
 ### Fixed
 - Task eased/hindered in roll chat output is now in the correct place.
