@@ -293,7 +293,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     }
 
     if (poolVerification[pool]()) {
-      costInfo = "<hr class=\"hr-chat\">" + poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
+      costInfo = poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
     } else {
       if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll);
       if (pool == "XP") {
@@ -350,8 +350,14 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     // Basic information
     let basicInfo = "<hr class=\"hr-chat\">" + skillInfo + assetInfo + effortTaskInfo + effortOtherInfo
 
+    // Additional + cost info
+    let additionalAndCostInfo = "<hr class=\"hr-chat\">" + additionalInfo + costInfo;
+
+    // Only cost info
+    let onlyCostInfo = "<hr class=\"hr-chat\">" + costInfo
+
     // Put it all together for info
-    let info = itemDescriptionInfo + basicInfo + attackModifierInfo + additionalInfo + costInfo;
+    let info = itemDescriptionInfo + basicInfo + attackModifierInfo + additionalAndCostInfo;
 
     // Put it all together for total modifier
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
@@ -370,7 +376,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       } else if (effort1 > 0 && effort2 > 0) {
         effortInfo = "<hr class=\"hr-chat\">" + effortTaskInfo + effortOtherInfo;
       }
-      ChatMessage.create({content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + additionalInfo + costInfo});
+      ChatMessage.create({content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + onlyCostInfo});
     } else {
       allInOneRollMacro(actor, title, info, cost, pool, modifier, teen);
     }

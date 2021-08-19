@@ -35,6 +35,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   getData() {
     const data = super.getData();
     const actorData = data.actor.data;
+    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
 
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {
@@ -173,8 +174,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Might
     html.find('.reset-might').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.might.value": this.actor.data.data.pools.might.max
+        "data.pools.might.value": this.actor.data.data.pools.might.max - lastingDamage
       })
     });
 
@@ -194,8 +201,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Speed
     html.find('.reset-speed').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.speed.value": this.actor.data.data.pools.speed.max
+        "data.pools.speed.value": this.actor.data.data.pools.speed.max - lastingDamage
       })
     });
 
@@ -215,8 +228,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Intellect
     html.find('.reset-intellect').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.pools.intellect.value": this.actor.data.data.pools.intellect.max
+        "data.pools.intellect.value": this.actor.data.data.pools.intellect.max - lastingDamage
       })
     });
 
@@ -260,8 +279,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Might
     html.find('.reset-teen-might').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max
+        "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max - lastingDamage
       })
     });
 
@@ -281,8 +306,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Speed
     html.find('.reset-teen-speed').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max
+        "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max - lastingDamage
       })
     });
 
@@ -302,8 +333,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Teen Intellect
     html.find('.reset-teen-intellect').click(clickEvent => {
+      let lastingDamage = 0;
+      for (let item of this.actor.items) {
+        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
+          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        }
+      }
       this.actor.update({
-        "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max
+        "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max - lastingDamage
       })
     });
 

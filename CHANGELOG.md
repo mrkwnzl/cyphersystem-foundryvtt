@@ -4,11 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.23.4] - 2021-08-19
+### Added
+- Added “n/a” as an option for weapon and armor types. Shields and some Ptolus weapons don’t have a type and this adds support for that.
+
+### Changed
+- Reset stat pool buttons now respect lasting damage (as long as it’s not archived).
+- Compatibility bumped to 0.8.9.
+- Updated translations.
+
+### Fixed
+- Task eased/hindered in roll chat output is now in the correct place.
+- Teen abilities now work with the pool point buttons.
+- Teen abilities can now be paid with XP.
+- Removed roll buttons from non-PC sheets. If you need to roll for actors that aren’t PCs, please use the roll macros.
+- Clarified the licenses involved in the ReadMe.
+- Corrected some minor typos.
 
 ## [1.23.3] - 2021-08-12
 ### Changed
-- The way tags are handled have been improved. There is a new macro replacing the two old macros to (un)archive items with tags, which combines both and allows for mutliple tags to be specified. This way, multiple equipment sets, spell books, or active abilities can be specified in a single macro and be changed with a single click.
+- The way tags are handled have been improved. There is a new macro replacing the two old macros to (un)archive items with tags, which combines both and allows for multiple tags to be specified. This way, multiple equipment sets, spell books, or active abilities can be specified in a single macro and be changed with a single click.
 
 ### Fixed
 - Order of skill level on (teen) attack sheets has been reversed in order to bring it in line with the skill sheets.

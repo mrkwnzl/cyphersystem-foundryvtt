@@ -21,7 +21,6 @@ export class CypherActorSheet extends ActorSheet {
     data.data.isLimited = this.actor.limited;
     data.data.isObserver = !this.options.editable;
     data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
-    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.actor = superData.actor;
     data.items = superData.items;
     data.owner = superData.owner;

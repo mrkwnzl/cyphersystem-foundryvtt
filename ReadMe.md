@@ -3,6 +3,7 @@
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
+<a href="https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/develop/CHANGELOG.md" target="_blank">![Changelog](https://img.shields.io/badge/-changelog-blue?style=flat-square)</a>
 ![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
@@ -39,11 +40,15 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 
 ## Screenshots
 
-![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/master/screenshots/cyphersystem_summary.png)
+![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/develop/screenshots/cyphersystem_summary.png)
 
-## Roadmap
+## License
 
-You can find the current [Roadmap](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Roadmap) in the wiki.
+- Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
+- The icons I use are taken from [game-icons.net](https://game-icons.net) and come with a CC-BY 3.0 license.
+- Any JavaScript, HTML, and CSS code done by me is published under an MIT license (see LICENSE.md).
+
+Any public fork of this project needs to adhere to those licenses/policies.
 
 ## Fan Use Policy
 
@@ -55,18 +60,22 @@ I used code snippets from [Simple Worldbuilding System](https://gitlab.com/found
 
 My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de)) helps whenever I hit a roadblock. Thanks!
 
-Icons from [game-icons.net](https://game-icons.net)
-
 ### Translators
 
-**Weblate-Admin:** JuanV#8807 ([Ko-Fi](https://ko-fi.com/C0C43ZT90))
+- **Weblate-Admin:** JuanV#8807 ([Ko-Fi](https://ko-fi.com/C0C43ZT90))
+- **French:** Nice to see you#6655
+- **German:** Kadomi#9719, smaug18#2066
+- **Italian:** Eligor#5278
+- **Portuguese (Brazil):** AgostinhoMestre#8636
+- **Spanish:** ParvusDomus#9612
 
-**French:** Nice to see you#6655
+### Icons from game-icons.net
 
-**German:** Kadomi#9719, smaug18#2066
+- Delapouite ([delapouite.com](https://delapouite.com/))
+- Lorc ([lorcblog.blogspot.com](https://lorcblog.blogspot.com/))
+- sbed ([opengameart.org](http://opengameart.org/content/95-game-icons))
+- Skoll ([game-icons.net](https://game-icons.net/))
 
-**Italian:** Eligor#5278
+### Other graphics
 
-**Portuguese (Brazil):** AgostinhoMestre#8636
-
-**Spanish:** ParvusDomus#9612
+- smaug18#2066

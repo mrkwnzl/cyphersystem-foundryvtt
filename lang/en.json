@@ -200,7 +200,7 @@
 	"CYPHERSYSTEM.Dead": "Dead",
 	"CYPHERSYSTEM.ApplyStatusToRoll": "Status is included in Effort cost calculation",
 	"CYPHERSYSTEM.DeadEffect": "You are dead.",
-	"CYPHERSYSTEM.lastingDamage": "lasting damage",
+	"CYPHERSYSTEM.lastingDamage": "lasting",
 	"CYPHERSYSTEM.LastingDamage": "Lasting Damage",
 	"CYPHERSYSTEM.permanent": "permanent",
 	"CYPHERSYSTEM.Permanent": "Permanent",
@@ -261,6 +261,8 @@
 
 	"CYPHERSYSTEM.Artifact": "artifact",
 	"CYPHERSYSTEM.SpecialAbility": "special ability",
+	"CYPHERSYSTEM.Ability": "ability",
+	"CYPHERSYSTEM.n/a": "n/a",
 
 	"CYPHERSYSTEM.Active": "Active",
 	"CYPHERSYSTEM.Rating": "Rating",
