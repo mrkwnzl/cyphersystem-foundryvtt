@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Reset stat pool buttons now respect lasting damage (as long as it’s not archived).
 - Compatibility bumped to 0.8.9.
+- Updated translations.
 
 ### Fixed
 - Task eased/hindered in roll chat output is now in the correct place.
