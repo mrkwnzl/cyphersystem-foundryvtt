@@ -1,9 +1,9 @@
 # Cypher System for Foundry VTT
 
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+<a href="https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/develop/CHANGELOG.md" target="_blank">![Changelog](https://img.shields.io/badge/-changelog-blue?style=flat-square)</a>
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
-<a href="https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/develop/CHANGELOG.md" target="_blank">![Changelog](https://img.shields.io/badge/-changelog-blue?style=flat-square)</a>
 ![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
