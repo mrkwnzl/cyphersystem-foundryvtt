@@ -3,6 +3,10 @@
 /* -------------------------------------------- */
 
 export async function diceRoller(title, info, modifier) {
+  // Fix for single quotation marks
+  title = title.replace(/'/g, "&apos;");
+  info = info.replace(/'/g, "&apos;");
+
   // Roll dice
   let roll = await new Roll("1d20").evaluate({async: true});
   let difficulty = Math.floor(roll.result / 3);
