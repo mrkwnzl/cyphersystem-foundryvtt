@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fixed an issue with the chat output of rolls if the title or the description of the roll had single quotation marks in them.
+
+### Removed
+- The All-in-One roll macro replaced the Quick Roll (Template) macro. Existing macros remain functional.
 
 ## [1.23.4] - 2021-08-19
 ### Added
