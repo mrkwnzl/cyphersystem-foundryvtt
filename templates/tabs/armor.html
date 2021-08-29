@@ -4,7 +4,7 @@
   <div class="item-quantity">{{data.speedCost}}</div>
   <div class="item-quantity">{{data.armorValue}}</div>
   <div class="item-controls">
-    <a class="item-control armor-active {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.archived}}grey{{else}}{{#unless data.armorActive}}grey{{/unless}}{{/if}}"></i></a>
+    {{#if (eq ../type "PC")}}<a class="item-control armor-active {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}"><i class="fas fa-check" aria-hidden="true" style="color: {{#if data.archived}}grey{{else}}{{#unless data.armorActive}}grey{{/unless}}{{/if}}"></i></a>{{/if}}
     <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="Edit Item"><i class="fas fa-file-alt"></i></a>
     <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
   </div>
