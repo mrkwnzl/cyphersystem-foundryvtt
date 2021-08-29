@@ -84,5 +84,5 @@
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
   "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.23.4/release.zip",
-  "license": "LICENSE.txt"
+  "license": "LICENSE.md"
 }
