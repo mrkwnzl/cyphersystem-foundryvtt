@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - Fixed an issue with the chat output of rolls if the title or the description of the roll had single quotation marks in them.
 - Fixed the editor height on actor sheets, which was 10px too low.
+- Fixed armor list on non-PC sheets (which can be enabled on a token-by-token basis with the secret setting macro).
 
 ### Removed
 - The All-in-One Roll macro replaced the Quick Roll (Template) macro. Existing macros remain functional.
