@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Changed
+- The behavior when pressing alt while moving items between actors has been flipped. Holding alt while moving items duplicates the item. The default now is that a dialog shows up asking what should be done with the original item or asking how many items should be moved.
 - Updated Fan Use Policy in the ReadMe.
 
 ### Fixed
