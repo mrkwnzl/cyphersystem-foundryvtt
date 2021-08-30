@@ -1,6 +1,6 @@
 export function itemMacroString(item) {
   const content =
-  `// Change the defaults for the macro dialog.
+    `// Change the defaults for the macro dialog.
   // Change the values after the equal sign.
   // Use quotation marks around words (strings). Examples: "Might", "Practiced".
   // Don’t use quotation marks around numbers (integers). Examples: -1, 0, 1, 2.
@@ -93,7 +93,7 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
 
   // Create HTML
   let content =
-  `<div align="center">
+    `<div align="center">
   <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.BasicModifiers")}</b></label><br>
   <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Pool")}:</label>
   <select name='pool' id='pool' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
@@ -181,7 +181,7 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
 
 export function spendEffortString() {
   const content =
-  `<div align="center">
+    `<div align="center">
   <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Pool")}: </b></label>
   <select name='pool' id='pool' style='width: 98px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
   <option value='Might'>${game.i18n.localize("CYPHERSYSTEM.Might")}</option><option value='Speed'>${game.i18n.localize("CYPHERSYSTEM.Speed")}</option>
