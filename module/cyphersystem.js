@@ -126,8 +126,6 @@ Hooks.once("init", async function() {
     config: true
   });
 
-  test
-
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
