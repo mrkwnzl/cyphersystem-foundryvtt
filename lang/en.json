@@ -374,7 +374,7 @@
 	"CYPHERSYSTEM.EnabledDragRuler": "Drag Ruler is now enabled for {name}.",
 	"CYPHERSYSTEM.DisabledDragRuler": "Drag Ruler is now disabled for {name}.",
 
-	"CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Should the Item be Archived or Deleted?",
+	"CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Should the original be archived or deleted?",
 	"CYPHERSYSTEM.Archive": "Archive",
 	"CYPHERSYSTEM.Delete": "Delete",
 	"CYPHERSYSTEM.Move": "Move",

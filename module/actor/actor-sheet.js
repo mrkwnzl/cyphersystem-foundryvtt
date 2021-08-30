@@ -579,7 +579,7 @@ export class CypherActorSheet extends ActorSheet {
     if (!hasQuantity) {
       if (!itemOwned) this._onDropItemCreate(itemData);
       if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", {actor: actor.name}));
-      if ((event.altKey) && originActor) {
+      if (!event.altKey && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
           content: "",
@@ -614,7 +614,7 @@ export class CypherActorSheet extends ActorSheet {
         }
       }
     } else {
-      if (event.altKey) {
+      if (!event.altKey) {
         let maxQuantity = item.data.data.quantity;
         if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
         let quantity = 1;
