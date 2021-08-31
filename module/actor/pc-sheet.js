@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import {CypherActorSheet} from "./actor-sheet.js";
+import { CypherActorSheet } from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
@@ -24,7 +24,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
       scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"]
     });
   }
@@ -54,9 +54,9 @@ export class CypherActorSheetPC extends CypherActorSheet {
         totalModifier = skillRating + modifiedBy;
 
         if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
-        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", {amount: totalModifier});
+        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", { amount: totalModifier });
         if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
-        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", {amount: Math.abs(totalModifier)});
+        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", { amount: Math.abs(totalModifier) });
 
         // Assign and return
         i.data.totalModified = totalModified;
@@ -84,10 +84,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       }
     }
 
-    this.actor.update({"data.armor.armorValueTotal": armorTotal});
-    this.actor.update({"data.armor.speedCostTotal": speedCostTotal});
-    this.actor.update({"data.teen.armor.armorValueTotal": teenArmorTotal});
-    this.actor.update({"data.teen.armor.speedCostTotal": teenSpeedCostTotal});
+    this.actor.update({ "data.armor.armorValueTotal": armorTotal });
+    this.actor.update({ "data.armor.speedCostTotal": speedCostTotal });
+    this.actor.update({ "data.teen.armor.armorValueTotal": teenArmorTotal });
+    this.actor.update({ "data.teen.armor.speedCostTotal": teenSpeedCostTotal });
 
     return data;
   }
@@ -137,22 +137,22 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Apply damage track to rolls
     html.find('.apply-impaired').click(clickEvent => {
       let newValue = (this.actor.data.data.damage.applyImpaired) ? false : true;
-      this.actor.update({"data.damage.applyImpaired": newValue});
+      this.actor.update({ "data.damage.applyImpaired": newValue });
     });
 
     html.find('.apply-debilitated').click(clickEvent => {
       let newValue = (this.actor.data.data.damage.applyDebilitated) ? false : true;
-      this.actor.update({"data.damage.applyDebilitated": newValue});
+      this.actor.update({ "data.damage.applyDebilitated": newValue });
     });
 
     html.find('.apply-impaired-teen').click(clickEvent => {
       let newValue = (this.actor.data.data.teen.damage.applyImpaired) ? false : true;
-      this.actor.update({"data.teen.damage.applyImpaired": newValue});
+      this.actor.update({ "data.teen.damage.applyImpaired": newValue });
     });
 
     html.find('.apply-debilitated-teen').click(clickEvent => {
       let newValue = (this.actor.data.data.teen.damage.applyDebilitated) ? false : true;
-      this.actor.update({"data.teen.damage.applyDebilitated": newValue});
+      this.actor.update({ "data.teen.damage.applyDebilitated": newValue });
     });
 
     /**
@@ -162,14 +162,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-might').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.might.value + amount;
-      this.actor.update({"data.pools.might.value": newValue});
+      this.actor.update({ "data.pools.might.value": newValue });
     });
 
     // Decrease Might
     html.find('.decrease-might').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.might.value - amount;
-      this.actor.update({"data.pools.might.value": newValue});
+      this.actor.update({ "data.pools.might.value": newValue });
     });
 
     // Reset Might
@@ -189,14 +189,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-speed').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.speed.value + amount;
-      this.actor.update({"data.pools.speed.value": newValue});
+      this.actor.update({ "data.pools.speed.value": newValue });
     });
 
     // Decrease Speed
     html.find('.decrease-speed').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.speed.value - amount;
-      this.actor.update({"data.pools.speed.value": newValue});
+      this.actor.update({ "data.pools.speed.value": newValue });
     });
 
     // Reset Speed
@@ -216,14 +216,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-intellect').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.intellect.value + amount;
-      this.actor.update({"data.pools.intellect.value": newValue});
+      this.actor.update({ "data.pools.intellect.value": newValue });
     });
 
     // Decrease Intellect
     html.find('.decrease-intellect').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.intellect.value - amount;
-      this.actor.update({"data.pools.intellect.value": newValue});
+      this.actor.update({ "data.pools.intellect.value": newValue });
     });
 
     // Reset Intellect
@@ -243,14 +243,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-additional').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.additional.value + amount;
-      this.actor.update({"data.pools.additional.value": newValue});
+      this.actor.update({ "data.pools.additional.value": newValue });
     });
 
     // Decrease Additional
     html.find('.decrease-additional').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.pools.additional.value - amount;
-      this.actor.update({"data.pools.additional.value": newValue});
+      this.actor.update({ "data.pools.additional.value": newValue });
     });
 
     // Reset Additional Pool
@@ -267,14 +267,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-teen-might').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.might.value + amount;
-      this.actor.update({"data.teen.pools.might.value": newValue});
+      this.actor.update({ "data.teen.pools.might.value": newValue });
     });
 
     // Decrease Teen Might
     html.find('.decrease-teen-might').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.might.value - amount;
-      this.actor.update({"data.teen.pools.might.value": newValue});
+      this.actor.update({ "data.teen.pools.might.value": newValue });
     });
 
     // Reset Teen Might
@@ -294,14 +294,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-teen-speed').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.speed.value + amount;
-      this.actor.update({"data.teen.pools.speed.value": newValue});
+      this.actor.update({ "data.teen.pools.speed.value": newValue });
     });
 
     // Decrease Teen Speed
     html.find('.decrease-teen-speed').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.speed.value - amount;
-      this.actor.update({"data.teen.pools.speed.value": newValue});
+      this.actor.update({ "data.teen.pools.speed.value": newValue });
     });
 
     // Reset Teen Speed
@@ -321,14 +321,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-teen-intellect').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.intellect.value + amount;
-      this.actor.update({"data.teen.pools.intellect.value": newValue});
+      this.actor.update({ "data.teen.pools.intellect.value": newValue });
     });
 
     // Decrease Teen Intellect
     html.find('.decrease-teen-intellect').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.intellect.value - amount;
-      this.actor.update({"data.teen.pools.intellect.value": newValue});
+      this.actor.update({ "data.teen.pools.intellect.value": newValue });
     });
 
     // Reset Teen Intellect
@@ -348,14 +348,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-teen-additional').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.additional.value + amount;
-      this.actor.update({"data.teen.pools.additional.value": newValue});
+      this.actor.update({ "data.teen.pools.additional.value": newValue });
     });
 
     // Decrease Teen Additional
     html.find('.decrease-teen-additional').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.teen.pools.additional.value - amount;
-      this.actor.update({"data.teen.pools.additional.value": newValue});
+      this.actor.update({ "data.teen.pools.additional.value": newValue });
     });
 
     // Reset Additional Teen Pool
@@ -373,7 +373,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
 
@@ -384,7 +384,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
 
@@ -395,7 +395,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
         skipDialog = false;
       };
 
@@ -415,14 +415,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.increase-xp').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.basic.xp + amount;
-      this.actor.update({"data.basic.xp": newValue});
+      this.actor.update({ "data.basic.xp": newValue });
     });
 
     // Decrease XP
     html.find('.decrease-xp').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.basic.xp - amount;
-      this.actor.update({"data.basic.xp": newValue});
+      this.actor.update({ "data.basic.xp": newValue });
     });
 
     // Reset Advancements

@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import {CypherActorSheet} from "./actor-sheet.js";
+import { CypherActorSheet } from "./actor-sheet.js";
 
 export class CypherActorSheetCommunity extends CypherActorSheet {
 
@@ -14,7 +14,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
       scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"]
     });
   }
@@ -31,14 +31,14 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
     html.find('.increase-infrastructure').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value + amount;
-      this.actor.update({"data.infrastructure.value": newValue});
+      this.actor.update({ "data.infrastructure.value": newValue });
     });
 
     // Decrease Infrastructure
     html.find('.decrease-infrastructure').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.infrastructure.value - amount;
-      this.actor.update({"data.infrastructure.value": newValue});
+      this.actor.update({ "data.infrastructure.value": newValue });
     });
 
     // Reset Infrastructure

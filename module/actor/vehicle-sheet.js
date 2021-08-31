@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import {CypherActorSheet} from "./actor-sheet.js";
+import { CypherActorSheet } from "./actor-sheet.js";
 
 export class CypherActorSheetVehicle extends CypherActorSheet {
 
@@ -14,7 +14,7 @@ export class CypherActorSheetVehicle extends CypherActorSheet {
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
       scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings"]
     });
   }
