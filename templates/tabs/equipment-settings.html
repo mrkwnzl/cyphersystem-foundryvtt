@@ -1,26 +1,79 @@
 <div class="flexrow">
-    <ol class="items-list">
-        <li class="item flexrow item-header">
-            <div class="item-name">{{#if (eq actor.type "NPC")}}{{localize 'CYPHERSYSTEM.Inventory'}}{{/if}}{{#if (eq actor.type "Companion")}}{{localize 'CYPHERSYSTEM.Inventory'}}{{/if}}{{#if (eq actor.type "Community")}}{{localize 'CYPHERSYSTEM.Storage'}}{{/if}}{{#if (eq actor.type "Vehicle")}}{{localize 'CYPHERSYSTEM.Storage'}}{{/if}}{{#if (eq actor.type "Token")}}{{localize 'CYPHERSYSTEM.Items'}}{{/if}} {{localize 'CYPHERSYSTEM.Tab'}}</div>
-        </li>
-        <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.equipment.ammo" data-dtype="boolean" {{checked data.settings.equipment.ammo}}>&nbsp;{{localize 'CYPHERSYSTEM.Ammo'}}</div>
-        </li>
-        <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>&nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}</div>
-          <div class="item-quantity"><input class="auto-margin setting-input" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}"/></div>
-        </li>
-        <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean" {{checked data.settings.equipment.artifacts}}>&nbsp;{{localize 'CYPHERSYSTEM.Artifacts'}}</div>
-          <div class="item-quantity"><input class="auto-margin setting-input" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}"/></div>
-        </li>
-        <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean" {{checked data.settings.equipment.oddities}}>&nbsp;{{localize 'CYPHERSYSTEM.Oddities'}}</div>
-          <div class="item-quantity"><input class="auto-margin setting-input" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}"/></div>
-        </li>
-        <li class="item flexrow item-settings">
-          <div class="settings-list"><input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean" {{checked data.settings.equipment.materials}}>&nbsp;{{localize 'CYPHERSYSTEM.CraftingMaterial'}}</div>
-          <div class="item-quantity"><input class="auto-margin setting-input" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}"/></div>
-        </li>
-    </ol>
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if (eq actor.type "NPC")}}
+        {{localize 'CYPHERSYSTEM.Inventory'}}
+        {{/if}}
+        {{#if (eq actor.type "Companion")}}
+        {{localize 'CYPHERSYSTEM.Inventory'}}
+        {{/if}}
+        {{#if (eq actor.type "Community")}}
+        {{localize 'CYPHERSYSTEM.Storage'}}
+        {{/if}}
+        {{#if (eq actor.type "Vehicle")}}
+        {{localize 'CYPHERSYSTEM.Storage'}}
+        {{/if}}
+        {{#if (eq actor.type "Token")}}
+        {{localize 'CYPHERSYSTEM.Items'}}
+        {{/if}}
+        {{localize 'CYPHERSYSTEM.Tab'}}
+      </div>
+    </li>
+    <li class="item flexrow item-settings">
+      <div class="settings-list">
+        <input type="checkbox" name="data.settings.equipment.ammo" data-dtype="boolean"
+          {{checked data.settings.equipment.ammo}}>
+        &nbsp;{{localize 'CYPHERSYSTEM.Ammo'}}
+      </div>
+    </li>
+    <li class="item flexrow item-settings">
+      <div class="settings-list">
+        <input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean"
+          {{checked data.settings.equipment.cyphers}}>
+        &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
+      </div>
+      <div class="item-quantity">
+        <input class="auto-margin setting-input" name="data.settings.equipment.cyphersName" type="text"
+          value="{{data.settings.equipment.cyphersName}}" data-dtype="String"
+          placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
+      </div>
+    </li>
+    <li class="item flexrow item-settings">
+      <div class="settings-list">
+        <input type="checkbox" name="data.settings.equipment.artifacts" data-dtype="boolean"
+          {{checked data.settings.equipment.artifacts}}>
+        &nbsp;{{localize 'CYPHERSYSTEM.Artifacts'}}
+      </div>
+      <div class="item-quantity">
+        <input class="auto-margin setting-input" name="data.settings.equipment.artifactsName" type="text"
+          value="{{data.settings.equipment.artifactsName}}" data-dtype="String"
+          placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" />
+      </div>
+    </li>
+    <li class="item flexrow item-settings">
+      <div class="settings-list">
+        <input type="checkbox" name="data.settings.equipment.oddities" data-dtype="boolean"
+          {{checked data.settings.equipment.oddities}}>
+        &nbsp;{{localize 'CYPHERSYSTEM.Oddities'}}
+      </div>
+      <div class="item-quantity">
+        <input class="auto-margin setting-input" name="data.settings.equipment.odditiesName" type="text"
+          value="{{data.settings.equipment.odditiesName}}" data-dtype="String"
+          placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" />
+      </div>
+    </li>
+    <li class="item flexrow item-settings">
+      <div class="settings-list">
+        <input type="checkbox" name="data.settings.equipment.materials" data-dtype="boolean"
+          {{checked data.settings.equipment.materials}}>
+        &nbsp;{{localize 'CYPHERSYSTEM.CraftingMaterial'}}
+      </div>
+      <div class="item-quantity">
+        <input class="auto-margin setting-input" name="data.settings.equipment.materialName" type="text"
+          value="{{data.settings.equipment.materialName}}" data-dtype="String"
+          placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
+      </div>
+    </li>
+  </ol>
 </div>

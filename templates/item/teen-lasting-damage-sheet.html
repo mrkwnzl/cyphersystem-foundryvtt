@@ -2,16 +2,18 @@
     <header class="sheet-header">
         <div class="header-fields">
             <div class="flexrow">
-                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
                 <div class="centered-fields">
                     <div class="resource-content flexrow flex-center">
-                        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
+                        <input name="name" type="text" value="{{item.name}}"
+                            placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
                     </div>
                     <div class="resources grid grid-3col">
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamagePoints'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number"/>
+                                <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}"
+                                    data-dtype="Number" />
                             </div>
                         </div>
                         <div class="resource flex-center">
@@ -45,7 +47,7 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-      <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+        <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

@@ -2,10 +2,10 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="centered-fields">
           <div class="resource-content flexrow flex-center">
-            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
               <select name="data.skillRating">
@@ -22,7 +22,7 @@
             <div class="resource flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Damage'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number"/>
+                <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="Number" />
               </div>
             </div>
             <div class="resource flex-center">
@@ -40,7 +40,7 @@
                 </select>
               </div>
             </div>
-            <div class="resource flexrow flex-between flex-center" >
+            <div class="resource flexrow flex-between flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Modifier'}}</label>
               <select name="data.modified" style="width:98px">
                 {{#select data.modified}}
@@ -49,12 +49,16 @@
                 {{/select}}
               </select>
               &nbsp;
-              <input class="data-modifiedBy" type="text" name="data.modifiedBy" value="{{data.modifiedBy}}" data-dtype="Number"/>
+              <input class="data-modifiedBy" type="text" name="data.modifiedBy" value="{{data.modifiedBy}}"
+                data-dtype="Number" />
             </div>
           </div>
           <div class="flexrow flex-between">
-            <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Range'}}"/>&nbsp;
-            <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}"/>
+            <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"
+              placeholder="{{localize 'CYPHERSYSTEM.Range'}}" />
+            &nbsp;
+            <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String"
+              placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
           </div>
         </div>
       </div>
