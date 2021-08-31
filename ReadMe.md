@@ -46,13 +46,11 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 
 ![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/develop/screenshots/cyphersystem_summary.png)
 
-## License
+## Licenses
 
 - Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
-- The icons I use are taken from [game-icons.net](https://game-icons.net) and come with a CC-BY 3.0 license.
-- Any JavaScript, HTML, and CSS code done by me is published under an MIT license (see LICENSE.md).
-
-Any public fork of this project needs to adhere to those licenses/policies.
+- Images present under the `icons/` directory are taken from [game-icons.net](https://game-icons.net) and are distributed under a CC-BY 3.0 license.
+- The software component of this system is distributed under the MIT license.
 
 ## Fan Use Policy
 
