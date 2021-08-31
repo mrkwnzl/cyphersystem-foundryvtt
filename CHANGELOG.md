@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - The behavior when pressing alt while moving items between actors has been flipped. Holding alt while moving items duplicates the item. The default now is that a dialog shows up asking what should be done with the original item or asking how many items should be moved.
 - Updated Fan Use Policy in the ReadMe.
+- I switched from Atom to Visual Studio Code, which has strong opinions about formatting. But that’s probably a better style, and I hope this increases readability a bit, especially for the HTML.
 
 ### Fixed
 - Fixed an issue with the chat output of rolls if the title or the description of the roll had single quotation marks in them.
