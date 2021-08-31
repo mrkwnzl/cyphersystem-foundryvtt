@@ -4,11 +4,18 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         <div style="margin-top: auto; margin-bottom: auto;">
           <div class="resource-content flexrow flex-center">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold"/>
-            &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}"/></div>
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"
+              style="font-weight:bold" />
+            &nbsp;
+            <div class="item-quantity" style="flex: 0 0 80px;">
+              <input name="data.level" type="text"
+                value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}"
+                data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}"
+                title="{{localize 'CYPHERSYSTEM.Level'}}" />
+            </div>
           </div>
           <div class="resource-content flexrow flex-center">
             <div class="resources grid grid-3col">
@@ -18,19 +25,36 @@
               </div>
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                  <label for="data.quantity.value" class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">{{localize 'CYPHERSYSTEM.Quantity'}}</label>
+                  <label for="data.quantity.value"
+                    class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+                    {{localize 'CYPHERSYSTEM.Quantity'}}
+                  </label>
                   {{#unless data.isLimited}}
                   <div class="nonPC-stat-buttons">
-                    <a class="item-control decrease-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"><i class="far fa-minus-square stat"></i></a>
-                    <a class="item-control increase-quantity {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"><i class="far fa-plus-square stat"></i></a>
-                    <a class="item-control reset-quantity {{#if data.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}"><i class="fas fa-sync-alt stat"></i></a>
+                    <a class="item-control decrease-quantity {{#if data.isObserver}}disabled{{/if}}"
+                      title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+                      <i class="far fa-minus-square stat"></i>
+                    </a>
+                    <a class="item-control increase-quantity {{#if data.isObserver}}disabled{{/if}}"
+                      title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
+                      <i class="far fa-plus-square stat"></i>
+                    </a>
+                    <a class="item-control reset-quantity {{#if data.isObserver}}disabled{{/if}} reset-stat"
+                      title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}">
+                      <i class="fas fa-sync-alt stat"></i>
+                    </a>
                   </div>
                   {{/unless}}
                 </div>
-                <div class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
-                  <input class="stat-input" name="data.quantity.value" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.quantity.value}}{{/if}}" data-dtype="Number"/>
+                <div
+                  class="resource-content flexrow flex-center stat-pool {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+                  <input class="stat-input" name="data.quantity.value" type="text"
+                    value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.quantity.value}}{{/if}}"
+                    data-dtype="Number" />
                   &nbsp;{{data.slashForFractions}}&nbsp;
-                  <input class="stat-input" name="data.quantity.max" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.quantity.max}}{{/if}}" data-dtype="Number"/>
+                  <input class="stat-input" name="data.quantity.max" type="text"
+                    value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.quantity.max}}{{/if}}"
+                    data-dtype="Number" />
                 </div>
               </div>
             </div>
@@ -48,7 +72,9 @@
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#unless data.isLimited}}
     <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Items'}}</a>
-    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fas fa-cog"></i></a>
+    <a class="item" data-tab="settings" style="flex: 0 0 45px;">
+      <i class="fas fa-cog"></i>
+    </a>
     {{/unless}}
   </nav>
 
@@ -105,14 +131,27 @@
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
-            <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+            <div class="item-name">
+              {{localize 'CYPHERSYSTEM.GeneralSettings'}}
+            </div>
           </li>
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.isCounter" data-dtype="boolean" {{checked data.settings.isCounter}}>&nbsp;{{localize 'CYPHERSYSTEM.CountQuantityOnInitiative'}}</div>
-            <div class="item-quantity"><input class="auto-margin" name="data.settings.counting" type="number" value="{{data.settings.counting}}" data-dtype="Number" placeholder="-1" style="width: auto;"/></div>
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.isCounter" data-dtype="boolean" {{checked
+                data.settings.isCounter}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.CountQuantityOnInitiative'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.counting" type="number" value="{{data.settings.counting}}"
+                data-dtype="Number" placeholder="-1" style="width: auto;" />
+            </div>
           </li>
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>&nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}</div>
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked
+                data.settings.hideArchived}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
+            </div>
           </li>
         </ol>
       </div>
