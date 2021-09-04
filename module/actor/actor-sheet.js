@@ -95,6 +95,7 @@ export class CypherActorSheet extends ActorSheet {
         abilities.push(i);
       }
       else if (i.type === 'skill' && !hidden) {
+        i.data.test = "TEST";
         skills.push(i);
         skillsSortedByRating.push(i);
       }
@@ -140,6 +141,52 @@ export class CypherActorSheet extends ActorSheet {
       }
     }
 
+    // Sort by name
+    equipment.sort(byNameAscending);
+    abilities.sort(byNameAscending);
+    skills.sort(byNameAscending);
+    attacks.sort(byNameAscending);
+    armor.sort(byNameAscending);
+    lastingDamage.sort(byNameAscending);
+    powerShifts.sort(byNameAscending);
+    cyphers.sort(byNameAscending);
+    artifacts.sort(byNameAscending);
+    oddities.sort(byNameAscending);
+    teenSkills.sort(byNameAscending);
+    teenAbilities.sort(byNameAscending);
+    teenAttacks.sort(byNameAscending);
+    teenArmor.sort(byNameAscending);
+    teenLastingDamage.sort(byNameAscending);
+    materials.sort(byNameAscending);
+    ammo.sort(byNameAscending);
+
+    // Sort by skill rating
+    if (actorData.data.settings.skills.sortByRating) {
+      skills.sort(bySkillRating);
+      teenSkills.sort(bySkillRating);
+    }
+
+    // Sorty by archive status
+    equipment.sort(byArchiveStatus);
+    abilities.sort(byArchiveStatus);
+    skills.sort(byArchiveStatus);
+    attacks.sort(byArchiveStatus);
+    armor.sort(byArchiveStatus);
+    lastingDamage.sort(byArchiveStatus);
+    powerShifts.sort(byArchiveStatus);
+    cyphers.sort(byIdentifiedStatus);
+    cyphers.sort(byArchiveStatus);
+    artifacts.sort(byIdentifiedStatus);
+    artifacts.sort(byArchiveStatus);
+    oddities.sort(byArchiveStatus);
+    teenSkills.sort(byArchiveStatus);
+    teenAbilities.sort(byArchiveStatus);
+    teenAttacks.sort(byArchiveStatus);
+    teenArmor.sort(byArchiveStatus);
+    teenLastingDamage.sort(byArchiveStatus);
+    materials.sort(byArchiveStatus);
+    ammo.sort(byArchiveStatus);
+
     // Sort items alphabetically
     function byNameAscending(itemA, itemB) {
       let nameA = itemA.name.toLowerCase();
@@ -153,26 +200,6 @@ export class CypherActorSheet extends ActorSheet {
       }
       return 0;
     }
-
-    equipment.sort(byNameAscending);
-    abilities.sort(byNameAscending);
-    skills.sort(byNameAscending);
-    skillsSortedByRating.sort(byNameAscending);
-    attacks.sort(byNameAscending);
-    armor.sort(byNameAscending);
-    lastingDamage.sort(byNameAscending);
-    powerShifts.sort(byNameAscending);
-    cyphers.sort(byNameAscending);
-    artifacts.sort(byNameAscending);
-    oddities.sort(byNameAscending);
-    teenSkills.sort(byNameAscending);
-    teenSkillsSortedByRating.sort(byNameAscending);
-    teenAbilities.sort(byNameAscending);
-    teenAttacks.sort(byNameAscending);
-    teenArmor.sort(byNameAscending);
-    teenLastingDamage.sort(byNameAscending);
-    materials.sort(byNameAscending);
-    ammo.sort(byNameAscending);
 
     // sort skills by skill rating
     function bySkillRating(itemA, itemB) {
@@ -197,9 +224,6 @@ export class CypherActorSheet extends ActorSheet {
       }
       return 0;
     }
-
-    skillsSortedByRating.sort(bySkillRating);
-    teenSkillsSortedByRating.sort(bySkillRating);
 
     // Sort items by archive status
     function byArchiveStatus(itemA, itemB) {
@@ -243,30 +267,6 @@ export class CypherActorSheet extends ActorSheet {
       }
       return 0;
     }
-
-    equipment.sort(byArchiveStatus);
-    abilities.sort(byArchiveStatus);
-    skills.sort(byArchiveStatus);
-    skillsSortedByRating.sort(byArchiveStatus);
-    attacks.sort(byArchiveStatus);
-    armor.sort(byArchiveStatus);
-    lastingDamage.sort(byArchiveStatus);
-    powerShifts.sort(byArchiveStatus);
-    cyphers.sort(byIdentifiedStatus);
-    cyphers.sort(byArchiveStatus);
-    artifacts.sort(byIdentifiedStatus);
-    artifacts.sort(byArchiveStatus);
-    oddities.sort(byArchiveStatus);
-    teenSkills.sort(byArchiveStatus);
-    teenSkillsSortedByRating.sort(byArchiveStatus);
-    teenAbilities.sort(byArchiveStatus);
-    teenAttacks.sort(byArchiveStatus);
-    teenArmor.sort(byArchiveStatus);
-    teenLastingDamage.sort(byArchiveStatus);
-    materials.sort(byArchiveStatus);
-    ammo.sort(byArchiveStatus);
-    skillsSortedByRating.sort(byArchiveStatus);
-    teenSkillsSortedByRating.sort(byArchiveStatus);
 
     // Assign and return
     actorData.equipment = equipment;
