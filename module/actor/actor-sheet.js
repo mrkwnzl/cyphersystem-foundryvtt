@@ -11,6 +11,13 @@ import {
   itemRollMacro
 } from "../macros/macros.js";
 
+import {
+  byNameAscending,
+  bySkillRating,
+  byArchiveStatus,
+  byIdentifiedStatus
+} from "../utilities/sorting.js";
+
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
@@ -166,7 +173,11 @@ export class CypherActorSheet extends ActorSheet {
       teenSkills.sort(bySkillRating);
     }
 
-    // Sorty by archive status
+    // Sort by identified status
+    cyphers.sort(byIdentifiedStatus);
+    artifacts.sort(byIdentifiedStatus);
+
+    // Sort by archive status
     equipment.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
@@ -174,9 +185,7 @@ export class CypherActorSheet extends ActorSheet {
     armor.sort(byArchiveStatus);
     lastingDamage.sort(byArchiveStatus);
     powerShifts.sort(byArchiveStatus);
-    cyphers.sort(byIdentifiedStatus);
     cyphers.sort(byArchiveStatus);
-    artifacts.sort(byIdentifiedStatus);
     artifacts.sort(byArchiveStatus);
     oddities.sort(byArchiveStatus);
     teenSkills.sort(byArchiveStatus);
@@ -186,87 +195,6 @@ export class CypherActorSheet extends ActorSheet {
     teenLastingDamage.sort(byArchiveStatus);
     materials.sort(byArchiveStatus);
     ammo.sort(byArchiveStatus);
-
-    // Sort items alphabetically
-    function byNameAscending(itemA, itemB) {
-      let nameA = itemA.name.toLowerCase();
-      let nameB = itemB.name.toLowerCase();
-
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    }
-
-    // sort skills by skill rating
-    function bySkillRating(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (itemA.data.skillLevel === 'Specialized') { ratingA = 1 }
-      else if (itemA.data.skillLevel === 'Trained') { ratingA = 2 }
-      else if (itemA.data.skillLevel === 'Practiced') { ratingA = 3 }
-      else if (itemA.data.skillLevel === 'Inability') { ratingA = 4 }
-
-      if (itemB.data.skillLevel === 'Specialized') { ratingB = 1 }
-      else if (itemB.data.skillLevel === 'Trained') { ratingB = 2 }
-      else if (itemB.data.skillLevel === 'Practiced') { ratingB = 3 }
-      else if (itemB.data.skillLevel === 'Inability') { ratingB = 4 }
-
-      if (ratingA < ratingB) {
-        return -1;
-      }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
-    }
-
-    // Sort items by archive status
-    function byArchiveStatus(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (!itemA.data.archived) itemA.data.archived = false;
-      if (!itemB.data.archived) itemB.data.archived = false;
-
-      if (itemA.data.archived === false) { ratingA = 1 }
-      else if (itemA.data.archived === true) { ratingA = 2 }
-
-      if (itemB.data.archived === false) { ratingB = 1 }
-      else if (itemB.data.archived === true) { ratingB = 2 }
-
-      if (ratingA < ratingB) {
-        return -1;
-      }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
-    }
-
-    // Sort items by indentified status
-    function byIdentifiedStatus(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (itemA.data.identified === false) { ratingA = 2 }
-      else if (itemA.data.identified === true) { ratingA = 1 }
-
-      if (itemB.data.identified === false) { ratingB = 2 }
-      else if (itemB.data.identified === true) { ratingB = 1 }
-
-      if (ratingA < ratingB) {
-        return -1;
-      }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
-    }
 
     // Assign and return
     actorData.equipment = equipment;
@@ -288,7 +216,6 @@ export class CypherActorSheet extends ActorSheet {
     actorData.teenLastingDamage = teenLastingDamage;
     actorData.materials = materials;
     actorData.ammo = ammo;
-
   }
 
   /**
