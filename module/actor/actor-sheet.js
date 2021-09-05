@@ -172,9 +172,11 @@ export class CypherActorSheet extends ActorSheet {
     ammo.sort(byNameAscending);
 
     // Sort by skill rating
-    if (actorData.data.settings.skills.sortByRating) {
-      skills.sort(bySkillRating);
-      teenSkills.sort(bySkillRating);
+    if (actorData.type == "PC" || actorData.type == "Companion") {
+      if (actorData.data.settings.skills.sortByRating) {
+        skills.sort(bySkillRating);
+        teenSkills.sort(bySkillRating);
+      }
     }
 
     // Sort by identified status
@@ -391,12 +393,12 @@ export class CypherActorSheet extends ActorSheet {
         return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", { name: this.actor.name }));
       }
 
-      ChatMessage.create({ 
-        content: game.i18n.format("CYPHERSYSTEM.CastingASpell", { 
-          name: this.actor.name, 
-          recoveryUsed: recoveryUsed, 
-          spellName: item.name 
-        }) 
+      ChatMessage.create({
+        content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
+          name: this.actor.name,
+          recoveryUsed: recoveryUsed,
+          spellName: item.name
+        })
       });
     });
 

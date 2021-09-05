@@ -125,15 +125,11 @@
             <div class="item-controls">
               <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
                 title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill">
-                <i class="far fa-plus-square"></i>
+                <i class="fas fa-plus"></i>
               </a>
             </div>
           </li>
-          {{#if data.settings.skills.sortByRating}}
-          {{> systems/cyphersystem/templates/tabs/skillsSortedByRating.html}}
-          {{else}}
           {{> systems/cyphersystem/templates/tabs/skills.html}}
-          {{/if}}
         </ol>
       </div>
 
@@ -144,7 +140,7 @@
             <div class="item-controls">
               <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
                 title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability">
-                <i class="far fa-plus-square"></i>
+                <i class="fas fa-plus"></i>
               </a>
             </div>
           </li>
