@@ -13,12 +13,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updated Fan Use Policy in the ReadMe.
 - Newly created abilities now start with “Any Pool” for its cost instead of “Might.”
 - The display of armor rating and speed effort cost has been stremlined in order to use less horizontal space.
+- The order of the armor rating and Speed cost on the armor sheet has been reversed in order to make it the same as it’s displayed on the PC sheet.
 
 ### Fixed
 - Fixed an issue with the chat output of rolls if the title or the description of the roll had single quotation marks in them.
 - Fixed the editor height on actor sheets, which was 10px too low.
 - Fixed armor list on non-PC sheets (which can be enabled on a token-by-token basis with the secret setting macro).
 - The item type now appears translated in the chat when using roll buttons.
+- Fixed the identation of item descriptions.
 
 ### Removed
 - The All-in-One Roll macro replaced the Quick Roll (Template) macro. Existing macros remain functional.
