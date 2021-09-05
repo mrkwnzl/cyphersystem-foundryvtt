@@ -15,8 +15,7 @@
       else if (eq data.armorType "n/a")}}{{localize 'CYPHERSYSTEM.n/a'}}{{/if}}{{#unless (eq data.notes "")}},
     {{{enrichHTML data.notes}}}{{/unless}})
   </h4>
-  <div class="item-quantity">{{data.speedCost}}</div>
-  <div class="item-quantity">{{data.armorValue}}</div>
+  <div class="item-quantity">{{data.armorValue}}/{{data.speedCost}}</div>
   <div class="item-controls">
     {{#if (eq ../type "PC")}}
     <a class="item-control armor-active {{#if ../data.isObserver}}disabled{{/if}}"
