@@ -6,13 +6,8 @@ import { CypherActorSheet } from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
-  allInOneRollDialog,
-  quickRollMacro
+  allInOneRollDialog
 } from "../macros/macros.js";
-
-import {
-  diceRoller
-} from "../macros/macro-helper.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
