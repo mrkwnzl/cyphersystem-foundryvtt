@@ -1,4 +1,18 @@
 <div class="tab settings" data-group="primary" data-tab="settings">
+  {{#if (eq item.type "ability")}}
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="data.spell" data-dtype="boolean" {{checked data.spell}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.SortAsSpell'}}
+        </div>
+    </ol>
+  </div>
+  {{/if}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
@@ -9,11 +23,15 @@
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow">
-        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</i></div>
+        <div class="item-name">
+          <i>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</i>
+        </div>
       </li>
       {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.Pool'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Pool'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.pool" style="width: 135px">
             {{#select data.rollButton.pool}}
@@ -28,7 +46,9 @@
       {{/unless}}
       {{#unless (or (eq item.type "skill") (eq item.type "teen Skill") (eq item.type "attack") (eq item.type "teen Attack"))}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.SkillLevel'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.SkillLevel'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.skill" style="width: 135px">
             {{#select data.rollButton.skill}}
@@ -42,7 +62,9 @@
       </li>
       {{/unless}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.Assets'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Assets'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.assets" style="width: 135px">
             {{#select data.rollButton.assets}}
@@ -54,7 +76,9 @@
         </div>
       </li>
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.EffortForTask'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EffortForTask'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.effort1" style="width: 135px">
             {{#select data.rollButton.effort1}}
@@ -70,7 +94,9 @@
         </div>
       </li>
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.EffortForOther'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EffortForOther'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.effort2" style="width: 135px">
             {{#select data.rollButton.effort2}}
@@ -90,11 +116,15 @@
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow">
-        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</i></div>
+        <div class="item-name">
+          <i>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</i>
+        </div>
       </li>
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack"))}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.Damage'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Damage'}}
+        </div>
         <div class="item-quantity">
           <input class="auto-margin setting-input" name="data.rollButton.damage" type="text"
             value="{{data.rollButton.damage}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Damage'}}" />
@@ -102,7 +132,9 @@
       </li>
       {{/unless}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.EffortForDamage'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EffortForDamage'}}
+        </div>
         <div class="item-quantity">
           <select class="auto-margin setting-input" name="data.rollButton.effort3" style="width: 135px">
             {{#select data.rollButton.effort3}}
@@ -118,7 +150,9 @@
         </div>
       </li>
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.DamageLevelEffort'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.DamageLevelEffort'}}
+        </div>
         <div class="item-quantity">
           <input class="auto-margin setting-input" name="data.rollButton.damagePerLOE" type="text"
             value="{{data.rollButton.damagePerLOE}}" data-dtype="String"
@@ -130,11 +164,15 @@
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow">
-        <div class="item-name"><i>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</i></div>
+        <div class="item-name">
+          <i>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</i>
+        </div>
       </li>
       {{#unless (or (eq item.type "attack") (eq item.type "teen Attack") (eq item.type "power Shift"))}}
       <li class="item flexrow item-settings">
-        <label class="settings-list">{{localize 'CYPHERSYSTEM.Difficulty'}}</label>
+        <label class="settings-list">
+          {{localize 'CYPHERSYSTEM.Difficulty'}}
+        </label>
         <select class="auto-margin setting-input" name="data.rollButton.stepModifier" style="max-width:100px">
           {{#select data.rollButton.stepModifier}}
           <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
@@ -149,7 +187,9 @@
       {{/unless}}
       {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
       <li class="item flexrow item-settings">
-        <div class="settings-list">{{localize 'CYPHERSYSTEM.PoolCost'}}</div>
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.PoolCost'}}
+        </div>
         <div class="item-quantity">
           <input class="auto-margin setting-input" name="data.rollButton.additionalCost" type="text"
             value="{{data.rollButton.additionalCost}}" data-dtype="String"

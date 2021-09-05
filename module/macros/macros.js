@@ -489,8 +489,20 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   //   additionalSteps = item.data.data.powerShiftValue;
   // }
 
+  // Create item type
+  let itemType = "";
+  if (item.type == "ability" && item.data.data.spell) {
+    itemType = game.i18n.localize("CYPHERSYSTEM.Spell") + ": ";
+  } else if ((item.type == "ability" || item.type == "teen Ability") && !item.data.data.spell) {
+    itemType = game.i18n.localize("ITEM.TypeAbility") + ": "; 
+  } else if (item.type == "attack" || item.type == "teen Attack") {
+    itemType = game.i18n.localize("ITEM.TypeAttack") + ": "; 
+  } else if (item.type == "skill" || item.type == "teen Skill") {
+    itemType = game.i18n.localize("ITEM.TypeSkill") + ": "; 
+  }
+
   // Parse data to All-in-One Dialog
-  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, item.type.capitalize() + ": " + item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID)
+  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, itemType + item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID)
 }
 
 /* -------------------------------------------- */

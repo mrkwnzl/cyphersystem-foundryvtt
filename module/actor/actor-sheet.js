@@ -36,7 +36,7 @@ export class CypherActorSheet extends ActorSheet {
 
     data.dtypes = ["String", "Number", "Boolean"];
 
-    // Prepare items.
+    // Prepare items
     this.cyphersystem(data);
 
     return data;
@@ -55,6 +55,7 @@ export class CypherActorSheet extends ActorSheet {
     // Initialize containers
     const equipment = [];
     const abilities = [];
+    const spells = [];
     const skills = [];
     const skillsSortedByRating = [];
     const attacks = [];
@@ -98,8 +99,11 @@ export class CypherActorSheet extends ActorSheet {
       else if (i.type === 'ammo' && !hidden) {
         ammo.push(i);
       }
-      else if (i.type === 'ability' && !hidden) {
+      else if (i.type === 'ability' && !hidden && !i.data.spell) {
         abilities.push(i);
+      }
+      else if (i.type === 'ability' && !hidden && i.data.spell) {
+        spells.push(i);
       }
       else if (i.type === 'skill' && !hidden) {
         skills.push(i);
@@ -150,6 +154,7 @@ export class CypherActorSheet extends ActorSheet {
     // Sort by name
     equipment.sort(byNameAscending);
     abilities.sort(byNameAscending);
+    spells.sort(byNameAscending);
     skills.sort(byNameAscending);
     attacks.sort(byNameAscending);
     armor.sort(byNameAscending);
@@ -179,6 +184,7 @@ export class CypherActorSheet extends ActorSheet {
     // Sort by archive status
     equipment.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
+    spells.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
     attacks.sort(byArchiveStatus);
     armor.sort(byArchiveStatus);
@@ -195,9 +201,17 @@ export class CypherActorSheet extends ActorSheet {
     materials.sort(byArchiveStatus);
     ammo.sort(byArchiveStatus);
 
+    // Check for spells
+    if (spells.length > 0) {
+      actorData.showSpells = true;
+    } else {
+      actorData.showSpells = false;
+    }
+
     // Assign and return
     actorData.equipment = equipment;
     actorData.abilities = abilities;
+    actorData.spells = spells;
     actorData.skills = skills;
     actorData.skillsSortedByRating = skillsSortedByRating;
     actorData.attacks = attacks;
@@ -332,40 +346,58 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-roll').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let pool = "";
-      let skill = "";
-      let assets = "";
-      let effort1 = "";
-      let effort2 = "";
-      let stepModifier = "";
-      let additionalSteps = "";
-      let additionalCost = "";
-      let damage = "";
-      let effort3 = "";
-      let damagePerLOE = "";
-      let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, false)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", false)
     });
 
     // Item pay pool points buttons
     html.find('.item-pay').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let pool = "";
-      let skill = "";
-      let assets = "";
-      let effort1 = "";
-      let effort2 = "";
-      let stepModifier = "";
-      let additionalSteps = "";
-      let additionalCost = "";
-      let damage = "";
-      let effort3 = "";
-      let damagePerLOE = "";
-      let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, true)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", true)
+    });
+
+    // Item cast spell button
+    html.find('.cast-spell').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+      let recoveries = this.actor.data.data.recoveries;
+      let additionalRecoveries = this.actor.data.data.settings.additionalRecoveries;
+      let recoveryUsed = "";
+
+      if (!recoveries.oneAction) {
+        this.actor.update({ "data.recoveries.oneAction": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionTwo && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 1) {
+        this.actor.update({ "data.recoveries.oneActionTwo": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionThree && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 2) {
+        this.actor.update({ "data.recoveries.oneActionThree": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionFour && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 3) {
+        this.actor.update({ "data.recoveries.oneActionFour": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionFive && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 4) {
+        this.actor.update({ "data.recoveries.oneActionFive": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.tenMinutes) {
+        this.actor.update({ "data.recoveries.tenMinutes": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
+      } else if (!recoveries.oneHour) {
+        this.actor.update({ "data.recoveries.oneHour": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
+      } else {
+        return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", { name: this.actor.name }));
+      }
+
+      ChatMessage.create({ 
+        content: game.i18n.format("CYPHERSYSTEM.CastingASpell", { 
+          name: this.actor.name, 
+          recoveryUsed: recoveryUsed, 
+          spellName: item.name 
+        }) 
+      });
     });
 
     /**

@@ -18,7 +18,8 @@
         "cypherLimit": 2,
         "xp": 0,
         "notes": "",
-        "description": ""
+        "description": "",
+        "preparedSpells": 0
       },
       "pools": {
         "might": {
@@ -368,16 +369,13 @@
     "ability": {
       "templates": ["core", "version"],
       "costPoints": 0,
-      "costPool": "Might"
+      "costPool": "Pool",
+      "spell": false
     },
     "teen Ability": {
       "templates": ["core", "version"],
       "costPoints": 0,
-      "costPool": "Might",
-      "costMight": "Might",
-      "costSpeed": "Speed",
-      "costIntellect": "Intellect",
-      "costAny": "Pool"
+      "costPool": "Pool"
     },
     "skill": {
       "templates": ["core", "version"],

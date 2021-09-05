@@ -664,11 +664,11 @@ form.cyphersystem {
 }
 
 .cyphersystem .archived {
-  color: grey;
+  color: dimgrey;
 }
 
 .cyphersystem .archived-image {
-  opacity: 50%;
+  opacity: 60%;
 }
 
 .cyphersystem .Inability {
@@ -681,4 +681,11 @@ form.cyphersystem {
 
 .cyphersystem .Specialized {
   color: blue;
+}
+
+.cyphersystem .item-controls-spells {
+  -webkit-box-flex: 0 0 65px;
+  -ms-flex: 0 0 65px;
+  flex: 0 0 65px;
+  text-align: right;
 }

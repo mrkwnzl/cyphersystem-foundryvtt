@@ -844,34 +844,56 @@
       {{#if data.settings.equipment.materials}}
       {{> systems/cyphersystem/templates/tabs/materials.html}}
       {{/if}}
-
     </div>
 
     {{!-- Owned Abilities Tab --}}
     <div class="tab abilities" data-group="primary" data-tab="abilities">
-      <ol class="items-list">
-        <li class="item flexrow item-header">
-          <div class="item-name">{{localize 'CYPHERSYSTEM.Abilities'}}</div>
-          <div class="item-controls">
-            {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-            <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
-              title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability">
-              <i class="fas fa-plus"></i>
-            </a>
-            {{else}}
-            <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
-              title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability">
-              <i class="fas fa-plus"></i>
-            </a>
-            {{/if}}
-          </div>
-        </li>
-        {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-        {{> systems/cyphersystem/templates/tabs/teenAbilities.html}}
-        {{else}}
-        {{> systems/cyphersystem/templates/tabs/abilities.html}}
-        {{/if}}
-      </ol>
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">{{localize 'CYPHERSYSTEM.Abilities'}}</div>
+            <div class="item-controls">
+              {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+              <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
+                title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability">
+                <i class="fas fa-plus"></i>
+              </a>
+              {{else}}
+              <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}"
+                title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="ability">
+                <i class="fas fa-plus"></i>
+              </a>
+              {{/if}}
+            </div>
+          </li>
+          {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+          {{> systems/cyphersystem/templates/tabs/teenAbilities.html}}
+          {{else}}
+          {{> systems/cyphersystem/templates/tabs/abilities.html}}
+          {{/if}}
+        </ol>
+      </div>
+
+      {{#if actor.data.showSpells}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">{{localize 'CYPHERSYSTEM.Spells'}}</div>
+            <div class="item-cypher-limit">
+              <label for="data.basic.preparedSpells"
+                class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+                {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
+              </label>
+            </div>
+            <div class="item-cypher-limit">
+              <input class="input-cypher-limit" type="text" name="data.basic.preparedSpells" value="{{data.basic.preparedSpells}}"
+                data-dtype="Number" />
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/spells.html}}
+        </ol>
+      </div>
+      {{/if}}
     </div>
 
     {{!-- Settings Tab --}}
