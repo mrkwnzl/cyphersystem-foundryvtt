@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-- Abilities can now be sorted as spells (CSR, 259) in the settings of the ability sheet. If one is sorted this way, a separate list for spells appears. You can note how many of those spells are prepared, with the rest being spells from the spellbook. The idea is to archive spells in the spellbook, while prepared spells are unarchived. If the roll buttons are enabled in the system settings, there’s a new button to mark the first unused recovery roll when casting the spell, in addition to the usual button to only pay the pool points (when taking some time in order to cast the spell instead of paying with a recovery roll).
+- Abilities can now be sorted as spells (CSR, 259) in the settings of the ability sheet. If one is sorted this way, a separate list for spells appears. You can note how many of those spells are prepared, with the rest being spells from the spellbook. The idea is to archive spells in the spellbook, while prepared spells are unarchived. If the roll buttons are enabled in the system settings, there’s a new button to mark the first unused recovery roll when casting the spell, in addition to the usual button to pay the pool points.
 
 ### Changed
 - The behavior when pressing alt while moving items between actors has been flipped. Holding alt while moving items duplicates the item. The default now is that a dialog shows up asking what should be done with the original item or asking how many items should be moved.
@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed the editor height on actor sheets, which was 10px too low.
 - Fixed armor list on non-PC sheets (which can be enabled on a token-by-token basis with the secret setting macro).
 - The item type now appears translated in the chat when using roll buttons.
-- Fixed the identation of item descriptions.
+- Fixed the indentation of item descriptions.
 
 ### Removed
 - The All-in-One Roll macro replaced the Quick Roll (Template) macro. Existing macros remain functional.
