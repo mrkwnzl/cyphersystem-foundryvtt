@@ -10,22 +10,19 @@
       </div>
       {{#if (eq actor.type "PC")}}
       <div class="item-cypher-limit">
-        <label for="data.basic.cypherLimit"
-          class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+        <label for="data.basic.cypherLimit" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
           {{localize 'CYPHERSYSTEM.CypherLimit'}}:&nbsp;
         </label>
       </div>
       <div class="item-cypher-limit">
-        <input class="input-cypher-limit" type="text" name="data.basic.cypherLimit" value="{{data.basic.cypherLimit}}"
-          data-dtype="Number" />
+        <input class="input-cypher-limit" type="text" name="data.basic.cypherLimit" value="{{data.basic.cypherLimit}}" data-dtype="Number" />
       </div>
       {{/if}}
       <div class="item-quantity">
         {{localize 'CYPHERSYSTEM.Level'}}
       </div>
       <div class="item-controls">
-        <a class="item-control item-create {{#if ./data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher">
+        <a class="item-control item-create {{#if ./data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -34,20 +31,14 @@
     <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
-          {{#if data.identified}}
-          {{item.name}}
-          {{else}}
-          {{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}
-          {{/if}}
+          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{/if}}
         </a>
       </h4>
       <div class="item-quantity">
         {{#if data.identified}}
         {{#if data.rollForLevel}}
         <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
-          <i class="fas fa-question"></i>
-          {{data.level}}
+          <i class="fas fa-question"></i>{{data.level}}
         </a>
         {{else}}
         {{{enrichHTML data.level}}}
@@ -58,25 +49,21 @@
       </div>
       <div class="item-controls">
         {{#if ../data.isGM}}
-        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
           <i class="fas fa-file-alt"></i>
         </a>
         {{else}}
         {{#if data.identified}}
-        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
           <i class="fas fa-file-alt"></i>
         </a>
         {{else}}
-        <a class="item-control identify-item {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
+        <a class="item-control identify-item {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
           <i class="far fa-eye-slash"></i>
         </a>
         {{/if}}
         {{/if}}
-        <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+        <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
           <i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i>
         </a>
       </div>
@@ -84,11 +71,7 @@
     <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-        {{#if data.identified}}
-        {{{enrichHTML data.description}}}
-        {{else}}
-        {{localize 'CYPHERSYSTEM.???'}}
-        {{/if}}
+        {{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}
       </div>
     </li>
     {{/each}}

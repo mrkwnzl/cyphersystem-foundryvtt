@@ -5,13 +5,11 @@
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Rating/Cost'}}</div>
       <div class="item-controls">
         {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-        <a class="item-control item-create {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Armor">
+        <a class="item-control item-create {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Armor">
           <i class="fas fa-plus"></i>
         </a>
         {{else}}
-        <a class="item-control item-create {{#if ../data.isObserver}}disabled{{/if}}"
-          title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="armor">
+        <a class="item-control item-create {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="armor">
           <i class="fas fa-plus"></i>
         </a>
         {{/if}}

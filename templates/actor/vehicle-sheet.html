@@ -7,14 +7,10 @@
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         <div style="margin-top: auto; margin-bottom: auto;">
           <div class="resource-content flexrow flex-center">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"
-              style="font-weight:bold" />
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="data.level" type="text"
-                value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}"
-                data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}"
-                title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="data.level" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
@@ -26,9 +22,7 @@
                   {{localize 'CYPHERSYSTEM.Crew'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.crew" type="text"
-                    value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.crew}}{{/if}}"
-                    data-dtype="Number" />
+                  <input name="data.crew" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.crew}}{{/if}}" data-dtype="Number" />
                 </div>
               </div>
               <div class="resource flex-group-center">
@@ -36,9 +30,7 @@
                   {{localize 'CYPHERSYSTEM.WeaponSystems'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.weaponSystems" type="text"
-                    value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.weaponSystems}}{{/if}}"
-                    data-dtype="Number" />
+                  <input name="data.weaponSystems" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.weaponSystems}}{{/if}}" data-dtype="Number" />
                 </div>
               </div>
             </div>
@@ -123,9 +115,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text"
-                value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0"
-                style="width: auto;" />
+              <input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;" />
             </div>
           </li>
           <li class="item flexrow item-settings">

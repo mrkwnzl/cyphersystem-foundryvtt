@@ -8,8 +8,7 @@
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="data.level" type="text" value="{{data.level}}" data-dtype="String"
-                placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="data.level" type="text" value="{{data.level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
           </div>
           <div class="resources grid grid-3col">
@@ -32,11 +31,9 @@
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#if data.isGM}}
     {{#if data.identified}}
-    <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 45px;"><i
-        class="far fa-eye"></i></a>
+    <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 45px;"><i class="far fa-eye"></i></a>
     {{else}}
-    <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 45px;"><i
-        class="far fa-eye-slash"></i></a>
+    <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 45px;"><i class="far fa-eye-slash"></i></a>
     {{/if}}
     {{/if}}
   </nav>
