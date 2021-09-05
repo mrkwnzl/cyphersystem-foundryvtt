@@ -102,7 +102,6 @@ export class CypherActorSheet extends ActorSheet {
         abilities.push(i);
       }
       else if (i.type === 'skill' && !hidden) {
-        i.data.test = "TEST";
         skills.push(i);
         skillsSortedByRating.push(i);
       }
