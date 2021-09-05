@@ -464,17 +464,9 @@
             </div>
           </li>
           {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
-          {{#if data.settings.skills.sortByRating}}
-          {{> systems/cyphersystem/templates/tabs/teenSkillsSortedByRating.html}}
-          {{else}}
           {{> systems/cyphersystem/templates/tabs/teenSkills.html}}
-          {{/if}}
-          {{else}}
-          {{#if data.settings.skills.sortByRating}}
-          {{> systems/cyphersystem/templates/tabs/skillsSortedByRating.html}}
           {{else}}
           {{> systems/cyphersystem/templates/tabs/skills.html}}
-          {{/if}}
           {{/if}}
         </ol>
       </div>
@@ -502,7 +494,7 @@
             </div>
           </li>
           {{#each actor.data.powerShifts as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+          <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
                 <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
@@ -523,8 +515,8 @@
               </a>
             </div>
           </li>
-          <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-            <div class="description desc-{{item._id}}" style="display: none">
+          <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+            <div class="description desc-{{item._id}}">
               <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"
                 width="50" height="50" />
               {{{enrichHTML data.description}}}
@@ -717,7 +709,7 @@
           </li>
           {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
           {{#each actor.data.teenLastingDamage as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+          <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
                 <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
@@ -756,8 +748,8 @@
               </a>
             </div>
           </li>
-          <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-            <div class="description desc-{{item._id}}" style="display: none">
+          <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+            <div class="description desc-{{item._id}}">
               <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"
                 width="50" height="50" />
               {{{enrichHTML data.description}}}
@@ -766,7 +758,7 @@
           {{/each}}
           {{else}}
           {{#each actor.data.lastingDamage as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+          <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
                 <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
@@ -800,8 +792,8 @@
               </a>
             </div>
           </li>
-          <li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-            <div class="description desc-{{item._id}}" style="display: none">
+          <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+            <div class="description desc-{{item._id}}">
               <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}"
                 width="50" height="50" />
               {{{enrichHTML data.description}}}

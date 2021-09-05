@@ -1,5 +1,5 @@
 {{#each actor.data.abilities as |item id|}}
-<li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+<li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
   <h4 class="item-name">
     <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
       <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
@@ -42,9 +42,9 @@
     </a>
   </div>
 </li>
-<li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-  <div class="description desc-{{item._id}}" style="display: none">
-    <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50"
+<li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+  <div class="description desc-{{item._id}}">
+    <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50"
       height="50" />
     {{{enrichHTML data.description}}}
   </div>

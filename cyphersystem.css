@@ -424,6 +424,7 @@ form.cyphersystem {
   padding-left: 17px;
   padding-bottom: 5px;
   font-size: 13px;
+  display: none;
 }
 
 .cyphersystem .items-list .description p {
@@ -660,4 +661,24 @@ form.cyphersystem {
 
 .cyphersystem .reset-stat {
   margin-left: 5px
+}
+
+.cyphersystem .archived {
+  color: grey;
+}
+
+.cyphersystem .archived-image {
+  opacity: 50%;
+}
+
+.cyphersystem .Inability {
+  color: red;
+}
+
+.cyphersystem .Trained {
+  color: green;
+}
+
+.cyphersystem .Specialized {
+  color: blue;
 }

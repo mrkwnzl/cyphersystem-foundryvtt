@@ -1,5 +1,5 @@
 {{#each actor.data.teenArmor as |item id|}}
-<li class="item flexrow" data-item-id="{{item._id}}" style="color: {{#if data.archived}}grey{{/if}}">
+<li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
   <h4 class="item-name">
     <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
       <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
@@ -18,13 +18,13 @@
   <div class="item-quantity">{{data.speedCost}}</div>
   <div class="item-quantity">{{data.armorValue}}</div>
   <div class="item-controls">
+    {{#if (eq ../type "PC")}}
     <a class="item-control armor-active {{#if ../data.isObserver}}disabled{{/if}}"
       title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
-      <i class="fas fa-check" aria-hidden="true"
-        style="color: {{#if data.archived}}grey{{else}}{{#unless data.armorActive}}grey{{/unless}}{{/if}}"></i>
+      <i class="fas fa-check {{#unless data.armorActive}}archived{{/unless}}" aria-hidden="true"></i>
     </a>
-    <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}"
-      title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+    {{/if}}
+    <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="Edit Item">
       <i class="fas fa-file-alt"></i>
     </a>
     <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}"
@@ -33,9 +33,9 @@
     </a>
   </div>
 </li>
-<li class="item-desc flexrow" style="color: {{#if data.archived}}grey{{/if}}">
-  <div class="description desc-{{item._id}}" style="display: none">
-    <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50"
+<li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+  <div class="description desc-{{item._id}}">
+    <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50"
       height="50" />
     {{{enrichHTML data.description}}}
   </div>
