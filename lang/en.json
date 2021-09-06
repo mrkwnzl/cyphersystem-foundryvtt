@@ -194,7 +194,7 @@
   "CYPHERSYSTEM.RecoveryHour": "1 Hour",
   "CYPHERSYSTEM.RecoveryOneAction": "one-action",
   "CYPHERSYSTEM.RecoveryTenMinutes": "ten-minutes",
-  "CYPHERSYSTEM.RecoveryOneHour": "one-Hour",
+  "CYPHERSYSTEM.RecoveryOneHour": "one-hour",
   "CYPHERSYSTEM.RecoveryHours": "10 Hours",
   "CYPHERSYSTEM.ResetRecovery": "Reset Recovery Rolls",
   "CYPHERSYSTEM.Attacks": "Attacks",
