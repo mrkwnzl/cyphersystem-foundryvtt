@@ -372,5 +372,7 @@
     "CYPHERSYSTEM.Spell": "Zauber",
     "CYPHERSYSTEM.Prepared": "Vorbereitet",
     "CYPHERSYSTEM.Rating/Cost": "Wert/Kosten",
-    "CYPHERSYSTEM.NoRecoveriesLeft": "{name} hat nicht die benötigten Erholungswürfe übrig."
+    "CYPHERSYSTEM.NoRecoveriesLeft": "{name} hat nicht die benötigten Erholungswürfe übrig.",
+    "CYPHERSYSTEM.DebilitatedRollButton": "Du bist geschwächt.",
+    "CYPHERSYSTEM.depletion": "Aufzehrung"
 }
