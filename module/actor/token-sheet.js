@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import {CypherActorSheet} from "./actor-sheet.js";
+import { CypherActorSheet } from "./actor-sheet.js";
 
 export class CypherActorSheetToken extends CypherActorSheet {
 
@@ -14,7 +14,7 @@ export class CypherActorSheetToken extends CypherActorSheet {
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"]
     });
   }
@@ -31,14 +31,14 @@ export class CypherActorSheetToken extends CypherActorSheet {
     html.find('.increase-quantity').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.quantity.value + amount;
-      this.actor.update({"data.quantity.value": newValue});
+      this.actor.update({ "data.quantity.value": newValue });
     });
 
     // Decrease Quantity
     html.find('.decrease-quantity').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.quantity.value - amount;
-      this.actor.update({"data.quantity.value": newValue});
+      this.actor.update({ "data.quantity.value": newValue });
     });
 
     // Reset Quantity

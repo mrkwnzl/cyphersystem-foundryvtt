@@ -1,5 +1,37 @@
 /* Global styles */
 
+#chat-log .message .message-content ul, ol,
+.flavor-text ul, ol {
+  margin: 0 0 0.2em 0;
+  list-style-type: disc;
+}
+
+#chat-log .message .message-content p,
+.flavor-text p {
+  margin: 0 0 0.2em 0;
+}
+
+#chat-log .message .message-content p:last-of-type,
+.flavor-text p:last-of-type {
+  margin: 0 0 0 0;
+}
+
+#chat-log .message .message-content blockquote,
+.flavor-text blockquote {
+  margin: 0 0 0 10px;
+  padding: 0 0 0 10px;
+}
+
+.dialog-select {
+  height: 26px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  font-family: "Signika", sans-serif;
+  font-size: 14px;
+  text-align-last: center;
+  padding: 1px 3px;
+}
+
 form.cyphersystem {
   height: 100%;
 }
@@ -119,42 +151,27 @@ form.cyphersystem {
   justify-content: space-between;
 }
 
-/*.app.sheet .editor-content {
-height: 400px;
-overflow-y: auto;
-}*/
-
 .editor-edit {
   top: 10px;
   right: 10px;
 }
 
-/*.pc {
-min-width: 600px;
-min-height: 805px;
-}
-
-.community,
-.npc,
-.token {
-min-width: 600px;
-min-height: 610px;
-}
-
-.companion {
-min-width: 600px;
-min-height: 690px;
-}
-
-.item-sheet {
-min-width: 520px;
-min-height: 610px;
-}*/
-
 .flavor-text {
   line-height: 1.3;
   margin-bottom: 3px;
   font-size: 14px;
+}
+
+.hr-chat {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.sheet nav.sheet-tabs {
+  flex: 0 0 0;
+  border-top: none;
+  border-bottom: none;
+  margin: 5px 0 0 0;
 }
 
 ::-webkit-scrollbar-track {
@@ -165,10 +182,6 @@ min-height: 610px;
 
 .cyphersystem .window-content {
   overflow: hidden;
-}
-
-.cyphersystem .body {
-  font-size: 13px;
 }
 
 .cyphersystem .sheet-header {
@@ -229,11 +242,6 @@ min-height: 610px;
   border-top: 1px solid #999;
 }
 
-.hr-chat {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
 .cyphersystem .stat-pool {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
@@ -265,7 +273,7 @@ min-height: 610px;
 }
 
 .cyphersystem .sheet-body .editor {
-  height: 445px;
+  height: 455px;
 }
 
 .cyphersystem .resource-label {
@@ -283,15 +291,6 @@ min-height: 610px;
 
 .cyphersystem .resource-label-normal {
   vertical-align: middle;
-}
-
-.sheet nav.sheet-tabs {
-  /* height: 35px; */
-  flex: 0 0 0;
-  border-top: none;
-  border-bottom: none;
-  margin: 5px 0 0 0;
-  /* padding: 0px 5px 0px 5px; */
 }
 
 .cyphersystem .tabs .item {
@@ -425,6 +424,7 @@ min-height: 610px;
   padding-left: 17px;
   padding-bottom: 5px;
   font-size: 13px;
+  display: none;
 }
 
 .cyphersystem .items-list .description p {
@@ -435,11 +435,6 @@ min-height: 610px;
 .cyphersystem .items-list .description ul {
   list-style-type: disc;
 }
-
-/* .cyphersystem .items-list .description ul li {
-  position: relative;
-  margin-left: 1em;
-} */
 
 .cyphersystem .items-list .description p:last-of-type {
   font-size: 13px;
@@ -519,16 +514,6 @@ min-height: 610px;
   padding: 1px 3px;
 }
 
-.dialog-select {
-  height: 26px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  font-family: "Signika", sans-serif;
-  font-size: 14px;
-  text-align-last: center;
-  padding: 1px 3px;
-}
-
 .cyphersystem .item-angle {
   width: 12px;
   text-align: center;
@@ -548,28 +533,6 @@ min-height: 610px;
   padding-left: 0px;
   text-indent: 0px;
   display: flex;
-}
-
-#chat-log .message .message-content ul, ol,
-.flavor-text ul, ol {
-  margin: 0 0 0.2em 0;
-  list-style-type: disc;
-}
-
-#chat-log .message .message-content p,
-.flavor-text p {
-  margin: 0 0 0.2em 0;
-}
-
-#chat-log .message .message-content p:last-of-type,
-.flavor-text p:last-of-type {
-  margin: 0 0 0 0;
-}
-
-#chat-log .message .message-content blockquote,
-.flavor-text blockquote {
-  margin: 0 0 0 10px;
-  padding: 0 0 0 10px;
 }
 
 .cyphersystem .centered-fields {
@@ -698,4 +661,31 @@ min-height: 610px;
 
 .cyphersystem .reset-stat {
   margin-left: 5px
+}
+
+.cyphersystem .archived {
+  color: dimgrey;
+}
+
+.cyphersystem .archived-image {
+  opacity: 60%;
+}
+
+.cyphersystem .Inability {
+  color: red;
+}
+
+.cyphersystem .Trained {
+  color: green;
+}
+
+.cyphersystem .Specialized {
+  color: blue;
+}
+
+.cyphersystem .item-controls-spells {
+  -webkit-box-flex: 0 0 65px;
+  -ms-flex: 0 0 65px;
+  flex: 0 0 65px;
+  text-align: right;
 }

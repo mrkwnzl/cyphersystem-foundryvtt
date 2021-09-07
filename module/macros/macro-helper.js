@@ -3,8 +3,12 @@
 /* -------------------------------------------- */
 
 export async function diceRoller(title, info, modifier) {
+  // Fix for single quotation marks
+  title = title.replace(/'/g, "&apos;");
+  info = info.replace(/'/g, "&apos;");
+
   // Roll dice
-  let roll = await new Roll("1d20").evaluate({async: true});
+  let roll = await new Roll("1d20").evaluate({ async: true });
   let difficulty = Math.floor(roll.result / 3);
 
   // Determine result
@@ -24,20 +28,20 @@ export async function diceRoller(title, info, modifier) {
   let modifiedBy = "";
   if (modifier != 0) {
     if (modifier > 1) {
-      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: modifier}) + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: modifier }) + ". "
     } else if (modifier == 1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased") + ". "
     } else if (modifier == -1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered") + ". "
     } else if (modifier < -1) {
-      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(modifier)}) + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(modifier) }) + ". "
     }
   }
 
   // Determine bars
   let bars = (info != "") ?
-  info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
-  "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
+    info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
+    "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
 
   // Add reroll button
   let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
@@ -61,7 +65,7 @@ function determineDifficultyResult(roll, difficulty, modifier) {
   }
 }
 
-export async function payPoolPoints(actor, cost, pool, teen){
+export async function payPoolPoints(actor, cost, pool, teen) {
   pool = pool.toLowerCase();
 
   // Determine stats
@@ -93,25 +97,25 @@ export async function payPoolPoints(actor, cost, pool, teen){
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
-    (teen) ? actor.update({"data.teen.pools.might.value": mightValue - cost}) : actor.update({"data.pools.might.value": mightValue - cost})
+    (teen) ? actor.update({ "data.teen.pools.might.value": mightValue - cost }) : actor.update({ "data.pools.might.value": mightValue - cost })
   } else if (pool == "speed") {
     if (cost > speedValue) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
-    (teen) ? actor.update({"data.teen.pools.speed.value": intellectValue - cost}) : actor.update({"data.pools.speed.value": speedValue - cost})
+    (teen) ? actor.update({ "data.teen.pools.speed.value": intellectValue - cost }) : actor.update({ "data.pools.speed.value": speedValue - cost })
   } else if (pool == "intellect") {
     if (cost > intellectValue) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
-    (teen) ? actor.update({"data.teen.pools.intellect.value": intellectValue - cost}) : actor.update({"data.pools.intellect.value": intellectValue - cost})
+    (teen) ? actor.update({ "data.teen.pools.intellect.value": intellectValue - cost }) : actor.update({ "data.pools.intellect.value": intellectValue - cost })
   } else if (pool == "xp") {
     if (cost > actor.data.data.basic.xp) {
       ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
       return false;
     }
-    actor.update({"data.basic.xp": actor.data.data.basic.xp - cost})
+    actor.update({ "data.basic.xp": actor.data.data.basic.xp - cost })
   }
 
   return true;
@@ -148,7 +152,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     "teen Armor": game.i18n.localize("ITEM.TypeTeen Armor"),
     "teen lasting Damage": game.i18n.localize("ITEM.TypeTeen Lasting Damage")
   };
-  let itemType = (itemTypeStrings[item.type] || "");
+  let itemType = (itemTypeStrings[item.type] || "");
 
   if (item.type == "skill" || item.type == "teen Skill") {
     // Set skill Levels
@@ -158,7 +162,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Trained": game.i18n.localize("CYPHERSYSTEM.Trained"),
       "Specialized": game.i18n.localize("CYPHERSYSTEM.Specialized")
     };
-    let skillInfo = (relevantSkill[item.data.data.skillLevel] || relevantSkill["Practiced"]);
+    let skillInfo = (relevantSkill[item.data.data.skillLevel] || relevantSkill["Practiced"]);
 
     // Set info
     info = itemType + ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + skillInfo;
@@ -177,8 +181,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   } else if (item.type == "power Shift") {
     // Set info
     info = itemType + ". " + item.data.data.powerShiftValue + ((item.data.data.powerShiftValue == 1) ?
-    " " + game.i18n.localize("CYPHERSYSTEM.Shift") :
-    " " + game.i18n.localize("CYPHERSYSTEM.Shifts"));
+      " " + game.i18n.localize("CYPHERSYSTEM.Shift") :
+      " " + game.i18n.localize("CYPHERSYSTEM.Shifts"));
 
     // Set difficulty modifier
     modifier = item.data.data.powerShiftValue;
@@ -209,8 +213,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     // Slice possible "+" from cost
     let checkPlus = item.data.data.costPoints.slice(-1);
     let pointCost = (checkPlus == "+") ?
-    item.data.data.costPoints.slice(0, -1) :
-    item.data.data.costPoints;
+      item.data.data.costPoints.slice(0, -1) :
+      item.data.data.costPoints;
 
     // Check if there is a point cost and prepare costInfo
     if (item.data.data.costPoints != "" && item.data.data.costPoints != "0") {
@@ -224,7 +228,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
         "Speed": speedEdge,
         "Intellect": intellectEdge
       };
-      let edge = (relevantEdge[item.data.data.costPool] || 0)
+      let edge = (relevantEdge[item.data.data.costPool] || 0)
 
       // Determine point cost
       let checkPlus = item.data.data.costPoints.slice(-1);
@@ -233,31 +237,31 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 
       // Determine pool points
       let relevantPool = {
-        "Might": function() {
+        "Might": function () {
           return (pointCost != 1) ?
-          game.i18n.localize("CYPHERSYSTEM.MightPoints") :
-          game.i18n.localize("CYPHERSYSTEM.MightPoint");
+            game.i18n.localize("CYPHERSYSTEM.MightPoints") :
+            game.i18n.localize("CYPHERSYSTEM.MightPoint");
         },
-        "Speed": function() {
+        "Speed": function () {
           return (pointCost != 1) ?
-          game.i18n.localize("CYPHERSYSTEM.SpeedPoints") :
-          game.i18n.localize("CYPHERSYSTEM.SpeedPoint");
+            game.i18n.localize("CYPHERSYSTEM.SpeedPoints") :
+            game.i18n.localize("CYPHERSYSTEM.SpeedPoint");
         },
-        "Intellect": function() {
+        "Intellect": function () {
           return (pointCost != 1) ?
-          game.i18n.localize("CYPHERSYSTEM.IntellectPoints") :
-          game.i18n.localize("CYPHERSYSTEM.IntellectPoint");
+            game.i18n.localize("CYPHERSYSTEM.IntellectPoints") :
+            game.i18n.localize("CYPHERSYSTEM.IntellectPoint");
         },
-        "Pool": function() {
+        "Pool": function () {
           return (pointCost != 1) ?
-          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints") :
-          game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint");
+            game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints") :
+            game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint");
         },
-        "XP": function() {
+        "XP": function () {
           return game.i18n.localize("CYPHERSYSTEM.XP")
         }
       }
-      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Pool"]());
+      let poolPoints = (relevantPool[item.data.data.costPool]() || relevantPool["Pool"]());
 
       // Determine edge info
       let operator = (edge < 0) ? "+" : "-";
@@ -276,8 +280,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   } else if (item.type == "cypher") {
     // Determine level info
     let levelInfo = (item.data.data.level != "") ?
-    ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level :
-    "";
+      ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level :
+      "";
 
     // Put it all together for info
     info = itemType + levelInfo;
@@ -285,8 +289,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   } else if (item.type == "artifact") {
     // Determine level info
     let levelInfo = (item.data.data.level != "") ?
-    game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level + ". " :
-    "";
+      game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.data.data.level + ". " :
+      "";
 
     // Determine depletion info
     let depletionInfo = game.i18n.localize("CYPHERSYSTEM.Depletion") + ": " + item.data.data.depletion;

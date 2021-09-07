@@ -1,16 +1,16 @@
 // Import actors & items
-import {CypherActor} from "./actor/actor.js";
-import {CypherItem} from "./item/item.js";
+import { CypherActor } from "./actor/actor.js";
+import { CypherItem } from "./item/item.js";
 
 // Import actor & item sheets
-import {CypherItemSheet} from "./item/item-sheet.js";
-import {CypherActorSheet} from "./actor/actor-sheet.js";
-import {CypherActorSheetPC} from "./actor/pc-sheet.js";
-import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
-import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
-import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
-import {CypherActorSheetToken} from "./actor/token-sheet.js";
-import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
+import { CypherItemSheet } from "./item/item-sheet.js";
+import { CypherActorSheet } from "./actor/actor-sheet.js";
+import { CypherActorSheetPC } from "./actor/pc-sheet.js";
+import { CypherActorSheetNPC } from "./actor/npc-sheet.js";
+import { CypherActorSheetCommunity } from "./actor/community-sheet.js";
+import { CypherActorSheetCompanion } from "./actor/companion-sheet.js";
+import { CypherActorSheetToken } from "./actor/token-sheet.js";
+import { CypherActorSheetVehicle } from "./actor/vehicle-sheet.js";
 
 // Import macros
 import {
@@ -41,7 +41,7 @@ import {
   easedRollEffectiveMacro,
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
-import {itemMacroString} from "./macros/macro-strings.js";
+import { itemMacroString } from "./macros/macro-strings.js";
 import {
   chatCardMarkItemIdentified,
   chatCardProposeIntrusion,
@@ -56,7 +56,7 @@ import {
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
-Hooks.once("init", async function() {
+Hooks.once("init", async function () {
   console.log("Initializing Cypher System");
 
   // CONFIG.debug.hooks = true;
@@ -163,7 +163,7 @@ Hooks.once("init", async function() {
     decimals: 0
   };
 
-  Combatant.prototype._getInitiativeFormula = function() {
+  Combatant.prototype._getInitiativeFormula = function () {
     let combatant = this.actor;
     if (combatant.data.type == "PC") {
       return "1d20 + @settings.initiative.initiativeBonus";
@@ -174,7 +174,7 @@ Hooks.once("init", async function() {
     } else if (combatant.data.type == "Community" && !combatant.hasPlayerOwner) {
       return String(combatant.data.data.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
     } else {
-      if (combatant.data.data.level >=1) {
+      if (combatant.data.data.level >= 1) {
         return String(combatant.data.data.level * 3) + "- 0.5";
       } else {
         return String(combatant.data.data.level * 3)
@@ -188,14 +188,14 @@ Hooks.once("init", async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheetPC, {types: ['PC'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherActorSheetNPC, {types: ['NPC'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherActorSheetToken, {types: ['Token'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherActorSheetCommunity, {types: ['Community'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherActorSheetCompanion, {types: ['Companion'], makeDefault: true});
-  Actors.registerSheet("cypher", CypherActorSheetVehicle, {types: ['Vehicle'], makeDefault: true});
+  Actors.registerSheet("cypher", CypherActorSheetPC, { types: ['PC'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetNPC, { types: ['NPC'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetToken, { types: ['Token'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetCommunity, { types: ['Community'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetCompanion, { types: ['Companion'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetVehicle, { types: ['Vehicle'], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cypher", CypherItemSheet, {makeDefault: true});
+  Items.registerSheet("cypher", CypherItemSheet, { makeDefault: true });
 
   //Pre-load HTML templates
   preloadHandlebarsTemplates();
@@ -211,9 +211,7 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/equipment.html",
     "systems/cyphersystem/templates/tabs/equipment-settings.html",
     "systems/cyphersystem/templates/tabs/skills.html",
-    "systems/cyphersystem/templates/tabs/skillsSortedByRating.html",
     "systems/cyphersystem/templates/tabs/teenSkills.html",
-    "systems/cyphersystem/templates/tabs/teenSkillsSortedByRating.html",
     "systems/cyphersystem/templates/tabs/currenciesUpToThree.html",
     "systems/cyphersystem/templates/tabs/currenciesUpToSix.html",
     "systems/cyphersystem/templates/tabs/abilities.html",
@@ -230,7 +228,8 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/teenArmor.html",
     "systems/cyphersystem/templates/tabs/teenAttacks.html",
     "systems/cyphersystem/templates/tabs/attacks.html",
-    "systems/cyphersystem/templates/tabs/item-settings.html"
+    "systems/cyphersystem/templates/tabs/item-settings.html",
+    "systems/cyphersystem/templates/tabs/spells.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -242,11 +241,11 @@ function deleteChatMessage(data) {
 function giveAdditionalXP(data) {
   if (game.user.isGM) {
     let selectedActor = game.actors.get(data.selectedActorId);
-    selectedActor.update({"data.basic.xp": selectedActor.data.data.basic.xp + data.modifier});
+    selectedActor.update({ "data.basic.xp": selectedActor.data.data.basic.xp + data.modifier });
   }
 }
 
-Hooks.on("canvasReady", function(canvas) {
+Hooks.on("canvasReady", function (canvas) {
   console.log(`The canvas was just rendered for scene: ${canvas.scene.id}`);
   for (let t of game.scenes.viewed.tokens) {
     if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
@@ -261,19 +260,19 @@ Hooks.on("canvasReady", function(canvas) {
   }
 });
 
-Hooks.once("ready", async function() {
+Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
   // Update existing characters
   for (let a of game.actors.contents) {
-    if (!a.data.data.settings.equipment.cyphersName) a.update({"data.settings.equipment.cyphersName": ""});
-    if (!a.data.data.settings.equipment.artifactsName) a.update({"data.settings.equipment.artifactsName": ""});
-    if (!a.data.data.settings.equipment.odditiesName) a.update({"data.settings.equipment.odditiesName": ""});
-    if (!a.data.data.settings.equipment.materialName) a.update({"data.settings.equipment.materialName": ""});
-    if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({"data.settings.equipment.cyphers": true});
-    if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({"data.settings.counting": -1});
-    if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({"data.settings.counting": 1});
+    if (!a.data.data.settings.equipment.cyphersName) a.update({ "data.settings.equipment.cyphersName": "" });
+    if (!a.data.data.settings.equipment.artifactsName) a.update({ "data.settings.equipment.artifactsName": "" });
+    if (!a.data.data.settings.equipment.odditiesName) a.update({ "data.settings.equipment.odditiesName": "" });
+    if (!a.data.data.settings.equipment.materialName) a.update({ "data.settings.equipment.materialName": "" });
+    if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({ "data.settings.equipment.cyphers": true });
+    if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({ "data.settings.counting": -1 });
+    if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({ "data.settings.counting": 1 });
   }
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
@@ -285,20 +284,20 @@ function sendWelcomeMessage() {
   })
 }
 
-Hooks.on("preCreateItem", function(item) {
+Hooks.on("preCreateItem", function (item) {
   if (item.data.img == "icons/svg/item-bag.svg") {
-    item.data.update({"img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg`})
+    item.data.update({ "img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` })
   }
 });
 
-Hooks.on("renderChatMessage", function(message, html, data) {
+Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener to confirm identification
   html.find('.confirm').click(clickEvent => {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
     let actor = game.actors.get(html.find('.confirm').data('actor'));
     let item = actor.items.get(html.find('.confirm').data('item'));
-    item.update({"data.identified": true});
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
+    item.update({ "data.identified": true });
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", { item: item.name, actor: actor.name }));
   });
 
   // Event Listener for rerolls of stat rolls
@@ -342,7 +341,7 @@ Hooks.on("renderChatMessage", function(message, html, data) {
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
-    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.data.name}));
+    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", { actor: actor.data.name }));
 
     // Create list of PCs
     let list = "";
@@ -352,7 +351,7 @@ Hooks.on("renderChatMessage", function(message, html, data) {
 
     // Create dialog content
     let content = `<div align="center"><label style='display: inline-block; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
-    <select name='selectPC' id='selectPC' style='width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>`+ list +`</select></div>`
+    <select name='selectPC' id='selectPC' style='width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>`+ list + `</select></div>`
 
     // Create dialog
     let d = new Dialog({
@@ -379,18 +378,18 @@ Hooks.on("renderChatMessage", function(message, html, data) {
   // Event Listener for refusing intrusions
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
-    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.data.name}));
+    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", { actor: actor.data.name }));
     applyXPFromIntrusion(actor, "", data.message._id, -1)
   });
 });
 
 // Function to apply XP when an intrusion is accepted
 function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier) {
-  actor.update({"data.basic.xp": actor.data.data.basic.xp + modifier});
+  actor.update({ "data.basic.xp": actor.data.data.basic.xp + modifier });
 
   // Emit a socket event
-  game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
-  game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+  game.socket.emit('system.cyphersystem', { operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier });
+  game.socket.emit('system.cyphersystem', { operation: 'deleteChatMessage', messageId: messageId });
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
 
@@ -403,10 +402,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
     get colors() {
       return [
-        {id: "immediate", default: 0x0000FF, name: "immediate"},
-        {id: "short", default: 0x008000, name: "short"},
-        {id: "long", default: 0xFFA500, name: "long"},
-        {id: "veryLong", default: 0xFF0000, name: "very long"}
+        { id: "immediate", default: 0x0000FF, name: "immediate" },
+        { id: "short", default: 0x008000, name: "short" },
+        { id: "long", default: 0xFFA500, name: "long" },
+        { id: "veryLong", default: 0xFF0000, name: "very long" }
       ]
     }
 
@@ -428,10 +427,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       }
 
       const ranges = [
-        {range: immediate, color: "immediate"},
-        {range: short, color: "short"},
-        {range: long, color: "long"},
-        {range: veryLong, color: "veryLong"}
+        { range: immediate, color: "immediate" },
+        { range: short, color: "short" },
+        { range: long, color: "long" },
+        { range: veryLong, color: "veryLong" }
       ]
       return ranges
     }
@@ -455,154 +454,162 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 /**
 * Set default values for new actors' tokens
 */
-Hooks.on("preCreateActor", function(actor) {
+Hooks.on("preCreateActor", function (actor) {
   // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
   // if (!actorData.Token.img) actorData.Token.img = actorData.img;
 
   if (actor.data.type == "NPC") {
-    actor.data.update({"token.bar1": {"attribute": "health"}});
-    actor.data.update({"token.bar2": {"attribute": "level"}});
-    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER});
-    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER});
-    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL})
+    actor.data.update({ "token.bar1": { "attribute": "health" } });
+    actor.data.update({ "token.bar2": { "attribute": "level" } });
+    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER });
+    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER });
+    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL })
   }
 
   if (actor.data.type == "Companion") {
-    actor.data.update({"token.bar1": {"attribute": "health"}});
-    actor.data.update({"token.bar2": {"attribute": "level"}});
-    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER});
-    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER});
-    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY})
+    actor.data.update({ "token.bar1": { "attribute": "health" } });
+    actor.data.update({ "token.bar2": { "attribute": "level" } });
+    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER });
+    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER });
+    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY })
   }
 
   if (actor.data.type == "PC" || actor.data.type == "Community") {
-    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER});
-    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY});
-    actor.data.update({"token.actorLink": true});
+    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER });
+    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY });
+    actor.data.update({ "token.actorLink": true });
   }
 
   if (actor.data.type == "Token") {
-    actor.data.update({"token.bar1": {"attribute": "quantity"}});
-    actor.data.update({"token.bar2": {"attribute": "level"}});
-    actor.data.update({"token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER});
-    actor.data.update({"token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS});
-    actor.data.update({"token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL})
+    actor.data.update({ "token.bar1": { "attribute": "quantity" } });
+    actor.data.update({ "token.bar2": { "attribute": "level" } });
+    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER });
+    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS });
+    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL })
   }
 })
 
-Hooks.on("preCreateToken", function(doc, data, options, userId) {
+Hooks.on("preCreateToken", function (doc, data, options, userId) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    doc.data.update({"flags.cyphersystem.toggleDragRuler": true})
+    doc.data.update({ "flags.cyphersystem.toggleDragRuler": true })
   } else {
-    doc.data.update({"flags.cyphersystem.toggleDragRuler": false})
+    doc.data.update({ "flags.cyphersystem.toggleDragRuler": false })
   }
 
   // Support for Bar Brawl
   if (actor.data.type === "PC") {
-    doc.data.update({"flags.barbrawl.resourceBars": {
-      "bar1": {
-        id: "bar1",
-        mincolor: "#0000FF",
-        maxcolor: "#0000FF",
-        position: "bottom-inner",
-        attribute: "pools.intellect",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar2": {
-        id: "bar2",
-        mincolor: "#00FF00",
-        maxcolor: "#00FF00",
-        position: "bottom-inner",
-        attribute: "pools.speed",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar3": {
-        id: "bar3",
-        mincolor: "#FF0000",
-        maxcolor: "#FF0000",
-        position: "bottom-inner",
-        attribute: "pools.might",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+    doc.data.update({
+      "flags.barbrawl.resourceBars": {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "bottom-inner",
+          attribute: "pools.intellect",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#00FF00",
+          maxcolor: "#00FF00",
+          position: "bottom-inner",
+          attribute: "pools.speed",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar3": {
+          id: "bar3",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "pools.might",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
       }
-    }});
-  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-    doc.data.update({"flags.barbrawl.resourceBars": {
-      "bar1": {
-        id: "bar1",
-        mincolor: "#0000FF",
-        maxcolor: "#0000FF",
-        position: "top-inner",
-        attribute: "level",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar2": {
-        id: "bar2",
-        mincolor: "#FF0000",
-        maxcolor: "#FF0000",
-        position: "bottom-inner",
-        attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+    });
+  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
+    doc.data.update({
+      "flags.barbrawl.resourceBars": {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "top-inner",
+          attribute: "level",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "health",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
       }
-    }});
+    });
   } else if (actor.data.type === "Community") {
-    doc.data.update({"flags.barbrawl.resourceBars": {
-      "bar1": {
-        id: "bar1",
-        mincolor: "#0000FF",
-        maxcolor: "#0000FF",
-        position: "top-inner",
-        attribute: "rank",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar2": {
-        id: "bar2",
-        mincolor: "#0000FF",
-        maxcolor: "#0000FF",
-        position: "bottom-inner",
-        attribute: "infrastructure",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar3": {
-        id: "bar3",
-        mincolor: "#FF0000",
-        maxcolor: "#FF0000",
-        position: "bottom-inner",
-        attribute: "health",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+    doc.data.update({
+      "flags.barbrawl.resourceBars": {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "top-inner",
+          attribute: "rank",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "bottom-inner",
+          attribute: "infrastructure",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar3": {
+          id: "bar3",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "health",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        }
       }
-    }});
+    });
   } else if (actor.data.type === "Token") {
-    doc.data.update({"flags.barbrawl.resourceBars": {
-      "bar1": {
-        id: "bar1",
-        mincolor: "#0000FF",
-        maxcolor: "#0000FF",
-        position: "top-inner",
-        attribute: "level",
-        visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-      },
-      "bar2": {
-        id: "bar2",
-        mincolor: "#FF0000",
-        maxcolor: "#FF0000",
-        position: "bottom-inner",
-        attribute: "quantity",
-        visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+    doc.data.update({
+      "flags.barbrawl.resourceBars": {
+        "bar1": {
+          id: "bar1",
+          mincolor: "#0000FF",
+          maxcolor: "#0000FF",
+          position: "top-inner",
+          attribute: "level",
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+        },
+        "bar2": {
+          id: "bar2",
+          mincolor: "#FF0000",
+          maxcolor: "#FF0000",
+          position: "bottom-inner",
+          attribute: "quantity",
+          visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+        }
       }
-    }});
+    });
   }
 });
 
-Hooks.on("updateCombat", function() {
+Hooks.on("updateCombat", function () {
   let combatant = game.combat.combatant.actor;
 
   if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
     let newQuantity = combatant.data.data.quantity.value + combatant.data.data.settings.counting;
-    combatant.update({"data.quantity.value": newQuantity});
+    combatant.update({ "data.quantity.value": newQuantity });
   }
 
 });
@@ -633,7 +640,7 @@ async function createCyphersystemMacro(data, slot) {
       type: "script",
       img: item.img,
       command: command,
-      flags: {"cyphersystem.itemMacro": true}
+      flags: { "cyphersystem.itemMacro": true }
     });
   }
   game.user.assignHotbarMacro(macro, slot);

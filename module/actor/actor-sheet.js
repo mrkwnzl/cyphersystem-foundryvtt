@@ -11,6 +11,13 @@ import {
   itemRollMacro
 } from "../macros/macros.js";
 
+import {
+  byNameAscending,
+  bySkillRating,
+  byArchiveStatus,
+  byIdentifiedStatus
+} from "../utilities/sorting.js";
+
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
@@ -29,7 +36,7 @@ export class CypherActorSheet extends ActorSheet {
 
     data.dtypes = ["String", "Number", "Boolean"];
 
-    // Prepare items.
+    // Prepare items
     this.cyphersystem(data);
 
     return data;
@@ -48,6 +55,7 @@ export class CypherActorSheet extends ActorSheet {
     // Initialize containers
     const equipment = [];
     const abilities = [];
+    const spells = [];
     const skills = [];
     const skillsSortedByRating = [];
     const attacks = [];
@@ -91,8 +99,11 @@ export class CypherActorSheet extends ActorSheet {
       else if (i.type === 'ammo' && !hidden) {
         ammo.push(i);
       }
-      else if (i.type === 'ability' && !hidden) {
+      else if (i.type === 'ability' && !hidden && !i.data.spell) {
         abilities.push(i);
+      }
+      else if (i.type === 'ability' && !hidden && i.data.spell) {
+        spells.push(i);
       }
       else if (i.type === 'skill' && !hidden) {
         skills.push(i);
@@ -140,24 +151,11 @@ export class CypherActorSheet extends ActorSheet {
       }
     }
 
-    // Sort items alphabetically
-    function byNameAscending(itemA, itemB) {
-      let nameA = itemA.name.toLowerCase();
-      let nameB = itemB.name.toLowerCase();
-
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    }
-
+    // Sort by name
     equipment.sort(byNameAscending);
     abilities.sort(byNameAscending);
+    spells.sort(byNameAscending);
     skills.sort(byNameAscending);
-    skillsSortedByRating.sort(byNameAscending);
     attacks.sort(byNameAscending);
     armor.sort(byNameAscending);
     lastingDamage.sort(byNameAscending);
@@ -166,7 +164,6 @@ export class CypherActorSheet extends ActorSheet {
     artifacts.sort(byNameAscending);
     oddities.sort(byNameAscending);
     teenSkills.sort(byNameAscending);
-    teenSkillsSortedByRating.sort(byNameAscending);
     teenAbilities.sort(byNameAscending);
     teenAttacks.sort(byNameAscending);
     teenArmor.sort(byNameAscending);
@@ -174,103 +171,49 @@ export class CypherActorSheet extends ActorSheet {
     materials.sort(byNameAscending);
     ammo.sort(byNameAscending);
 
-    // sort skills by skill rating
-    function bySkillRating(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (itemA.data.skillLevel === 'Specialized') {ratingA = 1}
-      else if (itemA.data.skillLevel === 'Trained') {ratingA = 2}
-      else if (itemA.data.skillLevel === 'Practiced') {ratingA = 3}
-      else if (itemA.data.skillLevel === 'Inability') {ratingA = 4}
-
-      if (itemB.data.skillLevel === 'Specialized') {ratingB = 1}
-      else if (itemB.data.skillLevel === 'Trained') {ratingB = 2}
-      else if (itemB.data.skillLevel === 'Practiced') {ratingB = 3}
-      else if (itemB.data.skillLevel === 'Inability') {ratingB = 4}
-
-      if (ratingA < ratingB) {
-        return -1;
+    // Sort by skill rating
+    if (actorData.type == "PC" || actorData.type == "Companion") {
+      if (actorData.data.settings.skills.sortByRating) {
+        skills.sort(bySkillRating);
+        teenSkills.sort(bySkillRating);
       }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
     }
 
-    skillsSortedByRating.sort(bySkillRating);
-    teenSkillsSortedByRating.sort(bySkillRating);
+    // Sort by identified status
+    cyphers.sort(byIdentifiedStatus);
+    artifacts.sort(byIdentifiedStatus);
 
-    // Sort items by archive status
-    function byArchiveStatus(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (!itemA.data.archived) itemA.data.archived = false;
-      if (!itemB.data.archived) itemB.data.archived = false;
-
-      if (itemA.data.archived === false) {ratingA = 1}
-      else if (itemA.data.archived === true) {ratingA = 2}
-
-      if (itemB.data.archived === false) {ratingB = 1}
-      else if (itemB.data.archived === true) {ratingB = 2}
-
-      if (ratingA < ratingB) {
-        return -1;
-      }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
-    }
-
-    // Sort items by indentified status
-    function byIdentifiedStatus(itemA, itemB) {
-      let ratingA;
-      let ratingB;
-
-      if (itemA.data.identified === false) {ratingA = 2}
-      else if (itemA.data.identified === true) {ratingA = 1}
-
-      if (itemB.data.identified === false) {ratingB = 2}
-      else if (itemB.data.identified === true) {ratingB = 1}
-
-      if (ratingA < ratingB) {
-        return -1;
-      }
-      if (ratingA > ratingB) {
-        return 1;
-      }
-      return 0;
-    }
-
+    // Sort by archive status
     equipment.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
+    spells.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
-    skillsSortedByRating.sort(byArchiveStatus);
     attacks.sort(byArchiveStatus);
     armor.sort(byArchiveStatus);
     lastingDamage.sort(byArchiveStatus);
     powerShifts.sort(byArchiveStatus);
-    cyphers.sort(byIdentifiedStatus);
     cyphers.sort(byArchiveStatus);
-    artifacts.sort(byIdentifiedStatus);
     artifacts.sort(byArchiveStatus);
     oddities.sort(byArchiveStatus);
     teenSkills.sort(byArchiveStatus);
-    teenSkillsSortedByRating.sort(byArchiveStatus);
     teenAbilities.sort(byArchiveStatus);
     teenAttacks.sort(byArchiveStatus);
     teenArmor.sort(byArchiveStatus);
     teenLastingDamage.sort(byArchiveStatus);
     materials.sort(byArchiveStatus);
     ammo.sort(byArchiveStatus);
-    skillsSortedByRating.sort(byArchiveStatus);
-    teenSkillsSortedByRating.sort(byArchiveStatus);
+
+    // Check for spells
+    if (spells.length > 0) {
+      actorData.showSpells = true;
+    } else {
+      actorData.showSpells = false;
+    }
 
     // Assign and return
     actorData.equipment = equipment;
     actorData.abilities = abilities;
+    actorData.spells = spells;
     actorData.skills = skills;
     actorData.skillsSortedByRating = skillsSortedByRating;
     actorData.attacks = attacks;
@@ -288,7 +231,6 @@ export class CypherActorSheet extends ActorSheet {
     actorData.teenLastingDamage = teenLastingDamage;
     actorData.materials = materials;
     actorData.ammo = ammo;
-
   }
 
   /**
@@ -389,10 +331,10 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.rollForLevel').click(async clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let roll = await new Roll(item.data.level).evaluate({async: false});
+      let roll = await new Roll(item.data.level).evaluate({ async: false });
       roll.toMessage({
         speaker: ChatMessage.getSpeaker(),
-        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", {item: item.name})
+        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", { item: item.name })
       });
       item.data.level = roll.total;
       await this.actor.updateEmbeddedDocuments("Item", [item]);
@@ -406,40 +348,58 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.item-roll').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let pool = "";
-      let skill = "";
-      let assets = "";
-      let effort1 = "";
-      let effort2 = "";
-      let stepModifier = "";
-      let additionalSteps = "";
-      let additionalCost = "";
-      let damage = "";
-      let effort3 = "";
-      let damagePerLOE = "";
-      let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, false)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", false)
     });
 
     // Item pay pool points buttons
     html.find('.item-pay').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let pool = "";
-      let skill = "";
-      let assets = "";
-      let effort1 = "";
-      let effort2 = "";
-      let stepModifier = "";
-      let additionalSteps = "";
-      let additionalCost = "";
-      let damage = "";
-      let effort3 = "";
-      let damagePerLOE = "";
-      let teen = "";
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, true)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", true)
+    });
+
+    // Item cast spell button
+    html.find('.cast-spell').click(clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+      let recoveries = this.actor.data.data.recoveries;
+      let additionalRecoveries = this.actor.data.data.settings.additionalRecoveries;
+      let recoveryUsed = "";
+
+      if (!recoveries.oneAction) {
+        this.actor.update({ "data.recoveries.oneAction": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionTwo && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 1) {
+        this.actor.update({ "data.recoveries.oneActionTwo": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionThree && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 2) {
+        this.actor.update({ "data.recoveries.oneActionThree": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionFour && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 3) {
+        this.actor.update({ "data.recoveries.oneActionFour": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionFive && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 4) {
+        this.actor.update({ "data.recoveries.oneActionFive": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.tenMinutes) {
+        this.actor.update({ "data.recoveries.tenMinutes": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
+      } else if (!recoveries.oneHour) {
+        this.actor.update({ "data.recoveries.oneHour": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
+      } else {
+        return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", { name: this.actor.name }));
+      }
+
+      ChatMessage.create({
+        content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
+          name: this.actor.name,
+          recoveryUsed: recoveryUsed,
+          spellName: item.name
+        })
+      });
     });
 
     /**
@@ -459,11 +419,11 @@ export class CypherActorSheet extends ActorSheet {
         let notes = "";
         let name = item.name;
         if (item.data.notes != "") notes = ", " + item.data.notes;
-        if (item.type == "skill" || item.type == "teen Skill") {
+        if (item.type == "skill" || item.type == "teen Skill") {
           brackets = " (" + item.data.skillLevel + ")";
         } else if (item.type == "power Shift") {
           brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
-        } else if (item.type == "ability" || item.type == "teen Ability") {
+        } else if (item.type == "ability" || item.type == "teen Ability") {
           points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
           if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")";
         } else if (item.type == "attack") {
@@ -473,9 +433,9 @@ export class CypherActorSheet extends ActorSheet {
           let range = "";
           if (item.data.range != "") range = ", " + item.data.range;
           brackets = " (" + attackType + damage + range + notes + ")";
-        } else if (item.type == "armor" || item.type == "teen Armor") {
+        } else if (item.type == "armor" || item.type == "teen Armor") {
           brackets = " (" + item.data.armorType + notes + ")";
-        } else if (item.type == "lasting Damage"){
+        } else if (item.type == "lasting Damage") {
           let permanent = "";
           if (item.data.damageType == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
           brackets = " (" + item.data.lastingDamagePool + permanent + ")";
@@ -513,14 +473,14 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.increase-health').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.health.value + amount;
-      this.actor.update({"data.health.value": newValue});
+      this.actor.update({ "data.health.value": newValue });
     });
 
     // Decrease Health
     html.find('.decrease-health').click(clickEvent => {
       let amount = (event.altKey) ? 10 : 1;
       let newValue = this.actor.data.data.health.value - amount;
-      this.actor.update({"data.health.value": newValue});
+      this.actor.update({ "data.health.value": newValue });
     });
 
     // Reset Health
@@ -567,19 +527,19 @@ export class CypherActorSheet extends ActorSheet {
     if ("quantity" in item.data.data) hasQuantity = true;
 
     // Activate settings for items
-    if (itemData.type == "artifact") actor.update({"data.settings.equipment.artifacts": true});
-    if (itemData.type == "cypher") actor.update({"data.settings.equipment.cyphers": true});
-    if (itemData.type == "oddity") actor.update({"data.settings.equipment.oddities": true});
-    if (itemData.type == "material") actor.update({"data.settings.equipment.materials": true});
-    if (itemData.type == "ammo") actor.update({"data.settings.equipment.ammo": true});
-    if (itemData.type == "power Shift") actor.update({"data.settings.powerShifts.active": true});
-    if (itemData.type == "lasting Damage") actor.update({"data.settings.lastingDamage.active": true});
-    if (itemData.type == "teen lasting Damage") actor.update({"data.settings.lastingDamage.active": true});
+    if (itemData.type == "artifact") actor.update({ "data.settings.equipment.artifacts": true });
+    if (itemData.type == "cypher") actor.update({ "data.settings.equipment.cyphers": true });
+    if (itemData.type == "oddity") actor.update({ "data.settings.equipment.oddities": true });
+    if (itemData.type == "material") actor.update({ "data.settings.equipment.materials": true });
+    if (itemData.type == "ammo") actor.update({ "data.settings.equipment.ammo": true });
+    if (itemData.type == "power Shift") actor.update({ "data.settings.powerShifts.active": true });
+    if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
+    if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
 
     if (!hasQuantity) {
       if (!itemOwned) this._onDropItemCreate(itemData);
-      if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", {actor: actor.name}));
-      if ((event.altKey) && originActor) {
+      if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", { actor: actor.name }));
+      if (!event.altKey && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
           content: "",
@@ -606,7 +566,7 @@ export class CypherActorSheet extends ActorSheet {
         d.render(true);
 
         function archiveItem() {
-          originItem.update({"data.archived": true})
+          originItem.update({ "data.archived": true })
         }
 
         function deleteItem() {
@@ -614,7 +574,7 @@ export class CypherActorSheet extends ActorSheet {
         }
       }
     } else {
-      if (event.altKey) {
+      if (!event.altKey) {
         let maxQuantity = item.data.data.quantity;
         if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
         let quantity = 1;
@@ -623,7 +583,7 @@ export class CypherActorSheet extends ActorSheet {
         function moveDialog(quantity, itemData) {
           // if (!quantity) quanitity = 1;
           let d = new Dialog({
-            title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: itemData.name}),
+            title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: itemData.name }),
             content: createContent(quantity),
             buttons: buttons(),
             default: "move",
@@ -678,20 +638,20 @@ export class CypherActorSheet extends ActorSheet {
 
         function moveItems(quantity, itemData) {
           quantity = parseInt(quantity);
-          if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
+          if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
             moveDialog(quantity, itemData);
-            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: item.data.data.quantity}));
+            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", { max: item.data.data.quantity }));
           }
           if (item.data.data.quantity && originActor) {
             let oldQuantity = item.data.data.quantity - parseInt(quantity);
-            originItem.update({"data.quantity": oldQuantity});
+            originItem.update({ "data.quantity": oldQuantity });
           }
           if (!itemOwned) {
             itemData.data.quantity = quantity;
             actor.createEmbeddedDocuments("Item", [itemData]);
           } else {
             let newQuantity = parseInt(itemOwned.data.data.quantity) + parseInt(quantity);
-            itemOwned.update({"data.quantity": newQuantity});
+            itemOwned.update({ "data.quantity": newQuantity });
           }
         }
       } else {
@@ -702,7 +662,7 @@ export class CypherActorSheet extends ActorSheet {
           this._onDropItemCreate(itemData);
         } else {
           let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
-          itemOwned.update({"data.quantity": newQuantity});
+          itemOwned.update({ "data.quantity": newQuantity });
         }
       }
     }
@@ -744,6 +704,6 @@ export class CypherActorSheet extends ActorSheet {
     const name = (types[type] || types["default"]);
 
     // Finally, create the item!
-    return Item.create({type: type, data, name: name}, {parent: this.actor});
+    return Item.create({ type: type, data, name: name }, { parent: this.actor });
   }
 }

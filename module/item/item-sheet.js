@@ -12,7 +12,7 @@ export class CypherItemSheet extends ItemSheet {
       width: 550,
       height: 645,
       resizable: false,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
     });
   }
 
@@ -47,9 +47,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.identify-item').click(clickEvent => {
       if (this.item.data.data.identified) {
-        this.item.update({"data.identified": false})
+        this.item.update({ "data.identified": false })
       } else {
-        this.item.update({"data.identified": true})
+        this.item.update({ "data.identified": true })
       }
     });
   }

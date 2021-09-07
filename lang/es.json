@@ -230,7 +230,7 @@
     "CYPHERSYSTEM.AllTokenDragRuler": "Todos los tokens usan \"Drag Ruler\" por defecto ahora.",
     "CYPHERSYSTEM.EnabledDragRuler": "\"Drag Ruler\" está ahora activada para {name}.",
     "CYPHERSYSTEM.DisabledDragRuler": "\"Drag Ruler\" está ahora desactivada para {name}.",
-    "CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "¿Quieres Borrar o Archivar el objeto?",
+    "CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "¿Quieres borrar o archivar el original?",
     "CYPHERSYSTEM.Archive": "Archivar",
     "CYPHERSYSTEM.Delete": "Borrar",
     "CYPHERSYSTEM.Move": "Mover",
@@ -363,5 +363,16 @@
     "CYPHERSYSTEM.Ability": "capacidad",
     "CYPHERSYSTEM.DebilitatedRollButton": "Estás debilitado.",
     "CYPHERSYSTEM.ApplyStatusToRoll": "El Estado se ha incluido en el coste de Esfuerzo",
-    "CYPHERSYSTEM.n/a": "n/a"
+    "CYPHERSYSTEM.n/a": "n/a",
+    "CYPHERSYSTEM.Rating/Cost": "Rango/Coste",
+    "CYPHERSYSTEM.RecoveryOneAction": "una-acción",
+    "CYPHERSYSTEM.RecoveryTenMinutes": "diez-minutos",
+    "CYPHERSYSTEM.RecoveryOneHour": "una-hora",
+    "CYPHERSYSTEM.Spells": "Hechizos",
+    "CYPHERSYSTEM.Spell": "Hechizo",
+    "CYPHERSYSTEM.Prepared": "Preparado",
+    "CYPHERSYSTEM.CastingASpell": "{name} está usando una tirada de recuperación de {recoveryUsed} para lanzar {spellName}.",
+    "CYPHERSYSTEM.SortAsSpell": "Ordenar como Hechizo",
+    "CYPHERSYSTEM.CastSpell": "Usar Tirada de Recuperación para Lanzar Hechizo",
+    "CYPHERSYSTEM.NoRecoveriesLeft": "A {name} no le quedan las tiradas de recuperación necesarias."
 }

@@ -1,15 +1,15 @@
 # Cypher System for Foundry VTT
 
 ![GitHub Latest Release](https://img.shields.io/github/release/mrkwnzl/cyphersystem-foundryvtt?style=flat-square)
+<a href="https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/develop/CHANGELOG.md" target="_blank">![Changelog](https://img.shields.io/badge/-changelog-blue?style=flat-square)</a>
 ![GitHub Downloads Latest](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/latest/total?style=flat-square)
 ![GitHub All Releases](https://img.shields.io/github/downloads/mrkwnzl/cyphersystem-foundryvtt/total?style=flat-square)
-<a href="https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/develop/CHANGELOG.md" target="_blank">![Changelog](https://img.shields.io/badge/-changelog-blue?style=flat-square)</a>
 ![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
-This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com).
+This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com) and others.
 
-At its core, this system is just a rather simple digital character sheet. Included are dice macros for the usual rolls in Cypher games. Macros allow for customization of the macro bar and even customization of the macros themselves to use the Cypher system exactly like you need. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system. In addition, a pre-made tabletop scene and some tokens that can be used as markers are included in the system, so that your game is ready in a few minutes.
+At its core, this system is just a rather simple digital character sheet. Included are dice macros for the usual rolls in Cypher games. Macros allow for customization of the macro bar and even customization of the macros themselves to use the Cypher system exactly like you need. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system! In addition, a pre-made tabletop scene and some tokens that can be used as markers are included in the system, so that your game is ready in a few minutes.
 
 Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started) | [User Manual](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki) | [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt)
 
@@ -23,6 +23,10 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - A robust pre-made macro system which you can use to customize the game for your own needs.
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
 - The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil), and Spanish.
+
+## Add-On Modules
+
+- [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
 
 ## Support, Community, and Contributing
 
@@ -42,17 +46,15 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 
 ![](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/develop/screenshots/cyphersystem_summary.png)
 
-## License
+## Licenses
 
 - Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
-- The icons I use are taken from [game-icons.net](https://game-icons.net) and come with a CC-BY 3.0 license.
-- Any JavaScript, HTML, and CSS code done by me is published under an MIT license (see LICENSE.md).
-
-Any public fork of this project needs to adhere to those licenses/policies.
+- Images present under the `icons/` directory are taken from [game-icons.net](https://game-icons.net) and are distributed under a CC-BY 3.0 license.
+- The software component of this system is distributed under the MIT license.
 
 ## Fan Use Policy
 
-*The Monte Cook Games logo, Numenera, and the Numenera logo are trademarks of Monte Cook Games, LLC in the U.S.A. and other countries. All Monte Cook Games characters and character names, and the distinctive likenesses thereof, are trademarks of Monte Cook Games, LLC. Content on this site or associated files derived from Monte Cook Games publications is © 2013-2019 Monte Cook Games, LLC. Monte Cook Games permits web sites and similar fan-created publications for their games, subject to the policy given at [https://www.montecookgames.com/fan-use-policy/](). The contents of this site are for personal, non-commercial use only. Monte Cook Games is not responsible for this site or any of the content, that did not originate directly from Monte Cook Games, on or in it. Use of Monte Cook Games’s trademarks and copyrighted materials anywhere on this site and its associated files should not be construed as a challenge to those trademarks or copyrights. Materials on this site may not be reproduced or distributed except with the permission of the site owner and in compliance with Monte Cook Games policy given at [https://www.montecookgames.com/fan-use-policy/]().*
+*The Monte Cook Games logo, Numenera, the Cypher System, No Thank You, Evil!, Invisible Sun, and their respective logos are are trademarks of Monte Cook Games, LLC in the U.S.A. and other countries. All Monte Cook Games characters and character names, and the distinctive likenesses thereof, are trademarks of Monte Cook Games, LLC. Content on this site or associated files derived from Monte Cook Games publications is © 2013-2021 Monte Cook Games, LLC. Monte Cook Games permits web sites and similar fan-created publications for their games, subject to the policy given at [https://www.montecookgames.com/fan-use-policy/](https://www.montecookgames.com/fan-use-policy/). The contents of this site are for personal, non-commercial use only. Monte Cook Games is not responsible for this site or any of the content, that did not originate directly from Monte Cook Games, on or in it. Use of Monte Cook Games’s trademarks and copyrighted materials anywhere on this site and its associated files should not be construed as a challenge to those trademarks or copyrights. Materials on this site may not be reproduced or distributed except with the permission of the site owner and in compliance with Monte Cook Games policy given at [https://www.montecookgames.com/fan-use-policy/](https://www.montecookgames.com/fan-use-policy/).*
 
 ## Credits
 

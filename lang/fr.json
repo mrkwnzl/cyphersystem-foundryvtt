@@ -247,7 +247,7 @@
     "CYPHERSYSTEM.AllTokenDragRuler": "Tous les tokens utilisent désormais la règle par défaut du Drag Ruler.",
     "CYPHERSYSTEM.EnabledDragRuler": "Drag Ruler est maintenant activé pour {name}.",
     "CYPHERSYSTEM.DisabledDragRuler": "Drag Ruler est désormais désactivé pour {name}.",
-    "CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Archiver ou Supprimer l’élément ?",
+    "CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted": "Archiver ou Supprimer l’élément initial ?",
     "CYPHERSYSTEM.Archive": "Archiver",
     "CYPHERSYSTEM.Delete": "Supprimer",
     "CYPHERSYSTEM.Move": "Déplacer",
@@ -363,5 +363,16 @@
     "CYPHERSYSTEM.SpeedRollButton": "Jet de Célérité (alt-clic pour le jet Tout-en-Un)",
     "CYPHERSYSTEM.IntellectRollButton": "Jet d'Intellect (alt-clic pour le jet Tout-en-Un)",
     "CYPHERSYSTEM.Ability": "aptitude",
-    "CYPHERSYSTEM.n/a": "n/a"
+    "CYPHERSYSTEM.n/a": "n/a",
+    "CYPHERSYSTEM.NoRecoveriesLeft": "{name} n'a plus les jet de récupération nécessaires.",
+    "CYPHERSYSTEM.RecoveryTenMinutes": "dix minutes",
+    "CYPHERSYSTEM.RecoveryOneHour": "une heure",
+    "CYPHERSYSTEM.RecoveryOneAction": "une action",
+    "CYPHERSYSTEM.Spells": "Sorts",
+    "CYPHERSYSTEM.Spell": "Sort",
+    "CYPHERSYSTEM.Prepared": "Préparé",
+    "CYPHERSYSTEM.CastingASpell": "{name} utilise le jet de récupération {recoveryUsed} pour lancer {spellName}.",
+    "CYPHERSYSTEM.SortAsSpell": "Trier comme un sort",
+    "CYPHERSYSTEM.Rating/Cost": "Classe/Coût",
+    "CYPHERSYSTEM.CastSpell": "Utiliser un jet de récupération pour lancer un sort"
 }

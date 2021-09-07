@@ -3,7 +3,5 @@
 * @extends {Actor}
 */
 export class CypherItem extends Item {
-
-
-
+  
 }

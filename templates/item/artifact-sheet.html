@@ -2,17 +2,22 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="centered-fields">
           <div class="resource-content flexrow flex-center">
-            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}"/>
-            &nbsp;<div class="item-quantity" style="flex: 0 0 80px;"><input name="data.level" type="text" value="{{data.level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}"/></div>
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+            &nbsp;
+            <div class="item-quantity" style="flex: 0 0 80px;">
+              <input name="data.level" type="text" value="{{data.level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+            </div>
           </div>
           <div class="resources grid grid-3col">
             <div class="resource flex-center">
-              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Depletion'}}</label>
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.Depletion'}}
+              </label>
               <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.depletion" value="{{data.depletion}}" data-dtype="String"/>
+                <input type="text" name="data.depletion" value="{{data.depletion}}" data-dtype="String" />
               </div>
             </div>
           </div>
