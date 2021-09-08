@@ -6,7 +6,15 @@
 		</a>
 	</h4>
 	<div class="item-quantity {{#if data.archived}}archived{{else}}{{data.skillLevel}}{{/if}}">
-		{{#if (eq data.skillLevel 'Inability')}}{{localize 'CYPHERSYSTEM.Inability'}}{{else if (eq data.skillLevel 'Trained')}}{{localize 'CYPHERSYSTEM.Trained'}}{{else if (eq data.skillLevel 'Specialized')}}{{localize 'CYPHERSYSTEM.Specialized'}}{{else}}{{localize 'CYPHERSYSTEM.Practiced'}}{{/if}}
+		{{#if (eq data.skillLevel 'Inability')}}
+		{{localize 'CYPHERSYSTEM.Inability'}}
+		{{else if (eq data.skillLevel 'Trained')}}
+		{{localize 'CYPHERSYSTEM.Trained'}}
+		{{else if (eq data.skillLevel 'Specialized')}}
+		{{localize 'CYPHERSYSTEM.Specialized'}}
+		{{else}}
+		{{localize 'CYPHERSYSTEM.Practiced'}}
+		{{/if}}
 	</div>
 	<div class="item-controls">
 		{{#if ../data.rollButtons}}

@@ -372,5 +372,9 @@
   "CYPHERSYSTEM.IntrusionRefused": "{actor} refused the intrusion (-1 XP).",
   "CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to.",
   "CYPHERSYSTEM.PCTranslatedToRecursion": "{actor} translated to {recursion}.",
-  "CYPHERSYSTEM.OnRecursion": "on"
+  "CYPHERSYSTEM.OnRecursion": "on",
+  "CYPHERSYSTEM.OpenParenthesis": "(",
+  "CYPHERSYSTEM.CloseParenthesis": ")",
+  "CYPHERSYSTEM.Comma": ",",
+  "CYPHERSYSTEM.Colon": ":"
 }

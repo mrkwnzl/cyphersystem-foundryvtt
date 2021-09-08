@@ -4,7 +4,29 @@
     <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
       <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}
     </a>
-    ({{#if (eq data.armorType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SpecialAbility'}}{{else if (eq data.armorType "light armor")}}{{localize 'CYPHERSYSTEM.LightArmor'}}{{else if (eq data.armorType "medium armor")}}{{localize 'CYPHERSYSTEM.MediumArmor'}}{{else if (eq data.armorType "heavy armor")}}{{localize 'CYPHERSYSTEM.HeavyArmor'}}{{else if (eq data.armorType "artifact")}}{{localize 'CYPHERSYSTEM.Artifact'}}{{else if (eq data.armorType "special ability")}}{{localize 'CYPHERSYSTEM.SepcialAbility'}}{{else if (eq data.armorType "n/a")}}{{localize 'CYPHERSYSTEM.n/a'}}{{/if}}{{#unless (eq data.notes "")}}, {{{enrichHTML data.notes}}}{{/unless}})
+    {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
+    {{#if (eq data.armorType "artifact") ~}}
+    {{localize 'CYPHERSYSTEM.Artifact' ~}}
+    {{else if (eq data.armorType "special ability") ~}}
+    {{localize 'CYPHERSYSTEM.SpecialAbility' ~}}
+    {{else if (eq data.armorType "light armor") ~}}
+    {{localize 'CYPHERSYSTEM.LightArmor' ~}}
+    {{else if (eq data.armorType "medium armor") ~}}
+    {{localize 'CYPHERSYSTEM.MediumArmor' ~}}
+    {{else if (eq data.armorType "heavy armor") ~}}
+    {{localize 'CYPHERSYSTEM.HeavyArmor' ~}}
+    {{else if (eq data.armorType "artifact") ~}}
+    {{localize 'CYPHERSYSTEM.Artifact' ~}}
+    {{else if (eq data.armorType "special ability") ~}}
+    {{localize 'CYPHERSYSTEM.SepcialAbility' ~}}
+    {{else if (eq data.armorType "n/a") ~}}
+    {{localize 'CYPHERSYSTEM.n/a' ~}}
+    {{/if ~}}
+    {{#unless (eq data.notes "") ~}}
+    {{localize 'CYPHERSYSTEM.Comma'}}
+    {{{enrichHTML data.notes}}}
+    {{~/unless ~}}
+    {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
   </h4>
   <div class="item-quantity">{{data.armorValue}}/{{data.speedCost}}</div>
   <div class="item-controls">

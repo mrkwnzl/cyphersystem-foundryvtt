@@ -4,7 +4,36 @@
     <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
       <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}
     </a>
-    {{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}}({{data.costPoints}} {{#if (eq data.costPoints "1")}}{{#if (eq data.costPool "Might")}}{{localize 'CYPHERSYSTEM.MightPoint'}}){{else if (eq data.costPool "Speed")}}{{localize 'CYPHERSYSTEM.SpeedPoint'}}){{else if (eq data.costPool "Intellect")}}{{localize 'CYPHERSYSTEM.IntellectPoint'}}){{else if (eq data.costPool "XP")}}{{localize 'CYPHERSYSTEM.XP'}}){{else}}{{localize 'CYPHERSYSTEM.AnyPoolPoint'}}){{/if}}{{else}}{{#if (eq data.costPool "Might")}}{{localize 'CYPHERSYSTEM.MightPoints'}}){{else if (eq data.costPool "Speed")}}{{localize 'CYPHERSYSTEM.SpeedPoints'}}){{else if (eq data.costPool "Intellect")}}{{localize 'CYPHERSYSTEM.IntellectPoints'}}){{else if (eq data.costPool "XP")}}{{localize 'CYPHERSYSTEM.XP'}}){{else}}{{localize 'CYPHERSYSTEM.AnyPoolPoints'}}){{/if}}{{/if}}{{/unless}}
+    {{#unless (or (eq data.costPoints "0") (eq data.costPoints 0) (eq data.costPoints ""))}}
+    {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
+    {{data.costPoints}}
+    {{#if (eq data.costPoints "1") ~}}
+    {{#if (eq data.costPool "Might") ~}}
+    {{localize 'CYPHERSYSTEM.MightPoint' ~}}
+    {{else if (eq data.costPool "Speed") ~}}
+    {{localize 'CYPHERSYSTEM.SpeedPoint' ~}}
+    {{else if (eq data.costPool "Intellect") ~}}
+    {{localize 'CYPHERSYSTEM.IntellectPoint' ~}}
+    {{else if (eq data.costPool "XP") ~}}
+    {{localize 'CYPHERSYSTEM.XP' ~}}
+    {{else ~}}
+    {{localize 'CYPHERSYSTEM.AnyPoolPoint' ~}}
+    {{/if ~}}
+    {{else ~}}
+    {{#if (eq data.costPool "Might") ~}}
+    {{localize 'CYPHERSYSTEM.MightPoints' ~}}
+    {{else if (eq data.costPool "Speed") ~}}
+    {{localize 'CYPHERSYSTEM.SpeedPoints' ~}}
+    {{else if (eq data.costPool "Intellect") ~}}
+    {{localize 'CYPHERSYSTEM.IntellectPoints' ~}}
+    {{else if (eq data.costPool "XP") ~}}
+    {{localize 'CYPHERSYSTEM.XP' ~}}
+    {{else ~}}
+    {{localize 'CYPHERSYSTEM.AnyPoolPoints' ~}}
+    {{/if ~}}
+    {{/if ~}}
+    {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
+    {{/unless}}
   </h4>
   <div class="item-controls">
     {{#if ../data.rollButtons}}
