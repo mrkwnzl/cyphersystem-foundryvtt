@@ -374,5 +374,9 @@
     "CYPHERSYSTEM.Rating/Cost": "Wert/Kosten",
     "CYPHERSYSTEM.NoRecoveriesLeft": "{name} hat nicht die benötigten Erholungswürfe übrig.",
     "CYPHERSYSTEM.DebilitatedRollButton": "Du bist geschwächt.",
-    "CYPHERSYSTEM.depletion": "Aufzehrung"
+    "CYPHERSYSTEM.depletion": "Aufzehrung",
+    "CYPHERSYSTEM.CloseParenthesis": ")",
+    "CYPHERSYSTEM.Comma": ",",
+    "CYPHERSYSTEM.Colon": ":",
+    "CYPHERSYSTEM.OpenParenthesis": "("
 }
