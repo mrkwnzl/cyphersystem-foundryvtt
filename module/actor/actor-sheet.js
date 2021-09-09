@@ -172,7 +172,7 @@ export class CypherActorSheet extends ActorSheet {
     ammo.sort(byNameAscending);
 
     // Sort by skill rating
-    if (actorData.type == "PC" || actorData.type == "Companion") {
+    if (actorData.type == "PC" || actorData.type == "Companion") {
       if (actorData.data.settings.skills.sortByRating) {
         skills.sort(bySkillRating);
         teenSkills.sort(bySkillRating);

@@ -43,7 +43,8 @@
         {{#if data.identified}}
         {{#if data.rollForLevel}}
         <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
-          <i class="fas fa-question"></i>{{data.level}}
+          <i class="fas fa-question"></i>
+          {{data.level}}
         </a>
         {{else}}
         {{{enrichHTML data.level}}}

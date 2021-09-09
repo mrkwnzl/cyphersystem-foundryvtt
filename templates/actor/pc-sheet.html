@@ -405,7 +405,8 @@
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}
+                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                {{~item.name}}
               </a>
             </h4>
             <div class="item-quantity">
@@ -602,14 +603,22 @@
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}
+                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                {{~item.name}}
               </a>
-              <span>
-                ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq
-                data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool
-                "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq
-                data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})
-              </span>
+              {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
+              {{#if (eq data.lastingDamagePool "Might") ~}}
+              {{localize 'CYPHERSYSTEM.Might' ~}}
+              {{else if (eq data.lastingDamagePool "Speed") ~}}
+              {{localize 'CYPHERSYSTEM.Speed' ~}}
+              {{else if (eq data.lastingDamagePool "Intellect") ~}}
+              {{localize 'CYPHERSYSTEM.Intellect' ~}}
+              {{/if ~}}
+              {{#if (eq data.damageType "Permanent") ~}}
+              {{localize 'CYPHERSYSTEM.Comma'}}
+              {{localize 'CYPHERSYSTEM.permanent' ~}}
+              {{/if ~}}
+              {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
             </h4>
             <div class="item-quantity">
               <a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
@@ -646,11 +655,22 @@
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{item.name}}
+                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                {{~item.name}}
               </a>
-              <span>
-                ({{#if (eq data.lastingDamagePool "Might")}}{{localize 'CYPHERSYSTEM.Might'}}{{else if (eq data.lastingDamagePool "Speed")}}{{localize 'CYPHERSYSTEM.Speed'}}{{else if (eq data.lastingDamagePool "Intellect")}}{{localize 'CYPHERSYSTEM.Intellect'}}{{else}}{{data.lastingDamagePool}}{{/if}}{{#if (eq data.damageType "Permanent")}}, {{localize 'CYPHERSYSTEM.permanent'}}{{/if}})
-              </span>
+              {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
+              {{#if (eq data.lastingDamagePool "Might") ~}}
+              {{localize 'CYPHERSYSTEM.Might' ~}}
+              {{else if (eq data.lastingDamagePool "Speed") ~}}
+              {{localize 'CYPHERSYSTEM.Speed' ~}}
+              {{else if (eq data.lastingDamagePool "Intellect") ~}}
+              {{localize 'CYPHERSYSTEM.Intellect' ~}}
+              {{/if ~}}
+              {{#if (eq data.damageType "Permanent") ~}}
+              {{localize 'CYPHERSYSTEM.Comma'}}
+              {{localize 'CYPHERSYSTEM.permanent' ~}}
+              {{/if ~}}
+              {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
             </h4>
             <div class="item-quantity">
               <a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
