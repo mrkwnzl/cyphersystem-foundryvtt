@@ -374,5 +374,9 @@
     "CYPHERSYSTEM.CastingASpell": "{name} está usando una tirada de recuperación de {recoveryUsed} para lanzar {spellName}.",
     "CYPHERSYSTEM.SortAsSpell": "Ordenar como Hechizo",
     "CYPHERSYSTEM.CastSpell": "Usar Tirada de Recuperación para Lanzar Hechizo",
-    "CYPHERSYSTEM.NoRecoveriesLeft": "A {name} no le quedan las tiradas de recuperación necesarias."
+    "CYPHERSYSTEM.NoRecoveriesLeft": "A {name} no le quedan las tiradas de recuperación necesarias.",
+    "CYPHERSYSTEM.OpenParenthesis": "(",
+    "CYPHERSYSTEM.CloseParenthesis": ")",
+    "CYPHERSYSTEM.Comma": ",",
+    "CYPHERSYSTEM.Colon": ":"
 }
