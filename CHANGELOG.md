@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Fixed
-- Small typos introduced in the last update due to new formatting.
+- Fixed small typos introduced in the last update due to new formatting.
 
 ## [1.24.0] - 2021-09-07
 ### Added
