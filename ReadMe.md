@@ -85,7 +85,7 @@ Unless explicitely mentioned below, all graphics under `icons/` are taken from [
 
 The following graphics are not taken from [game-icons.net](https://game-icons.net):
 
-- [bashcorpo](https://www.deviantart.com/bashcorpo) (paper_battle-map.webp, paper_battle-map.webp)
-- Marko Wenzel (divider-horizontal.png, divider-vertical.png, grid.png, npcs.png)
-- smaug18#2066 (xp-marker.png)
-- [The-Auteur-Stock](https://www.deviantart.com/the-auteur-stock) (wooden-table.svg)
+- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): paper_battle-map.webp, paper_battle-map.webp
+- Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
+- smaug18#2066: xp-marker.png
+- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): wooden-table.svg
