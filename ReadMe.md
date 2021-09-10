@@ -24,7 +24,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
 - The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil), and Spanish.
 
-## Add-On Modules
+## Add-on Modules
 
 - [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
