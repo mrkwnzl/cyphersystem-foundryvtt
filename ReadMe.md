@@ -72,7 +72,7 @@ My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de
 - **Portuguese (Brazil):** AgostinhoMestre#8636
 - **Spanish:** ParvusDomus#9612
 
-### Icons from game-icons.net
+### Graphics from game-icons.net
 
 Unless explicitely mentioned below, all graphics under `icons/` are taken from [game-icons.net](https://game-icons.net).
 
@@ -81,9 +81,9 @@ Unless explicitely mentioned below, all graphics under `icons/` are taken from [
 - sbed ([opengameart.org](http://opengameart.org/content/95-game-icons))
 - Skoll ([game-icons.net](https://game-icons.net/))
 
-### Other graphics
+### Other Graphics
 
-The following graphics are not taken from various sources:
+The following graphics are taken from various sources, or have been created specifically for this system.
 
 - bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): paper_battle-map.webp, paper_battle-map.webp
 - Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
