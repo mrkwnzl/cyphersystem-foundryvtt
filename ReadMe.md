@@ -50,7 +50,7 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 ## Licenses
 
 - Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
-- Images present under the `icons/` directory are distributed under a CC BY 3.0 license.
+- Images present under the `icons/` directory are distributed under the CC BY 3.0 license.
 - The software component of this system is distributed under the MIT license.
 
 ## Fan Use Policy
