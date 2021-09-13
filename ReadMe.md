@@ -85,7 +85,7 @@ Unless explicitely mentioned below, all graphics under `icons/` are taken from [
 
 The following graphics are taken from various sources, or have been created specifically for this system.
 
-- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): paper_battle-map.webp, paper_battle-map.webp
+- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): Grungy paper texture v.5
 - Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
 - smaug18#2066: xp-marker.png
-- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): wooden-table.svg
+- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): Wooden Table Texture
