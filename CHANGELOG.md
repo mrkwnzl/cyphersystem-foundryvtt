@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-- New darker tabletop scene
+- New darker Tabletop scene.
 
 ### Changed
-- Updated ReadMe
+- Updated Tabletop scene.
+- Updated ReadMe.
 
 ### Fixed
 - Fixed small typos introduced in the last update due to new formatting.
