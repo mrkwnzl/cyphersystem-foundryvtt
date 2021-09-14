@@ -58,10 +58,11 @@ export async function diceRoller(title, info, modifier) {
 
 function determineDifficultyResult(roll, difficulty, modifier) {
   if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
-    return difficulty;
+    return difficulty + " (" + difficulty * 3 + ")";
   } else {
     let operator = (modifier < 0) ? "-" : "+";
-    return (difficulty + parseInt(modifier)) + " (" + difficulty + operator + Math.abs(modifier) + ")";
+    let effectiveDifficulty = difficulty + parseInt(modifier);
+    return effectiveDifficulty + " [" + difficulty + operator + Math.abs(modifier) + "]";
   }
 }
 
