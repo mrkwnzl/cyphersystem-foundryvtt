@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-- New darker Tabletop scene.
+- New darker variant of the Tabletop scene.
 
 ### Changed
-- Updated Tabletop scene.
+- Subtly improved Tabletop scene.
+- Roll macros show the target number for the beaten difficulty, unless the effective difficulty setting is enabled (too confusing in this case).
 - Updated ReadMe.
 
 ### Fixed
