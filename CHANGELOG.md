@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.1] - 2021-09-17
+### Added
+- New darker variant of the Tabletop scene.
+
+### Changed
+- Subtly improved Tabletop scene.
+- Roll macros show the target number for the beaten difficulty, unless the effective difficulty setting is enabled (too confusing in this case).
+- Updated ReadMe.
+
+### Fixed
+- Fixed small typos introduced in the last update due to new formatting.
+
 ## [1.24.0] - 2021-09-07
 ### Added
 - Abilities can now be sorted as spells (CSR, 259) in the settings of the ability sheet. If one is sorted this way, a separate list for spells appears. You can note how many of those spells are prepared, with the rest being spells from the spellbook. The idea is to archive spells in the spellbook, while prepared spells stay unarchived. If the roll buttons are enabled in the system settings, there’s a new button to mark the first unused recovery roll when casting the spell, in addition to the usual button to pay the pool points.
@@ -12,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The behavior when pressing alt while moving items between actors has been flipped. Holding alt while moving items duplicates the item. The default now is that a dialog shows up asking what should be done with the original item or asking how many items should be moved.
 - Updated Fan Use Policy in the ReadMe.
 - Newly created abilities now start with “Any Pool” for its cost instead of “Might.”
-- The display of armor rating and speed effort cost has been streamlined in order to use less horizontal space.
+- The display of armor rating and Speed effort cost has been streamlined in order to use less horizontal space.
 - The order of the armor rating and Speed cost on the armor sheet has been reversed in order to make it the same as it’s displayed on the PC sheet.
 
 ### Fixed

@@ -24,8 +24,9 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
 - The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil), and Spanish.
 
-## Add-On Modules
+## Add-on Modules
 
+- [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
 
 ## Support, Community, and Contributing
@@ -49,7 +50,7 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 ## Licenses
 
 - Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
-- Images present under the `icons/` directory are taken from [game-icons.net](https://game-icons.net) and are distributed under a CC-BY 3.0 license.
+- Images present under the `icons/` directory are distributed under the CC BY 3.0 license.
 - The software component of this system is distributed under the MIT license.
 
 ## Fan Use Policy
@@ -71,13 +72,20 @@ My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de
 - **Portuguese (Brazil):** AgostinhoMestre#8636
 - **Spanish:** ParvusDomus#9612
 
-### Icons from game-icons.net
+### Graphics from game-icons.net
+
+Unless explicitely mentioned below, all graphics under `icons/` are taken from [game-icons.net](https://game-icons.net).
 
 - Delapouite ([delapouite.com](https://delapouite.com/))
 - Lorc ([lorcblog.blogspot.com](https://lorcblog.blogspot.com/))
 - sbed ([opengameart.org](http://opengameart.org/content/95-game-icons))
 - Skoll ([game-icons.net](https://game-icons.net/))
 
-### Other graphics
+### Other Graphics
 
-- smaug18#2066
+The following graphics are taken from various sources, or have been created specifically for this system.
+
+- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): Grungy paper texture v.5
+- Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
+- smaug18#2066: xp-marker.png
+- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): Wooden Table Texture

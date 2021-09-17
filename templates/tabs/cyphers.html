@@ -31,14 +31,20 @@
     <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{/if}}
+          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+          {{~#if data.identified ~}}
+          {{~item.name ~}}
+          {{~else ~}}
+          {{~localize 'CYPHERSYSTEM.UnidentifiedCypher' ~}}
+          {{~/if ~}}
         </a>
       </h4>
       <div class="item-quantity">
         {{#if data.identified}}
         {{#if data.rollForLevel}}
         <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
-          <i class="fas fa-question"></i>{{data.level}}
+          <i class="fas fa-question"></i>
+          {{data.level}}
         </a>
         {{else}}
         {{{enrichHTML data.level}}}
@@ -71,7 +77,11 @@
     <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-        {{#if data.identified}}{{{enrichHTML data.description}}}{{else}}{{localize 'CYPHERSYSTEM.???'}}{{/if}}
+        {{#if data.identified}}
+        {{{enrichHTML data.description}}}
+        {{else}}
+        <p>{{localize 'CYPHERSYSTEM.???'}}</p>
+        {{/if}}
       </div>
     </li>
     {{/each}}

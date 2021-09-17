@@ -2,7 +2,11 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq data.settings.equipment.artifactsName "")}}{{localize 'CYPHERSYSTEM.Artifacts'}}{{else}}{{data.settings.equipment.artifactsName}}{{/if}}
+        {{#if (eq data.settings.equipment.artifactsName "")}}
+        {{localize 'CYPHERSYSTEM.Artifacts'}}
+        {{else}}
+        {{data.settings.equipment.artifactsName}}
+        {{/if}}
       </div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
       <div class="item-controls">
@@ -15,9 +19,20 @@
     <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>{{#if data.identified}}{{item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}
+          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+          {{~#if data.identified ~}}
+          {{~item.name ~}}
+          {{~else ~}}
+          {{~localize 'CYPHERSYSTEM.UnidentifiedArtifact' ~}}
+          {{~/if~}}
         </a>
-        {{#if (and data.depletion data.identified)}}({{localize 'CYPHERSYSTEM.depletion'}}:{{{enrichHTML data.depletion}}}){{/if}}
+        {{#if (and data.depletion data.identified) ~}}
+        {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
+        {{localize 'CYPHERSYSTEM.depletion' ~}}
+        {{localize 'CYPHERSYSTEM.Colon'}}
+        {{{enrichHTML data.depletion}}}
+        {{~localize 'CYPHERSYSTEM.CloseParenthesis'}}
+        {{/if}}
       </h4>
       <div class="item-quantity">
         {{#if data.identified}}
@@ -52,7 +67,7 @@
         {{#if data.identified}}
         {{{enrichHTML data.description}}}
         {{else}}
-        {{localize 'CYPHERSYSTEM.???'}}
+        <p>{{localize 'CYPHERSYSTEM.???'}}</p>
         {{/if}}
       </div>
     </li>

@@ -374,5 +374,9 @@
     "CYPHERSYSTEM.CastingASpell": "{name} utilise le jet de récupération {recoveryUsed} pour lancer {spellName}.",
     "CYPHERSYSTEM.SortAsSpell": "Trier comme un sort",
     "CYPHERSYSTEM.Rating/Cost": "Classe/Coût",
-    "CYPHERSYSTEM.CastSpell": "Utiliser un jet de récupération pour lancer un sort"
+    "CYPHERSYSTEM.CastSpell": "Utiliser un jet de récupération pour lancer un sort",
+    "CYPHERSYSTEM.CloseParenthesis": ")",
+    "CYPHERSYSTEM.Comma": ",",
+    "CYPHERSYSTEM.Colon": ":",
+    "CYPHERSYSTEM.OpenParenthesis": "("
 }
