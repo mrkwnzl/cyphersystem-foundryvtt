@@ -8,7 +8,11 @@
       <li class="item flexrow item-settings">
         <div class="settings-list">
           <input type="checkbox" name="data.spell" data-dtype="boolean" {{checked data.spell}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.SortAsSpell'}}
+          {{#if (eq ./data.actor.data.settings.abilities.nameSpells "")}}
+          &nbsp;{{localize 'CYPHERSYSTEM.SortUnder' thing=./data.spells}}
+          {{else}}
+          &nbsp;{{localize 'CYPHERSYSTEM.SortUnder' thing=./data.actor.data.settings.abilities.nameSpells}}
+          {{/if}}
         </div>
     </ol>
   </div>
