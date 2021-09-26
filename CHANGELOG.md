@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - Abilities and spells can now be renamed.
+- Abilities can now be sorted into 4 (plus spells) categories, which can be defined for each PC individually. If you are playing Unmasked, this can only be done for Mask abilities.
+
+### Changed
+- BREAKING: If you have sorted abilities as spells, those need reassignment, as I had to change how this is done.
+- Settings not applicable to the Teen form are hidden on the Teen sheet when using Unmasked mode.
 
 ### Fixed
 - Removed leftover token on Tabletop (dark) scene.
