@@ -330,13 +330,7 @@
     {{#unless data.isLimited}}
     <a class="item" data-tab="skills">{{localize 'CYPHERSYSTEM.Skills'}}</a>
     <a class="item" data-tab="combat">{{localize 'CYPHERSYSTEM.Combat'}}</a>
-    <a class="item" data-tab="abilities">
-      {{#if (or (eq data.settings.abilities.nameAbilities "") (eq data.settings.gameMode.currentSheet "Teen"))}}
-      {{localize 'CYPHERSYSTEM.Abilities'}}
-      {{else}}
-      {{data.settings.abilities.nameAbilities}}
-      {{/if}}
-    </a>
+    <a class="item" data-tab="abilities">{{localize 'CYPHERSYSTEM.Abilities'}}</a>
     <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Equipment'}}</a>
     <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
     {{/unless}}
@@ -951,7 +945,7 @@
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" data-dtype="boolean" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.NameOfAbilities'}}
+              &nbsp;{{localize 'CYPHERSYSTEM.NameForAbilities'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="data.settings.abilities.nameAbilities" type="text" value="{{data.settings.abilities.nameAbilities}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}" style="width: auto;" />
@@ -960,7 +954,7 @@
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" data-dtype="boolean" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.NameOfSpells'}}
+              &nbsp;{{localize 'CYPHERSYSTEM.NameForSpells'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="data.settings.abilities.nameSpells" type="text" value="{{data.settings.abilities.nameSpells}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}" style="width: auto;" />
