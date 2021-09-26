@@ -120,7 +120,7 @@
           "quantity6": 0
         },
         "equipment": {
-          "cyphers": false,
+          "cyphers": true,
           "artifacts": false,
           "oddities": false,
           "materials": false,

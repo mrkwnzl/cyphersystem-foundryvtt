@@ -728,7 +728,9 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
+      {{#if data.settings.equipment.cyphers}}
       {{> systems/cyphersystem/templates/tabs/cyphers.html}}
+      {{/if}}
 
       {{#if data.settings.equipment.artifacts}}
       {{> systems/cyphersystem/templates/tabs/artifacts.html}}
@@ -1095,7 +1097,7 @@
           {{/if}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" checked disabled>
+              <input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>
               &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
             </div>
             <div class="item-quantity">
