@@ -151,11 +151,9 @@
           "nameCategoryTwo": "",
           "nameCategoryThree": "",
           "nameCategoryFour": "",
-          "nameCategoryFive": "",
           "categoryTwoActive": false,
           "categoryThreeActive": false,
           "categoryFourActive": false,
-          "categoryFiveActive": false,
           "spellsActive": false
         }
       },
