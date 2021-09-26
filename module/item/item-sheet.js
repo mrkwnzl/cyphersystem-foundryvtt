@@ -33,11 +33,9 @@ export class CypherItemSheet extends ItemSheet {
     data.data.isGM = game.user.isGM;
     data.data.isObserver = !this.options.editable;
     data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.data.actor = data.item.parent.data;
     data.data.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
     data.dtypes = ["String", "Number", "Boolean"];
-
-    console.log(data.data.actor);
+    data.data.actor = data.item.parent ? data.item.parent.data : "";
 
     return data;
   }

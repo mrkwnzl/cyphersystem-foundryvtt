@@ -775,6 +775,60 @@
         </ol>
       </div>
       {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesTwo}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryTwo}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesThree}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryThree "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryThree}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesFour}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryFour "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryFour}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
       {{#if actor.data.showSpells}}
       <div class="flexrow">
         <ol class="items-list">
@@ -868,8 +922,7 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked
-                data.settings.hideArchived}}>
+              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>
@@ -882,15 +935,13 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked
-                data.settings.skills.sortByRating}}>
+              <input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>
               &nbsp;{{localize 'CYPHERSYSTEM.SortSkillsByRating'}}
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked
-                data.settings.powerShifts.active}}>
+              <input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.PowerShifts'}}
             </div>
             <div class="item-quantity">
@@ -906,8 +957,7 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked
-                data.settings.additionalRecoveries.active}}>
+              <input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
             </div>
             <div class="item-quantity">
@@ -923,8 +973,7 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked
-                data.settings.lastingDamage.active}}>
+              <input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.LastingAndPermanentDamageSetting'}}
             </div>
           </li>
@@ -945,7 +994,7 @@
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" data-dtype="boolean" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.NameForAbilities'}}
+              &nbsp;{{localize 'CYPHERSYSTEM.Abilities'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="data.settings.abilities.nameAbilities" type="text" value="{{data.settings.abilities.nameAbilities}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}" style="width: auto;" />
@@ -953,8 +1002,35 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.NameForSpells'}}
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryTwoActive" {{checked data.settings.abilities.categoryTwoActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.SecondCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryTwo" type="text" value="{{data.settings.abilities.nameCategoryTwo}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryThreeActive" {{checked data.settings.abilities.categoryThreeActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.ThirdCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryThree" type="text" value="{{data.settings.abilities.nameCategoryThree}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryFourActive" {{checked data.settings.abilities.categoryFourActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.FourthCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryFour" type="text" value="{{data.settings.abilities.nameCategoryFour}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.spellsActive" {{checked data.settings.abilities.spellsActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.Spells'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="data.settings.abilities.nameSpells" type="text" value="{{data.settings.abilities.nameSpells}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}" style="width: auto;" />

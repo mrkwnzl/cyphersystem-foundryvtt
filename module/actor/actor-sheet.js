@@ -56,6 +56,9 @@ export class CypherActorSheet extends ActorSheet {
     const equipment = [];
     const abilities = [];
     const spells = [];
+    const abilitiesTwo = [];
+    const abilitiesThree = [];
+    const abilitiesFour = [];
     const skills = [];
     const skillsSortedByRating = [];
     const attacks = [];
@@ -99,11 +102,20 @@ export class CypherActorSheet extends ActorSheet {
       else if (i.type === 'ammo' && !hidden) {
         ammo.push(i);
       }
-      else if (i.type === 'ability' && !hidden && !i.data.spell) {
+      else if (i.type === 'ability' && !hidden && !(i.data.sorting == "Spell" && actorData.data.settings.abilities.spellsActive) && !(i.data.sorting == "AbilityTwo" && actorData.data.settings.abilities.categoryTwoActive) && !(i.data.sorting == "AbilityThree" && actorData.data.settings.abilities.categoryThreeActive) && !(i.data.sorting == "AbilityFour" && actorData.data.settings.abilities.categoryFourActive) && !(i.data.sorting == "AbilityFive" && actorData.data.settings.abilities.categoryFiveActive)) {
         abilities.push(i);
       }
-      else if (i.type === 'ability' && !hidden && i.data.spell) {
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "Spell" && actorData.data.settings.abilities.spellsActive) {
         spells.push(i);
+      }
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityTwo" && actorData.data.settings.abilities.categoryTwoActive) {
+        abilitiesTwo.push(i);
+      }
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityThree" && actorData.data.settings.abilities.categoryThreeActive) {
+        abilitiesThree.push(i);
+      }
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityFour" && actorData.data.settings.abilities.categoryFourActive) {
+        abilitiesFour.push(i);
       }
       else if (i.type === 'skill' && !hidden) {
         skills.push(i);
@@ -154,6 +166,9 @@ export class CypherActorSheet extends ActorSheet {
     // Sort by name
     equipment.sort(byNameAscending);
     abilities.sort(byNameAscending);
+    abilitiesTwo.sort(byNameAscending);
+    abilitiesThree.sort(byNameAscending);
+    abilitiesFour.sort(byNameAscending);
     spells.sort(byNameAscending);
     skills.sort(byNameAscending);
     attacks.sort(byNameAscending);
@@ -186,6 +201,9 @@ export class CypherActorSheet extends ActorSheet {
     // Sort by archive status
     equipment.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
+    abilitiesTwo.sort(byArchiveStatus);
+    abilitiesThree.sort(byArchiveStatus);
+    abilitiesFour.sort(byArchiveStatus);
     spells.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
     attacks.sort(byArchiveStatus);
@@ -210,9 +228,33 @@ export class CypherActorSheet extends ActorSheet {
       actorData.showSpells = false;
     }
 
+    // Check for ability category 2
+    if (abilitiesTwo.length > 0) {
+      actorData.showAbilitiesTwo = true;
+    } else {
+      actorData.showAbilitiesTwo = false;
+    }
+
+    // Check for ability category 3
+    if (abilitiesThree.length > 0) {
+      actorData.showAbilitiesThree = true;
+    } else {
+      actorData.showAbilitiesThree = false;
+    }
+
+    // Check for ability category 4
+    if (abilitiesFour.length > 0) {
+      actorData.showAbilitiesFour = true;
+    } else {
+      actorData.showAbilitiesFour = false;
+    }
+
     // Assign and return
     actorData.equipment = equipment;
     actorData.abilities = abilities;
+    actorData.abilitiesTwo = abilitiesTwo;
+    actorData.abilitiesThree = abilitiesThree;
+    actorData.abilitiesFour = abilitiesFour;
     actorData.spells = spells;
     actorData.skills = skills;
     actorData.skillsSortedByRating = skillsSortedByRating;

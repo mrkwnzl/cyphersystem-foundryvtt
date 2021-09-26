@@ -229,7 +229,10 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/teenAttacks.html",
     "systems/cyphersystem/templates/tabs/attacks.html",
     "systems/cyphersystem/templates/tabs/item-settings.html",
-    "systems/cyphersystem/templates/tabs/spells.html"
+    "systems/cyphersystem/templates/tabs/spells.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html"
   ];
   return loadTemplates(templatePaths);
 }
