@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - **BREAKING:** If you have sorted abilities as spells, those need to be reassigned, as I had to change how this is done.
 - Settings not applicable to the Teen form are hidden on the Teen sheet when using Unmasked mode.
+- Cyphers can now be hidden in the equipment tab.
 
 ### Fixed
 - Removed leftover token on Tabletop (dark) scene.
