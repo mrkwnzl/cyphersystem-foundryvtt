@@ -211,7 +211,7 @@
   "CYPHERSYSTEM.CastingASpell": "{name} is using a {recoveryUsed} recovery roll to cast {spellName}.",
   "CYPHERSYSTEM.PointCost": "Point Cost",
   "CYPHERSYSTEM.GeneralSettings": "General Settings",
-  "CYPHERSYSTEM.SortUnder": "Sort under",
+  "CYPHERSYSTEM.SortUnder": "Sorting",
   "CYPHERSYSTEM.GameMode": "Game Mode",
   "CYPHERSYSTEM.DefaultTab": "Default Tab",
   "CYPHERSYSTEM.InitiativeBonus": "Bonus to Initiative Rolls",
