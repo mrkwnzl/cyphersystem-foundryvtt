@@ -69,7 +69,7 @@ My good friend Christian Tietze ([christiantietze.de](https://christiantietze.de
 - **French:** Nice to see you#6655
 - **German:** Kadomi#9719, smaug18#2066
 - **Italian:** Eligor#5278
-- **Portuguese (Brazil):** AgostinhoMestre#8636
+- **Portuguese (Brazil):** AgostinhoMestre#8636, Marcel#6257
 - **Spanish:** ParvusDomus#9612
 
 ### Graphics from game-icons.net
