@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.25.0] - 2021-09-27
 ### Added
-- Abilities and spells can now be renamed.
+- The headings for Abilities and spells can now be renamed.
 - Abilities can now be sorted into 4 (plus spells) categories, which can be defined for each PC individually. If you are playing Unmasked, this can only be done for Mask abilities.
 
 ### Changed
