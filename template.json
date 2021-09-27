@@ -1,13 +1,22 @@
 {
   "Actor": {
-    "types": ["PC", "NPC", "Companion", "Community", "Vehicle", "Token"],
+    "types": [
+      "PC",
+      "NPC",
+      "Companion",
+      "Community",
+      "Vehicle",
+      "Token"
+    ],
     "templates": {
       "version": {
         "version": 1
       }
     },
     "PC": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "basic": {
         "descriptor": "",
         "type": "",
@@ -77,11 +86,11 @@
       },
       "settings": {
         "hideArchived": false,
-        "powerShifts":{
+        "powerShifts": {
           "active": false,
           "powerShiftsName": ""
         },
-        "additionalRecoveries":{
+        "additionalRecoveries": {
           "active": false,
           "howManyRecoveries": 1
         },
@@ -111,7 +120,7 @@
           "quantity6": 0
         },
         "equipment": {
-          "cyphers": false,
+          "cyphers": true,
           "artifacts": false,
           "oddities": false,
           "materials": false,
@@ -135,6 +144,17 @@
         },
         "skills": {
           "sortByRating": false
+        },
+        "abilities": {
+          "nameAbilities": "",
+          "nameSpells": "",
+          "nameCategoryTwo": "",
+          "nameCategoryThree": "",
+          "nameCategoryFour": "",
+          "categoryTwoActive": false,
+          "categoryThreeActive": false,
+          "categoryFourActive": false,
+          "spellsActive": false
         }
       },
       "teen": {
@@ -177,7 +197,9 @@
       }
     },
     "NPC": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "biography": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
       "description": "",
       "health": {
@@ -207,7 +229,9 @@
       }
     },
     "Token": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "biography": "",
       "description": "",
       "quantity": {
@@ -234,7 +258,9 @@
       }
     },
     "Community": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "biography": "<p><strong>Government:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p>",
       "description": "",
       "health": {
@@ -268,7 +294,9 @@
       }
     },
     "Companion": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "biography": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
       "description": "",
       "health": {
@@ -304,7 +332,9 @@
       }
     },
     "Vehicle": {
-      "templates": ["version"],
+      "templates": [
+        "version"
+      ],
       "biography": "",
       "description": "",
       "level": 1,
@@ -328,7 +358,25 @@
     }
   },
   "Item": {
-    "types": ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting Damage", "material", "oddity", "power Shift", "skill", "teen Ability", "teen Armor", "teen Attack", "teen lasting Damage", "teen Skill"],
+    "types": [
+      "ability",
+      "ammo",
+      "armor",
+      "artifact",
+      "attack",
+      "cypher",
+      "equipment",
+      "lasting Damage",
+      "material",
+      "oddity",
+      "power Shift",
+      "skill",
+      "teen Ability",
+      "teen Armor",
+      "teen Attack",
+      "teen lasting Damage",
+      "teen Skill"
+    ],
     "templates": {
       "core": {
         "description": "",
@@ -355,38 +403,62 @@
       }
     },
     "equipment": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "quantity": 1
     },
     "ammo": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "quantity": 1
     },
     "material": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "quantity": 1
     },
     "ability": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "costPoints": 0,
       "costPool": "Pool",
-      "spell": false
+      "sorting": "Ability"
     },
     "teen Ability": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "costPoints": 0,
       "costPool": "Pool"
     },
     "skill": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "skillLevel": "Trained"
     },
     "teen Skill": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "skillLevel": "Trained"
     },
     "armor": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "armorValue": 0,
       "speedCost": 0,
       "armorActive": true,
@@ -395,7 +467,10 @@
       "price": ""
     },
     "teen Armor": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "armorValue": 0,
       "speedCost": 0,
       "armorActive": true,
@@ -404,7 +479,10 @@
       "value": ""
     },
     "attack": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "attackType": "light weapon",
       "damage": 0,
       "modified": "",
@@ -415,7 +493,10 @@
       "totalModified": ""
     },
     "teen Attack": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "attackType": "light weapon",
       "damage": 0,
       "modified": "",
@@ -426,7 +507,10 @@
       "totalModified": ""
     },
     "lasting Damage": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "lastingDamageAmount": 0,
       "lastingDamageEffect": "",
       "lastingDamagePool": "Might",
@@ -434,7 +518,10 @@
       "damageType": "Lasting"
     },
     "teen lasting Damage": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "lastingDamageAmount": 0,
       "lastingDamageEffect": "",
       "lastingDamagePool": "Might",
@@ -444,22 +531,34 @@
       "permanentDamage": false
     },
     "power Shift": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "powerShiftValue": 0
     },
     "cypher": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p>",
       "identified": true
     },
     "artifact": {
-      "templates": ["core", "version"],
+      "templates": [
+        "core",
+        "version"
+      ],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>",
       "depletion": "1 in [[/r d6 # Depletion roll]]",
       "identified": true
     },
     "oddity": {
-      "templates": ["core", "version"]
+      "templates": [
+        "core",
+        "version"
+      ]
     }
   }
 }

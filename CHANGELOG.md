@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Abilities and spells can now be renamed.
+- Abilities can now be sorted into 4 (plus spells) categories, which can be defined for each PC individually. If you are playing Unmasked, this can only be done for Mask abilities.
+
+### Changed
+- **BREAKING:** If you have sorted abilities as spells, those need to be reassigned, as I had to change how this is done.
+- Settings not applicable to the Teen form are hidden on the Teen sheet when using Unmasked mode.
+- Cyphers can now be hidden in the equipment tab.
+
+### Fixed
+- Removed leftover token on Tabletop (dark) scene.
+
 ## [1.24.1] - 2021-09-17
 ### Added
 - New darker variant of the Tabletop scene.

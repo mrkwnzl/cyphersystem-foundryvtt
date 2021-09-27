@@ -728,7 +728,9 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
+      {{#if data.settings.equipment.cyphers}}
       {{> systems/cyphersystem/templates/tabs/cyphers.html}}
+      {{/if}}
 
       {{#if data.settings.equipment.artifacts}}
       {{> systems/cyphersystem/templates/tabs/artifacts.html}}
@@ -748,7 +750,13 @@
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
-            <div class="item-name">{{localize 'CYPHERSYSTEM.Abilities'}}</div>
+            <div class="item-name">
+              {{#if (or (eq data.settings.abilities.nameAbilities "") (eq data.settings.gameMode.currentSheet "Teen"))}}
+              {{localize 'CYPHERSYSTEM.Abilities'}}
+              {{else}}
+              {{data.settings.abilities.nameAbilities}}
+              {{/if}}
+            </div>
             <div class="item-controls">
               {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
               <a class="item-control item-create {{#if data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability">
@@ -769,11 +777,71 @@
         </ol>
       </div>
       {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesTwo}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryTwo}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesThree}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryThree "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryThree}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.data.showAbilitiesFour}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameCategoryFour "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}
+              {{else}}
+              {{data.settings.abilities.nameCategoryFour}}
+              {{/if}}
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html}}
+        </ol>
+      </div>
+      {{/if}}
+      {{/unless}}
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
       {{#if actor.data.showSpells}}
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
-            <div class="item-name">{{localize 'CYPHERSYSTEM.Spells'}}</div>
+            <div class="item-name">
+              {{#if (eq data.settings.abilities.nameSpells "")}}
+              {{localize 'CYPHERSYSTEM.Spells'}}
+              {{else}}
+              {{data.settings.abilities.nameSpells}}
+              {{/if}}
+            </div>
             <div class="item-cypher-limit">
               <label for="data.basic.preparedSpells" class="resource-label {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
                 {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
@@ -797,6 +865,7 @@
           <li class="item flexrow item-header">
             <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
           </li>
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>
               &nbsp;{{localize 'CYPHERSYSTEM.GameMode'}}
@@ -810,6 +879,7 @@
               </select>
             </div>
           </li>
+          {{/unless}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked
@@ -820,6 +890,7 @@
               <input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;" />
             </div>
           </li>
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked
@@ -830,37 +901,32 @@
               <input class="auto-margin" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalSentence'}}" style="width: auto;" />
             </div>
           </li>
+          {{/unless}}
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked
-                data.additionalPool.active}}>
-              &nbsp;
-              {{#if (eq data.settings.gameMode.current "Unmasked")}}
-              {{localize 'CYPHERSYSTEM.AdditionalPoolUnmasked'}}
-              {{else}}
-              {{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
-              {{/if}}
+              <input type="checkbox" name="data.additionalPool.active" data-dtype="boolean" {{checked data.additionalPool.active}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}" style="width: auto;" />
+              <input class="auto-margin" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" style="width: auto;" />
             </div>
           </li>
-          {{#if (eq data.settings.gameMode.current "Unmasked")}}
+          {{/unless}}
+          {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked
-                data.additionalPool.teenActive}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolTeen'}}
+              <input type="checkbox" name="data.additionalPool.teenActive" data-dtype="boolean" {{checked data.additionalPool.teenActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}" style="width: auto;" />
+              <input class="auto-margin" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" style="width: auto;" />
             </div>
-            {{/if}}
           </li>
+          {{/if}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked
-                data.settings.hideArchived}}>
+              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>
@@ -873,21 +939,21 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked
-                data.settings.skills.sortByRating}}>
+              <input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>
               &nbsp;{{localize 'CYPHERSYSTEM.SortSkillsByRating'}}
             </div>
           </li>
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked
-                data.settings.powerShifts.active}}>
+              <input type="checkbox" name="data.settings.powerShifts.active" data-dtype="boolean" {{checked data.settings.powerShifts.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.PowerShifts'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.PowerShifts'}}" style="width: auto;" />
             </div>
           </li>
+          {{/unless}}
         </ol>
       </div>
       <div class="flexrow">
@@ -895,10 +961,10 @@
           <li class="item flexrow item-header">
             <div class="item-name">{{localize 'CYPHERSYSTEM.CombatTab'}}</div>
           </li>
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked
-                data.settings.additionalRecoveries.active}}>
+              <input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
             </div>
             <div class="item-quantity">
@@ -912,10 +978,10 @@
               </select>
             </div>
           </li>
+          {{/unless}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked
-                data.settings.lastingDamage.active}}>
+              <input type="checkbox" name="data.settings.lastingDamage.active" data-dtype="boolean" {{checked data.settings.lastingDamage.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.LastingAndPermanentDamageSetting'}}
             </div>
           </li>
@@ -927,6 +993,60 @@
           </li>
         </ol>
       </div>
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">{{localize 'CYPHERSYSTEM.AbilitiesTab'}}</div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" checked disabled>
+              &nbsp;{{localize 'CYPHERSYSTEM.Abilities'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameAbilities" type="text" value="{{data.settings.abilities.nameAbilities}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryTwoActive" {{checked data.settings.abilities.categoryTwoActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.SecondCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryTwo" type="text" value="{{data.settings.abilities.nameCategoryTwo}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryThreeActive" {{checked data.settings.abilities.categoryThreeActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.ThirdCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryThree" type="text" value="{{data.settings.abilities.nameCategoryThree}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryFourActive" {{checked data.settings.abilities.categoryFourActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.FourthCategory'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryFour" type="text" value="{{data.settings.abilities.nameCategoryFour}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.spellsActive" {{checked data.settings.abilities.spellsActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.Spells'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin" name="data.settings.abilities.nameSpells" type="text" value="{{data.settings.abilities.nameSpells}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}" style="width: auto;" />
+            </div>
+          </li>
+        </ol>
+      </div>
+      {{/unless}}
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
@@ -977,7 +1097,7 @@
           {{/if}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" checked disabled>
+              <input type="checkbox" name="data.settings.equipment.cyphers" data-dtype="boolean" {{checked data.settings.equipment.cyphers}}>
               &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
             </div>
             <div class="item-quantity">

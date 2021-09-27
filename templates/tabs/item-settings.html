@@ -1,5 +1,5 @@
 <div class="tab settings" data-group="primary" data-tab="settings">
-  {{#if (eq item.type "ability")}}
+  {{#if (and (eq item.type "ability") (ne ./data.actor ""))}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
@@ -7,8 +7,48 @@
       </li>
       <li class="item flexrow item-settings">
         <div class="settings-list">
-          <input type="checkbox" name="data.spell" data-dtype="boolean" {{checked data.spell}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.SortAsSpell'}}
+          {{localize 'CYPHERSYSTEM.SortUnder'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin setting-input" name="data.sorting" style="width: 135px">
+            {{#select data.sorting}}
+            <option value="Ability">
+              {{#if (eq data.actor.data.settings.abilities.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.Abilities'}}
+              {{else}}
+              {{data.actor.data.settings.abilities.nameAbilities}}
+              {{/if}}
+            </option>
+            <option value="AbilityTwo" {{#unless data.actor.data.settings.abilities.categoryTwoActive}}disabled{{/unless}}>
+              {{#if (eq data.actor.data.settings.abilities.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
+              {{else}}
+              {{data.actor.data.settings.abilities.nameCategoryTwo}}
+              {{/if}}
+            </option>
+            <option value="AbilityThree" {{#unless data.actor.data.settings.abilities.categoryThreeActive}}disabled{{/unless}}>
+              {{#if (eq data.actor.data.settings.abilities.nameCategoryThree "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}
+              {{else}}
+              {{data.actor.data.settings.abilities.nameCategoryThree}}
+              {{/if}}
+            </option>
+            <option value="AbilityFour" {{#unless data.actor.data.settings.abilities.categoryFourActive}}disabled{{/unless}}>
+              {{#if (eq data.actor.data.settings.abilities.nameCategoryFour "")}}
+              {{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}
+              {{else}}
+              {{data.actor.data.settings.abilities.nameCategoryFour}}
+              {{/if}}
+            </option>
+            <option value="Spell" {{#unless data.actor.data.settings.abilities.spellsActive}}disabled{{/unless}}>
+              {{#if (eq data.actor.data.settings.abilities.nameSpells "")}}
+              {{localize 'CYPHERSYSTEM.Spells'}}
+              {{else}}
+              {{data.actor.data.settings.abilities.nameSpells}}
+              {{/if}}
+            </option>
+            {{/select}}
+          </select>
         </div>
     </ol>
   </div>
