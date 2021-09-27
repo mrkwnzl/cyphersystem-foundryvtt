@@ -378,5 +378,13 @@
     "CYPHERSYSTEM.CloseParenthesis": ")",
     "CYPHERSYSTEM.Comma": ",",
     "CYPHERSYSTEM.Colon": ":",
-    "CYPHERSYSTEM.OpenParenthesis": "("
+    "CYPHERSYSTEM.OpenParenthesis": "(",
+    "CYPHERSYSTEM.ThirdCategory": "Troisième catégorie",
+    "CYPHERSYSTEM.FourthCategory": "Quatrième catégorie",
+    "CYPHERSYSTEM.AbilityCategoryTwo": "Catégorie 2",
+    "CYPHERSYSTEM.AbilityCategoryThree": "Catégorie 3",
+    "CYPHERSYSTEM.AbilityCategoryFour": "Catégorie 4",
+    "CYPHERSYSTEM.AbilitiesTab": "Onglet Aptitudes",
+    "CYPHERSYSTEM.SortUnder": "Trier",
+    "CYPHERSYSTEM.SecondCategory": "Deuxième catégorie"
 }
