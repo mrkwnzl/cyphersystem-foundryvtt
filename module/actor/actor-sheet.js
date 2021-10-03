@@ -60,7 +60,9 @@ export class CypherActorSheet extends ActorSheet {
     const abilitiesThree = [];
     const abilitiesFour = [];
     const skills = [];
-    const skillsSortedByRating = [];
+    const skillsTwo = [];
+    const skillsThree = [];
+    const skillsFour = [];
     const attacks = [];
     const armor = [];
     const lastingDamage = [];
@@ -69,7 +71,6 @@ export class CypherActorSheet extends ActorSheet {
     const artifacts = [];
     const oddities = [];
     const teenSkills = [];
-    const teenSkillsSortedByRating = [];
     const teenAbilities = [];
     const teenAttacks = [];
     const teenArmor = [];
@@ -102,24 +103,32 @@ export class CypherActorSheet extends ActorSheet {
       else if (i.type === 'ammo' && !hidden) {
         ammo.push(i);
       }
-      else if (i.type === 'ability' && !hidden && !(i.data.sorting == "Spell" && actorData.data.settings.abilities.spellsActive) && !(i.data.sorting == "AbilityTwo" && actorData.data.settings.abilities.categoryTwoActive) && !(i.data.sorting == "AbilityThree" && actorData.data.settings.abilities.categoryThreeActive) && !(i.data.sorting == "AbilityFour" && actorData.data.settings.abilities.categoryFourActive) && !(i.data.sorting == "AbilityFive" && actorData.data.settings.abilities.categoryFiveActive)) {
+      else if (i.type === 'ability' && !hidden && !(i.data.sorting == "Spell" || i.data.sorting == "AbilityTwo" || i.data.sorting == "AbilityThree" || i.data.sorting == "AbilityFour")) {
         abilities.push(i);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "Spell" && actorData.data.settings.abilities.spellsActive) {
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "Spell") {
         spells.push(i);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityTwo" && actorData.data.settings.abilities.categoryTwoActive) {
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityTwo") {
         abilitiesTwo.push(i);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityThree" && actorData.data.settings.abilities.categoryThreeActive) {
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityThree") {
         abilitiesThree.push(i);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityFour" && actorData.data.settings.abilities.categoryFourActive) {
+      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityFour") {
         abilitiesFour.push(i);
       }
-      else if (i.type === 'skill' && !hidden) {
+      else if (i.type === 'skill' && !hidden && !(i.data.sorting == "SkillTwo" || i.data.sorting == "SkillThree" || i.data.sorting == "SkillFour")) {
         skills.push(i);
-        skillsSortedByRating.push(i);
+      }
+      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillTwo") {
+        skillsTwo.push(i);
+      }
+      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillThree") {
+        skillsThree.push(i);
+      }
+      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillFour") {
+        skillsFour.push(i);
       }
       else if (i.type === 'attack' && !hidden) {
         attacks.push(i);
@@ -144,7 +153,6 @@ export class CypherActorSheet extends ActorSheet {
       }
       else if (i.type === 'teen Skill' && !hidden) {
         teenSkills.push(i);
-        teenSkillsSortedByRating.push(i);
       }
       else if (i.type === 'teen Ability' && !hidden) {
         teenAbilities.push(i);
@@ -171,6 +179,9 @@ export class CypherActorSheet extends ActorSheet {
     abilitiesFour.sort(byNameAscending);
     spells.sort(byNameAscending);
     skills.sort(byNameAscending);
+    skillsTwo.sort(byNameAscending);
+    skillsThree.sort(byNameAscending);
+    skillsFour.sort(byNameAscending);
     attacks.sort(byNameAscending);
     armor.sort(byNameAscending);
     lastingDamage.sort(byNameAscending);
@@ -190,6 +201,9 @@ export class CypherActorSheet extends ActorSheet {
     if (actorData.type == "PC" || actorData.type == "Companion") {
       if (actorData.data.settings.skills.sortByRating) {
         skills.sort(bySkillRating);
+        skillsTwo.sort(bySkillRating);
+        skillsThree.sort(bySkillRating);
+        skillsFour.sort(bySkillRating);
         teenSkills.sort(bySkillRating);
       }
     }
@@ -206,6 +220,9 @@ export class CypherActorSheet extends ActorSheet {
     abilitiesFour.sort(byArchiveStatus);
     spells.sort(byArchiveStatus);
     skills.sort(byArchiveStatus);
+    skillsTwo.sort(byArchiveStatus);
+    skillsThree.sort(byArchiveStatus);
+    skillsFour.sort(byArchiveStatus);
     attacks.sort(byArchiveStatus);
     armor.sort(byArchiveStatus);
     lastingDamage.sort(byArchiveStatus);
@@ -249,6 +266,27 @@ export class CypherActorSheet extends ActorSheet {
       actorData.showAbilitiesFour = false;
     }
 
+    // Check for skill category 2
+    if (skillsTwo.length > 0) {
+      actorData.showSkillsTwo = true;
+    } else {
+      actorData.showSkillsTwo = false;
+    }
+
+    // Check for skill category 3
+    if (skillsThree.length > 0) {
+      actorData.showSkillsThree = true;
+    } else {
+      actorData.showSkillsThree = false;
+    }
+
+    // Check for skill category 4
+    if (skillsFour.length > 0) {
+      actorData.showSkillsFour = true;
+    } else {
+      actorData.showSkillsFour = false;
+    }
+
     // Assign and return
     actorData.equipment = equipment;
     actorData.abilities = abilities;
@@ -257,7 +295,9 @@ export class CypherActorSheet extends ActorSheet {
     actorData.abilitiesFour = abilitiesFour;
     actorData.spells = spells;
     actorData.skills = skills;
-    actorData.skillsSortedByRating = skillsSortedByRating;
+    actorData.skillsTwo = skillsTwo;
+    actorData.skillsThree = skillsThree;
+    actorData.skillsFour = skillsFour;
     actorData.attacks = attacks;
     actorData.armor = armor;
     actorData.lastingDamage = lastingDamage;
@@ -266,7 +306,6 @@ export class CypherActorSheet extends ActorSheet {
     actorData.artifacts = artifacts;
     actorData.oddities = oddities;
     actorData.teenSkills = teenSkills;
-    actorData.teenSkillsSortedByRating = teenSkillsSortedByRating;
     actorData.teenAbilities = teenAbilities;
     actorData.teenAttacks = teenAttacks;
     actorData.teenArmor = teenArmor;
