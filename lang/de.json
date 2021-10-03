@@ -381,10 +381,15 @@
     "CYPHERSYSTEM.OpenParenthesis": "(",
     "CYPHERSYSTEM.ThirdCategory": "Dritte Kategorie",
     "CYPHERSYSTEM.FourthCategory": "Vierte Kategorie",
-    "CYPHERSYSTEM.AbilityCategoryTwo": "Kategorie 2",
-    "CYPHERSYSTEM.AbilityCategoryThree": "Kategorie 3",
+    "CYPHERSYSTEM.AbilityCategoryTwo": "Fähigkeiten 2",
+    "CYPHERSYSTEM.AbilityCategoryThree": "Fähigkeiten 3",
     "CYPHERSYSTEM.SortUnder": "Sortierung",
     "CYPHERSYSTEM.AbilitiesTab": "Fähigkeiten-Tab",
     "CYPHERSYSTEM.SecondCategory": "Zweite Kategorie",
-    "CYPHERSYSTEM.AbilityCategoryFour": "Kategorie 4"
+    "CYPHERSYSTEM.AbilityCategoryFour": "Fähigkeiten 4",
+    "CYPHERSYSTEM.AbilityCategories": "Fähigkeitskategorien",
+    "CYPHERSYSTEM.SkillCategories": "Fertigkeitskategorien",
+    "CYPHERSYSTEM.SkillCategoryTwo": "Fertigkeiten 2",
+    "CYPHERSYSTEM.SkillCategoryThree": "Fertigkeiten 3",
+    "CYPHERSYSTEM.SkillCategoryFour": "Fertigkeiten 4"
 }
