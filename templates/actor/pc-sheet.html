@@ -380,6 +380,66 @@
         </ol>
       </div>
 
+      {{#if actor.data.showSkillsTwo}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.skills.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}
+              {{else}}
+              {{data.settings.skills.nameCategoryTwo}}
+              {{/if}}
+            </div>
+            <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+            <div class="item-controls">
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/skillsCategoryTwo.html}}
+        </ol>
+      </div>
+      {{/if}}
+
+      {{#if actor.data.showSkillsThree}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.skills.nameCategoryThree "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryThree'}}
+              {{else}}
+              {{data.settings.skills.nameCategoryThree}}
+              {{/if}}
+            </div>
+            <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+            <div class="item-controls">
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/skillsCategoryThree.html}}
+        </ol>
+      </div>
+      {{/if}}
+
+      {{#if actor.data.showSkillsFour}}
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">
+              {{#if (eq data.settings.skills.nameCategoryFour "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryFour'}}
+              {{else}}
+              {{data.settings.skills.nameCategoryFour}}
+              {{/if}}
+            </div>
+            <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+            <div class="item-controls">
+            </div>
+          </li>
+          {{> systems/cyphersystem/templates/tabs/skillsCategoryFour.html}}
+        </ol>
+      </div>
+      {{/if}}
+
       {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
       {{#if data.settings.powerShifts.active}}
       <div class="flexrow">
@@ -867,11 +927,11 @@
           </li>
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
-            <div class="settings-list"><input type="checkbox" name="data.settings.gameMode.active" data-dtype="boolean" {{checked data.settings.gameMode.active}} disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.GameMode'}}
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.GameMode'}}
             </div>
             <div class="item-quantity">
-              <select class="auto-margin" name="data.settings.gameMode.current" style="width: 135px">
+              <select class="auto-margin settings-input" name="data.settings.gameMode.current">
                 {{#select data.settings.gameMode.current}}
                 <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
                 <option value="{{data.settings.gameMode.unmasked}}">{{data.settings.gameMode.unmasked}}</option>
@@ -882,12 +942,10 @@
           {{/unless}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" {{checked
-                data.settings.initiative.active}} disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
+              {{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" />
             </div>
           </li>
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
@@ -898,7 +956,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalSentenceField'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalSentence'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalSentence'}}" />
             </div>
           </li>
           {{/unless}}
@@ -909,7 +967,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.additionalPool.additionalPoolName" type="text" value="{{data.additionalPool.additionalPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" />
             </div>
           </li>
           {{/unless}}
@@ -920,7 +978,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.additionalPool.additionalTeenPoolName" type="text" value="{{data.additionalPool.additionalTeenPoolName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" />
             </div>
           </li>
           {{/if}}
@@ -937,6 +995,21 @@
           <li class="item flexrow item-header">
             <div class="item-name">{{localize 'CYPHERSYSTEM.SkillsTab'}}</div>
           </li>
+          {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.SkillCategories'}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="grid grid-4col" style="margin: 0px">
+              <input class="auto-margin" name="data.settings.skills.nameSkills" type="text" value="{{data.settings.skills.nameSkills}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Skills'}}">
+              <input class="auto-margin" name="data.settings.skills.nameCategoryTwo" type="text" value="{{data.settings.skills.nameCategoryTwo}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}">
+              <input class="auto-margin" name="data.settings.skills.nameCategoryThree" type="text" value="{{data.settings.skills.nameCategoryThree}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryThree'}}">
+              <input class="auto-margin" name="data.settings.skills.nameCategoryFour" type="text" value="{{data.settings.skills.nameCategoryFour}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryFour'}}">
+            </div>
+          </li>
+          {{/unless}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" name="data.settings.skills.sortByRating" data-dtype="boolean" {{checked data.settings.skills.sortByRating}}>
@@ -950,7 +1023,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.PowerShifts'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.PowerShifts'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.powerShifts.powerShiftsName" type="text" value="{{data.settings.powerShifts.powerShiftsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.PowerShifts'}}" />
             </div>
           </li>
           {{/unless}}
@@ -968,7 +1041,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
             </div>
             <div class="item-quantity">
-              <select class="auto-margin" name="data.settings.additionalRecoveries.howManyRecoveries" style="width: 135px">
+              <select class="auto-margin settings-input" name="data.settings.additionalRecoveries.howManyRecoveries">
                 {{#select data.settings.additionalRecoveries.howManyRecoveries}}
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -1001,47 +1074,16 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.Abilities'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.abilities.nameAbilities" type="text" value="{{data.settings.abilities.nameAbilities}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}" style="width: auto;" />
+              {{localize 'CYPHERSYSTEM.AbilityCategories'}}
             </div>
           </li>
-          <li class="item flexrow item-settings">
-            <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryTwoActive" {{checked data.settings.abilities.categoryTwoActive}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.SecondCategory'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.abilities.nameCategoryTwo" type="text" value="{{data.settings.abilities.nameCategoryTwo}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}" style="width: auto;" />
-            </div>
-          </li>
-          <li class="item flexrow item-settings">
-            <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryThreeActive" {{checked data.settings.abilities.categoryThreeActive}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.ThirdCategory'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.abilities.nameCategoryThree" type="text" value="{{data.settings.abilities.nameCategoryThree}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}" style="width: auto;" />
-            </div>
-          </li>
-          <li class="item flexrow item-settings">
-            <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.categoryFourActive" {{checked data.settings.abilities.categoryFourActive}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.FourthCategory'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.abilities.nameCategoryFour" type="text" value="{{data.settings.abilities.nameCategoryFour}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}" style="width: auto;" />
-            </div>
-          </li>
-          <li class="item flexrow item-settings">
-            <div class="settings-list">
-              <input type="checkbox" data-dtype="boolean" name="data.settings.abilities.spellsActive" {{checked data.settings.abilities.spellsActive}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.Spells'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.abilities.nameSpells" type="text" value="{{data.settings.abilities.nameSpells}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}" style="width: auto;" />
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="grid grid-5col" style="margin: 0px">
+              <input class="auto-margin" name="data.settings.abilities.nameAbilities" type="text" value="{{data.settings.abilities.nameAbilities}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryTwo" type="text" value="{{data.settings.abilities.nameCategoryTwo}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryThree" type="text" value="{{data.settings.abilities.nameCategoryThree}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}">
+              <input class="auto-margin" name="data.settings.abilities.nameCategoryFour" type="text" value="{{data.settings.abilities.nameCategoryFour}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}">
+              <input class="auto-margin" name="data.settings.abilities.nameSpells" type="text" value="{{data.settings.abilities.nameSpells}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}">
             </div>
           </li>
         </ol>
@@ -1054,12 +1096,11 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked
-                data.settings.currency.active}}>
+              <input type="checkbox" name="data.settings.currency.active" data-dtype="boolean" {{checked data.settings.currency.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.Currency'}}
             </div>
             <div class="item-quantity">
-              <select class="auto-margin" name="data.settings.currency.howMany" style="width: 135px" type="Number">
+              <select class="auto-margin settings-input" name="data.settings.currency.howMany" type="Number">
                 {{#select data.settings.currency.howMany}}
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -1074,23 +1115,17 @@
           {{#if data.settings.currency.active}}
           <li class="item flexrow item-settings" style="border-top-style: dashed">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.currency.namesHidden" data-dtype="boolean" {{checked
-                data.settings.currency.namesHidden}}>
+              <input type="checkbox" name="data.settings.currency.namesHidden" data-dtype="boolean" {{checked data.settings.currency.namesHidden}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideCurrency'}}
             </div>
           </li>
           <li class="item flexrow item-settings" style="border-top-style: dashed">
             <div class="grid grid-6col" style="margin: 0px">
-              <input class="auto-margin" name="data.settings.currency.name6" type="text" value="{{data.settings.currency.name6}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Adamantine'}}" {{#unless (gte data.settings.currency.howMany
-                6)}}disabled{{/unless}}>
-              <input class="auto-margin" name="data.settings.currency.name5" type="text" value="{{data.settings.currency.name5}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Mithral'}}" {{#unless (gte data.settings.currency.howMany
-                5)}}disabled{{/unless}}>
-              <input class="auto-margin" name="data.settings.currency.name4" type="text" value="{{data.settings.currency.name4}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Platinum'}}" {{#unless (gte data.settings.currency.howMany
-                4)}}disabled{{/unless}}>
-              <input class="auto-margin" name="data.settings.currency.name3" type="text" value="{{data.settings.currency.name3}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Gold'}}" {{#unless (gte data.settings.currency.howMany
-                3)}}disabled{{/unless}}>
-              <input class="auto-margin" name="data.settings.currency.name2" type="text" value="{{data.settings.currency.name2}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Silver'}}" {{#unless (gte data.settings.currency.howMany
-                2)}}disabled{{/unless}}>
+              <input class="auto-margin" name="data.settings.currency.name6" type="text" value="{{data.settings.currency.name6}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Adamantine'}}" {{#unless (gte data.settings.currency.howMany 6)}}disabled{{/unless}}>
+              <input class="auto-margin" name="data.settings.currency.name5" type="text" value="{{data.settings.currency.name5}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Mithral'}}" {{#unless (gte data.settings.currency.howMany 5)}}disabled{{/unless}}>
+              <input class="auto-margin" name="data.settings.currency.name4" type="text" value="{{data.settings.currency.name4}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Platinum'}}" {{#unless (gte data.settings.currency.howMany 4)}}disabled{{/unless}}>
+              <input class="auto-margin" name="data.settings.currency.name3" type="text" value="{{data.settings.currency.name3}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Gold'}}" {{#unless (gte data.settings.currency.howMany 3)}}disabled{{/unless}}>
+              <input class="auto-margin" name="data.settings.currency.name2" type="text" value="{{data.settings.currency.name2}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Silver'}}" {{#unless (gte data.settings.currency.howMany 2)}}disabled{{/unless}}>
               <input class="auto-margin" name="data.settings.currency.name" type="text" value="{{data.settings.currency.name}}" data-dtype="String" placeholder="{{#if (eq data.settings.currency.howMany '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{else}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}">
             </div>
           </li>
@@ -1101,7 +1136,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.equipment.cyphersName" type="text" value="{{data.settings.equipment.cyphersName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
             </div>
           </li>
           <li class="item flexrow item-settings">
@@ -1111,7 +1146,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.Artifacts'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.equipment.artifactsName" type="text" value="{{data.settings.equipment.artifactsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" />
             </div>
           </li>
           <li class="item flexrow item-settings">
@@ -1121,7 +1156,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.Oddities'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.equipment.odditiesName" type="text" value="{{data.settings.equipment.odditiesName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" />
             </div>
           </li>
           <li class="item flexrow item-settings">
@@ -1131,7 +1166,7 @@
               &nbsp;{{localize 'CYPHERSYSTEM.CraftingMaterial'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" style="width: auto;" />
+              <input class="auto-margin settings-input" name="data.settings.equipment.materialName" type="text" value="{{data.settings.equipment.materialName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
             </div>
           </li>
         </ol>

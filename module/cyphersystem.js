@@ -232,7 +232,10 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/spells.html",
     "systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html",
     "systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html",
-    "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html"
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryTwo.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryThree.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryFour.html"
   ];
   return loadTemplates(templatePaths);
 }

@@ -689,3 +689,8 @@ form.cyphersystem {
   flex: 0 0 65px;
   text-align: right;
 }
+
+.cyphersystem input.settings-input,
+select.settings-input {
+  width: 147.75px;
+}

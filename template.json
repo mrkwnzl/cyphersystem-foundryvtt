@@ -143,7 +143,11 @@
           "teenForm": "Teen"
         },
         "skills": {
-          "sortByRating": false
+          "sortByRating": false,
+          "nameSkills": "",
+          "nameCategoryTwo": "",
+          "nameCategoryThree": "",
+          "nameCategoryFour": ""
         },
         "abilities": {
           "nameAbilities": "",
@@ -445,7 +449,8 @@
         "core",
         "version"
       ],
-      "skillLevel": "Trained"
+      "skillLevel": "Trained",
+      "sorting": "Skills"
     },
     "teen Skill": {
       "templates": [
