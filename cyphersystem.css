@@ -326,7 +326,7 @@ form.cyphersystem {
 }
 
 .cyphersystem .items-list .item {
-  line-height: 1.4;
+  /* line-height: 1.4; */
   padding: 3px 5px;
   /*border-bottom: 1px solid #BBB;*/
 }
