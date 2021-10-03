@@ -326,7 +326,6 @@ form.cyphersystem {
 }
 
 .cyphersystem .items-list .item {
-  /* line-height: 1.4; */
   padding: 3px 5px;
   /*border-bottom: 1px solid #BBB;*/
 }
@@ -389,6 +388,7 @@ form.cyphersystem {
   -ms-flex: 0 0 50px;
   flex: 0 0 50px;
   text-align: right;
+  line-height: 1.4;
 }
 
 .cyphersystem .items-list .item-quantity {
@@ -397,6 +397,7 @@ form.cyphersystem {
   flex: 0 0 80px;
   text-align: center;
   white-space: nowrap;
+  line-height: 1.4;
 }
 
 .cyphersystem .items-list .item-cypher-limit {
