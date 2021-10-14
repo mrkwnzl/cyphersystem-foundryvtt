@@ -4,7 +4,7 @@
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
   "version": "1.26.0",
   "minimumCoreVersion": "0.8.5",
-  "compatibleCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9.225",
   "templateVersion": 2,
   "author": "Marko Wenzel",
   "esmodules": [
