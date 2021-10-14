@@ -7,11 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Changed
 - Updated translations.
+- Updated compatibility to Foundry v9.225.
 
 ### Fixed
 - You can now drag & drop multiple cyphers, artifacts, and oddities with the same name onto the character sheet.
 - When dragging & dropping items between character sheets, the new item is created after you decide what to do with the original item. If you cancel that decision, there aren’t any duplicate items anymore.
 - Slight adjustments in the css.
+- The tabs on the actor sheets now work with Foundry v9d1.
 
 ## [1.26.0] - 2021-10-03
 ### Added
