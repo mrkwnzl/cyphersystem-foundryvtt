@@ -601,7 +601,12 @@ export class CypherActorSheet extends ActorSheet {
     if (originActor) { originItem = originActor.items.find(i => i.data._id === item.data._id) };
 
     // Create the owned item or increase quantity
-    const itemOwned = actor.items.find(i => i.data.name === item.data.name && i.data.type === item.data.type);
+
+    let itemOwned = false;
+
+    if (!(itemData.type == "artifact" || itemData.type == "cypher" || itemData.type == "oddity")) {
+      itemOwned = actor.items.find(i => i.data.name === item.data.name && i.data.type === item.data.type);
+    }
 
     let hasQuantity = false;
 
@@ -618,7 +623,8 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
 
     if (!hasQuantity) {
-      if (!itemOwned) this._onDropItemCreate(itemData);
+      const actorSheet = this;
+      if (!originActor) this._onDropItemCreate(itemData);
       if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", { actor: actor.name }));
       if (!event.altKey && originActor) {
         let d = new Dialog({
@@ -628,12 +634,12 @@ export class CypherActorSheet extends ActorSheet {
             move: {
               icon: '<i class="fas fa-archive"></i>',
               label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-              callback: (html) => archiveItem()
+              callback: (html) => archiveItem(actorSheet)
             },
             moveAll: {
               icon: '<i class="fas fa-trash"></i>',
               label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-              callback: (html) => deleteItem()
+              callback: (html) => deleteItem(actorSheet)
             },
             cancel: {
               icon: '<i class="fas fa-times"></i>',
@@ -646,12 +652,14 @@ export class CypherActorSheet extends ActorSheet {
         });
         d.render(true);
 
-        function archiveItem() {
+        function archiveItem(actorSheet) {
           originItem.update({ "data.archived": true })
+          actorSheet._onDropItemCreate(itemData);
         }
 
-        function deleteItem() {
+        function deleteItem(actorSheet) {
           originItem.delete();
+          actorSheet._onDropItemCreate(itemData);
         }
       }
     } else {
@@ -662,7 +670,6 @@ export class CypherActorSheet extends ActorSheet {
         moveDialog(quantity, itemData);
 
         function moveDialog(quantity, itemData) {
-          // if (!quantity) quanitity = 1;
           let d = new Dialog({
             title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: itemData.name }),
             content: createContent(quantity),
@@ -676,9 +683,7 @@ export class CypherActorSheet extends ActorSheet {
         function createContent(quantity) {
           let maxQuantityText = "";
           if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
-          let content = `<div align="center">
-          <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label>
-          <input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=${quantity} data-dtype='Number'/>` + maxQuantityText + `</div>`;
+          let content = `<div align="center"><label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=${quantity} data-dtype='Number'/>` + maxQuantityText + `</div>`;
           return content;
         }
 

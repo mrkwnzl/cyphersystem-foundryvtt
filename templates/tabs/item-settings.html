@@ -67,10 +67,10 @@
           <select class="auto-margin setting-input" name="data.sorting" style="width: 135px">
             {{#select data.sorting}}
             <option value="Skill">
-              {{#if (eq data.actor.data.settings.skills.nameCategoryTwo "")}}
+              {{#if (eq data.actor.data.settings.skills.nameSkills "")}}
               {{localize 'CYPHERSYSTEM.Skills'}}
               {{else}}
-              {{data.actor.data.settings.skills.nameAbilities}}
+              {{data.actor.data.settings.skills.nameSkills}}
               {{/if}}
             </option>
             <option value="SkillTwo">

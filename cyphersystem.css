@@ -302,6 +302,8 @@ form.cyphersystem {
   line-height: 25px;
   padding: 0 6px;
   white-space: nowrap;
+  width: -webkit-fill-available;
+  width: -moz-available;
 }
 
 .cyphersystem .tabs .item.active {
