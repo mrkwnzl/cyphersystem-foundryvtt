@@ -597,7 +597,7 @@
               <input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1" />
             </div>
             <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
-              <div style="padding-left: 30px; display: flex; justify-content: center">
+              <div class="recovery-rolls">
                 <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}} />
                 {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
                 {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 2)}}
