@@ -65,7 +65,10 @@
         "oneActionThree": false,
         "oneActionFour": false,
         "oneActionFive": false,
+        "oneActionSix": false,
+        "oneActionSeven": false,
         "tenMinutes": false,
+        "tenMinutesTwo": false,
         "oneHour": false,
         "tenHours": false
       },
@@ -91,8 +94,8 @@
           "powerShiftsName": ""
         },
         "additionalRecoveries": {
-          "active": false,
-          "howManyRecoveries": 1
+          "numberOneActionRecoveries": 1,
+          "numberTenMinuteRecoveries": 1
         },
         "lastingDamage": {
           "active": false
