@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Changed the way additional Recovery Rolls are handled. It now allows for up to seven one-action rolls, and zero to two ten-minute rolls. **Note:** There were internal changes on how the additional rolls are handled needed. I was only able to test this in a limited capacity. It might be needed that you reset the amount of rolls which are supposed to be available by hand.
 
+### Fixed
+- Fixed a bug where you’d get a false warning for copying duplicate items.
+
 ## [1.26.1] - 2021-10-24
 ### Changed
 - Updated translations.
