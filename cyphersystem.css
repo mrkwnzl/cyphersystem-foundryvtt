@@ -697,3 +697,10 @@ form.cyphersystem {
 select.settings-input {
   width: 147.75px;
 }
+
+.cyphersystem .recovery-rolls {
+  padding-left: 30px;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+}

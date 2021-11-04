@@ -34,7 +34,8 @@ import {
   translateToRecursion,
   archiveItemsWithTag,
   unarchiveItemsWithTag,
-  archiveStatusByTag
+  archiveStatusByTag,
+  toggleAlwaysShowDescriptionOnRoll
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -50,7 +51,6 @@ import {
   chatCardIntrusionRefused,
   chatCardWelcomeMessage
 } from "./chat-cards.js";
-
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -97,6 +97,7 @@ Hooks.once("init", async function () {
     archiveItemsWithTag,
     unarchiveItemsWithTag,
     archiveStatusByTag,
+    toggleAlwaysShowDescriptionOnRoll,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -148,6 +149,13 @@ Hooks.once("init", async function () {
     scope: "world",
     type: Boolean,
     default: true,
+    config: false
+  });
+
+  game.settings.register("cyphersystem", "alwaysShowDescriptionOnRoll", {
+    scope: "world",
+    type: Boolean,
+    default: false,
     config: false
   });
 
@@ -279,6 +287,14 @@ Hooks.once("ready", async function () {
     if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({ "data.settings.equipment.cyphers": true });
     if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({ "data.settings.counting": -1 });
     if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({ "data.settings.counting": 1 });
+    if (a.data.type === "PC") {
+      if (a.data.data.settings.additionalRecoveries.active) {
+        a.update({
+          "data.settings.additionalRecoveries.numberOneActionRecoveries": parseInt(a.data.data.settings.additionalRecoveries.howManyRecoveries) + 1,
+          "data.settings.additionalRecoveries.active": false
+        })
+      }
+    }
   }
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();

@@ -452,20 +452,29 @@ export class CypherActorSheet extends ActorSheet {
       if (!recoveries.oneAction) {
         this.actor.update({ "data.recoveries.oneAction": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionTwo && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 1) {
+      } else if (!recoveries.oneActionTwo && additionalRecoveries.numberOneActionRecoveries >= 2) {
         this.actor.update({ "data.recoveries.oneActionTwo": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionThree && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 2) {
+      } else if (!recoveries.oneActionThree && additionalRecoveries.numberOneActionRecoveries >= 3) {
         this.actor.update({ "data.recoveries.oneActionThree": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionFour && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 3) {
+      } else if (!recoveries.oneActionFour && additionalRecoveries.numberOneActionRecoveries >= 4) {
         this.actor.update({ "data.recoveries.oneActionFour": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionFive && additionalRecoveries.active && additionalRecoveries.howManyRecoveries >= 4) {
+      } else if (!recoveries.oneActionFive && additionalRecoveries.numberOneActionRecoveries >= 5) {
         this.actor.update({ "data.recoveries.oneActionFive": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.tenMinutes) {
+      } else if (!recoveries.oneActionSix && additionalRecoveries.numberOneActionRecoveries >= 6) {
+        this.actor.update({ "data.recoveries.oneActionSix": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.oneActionSeven && additionalRecoveries.numberOneActionRecoveries >= 7) {
+        this.actor.update({ "data.recoveries.oneActionSeven": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
+      } else if (!recoveries.tenMinutes && additionalRecoveries.numberTenMinuteRecoveries >= 1) {
         this.actor.update({ "data.recoveries.tenMinutes": true });
+        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
+      } else if (!recoveries.tenMinutesTwo && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
+        this.actor.update({ "data.recoveries.tenMinutesTwo": true });
         recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
       } else if (!recoveries.oneHour) {
         this.actor.update({ "data.recoveries.oneHour": true });
@@ -625,7 +634,6 @@ export class CypherActorSheet extends ActorSheet {
     if (!hasQuantity) {
       const actorSheet = this;
       if (!originActor) this._onDropItemCreate(itemData);
-      if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", { actor: actor.name }));
       if (!event.altKey && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),

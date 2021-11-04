@@ -439,7 +439,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "data.recoveries.oneActionThree": false,
         "data.recoveries.oneActionFour": false,
         "data.recoveries.oneActionFive": false,
+        "data.recoveries.oneActionSix": false,
+        "data.recoveries.oneActionSeven": false,
         "data.recoveries.tenMinutes": false,
+        "data.recoveries.tenMinutesTwo": false,
         "data.recoveries.oneHour": false,
         "data.recoveries.tenHours": false
       })

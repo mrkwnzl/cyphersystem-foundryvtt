@@ -597,38 +597,39 @@
               <input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="data.recoveries.recoveryRoll" type="text" value="{{data.recoveries.recoveryRoll}}" data-dtype="String" placeholder="1d6+1" />
             </div>
             <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
-              <div style="padding-left: 30px; display: flex; justify-content: center">
-                <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked
-                  data.recoveries.oneAction}} />
+              <div class="recovery-rolls">
+                <input type="checkbox" name="data.recoveries.oneAction" data-dtype="boolean" {{checked data.recoveries.oneAction}} />
                 {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
-                {{#if data.settings.additionalRecoveries.active}}
-                {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 1)}}
-                <input type="checkbox" name="data.recoveries.oneActionTwo" data-dtype="boolean" {{checked
-                  data.recoveries.oneActionTwo}} />
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 2)}}
+                <input type="checkbox" name="data.recoveries.oneActionTwo" data-dtype="boolean" {{checked data.recoveries.oneActionTwo}} />
                 {{/if}}
-                {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 2)}}
-                <input type="checkbox" name="data.recoveries.oneActionThree" data-dtype="boolean" {{checked
-                  data.recoveries.oneActionThree}} />
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 3)}}
+                <input type="checkbox" name="data.recoveries.oneActionThree" data-dtype="boolean" {{checked data.recoveries.oneActionThree}} />
                 {{/if}}
-                {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 3)}}
-                <input type="checkbox" name="data.recoveries.oneActionFour" data-dtype="boolean" {{checked
-                  data.recoveries.oneActionFour}} />
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 4)}}
+                <input type="checkbox" name="data.recoveries.oneActionFour" data-dtype="boolean" {{checked data.recoveries.oneActionFour}} />
                 {{/if}}
-                {{#if (gte data.settings.additionalRecoveries.howManyRecoveries 4)}}
-                <input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked
-                  data.recoveries.oneActionFive}} />
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 5)}}
+                <input type="checkbox" name="data.recoveries.oneActionFive" data-dtype="boolean" {{checked data.recoveries.oneActionFive}} />
                 {{/if}}
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 6)}}
+                <input type="checkbox" name="data.recoveries.oneActionSix" data-dtype="boolean" {{checked data.recoveries.oneActionSix}} />
+                {{/if}}
+                {{#if (gte data.settings.additionalRecoveries.numberOneActionRecoveries 7)}}
+                <input type="checkbox" name="data.recoveries.oneActionSeven" data-dtype="boolean" {{checked data.recoveries.oneActionSeven}} />
                 {{/if}}
                 {{/unless}}
                 &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;
-                <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked
-                  data.recoveries.tenMinutes}} />
+                {{#if (gte data.settings.additionalRecoveries.numberTenMinuteRecoveries 1)}}
+                <input type="checkbox" name="data.recoveries.tenMinutes" data-dtype="boolean" {{checked data.recoveries.tenMinutes}} />
+                {{#if (gte data.settings.additionalRecoveries.numberTenMinuteRecoveries 2)}}
+                <input type="checkbox" name="data.recoveries.tenMinutesTwo" data-dtype="boolean" {{checked data.recoveries.tenMinutesTwo}} />
+                {{/if}}
                 &nbsp;{{localize 'CYPHERSYSTEM.RecoveryMinutes'}}&nbsp;&nbsp;
-                <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked
-                  data.recoveries.oneHour}} />
+                {{/if}}
+                <input type="checkbox" name="data.recoveries.oneHour" data-dtype="boolean" {{checked data.recoveries.oneHour}} />
                 &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHour'}}&nbsp;&nbsp;
-                <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked
-                  data.recoveries.tenHours}} />
+                <input type="checkbox" name="data.recoveries.tenHours" data-dtype="boolean" {{checked data.recoveries.tenHours}} />
                 &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}
               </div>
               <div class="item-controls">
@@ -1043,16 +1044,32 @@
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.additionalRecoveries.active" data-dtype="boolean" {{checked data.settings.additionalRecoveries.active}}>
-              &nbsp;{{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
+              {{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
             </div>
             <div class="item-quantity">
-              <select class="auto-margin settings-input" name="data.settings.additionalRecoveries.howManyRecoveries">
-                {{#select data.settings.additionalRecoveries.howManyRecoveries}}
+              <select class="auto-margin settings-input" name="data.settings.additionalRecoveries.numberOneActionRecoveries">
+                {{#select data.settings.additionalRecoveries.numberOneActionRecoveries}}
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="data.settings.additionalRecoveries.numberTenMinuteRecoveries">
+                {{#select data.settings.additionalRecoveries.numberTenMinuteRecoveries}}
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
                 {{/select}}
               </select>
             </div>

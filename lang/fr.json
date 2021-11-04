@@ -152,7 +152,7 @@
     "CYPHERSYSTEM.SortSkillsByRating": "Trier les Compétences par Rangs",
     "CYPHERSYSTEM.SkillsAndAbilitiesTab": "Onglet Compétences et Aptitudes",
     "CYPHERSYSTEM.CombatTab": "Onglet Combat",
-    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Jets de Récupération Additionnels",
+    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Nombre de Jets de Récupération de 1 Action",
     "CYPHERSYSTEM.LastingAndPermanentDamageSetting": "Dégâts Persistant/Permanent",
     "CYPHERSYSTEM.AmmoList": "Liste des Munitions",
     "CYPHERSYSTEM.EquipmentTab": "Onglet Équipement",
@@ -391,5 +391,8 @@
     "CYPHERSYSTEM.AbilityCategories": "Catégories des aptitudes",
     "CYPHERSYSTEM.SkillCategoryTwo": "Compétences 2",
     "CYPHERSYSTEM.SkillCategoryThree": "Compétences 3",
-    "CYPHERSYSTEM.SkillCategoryFour": "Compétences 4"
+    "CYPHERSYSTEM.SkillCategoryFour": "Compétences 4",
+    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Les jets affichent la description des objets par défaut.",
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Les jets masquent la description des objets par défaut.",
+    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Nombre de Jets de Récupération de 10 minutes"
 }
