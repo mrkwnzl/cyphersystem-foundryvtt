@@ -634,7 +634,6 @@ export class CypherActorSheet extends ActorSheet {
     if (!hasQuantity) {
       const actorSheet = this;
       if (!originActor) this._onDropItemCreate(itemData);
-      if (itemOwned) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.AlreadyHasThisItem", { actor: actor.name }));
       if (!event.altKey && originActor) {
         let d = new Dialog({
           title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
