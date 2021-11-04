@@ -164,7 +164,11 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     if (itemID) {
       let item = actor.items.get(itemID);
       itemDescription = (item.data.data.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + TextEditor.enrichHTML(item.data.data.description) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
-      itemDescriptionInfo = "<div style=\"display: none\" class=\"chat-card-item-description\"><hr class=\"hr-chat\"><div style=\"min-height: 51px\">" + itemDescription + "</div></div>";
+      let styleHidden = "<div style=\"display: none\" class=\"chat-card-item-description\">";
+      (game.settings.get("cyphersystem", "alwaysShowDescriptionOnRoll")) ? " expanded" : "";
+      let styleShow = "<div class=\"chat-card-item-description expanded\">"
+      let style = (game.settings.get("cyphersystem", "alwaysShowDescriptionOnRoll")) ? styleShow : styleHidden;
+      itemDescriptionInfo = style + "<hr class=\"hr-chat\"><div style=\"min-height: 51px\">" + itemDescription + "</div></div>";
     }
 
     // Fallback for strings in skill
@@ -493,12 +497,12 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   let itemType = "";
   if (item.type == "ability" && item.data.data.spell) {
     itemType = game.i18n.localize("CYPHERSYSTEM.Spell") + ": ";
-  } else if ((item.type == "ability" || item.type == "teen Ability") && !item.data.data.spell) {
-    itemType = game.i18n.localize("ITEM.TypeAbility") + ": "; 
+  } else if ((item.type == "ability" || item.type == "teen Ability") && !item.data.data.spell) {
+    itemType = game.i18n.localize("ITEM.TypeAbility") + ": ";
   } else if (item.type == "attack" || item.type == "teen Attack") {
-    itemType = game.i18n.localize("ITEM.TypeAttack") + ": "; 
+    itemType = game.i18n.localize("ITEM.TypeAttack") + ": ";
   } else if (item.type == "skill" || item.type == "teen Skill") {
-    itemType = game.i18n.localize("ITEM.TypeSkill") + ": "; 
+    itemType = game.i18n.localize("ITEM.TypeSkill") + ": ";
   }
 
   // Parse data to All-in-One Dialog
@@ -826,6 +830,12 @@ export function proposeIntrusion(actor) {
 export function changeSymbolForFractions() {
   let slash = game.settings.get("cyphersystem", "useSlashForFractions") ? false : true;
   game.settings.set("cyphersystem", "useSlashForFractions", slash);
+}
+
+export function toggleAlwaysShowDescriptionOnRoll() {
+  let toggle = game.settings.get("cyphersystem", "alwaysShowDescriptionOnRoll") ? false : true;
+  game.settings.set("cyphersystem", "alwaysShowDescriptionOnRoll", toggle);
+  (toggle) ? ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification")) : ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification"));
 }
 
 export function toggleAttacksOnSheet(token) {

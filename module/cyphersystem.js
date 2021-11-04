@@ -34,7 +34,8 @@ import {
   translateToRecursion,
   archiveItemsWithTag,
   unarchiveItemsWithTag,
-  archiveStatusByTag
+  archiveStatusByTag,
+  toggleAlwaysShowDescriptionOnRoll
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -96,6 +97,7 @@ Hooks.once("init", async function () {
     archiveItemsWithTag,
     unarchiveItemsWithTag,
     archiveStatusByTag,
+    toggleAlwaysShowDescriptionOnRoll,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -147,6 +149,13 @@ Hooks.once("init", async function () {
     scope: "world",
     type: Boolean,
     default: true,
+    config: false
+  });
+
+  game.settings.register("cyphersystem", "alwaysShowDescriptionOnRoll", {
+    scope: "world",
+    type: Boolean,
+    default: false,
     config: false
   });
 
