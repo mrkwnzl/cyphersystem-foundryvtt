@@ -152,7 +152,7 @@
     "CYPHERSYSTEM.SortSkillsByRating": "Sortiere Fertigkeiten nach Wertung",
     "CYPHERSYSTEM.SkillsAndAbilitiesTab": "Fertigkeiten & Sonderfähigkeiten Reiter",
     "CYPHERSYSTEM.CombatTab": "Kampf-Reiter",
-    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Zusätzliche Erholungswürfe",
+    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Anzahl von 1-Aktion-Erholungswürfen",
     "CYPHERSYSTEM.LastingAndPermanentDamageSetting": "Länger anhaltender/permanenter Schaden",
     "CYPHERSYSTEM.AmmoList": "Munitions-Liste",
     "CYPHERSYSTEM.EquipmentTab": "Ausrüstungs-Reiter",
@@ -391,5 +391,8 @@
     "CYPHERSYSTEM.SkillCategories": "Fertigkeitskategorien",
     "CYPHERSYSTEM.SkillCategoryTwo": "Fertigkeiten 2",
     "CYPHERSYSTEM.SkillCategoryThree": "Fertigkeiten 3",
-    "CYPHERSYSTEM.SkillCategoryFour": "Fertigkeiten 4"
+    "CYPHERSYSTEM.SkillCategoryFour": "Fertigkeiten 4",
+    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Anzahl von 10-Minuten-Erholungswürfen",
+    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Würfe zeigen nun standardmäßig Itembeschreibungen.",
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Würfe verstecken nun standardmäßig Itembeschreibungen."
 }

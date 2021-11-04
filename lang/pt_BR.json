@@ -226,7 +226,7 @@
     "CYPHERSYSTEM.CountQuantityOnInitiative": "Contador de Quantidade na Iniciativa",
     "CYPHERSYSTEM.HideArchive": "Esconder Arquivo",
     "CYPHERSYSTEM.SkillsTab": "Guia de Perícias",
-    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Jogadas de Recuperação Adicionais",
+    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Número de Jogadas de Recuperação de Uma Ação",
     "CYPHERSYSTEM.AmmoList": "Lista de Munição",
     "CYPHERSYSTEM.HideCurrency": "Esconder Nome das Moedas na Guia de Equipamento (Modo Tooltip apenas)",
     "ACTOR.TypePc": "PJ",
@@ -388,5 +388,8 @@
     "CYPHERSYSTEM.SkillCategoryThree": "Perícias 3",
     "CYPHERSYSTEM.SkillCategoryFour": "Perícias 4",
     "CYPHERSYSTEM.AbilityCategories": "Categorias de Habilidade",
-    "CYPHERSYSTEM.SkillCategoryTwo": "Perícias 2"
+    "CYPHERSYSTEM.SkillCategoryTwo": "Perícias 2",
+    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Número de Jogadas de Recuperação de Dez Minutos",
+    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "As rolagens agora exibem descrições de item por padrão.",
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Rolagens agora escondem descrições de item por padrão."
 }

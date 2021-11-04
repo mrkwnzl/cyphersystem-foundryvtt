@@ -5,7 +5,7 @@
     "CYPHERSYSTEM.RecoveryMinutes": "10 Minutos",
     "CYPHERSYSTEM.GeneralSettings": "Configuración General",
     "CYPHERSYSTEM.AdditionalPoolUnmasked": "Reserva Adicional de Máscaras",
-    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Tiradas de Recuperación Adicionales",
+    "CYPHERSYSTEM.AdditionalRecoveryRolls": "Número de Tiradas de Recuperación de 1 Acción",
     "CYPHERSYSTEM.HideCurrency": "Esconder Nombre de Moneda en la Pestaña de Equipo (Sólo Tooltip)",
     "CYPHERSYSTEM.ArmorRating": "Rango de Armadura",
     "CYPHERSYSTEM.HeavyWeapon": "Arma Pesada",
@@ -391,5 +391,8 @@
     "CYPHERSYSTEM.SkillCategoryTwo": "Habilidades 2",
     "CYPHERSYSTEM.SkillCategoryThree": "Habilidades 3",
     "CYPHERSYSTEM.SkillCategoryFour": "Habilidades 4",
-    "CYPHERSYSTEM.AbilityCategories": "Categorías de Capacidades"
+    "CYPHERSYSTEM.AbilityCategories": "Categorías de Capacidades",
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Ahora las tiradas ocultan la descripción de los objetos por defecto.",
+    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Número de Tiradas de Recuperación de 10 Minutos",
+    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Ahora las tiradas muestran la descripción de los objetos por defecto."
 }
