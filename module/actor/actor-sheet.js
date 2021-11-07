@@ -631,6 +631,17 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
 
+    // Define fuctions for archiving and deleting items
+    function archiveItem(actorSheet) {
+      originItem.update({ "data.archived": true })
+      actorSheet._onDropItemCreate(itemData);
+    }
+
+    function deleteItem(actorSheet) {
+      originItem.delete();
+      actorSheet._onDropItemCreate(itemData);
+    }
+
     if (!hasQuantity) {
       const actorSheet = this;
       if (!originActor) this._onDropItemCreate(itemData);
@@ -659,18 +670,10 @@ export class CypherActorSheet extends ActorSheet {
           close: () => { }
         });
         d.render(true);
-
-        function archiveItem(actorSheet) {
-          originItem.update({ "data.archived": true })
-          actorSheet._onDropItemCreate(itemData);
-        }
-
-        function deleteItem(actorSheet) {
-          originItem.delete();
-          actorSheet._onDropItemCreate(itemData);
-        }
+      } else if (event.altKey && originActor) {
+        actorSheet._onDropItemCreate(itemData);
       }
-    } else {
+    } else if (hasQuantity) {
       if (!event.altKey) {
         let maxQuantity = item.data.data.quantity;
         if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
@@ -748,7 +751,7 @@ export class CypherActorSheet extends ActorSheet {
             itemOwned.update({ "data.quantity": newQuantity });
           }
         }
-      } else {
+      } else if (event.altKey) {
         if (!itemOwned) {
           if (!item.data.data.quantity) {
             itemData.data.quantity = 0;
