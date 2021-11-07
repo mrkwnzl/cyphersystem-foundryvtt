@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- Fixed a bug where holding alt when dragging & dropping items between actors did nothing. #188
+
 ## [1.26.2] - 2021-11-04
 ### Added
 - You can now enable that the item description of rolled items is always shown with a secret setting.
