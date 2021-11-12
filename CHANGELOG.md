@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased
 ### Fixed
 - Fixed a bug where holding alt when dragging & dropping items between actors did nothing. [#187](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/187)
+- Item sheets keep their scroll position when altering values.
+- Item macros can be created in Foundry v9 again.
+- The roll button respects the difficulty modifier in the item settings.
 
 ## [1.26.2] - 2021-11-04
 ### Added
