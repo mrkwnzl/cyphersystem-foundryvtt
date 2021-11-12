@@ -438,13 +438,19 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
       additionalCost = item.data.data.rollButton.additionalCost;
     }
   }
-  if (!additionalSteps) {
-    if (item.type == "power Shift") {
-      additionalSteps = item.data.data.powerShiftValue;
-    } else if (item.type == "attack" || item.type == "teen Attack") {
+  if (!stepModifier && !additionalSteps) {
+    if (item.type == "attack" || item.type == "teen Attack") {
       additionalSteps = item.data.data.modifiedBy;
+      stepModifier = item.data.data.modified;
     } else {
       additionalSteps = item.data.data.rollButton.additionalSteps;
+      stepModifier = item.data.data.rollButton.stepModifier;
+    }
+  } else if (!stepModifier && additionalSteps) {
+    if (item.type == "attack" || item.type == "teen Attack") {
+      stepModifier = item.data.data.modified;
+    } else {
+      stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
     }
   }
   if (!damage) {
@@ -462,13 +468,6 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
     }
   }
   if (!damagePerLOE) damagePerLOE = item.data.data.rollButton.damagePerLOE;
-  if (!stepModifier) {
-    if (item.type == "attack" || item.type == "teen Attack") {
-      stepModifier = item.data.data.modified;
-    } else {
-      stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
-    }
-  }
   if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
 
   // // Overwrite defaults for some item types
