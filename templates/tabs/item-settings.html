@@ -257,14 +257,14 @@
         <label class="settings-list">
           {{localize 'CYPHERSYSTEM.Difficulty'}}
         </label>
-        <select class="auto-margin setting-input" name="data.rollButton.stepModifier" style="max-width:100px">
+        <select class="auto-margin setting-input" name="data.rollButton.stepModifier" style="max-width:102px">
           {{#select data.rollButton.stepModifier}}
           <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
           <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
           {{/select}}
         </select>
         &nbsp;
-        <input class="auto-margin setting-input" name="data.rollButton.additionalSteps" type="text" value="{{data.rollButton.additionalSteps}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="max-width: 32px" />
+        <input class="auto-margin setting-input" name="data.rollButton.additionalSteps" type="text" value="{{data.rollButton.additionalSteps}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="max-width: 30px" />
       </li>
       {{/unless}}
       {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
