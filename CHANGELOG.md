@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Item sheets keep their scroll position when altering values.
 - Item macros can be created in Foundry v9 again.
 - The roll button respects the difficulty modifier in the item settings.
+- Fixed an issue where text was cut off in some dropdown menus.
 
 ## [1.26.2] - 2021-11-04
 ### Added
