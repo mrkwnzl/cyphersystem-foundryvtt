@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.26.3] - 2021-11-21
+### Changed
+- For abilities sorted as spells the tier (low, mid, or high) can now be specified in the item settings.
+
+### Fixed
+- Fixed a bug where holding alt when dragging & dropping items between actors did nothing. [#187](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/187)
+- Item sheets keep their scroll position when altering values.
+- Item macros can be created in Foundry v9 again.
+- The roll button respects the difficulty modifier in the item settings.
+- Fixed an issue where text was cut off in some dropdown menus.
+- Fixed an issue where the marker as counter didn’t count on initiative when no step value is specified.
+
 ## [1.26.2] - 2021-11-04
 ### Added
 - You can now enable that the item description of rolled items is always shown with a secret setting.

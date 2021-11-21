@@ -630,7 +630,8 @@ Hooks.on("updateCombat", function () {
   let combatant = game.combat.combatant.actor;
 
   if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
-    let newQuantity = combatant.data.data.quantity.value + combatant.data.data.settings.counting;
+    let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
+    let newQuantity = combatant.data.data.quantity.value + step;
     combatant.update({ "data.quantity.value": newQuantity });
   }
 
@@ -655,16 +656,14 @@ async function createCyphersystemMacro(data, slot) {
   // Create the macro command
   const command = itemMacroString(item._id);
 
-  let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
-  if (!macro) {
-    macro = await Macro.create({
-      name: item.name,
-      type: "script",
-      img: item.img,
-      command: command,
-      flags: { "cyphersystem.itemMacro": true }
-    });
-  }
+  let macro = await Macro.create({
+    name: item.name,
+    type: "script",
+    img: item.img,
+    command: command,
+    flags: { "cyphersystem.itemMacro": true }
+  });
+
   game.user.assignHotbarMacro(macro, slot);
   return false;
 }

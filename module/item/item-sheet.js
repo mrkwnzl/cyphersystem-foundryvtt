@@ -13,6 +13,7 @@ export class CypherItemSheet extends ItemSheet {
       height: 645,
       resizable: false,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      scrollY: [".sheet-body", ".tab"]
     });
   }
 
