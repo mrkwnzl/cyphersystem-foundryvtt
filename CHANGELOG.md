@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- For abilities sorted as spells the tier (low, mid, or high) can now be specified in the item settings.
+
 ### Fixed
 - Fixed a bug where holding alt when dragging & dropping items between actors did nothing. [#187](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/187)
 - Item sheets keep their scroll position when altering values.
