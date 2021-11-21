@@ -630,7 +630,8 @@ Hooks.on("updateCombat", function () {
   let combatant = game.combat.combatant.actor;
 
   if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
-    let newQuantity = combatant.data.data.quantity.value + combatant.data.data.settings.counting;
+    let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
+    let newQuantity = combatant.data.data.quantity.value + step;
     combatant.update({ "data.quantity.value": newQuantity });
   }
 
