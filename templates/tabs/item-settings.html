@@ -50,6 +50,29 @@
             {{/select}}
           </select>
         </div>
+      </li>
+      {{#if (eq data.sorting "Spell")}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Tier'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin setting-input" name="data.tier" style="width: 135px">
+            {{#select data.tier}}
+            <option value="low">
+              {{localize 'CYPHERSYSTEM.LowTier'}}
+            </option>
+            <option value="mid">
+              {{localize 'CYPHERSYSTEM.MidTier'}}
+            </option>
+            <option value="high">
+              {{localize 'CYPHERSYSTEM.HighTier'}}
+            </option>
+            {{/select}}
+          </select>
+        </div>
+      </li>
+      {{/if}}
     </ol>
   </div>
   {{/if}}

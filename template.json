@@ -437,7 +437,8 @@
       ],
       "costPoints": 0,
       "costPool": "Pool",
-      "sorting": "Ability"
+      "sorting": "Ability",
+      "tier": "low"
     },
     "teen Ability": {
       "templates": [
