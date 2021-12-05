@@ -637,6 +637,16 @@ Hooks.on("updateCombat", function () {
 
 });
 
+Hooks.on("createCombatant", function (combatant) {
+  if (combatant.actor.data.type == "NPC") {
+    combatant.update({ "initiative": (combatant.actor.data.data.level * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (combatant.actor.data.type == "Community" && !combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (combatant.actor.data.data.rank * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (combatant.actor.data.type == "Community" && combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (combatant.actor.data.data.rank * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus });
+  }
+});
+
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
