@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased
 ### Changed
 - NPCs, Vehicles, and Communities now auto-populate the initiative values when adding them to the combat tracker.
+- Actor & item sheets now have proper names in the sheet selection dialog.
+
+## Fixed
+- The secret setting macro for resetting Drag Ruler defaults has been fixed.
+- Fixed a bug in the CSS where ordered lists were displayed as unordered lists in the chat and journal entries.
 
 ## [1.26.3] - 2021-11-21
 ### Changed
