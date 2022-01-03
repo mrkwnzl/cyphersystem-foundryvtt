@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.26.3",
+  "version": "1.27.0",
   "minimumCoreVersion": "0.8.5",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
@@ -49,6 +49,13 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
       "entity": "Macro"
+    },
+    {
+      "name": "basic-skills",
+      "label": "Cypher System Basic Skills",
+      "system": "cyphersystem",
+      "path": "packs/basic-skills.db",
+      "entity": "Item"
     }
   ],
   "languages": [
@@ -87,6 +94,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.26.3/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.27.0/release.zip",
   "license": "LICENSE.md"
 }

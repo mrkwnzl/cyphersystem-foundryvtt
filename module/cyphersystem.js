@@ -174,7 +174,7 @@ Hooks.once("init", async function () {
   Combatant.prototype._getInitiativeFormula = function () {
     let combatant = this.actor;
     if (combatant.data.type == "PC") {
-      return "1d20 + @settings.initiative.initiativeBonus";
+      return "1d20";
     } else if (combatant.data.type == "NPC" || combatant.data.type == "Companion") {
       return String(combatant.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
     } else if (combatant.data.type == "Community" && combatant.hasPlayerOwner) {
@@ -196,14 +196,41 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheetPC, { types: ['PC'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetNPC, { types: ['NPC'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetToken, { types: ['Token'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetCommunity, { types: ['Community'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetCompanion, { types: ['Companion'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetVehicle, { types: ['Vehicle'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetPC, {
+    types: ['PC'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassPC"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetNPC, {
+    types: ['NPC'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassNPC"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetToken, {
+    types: ['Token'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassToken"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetCommunity, {
+    types: ['Community'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassCommunity"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetCompanion, {
+    types: ['Companion'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassCompanion"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetVehicle, {
+    types: ['Vehicle'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassVehicle"
+  });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cypher", CypherItemSheet, { makeDefault: true });
+  Items.registerSheet("cypher", CypherItemSheet, {
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassItem"
+  });
 
   //Pre-load HTML templates
   preloadHandlebarsTemplates();
@@ -329,7 +356,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let title = html.find('.reroll-stat').data('title');
     let info = html.find('.reroll-stat').data('info');
     let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
-    diceRoller(title, info, modifier);
+    let initiativeRoll = html.find('.reroll-stat').data('initiative');
+    let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
+    diceRoller(title, info, modifier, initiativeRoll, actor);
   });
 
   // Event Listener for rerolls of recovery rolls
@@ -627,23 +656,26 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
 });
 
 Hooks.on("updateCombat", function () {
-  let combatant = game.combat.combatant.actor;
+  let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
 
   if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
     let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
     let newQuantity = combatant.data.data.quantity.value + step;
     combatant.update({ "data.quantity.value": newQuantity });
   }
-
 });
 
 Hooks.on("createCombatant", function (combatant) {
-  if (combatant.actor.data.type == "NPC") {
-    combatant.update({ "initiative": (combatant.actor.data.data.level * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus - 0.5 });
-  } else if (combatant.actor.data.type == "Community" && !combatant.hasPlayerOwner) {
-    combatant.update({ "initiative": (combatant.actor.data.data.rank * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus - 0.5 });
-  } else if (combatant.actor.data.type == "Community" && combatant.hasPlayerOwner) {
-    combatant.update({ "initiative": (combatant.actor.data.data.rank * 3) + combatant.actor.data.data.settings.initiative.initiativeBonus });
+  let actor = combatant.actor.data;
+
+  if (actor.type == "NPC") {
+    combatant.update({ "initiative": (actor.data.level * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus });
+  } else if (actor.type == "Vehicle") {
+    combatant.update({ "initiative": (actor.data.level * 3) - 0.5 });
   }
 });
 

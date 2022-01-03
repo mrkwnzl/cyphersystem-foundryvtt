@@ -454,7 +454,8 @@
         "version"
       ],
       "skillLevel": "Trained",
-      "sorting": "Skills"
+      "sorting": "Skills",
+      "isInitiative": false
     },
     "teen Skill": {
       "templates": [

@@ -3,6 +3,10 @@
 #chat-log .message .message-content ul, ol,
 .flavor-text ul, ol {
   margin: 0 0 0.2em 0;
+}
+
+#chat-log .message .message-content ul,
+.flavor-text ul {
   list-style-type: disc;
 }
 
