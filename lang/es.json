@@ -394,5 +394,19 @@
     "CYPHERSYSTEM.AbilityCategories": "Categorías de Capacidades",
     "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Ahora las tiradas ocultan la descripción de los objetos por defecto.",
     "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Número de Tiradas de Recuperación de 10 Minutos",
-    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Ahora las tiradas muestran la descripción de los objetos por defecto."
+    "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Ahora las tiradas muestran la descripción de los objetos por defecto.",
+    "CYPHERSYSTEM.SheetClassPC": "Ficha de PJ por Defecto",
+    "CYPHERSYSTEM.SheetClassNPC": "Ficha de PNJ por Defecto",
+    "CYPHERSYSTEM.SheetClassCommunity": "Ficha de Comunidad por Defecto",
+    "CYPHERSYSTEM.SheetClassCompanion": "Ficha de Compañero por Defecto",
+    "CYPHERSYSTEM.SheetClassVehicle": "Ficha de Vehículo por Defecto",
+    "CYPHERSYSTEM.SheetClassItem": "Ficha de Objeto por Defecto",
+    "CYPHERSYSTEM.Initiative": "Iniciativa",
+    "CYPHERSYSTEM.NoTokensOnScene": "{name} no tiene tokens en la escena activa.",
+    "CYPHERSYSTEM.NoCombatActive": "No hay ningún combate activo.",
+    "CYPHERSYSTEM.LowTier": "rango-bajo",
+    "CYPHERSYSTEM.MidTier": "rango-medio",
+    "CYPHERSYSTEM.HighTier": "rango-alto",
+    "CYPHERSYSTEM.SheetClassToken": "Ficha de Marcador por Defecto",
+    "CYPHERSYSTEM.UseAsInitiativeRoll": "Usa el Resultado de la Tirada como Iniciativa"
 }
