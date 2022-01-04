@@ -394,5 +394,19 @@
     "CYPHERSYSTEM.SkillCategoryFour": "Fertigkeiten 4",
     "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Anzahl von 10-Minuten-Erholungswürfen",
     "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Würfe zeigen nun standardmäßig Itembeschreibungen.",
-    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Würfe verstecken nun standardmäßig Itembeschreibungen."
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Würfe verstecken nun standardmäßig Itembeschreibungen.",
+    "CYPHERSYSTEM.SheetClassPC": "Standard SC-Bogen",
+    "CYPHERSYSTEM.SheetClassNPC": "Standard NSC-Bogen",
+    "CYPHERSYSTEM.SheetClassCompanion": "Standard Gefährtenbogen",
+    "CYPHERSYSTEM.SheetClassCommunity": "Standard Gemeindebogen",
+    "CYPHERSYSTEM.SheetClassToken": "Standard Markerbogen",
+    "CYPHERSYSTEM.SheetClassVehicle": "Standard Fahrzeugbogen",
+    "CYPHERSYSTEM.SheetClassItem": "Standard Itembogen",
+    "CYPHERSYSTEM.Initiative": "Initiative",
+    "CYPHERSYSTEM.NoTokensOnScene": "{name} hat keine Token auf der aktiven Szene.",
+    "CYPHERSYSTEM.LowTier": "niedriger Rang",
+    "CYPHERSYSTEM.MidTier": "mittlerer Rang",
+    "CYPHERSYSTEM.HighTier": "hoher Rang",
+    "CYPHERSYSTEM.NoCombatActive": "Zur Zeit ist kein Kampf aktiv.",
+    "CYPHERSYSTEM.UseAsInitiativeRoll": "Benutze Würfelergebnis als Initiativewurf"
 }
