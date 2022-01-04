@@ -552,106 +552,109 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
   }
 
   // Support for Bar Brawl
-  if (actor.data.type === "PC") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "pools.intellect",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#00FF00",
-          maxcolor: "#00FF00",
-          position: "bottom-inner",
-          attribute: "pools.speed",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "pools.might",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+  let barBrawlResourceBars = (actor.data.token.flags.barbrawl) ? Object.keys(actor.data.token.flags.barbrawl.resourceBars).length : 0;
+  if (barBrawlResourceBars === 0) {
+    if (actor.data.type === "PC") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "bottom-inner",
+            attribute: "pools.intellect",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#00FF00",
+            maxcolor: "#00FF00",
+            position: "bottom-inner",
+            attribute: "pools.speed",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar3": {
+            id: "bar3",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "pools.might",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      });
+    } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "level",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "health",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "Community") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "rank",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "infrastructure",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      });
+    } else if (actor.data.type === "Community") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "rank",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "bottom-inner",
+            attribute: "infrastructure",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar3": {
+            id: "bar3",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "health",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "Token") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "quantity",
-          visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+      });
+    } else if (actor.data.type === "Token") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "level",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "quantity",
+            visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+          }
         }
-      }
-    });
+      });
+    }
   }
 });
 
