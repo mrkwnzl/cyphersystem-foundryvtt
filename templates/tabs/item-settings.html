@@ -78,13 +78,13 @@
     </ol>
   </div>
   {{/if}}
-  {{#if (eq item.type "skill")}}
+  {{#if (or (eq item.type "skill") (eq item.type "teen Skill"))}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
         <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
       </li>
-      {{#if (ne ./data.actor "")}}
+      {{#if (and (ne ./data.actor "") (ne item.type "teen Skill"))}}
       <li class="item flexrow item-settings">
         <div class="settings-list">
           {{localize 'CYPHERSYSTEM.SortUnder'}}

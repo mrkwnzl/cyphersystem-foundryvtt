@@ -462,7 +462,8 @@
         "core",
         "version"
       ],
-      "skillLevel": "Trained"
+      "skillLevel": "Trained",
+      "isInitiative": false
     },
     "armor": {
       "templates": [
