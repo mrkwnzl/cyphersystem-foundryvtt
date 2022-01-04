@@ -123,7 +123,7 @@ Hooks.once("init", async function () {
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
     type: Boolean,
-    default: false,
+    default: true,
     config: true
   });
 
