@@ -17,9 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Actor & item sheets now have proper names in the sheet selection dialog.
 - Due to the new skills as initiative roll option, PC actors don’t use the bonus to initiative setting anymore. Please migrate any initiative bonus to an initiative skill.
 
-## Fixed
+### Fixed
 - The secret setting macro for resetting Drag Ruler defaults has been fixed.
 - Fixed a bug in the CSS where ordered lists were displayed as unordered lists in the chat and journal entries.
+- When using the Bar Brawl module, resource bars specified in the prototype token now overwrite the system defaults.
 
 ## [1.26.3] - 2021-11-21
 ### Changed
