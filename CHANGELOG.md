@@ -7,15 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased
 ### Added
 - Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 
-  1. Add the all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
+  1. Add all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
   2. Make a skill roll, including the regular cost.
   3. Change the initiative value of the tokens to the roll result plus 3 for each easement and minus 3 for each hinderance.
-- A new compendium with pre-configured skills for initiative and defense tasks has ben added.
+- A new compendium with pre-configured skills for initiative and defense tasks has been added.
 
 ### Changed
 - NPCs, Vehicles, and Communities now auto-populate the initiative values when adding them to the combat tracker.
 - Actor & item sheets now have proper names in the sheet selection dialog.
-- Due to the new skills as initiative roll option, PC actors don’t use the bonus to initiative setting anymore. Please migrate any initiative bonus to an initiative skill.
+- Due to the new skills as initiative roll option, PC actors don’t use the bonus to initiative setting anymore. Please migrate any initiative bonus to an initiative skill. Other actors keep this setting.
+- Roll buttons are now enabled by default when creating new worlds.
 
 ### Fixed
 - The secret setting macro for resetting Drag Ruler defaults has been fixed.
