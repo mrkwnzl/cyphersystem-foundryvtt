@@ -123,7 +123,7 @@ Hooks.once("init", async function () {
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
     type: Boolean,
-    default: false,
+    default: true,
     config: true
   });
 
@@ -165,6 +165,14 @@ Hooks.once("init", async function () {
     return TextEditor.enrichHTML(html);
   });
 
+  Handlebars.registerHelper("expanded", function (itemID) {
+    if (game.user.expanded != undefined) {
+      return game.user.expanded[itemID] == true;
+    } else {
+      return false;
+    }
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
@@ -174,7 +182,7 @@ Hooks.once("init", async function () {
   Combatant.prototype._getInitiativeFormula = function () {
     let combatant = this.actor;
     if (combatant.data.type == "PC") {
-      return "1d20 + @settings.initiative.initiativeBonus";
+      return "1d20";
     } else if (combatant.data.type == "NPC" || combatant.data.type == "Companion") {
       return String(combatant.data.data.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
     } else if (combatant.data.type == "Community" && combatant.hasPlayerOwner) {
@@ -196,14 +204,41 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheetPC, { types: ['PC'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetNPC, { types: ['NPC'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetToken, { types: ['Token'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetCommunity, { types: ['Community'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetCompanion, { types: ['Companion'], makeDefault: true });
-  Actors.registerSheet("cypher", CypherActorSheetVehicle, { types: ['Vehicle'], makeDefault: true });
+  Actors.registerSheet("cypher", CypherActorSheetPC, {
+    types: ['PC'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassPC"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetNPC, {
+    types: ['NPC'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassNPC"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetToken, {
+    types: ['Token'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassToken"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetCommunity, {
+    types: ['Community'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassCommunity"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetCompanion, {
+    types: ['Companion'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassCompanion"
+  });
+  Actors.registerSheet("cypher", CypherActorSheetVehicle, {
+    types: ['Vehicle'],
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassVehicle"
+  });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cypher", CypherItemSheet, { makeDefault: true });
+  Items.registerSheet("cypher", CypherItemSheet, {
+    makeDefault: true,
+    label: "CYPHERSYSTEM.SheetClassItem"
+  });
 
   //Pre-load HTML templates
   preloadHandlebarsTemplates();
@@ -329,7 +364,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let title = html.find('.reroll-stat').data('title');
     let info = html.find('.reroll-stat').data('info');
     let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
-    diceRoller(title, info, modifier);
+    let initiativeRoll = html.find('.reroll-stat').data('initiative');
+    let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
+    diceRoller(title, info, modifier, initiativeRoll, actor);
   });
 
   // Event Listener for rerolls of recovery rolls
@@ -523,118 +560,134 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
   }
 
   // Support for Bar Brawl
-  if (actor.data.type === "PC") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "pools.intellect",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#00FF00",
-          maxcolor: "#00FF00",
-          position: "bottom-inner",
-          attribute: "pools.speed",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "pools.might",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+  let barBrawlResourceBars = (actor.data.token.flags.barbrawl) ? Object.keys(actor.data.token.flags.barbrawl.resourceBars).length : 0;
+  if (barBrawlResourceBars === 0) {
+    if (actor.data.type === "PC") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "bottom-inner",
+            attribute: "pools.intellect",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#00FF00",
+            maxcolor: "#00FF00",
+            position: "bottom-inner",
+            attribute: "pools.speed",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar3": {
+            id: "bar3",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "pools.might",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      });
+    } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "level",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "health",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "Community") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "rank",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "infrastructure",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+      });
+    } else if (actor.data.type === "Community") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "rank",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "bottom-inner",
+            attribute: "infrastructure",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar3": {
+            id: "bar3",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "health",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          }
         }
-      }
-    });
-  } else if (actor.data.type === "Token") {
-    doc.data.update({
-      "flags.barbrawl.resourceBars": {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "quantity",
-          visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+      });
+    } else if (actor.data.type === "Token") {
+      doc.data.update({
+        "flags.barbrawl.resourceBars": {
+          "bar1": {
+            id: "bar1",
+            mincolor: "#0000FF",
+            maxcolor: "#0000FF",
+            position: "top-inner",
+            attribute: "level",
+            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          },
+          "bar2": {
+            id: "bar2",
+            mincolor: "#FF0000",
+            maxcolor: "#FF0000",
+            position: "bottom-inner",
+            attribute: "quantity",
+            visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+          }
         }
-      }
-    });
+      });
+    }
   }
 });
 
 Hooks.on("updateCombat", function () {
-  let combatant = game.combat.combatant.actor;
+  let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
 
   if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
     let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
     let newQuantity = combatant.data.data.quantity.value + step;
     combatant.update({ "data.quantity.value": newQuantity });
   }
+});
 
+Hooks.on("createCombatant", function (combatant) {
+  let actor = combatant.actor.data;
+
+  if (actor.type == "NPC") {
+    combatant.update({ "initiative": (actor.data.level * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+  } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
+    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus });
+  } else if (actor.type == "Vehicle") {
+    combatant.update({ "initiative": (actor.data.level * 3) - 0.5 });
+  }
 });
 
 /* -------------------------------------------- */

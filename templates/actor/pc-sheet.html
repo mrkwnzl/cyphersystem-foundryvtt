@@ -471,7 +471,7 @@
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
                 {{~item.name}}
               </a>
             </h4>
@@ -487,12 +487,14 @@
               </a>
             </div>
           </li>
+          {{#if (expanded item._id)}}
           <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
             <div class="description desc-{{item._id}}">
-              <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50" />
+              <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
               {{{enrichHTML data.description}}}
             </div>
           </li>
+          {{/if}}
           {{/each}}
         </ol>
       </div>
@@ -670,7 +672,7 @@
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
                 {{~item.name}}
               </a>
               {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
@@ -710,19 +712,21 @@
               </a>
             </div>
           </li>
+          {{#if (expanded item._id)}}
           <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
             <div class="description desc-{{item._id}}">
-              <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50" />
+              <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
               {{{enrichHTML data.description}}}
             </div>
           </li>
+          {{/if}}
           {{/each}}
           {{else}}
           {{#each actor.data.lastingDamage as |item id|}}
           <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
             <h4 class="item-name">
               <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-                <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+                <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
                 {{~item.name}}
               </a>
               {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
@@ -757,12 +761,14 @@
               </a>
             </div>
           </li>
+          {{#if (expanded item._id)}}
           <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
             <div class="description desc-{{item._id}}">
-              <img class="description-image" src="{{item.img}}" style="opacity: {{#if data.archived}}50%{{/if}}" width="50" height="50" />
+              <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
               {{{enrichHTML data.description}}}
             </div>
           </li>
+          {{/if}}
           {{/each}}
           {{/if}}
         </ol>
@@ -947,14 +953,6 @@
             </div>
           </li>
           {{/unless}}
-          <li class="item flexrow item-settings">
-            <div class="settings-list">
-              {{localize 'CYPHERSYSTEM.InitiativeBonus'}}
-            </div>
-            <div class="item-quantity">
-              <input class="auto-margin settings-input" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" />
-            </div>
-          </li>
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">

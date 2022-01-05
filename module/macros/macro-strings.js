@@ -73,7 +73,7 @@ export function itemMacroString(item) {
   return content.replace(/^ +/gm, '');
 }
 
-export function allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen) {
+export function allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, itemID) {
   // Define stats
   let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
   let mightMax = (teen) ? actor.data.data.teen.pools.might.max : actor.data.data.pools.might.max;
@@ -91,8 +91,12 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
   if (skill == 0) skill = "Practiced";
   if (skill == -1) skill = "Inability";
 
+  // Check for initiative
+  let item = actor.items.get(itemID);
+  let isInitiative = item.data.data.isInitiative;
+
   // Create HTML
-  let content =
+  let basicModifiers =
     `<div align="center">
     <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.BasicModifiers")}</b></label><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Pool")}:</label>
@@ -104,12 +108,10 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
     </select><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}:</label>
     <select name='skill' id='skill' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-    {{#select skill}}
     <option value=-1 ${(skill == ("Inability") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Inability")}</option>
     <option value=0 ${(skill == ("Practiced") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Practiced")}</option>
     <option value=1 ${(skill == ("Trained") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Trained")}</option>
     <option value=2 ${(skill == ("Specialized") ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.Specialized")}</option>
-    {{/select}}
     </select><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Assets")}:</label>
     <select name='assets' id='assets' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
@@ -137,8 +139,10 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
     <option value=5 ${(effort2 == 5 ? "selected" : "")}>5 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
     <option value=6 ${(effort2 == 6 ? "selected" : "")}>6 ${game.i18n.localize("CYPHERSYSTEM.levels")}</option>
     </select><br>
-    <hr>
-    <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AttackModifiers")}</b></label><br>
+    <hr>`
+
+  let attackModifiers = (!isInitiative) ?
+    `<label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AttackModifiers")}</b></label><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Damage")}:</label>
     <input name='damage' id='damage' type='number' value=${damage} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}:</label>
@@ -153,8 +157,11 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
     </select><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.DamageLevelEffort")}:</label>
     <input name='damagePerLOE' id='damagePerLOE' type='number' value=${damagePerLOE} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center'/><br>
-    <hr>
-    <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AdditionalModifiers")}</b></label><br>
+    <hr>`
+    : ""
+
+  let additionalModifiers =
+    `<label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.AdditionalModifiers")}</b></label><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Difficulty")}:</label>
     <select name='stepModifier' id='stepModifier' class='dialog-select' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
     <option value='eased' ${(stepModifier == 'eased' ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
@@ -174,6 +181,8 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.IntellectPoolEdge")}:</label>
     <input name='intellect' id='intellect' type='text' value='${intellectValue}/${intellectMax} (${intellectEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled/><br>
     </div>`
+
+  let content = basicModifiers + attackModifiers + additionalModifiers;
 
   // Return HTML
   return content;

@@ -2,7 +2,7 @@
 /*  Macro helper                                */
 /* -------------------------------------------- */
 
-export async function diceRoller(title, info, modifier) {
+export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
   // Fix for single quotation marks
   title = title.replace(/'/g, "&apos;");
   info = info.replace(/'/g, "&apos;");
@@ -43,17 +43,27 @@ export async function diceRoller(title, info, modifier) {
     info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
     "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
 
+  // Add initiative result
+  let initiativeResult = roll.total + (modifier * 3);
+  let initiativeInfo = (initiativeRoll) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult : "";
+
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actor.id}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + title + "</b>" + bars + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + "<br>" + effect + reRollButton;
+  let flavor = "<b>" + title + "</b>" + bars + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + reRollButton;
 
   // Create chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
     flavor: flavor
   });
+
+  // Return total
+  if (initiativeRoll) {
+    await addCharacterToCombatTracker(actor);
+    await setInitiativeForCharacter(actor, initiativeResult);
+  }
 }
 
 function determineDifficultyResult(roll, difficulty, modifier) {
@@ -307,6 +317,22 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   // Parse to dice roller macro
   if (pointsPaid == true) {
     diceRoller(item.name, info, modifier, 0);
+  }
+}
+
+export async function addCharacterToCombatTracker(actor) {
+  for (let token of canvas.tokens.objects.children) {
+    if (token.actor.id == actor.id && !token.inCombat) {
+      await token.toggleCombat();
+    }
+  }
+}
+
+export async function setInitiativeForCharacter(actor, initiative) {
+  for (let combatant of game.combat.combatants) {
+    if (combatant.actor.id == actor.id) {
+      await game.combat.setInitiative(combatant.id, initiative);
+    }
   }
 }
 

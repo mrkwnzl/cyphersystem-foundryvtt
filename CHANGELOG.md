@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.27.0] - 2022-01-05
+### Added
+- Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 
+  1. Add all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
+  2. Make a skill roll, including the regular cost.
+  3. Change the initiative value of the tokens to the roll result plus 3 for each easement and minus 3 for each hinderance.
+- A new compendium with pre-configured skills for initiative and defense tasks has been added.
+
+### Changed
+- NPCs, Vehicles, and Communities now auto-populate the initiative values when adding them to the combat tracker.
+- Actor & item sheets now have proper names in the sheet selection dialog.
+- Due to the new skills as initiative roll option, PC actors don’t use the bonus to initiative setting anymore. Please migrate any initiative bonus to an initiative skill. Other actors keep this setting.
+- Roll buttons are now enabled by default when creating new worlds.
+- Shown item descriptions now stay shown even when the sheet is getting re-rendered. Before, all item descriptions were hidden again when one, for example, changed a Pool value or closed an opened the sheet. This is a client side setting, so it does not affect other players or the GM when both are viewing the sheet simultaneously (meaning both can view different item descriptions). This comes at the cost of the nice sliding animation, though.
+
+### Fixed
+- The secret setting macro for resetting Drag Ruler defaults has been fixed.
+- Fixed a bug in the CSS where ordered lists were displayed as unordered lists in the chat and journal entries.
+- When using the Bar Brawl module, resource bars specified in the prototype token now overwrite the system defaults.
 
 ## [1.26.3] - 2021-11-21
 ### Changed

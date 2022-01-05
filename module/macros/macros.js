@@ -1,7 +1,6 @@
 import {
   diceRoller,
-  payPoolPoints,
-  itemRollMacroQuick
+  payPoolPoints
 } from "./macro-helper.js";
 import {
   allInOneRollDialogString,
@@ -83,7 +82,7 @@ export async function diceRollMacro(dice) {
   });
 }
 
-export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen) {
+export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -94,10 +93,10 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
 
   // If points are paid, roll dice
-  if (pointsPaid) diceRoller(title, info, modifier);
+  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor);
 }
 
-export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
+export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -114,10 +113,13 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
   // Set default for noRoll
   if (!noRoll) noRoll = false;
 
+  // Set initiativeRoll
+  let initiativeRoll = actor.items.get(itemID).data.data.isInitiative;
+
   // Create All-in-One dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.AllInOneRoll"),
-    content: allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen),
+    content: allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, itemID),
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
@@ -157,9 +159,13 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     };
     title = (title == "") ? (poolRoll[pool] || poolRoll["Might"]) : title;
 
+    // Set defaults
+    if (!effort3) effort3 = 0;
+    if (!damage) damage = "";
+    if (!damagePerLOE) damagePerLOE = "";
+
     // Get item
     let itemDescription = "";
-    let itemImage = "";
     let itemDescriptionInfo = ""
     if (itemID) {
       let item = actor.items.get(itemID);
@@ -299,7 +305,7 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
     if (poolVerification[pool]()) {
       costInfo = poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
     } else {
-      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll);
+      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID);
       if (pool == "XP") {
         return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"))
       } else {
@@ -382,12 +388,12 @@ export function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2,
       }
       ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + onlyCostInfo });
     } else {
-      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen);
+      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll);
     }
   }
 }
 
-export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll) {
+export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll) {
   // Find actor based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
@@ -399,6 +405,12 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
 
   // Check whether the item still exists on the actor
   if (item == null) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", { name: owner.name }));
+
+  // Check for combat-readiness
+  if (item.data.data.isInitiative) {
+    if (!game.combat) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoCombatActive"));
+    if (actor.getActiveTokens().length == 0) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoTokensOnScene", { name: actor.name }));
+  }
 
   // Check for AiO dialog
   let skipDialog = true;
@@ -469,28 +481,6 @@ export function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effor
   }
   if (!damagePerLOE) damagePerLOE = item.data.data.rollButton.damagePerLOE;
   if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
-
-  // // Overwrite defaults for some item types
-  // if (item.type == "skill" || item.type == "teen Skill") {
-  //   skill = item.data.data.skillLevel;
-  // } else if (item.type == "attack" || item.type == "teen Attack") {
-  //   skill = item.data.data.skillRating;
-  //   additionalSteps = item.data.data.modifiedBy;
-  //   stepModifier = item.data.data.modified;
-  //   damage = item.data.data.damage;
-  // } else if (item.type == "ability"  || item.type == "teen Ability") {
-  //   pool = item.data.data.costPool;
-  //   let checkPlus = item.data.data.costPoints.slice(-1)
-  //   if (checkPlus == "+") {
-  //     let cost = item.data.data.costPoints.slice(0, -1);
-  //     additionalCost = parseInt(cost);
-  //   } else {
-  //     let cost = item.data.data.costPoints;
-  //     additionalCost = parseInt(cost);
-  //   }
-  // } else if (item.type == "power Shift") {
-  //   additionalSteps = item.data.data.powerShiftValue;
-  // }
 
   // Create item type
   let itemType = "";

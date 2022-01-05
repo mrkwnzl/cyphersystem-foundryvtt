@@ -1,5 +1,5 @@
 <div class="tab settings" data-group="primary" data-tab="settings">
-  {{#if (and (eq item.type "ability") (ne ./data.actor ""))}}
+  {{#if (eq item.type "ability")}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
@@ -13,12 +13,13 @@
           <select class="auto-margin setting-input" name="data.sorting" style="width: 135px">
             {{#select data.sorting}}
             <option value="Ability">
-              {{#if (eq data.actor.data.settings.abilities.nameCategoryTwo "")}}
+              {{#if (or (eq ./data.actor "") (eq data.actor.data.settings.abilities.nameAbilities ""))}}
               {{localize 'CYPHERSYSTEM.Abilities'}}
               {{else}}
               {{data.actor.data.settings.abilities.nameAbilities}}
               {{/if}}
             </option>
+            {{#if (ne ./data.actor "")}}
             <option value="AbilityTwo">
               {{#if (eq data.actor.data.settings.abilities.nameCategoryTwo "")}}
               {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
@@ -40,8 +41,9 @@
               {{data.actor.data.settings.abilities.nameCategoryFour}}
               {{/if}}
             </option>
+            {{/if}}
             <option value="Spell">
-              {{#if (eq data.actor.data.settings.abilities.nameSpells "")}}
+              {{#if (or (eq ./data.actor "") (eq data.actor.data.settings.abilities.nameSpells ""))}}
               {{localize 'CYPHERSYSTEM.Spells'}}
               {{else}}
               {{data.actor.data.settings.abilities.nameSpells}}
@@ -76,12 +78,13 @@
     </ol>
   </div>
   {{/if}}
-  {{#if (and (eq item.type "skill") (ne ./data.actor ""))}}
+  {{#if (or (eq item.type "skill") (eq item.type "teen Skill"))}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
         <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
       </li>
+      {{#if (and (ne ./data.actor "") (ne item.type "teen Skill"))}}
       <li class="item flexrow item-settings">
         <div class="settings-list">
           {{localize 'CYPHERSYSTEM.SortUnder'}}
@@ -120,6 +123,15 @@
             {{/select}}
           </select>
         </div>
+      </li>
+      {{/if}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="data.isInitiative" data-dtype="boolean" {{checked
+              data.isInitiative}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.UseAsInitiativeRoll'}}
+        </div>
+      </li>
     </ol>
   </div>
   {{/if}}
@@ -223,6 +235,7 @@
       </li>
     </ol>
   </div>
+  {{#unless data.isInitiative}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow">
@@ -268,6 +281,7 @@
       </li>
     </ol>
   </div>
+  {{/unless}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow">
