@@ -431,7 +431,7 @@ form.cyphersystem {
   padding-left: 17px;
   padding-bottom: 5px;
   font-size: 13px;
-  display: none;
+  /* display: none; */
 }
 
 .cyphersystem .items-list .description p {

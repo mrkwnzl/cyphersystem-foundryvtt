@@ -165,6 +165,14 @@ Hooks.once("init", async function () {
     return TextEditor.enrichHTML(html);
   });
 
+  Handlebars.registerHelper("expanded", function (itemID) {
+    if (game.user.expanded != undefined) {
+      return game.user.expanded[itemID] == true;
+    } else {
+      return false;
+    }
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
