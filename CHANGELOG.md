@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.27.0] - 2022-01-05
 ### Added
 - Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 
   1. Add all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Actor & item sheets now have proper names in the sheet selection dialog.
 - Due to the new skills as initiative roll option, PC actors don’t use the bonus to initiative setting anymore. Please migrate any initiative bonus to an initiative skill. Other actors keep this setting.
 - Roll buttons are now enabled by default when creating new worlds.
+- Shown item descriptions now stay shown even when the sheet is getting re-rendered. Before, all item descriptions were hidden again when one, for example, changed a Pool value or closed an opened the sheet. This is a client side setting, so it does not affect other players or the GM when both are viewing the sheet simultaneously (meaning both can view different item descriptions). This comes at the cost of the nice sliding animation, though.
 
 ### Fixed
 - The secret setting macro for resetting Drag Ruler defaults has been fixed.
