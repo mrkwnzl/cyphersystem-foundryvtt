@@ -322,20 +322,21 @@ export class CypherActorSheet extends ActorSheet {
   async activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('.item-description').click(clickEvent => {
+    html.find('.item-description').click(async clickEvent => {
       if (!event.altKey) {
         const shownItem = $(clickEvent.currentTarget).parents(".item");
-        const description = html.find(`.desc-${shownItem.data("itemId")}`);
-        if (description.hasClass("expanded")) {
-          description.slideUp();
-          description.toggleClass("expanded");
-        } else {
-          description.slideDown();
-          description.toggleClass("expanded");
+        const itemID = shownItem.data("itemId");
+
+        if (game.user.expanded == undefined) {
+          game.user.expanded = {};
         }
 
-        const arrow = html.find(`#arrow-${shownItem.data("itemId")}`)
-        arrow.toggleClass("arrow-active");
+        if (game.user.expanded[itemID] == undefined || game.user.expanded[itemID] == false) {
+          game.user.expanded[itemID] = true;
+        } else {
+          game.user.expanded[itemID] = false;
+        }
+        this._render(false);
       }
     });
 

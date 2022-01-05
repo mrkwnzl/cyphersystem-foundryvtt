@@ -20,7 +20,7 @@
     <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+          <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
           {{~item.name}}
         </a>
       </h4>
@@ -43,12 +43,16 @@
         </a>
       </div>
     </li>
+
+    {{#if (expanded item._id)}}
     <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
         {{{enrichHTML data.description}}}
       </div>
     </li>
+    {{/if}}
+
     {{/each}}
   </ol>
 </div>

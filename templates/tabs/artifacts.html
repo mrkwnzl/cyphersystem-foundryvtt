@@ -19,9 +19,9 @@
     <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
-          <i id="arrow-{{item._id}}" class="fas fa-angle-right item-angle" aria-hidden="true"></i>
+          <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
           {{~#if data.identified ~}}
-          {{~item.name ~}}
+          {{~item.name ~}}
           {{~else ~}}
           {{~localize 'CYPHERSYSTEM.UnidentifiedArtifact' ~}}
           {{~/if~}}
@@ -61,6 +61,8 @@
         <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>
     </li>
+
+    {{#if (expanded item._id)}}
     <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
@@ -71,6 +73,8 @@
         {{/if}}
       </div>
     </li>
+    {{/if}}
+
     {{/each}}
   </ol>
 </div>
