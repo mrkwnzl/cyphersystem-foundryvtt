@@ -114,7 +114,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   if (!noRoll) noRoll = false;
 
   // Set initiativeRoll
-  let initiativeRoll = actor.items.get(itemID).data.data.isInitiative;
+  let initiativeRoll = (itemID) ? actor.items.get(itemID).data.data.isInitiative : false;
 
   // Create All-in-One dialog
   let d = new Dialog({
@@ -837,7 +837,7 @@ export function toggleArmorOnSheet(token) {
   token.actor.update({ "data.settings.equipment.armor": toggle })
 }
 
-export async function translateToRecursion(actor, recursion, focus) {
+export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier) {
   // Check for PC
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -845,13 +845,20 @@ export async function translateToRecursion(actor, recursion, focus) {
   let recursionName = recursion;
   recursion = "@" + recursion.toLowerCase();
 
+  // let oldRecursion = (!actor.getFlag("cyphersystem", "recursion")) ? "" : actor.getFlag("cyphersystem", "recursion");
+
+  // if (recursion == oldRecursion) {
+  //   return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PCAlreadyOnRecursion", { actor: actor.name, recursion: recursionName }));
+  // };
+
   // Update Focus & Recursion
   await actor.update({
     "data.basic.focus": focus,
     "data.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName
   });
 
-  applyRecursion();
+  await applyStatChanges();
+  await applyRecursion();
 
   async function applyRecursion() {
     let updates = [];
@@ -869,6 +876,27 @@ export async function translateToRecursion(actor, recursion, focus) {
 
     // Notify about translation
     ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", { actor: actor.name, recursion: recursionName }))
+  }
+
+  async function applyStatChanges() {
+    let pool = actor.data.data.pools;
+
+    let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
+    let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");
+    let oldIntellectModifier = (!actor.getFlag("cyphersystem", "recursionIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectModifier");
+
+    await actor.update({
+      "data.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
+      "data.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
+      "data.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
+      "data.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
+      "data.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
+      "data.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
+      "flags.cyphersystem.recursion": recursion,
+      "flags.cyphersystem.recursionMightModifier": mightModifier,
+      "flags.cyphersystem.recursionSpeedModifier": speedModifier,
+      "flags.cyphersystem.recursionIntellectModifier": intellectModifier,
+    });;
   }
 }
 

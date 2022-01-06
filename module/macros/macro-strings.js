@@ -93,7 +93,7 @@ export function allInOneRollDialogString(actor, pool, skill, assets, effort1, ef
 
   // Check for initiative
   let item = actor.items.get(itemID);
-  let isInitiative = item.data.data.isInitiative;
+  let isInitiative = (item) ? item.data.data.isInitiative : false;
 
   // Create HTML
   let basicModifiers =
