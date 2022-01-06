@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.27.1] - 2022-01-06
+### Changed
+- The Translate to Recursion macro has been expanded so that stat changes on that recursion can be defined as well.
+
+### Fixed
+- Fixed a bug preventing All-in-One rolls from the stat Pools and the All-in-One macro.
+
 ## [1.27.0] - 2022-01-05
 ### Added
 - Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 

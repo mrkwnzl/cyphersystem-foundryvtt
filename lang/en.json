@@ -399,6 +399,7 @@
   "CYPHERSYSTEM.IntrusionRefused": "{actor} refused the intrusion (-1 XP).",
   "CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to.",
   "CYPHERSYSTEM.PCTranslatedToRecursion": "{actor} translated to {recursion}.",
+  "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} already is on {recursion}.",
   "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Rolls now show item descriptions by default.",
   "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Rolls now hide item descriptions by default.",
   "CYPHERSYSTEM.OnRecursion": "on",
