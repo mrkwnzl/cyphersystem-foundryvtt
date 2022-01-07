@@ -48,7 +48,8 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
   let initiativeInfo = (initiativeRoll) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult : "";
 
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actor.id}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let actorID = (actor) ? actor.id : "";
+  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
 
   // Put it all together into the chat flavor
   let flavor = "<b>" + title + "</b>" + bars + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + reRollButton;

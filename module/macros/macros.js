@@ -16,7 +16,7 @@ import {
 /* -------------------------------------------- */
 
 export function quickRollMacro(title) {
-  diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0)
+  diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0, "")
 }
 
 export function easedRollMacro() {
@@ -28,7 +28,7 @@ export function easedRollMacro() {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0)
+        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0, "")
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -51,7 +51,7 @@ export function hinderedRollMacro() {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val() * -1, 0)
+        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val() * -1, 0, "")
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
