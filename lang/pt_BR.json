@@ -391,5 +391,19 @@
     "CYPHERSYSTEM.SkillCategoryTwo": "Perícias 2",
     "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Número de Jogadas de Recuperação de Dez Minutos",
     "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "As rolagens agora exibem descrições de item por padrão.",
-    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Rolagens agora escondem descrições de item por padrão."
+    "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Rolagens agora escondem descrições de item por padrão.",
+    "CYPHERSYSTEM.LowTier": "grau baixo",
+    "CYPHERSYSTEM.MidTier": "grau médio",
+    "CYPHERSYSTEM.HighTier": "grau alto",
+    "CYPHERSYSTEM.SheetClassPC": "Ficha de Personagem Padrão",
+    "CYPHERSYSTEM.SheetClassNPC": "Ficha de NPC Padrão",
+    "CYPHERSYSTEM.SheetClassCommunity": "Ficha de Comunidade Padrão",
+    "CYPHERSYSTEM.SheetClassCompanion": "Ficha de Companheiro Padrão",
+    "CYPHERSYSTEM.SheetClassToken": "Ficha de Marcador Padrão",
+    "CYPHERSYSTEM.SheetClassVehicle": "Ficha de Veículo Padrão",
+    "CYPHERSYSTEM.SheetClassItem": "Ficha de Item Padrão",
+    "CYPHERSYSTEM.Initiative": "Iniciativa",
+    "CYPHERSYSTEM.NoTokensOnScene": "{name} não possui tokens na cena ativa.",
+    "CYPHERSYSTEM.NoCombatActive": "Nenhum combate está ativo.",
+    "CYPHERSYSTEM.UseAsInitiativeRoll": "Usar Resultados das Rolagens como Jogadas de Iniciativa"
 }
