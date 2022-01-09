@@ -394,5 +394,19 @@
     "CYPHERSYSTEM.SkillCategoryFour": "Compétences 4",
     "CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification": "Les jets affichent la description des objets par défaut.",
     "CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification": "Les jets masquent la description des objets par défaut.",
-    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Nombre de Jets de Récupération de 10 minutes"
+    "CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls": "Nombre de Jets de Récupération de 10 minutes",
+    "CYPHERSYSTEM.SheetClassPC": "Feuille PJ par défaut",
+    "CYPHERSYSTEM.SheetClassNPC": "Feuille PNJ par défaut",
+    "CYPHERSYSTEM.SheetClassCommunity": "Feuille Communauté par défaut",
+    "CYPHERSYSTEM.SheetClassToken": "Feuille Marqueur par défaut",
+    "CYPHERSYSTEM.SheetClassVehicle": "Feuille Véhicule par défaut",
+    "CYPHERSYSTEM.SheetClassItem": "Feuille Objet par défaut",
+    "CYPHERSYSTEM.LowTier": "niveau inférieur",
+    "CYPHERSYSTEM.MidTier": "niveau intermédiaire",
+    "CYPHERSYSTEM.HighTier": "niveau supérieur",
+    "CYPHERSYSTEM.Initiative": "Initiative",
+    "CYPHERSYSTEM.NoTokensOnScene": "{name} ne possède pas de token actif sur la scène.",
+    "CYPHERSYSTEM.NoCombatActive": "Aucun combat n'est en cours.",
+    "CYPHERSYSTEM.UseAsInitiativeRoll": "Utiliser les résultats du jet comme jet d'initiative",
+    "CYPHERSYSTEM.SheetClassCompanion": "Feuille Compagnon par défaut"
 }
