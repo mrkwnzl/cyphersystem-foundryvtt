@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Added a new Calculate Difficulty macro, with which the GM can tally the difficulty (with most combat-relevant modifiers included) and send the result to the chat. The idea is that the GM tallies only the GM-side of the difficulty, while the players then apply skills, assets, Effort, and anything else from their side (abilities, cyphers, artifacts) to that difficulty.
 
-  The result can be send to everyone, whispered to the GM, or whispered to the GM while the players only get a vague description of the difficulty. Note that difficulties 3, 5, 7, and 9 could have the higher or the lower description. This is so that there’s some ambiguity for the players.
+  The result can be send to everyone, whispered to the GM, or whispered to the GM while the players only get a vague description of the difficulty. Note that difficulties 3, 5, 7, and 9 could have the higher or the lower description. This is done so that there’s some ambiguity for the players.
 
   | Difficulty | Vague Description                                      |
   | ---------: | ------------------------------------------------------ |
