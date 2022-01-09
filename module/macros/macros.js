@@ -4,7 +4,8 @@ import {
 } from "./macro-helper.js";
 import {
   allInOneRollDialogString,
-  spendEffortString
+  spendEffortString,
+  calculateAttackDifficultyString
 } from "./macro-strings.js";
 import {
   chatCardProposeIntrusion,
@@ -941,4 +942,291 @@ export async function unarchiveItemsWithTag(actor, tag) {
 
 export async function archiveItemsWithTag(actor, tag) {
   await archiveStatusByTag(actor, [tag], "");
+}
+
+export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {
+
+  // Create All-in-One dialog
+  let d = new Dialog({
+    title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
+    content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName),
+    buttons: {
+      calculate: {
+        icon: '<i class="fas fa-calculator"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Calculate"),
+        callback: (html) => {
+          additionalOneValue = (html.find('#additionalOne').val() != "") ? html.find('#additionalOne').val() : html.find('#additionalOne').attr('placeholder');
+          additionalTwoValue = (html.find('#additionalTwo').val() != "") ? html.find('#additionalTwo').val() : html.find('#additionalTwo').attr('placeholder');
+          additionalThreeValue = (html.find('#additionalThree').val() != "") ? html.find('#additionalThree').val() : html.find('#additionalThree').attr('placeholder');
+          calculate(html.find('#difficulty').val(), html.find('#pcRole').val(), html.find('#chatMessage').val(), html.find('#cover').prop('checked'), html.find('#positionProne').val(), html.find('#positionHighGround').prop('checked'), html.find('#range').val(), html.find('#illumination').val(), html.find('#mist').prop('checked'), html.find('#hiding').prop('checked'), html.find('#invisible').prop('checked'), html.find('#water').val(), html.find('#targetMoving').prop('checked'), html.find('#attackerMoving').prop('checked'), html.find('#attackerJostled').prop('checked'), html.find('#gravity').prop('checked'), additionalOneValue, html.find('#additionalOneName').val(), additionalTwoValue, html.find('#additionalTwoName').val(), additionalThreeValue, html.find('#additionalThreeName').val(), html.find('#stepModifierOne').val(), html.find('#stepModifierTwo').val(), html.find('#stepModifierThree').val(), description1, description2, description3, description4, description5, description6);
+        }
+      },
+      cancel: {
+        icon: '<i class="fas fa-times"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+        callback: () => { }
+      }
+    },
+    default: "calculate",
+    close: () => { }
+  });
+
+  if (event.altKey) {
+    skipDialog = (skipDialog) ? false : true;
+  }
+
+  if (!skipDialog) {
+    d.render(true);
+  } else {
+    let stepModifierOne = (additionalOneValue >= 0) ? 1 : -1;
+    let stepModifierTwo = (additionalTwoValue >= 0) ? 1 : -1;
+    let stepModifierThree = (additionalThreeValue >= 0) ? 1 : -1;
+    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6)
+  }
+
+  function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6) {
+    let modifier = 0;
+    let basicInfo = "";
+    let pcRoleInfo = "";
+    let coverInfo = "";
+    let positionInfo = "";
+    let rangeInfo = "";
+    let illuminationInfo = "";
+    let visibilityInfo = "";
+    let waterInfo = "";
+    let movementInfo = "";
+    let gravityInfo = "";
+    let additionalInfo = "";
+    let resultInfo = "";
+    let chatMessageText = "";
+    let chatMessageVagueText = "";
+    let signEased = (pcRole == 0) ? "-" : "+";
+    let signHindered = (pcRole == 0) ? "+" : "-";
+
+    if (pcRole == 0) {
+      pcRoleInfo = game.i18n.localize("CYPHERSYSTEM.PCIsAttacker");
+    } else {
+      pcRoleInfo = game.i18n.localize("CYPHERSYSTEM.PCIsTarget");
+    }
+
+    basicInfo = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + "</b><hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + difficulty + "<br>" + pcRoleInfo;
+
+    if (cover == true) {
+      modifier = modifier + 1;
+      coverInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetHasCover") + " (" + signHindered + "1)";
+    }
+
+    if (positionProne > 0 || positionHighGround == true) {
+      positionInfo = "<hr class='hr-chat'>";
+    }
+
+    if (positionProne == 1) {
+      modifier = modifier - 1;
+      positionInfo = positionInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsProneMelee") + " (" + signEased + "1)";
+    } else if (positionProne == 2) {
+      modifier = modifier + 1;
+      positionInfo = positionInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsProneRanged") + " (" + signHindered + "1)";
+    }
+
+    if (positionHighGround == true) {
+      modifier = modifier - 1;
+      positionInfo = positionInfo + ((positionProne > 0) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.AttackerHasHighGround") + " (" + signEased + "1)";
+    }
+
+    if (range == 1) {
+      modifier = modifier - 1;
+      rangeInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInPointBlankRange") + " (" + signEased + "1)";
+    } else if (range == 2) {
+      modifier = modifier + 1;
+      rangeInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInExtremeRange") + " (" + signHindered + "1)";
+    } else if (range == 3) {
+      modifier = modifier + 2;
+      rangeInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsBeyondExtremeRange") + " (" + signHindered + "2)";
+    }
+
+    if (illumination == 1) {
+      modifier = modifier + 1;
+      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInDimLight") + " (" + signHindered + "1)";
+    } else if (illumination == 2) {
+      modifier = modifier + 1;
+      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInVeryDimLightImmediate") + " (" + signHindered + "1)";
+    } else if (illumination == 3) {
+      modifier = modifier + 2;
+      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInVeryDimLightShort") + " (" + signHindered + "2)";
+    } else if (illumination == 4) {
+      modifier = modifier + 4;
+      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsDarkness") + " (" + signHindered + "4)";
+    }
+
+    if (mist == true || hiding == true || invisible == true) {
+      visibilityInfo = "<hr class='hr-chat'>";
+    }
+
+    if (mist == true) {
+      modifier = modifier + 1;
+      visibilityInfo = visibilityInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsInMist") + " (" + signHindered + "1)";
+    }
+
+    if (hiding == true) {
+      modifier = modifier + 1;
+      visibilityInfo = visibilityInfo + ((mist == true) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.TargetIsHiding") + " (" + signHindered + "1)";
+    }
+
+    if (invisible == true) {
+      modifier = modifier + 4;
+      visibilityInfo = visibilityInfo + ((mist == true || hiding == true) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.TargetIsInvisible") + " (" + signHindered + "4)";
+    }
+
+    if (water == 1) {
+      modifier = modifier + 1;
+      waterInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.AttackerIsInDeepWater") + " (" + signHindered + "1)";
+    } else if (water == 2) {
+      modifier = modifier + 1;
+      waterInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.AttackerIsUnderwaterStabbing") + " (" + signHindered + "1)";
+    } else if (water == 3) {
+      modifier = modifier + 2;
+      waterInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.AttackerIsUnderwaterSlashing") + " (" + signHindered + "2)";
+    }
+
+    if (targetMoving == true || attackerMoving == true || attackerJostled == true) {
+      movementInfo = "<hr class='hr-chat'>";
+    }
+
+    if (targetMoving == true) {
+      modifier = modifier + 1;
+      movementInfo = movementInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsMoving") + " (" + signHindered + "1)";
+    }
+
+    if (attackerMoving == true) {
+      modifier = modifier + 1;
+      movementInfo = movementInfo + ((targetMoving == true) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.AttackerIsMoving") + " (" + signHindered + "1)";
+    }
+
+    if (attackerJostled == true) {
+      modifier = modifier + 1;
+      movementInfo = movementInfo + ((targetMoving == true || attackerMoving == true) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.AttackerIsJostled") + " (" + signHindered + "1)";
+    }
+
+    if (gravity == true) {
+      modifier = modifier + 1;
+      gravityInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.AttackInGravity") + " (" + signHindered + "1)";
+    }
+
+    if (additionalOneValue != 0 || additionalTwoValue != 0 || additionalThreeValue != 0) {
+      additionalInfo = "<hr class='hr-chat'>";
+    }
+
+    additionalOneValue = additionalOneValue * stepModifierOne;
+    additionalTwoValue = additionalTwoValue * stepModifierTwo;
+    additionalThreeValue = additionalThreeValue * stepModifierThree;
+    modifier = modifier + additionalOneValue;
+    modifier = modifier + additionalTwoValue;
+    modifier = modifier + additionalThreeValue;
+
+    if (additionalOneValue != 0) {
+      additionalInfo = additionalInfo + ((additionalOneName != "") ? additionalOneName : game.i18n.localize("CYPHERSYSTEM.AdditionalOne")) + ": ";
+    }
+
+    if ((additionalOneValue == 1 && pcRole == 0) || (additionalOneValue == -1 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Hindered");
+    } else if ((additionalOneValue == 1 && pcRole == 1) || (additionalOneValue == -1 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
+    } else if ((additionalOneValue >= 2 && pcRole == 0) || (additionalOneValue <= -2 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalOneValue) })
+    } else if ((additionalOneValue >= 2 && pcRole == 1) || (additionalOneValue <= -2 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalOneValue) })
+    }
+
+    if (additionalTwoValue != 0) {
+      additionalInfo = additionalInfo + ((additionalOneValue != 0) ? "<br>" : "") + ((additionalTwoName != "") ? additionalTwoName : game.i18n.localize("CYPHERSYSTEM.AdditionalTwo")) + ": ";
+    }
+
+    if ((additionalTwoValue == 1 && pcRole == 0) || (additionalTwoValue == -1 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Hindered");
+    } else if ((additionalTwoValue == 1 && pcRole == 1) || (additionalTwoValue == -1 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
+    } else if ((additionalTwoValue >= 2 && pcRole == 0) || (additionalTwoValue <= -2 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalTwoValue) })
+    } else if ((additionalTwoValue >= 2 && pcRole == 1) || (additionalTwoValue <= -2 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalTwoValue) })
+    }
+
+    if (additionalThreeValue != 0) {
+      additionalInfo = additionalInfo + ((additionalOneValue != 0 || additionalTwoValue != 0) ? "<br>" : "") + ((additionalThreeName != "") ? additionalThreeName : game.i18n.localize("CYPHERSYSTEM.AdditionalThree")) + ": ";
+    }
+
+    if ((additionalThreeValue == 1 && pcRole == 0) || (additionalThreeValue == -1 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Hindered");
+    } else if ((additionalThreeValue == 1 && pcRole == 1) || (additionalThreeValue == -1 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
+    } else if ((additionalThreeValue >= 2 && pcRole == 0) || (additionalThreeValue <= -2 && pcRole == 1)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalThreeValue) })
+    } else if ((additionalThreeValue >= 2 && pcRole == 1) || (additionalThreeValue <= -2 && pcRole == 0)) {
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalThreeValue) })
+    }
+
+    if (pcRole == 1) {
+      modifier = modifier * -1;
+    }
+
+    let finalDifficulty = parseInt(difficulty) + parseInt(modifier);
+
+    if (finalDifficulty < 0) finalDifficulty = 0;
+
+    resultInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty;
+
+    chatMessageText = basicInfo + coverInfo + positionInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
+
+    let rng = Math.floor(Math.random() * 2);
+
+    chatMessageVagueText = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + "</b><hr class='hr-chat'>"
+
+    if (description1 == "") description1 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyRoutine");
+    if (description2 == "") description2 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyTypical");
+    if (description3 == "") description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult")
+    if (description4 == "") description4 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyInitimidating")
+    if (description5 == "") description5 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyHeroic")
+    if (description6 == "") description6 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyImpossible");
+
+    if (finalDifficulty == 0) {
+      chatMessageVagueText = chatMessageVagueText + description1;
+    } else if (finalDifficulty <= 2) {
+      chatMessageVagueText = chatMessageVagueText + description2;
+    } else if (finalDifficulty == 3) {
+      chatMessageVagueText = chatMessageVagueText + ((rng == 0) ? description2 : description3);
+    } else if (finalDifficulty == 4) {
+      chatMessageVagueText = chatMessageVagueText + description3;
+    } else if (finalDifficulty == 5) {
+      chatMessageVagueText = chatMessageVagueText + ((rng == 0) ? description3 : description4);
+    } else if (finalDifficulty == 6) {
+      chatMessageVagueText = chatMessageVagueText + description4;
+    } else if (finalDifficulty == 7) {
+      chatMessageVagueText = chatMessageVagueText + ((rng == 0) ? description4 : description5);
+    } else if (finalDifficulty == 8) {
+      chatMessageVagueText = chatMessageVagueText + description5;
+    } else if (finalDifficulty == 9) {
+      chatMessageVagueText = chatMessageVagueText + ((rng == 0) ? description5 : description6);
+    } else if (finalDifficulty >= 10) {
+      chatMessageVagueText = chatMessageVagueText + description6;
+    }
+
+    if (chatMessage == 0) {
+      ChatMessage.create({
+        content: chatMessageText
+      });
+    } else if (chatMessage == 1) {
+      ChatMessage.create({
+        content: chatMessageText,
+        whisper: ChatMessage.getWhisperRecipients("GM")
+      });
+    } else if (chatMessage == 2) {
+      ChatMessage.create({
+        content: chatMessageText,
+        whisper: ChatMessage.getWhisperRecipients("GM")
+      });
+      ChatMessage.create({
+        content: chatMessageVagueText
+      });
+    }
+  }
 }

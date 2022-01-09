@@ -201,3 +201,136 @@ export function spendEffortString() {
 
   return content;
 }
+
+export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName) {
+  let content =
+    `<div>
+    <select name='difficulty' id='difficulty' class='dialog-calcAttDiff'>
+    <option value='0' ${(difficulty == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 0</option>
+    <option value='1' ${(difficulty == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 1</option>
+    <option value='2' ${(difficulty == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 2</option>
+    <option value='3' ${(difficulty == 3 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 3</option>
+    <option value='4' ${(difficulty == 4 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 4</option>
+    <option value='5' ${(difficulty == 5 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 5</option>
+    <option value='6' ${(difficulty == 6 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 6</option>
+    <option value='7' ${(difficulty == 7 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 7</option>
+    <option value='8' ${(difficulty == 8 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 8</option>
+    <option value='9' ${(difficulty == 9 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 9</option>
+    <option value='10' ${(difficulty == 10 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 10</option>
+    <option value='11' ${(difficulty == 11 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 11</option>
+    <option value='12' ${(difficulty == 12 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 12</option>
+    <option value='13' ${(difficulty == 13 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 13</option>
+    <option value='14' ${(difficulty == 14 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 14</option>
+    <option value='15' ${(difficulty == 15 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}: 15</option>
+    </select><br>
+    <select name='pcRole' id='pcRole' class='dialog-calcAttDiff'>
+    <option value='0' ${(pcRole == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.PCIsAttacker")}</option>
+    <option value='1' ${(pcRole == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.PCIsTarget")}</option>
+    </select><br>
+    <select name='chatMessage' id='chatMessage' class='dialog-calcAttDiff'>
+    <option value='0' ${(chatMessage == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.ShowDifficultyToEveryone")}</option>
+    <option value='1' ${(chatMessage == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.WhisperDifficultyToGM")}</option>
+    <option value='2' ${(chatMessage == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.WhisperDifficultyToGMAndBeVague")}</option>
+    </select>
+    <hr>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='cover' id='cover' data-dtype='boolean' ${(cover == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetHasCover")}
+    </div>
+    <hr>
+    <select name='positionProne' id='positionProne' class='dialog-calcAttDiff' style='margin-bottom: 5px;'>
+    <option value='0' ${(positionProne == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsStanding")}</option>
+    <option value='1' ${(positionProne == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsProneMelee")}</option>
+    <option value='2' ${(positionProne == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsProneRanged")}</option>
+    </select><br>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='positionHighGround' id='positionHighGround' data-dtype='boolean' ${(positionHighGround == 1 ? "checked" : "")}'>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerHasHighGround")}
+    </div>
+    <hr>
+    <select name='range' id='range' class='dialog-calcAttDiff'>
+    <option value='0' ${(range == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInNormalRange")}</option>
+    <option value='1' ${(range == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInPointBlankRange")}</option>
+    <option value='2' ${(range == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInExtremeRange")}</option>
+    <option value='3' ${(range == 3 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsBeyondExtremeRange")}</option>
+    </select>
+    <hr>
+    <select name='illumination' id='illumination' class='dialog-calcAttDiff'>
+    <option value='0' ${(illumination == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsIlluminated")}</option>
+    <option value='1' ${(illumination == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInDimLight")}</option>
+    <option value='2' ${(illumination == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInVeryDimLightImmediate")}</option>
+    <option value='3' ${(illumination == 3 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInVeryDimLightShort")}</option>
+    <option value='4' ${(illumination == 4 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInDarkness")}</option>
+    </select>
+    <hr>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='mist' id='mist' data-dtype='boolean' ${(mist == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsInMist")}<br>
+    </div>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='hiding' id='hiding' data-dtype='boolean' ${(hiding == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsHiding")}<br>
+    </div>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='invisible' id='invisible' data-dtype='boolean' ${(invisible == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsInvisible")}
+    </div>
+    <hr>
+    <select name='water' id='water' class='dialog-calcAttDiff'>
+    <option value='0' ${(water == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.AttackIsOnLand")}</option>
+    <option value='1' ${(water == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.AttackerIsInDeepWater")}</option>
+    <option value='2' ${(water == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.AttackerIsUnderwaterStabbing")}</option>
+    <option value='3' ${(water == 3 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.AttackerIsUnderwaterSlashing")}</option>
+    </select>
+    <hr>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='targetMoving' id='targetMoving' data-dtype='boolean' ${(targetMoving == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsMoving")}<br>
+    </div>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='attackerMoving' id='attackerMoving' data-dtype='boolean' ${(attackerMoving == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerIsMoving")}<br>
+    </div>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='attackerJostled' id='attackerJostled' data-dtype='boolean' ${(attackerJostled == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerIsJostled")}
+    </div>
+    <hr>
+    <div class="input-calcAttDiff">
+    <input class='dialog-checkbox' type='checkbox' name='gravity' id='gravity' data-dtype='boolean' ${(gravity == 1 ? "checked" : "")}>
+    &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackInGravity")}
+    </div>
+    <hr>
+
+    <div class="flex-center grid grid-3col" style="gap: 3px">
+    <div style="margin-bottom: 7px">
+    <input class='auto-margin dialog-input' name='additionalOneName' id='additionalOneName' type='text' value='${additionalOneName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalOne")}">
+    <select name='stepModifierOne' id='stepModifierOne' class='dialog-select'>
+    <option value='-1' ${(additionalOneValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
+    <option value='1' ${(additionalOneValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
+    </select>
+    <input name='additionalOne' id='additionalOne' type='number' placeholder=${Math.abs(additionalOneValue)} style='margin-bottom: 0px; margin-left: -2px; text-align: center; width: 26px;'/>
+    </div>
+
+    <div style="margin-bottom: 7px">
+    <input class='auto-margin dialog-input' name='additionalTwoName' id='additionalTwoName' type='text' value='${additionalTwoName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalTwo")}">
+    <select name='stepModifierTwo' id='stepModifierTwo' class='dialog-select'>
+    <option value='-1' ${(additionalTwoValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
+    <option value='1' ${(additionalTwoValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
+    </select>
+    <input name='additionalTwo' id='additionalTwo' type='number' placeholder=${Math.abs(additionalTwoValue)} style='margin-bottom: 0px; margin-left: -2px; text-align: center; width: 26px;'/>
+    </div>
+
+    <div style="margin-bottom: 7px">
+    <input class='auto-margin dialog-input' name='additionalThreeName' id='additionalThreeName' type='text' value='${additionalThreeName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalThree")}">
+    <select name='stepModifierThree' id='stepModifierThree' class='dialog-select'>
+    <option value='-1' ${(additionalThreeValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
+    <option value='1' ${(additionalThreeValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
+    </select>
+    <input name='additionalThree' id='additionalThree' type='number' placeholder=${Math.abs(additionalThreeValue)} style='margin-bottom: 0px; margin-left: -2px; text-align: center; width: 26px;'/>
+    </div>
+    </div>
+    </div>`;
+
+  return content;
+}
