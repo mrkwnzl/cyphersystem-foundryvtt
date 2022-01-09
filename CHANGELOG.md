@@ -21,6 +21,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   As usual, all defaults can be changed in the macro. alt-clicking the macro skips the dialog, using the defaults specified in the macro.
 
+### Changed
+- The Translate to Recursion macros now also allow for changes in Edge values.
+
+### Fixed
+- Fixed a bug with older Translate to Recursion macros, which deleted all pool values. Old Translate to Recursion macros are still usable, but I encourage anyone to recreate the older ones with the new ones in the compendium.
+
 ## [1.27.2] - 2022-01-07
 ### Fixed
 - Fixed a bug preventing quick roll macros to function.
