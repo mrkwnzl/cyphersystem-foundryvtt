@@ -838,7 +838,7 @@ export function toggleArmorOnSheet(token) {
   token.actor.update({ "data.settings.equipment.armor": toggle })
 }
 
-export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier) {
+export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
   // Check for PC
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -846,17 +846,18 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   let recursionName = recursion;
   recursion = "@" + recursion.toLowerCase();
 
-  // let oldRecursion = (!actor.getFlag("cyphersystem", "recursion")) ? "" : actor.getFlag("cyphersystem", "recursion");
-
-  // if (recursion == oldRecursion) {
-  //   return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PCAlreadyOnRecursion", { actor: actor.name, recursion: recursionName }));
-  // };
-
   // Update Focus & Recursion
   await actor.update({
     "data.basic.focus": focus,
     "data.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName
   });
+
+  if (!mightModifier) mightModifier = 0;
+  if (!speedModifier) speedModifier = 0;
+  if (!intellectModifier) intellectModifier = 0;
+  if (!mightEdgeModifier) mightEdgeModifier = 0;
+  if (!speedEdgeModifier) speedEdgeModifier = 0;
+  if (!intellectEdgeModifier) intellectEdgeModifier = 0;
 
   await applyStatChanges();
   await applyRecursion();
@@ -885,6 +886,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
     let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
     let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");
     let oldIntellectModifier = (!actor.getFlag("cyphersystem", "recursionIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectModifier");
+    let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "recursionMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightEdgeModifier");
+    let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier");
+    let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier");
 
     await actor.update({
       "data.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
@@ -893,11 +897,17 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       "data.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
       "data.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
       "data.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
+      "data.pools.mightEdge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
+      "data.pools.speedEdge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "data.pools.intellectEdge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
       "flags.cyphersystem.recursion": recursion,
       "flags.cyphersystem.recursionMightModifier": mightModifier,
       "flags.cyphersystem.recursionSpeedModifier": speedModifier,
       "flags.cyphersystem.recursionIntellectModifier": intellectModifier,
-    });;
+      "flags.cyphersystem.recursionMightEdgeModifier": mightEdgeModifier,
+      "flags.cyphersystem.recursionSpeedEdgeModifier": speedEdgeModifier,
+      "flags.cyphersystem.recursionIntellectEdgeModifier": intellectEdgeModifier
+    });
   }
 }
 
