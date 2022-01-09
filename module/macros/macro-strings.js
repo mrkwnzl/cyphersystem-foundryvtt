@@ -202,7 +202,7 @@ export function spendEffortString() {
   return content;
 }
 
-export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName) {
+export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName) {
   let content =
     `<div>
     <select name='difficulty' id='difficulty' class='dialog-calcAttDiff'>
@@ -247,6 +247,12 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
     <input class='dialog-checkbox' type='checkbox' name='positionHighGround' id='positionHighGround' data-dtype='boolean' ${(positionHighGround == 1 ? "checked" : "")}'>
     &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerHasHighGround")}
     </div>
+    <hr>
+    <select name='surprise' id='surprise' class='dialog-calcAttDiff' style='margin-bottom: 5px;'>
+    <option value='0' ${(surprise == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsAware")}</option>
+    <option value='1' ${(surprise == 1 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsUnaware")}</option>
+    <option value='2' ${(surprise == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsAwareButNotLocation")}</option>
+    </select>
     <hr>
     <select name='range' id='range' class='dialog-calcAttDiff'>
     <option value='0' ${(range == 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsInNormalRange")}</option>

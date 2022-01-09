@@ -944,12 +944,12 @@ export async function archiveItemsWithTag(actor, tag) {
   await archiveStatusByTag(actor, [tag], "");
 }
 
-export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {
+export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {
 
   // Create All-in-One dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
-    content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName),
+    content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName),
     buttons: {
       calculate: {
         icon: '<i class="fas fa-calculator"></i>',
@@ -958,7 +958,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
           additionalOneValue = (html.find('#additionalOne').val() != "") ? html.find('#additionalOne').val() : html.find('#additionalOne').attr('placeholder');
           additionalTwoValue = (html.find('#additionalTwo').val() != "") ? html.find('#additionalTwo').val() : html.find('#additionalTwo').attr('placeholder');
           additionalThreeValue = (html.find('#additionalThree').val() != "") ? html.find('#additionalThree').val() : html.find('#additionalThree').attr('placeholder');
-          calculate(html.find('#difficulty').val(), html.find('#pcRole').val(), html.find('#chatMessage').val(), html.find('#cover').prop('checked'), html.find('#positionProne').val(), html.find('#positionHighGround').prop('checked'), html.find('#range').val(), html.find('#illumination').val(), html.find('#mist').prop('checked'), html.find('#hiding').prop('checked'), html.find('#invisible').prop('checked'), html.find('#water').val(), html.find('#targetMoving').prop('checked'), html.find('#attackerMoving').prop('checked'), html.find('#attackerJostled').prop('checked'), html.find('#gravity').prop('checked'), additionalOneValue, html.find('#additionalOneName').val(), additionalTwoValue, html.find('#additionalTwoName').val(), additionalThreeValue, html.find('#additionalThreeName').val(), html.find('#stepModifierOne').val(), html.find('#stepModifierTwo').val(), html.find('#stepModifierThree').val(), description1, description2, description3, description4, description5, description6);
+          calculate(html.find('#difficulty').val(), html.find('#pcRole').val(), html.find('#chatMessage').val(), html.find('#cover').prop('checked'), html.find('#positionProne').val(), html.find('#positionHighGround').prop('checked'), html.find('#surprise').val(), html.find('#range').val(), html.find('#illumination').val(), html.find('#mist').prop('checked'), html.find('#hiding').prop('checked'), html.find('#invisible').prop('checked'), html.find('#water').val(), html.find('#targetMoving').prop('checked'), html.find('#attackerMoving').prop('checked'), html.find('#attackerJostled').prop('checked'), html.find('#gravity').prop('checked'), additionalOneValue, html.find('#additionalOneName').val(), additionalTwoValue, html.find('#additionalTwoName').val(), additionalThreeValue, html.find('#additionalThreeName').val(), html.find('#stepModifierOne').val(), html.find('#stepModifierTwo').val(), html.find('#stepModifierThree').val(), description1, description2, description3, description4, description5, description6);
         }
       },
       cancel: {
@@ -981,15 +981,16 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     let stepModifierOne = (additionalOneValue >= 0) ? 1 : -1;
     let stepModifierTwo = (additionalTwoValue >= 0) ? 1 : -1;
     let stepModifierThree = (additionalThreeValue >= 0) ? 1 : -1;
-    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6)
+    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6)
   }
 
-  function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6) {
+  function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6) {
     let modifier = 0;
     let basicInfo = "";
     let pcRoleInfo = "";
     let coverInfo = "";
     let positionInfo = "";
+    let surpriseInfo = "";
     let rangeInfo = "";
     let illuminationInfo = "";
     let visibilityInfo = "";
@@ -1033,6 +1034,18 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       positionInfo = positionInfo + ((positionProne > 0) ? "<br>" : "") + game.i18n.localize("CYPHERSYSTEM.AttackerHasHighGround") + " (" + signEased + "1)";
     }
 
+    if (surprise > 0) {
+      surpriseInfo = "<hr class='hr-chat'>";
+    }
+
+    if (surprise == 1) {
+      modifier = modifier - 2;
+      surpriseInfo = surpriseInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsUnaware") + " (" + signEased + "2)";
+    } else if (surprise == 2) {
+      modifier = modifier - 1;
+      surpriseInfo = surpriseInfo + game.i18n.localize("CYPHERSYSTEM.TargetIsAwareButNotLocation") + " (" + signEased + "1)";
+    }
+
     if (range == 1) {
       modifier = modifier - 1;
       rangeInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInPointBlankRange") + " (" + signEased + "1)";
@@ -1055,7 +1068,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInVeryDimLightShort") + " (" + signHindered + "2)";
     } else if (illumination == 4) {
       modifier = modifier + 4;
-      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsDarkness") + " (" + signHindered + "4)";
+      illuminationInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.TargetIsInDarkness") + " (" + signHindered + "4)";
     }
 
     if (mist == true || hiding == true || invisible == true) {
@@ -1173,9 +1186,11 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     if (finalDifficulty < 0) finalDifficulty = 0;
 
-    resultInfo = "<hr class='hr-chat'>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty;
+    let difficultyResult = finalDifficulty + " (" + (finalDifficulty * 3) + ")";
 
-    chatMessageText = basicInfo + coverInfo + positionInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
+    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", { difficulty: difficultyResult });
+
+    chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
 
     let rng = Math.floor(Math.random() * 2);
 
