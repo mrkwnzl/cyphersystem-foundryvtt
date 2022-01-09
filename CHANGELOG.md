@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.0] - 2022-01-09
+### Added
+- Added a new Calculate Difficulty macro, with which the GM can tally the difficulty (with most combat-relevant modifiers included) and send the result to the chat. The idea is that the GM tallies only the GM-side of the difficulty, while the players then apply skills, assets, Effort, and anything else from their side (abilities, cyphers, artifacts) to that difficulty.
+
+  The result can be send to everyone, whispered to the GM, or whispered to the GM while the players only get a vague description of the difficulty. Note that difficulties 3, 5, 7, and 9 could have the higher or the lower description. This is done so that there’s some ambiguity for the players.
+
+  | Difficulty | Vague Description                                      |
+  | ---------: | ------------------------------------------------------ |
+  | 0          | This is a routine task.                                |
+  | 1-3        | This is a typical everyday task.                       |
+  | 3-5        | This is a difficult, but doable task.                  |
+  | 5-7        | This is a hard task, likely requiring some effort.     |
+  | 7-9        | This is a heroic task, worthy of tales of adventuring. |
+  | >=9        | This is impossible!                                    |
+
+  As usual, all defaults can be changed in the macro. alt-clicking the macro skips the dialog, using the defaults specified in the macro.
+
+### Changed
+- The Translate to Recursion macros now also allow for changes in Edge values.
+
+### Fixed
+- Fixed a bug with older Translate to Recursion macros, which deleted all pool values. Old Translate to Recursion macros are still usable, but I encourage anyone to recreate the older ones with the new ones in the compendium.
+
 ## [1.27.2] - 2022-01-07
 ### Fixed
 - Fixed a bug preventing quick roll macros to function.
@@ -20,7 +43,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 
   1. Add all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
   2. Make a skill roll, including the regular cost.
-  3. Change the initiative value of the tokens to the roll result plus 3 for each easement and minus 3 for each hinderance.
+  3. Change the initiative value of the tokens to the roll result plus 3 for each easement and minus 3 for each hindrance.
 - A new compendium with pre-configured skills for initiative and defense tasks has been added.
 
 ### Changed

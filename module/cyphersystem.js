@@ -35,7 +35,8 @@ import {
   archiveItemsWithTag,
   unarchiveItemsWithTag,
   archiveStatusByTag,
-  toggleAlwaysShowDescriptionOnRoll
+  toggleAlwaysShowDescriptionOnRoll,
+  calculateAttackDifficulty
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -98,6 +99,7 @@ Hooks.once("init", async function () {
     unarchiveItemsWithTag,
     archiveStatusByTag,
     toggleAlwaysShowDescriptionOnRoll,
+    calculateAttackDifficulty,
 
     // Chat cards
     chatCardMarkItemIdentified,
