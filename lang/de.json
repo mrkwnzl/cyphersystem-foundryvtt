@@ -408,5 +408,8 @@
     "CYPHERSYSTEM.MidTier": "mittlerer Rang",
     "CYPHERSYSTEM.HighTier": "hoher Rang",
     "CYPHERSYSTEM.NoCombatActive": "Zur Zeit ist kein Kampf aktiv.",
-    "CYPHERSYSTEM.UseAsInitiativeRoll": "Benutze Würfelergebnis als Initiativewurf"
+    "CYPHERSYSTEM.UseAsInitiativeRoll": "Benutze Würfelergebnis als Initiativewurf",
+    "CYPHERSYSTEM.BaseDifficulty": "Basisschwierigkeit",
+    "CYPHERSYSTEM.PCIsAttacker": "SC ist aktiv/Angreifer",
+    "CYPHERSYSTEM.PCIsTarget": "SC ist passiv/Ziel"
 }
