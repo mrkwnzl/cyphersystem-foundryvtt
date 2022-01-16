@@ -457,5 +457,7 @@
     "CYPHERSYSTEM.VagueDifficultyDifficult": "Es una tarea difícil pero factible.",
     "CYPHERSYSTEM.VagueDifficultyHeroic": "Es una tarea heróica, digna de una leyenda.",
     "CYPHERSYSTEM.VagueDifficultyImpossible": "¡Es imposible!",
-    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} ya está en {recursion}."
+    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} ya está en {recursion}.",
+    "CYPHERSYSTEM.RecoveryTenHours": "diez-horas",
+    "CYPHERSYSTEM.UseARecoveryRoll": "{name} está usando una tirada de recuperación de {recoveryUsed}."
 }
