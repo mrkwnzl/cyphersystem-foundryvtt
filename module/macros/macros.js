@@ -11,6 +11,7 @@ import {
   chatCardProposeIntrusion,
   chatCardAskForIntrusion
 } from "../chat-cards.js";
+import { useRecoveries } from "../utilities/actor-utilities.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -503,7 +504,7 @@ export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1,
 /*  Utility Macros                              */
 /* -------------------------------------------- */
 
-export async function recoveryRollMacro(actor, dice) {
+export async function recoveryRollMacro(actor, dice, useRecovery) {
   // Check for dice
   if (!dice) {
     // Check for PC actor
@@ -513,16 +514,23 @@ export async function recoveryRollMacro(actor, dice) {
     dice = actor.data.data.recoveries.recoveryRoll;
   }
 
+  // Check if recovery should be used
+  if (!useRecovery) useRecovery = true;
+
+  // Check for recovery used
+  let recoveryUsed = (useRecovery) ? useRecoveries(actor, false) : "";
+  if (recoveryUsed == undefined) return;
+
   // Roll recovery roll
   let roll = await new Roll(dice).evaluate({ async: true });
 
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`;
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.localize("CYPHERSYSTEM.RecoveryRoll") + "</b>" + reRollButton
+    flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", { name: actor.name, recoveryUsed: recoveryUsed }) + "</b>" + reRollButton
   });
 }
 

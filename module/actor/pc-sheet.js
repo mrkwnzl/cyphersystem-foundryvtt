@@ -400,7 +400,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Recovery roll button
     html.find('.recovery-roll').click(clickEvent => {
       const item = $(clickEvent.currentTarget).parents(".item");
-      recoveryRollMacro(this.actor, "")
+      recoveryRollMacro(this.actor, "", true)
     });
 
     /**
