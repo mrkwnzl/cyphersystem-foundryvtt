@@ -411,5 +411,7 @@
     "CYPHERSYSTEM.UseAsInitiativeRoll": "Benutze Würfelergebnis als Initiativewurf",
     "CYPHERSYSTEM.BaseDifficulty": "Basisschwierigkeit",
     "CYPHERSYSTEM.PCIsAttacker": "SC ist aktiv/Angreifer",
-    "CYPHERSYSTEM.PCIsTarget": "SC ist passiv/Ziel"
+    "CYPHERSYSTEM.PCIsTarget": "SC ist passiv/Ziel",
+    "CYPHERSYSTEM.RecoveryTenHours": "Zehn-Stunden",
+    "CYPHERSYSTEM.UseARecoveryRoll": "{name} hat einen {recoveryUsed} Erholungswurf benutzt."
 }
