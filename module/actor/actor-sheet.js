@@ -450,6 +450,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.cast-spell').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+
       let recoveryUsed = useRecoveries(this.actor, true);
 
       if (recoveryUsed == undefined) return;

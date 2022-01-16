@@ -517,6 +517,10 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   // Check if recovery should be used
   if (!useRecovery) useRecovery = true;
 
+  if (event.altKey) {
+    useRecovery = (useRecovery) ? false : true;
+  }
+
   // Check for recovery used
   let recoveryUsed = (useRecovery) ? useRecoveries(actor, false) : "";
   if (recoveryUsed == undefined) return;
