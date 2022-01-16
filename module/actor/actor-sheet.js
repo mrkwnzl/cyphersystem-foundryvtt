@@ -18,6 +18,10 @@ import {
   byIdentifiedStatus
 } from "../utilities/sorting.js";
 
+import {
+  useRecoveries
+} from "../utilities/actor-utilities.js";
+
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
@@ -446,43 +450,10 @@ export class CypherActorSheet extends ActorSheet {
     html.find('.cast-spell').click(clickEvent => {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let recoveries = this.actor.data.data.recoveries;
-      let additionalRecoveries = this.actor.data.data.settings.additionalRecoveries;
-      let recoveryUsed = "";
 
-      if (!recoveries.oneAction) {
-        this.actor.update({ "data.recoveries.oneAction": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionTwo && additionalRecoveries.numberOneActionRecoveries >= 2) {
-        this.actor.update({ "data.recoveries.oneActionTwo": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionThree && additionalRecoveries.numberOneActionRecoveries >= 3) {
-        this.actor.update({ "data.recoveries.oneActionThree": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionFour && additionalRecoveries.numberOneActionRecoveries >= 4) {
-        this.actor.update({ "data.recoveries.oneActionFour": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionFive && additionalRecoveries.numberOneActionRecoveries >= 5) {
-        this.actor.update({ "data.recoveries.oneActionFive": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionSix && additionalRecoveries.numberOneActionRecoveries >= 6) {
-        this.actor.update({ "data.recoveries.oneActionSix": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.oneActionSeven && additionalRecoveries.numberOneActionRecoveries >= 7) {
-        this.actor.update({ "data.recoveries.oneActionSeven": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-      } else if (!recoveries.tenMinutes && additionalRecoveries.numberTenMinuteRecoveries >= 1) {
-        this.actor.update({ "data.recoveries.tenMinutes": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
-      } else if (!recoveries.tenMinutesTwo && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
-        this.actor.update({ "data.recoveries.tenMinutesTwo": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
-      } else if (!recoveries.oneHour) {
-        this.actor.update({ "data.recoveries.oneHour": true });
-        recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
-      } else {
-        return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", { name: this.actor.name }));
-      }
+      let recoveryUsed = useRecoveries(this.actor, true);
+
+      if (recoveryUsed == undefined) return;
 
       ChatMessage.create({
         content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {

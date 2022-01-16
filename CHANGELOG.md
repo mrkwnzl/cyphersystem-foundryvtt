@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.1] - 2022-01-15
+### Changed
+- Using the recovery roll button on the character sheet now auto-checks the next free recovery roll.
+- Updated the Recovery Roll macro so that auto-checking a recovery can be disabled and a different dice formula can be used.
+- Updated translations.
+
 ## [1.28.0] - 2022-01-09
 ### Added
 - Added a new Calculate Difficulty macro, with which the GM can tally the difficulty (with most combat-relevant modifiers included) and send the result to the chat. The idea is that the GM tallies only the GM-side of the difficulty, while the players then apply skills, assets, Effort, and anything else from their side (abilities, cyphers, artifacts) to that difficulty.
