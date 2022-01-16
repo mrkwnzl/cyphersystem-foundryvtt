@@ -454,5 +454,7 @@
     "CYPHERSYSTEM.VagueDifficultyTypical": "Esta é uma tarefa diária típica.",
     "CYPHERSYSTEM.VagueDifficultyInitimidating": "Esta é uma tarefa difícil, provavelmente exigindo algum esforço.",
     "CYPHERSYSTEM.VagueDifficultyImpossible": "Isso é impossível!",
-    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} já está em {recursion}."
+    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} já está em {recursion}.",
+    "CYPHERSYSTEM.RecoveryTenHours": "des-horas",
+    "CYPHERSYSTEM.UseARecoveryRoll": "{name} está usando uma rolagem de recuperação {recoveryUsed}."
 }
