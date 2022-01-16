@@ -457,5 +457,7 @@
     "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} est déjà en {recursion}.",
     "CYPHERSYSTEM.BaseDifficulty": "Difficulté de base",
     "CYPHERSYSTEM.WhisperDifficultyToGM": "Communiquer la difficulté seulement au MJ",
-    "CYPHERSYSTEM.WhisperDifficultyToGMAndBeVague": "Chuchoter la difficulté au GM, montrer une difficulté vague aux joueurs"
+    "CYPHERSYSTEM.WhisperDifficultyToGMAndBeVague": "Chuchoter la difficulté au GM, montrer une difficulté vague aux joueurs",
+    "CYPHERSYSTEM.UseARecoveryRoll": "{name} utilise le jet de récupération {recoveryUsed}.",
+    "CYPHERSYSTEM.RecoveryTenHours": "dix heures"
 }
