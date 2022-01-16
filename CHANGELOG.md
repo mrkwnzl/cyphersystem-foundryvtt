@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.28.1] - 2022-01-15
 ### Changed
-- Using the recovery roll button now auto-checks the next free recovery roll.
+- Using the recovery roll button on the character sheet now auto-checks the next free recovery roll.
 - Updated the Recovery Roll macro so that auto-checking a recovery can be disabled and a different dice formula can be used.
 - Updated translations.
 
