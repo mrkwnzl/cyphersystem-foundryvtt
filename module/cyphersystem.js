@@ -36,14 +36,20 @@ import {
   unarchiveItemsWithTag,
   archiveStatusByTag,
   toggleAlwaysShowDescriptionOnRoll,
-  calculateAttackDifficulty
+  calculateAttackDifficulty,
+  recursionMacro,
+  tagMacro
 } from "./macros/macros.js";
 import {
   diceRoller,
   easedRollEffectiveMacro,
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
-import { itemMacroString } from "./macros/macro-strings.js";
+import {
+  itemMacroString,
+  recursionString,
+  tagString
+} from "./macros/macro-strings.js";
 import {
   chatCardMarkItemIdentified,
   chatCardProposeIntrusion,
@@ -100,6 +106,8 @@ Hooks.once("init", async function () {
     archiveStatusByTag,
     toggleAlwaysShowDescriptionOnRoll,
     calculateAttackDifficulty,
+    recursionMacro,
+    tagMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -167,9 +175,25 @@ Hooks.once("init", async function () {
     return TextEditor.enrichHTML(html);
   });
 
+  Handlebars.registerHelper('log', function (data) {
+    console.log(data)
+  });
+
   Handlebars.registerHelper("expanded", function (itemID) {
     if (game.user.expanded != undefined) {
       return game.user.expanded[itemID] == true;
+    } else {
+      return false;
+    }
+  });
+
+  Handlebars.registerHelper("recursion", function (actorID, itemID) {
+    let actor = game.actors.get(actorID);
+    let item = actor.items.get(itemID);
+    let actorRecursion = !actor.getFlag("cyphersystem", "recursion") ? "" : actor.getFlag("cyphersystem", "recursion");
+    let itemRecursion = "@" + item.name.toLowerCase();
+    if (actorRecursion == itemRecursion) {
+      return true;
     } else {
       return false;
     }
@@ -274,13 +298,16 @@ async function preloadHandlebarsTemplates() {
     "systems/cyphersystem/templates/tabs/teenAttacks.html",
     "systems/cyphersystem/templates/tabs/attacks.html",
     "systems/cyphersystem/templates/tabs/item-settings.html",
+    "systems/cyphersystem/templates/tabs/tag-settings.html",
     "systems/cyphersystem/templates/tabs/spells.html",
     "systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html",
     "systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html",
     "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html",
     "systems/cyphersystem/templates/tabs/skillsCategoryTwo.html",
     "systems/cyphersystem/templates/tabs/skillsCategoryThree.html",
-    "systems/cyphersystem/templates/tabs/skillsCategoryFour.html"
+    "systems/cyphersystem/templates/tabs/skillsCategoryFour.html",
+    "systems/cyphersystem/templates/tabs/recursions.html",
+    "systems/cyphersystem/templates/tabs/tags.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -709,7 +736,15 @@ async function createCyphersystemMacro(data, slot) {
   const item = data.data;
 
   // Create the macro command
-  const command = itemMacroString(item._id);
+  let command = "";
+
+  if (item.type == "recursion") {
+    command = recursionString(data.actorId, item._id);
+  } else if (item.type == "tag") {
+    command = tagString(data.actorId, item._id);
+  } else {
+    command = itemMacroString(item._id);
+  }
 
   let macro = await Macro.create({
     name: item.name,

@@ -43,3 +43,11 @@ export function useRecoveries(actor, spell) {
 
   return recoveryUsed;
 }
+
+export function isExclusiveTagActive(actor) {
+  let countExclusiveTags = 0;
+  for (let item of actor.items) {
+    if (item.type == "tag" && item.data.data.exclusive && item.data.data.active) countExclusiveTags++;
+  }
+  return (countExclusiveTags > 0) ? true : false;
+}

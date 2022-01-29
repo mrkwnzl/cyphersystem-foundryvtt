@@ -12,6 +12,7 @@ import {
   chatCardAskForIntrusion
 } from "../chat-cards.js";
 import { useRecoveries } from "../utilities/actor-utilities.js";
+import { htmlEscape } from "../utilities/html-escape.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -861,7 +862,8 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   // Update Focus & Recursion
   await actor.update({
     "data.basic.focus": focus,
-    "data.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName
+    "data.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName,
+    "data.settings.additionalSentence.active": true
   });
 
   if (!mightModifier) mightModifier = 0;
@@ -879,6 +881,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
     for (let item of actor.items) {
       let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
       let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+      let recursions = item.data.data.recursions;
       if (name.includes(recursion) || description.includes(recursion)) {
         updates.push({ _id: item.id, "data.archived": false });
       } else if (name.includes("@") || description.includes("@")) {
@@ -923,34 +926,32 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   }
 }
 
-export async function archiveStatusByTag(actor, archiveTags, unarchiveTags, signifier, archive) {
+export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
   // Check for PC
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  // Define default signifier & archive
-  if (!signifier) signifier = "#";
-  if (archive !== true) archive = false;
+  if (!event.altKey) {
+    await unarchiveItemsWithTag(actor, unarchiveTags);
+    await archiveItemsWithTag(actor, archiveTags);
+  } else if (event.altKey) {
+    await unarchiveItemsWithTag(actor, archiveTags);
+    await archiveItemsWithTag(actor, unarchiveTags);
+  }
+}
 
-  // Define tag name & workarble tag variable
-  // tag = signifier + tag.toLowerCase();
-
-  // Define archiving or unarchiving
-  let archived = ((event.altKey && archive) || (!event.altKey && !archive)) ? false : true;
+export async function unarchiveItemsWithTag(actor, tags) {
+  // Check for PC
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   let updates = [];
   for (let item of actor.items) {
     let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
     let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-    for (let archiveTag of archiveTags) {
-      archiveTag = signifier + archiveTag.toLowerCase();
-      if (name.includes(archiveTag) || description.includes(archiveTag)) {
-        updates.push({ _id: item.id, "data.archived": !archived });
-      }
-    }
-    for (let unarchiveTag of unarchiveTags) {
-      unarchiveTag = signifier + unarchiveTag.toLowerCase();
-      if (name.includes(unarchiveTag) || description.includes(unarchiveTag)) {
-        updates.push({ _id: item.id, "data.archived": archived });
+    for (let tag of tags) {
+      if (tag == "") return;
+      tag = "#" + htmlEscape(tag.toLowerCase().trim());
+      if (name.includes(tag) || description.includes(tag)) {
+        updates.push({ _id: item.id, "data.archived": false });
       }
     }
   }
@@ -958,12 +959,96 @@ export async function archiveStatusByTag(actor, archiveTags, unarchiveTags, sign
   await actor.updateEmbeddedDocuments("Item", updates);
 }
 
-export async function unarchiveItemsWithTag(actor, tag) {
-  await archiveStatusByTag(actor, "", [tag]);
+export async function archiveItemsWithTag(actor, tags) {
+  // Check for PC
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  if (tags.length == 0) return;
+
+  let updates = [];
+  for (let item of actor.items) {
+    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
+    let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+    for (let tag of tags) {
+      if (tag == "") return;
+      tag = "#" + htmlEscape(tag.toLowerCase().trim());
+      if (name.includes(tag) || description.includes(tag)) {
+        updates.push({ _id: item.id, "data.archived": true });
+      }
+    }
+  }
+
+  await actor.updateEmbeddedDocuments("Item", updates);
 }
 
-export async function archiveItemsWithTag(actor, tag) {
-  await archiveStatusByTag(actor, [tag], "");
+export async function recursionMacro(actor, item) {
+  await translateToRecursion(actor, item.name, item.data.focus, item.data.mightModifier, item.data.speedModifier, item.data.intellectModifier, item.data.mightEdgeModifier, item.data.speedEdgeModifier, item.data.intellectEdgeModifier, item.id);
+}
+
+export async function tagMacro(actor, item) {
+  if (item.data.active) {
+    if (!event.altKey) {
+      await archiveItemsWithTag(actor, item.name.split(','))
+      item.data.active = false;
+      if (item.data.exclusive) {
+        await changeStats(actor, 0, 0, 0, 0, 0, 0);
+      }
+    } else {
+      await unarchiveItemsWithTag(actor, item.name.split(','))
+    }
+  } else if (!item.data.active) {
+    if (!event.altKey) {
+      await unarchiveItemsWithTag(actor, item.name.split(','))
+      item.data.active = true;
+      if (item.data.exclusive) {
+        await changeStats(actor, item.data.mightModifier, item.data.mightEdgeModifier, item.data.speedModifier, item.data.speedEdgeModifier, item.data.intellectModifier, item.data.intellectEdgeModifier);
+        await disableActiveExclusiveTag(actor, item._id);
+      }
+    } else {
+      await archiveItemsWithTag(actor, item.name.split(','))
+    }
+  }
+
+  async function changeStats(actor, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
+    let pool = actor.data.data.pools;
+
+    let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
+    let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
+    let oldIntellectModifier = (!actor.getFlag("cyphersystem", "tagIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectModifier");
+    let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "tagMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightEdgeModifier");
+    let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "tagSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedEdgeModifier");
+    let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "tagIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectEdgeModifier");
+
+    await actor.update({
+      "data.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
+      "data.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
+      "data.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
+      "data.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
+      "data.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
+      "data.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
+      "data.pools.mightEdge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
+      "data.pools.speedEdge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "data.pools.intellectEdge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
+      "flags.cyphersystem.tagMightModifier": mightModifier,
+      "flags.cyphersystem.tagSpeedModifier": speedModifier,
+      "flags.cyphersystem.tagIntellectModifier": intellectModifier,
+      "flags.cyphersystem.tagMightEdgeModifier": mightEdgeModifier,
+      "flags.cyphersystem.tagSpeedEdgeModifier": speedEdgeModifier,
+      "flags.cyphersystem.tagIntellectEdgeModifier": intellectEdgeModifier
+    });
+  }
+
+  async function disableActiveExclusiveTag(actor, itemID) {
+    for (let tag of actor.items) {
+      if (tag.type == "tag" && tag.data.data.exclusive && tag.data.data.active) {
+        if (tag._id == itemID) return;
+        await archiveItemsWithTag(actor, tag.name.split(','));
+        await tag.update({ "data.active": false });
+      }
+    }
+  }
+
+  await actor.updateEmbeddedDocuments("Item", [item]);
 }
 
 export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {

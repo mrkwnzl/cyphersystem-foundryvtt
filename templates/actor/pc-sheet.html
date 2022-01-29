@@ -4,7 +4,15 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        <!-- <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" /> -->
+        <div class="profile-img-container">
+          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+          {{#if data.isExclusiveTagActive}}
+          <div class="profile-img-overlay">
+            <i class="fas fa-exclamation"></i><i class="fas fa-hashtag"></i>
+          </div>
+          {{/if}}
+        </div>
         <div class="centered-fields">
           <div class="resource-content flexrow flex-center">
             {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
@@ -17,8 +25,8 @@
             <div class="item-quantity" style="flex: 0 0 80px;">
               <select name="data.settings.gameMode.currentSheet" style="width: 80px;">
                 {{#select data.settings.gameMode.currentSheet}}
-                <option value="{{data.settings.gameMode.maskForm}}">{{localize 'CYPHERSYSTEM.Mask'}}</option>
-                <option value="{{data.settings.gameMode.teenForm}}">{{localize 'CYPHERSYSTEM.Teen'}}</option>
+                <option value="Mask">{{localize 'CYPHERSYSTEM.Mask'}}</option>
+                <option value="Teen">{{localize 'CYPHERSYSTEM.Teen'}}</option>
                 {{/select}}
               </select>
             </div>
@@ -64,7 +72,7 @@
             <input name="data.basic.focus" type="text" value="{{data.basic.focus}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" />
             {{#if data.settings.additionalSentence.active}}
             &nbsp;
-            <input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{else}}{{data.settings.additionalSentence.name}}{{/if}}" />
+            <input name="data.basic.additionalSentence" type="text" value="{{data.basic.additionalSentence}}" data-dtype="String" placeholder="{{#if (eq data.settings.additionalSentence.name '')}}{{#if (eq data.settings.gameMode.current 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{data.settings.additionalSentence.name}}{{/if}}" />
             {{/if}}
             {{/if}}
             {{#unless data.isLimited}}
@@ -336,7 +344,12 @@
     {{/unless}}
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#unless data.isLimited}}
-    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fas fa-cog"></i></a>
+    {{#if (eq data.settings.gameMode.current "Strange")}}
+    <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fas fa-at"></i></a>
+    {{else if data.settings.tags.active}}
+    <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fas fa-hashtag"></i></a>
+    {{/if}}
+    <a class="item" data-tab="settings" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Settings'}}"><i class="fas fa-cog"></i></a>
     {{/unless}}
   </nav>
 
@@ -931,6 +944,21 @@
       {{/unless}}
     </div>
 
+    {{!-- Tags and Recursions Tab --}}
+    <div class="tab tags" data-group="primary" data-tab="tags">
+      {{#if (eq data.settings.gameMode.current "Strange")}}
+      {{> systems/cyphersystem/templates/tabs/recursions.html}}
+      {{/if}}
+
+      {{#if data.settings.tags.active}}
+      {{> systems/cyphersystem/templates/tabs/tags.html}}
+      {{/if}}
+
+      {{#if actor.data.showAlternateForms}}
+      {{> systems/cyphersystem/templates/tabs/alternateForms.html}}
+      {{/if}}
+    </div>
+
     {{!-- Settings Tab --}}
     <div class="tab settings" data-group="primary" data-tab="settings">
       <div class="flexrow">
@@ -946,8 +974,9 @@
             <div class="item-quantity">
               <select class="auto-margin settings-input" name="data.settings.gameMode.current">
                 {{#select data.settings.gameMode.current}}
-                <option value="{{data.settings.gameMode.cypher}}">{{data.settings.gameMode.cypher}}</option>
-                <option value="{{data.settings.gameMode.unmasked}}">{{data.settings.gameMode.unmasked}}</option>
+                <option value="Cypher">Cypher System</option>
+                <option value="Unmasked">Unmasked</option>
+                <option value="Strange">The Strange</option>
                 {{/select}}
               </select>
             </div>
@@ -956,12 +985,11 @@
           {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked
-                data.settings.additionalSentence.active}}>
+              <input type="checkbox" name="data.settings.additionalSentence.active" data-dtype="boolean" {{checked data.settings.additionalSentence.active}}>
               &nbsp;{{localize 'CYPHERSYSTEM.AdditionalSentenceField'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin settings-input" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.AdditionalSentence'}}" />
+              <input class="auto-margin settings-input" name="data.settings.additionalSentence.name" type="text" value="{{data.settings.additionalSentence.name}}" data-dtype="String" placeholder="{{#if (eq data.settings.gameMode.current 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}" />
             </div>
           </li>
           {{/unless}}
@@ -987,6 +1015,15 @@
             </div>
           </li>
           {{/if}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.tags.active" data-dtype="boolean" {{checked data.settings.tags.active}}>
+              &nbsp;{{#if (eq data.settings.gameMode.current "Strange")}}{{localize 'CYPHERSYSTEM.ShowTagsInRecursionTab'}}{{else}}{{localize 'CYPHERSYSTEM.ShowTagsTab'}}{{/if}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin settings-input" name="data.settings.tags.tagsName" type="text" value="{{data.settings.tags.tagsName}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Tags'}}" />
+            </div>
+          </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
               <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>

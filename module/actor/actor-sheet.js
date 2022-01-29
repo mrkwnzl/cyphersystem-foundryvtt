@@ -8,7 +8,9 @@ import {
 } from "../chat-cards.js";
 
 import {
-  itemRollMacro
+  itemRollMacro,
+  recursionMacro,
+  tagMacro
 } from "../macros/macros.js";
 
 import {
@@ -19,6 +21,7 @@ import {
 } from "../utilities/sorting.js";
 
 import {
+  isExclusiveTagActive,
   useRecoveries
 } from "../utilities/actor-utilities.js";
 
@@ -37,6 +40,7 @@ export class CypherActorSheet extends ActorSheet {
     data.owner = superData.owner;
     data.options = superData.options;
     data.effects = superData.effects;
+    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
 
     data.dtypes = ["String", "Number", "Boolean"];
 
@@ -81,6 +85,8 @@ export class CypherActorSheet extends ActorSheet {
     const teenLastingDamage = [];
     const materials = [];
     const ammo = [];
+    const recursions = [];
+    const tags = []
 
     // Iterate through items, allocating to containers
     for (let i of data.items) {
@@ -173,6 +179,12 @@ export class CypherActorSheet extends ActorSheet {
       else if (i.type === 'material' && !hidden) {
         materials.push(i);
       }
+      else if (i.type === 'recursion' && !hidden) {
+        recursions.push(i);
+      }
+      else if (i.type === 'tag' && !hidden) {
+        tags.push(i);
+      }
     }
 
     // Sort by name
@@ -200,6 +212,8 @@ export class CypherActorSheet extends ActorSheet {
     teenLastingDamage.sort(byNameAscending);
     materials.sort(byNameAscending);
     ammo.sort(byNameAscending);
+    recursions.sort(byNameAscending);
+    tags.sort(byNameAscending);
 
     // Sort by skill rating
     if (actorData.type == "PC" || actorData.type == "Companion") {
@@ -241,6 +255,8 @@ export class CypherActorSheet extends ActorSheet {
     teenLastingDamage.sort(byArchiveStatus);
     materials.sort(byArchiveStatus);
     ammo.sort(byArchiveStatus);
+    recursions.sort(byArchiveStatus);
+    tags.sort(byArchiveStatus);
 
     // Check for spells
     if (spells.length > 0) {
@@ -316,6 +332,8 @@ export class CypherActorSheet extends ActorSheet {
     actorData.teenLastingDamage = teenLastingDamage;
     actorData.materials = materials;
     actorData.ammo = ammo;
+    actorData.recursions = recursions;
+    actorData.tags = tags;
   }
 
   /**
@@ -393,6 +411,20 @@ export class CypherActorSheet extends ActorSheet {
         }
         this.actor.updateEmbeddedDocuments("Item", [item]);
       }
+    });
+
+    // Translate to recursion
+    html.find('.item-recursion').click(async clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.getEmbeddedDocument("Item", shownItem.data("itemId")));
+      await recursionMacro(this.actor, item);
+    });
+
+    // (Un)Archive tag
+    html.find('.item-tag').click(async clickEvent => {
+      const shownItem = $(clickEvent.currentTarget).parents(".item");
+      const item = duplicate(this.actor.getEmbeddedDocument("Item", shownItem.data("itemId")));
+      await tagMacro(this.actor, item);
     });
 
     // Add to Quantity
@@ -582,7 +614,6 @@ export class CypherActorSheet extends ActorSheet {
     if (originActor) { originItem = originActor.items.find(i => i.data._id === item.data._id) };
 
     // Create the owned item or increase quantity
-
     let itemOwned = false;
 
     if (!(itemData.type == "artifact" || itemData.type == "cypher" || itemData.type == "oddity")) {
@@ -598,7 +629,7 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "cypher") actor.update({ "data.settings.equipment.cyphers": true });
     if (itemData.type == "oddity") actor.update({ "data.settings.equipment.oddities": true });
     if (itemData.type == "material") actor.update({ "data.settings.equipment.materials": true });
-    if (itemData.type == "ammo") actor.update({ "data.settings.equipment.ammo": true });
+    if (itemData.type == "ammo") actor.update({ "data.settings.ammo": true });
     if (itemData.type == "power Shift") actor.update({ "data.settings.powerShifts.active": true });
     if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
@@ -768,6 +799,8 @@ export class CypherActorSheet extends ActorSheet {
       "teen Attack": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenAttack") + "]",
       "teen lasting Damage": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage") + "]",
       "teen Skill": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenSkill") + "]",
+      "recursion": "[" + game.i18n.localize("CYPHERSYSTEM.NewRecursion") + "]",
+      "tag": "[" + game.i18n.localize("CYPHERSYSTEM.NewTag") + "]",
       "default": "[" + game.i18n.localize("CYPHERSYSTEM.NewDefault") + "]"
     };
     const name = (types[type] || types["default"]);

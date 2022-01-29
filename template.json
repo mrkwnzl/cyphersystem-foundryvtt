@@ -93,6 +93,10 @@
           "active": false,
           "powerShiftsName": ""
         },
+        "tags": {
+          "active": false,
+          "tagsName": ""
+        },
         "additionalRecoveries": {
           "numberOneActionRecoveries": 1,
           "numberTenMinuteRecoveries": 1
@@ -137,13 +141,8 @@
           "name": ""
         },
         "gameMode": {
-          "active": true,
-          "current": "Cypher System",
-          "cypher": "Cypher System",
-          "unmasked": "Unmasked",
-          "currentSheet": "Mask",
-          "maskForm": "Mask",
-          "teenForm": "Teen"
+          "current": "Cypher",
+          "currentSheet": "Mask"
         },
         "skills": {
           "sortByRating": false,
@@ -378,6 +377,8 @@
       "oddity",
       "power Shift",
       "skill",
+      "recursion",
+      "tag",
       "teen Ability",
       "teen Armor",
       "teen Attack",
@@ -390,6 +391,8 @@
         "showDescription": false,
         "level": "",
         "archived": false,
+        "recursions": [],
+        "tags": [],
         "rollButton": {
           "pool": "Pool",
           "skill": "Practiced",
@@ -570,6 +573,33 @@
         "core",
         "version"
       ]
+    },
+    "recursion": {
+      "templates": [
+        "core",
+        "version"
+      ],
+      "focus": "",
+      "mightModifier": 0,
+      "mightEdgeModifier": 0,
+      "speedModifier": 0,
+      "speedEdgeModifier": 0,
+      "intellectModifier": 0,
+      "intellectEdgeModifier": 0
+    },
+    "tag": {
+      "templates": [
+        "core",
+        "version"
+      ],
+      "active": false,
+      "exclusive": false,
+      "mightModifier": 0,
+      "mightEdgeModifier": 0,
+      "speedModifier": 0,
+      "speedEdgeModifier": 0,
+      "intellectModifier": 0,
+      "intellectEdgeModifier": 0
     }
   }
 }
