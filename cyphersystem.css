@@ -204,6 +204,7 @@ form.cyphersystem {
   border-top: none;
   border-bottom: none;
   margin: 5px 0 0 0;
+  padding: 0px;
 }
 
 ::-webkit-scrollbar-track {
@@ -242,7 +243,7 @@ form.cyphersystem {
   flex: 0 0 100px;
   height: 115px;
   width: 115px;
-  margin-right: 10px;
+  margin-right: 5px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
   border-radius: 3px;
@@ -702,6 +703,10 @@ form.cyphersystem {
   color: dimgrey;
 }
 
+.cyphersystem .black {
+  color: black;
+}
+
 .cyphersystem .archived-image {
   opacity: 60%;
 }
@@ -735,4 +740,27 @@ select.settings-input {
   display: flex;
   justify-content: center;
   white-space: nowrap;
+}
+
+.cyphersystem .tab-icon {
+  border: none;
+  height: 20px;
+  margin: 3px 0px -5px 0px;
+}
+
+.cyphersystem .profile-img-container {
+  position: relative;
+  max-width: 115px;
+  height: 115px;
+  margin-right: 5px;
+}
+
+.cyphersystem .profile-img-overlay {
+  position: absolute;
+  top: 94px;
+  left: 92px;
+  opacity: 85%;
+  text-shadow: 0px 0px 5px #000;
+  font-size: medium;
+  color: white;
 }
