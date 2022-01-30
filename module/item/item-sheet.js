@@ -2,6 +2,10 @@
 * Extend the basic ItemSheet with some very simple modifications
 * @extends {ItemSheet}
 */
+
+import { renameTag } from "../macros/macro-helper.js";
+import { htmlEscape } from "../utilities/html-escape.js";
+
 export class CypherItemSheet extends ItemSheet {
 
   /** @override */
@@ -54,6 +58,22 @@ export class CypherItemSheet extends ItemSheet {
       } else {
         this.item.update({ "data.identified": true })
       }
+    });
+
+    html.find('.input-tag').change(changeEvent => {
+      let currentTag = "#" + htmlEscape(this.item.name.trim());
+      let newTag = "#" + htmlEscape(changeEvent.target.value.trim());
+      let actor = game.actors.get(this.item.actor.id);
+
+      renameTag(actor, currentTag, newTag);
+    });
+
+    html.find('.input-recursion').change(changeEvent => {
+      let currentTag = "@" + htmlEscape(this.item.name.trim());
+      let newTag = "@" + htmlEscape(changeEvent.target.value.trim());
+      let actor = game.actors.get(this.item.actor.id);
+
+      renameTag(actor, currentTag, newTag);
     });
   }
 }

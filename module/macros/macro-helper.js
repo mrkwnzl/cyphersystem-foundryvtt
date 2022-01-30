@@ -2,6 +2,8 @@
 /*  Macro helper                                */
 /* -------------------------------------------- */
 
+import { htmlEscape } from "../utilities/html-escape.js";
+
 export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
   // Fix for single quotation marks
   title = title.replace(/'/g, "&apos;");
@@ -335,6 +337,48 @@ export async function setInitiativeForCharacter(actor, initiative) {
       await game.combat.setInitiative(combatant.id, initiative);
     }
   }
+}
+
+export async function renameTag(actor, currentTag, newTag) {
+  let updates = [];
+  for (let item of actor.items) {
+    let name = (!item.data.name) ? "" : item.data.name;
+    let description = (!item.data.data.description) ? "" : item.data.data.description;
+    if (name.includes(currentTag) || description.includes(currentTag)) {
+      name = name.replace(currentTag, newTag);
+      description = description.replace(currentTag, newTag);
+      updates.push({ _id: item.id, "name": name, "data.description": description });
+    }
+  }
+  await actor.updateEmbeddedDocuments("Item", updates);
+}
+
+export async function toggleTagArchiveStatus(actor, tags, archiveStatus) {
+  // Check for PC
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  if (tags.length == 0) return;
+
+  let updates = [];
+  for (let item of actor.items) {
+    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
+    let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+    if (Array.isArray(tags)) {
+      for (let tag of tags) {
+        if (tag == "") return;
+        tag = "#" + htmlEscape(tag.toLowerCase().trim());
+        if (name.includes(tag) || description.includes(tag)) {
+          updates.push({ _id: item.id, "data.archived": archiveStatus });
+        }
+      }
+    } else {
+      let tag = "#" + htmlEscape(tags.toLowerCase().trim());
+      if (name.includes(tag) || description.includes(tag)) {
+        updates.push({ _id: item.id, "data.archived": archiveStatus });
+      }
+    }
+  }
+  await actor.updateEmbeddedDocuments("Item", updates);
 }
 
 /* -------------------------------------------- */
