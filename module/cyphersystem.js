@@ -38,7 +38,8 @@ import {
   toggleAlwaysShowDescriptionOnRoll,
   calculateAttackDifficulty,
   recursionMacro,
-  tagMacro
+  tagMacro,
+  renameTagMacro
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -108,6 +109,7 @@ Hooks.once("init", async function () {
     calculateAttackDifficulty,
     recursionMacro,
     tagMacro,
+    renameTagMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -374,6 +376,11 @@ Hooks.on("preCreateItem", function (item) {
   if (item.data.img == "icons/svg/item-bag.svg") {
     item.data.update({ "img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` })
   }
+});
+
+Hooks.on("updateItem", function (item) {
+  let description = item.data.data.description.replace("<p></p>", "");
+  item.data.update({ "data.description": description });
 });
 
 Hooks.on("renderChatMessage", function (message, html, data) {

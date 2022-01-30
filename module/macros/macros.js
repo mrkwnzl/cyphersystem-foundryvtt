@@ -1,18 +1,20 @@
 import {
   diceRoller,
-  payPoolPoints
+  payPoolPoints,
+  toggleTagArchiveStatus,
+  renameTag
 } from "./macro-helper.js";
 import {
   allInOneRollDialogString,
   spendEffortString,
-  calculateAttackDifficultyString
+  calculateAttackDifficultyString,
+  renameTagString
 } from "./macro-strings.js";
 import {
   chatCardProposeIntrusion,
   chatCardAskForIntrusion
 } from "../chat-cards.js";
 import { useRecoveries } from "../utilities/actor-utilities.js";
-import { htmlEscape } from "../utilities/html-escape.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -940,45 +942,11 @@ export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
 }
 
 export async function unarchiveItemsWithTag(actor, tags) {
-  // Check for PC
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  let updates = [];
-  for (let item of actor.items) {
-    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
-    let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-    for (let tag of tags) {
-      if (tag == "") return;
-      tag = "#" + htmlEscape(tag.toLowerCase().trim());
-      if (name.includes(tag) || description.includes(tag)) {
-        updates.push({ _id: item.id, "data.archived": false });
-      }
-    }
-  }
-
-  await actor.updateEmbeddedDocuments("Item", updates);
+  toggleTagArchiveStatus(actor, tags, false);
 }
 
 export async function archiveItemsWithTag(actor, tags) {
-  // Check for PC
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  if (tags.length == 0) return;
-
-  let updates = [];
-  for (let item of actor.items) {
-    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
-    let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-    for (let tag of tags) {
-      if (tag == "") return;
-      tag = "#" + htmlEscape(tag.toLowerCase().trim());
-      if (name.includes(tag) || description.includes(tag)) {
-        updates.push({ _id: item.id, "data.archived": true });
-      }
-    }
-  }
-
-  await actor.updateEmbeddedDocuments("Item", updates);
+  toggleTagArchiveStatus(actor, tags, true);
 }
 
 export async function recursionMacro(actor, item) {
@@ -988,24 +956,24 @@ export async function recursionMacro(actor, item) {
 export async function tagMacro(actor, item) {
   if (item.data.active) {
     if (!event.altKey) {
-      await archiveItemsWithTag(actor, item.name.split(','))
+      await archiveItemsWithTag(actor, item.name)
       item.data.active = false;
       if (item.data.exclusive) {
         await changeStats(actor, 0, 0, 0, 0, 0, 0);
       }
     } else {
-      await unarchiveItemsWithTag(actor, item.name.split(','))
+      await unarchiveItemsWithTag(actor, item.name)
     }
   } else if (!item.data.active) {
     if (!event.altKey) {
-      await unarchiveItemsWithTag(actor, item.name.split(','))
+      await unarchiveItemsWithTag(actor, item.name)
       item.data.active = true;
       if (item.data.exclusive) {
         await changeStats(actor, item.data.mightModifier, item.data.mightEdgeModifier, item.data.speedModifier, item.data.speedEdgeModifier, item.data.intellectModifier, item.data.intellectEdgeModifier);
         await disableActiveExclusiveTag(actor, item._id);
       }
     } else {
-      await archiveItemsWithTag(actor, item.name.split(','))
+      await archiveItemsWithTag(actor, item.name)
     }
   }
 
@@ -1049,6 +1017,32 @@ export async function tagMacro(actor, item) {
   }
 
   await actor.updateEmbeddedDocuments("Item", [item]);
+}
+
+export function renameTagMacro(actor) {
+  // Check for PC actor
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Create dialog
+  let d = new Dialog({
+    title: game.i18n.localize("CYPHERSYSTEM.RenameTag"),
+    content: renameTagString(),
+    buttons: {
+      roll: {
+        icon: '<i class="fas fa-check"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Apply"),
+        callback: (html) => renameTag(actor, html.find('#currentTag').val(), html.find('#newTag').val())
+      },
+      cancel: {
+        icon: '<i class="fas fa-times"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+        callback: () => { }
+      }
+    },
+    default: "roll",
+    close: () => { }
+  });
+  d.render(true);
 }
 
 export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {
