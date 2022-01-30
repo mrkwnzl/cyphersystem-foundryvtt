@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.29.1] - 2022-01-30
+### Added
+- New utility macro to batch rename or delete tags and recursions.
+
+### Changed
+- When a tag or recursion item is renamed, the corresponding tags and recursions on the items are renamed as well.
+
+### Fixed
+- Fixed manifest link. The system can be updated again.
+
 ## [1.29.0] - 2022-01-29
 ### Added
 - A new game mode: The Strange. This enables a new tab on the character sheet where you can specify recursions and the focus your PC has on that recursion. Add `@recursion` to the name or description of any item in order to unarchive the item when translating, while archiving all items that have a different recursion added to the name or description. Additionally, you can add modifiers to your stat pools and Edge values, which only apply when being on that recursion. Translating to a recursion enables the additional sentence field, which is then used for the current recursion.
@@ -12,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - A new setting to enable tags on the character sheet. If the game mode is The Strange, the tags will be listed in the recursion tab, else a new tags tab appears. Add `#tag` to the name or description of any item in order to unarchive the item when enabling or disabling the tags. Additionally, you can define a tag as an *exclusive tag*. Only one exclusive tag can be active at the same time and if you enable an exclusive tag, all other exclusive tags are being disabled. Exclusive tags can add modifiers to your stat pools and Edge values, which only apply when the tag is active. Regular tags are not affected by exclusive tags.
 
-  *Example:* Taggart has three tags defined in the tags list: Set 01 (regular tag), Set 02, and Set 03 (both exclusive tags). If Set 01 is enabled or disabled, all items that have `#Set 01` added in either the name or description is bein unarchived or archived, respectively. Set 02 is an exclusive tag, and it has a +2 bonus to Taggart’s Might pool set. If Set 02 is enabled, Set 03 is being disabled, the current and maximum Might pool is increased by 2, and all items that have `#Set 02` aded to their name or description are being unarchived, while all items that have `#Set 03` added to their name or description are being archived. If Taggart then enables Tag 03, this is being reversed.
+  *Example:* Taggart has three tags defined in the tags list: Set 01 (regular tag), Set 02, and Set 03 (both exclusive tags). If Set 01 is enabled or disabled, all items that have `#Set 01` added in either the name or description is bein unarchived or archived, respectively. Set 02 is an exclusive tag, and it has a +2 bonus to Taggart’s Might pool set. If Set 02 is enabled, Set 03 is being disabled, the current and maximum Might pool is increased by 2, and all items that have `#Set 02` aded to their name or description are being unarchived, while all items that have `#Set 03` added to their name or description are being archived. If Taggart then enables Set 03, this is being reversed.
 
 ### Fixed
 - The ammo list is now getting enabled in the settings when ammo gets dragged onto the character sheet.
