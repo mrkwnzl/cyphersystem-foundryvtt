@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   *Example:* Taggart has three tags defined in the tags list: Set 01 (regular tag), Set 02, and Set 03 (both exclusive tags). If Set 01 is enabled or disabled, all items that have `#Set 01` added in either the name or description is bein unarchived or archived, respectively. Set 02 is an exclusive tag, and it has a +2 bonus to Taggart’s Might pool set. If Set 02 is enabled, Set 03 is being disabled, the current and maximum Might pool is increased by 2, and all items that have `#Set 02` aded to their name or description are being unarchived, while all items that have `#Set 03` added to their name or description are being archived. If Taggart then enables Set 03, this is being reversed.
 
--When a tag or recursion item is renamed, the corresponding tags and recursions on the items are renamed as well.
+- When a tag or recursion item is renamed, the corresponding tags and recursions on the items are renamed as well.
 - New utility macro to batch rename or delete tags and recursions.
 
 ### Fixed
