@@ -344,6 +344,12 @@ export async function renameTag(actor, currentTag, newTag) {
   for (let item of actor.items) {
     let name = (!item.data.name) ? "" : item.data.name;
     let description = (!item.data.data.description) ? "" : item.data.data.description;
+    if ((item.data.type == "tag" || item.data.type == "recursion") && newTag != "") {
+      if (name.includes(currentTag.replace(/[#@]/g, ''))) {
+        name = name.replace(currentTag.replace(/[#@]/g, ''), newTag.replace(/[#@]/g, ''));
+        updates.push({ _id: item.id, "name": name });
+      }
+    }
     if (name.includes(currentTag) || description.includes(currentTag)) {
       name = name.replace(currentTag, newTag);
       description = description.replace(currentTag, newTag);
