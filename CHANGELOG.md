@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Improved on the Rename #Tag/@Recursion macro. It’s now required to use “#” or “@” for tags/recursions. Also, the macro renames the tag and recursion items on the character sheet as well.
 
+### Fixed
+- Updating combatants, for example when adding them to the combat tracker, threw an error for all connected players.
+
 ## [1.29.0] - 2022-01-29
 ### Added
 - A new game mode: The Strange. This enables a new tab on the character sheet where you can specify recursions and the focus your PC has on that recursion. Add `@recursion` to the name or description of any item in order to unarchive the item when translating, while archiving all items that have a different recursion added to the name or description. Additionally, you can add modifiers to your stat pools and Edge values, which only apply when being on that recursion. Translating to a recursion enables the additional sentence field, which is then used for the current recursion.
