@@ -481,6 +481,8 @@
   "CYPHERSYSTEM.Settings": "Settings",
   "CYPHERSYSTEM.TagOrRecursion": "#Tag or @Recursion",
   "CYPHERSYSTEM.KeepEmptyToDelete": "Keep New Name empty to delete tag or recursion from all items.",
+  "CYPHERSYSTEM.SpecifyCurrentTag": "Please specify a tag or recursion to be renamed.",
+  "CYPHERSYSTEM.TagsStartWith#": "Tags and recursions need to start with “#” and “@”, respectively.",
   "CYPHERSYSTEM.OpenParenthesis": "(",
   "CYPHERSYSTEM.CloseParenthesis": ")",
   "CYPHERSYSTEM.Comma": ",",

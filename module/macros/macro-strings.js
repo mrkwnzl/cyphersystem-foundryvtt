@@ -365,15 +365,17 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
   return content;
 }
 
-export function renameTagString() {
+export function renameTagString(currentTag, newTag) {
+  if (!currentTag) currentTag = "";
+  if (!newTag) newTag = "";
   const content =
     `<div align="center">
       <label style='display: inline-block; width: 150px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.CurrentName")}: </b></label>
-      <input name='currentTag' id='currentTag' style='width: 200px; margin-left: 5px; margin-bottom: 5px;text-align: left' type='text' placeholder="${game.i18n.localize("CYPHERSYSTEM.TagOrRecursion")}"/>
+      <input name='currentTag' id='currentTag' value="${currentTag}" style='width: 200px; margin-left: 5px; margin-bottom: 5px;text-align: left' type='text' placeholder="${game.i18n.localize("CYPHERSYSTEM.TagOrRecursion")}"/>
     </div>
     <div align="center">
       <label style='display: inline-block; width: 150px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.NewName")}: </b></label>
-      <input name='newTag' id='newTag' style='width: 200px; margin-left: 5px; margin-bottom: 5px;text-align: left' type='text' placeholder="${game.i18n.localize("CYPHERSYSTEM.TagOrRecursion")}"/>
+      <input name='newTag' id='newTag' value="${newTag}" style='width: 200px; margin-left: 5px; margin-bottom: 5px;text-align: left' type='text' placeholder="${game.i18n.localize("CYPHERSYSTEM.TagOrRecursion")}"/>
     </div>
     <div align="center">
       <label style='display: inline-block; margin-bottom: 5px; font-size: smaller'>${game.i18n.localize("CYPHERSYSTEM.KeepEmptyToDelete")}</label>

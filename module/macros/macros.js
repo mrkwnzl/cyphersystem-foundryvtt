@@ -880,13 +880,16 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 
   async function applyRecursion() {
     let updates = [];
+    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium"];
+    let regExceptions = new RegExp(exceptions.join("|"), "gi");
+    let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
+    let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
     for (let item of actor.items) {
-      let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
-      let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-      let recursions = item.data.data.recursions;
-      if (name.includes(recursion) || description.includes(recursion)) {
+      let name = (!item.data.name) ? "" : item.data.name.toLowerCase().replace(regExceptions, "");
+      let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase().replace(regExceptions, "");
+      if (regRecursion.test(name) || regRecursion.test(description)) {
         updates.push({ _id: item.id, "data.archived": false });
-      } else if (name.includes("@") || description.includes("@")) {
+      } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
         updates.push({ _id: item.id, "data.archived": true });
       }
     }
@@ -1007,11 +1010,11 @@ export async function tagMacro(actor, item) {
   }
 
   async function disableActiveExclusiveTag(actor, itemID) {
-    for (let tag of actor.items) {
-      if (tag.type == "tag" && tag.data.data.exclusive && tag.data.data.active) {
-        if (tag._id == itemID) return;
-        await archiveItemsWithTag(actor, tag.name.split(','));
-        await tag.update({ "data.active": false });
+    for (let item of actor.items) {
+      if (item.type == "tag" && item.data.data.exclusive && item.data.data.active) {
+        if (item._id == itemID) return;
+        await archiveItemsWithTag(actor, item.name.split(','));
+        await item.update({ "data.active": false });
       }
     }
   }
@@ -1019,19 +1022,19 @@ export async function tagMacro(actor, item) {
   await actor.updateEmbeddedDocuments("Item", [item]);
 }
 
-export function renameTagMacro(actor) {
+export function renameTagMacro(actor, currentTag, newTag) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Create dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.RenameTag"),
-    content: renameTagString(),
+    content: renameTagString(currentTag, newTag),
     buttons: {
       roll: {
         icon: '<i class="fas fa-check"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-        callback: (html) => renameTag(actor, html.find('#currentTag').val(), html.find('#newTag').val())
+        callback: (html) => applyMacro(actor, html.find('#currentTag').val(), html.find('#newTag').val())
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -1043,6 +1046,18 @@ export function renameTagMacro(actor) {
     close: () => { }
   });
   d.render(true);
+
+  function applyMacro(actor, currentTag, newTag) {
+    if (currentTag == "") {
+      renameTagMacro(actor, currentTag, newTag);
+      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SpecifyCurrentTag"));
+    }
+    if (!(currentTag.startsWith("#") || currentTag.startsWith("@")) || !(newTag.startsWith("#") || newTag.startsWith("@") || newTag == "")) {
+      renameTagMacro(actor, currentTag, newTag);
+      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.TagsStartWith#"));
+    }
+    renameTag(actor, currentTag, newTag)
+  }
 }
 
 export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {

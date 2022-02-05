@@ -703,26 +703,30 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
 });
 
 Hooks.on("updateCombat", function () {
-  let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
+  if (game.user.isGM) {
+    let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
 
-  if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
-    let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
-    let newQuantity = combatant.data.data.quantity.value + step;
-    combatant.update({ "data.quantity.value": newQuantity });
+    if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
+      let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
+      let newQuantity = combatant.data.data.quantity.value + step;
+      combatant.update({ "data.quantity.value": newQuantity });
+    }
   }
 });
 
 Hooks.on("createCombatant", function (combatant) {
-  let actor = combatant.actor.data;
+  if (game.user.isGM) {
+    let actor = combatant.actor.data;
 
-  if (actor.type == "NPC") {
-    combatant.update({ "initiative": (actor.data.level * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
-  } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
-    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
-  } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
-    combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus });
-  } else if (actor.type == "Vehicle") {
-    combatant.update({ "initiative": (actor.data.level * 3) - 0.5 });
+    if (actor.type == "NPC") {
+      combatant.update({ "initiative": (actor.data.level * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+    } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
+      combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+    } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
+      combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus });
+    } else if (actor.type == "Vehicle") {
+      combatant.update({ "initiative": (actor.data.level * 3) - 0.5 });
+    }
   }
 });
 

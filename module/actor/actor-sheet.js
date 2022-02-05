@@ -782,26 +782,26 @@ export class CypherActorSheet extends ActorSheet {
     const data = duplicate(header.dataset);
     // Initialize a default name.
     const types = {
-      "ability": "[" + game.i18n.localize("CYPHERSYSTEM.NewAbility") + "]",
-      "ammo": "[" + game.i18n.localize("CYPHERSYSTEM.NewAmmo") + "]",
-      "armor": "[" + game.i18n.localize("CYPHERSYSTEM.NewArmor") + "]",
-      "artifact": "[" + game.i18n.localize("CYPHERSYSTEM.NewArtifact") + "]",
-      "attack": "[" + game.i18n.localize("CYPHERSYSTEM.NewAttack") + "]",
-      "cypher": "[" + game.i18n.localize("CYPHERSYSTEM.NewCypher") + "]",
-      "equipment": "[" + game.i18n.localize("CYPHERSYSTEM.NewEquipment") + "]",
-      "lasting Damage": "[" + game.i18n.localize("CYPHERSYSTEM.NewLastingDamage") + "]",
-      "material": "[" + game.i18n.localize("CYPHERSYSTEM.NewMaterial") + "]",
-      "oddity": "[" + game.i18n.localize("CYPHERSYSTEM.NewOddity") + "]",
-      "power Shift": "[" + game.i18n.localize("CYPHERSYSTEM.NewPowerShift") + "]",
-      "skill": "[" + game.i18n.localize("CYPHERSYSTEM.NewSkill") + "]",
-      "teen Ability": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenAbility") + "]",
-      "teen Armor": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenArmor") + "]",
-      "teen Attack": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenAttack") + "]",
-      "teen lasting Damage": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage") + "]",
-      "teen Skill": "[" + game.i18n.localize("CYPHERSYSTEM.NewTeenSkill") + "]",
-      "recursion": "[" + game.i18n.localize("CYPHERSYSTEM.NewRecursion") + "]",
-      "tag": "[" + game.i18n.localize("CYPHERSYSTEM.NewTag") + "]",
-      "default": "[" + game.i18n.localize("CYPHERSYSTEM.NewDefault") + "]"
+      "ability": game.i18n.localize("CYPHERSYSTEM.NewAbility"),
+      "ammo": game.i18n.localize("CYPHERSYSTEM.NewAmmo"),
+      "armor": game.i18n.localize("CYPHERSYSTEM.NewArmor"),
+      "artifact": game.i18n.localize("CYPHERSYSTEM.NewArtifact"),
+      "attack": game.i18n.localize("CYPHERSYSTEM.NewAttack"),
+      "cypher": game.i18n.localize("CYPHERSYSTEM.NewCypher"),
+      "equipment": game.i18n.localize("CYPHERSYSTEM.NewEquipment"),
+      "lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewLastingDamage"),
+      "material": game.i18n.localize("CYPHERSYSTEM.NewMaterial"),
+      "oddity": game.i18n.localize("CYPHERSYSTEM.NewOddity"),
+      "power Shift": game.i18n.localize("CYPHERSYSTEM.NewPowerShift"),
+      "skill": game.i18n.localize("CYPHERSYSTEM.NewSkill"),
+      "teen Ability": game.i18n.localize("CYPHERSYSTEM.NewTeenAbility"),
+      "teen Armor": game.i18n.localize("CYPHERSYSTEM.NewTeenArmor"),
+      "teen Attack": game.i18n.localize("CYPHERSYSTEM.NewTeenAttack"),
+      "teen lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage"),
+      "teen Skill": game.i18n.localize("CYPHERSYSTEM.NewTeenSkill"),
+      "recursion": game.i18n.localize("CYPHERSYSTEM.NewRecursion"),
+      "tag": game.i18n.localize("CYPHERSYSTEM.NewTag"),
+      "default": game.i18n.localize("CYPHERSYSTEM.NewDefault")
     };
     const name = (types[type] || types["default"]);
 

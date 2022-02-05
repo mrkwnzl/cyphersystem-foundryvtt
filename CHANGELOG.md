@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.29.1] - 2022-02-05
+### Changed
+- Improved on the Rename #Tag/@Recursion macro. It’s now required to use “#” or “@” for tags/recursions. Also, the macro renames the tag and recursion items on the character sheet as well.
+- Tags and recursions in names and decriptions of items are now only recognized as such when they either stat at a new line, end a line, or have spaces around them (or a combination of those). That means that `something#tag`, `recursion@` and `lonely # or @ characters somewhere in the text` are no longer recognized as tags/recursions.
+
+### Fixed
+- Updating combatants, for example when adding them to the combat tracker, threw an error for all connected players.
+- Items that contain a document link in their description are no longer falsely archived when translating to a different recursion.
+
 ## [1.29.0] - 2022-01-29
 ### Added
 - A new game mode: The Strange. This enables a new tab on the character sheet where you can specify recursions and the focus your PC has on that recursion. Add `@recursion` to the name or description of any item in order to unarchive the item when translating, while archiving all items that have a different recursion added to the name or description. Additionally, you can add modifiers to your stat pools and Edge values, which only apply when being on that recursion. Translating to a recursion enables the additional sentence field, which is then used for the current recursion.
@@ -14,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   *Example:* Taggart has three tags defined in the tags list: Set 01 (regular tag), Set 02, and Set 03 (both exclusive tags). If Set 01 is enabled or disabled, all items that have `#Set 01` added in either the name or description is bein unarchived or archived, respectively. Set 02 is an exclusive tag, and it has a +2 bonus to Taggart’s Might pool set. If Set 02 is enabled, Set 03 is being disabled, the current and maximum Might pool is increased by 2, and all items that have `#Set 02` aded to their name or description are being unarchived, while all items that have `#Set 03` added to their name or description are being archived. If Taggart then enables Set 03, this is being reversed.
 
--When a tag or recursion item is renamed, the corresponding tags and recursions on the items are renamed as well.
+- When a tag or recursion item is renamed, the corresponding tags and recursions on the items are renamed as well.
 - New utility macro to batch rename or delete tags and recursions.
 
 ### Fixed
