@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.29.1] - 2022-02-05
 ### Changed
 - Improved on the Rename #Tag/@Recursion macro. It’s now required to use “#” or “@” for tags/recursions. Also, the macro renames the tag and recursion items on the character sheet as well.
 - Tags and recursions in names and decriptions of items are now only recognized as such when they either stat at a new line, end a line, or have spaces around them (or a combination of those). That means that `something#tag`, `recursion@` and `lonely # or @ characters somewhere in the text` are no longer recognized as tags/recursions.
