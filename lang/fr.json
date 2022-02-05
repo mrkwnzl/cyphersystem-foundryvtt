@@ -482,5 +482,12 @@
     "CYPHERSYSTEM.ArchiveOtherTags": "Archiver les autres balises (séparer les balises par des virgules)",
     "CYPHERSYSTEM.ArchiveItemsWithTag": "Archiver les éléments étiquetés avec {tag} (alt-clic pour désarchiver les éléments)",
     "CYPHERSYSTEM.UnarchiveItemsWithTag": "Désarchiver les éléments étiquetés avec {tag} (alt-clic pour archiver les éléments)",
-    "CYPHERSYSTEM.Settings": "Paramètres"
+    "CYPHERSYSTEM.Settings": "Paramètres",
+    "CYPHERSYSTEM.CurrentName": "Nom actuel",
+    "CYPHERSYSTEM.NewName": "Nouveau nom",
+    "CYPHERSYSTEM.RenameTag": "Renommer une balise ou une récursion",
+    "CYPHERSYSTEM.TagOrRecursion": "#Balise or @Récursion",
+    "CYPHERSYSTEM.KeepEmptyToDelete": "Laissez Nouveau nom vide pour supprimer la balise ou la récursion de tous les éléments.",
+    "CYPHERSYSTEM.SpecifyCurrentTag": "Veuillez spécifier une balise ou une récursion à renommer.",
+    "CYPHERSYSTEM.TagsStartWith#": "Les balises et les récursions doivent commencer par \"#\" et \"@\", respectivement."
 }
