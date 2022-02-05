@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Increased line spacing in item descriptions on the character sheet in order to give document links a bit more space.
+
 ## [1.29.1] - 2022-02-05
 ### Changed
 - Improved on the Rename #Tag/@Recursion macro. It’s now required to use “#” or “@” for tags/recursions. Also, the macro renames the tag and recursion items on the character sheet as well.
