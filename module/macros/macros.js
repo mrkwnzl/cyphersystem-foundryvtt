@@ -880,13 +880,16 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 
   async function applyRecursion() {
     let updates = [];
+    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium"];
+    let regExceptions = new RegExp(exceptions.join("|"), "gi");
+    let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
+    let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
     for (let item of actor.items) {
-      let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
-      let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
-      let recursions = item.data.data.recursions;
-      if (name.includes(recursion) || description.includes(recursion)) {
+      let name = (!item.data.name) ? "" : item.data.name.toLowerCase().replace(regExceptions, "");
+      let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase().replace(regExceptions, "");
+      if (regRecursion.test(name) || regRecursion.test(description)) {
         updates.push({ _id: item.id, "data.archived": false });
-      } else if (name.includes("@") || description.includes("@")) {
+      } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
         updates.push({ _id: item.id, "data.archived": true });
       }
     }

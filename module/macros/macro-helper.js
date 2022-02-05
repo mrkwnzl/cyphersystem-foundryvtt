@@ -369,17 +369,20 @@ export async function toggleTagArchiveStatus(actor, tags, archiveStatus) {
   for (let item of actor.items) {
     let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
     let description = (!item.data.data.description) ? "" : item.data.data.description.toLowerCase();
+    if (item.data.type == "Tag") return;
     if (Array.isArray(tags)) {
       for (let tag of tags) {
         if (tag == "") return;
         tag = "#" + htmlEscape(tag.toLowerCase().trim());
-        if (name.includes(tag) || description.includes(tag)) {
+        let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
+        if (regTag.test(name) || regTag.test(description)) {
           updates.push({ _id: item.id, "data.archived": archiveStatus });
         }
       }
     } else {
       let tag = "#" + htmlEscape(tags.toLowerCase().trim());
-      if (name.includes(tag) || description.includes(tag)) {
+      let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
+      if (regTag.test(name) || regTag.test(description)) {
         updates.push({ _id: item.id, "data.archived": archiveStatus });
       }
     }
