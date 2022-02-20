@@ -407,9 +407,12 @@ form.cyphersystem {
   text-indent: 0px;
 }
 
-.cyphersystem a.entity-link,
-.cyphersystem a.content-link, 
-.cyphersystem a.inline-roll {
+.cyphersystem .editor-content a.entity-link,
+.cyphersystem .editor-content a.content-link, 
+.cyphersystem .editor-content a.inline-roll,
+.cyphersystem .description a.entity-link,
+.cyphersystem .description a.content-link, 
+.cyphersystem .description a.inline-roll {
   line-height: 1.7;
 }
 
