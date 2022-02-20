@@ -450,5 +450,10 @@
     "CYPHERSYSTEM.ShowTagsTab": "Zeige Tags Reiter",
     "CYPHERSYSTEM.AdditionalOne": "Zusatz 1",
     "CYPHERSYSTEM.NewRecursion": "Neue Rekursion",
-    "CYPHERSYSTEM.ShowTagsInRecursionTab": "Zeige Tags im Rekursionstab"
+    "CYPHERSYSTEM.ShowTagsInRecursionTab": "Zeige Tags im Rekursionstab",
+    "CYPHERSYSTEM.SettingDiceTrayHint": "Zeige Würfelablage für einfache W6-, W10-, W20- und W100-Würfe auf dem SC-Bogen",
+    "CYPHERSYSTEM.SettingDiceTray": "Würfelablage",
+    "CYPHERSYSTEM.SettingDiceTrayDisabled": "Ausgeschaltet",
+    "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Zeige Würfelablage links",
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Zeige Würfelablage rechts"
 }
