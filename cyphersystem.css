@@ -331,8 +331,6 @@ form.cyphersystem {
 }
 
 .cyphersystem .tabs .item {
-  /* line-height: 35px; */
-  /* font-weight: bold; */
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #999;
   border-radius: 3px 3px 0 0;
@@ -407,6 +405,12 @@ form.cyphersystem {
 .cyphersystem .item-name a.inline-roll,
 .cyphersystem .item-name a.entity-link {
   text-indent: 0px;
+}
+
+.cyphersystem a.entity-link,
+.cyphersystem a.content-link, 
+.cyphersystem a.inline-roll {
+  line-height: 1.7;
 }
 
 .cyphersystem .items-list .item-name p {
