@@ -188,6 +188,10 @@ form.cyphersystem {
   right: 10px;
 }
 
+.editor-content li {
+  line-height: 1.8;
+}
+
 .flavor-text {
   line-height: 1.3;
   margin-bottom: 3px;
@@ -470,6 +474,10 @@ form.cyphersystem {
 
 .cyphersystem .items-list .description ul {
   list-style-type: disc;
+}
+
+.cyphersystem .items-list .description li {
+  line-height: 1.8;
 }
 
 .cyphersystem .items-list .description p:last-of-type {
@@ -763,4 +771,51 @@ select.settings-input {
   text-shadow: 0px 0px 5px #000;
   font-size: medium;
   color: white;
+}
+
+.cyphersystem .dice-tray-right {
+  position: absolute;
+  width: 32px;
+  height: 115px;
+  border: 0;
+  border-left: 1px solid #999;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  left: 650px;
+  top: 38px;
+  background: url(/ui/parchment.jpg) repeat;
+  box-shadow: 0 0 20px var(--color-shadow-dark);
+  z-index: -1;
+  padding: 6px 4px 6px 4px;
+  text-align: center;
+}
+
+.cyphersystem .dice-tray-left {
+  position: absolute;
+  width: 32px;
+  height: 115px;
+  border: 0;
+  border-right: 1px solid #999;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  left: -32px;
+  top: 38px;
+  background: url(/ui/parchment.jpg) repeat;
+  box-shadow: 0 0 20px var(--color-shadow-dark);
+  z-index: -1;
+  padding: 6px 4px 6px 4px;
+  text-align: center;
+}
+
+.cyphersystem .dice-tray-hidden {
+  display: none;
+}
+
+.cyphersystem .dice-icon {
+  border: 0;
+  filter: invert(1) blur(0.25px);
+}
+
+.cyphersystem .dice-icon:hover {
+  filter: invert(1) blur(0.25px) drop-shadow(0 0 6px var(--color-shadow-primary))
 }

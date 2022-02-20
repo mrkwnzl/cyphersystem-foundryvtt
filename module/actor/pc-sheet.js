@@ -6,7 +6,8 @@ import { CypherActorSheet } from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
-  allInOneRollDialog
+  allInOneRollDialog,
+  diceRollMacro
 } from "../macros/macros.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
@@ -401,6 +402,26 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.recovery-roll').click(clickEvent => {
       const item = $(clickEvent.currentTarget).parents(".item");
       recoveryRollMacro(this.actor, "", true)
+    });
+
+    // d6 roll button
+    html.find('.dice-tray-d6').click(clickEvent => {
+      diceRollMacro("d6");
+    });
+
+    // d10 roll button
+    html.find('.dice-tray-d10').click(clickEvent => {
+      diceRollMacro("d10");
+    });
+
+    // d20 roll button
+    html.find('.dice-tray-d20').click(clickEvent => {
+      diceRollMacro("d20");
+    });
+
+    // d100 roll button
+    html.find('.dice-tray-d100').click(clickEvent => {
+      diceRollMacro("d100");
     });
 
     /**

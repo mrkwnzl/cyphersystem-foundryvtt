@@ -139,6 +139,20 @@ Hooks.once("init", async function () {
     config: true
   });
 
+  game.settings.register("cyphersystem", "diceTray", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingDiceTray"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingDiceTrayHint"),
+    scope: "world",
+    type: Number,
+    default: 0,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingDiceTrayDisabled"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingDiceTrayShowLeft"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingDiceTrayShowRight")
+    },
+    config: true
+  });
+
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
