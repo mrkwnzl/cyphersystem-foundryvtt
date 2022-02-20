@@ -41,6 +41,19 @@ export class CypherActorSheet extends ActorSheet {
     data.options = superData.options;
     data.effects = superData.effects;
     data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
+    switch (game.settings.get("cyphersystem", "diceTray")) {
+      case 0:
+        data.data.diceTray = "hidden";
+        break;
+      case 1:
+        data.data.diceTray = "left";
+        break;
+      case 2:
+        data.data.diceTray = "right";
+        break;
+      default:
+        data.data.diceTray = "hidden";
+    }
 
     data.dtypes = ["String", "Number", "Boolean"];
 
