@@ -5,7 +5,7 @@
 
 import {
   chatCardMarkItemIdentified
-} from "../chat-cards.js";
+} from "../utilities/chat-cards.js";
 
 import {
   itemRollMacro,
@@ -41,19 +41,9 @@ export class CypherActorSheet extends ActorSheet {
     data.options = superData.options;
     data.effects = superData.effects;
     data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
-    switch (game.settings.get("cyphersystem", "diceTray")) {
-      case 0:
-        data.data.diceTray = "hidden";
-        break;
-      case 1:
-        data.data.diceTray = "left";
-        break;
-      case 2:
-        data.data.diceTray = "right";
-        break;
-      default:
-        data.data.diceTray = "hidden";
-    }
+    const diceTraySettings = ["hidden", "left", "right"];
+    data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
+    data.cssClass = "theme";
 
     data.dtypes = ["String", "Number", "Boolean"];
 

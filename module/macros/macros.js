@@ -13,7 +13,7 @@ import {
 import {
   chatCardProposeIntrusion,
   chatCardAskForIntrusion
-} from "../chat-cards.js";
+} from "../utilities/chat-cards.js";
 import { useRecoveries } from "../utilities/actor-utilities.js";
 
 /* -------------------------------------------- */
