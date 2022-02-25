@@ -1361,3 +1361,47 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     }
   }
 }
+
+export function disasterModeMacro(token, mode) {
+  if (!token) {
+    let numberOfGMIRangeTokens = 0;
+    for (let t of game.scenes.current.tokens) {
+      if (t.name == "GMI Range") {
+        token = t.object;
+        modeSelect(token, mode);
+        numberOfGMIRangeTokens++;
+      }
+    }
+    if (numberOfGMIRangeTokens == 0) {
+      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingOnScene"));
+    }
+  } else if (token.name == "GMI Range") {
+    modeSelect(token, mode)
+  } else if (token.name != "GMI Range") {
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingSelected"));
+  };
+
+  function modeSelect(token, mode) {
+    let newLevel;
+    switch (mode) {
+      case "increase":
+        newLevel = token.actor.data.data.level + 1
+        if (newLevel <= 20) changeGMIRange(token, newLevel);
+        break;
+      case "decrease":
+        newLevel = token.actor.data.data.level - 1
+        if (newLevel >= 1) changeGMIRange(token, newLevel);
+        break;
+      case "reset":
+        changeGMIRange(token, 1);
+        break;
+      default:
+        break;
+    }
+  }
+
+  async function changeGMIRange(token, level) {
+    await token.actor.update({ "data.level": level });
+    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + level + ".webp" });
+  }
+}

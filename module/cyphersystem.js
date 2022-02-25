@@ -49,7 +49,8 @@ import {
   calculateAttackDifficulty,
   recursionMacro,
   tagMacro,
-  renameTagMacro
+  renameTagMacro,
+  disasterModeMacro
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -115,6 +116,7 @@ Hooks.once("init", async function () {
     recursionMacro,
     tagMacro,
     renameTagMacro,
+    disasterModeMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -632,7 +634,7 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
           }
         }
       });
-    } else if (actor.data.type === "Token") {
+    } else if (actor.data.type === "Token" && actor.name != "GMI Range") {
       doc.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {

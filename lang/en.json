@@ -488,6 +488,8 @@
   "CYPHERSYSTEM.KeepEmptyToDelete": "Keep New Name empty to delete tag or recursion from all items.",
   "CYPHERSYSTEM.SpecifyCurrentTag": "Please specify a tag or recursion to be renamed.",
   "CYPHERSYSTEM.TagsStartWith#": "Tags and recursions need to start with “#” and “@”, respectively.",
+  "CYPHERSYSTEM.GMIRangeMissingOnScene": "No GMI Range token found on the scene (see Marker compendium).",
+  "CYPHERSYSTEM.GMIRangeMissingSelected": "Selected token is not a GMI Range token (see Marker compendium).",
   "CYPHERSYSTEM.OpenParenthesis": "(",
   "CYPHERSYSTEM.CloseParenthesis": ")",
   "CYPHERSYSTEM.Comma": ",",
