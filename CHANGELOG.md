@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Some spring cleaning and refactoring of the code.
 - Removed Dead status from character sheet. It served no purpose and it makes integration of Cypher Combat Tracker module more streamlined.
+- Default disposition of all new actors across all types is now neutral.
 
 ### Fixed
 - Fixed translation string for Calculate Difficulty macro.
