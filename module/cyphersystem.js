@@ -518,14 +518,14 @@ Hooks.on("preCreateActor", function (actor) {
       "token.bar2": { "attribute": "level" },
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
     });
   }
 
   if (actor.data.type == "PC" || actor.data.type == "Community") {
     actor.data.update({
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.actorLink": true
     });
   }
