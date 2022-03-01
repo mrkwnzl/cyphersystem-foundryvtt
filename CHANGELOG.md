@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Fixed translation string for Calculate Difficulty macro.
+- The dice tray now shows correctly at the right hand side when using the Custim Sheets module.
 
 ## [1.30.3] - 2022-02-20
 ### Fixed
