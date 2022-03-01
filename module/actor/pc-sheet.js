@@ -9,6 +9,7 @@ import {
   allInOneRollDialog,
   diceRollMacro
 } from "../macros/macros.js";
+import { isExclusiveTagActive } from "../utilities/actor-utilities.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
@@ -32,6 +33,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const data = super.getData();
     const actorData = data.actor.data;
     data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
+    const diceTraySettings = ["hidden", "left", "right"];
+    data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
+    data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
 
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {

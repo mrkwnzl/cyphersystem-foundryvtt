@@ -20,10 +20,7 @@ import {
   byIdentifiedStatus
 } from "../utilities/sorting.js";
 
-import {
-  isExclusiveTagActive,
-  useRecoveries
-} from "../utilities/actor-utilities.js";
+import { useRecoveries } from "../utilities/actor-utilities.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -40,10 +37,6 @@ export class CypherActorSheet extends ActorSheet {
     data.owner = superData.owner;
     data.options = superData.options;
     data.effects = superData.effects;
-    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
-    const diceTraySettings = ["hidden", "left", "right"];
-    data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
-    data.cssClass = "theme";
 
     data.dtypes = ["String", "Number", "Boolean"];
 
