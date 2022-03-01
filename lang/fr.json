@@ -489,5 +489,12 @@
     "CYPHERSYSTEM.TagOrRecursion": "#Balise or @Récursion",
     "CYPHERSYSTEM.KeepEmptyToDelete": "Laissez Nouveau nom vide pour supprimer la balise ou la récursion de tous les éléments.",
     "CYPHERSYSTEM.SpecifyCurrentTag": "Veuillez spécifier une balise ou une récursion à renommer.",
-    "CYPHERSYSTEM.TagsStartWith#": "Les balises et les récursions doivent commencer par \"#\" et \"@\", respectivement."
+    "CYPHERSYSTEM.TagsStartWith#": "Les balises et les récursions doivent commencer par \"#\" et \"@\", respectivement.",
+    "CYPHERSYSTEM.GMIRangeMissingSelected": "Le token sélectionné n'est pas un token GMI Range (voir le Marker compendium).",
+    "CYPHERSYSTEM.SettingDiceTray": "Tiroir à dés",
+    "CYPHERSYSTEM.SettingDiceTrayHint": "Présenter le tiroir à dés pour les lancers simples de d6, d10, d20 et d100 sur les feuilles de PJ",
+    "CYPHERSYSTEM.GMIRangeMissingOnScene": "Aucun token GMI Range trouvé sur la scène (voir le Marker compendium).",
+    "CYPHERSYSTEM.SettingDiceTrayDisabled": "Désactivé",
+    "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Afficher le tiroir à dés sur la gauche",
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Afficher le tiroir à dés sur la droite"
 }
