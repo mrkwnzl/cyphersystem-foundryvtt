@@ -168,6 +168,19 @@ Hooks.once("init", async function () {
     default: false,
     config: true
   });
+  game.settings.register("cyphersystem", "cypherIdentification", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentification"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationHint"),
+    scope: "world",
+    type: Number,
+    default: 0,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAsItem"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAlways"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationNever")
+    },
+    config: true
+  });
 
   game.settings.register("cyphersystem", "welcomeMessage", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingShowWelcome"),

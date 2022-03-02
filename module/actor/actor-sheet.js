@@ -630,6 +630,15 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
 
+    // Handle cypher idnetification
+    if (itemData.type == "cypher") {
+      if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
+        itemData.data.identified = true;
+      } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
+        itemData.data.identified = false;
+      }
+    }
+
     // Define fuctions for archiving and deleting items
     function archiveItem(actorSheet) {
       originItem.update({ "data.archived": true })
