@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - New macros and a marker to signify GMI Range.
-- New setting for the default identification status of cyphers, when they are dragged & droppen onto actor sheets.
+- New setting for the default identification status of cyphers and artifacts, when they are dragged & dropped onto actor sheets. Holding alt while dragging & dropping reverses the identified status.
 
 ### Changed
 - Some spring cleaning and refactoring of the code.
