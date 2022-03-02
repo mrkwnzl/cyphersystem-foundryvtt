@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-- Macros and marker to signify GMI Range.
+- New macros and a marker to signify GMI Range.
+- New setting for the default identification status of cyphers, when they are dragged & droppen onto actor sheets.
 
 ### Changed
 - Some spring cleaning and refactoring of the code.
