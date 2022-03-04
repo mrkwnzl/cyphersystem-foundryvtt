@@ -880,7 +880,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 
   async function applyRecursion() {
     let updates = [];
-    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium"];
+    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium", "@pdf"];
     let regExceptions = new RegExp(exceptions.join("|"), "gi");
     let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
     let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
