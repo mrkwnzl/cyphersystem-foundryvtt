@@ -384,11 +384,16 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
 
-      ChatMessage.create({
-        content: chatCardMarkItemIdentified(this.actor, item),
-        whisper: ChatMessage.getWhisperRecipients("GM"),
-        blind: true
-      })
+      if (game.user.isGM) {
+        item.data.identified = true;
+        this.actor.updateEmbeddedDocuments("Item", [item]);
+      } else {
+        ChatMessage.create({
+          content: chatCardMarkItemIdentified(this.actor, item),
+          whisper: ChatMessage.getWhisperRecipients("GM"),
+          blind: true
+        })
+      }
     });
 
     // Delete Inventory Item
@@ -630,7 +635,7 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
 
-    // Handle cypher & artifact idnetification
+    // Handle cypher & artifact identification
     if (itemData.type == "cypher" || itemData.type == "artifact") {
       let identifiedStatus;
       if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
