@@ -491,5 +491,12 @@
     "CYPHERSYSTEM.SettingDiceTrayHint": "Mostrar bandeja de dados para rolagens simples de d6, d10, d20 e d100 nas fichas de PJ",
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Desabilitado",
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Mostra bandeja de dados na esquerda",
-    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Mostra bandeja de dados na direita"
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Mostra bandeja de dados na direita",
+    "CYPHERSYSTEM.GMIRangeMissingOnScene": "Nenhum token de distância GMI encontrado na cena (veja Marker compendium).",
+    "CYPHERSYSTEM.GMIRangeMissingSelected": "Token selecionado não é um Token de Distância GMI (veja o Marker compendium).",
+    "CYPHERSYSTEM.SettingCypherIdentificationAsItem": "Usar configuração de item",
+    "CYPHERSYSTEM.SettingCypherIdentification": "Status de Identificação Padrão",
+    "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Cifras & Artefatos são identificadas por padrão",
+    "CYPHERSYSTEM.SettingCypherIdentificationNever": "Cifras & Artefatos não são identificadas por padrão",
+    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Ao arrastar e soltar uma cifra ou artefato em uma ficha de ator, essa cifra ou artefato deve ser identificado por padrão?"
 }
