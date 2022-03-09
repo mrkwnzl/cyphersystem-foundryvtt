@@ -26,6 +26,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Add-on Modules
 
+- [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
 - [Cypher System Compendium](https://foundryvtt.com/packages/cyphersystem-compendium)
 - [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
