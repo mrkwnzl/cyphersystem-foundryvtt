@@ -13,7 +13,7 @@ import {
 import {
   chatCardProposeIntrusion,
   chatCardAskForIntrusion
-} from "../chat-cards.js";
+} from "../utilities/chat-cards.js";
 import { useRecoveries } from "../utilities/actor-utilities.js";
 
 /* -------------------------------------------- */
@@ -880,7 +880,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 
   async function applyRecursion() {
     let updates = [];
-    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium"];
+    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium", "@pdf"];
     let regExceptions = new RegExp(exceptions.join("|"), "gi");
     let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
     let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
@@ -1359,5 +1359,49 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
         content: chatMessageVagueText
       });
     }
+  }
+}
+
+export function disasterModeMacro(token, mode) {
+  if (!token) {
+    let numberOfGMIRangeTokens = 0;
+    for (let t of game.scenes.current.tokens) {
+      if (t.name == "GMI Range") {
+        token = t.object;
+        modeSelect(token, mode);
+        numberOfGMIRangeTokens++;
+      }
+    }
+    if (numberOfGMIRangeTokens == 0) {
+      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingOnScene"));
+    }
+  } else if (token.name == "GMI Range") {
+    modeSelect(token, mode)
+  } else if (token.name != "GMI Range") {
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingSelected"));
+  };
+
+  function modeSelect(token, mode) {
+    let newLevel;
+    switch (mode) {
+      case "increase":
+        newLevel = token.actor.data.data.level + 1
+        if (newLevel <= 20) changeGMIRange(token, newLevel);
+        break;
+      case "decrease":
+        newLevel = token.actor.data.data.level - 1
+        if (newLevel >= 1) changeGMIRange(token, newLevel);
+        break;
+      case "reset":
+        changeGMIRange(token, 1);
+        break;
+      default:
+        break;
+    }
+  }
+
+  async function changeGMIRange(token, level) {
+    await token.actor.update({ "data.level": level });
+    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + level + ".webp" });
   }
 }

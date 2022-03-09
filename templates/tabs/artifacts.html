@@ -49,14 +49,15 @@
         {{/if}}
       </div>
       <div class="item-controls">
-        {{#if ../data.isGM}}
-        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
-        {{else}}
-        {{#if data.identified}}
-        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}"><i class="fas fa-file-alt"></i></a>
-        {{else}}
-        <a class="item-control identify-item {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}"><i class="far fa-eye-slash"></i></a>
-        {{/if}}
+        {{#unless data.identified}}
+        <a class="item-control identify-item {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
+          <i class="far fa-eye-slash"></i>
+        </a>
+        {{/unless}}
+        {{#if (or data.identified ../data.isGM)}}
+        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+          <i class="fas fa-file-alt"></i>
+        </a>
         {{/if}}
         <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}"><i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i></a>
       </div>

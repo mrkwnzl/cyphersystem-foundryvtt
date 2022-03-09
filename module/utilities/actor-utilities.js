@@ -1,3 +1,8 @@
+import {
+  chatCardIntrusionAccepted,
+  chatCardIntrusionRefused
+} from "./chat-cards.js";
+
 export function useRecoveries(actor, spell) {
   if (!spell) spell = false;
   let recoveries = actor.data.data.recoveries;
@@ -50,4 +55,30 @@ export function isExclusiveTagActive(actor) {
     if (item.type == "tag" && item.data.data.exclusive && item.data.data.active) countExclusiveTags++;
   }
   return (countExclusiveTags > 0) ? true : false;
+}
+
+export function deleteChatMessage(data) {
+  if (game.user.isGM) game.messages.get(data.messageId).delete();
+}
+
+// Function to apply XP when an intrusion is accepted
+export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier) {
+  actor.update({ "data.basic.xp": actor.data.data.basic.xp + modifier });
+
+  // Emit a socket event
+  game.socket.emit('system.cyphersystem', { operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier });
+  game.socket.emit('system.cyphersystem', { operation: 'deleteChatMessage', messageId: messageId });
+
+  let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
+
+  ChatMessage.create({
+    content: content
+  })
+}
+
+export function giveAdditionalXP(data) {
+  if (game.user.isGM) {
+    let selectedActor = game.actors.get(data.selectedActorId);
+    selectedActor.update({ "data.basic.xp": selectedActor.data.data.basic.xp + data.modifier });
+  }
 }

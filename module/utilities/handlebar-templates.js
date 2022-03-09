@@ -1,0 +1,36 @@
+export async function preloadHandlebarsTemplates() {
+  const templatePaths = [
+    "systems/cyphersystem/templates/tabs/equipment.html",
+    "systems/cyphersystem/templates/tabs/equipment-settings.html",
+    "systems/cyphersystem/templates/tabs/skills.html",
+    "systems/cyphersystem/templates/tabs/teenSkills.html",
+    "systems/cyphersystem/templates/tabs/currenciesUpToThree.html",
+    "systems/cyphersystem/templates/tabs/currenciesUpToSix.html",
+    "systems/cyphersystem/templates/tabs/abilities.html",
+    "systems/cyphersystem/templates/tabs/teenAbilities.html",
+    "systems/cyphersystem/templates/tabs/equipment.html",
+    "systems/cyphersystem/templates/tabs/ammo.html",
+    "systems/cyphersystem/templates/tabs/armor.html",
+    "systems/cyphersystem/templates/tabs/armorTotal.html",
+    "systems/cyphersystem/templates/tabs/armorWithoutTotal.html",
+    "systems/cyphersystem/templates/tabs/artifacts.html",
+    "systems/cyphersystem/templates/tabs/cyphers.html",
+    "systems/cyphersystem/templates/tabs/materials.html",
+    "systems/cyphersystem/templates/tabs/oddities.html",
+    "systems/cyphersystem/templates/tabs/teenArmor.html",
+    "systems/cyphersystem/templates/tabs/teenAttacks.html",
+    "systems/cyphersystem/templates/tabs/attacks.html",
+    "systems/cyphersystem/templates/tabs/item-settings.html",
+    "systems/cyphersystem/templates/tabs/tag-settings.html",
+    "systems/cyphersystem/templates/tabs/spells.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html",
+    "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryTwo.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryThree.html",
+    "systems/cyphersystem/templates/tabs/skillsCategoryFour.html",
+    "systems/cyphersystem/templates/tabs/recursions.html",
+    "systems/cyphersystem/templates/tabs/tags.html"
+  ];
+  return loadTemplates(templatePaths);
+}

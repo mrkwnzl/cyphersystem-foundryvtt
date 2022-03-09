@@ -5,7 +5,7 @@
 
 import {
   chatCardMarkItemIdentified
-} from "../chat-cards.js";
+} from "../utilities/chat-cards.js";
 
 import {
   itemRollMacro,
@@ -20,10 +20,7 @@ import {
   byIdentifiedStatus
 } from "../utilities/sorting.js";
 
-import {
-  isExclusiveTagActive,
-  useRecoveries
-} from "../utilities/actor-utilities.js";
+import { useRecoveries } from "../utilities/actor-utilities.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -40,20 +37,6 @@ export class CypherActorSheet extends ActorSheet {
     data.owner = superData.owner;
     data.options = superData.options;
     data.effects = superData.effects;
-    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
-    switch (game.settings.get("cyphersystem", "diceTray")) {
-      case 0:
-        data.data.diceTray = "hidden";
-        break;
-      case 1:
-        data.data.diceTray = "left";
-        break;
-      case 2:
-        data.data.diceTray = "right";
-        break;
-      default:
-        data.data.diceTray = "hidden";
-    }
 
     data.dtypes = ["String", "Number", "Boolean"];
 
@@ -401,11 +384,16 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
 
-      ChatMessage.create({
-        content: chatCardMarkItemIdentified(this.actor, item),
-        whisper: ChatMessage.getWhisperRecipients("GM"),
-        blind: true
-      })
+      if (game.user.isGM) {
+        item.data.identified = true;
+        this.actor.updateEmbeddedDocuments("Item", [item]);
+      } else {
+        ChatMessage.create({
+          content: chatCardMarkItemIdentified(this.actor, item),
+          whisper: ChatMessage.getWhisperRecipients("GM"),
+          blind: true
+        })
+      }
     });
 
     // Delete Inventory Item
@@ -646,6 +634,19 @@ export class CypherActorSheet extends ActorSheet {
     if (itemData.type == "power Shift") actor.update({ "data.settings.powerShifts.active": true });
     if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
     if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
+
+    // Handle cypher & artifact identification
+    if (itemData.type == "cypher" || itemData.type == "artifact") {
+      let identifiedStatus;
+      if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
+        identifiedStatus = (!event.altKey) ? itemData.data.identified : !itemData.data.identified;
+      } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
+        identifiedStatus = (!event.altKey) ? true : false;
+      } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
+        identifiedStatus = (!event.altKey) ? false : true;
+      }
+      itemData.data.identified = identifiedStatus;
+    }
 
     // Define fuctions for archiving and deleting items
     function archiveItem(actorSheet) {

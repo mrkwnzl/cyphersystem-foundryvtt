@@ -334,7 +334,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
 
       <div class="flex-center grid grid-3col" style="gap: 3px">
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalOneName' id='additionalOneName' type='text' value='${additionalOneName}' data-dtype='String' placeholder="${game.i18n.localize(" CYPHERSYSTEM.AdditionalOne")}">
+          <input class='auto-margin dialog-input' name='additionalOneName' id='additionalOneName' type='text' value='${additionalOneName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalOne")}">
           <select name='stepModifierOne' id='stepModifierOne' class='dialog-select'>
             <option value='-1' ${(additionalOneValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalOneValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
@@ -343,7 +343,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
         </div>
 
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalTwoName' id='additionalTwoName' type='text' value='${additionalTwoName}' data-dtype='String' placeholder="${game.i18n.localize(" CYPHERSYSTEM.AdditionalTwo")}">
+          <input class='auto-margin dialog-input' name='additionalTwoName' id='additionalTwoName' type='text' value='${additionalTwoName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalTwo")}">
           <select name='stepModifierTwo' id='stepModifierTwo' class='dialog-select'>
             <option value='-1' ${(additionalTwoValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalTwoValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
@@ -352,7 +352,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
         </div>
 
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalThreeName' id='additionalThreeName' type='text' value='${additionalThreeName}' data-dtype='String' placeholder="${game.i18n.localize(" CYPHERSYSTEM.AdditionalThree")}">
+          <input class='auto-margin dialog-input' name='additionalThreeName' id='additionalThreeName' type='text' value='${additionalThreeName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalThree")}">
           <select name='stepModifierThree' id='stepModifierThree' class='dialog-select'>
             <option value='-1' ${(additionalThreeValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalThreeValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>

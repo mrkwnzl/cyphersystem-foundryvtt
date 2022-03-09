@@ -1,5 +1,9 @@
 /* Global styles */
 
+#chat-controls {
+  align-items: center;
+}
+
 #chat-log .message .message-content ul, ol,
 .flavor-text ul, ol {
   margin: 0 0 0.2em 0;

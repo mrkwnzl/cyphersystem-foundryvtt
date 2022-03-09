@@ -486,5 +486,10 @@
     "CYPHERSYSTEM.SpecifyCurrentTag": "Por favor especificar uma tag ou recursão para ser renomeada.",
     "CYPHERSYSTEM.TagsStartWith#": "Tags e recursões precisam começar com “#” e “@”, respectivamente.",
     "CYPHERSYSTEM.MightPool": "Reserva de Potência",
-    "CYPHERSYSTEM.ArchiveOtherTags": "Arquivar outras tags (separar tags com vírgulas)"
+    "CYPHERSYSTEM.ArchiveOtherTags": "Arquivar outras tags (separar tags com vírgulas)",
+    "CYPHERSYSTEM.SettingDiceTray": "Bandeja de Dados",
+    "CYPHERSYSTEM.SettingDiceTrayHint": "Mostrar bandeja de dados para rolagens simples de d6, d10, d20 e d100 nas fichas de PJ",
+    "CYPHERSYSTEM.SettingDiceTrayDisabled": "Desabilitado",
+    "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Mostra bandeja de dados na esquerda",
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Mostra bandeja de dados na direita"
 }

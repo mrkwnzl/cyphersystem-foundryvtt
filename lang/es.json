@@ -482,5 +482,19 @@
     "CYPHERSYSTEM.UnarchiveItemsWithTag": "Desarchivar Objetos Etiquetados con {tag} (alt-click para archivar)",
     "CYPHERSYSTEM.Settings": "Configuración",
     "CYPHERSYSTEM.SpeedPool": "Reserva de Velocidad",
-    "CYPHERSYSTEM.ArchiveOtherTags": "Archivar otras etiquetas (separa las etiquetas con comas)"
+    "CYPHERSYSTEM.ArchiveOtherTags": "Archivar otras etiquetas (separa las etiquetas con comas)",
+    "CYPHERSYSTEM.GMIRangeMissingSelected": "El token seleccionado no es un token de Rango GMI (ver compendio de Marcador).",
+    "CYPHERSYSTEM.SettingDiceTray": "Caja de Dados",
+    "CYPHERSYSTEM.SettingDiceTrayHint": "Muestra una caja de dados para tiradas simples de d6, d10, d20 y d100 en las hojas de PJ",
+    "CYPHERSYSTEM.GMIRangeMissingOnScene": "Sin token de Distancia GMI en la escena (ver compendio de Marcador).",
+    "CYPHERSYSTEM.CurrentName": "Nombre Actual",
+    "CYPHERSYSTEM.NewName": "Nuevo Nombre",
+    "CYPHERSYSTEM.RenameTag": "Renombrar etiqueta o Recursión",
+    "CYPHERSYSTEM.TagOrRecursion": "#Etiqueta o @Recursión",
+    "CYPHERSYSTEM.KeepEmptyToDelete": "Deja el Nuevo Nombre en blanco para borrar la etiqueta o recursión de todos los objetos.",
+    "CYPHERSYSTEM.SpecifyCurrentTag": "Por favor especifica una etiqueta o recursión a renombrar.",
+    "CYPHERSYSTEM.TagsStartWith#": "Las etiquetas o recursiones deben empezar con \"#\" o \"@\", respectivamente.",
+    "CYPHERSYSTEM.SettingDiceTrayDisabled": "Desactivado",
+    "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Muestra la caja de dados a la izquierda",
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Muestra la caja de dados a la derecha"
 }

@@ -12,6 +12,16 @@ import { CypherActorSheetCompanion } from "./actor/companion-sheet.js";
 import { CypherActorSheetToken } from "./actor/token-sheet.js";
 import { CypherActorSheetVehicle } from "./actor/vehicle-sheet.js";
 
+// Import utility functions
+import { preloadHandlebarsTemplates } from "./utilities/handlebar-templates.js";
+import {
+  deleteChatMessage,
+  applyXPFromIntrusion,
+  giveAdditionalXP
+} from "./utilities/actor-utilities.js";
+import { sendWelcomeMessage } from "./utilities/welcome-message.js";
+import { createCyphersystemMacro } from "./utilities/create-macros.js";
+
 // Import macros
 import {
   quickRollMacro,
@@ -39,7 +49,8 @@ import {
   calculateAttackDifficulty,
   recursionMacro,
   tagMacro,
-  renameTagMacro
+  renameTagMacro,
+  disasterModeMacro
 } from "./macros/macros.js";
 import {
   diceRoller,
@@ -47,18 +58,13 @@ import {
   hinderedRollEffectiveMacro
 } from "./macros/macro-helper.js";
 import {
-  itemMacroString,
-  recursionString,
-  tagString
-} from "./macros/macro-strings.js";
-import {
   chatCardMarkItemIdentified,
   chatCardProposeIntrusion,
   chatCardAskForIntrusion,
   chatCardIntrusionAccepted,
   chatCardIntrusionRefused,
   chatCardWelcomeMessage
-} from "./chat-cards.js";
+} from "./utilities/chat-cards.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -110,6 +116,7 @@ Hooks.once("init", async function () {
     recursionMacro,
     tagMacro,
     renameTagMacro,
+    disasterModeMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -159,6 +166,19 @@ Hooks.once("init", async function () {
     scope: "world",
     type: Boolean,
     default: false,
+    config: true
+  });
+  game.settings.register("cyphersystem", "cypherIdentification", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentification"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationHint"),
+    scope: "world",
+    type: Number,
+    default: 0,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAsItem"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAlways"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationNever")
+    },
     config: true
   });
 
@@ -291,54 +311,6 @@ Hooks.once("init", async function () {
   });
 });
 
-async function preloadHandlebarsTemplates() {
-  const templatePaths = [
-    "systems/cyphersystem/templates/tabs/equipment.html",
-    "systems/cyphersystem/templates/tabs/equipment-settings.html",
-    "systems/cyphersystem/templates/tabs/skills.html",
-    "systems/cyphersystem/templates/tabs/teenSkills.html",
-    "systems/cyphersystem/templates/tabs/currenciesUpToThree.html",
-    "systems/cyphersystem/templates/tabs/currenciesUpToSix.html",
-    "systems/cyphersystem/templates/tabs/abilities.html",
-    "systems/cyphersystem/templates/tabs/teenAbilities.html",
-    "systems/cyphersystem/templates/tabs/equipment.html",
-    "systems/cyphersystem/templates/tabs/ammo.html",
-    "systems/cyphersystem/templates/tabs/armor.html",
-    "systems/cyphersystem/templates/tabs/armorTotal.html",
-    "systems/cyphersystem/templates/tabs/armorWithoutTotal.html",
-    "systems/cyphersystem/templates/tabs/artifacts.html",
-    "systems/cyphersystem/templates/tabs/cyphers.html",
-    "systems/cyphersystem/templates/tabs/materials.html",
-    "systems/cyphersystem/templates/tabs/oddities.html",
-    "systems/cyphersystem/templates/tabs/teenArmor.html",
-    "systems/cyphersystem/templates/tabs/teenAttacks.html",
-    "systems/cyphersystem/templates/tabs/attacks.html",
-    "systems/cyphersystem/templates/tabs/item-settings.html",
-    "systems/cyphersystem/templates/tabs/tag-settings.html",
-    "systems/cyphersystem/templates/tabs/spells.html",
-    "systems/cyphersystem/templates/tabs/abilitiesCategoryTwo.html",
-    "systems/cyphersystem/templates/tabs/abilitiesCategoryThree.html",
-    "systems/cyphersystem/templates/tabs/abilitiesCategoryFour.html",
-    "systems/cyphersystem/templates/tabs/skillsCategoryTwo.html",
-    "systems/cyphersystem/templates/tabs/skillsCategoryThree.html",
-    "systems/cyphersystem/templates/tabs/skillsCategoryFour.html",
-    "systems/cyphersystem/templates/tabs/recursions.html",
-    "systems/cyphersystem/templates/tabs/tags.html"
-  ];
-  return loadTemplates(templatePaths);
-}
-
-function deleteChatMessage(data) {
-  if (game.user.isGM) game.messages.get(data.messageId).delete();
-}
-
-function giveAdditionalXP(data) {
-  if (game.user.isGM) {
-    let selectedActor = game.actors.get(data.selectedActorId);
-    selectedActor.update({ "data.basic.xp": selectedActor.data.data.basic.xp + data.modifier });
-  }
-}
-
 Hooks.on("canvasReady", function (canvas) {
   console.log(`The canvas was just rendered for scene: ${canvas.scene.id}`);
   for (let t of game.scenes.viewed.tokens) {
@@ -380,12 +352,6 @@ Hooks.once("ready", async function () {
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 });
 
-function sendWelcomeMessage() {
-  ChatMessage.create({
-    content: chatCardWelcomeMessage()
-  })
-}
-
 Hooks.on("preCreateItem", function (item) {
   if (item.data.img == "icons/svg/item-bag.svg") {
     item.data.update({ "img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` })
@@ -398,7 +364,7 @@ Hooks.on("updateItem", function (item) {
 });
 
 Hooks.on("renderChatMessage", function (message, html, data) {
-  // Event Listener to confirm identification
+  // Event Listener to confirm cypher and artifact identification
   html.find('.confirm').click(clickEvent => {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
     let actor = game.actors.get(html.find('.confirm').data('actor'));
@@ -492,21 +458,6 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   });
 });
 
-// Function to apply XP when an intrusion is accepted
-function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier) {
-  actor.update({ "data.basic.xp": actor.data.data.basic.xp + modifier });
-
-  // Emit a socket event
-  game.socket.emit('system.cyphersystem', { operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier });
-  game.socket.emit('system.cyphersystem', { operation: 'deleteChatMessage', messageId: messageId });
-
-  let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
-
-  ChatMessage.create({
-    content: content
-  })
-}
-
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
     get colors() {
@@ -564,37 +515,42 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", function (actor) {
-  // if (!actorData.img) actorData.img = `systems/cyphersystem/icons/actors/${actorData.type.toLowerCase()}.svg`;
-  // if (!actorData.Token.img) actorData.Token.img = actorData.img;
-
   if (actor.data.type == "NPC") {
-    actor.data.update({ "token.bar1": { "attribute": "health" } });
-    actor.data.update({ "token.bar2": { "attribute": "level" } });
-    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER });
-    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER });
-    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL })
+    actor.data.update({
+      "token.bar1": { "attribute": "health" },
+      "token.bar2": { "attribute": "level" },
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
   }
 
   if (actor.data.type == "Companion") {
-    actor.data.update({ "token.bar1": { "attribute": "health" } });
-    actor.data.update({ "token.bar2": { "attribute": "level" } });
-    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER });
-    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER });
-    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY })
+    actor.data.update({
+      "token.bar1": { "attribute": "health" },
+      "token.bar2": { "attribute": "level" },
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
   }
 
   if (actor.data.type == "PC" || actor.data.type == "Community") {
-    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER });
-    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY });
-    actor.data.update({ "token.actorLink": true });
+    actor.data.update({
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "token.actorLink": true
+    });
   }
 
   if (actor.data.type == "Token") {
-    actor.data.update({ "token.bar1": { "attribute": "quantity" } });
-    actor.data.update({ "token.bar2": { "attribute": "level" } });
-    actor.data.update({ "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER });
-    actor.data.update({ "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS });
-    actor.data.update({ "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL })
+    actor.data.update({
+      "token.bar1": { "attribute": "quantity" },
+      "token.bar2": { "attribute": "level" },
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
   }
 })
 
@@ -691,7 +647,7 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
           }
         }
       });
-    } else if (actor.data.type === "Token") {
+    } else if (actor.data.type === "Token" && actor.name != "GMI Range") {
       doc.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {
@@ -743,42 +699,3 @@ Hooks.on("createCombatant", function (combatant) {
     }
   }
 });
-
-/* -------------------------------------------- */
-/*  Hotbar Macros                               */
-/* -------------------------------------------- */
-
-/**
-* Create a Macro from an Item drop.
-* Get an existing item macro if one exists, otherwise create a new one.
-* @param {Object} data     The dropped data
-* @param {number} slot     The hotbar slot to use
-* @returns {Promise}
-*/
-async function createCyphersystemMacro(data, slot) {
-  if (data.type !== "Item") return;
-  if (!("data" in data)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems"));
-  const item = data.data;
-
-  // Create the macro command
-  let command = "";
-
-  if (item.type == "recursion") {
-    command = recursionString(data.actorId, item._id);
-  } else if (item.type == "tag") {
-    command = tagString(data.actorId, item._id);
-  } else {
-    command = itemMacroString(item._id);
-  }
-
-  let macro = await Macro.create({
-    name: item.name,
-    type: "script",
-    img: item.img,
-    command: command,
-    flags: { "cyphersystem.itemMacro": true }
-  });
-
-  game.user.assignHotbarMacro(macro, slot);
-  return false;
-}

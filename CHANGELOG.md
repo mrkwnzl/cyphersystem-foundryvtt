@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.31.0] - 2022-03-09
+### Added
+- New macros and a marker to signify GMI Range, as it’s used in Disaster Mode (First Responders), Horror Mode (CSR and Stay Alive!), Redline Maneuvers & Void Rules (The Stars Are Fire), and Curse Mode (We Are All Mad Here).
+- New setting for the default identification status of cyphers and artifacts, when they are dragged & dropped onto actor sheets. Holding alt while dragging & dropping reverses the identified status. The setting from Nice(TSY) Cypher Add-Ons takes precedence, though.
+
+### Changed
+- Some spring cleaning and refactoring of the code.
+- Removed Dead status from character sheet. It served no purpose and it makes using the Combat Tracker module more streamlined.
+- Default disposition of all new actors across all types is now neutral.
+- The GM can now mark cyphers and artifacts as identified right from the actor sheets.
+- Moved the button to mark cyphers and artifacts as (un)identified on the item sheets from the navigation bar next to the level.
+
+### Fixed
+- Fixed a translation string for Calculate Difficulty macro.
+- The dice tray now works correctly at the right hand side when using the Custom Sheets module.
+
 ## [1.30.3] - 2022-02-20
 ### Fixed
 - Further improvements to line height for document links.
