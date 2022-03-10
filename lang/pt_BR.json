@@ -498,5 +498,7 @@
     "CYPHERSYSTEM.SettingCypherIdentification": "Status de Identificação Padrão",
     "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Cifras & Artefatos são identificadas por padrão",
     "CYPHERSYSTEM.SettingCypherIdentificationNever": "Cifras & Artefatos não são identificadas por padrão",
-    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Ao arrastar e soltar uma cifra ou artefato em uma ficha de ator, essa cifra ou artefato deve ser identificado por padrão?"
+    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Ao arrastar e soltar uma cifra ou artefato em uma ficha de ator, essa cifra ou artefato deve ser identificado por padrão?",
+    "CYPHERSYSTEM.Max": "Máx",
+    "CYPHERSYSTEM.Weapons": "Armas"
 }
