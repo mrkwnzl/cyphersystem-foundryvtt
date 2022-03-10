@@ -455,5 +455,14 @@
     "CYPHERSYSTEM.SettingDiceTray": "Würfelablage",
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Ausgeschaltet",
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Zeige Würfelablage links",
-    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Zeige Würfelablage rechts"
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Zeige Würfelablage rechts",
+    "CYPHERSYSTEM.SettingCypherIdentification": "Standardidentifikationsstatus",
+    "CYPHERSYSTEM.SettingCypherIdentificationAsItem": "Einstellung des Items benutzen",
+    "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Cypher & Artefakte sind standardmäßig identifiziert",
+    "CYPHERSYSTEM.SettingCypherIdentificationNever": "Cypher & Artefakte sind standardmäßig nicht identifiziert",
+    "CYPHERSYSTEM.GMIRangeMissingSelected": "Das ausgewählte Token ist kein GMI-Range-Token (siehe Marker Kompendium).",
+    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Wenn ein Cypher oder Artefakt auf einen Charakterbogen gezogen wird, sollte der Cypher oder das Artefakt dann standardmäßig identifiziert sein?",
+    "CYPHERSYSTEM.Max": "Max",
+    "CYPHERSYSTEM.GMIRangeMissingOnScene": "Kein GMI-Range-Token auf der Szene gefunden (siehe Marker Kompendium).",
+    "CYPHERSYSTEM.Weapons": "Waffen"
 }
