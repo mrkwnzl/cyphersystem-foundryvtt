@@ -496,5 +496,7 @@
     "CYPHERSYSTEM.TagsStartWith#": "Las etiquetas o recursiones deben empezar con \"#\" o \"@\", respectivamente.",
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Desactivado",
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Muestra la caja de dados a la izquierda",
-    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Muestra la caja de dados a la derecha"
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Muestra la caja de dados a la derecha",
+    "CYPHERSYSTEM.Weapons": "Armas",
+    "CYPHERSYSTEM.Max": "Máx"
 }
