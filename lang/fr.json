@@ -497,5 +497,11 @@
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Désactivé",
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Afficher le tiroir à dés sur la gauche",
     "CYPHERSYSTEM.SettingDiceTrayShowRight": "Afficher le tiroir à dés sur la droite",
-    "CYPHERSYSTEM.Weapons": "Armes"
+    "CYPHERSYSTEM.Weapons": "Armes",
+    "CYPHERSYSTEM.SettingCypherIdentificationAsItem": "Utiliser le réglage des éléments",
+    "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Les cyphers et les artefacts sont identifiés par défaut",
+    "CYPHERSYSTEM.SettingCypherIdentificationNever": "Les cyphers et les artefacts ne sont pas identifiés par défaut",
+    "CYPHERSYSTEM.SettingCypherIdentification": "État de l'identification par défaut",
+    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Lors du glisser-déposer d'un cypher ou d'un artefact vers une fiche de personnage, ce cypher ou cet artefact doit-il être identifié par défaut ?",
+    "CYPHERSYSTEM.Max": "Max"
 }
