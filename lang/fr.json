@@ -496,5 +496,6 @@
     "CYPHERSYSTEM.GMIRangeMissingOnScene": "Aucun token GMI Range trouvé sur la scène (voir le Marker compendium).",
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Désactivé",
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Afficher le tiroir à dés sur la gauche",
-    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Afficher le tiroir à dés sur la droite"
+    "CYPHERSYSTEM.SettingDiceTrayShowRight": "Afficher le tiroir à dés sur la droite",
+    "CYPHERSYSTEM.Weapons": "Armes"
 }
