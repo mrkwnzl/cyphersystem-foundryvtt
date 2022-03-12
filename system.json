@@ -17,42 +17,42 @@
   "packs": [
     {
       "name": "macros",
-      "label": "Cypher System Roll Macros",
+      "label": "Roll Macros",
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
       "entity": "Macro"
     },
     {
       "name": "marker",
-      "label": "Cypher System Markers",
+      "label": "Markers",
       "system": "cyphersystem",
       "path": "packs/markers.db",
       "entity": "Actor"
     },
     {
       "name": "scenes",
-      "label": "Cypher System Scenes",
+      "label": "Scenes",
       "system": "cyphersystem",
       "path": "packs/scenes.db",
       "entity": "Scene"
     },
     {
       "name": "utility-macros",
-      "label": "Cypher System Utility Macros",
+      "label": "Utility Macros",
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
       "entity": "Macro"
     },
     {
       "name": "secret-settings",
-      "label": "Cypher System Secret Settings",
+      "label": "Secret Settings",
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
       "entity": "Macro"
     },
     {
       "name": "basic-skills",
-      "label": "Cypher System Basic Skills",
+      "label": "Basic Skills",
       "system": "cyphersystem",
       "path": "packs/basic-skills.db",
       "entity": "Item"
