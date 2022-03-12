@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- Renamed Compendia.
+
 ## [1.31.0] - 2022-03-09
 ### Added
 - New macros and a marker to signify GMI Range, as it’s used in Disaster Mode (First Responders), Horror Mode (CSR and Stay Alive!), Redline Maneuvers & Void Rules (The Stars Are Fire), and Curse Mode (We Are All Mad Here).
