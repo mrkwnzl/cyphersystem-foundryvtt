@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Changed
 - Renamed Compendia.
+- Document links and clickable roll formulas on the character sheet are now rendered smaller in order to be less invasive of the layout.
+
+### Fixed
+- The lighting tab in the token settings now work properly.
 
 ## [1.31.0] - 2022-03-09
 ### Added
