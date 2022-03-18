@@ -210,13 +210,32 @@ form.cyphersystem {
   font-size: 14px;
 }
 
-.hr-chat {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
 ::-webkit-scrollbar-track {
   box-shadow: none;
+}
+
+a.entity-link,
+a.content-link, 
+a.inline-roll,
+a.pdfoundry-link,
+a.rollForLevel {
+  font-size: smaller;
+  margin: 0 1px 0 1px;
+}
+
+.editor-content {
+  padding: 3px 5px;
+  line-height: 1.4;
+}
+
+.editor-content p {
+  margin: 3px 0 3px 0;
+}
+
+.editor-content hr {
+  margin: 0;
+  border-bottom: 0;
+  border-top: 1px solid #999;
 }
 
 /* Styles limited to cyphersystem sheets */
@@ -421,15 +440,6 @@ form.cyphersystem {
   text-indent: 0px;
 }
 
-.cyphersystem a.entity-link,
-.cyphersystem a.content-link, 
-.cyphersystem a.inline-roll,
-.cyphersystem a.pdfoundry-link,
-.cyphersystem a.rollForLevel {
-  font-size: smaller;
-  margin: 0 1px 0 1px;
-}
-
 .cyphersystem .items-list .item-name p {
   margin: 3px 0px;
   line-height: 1.4;
@@ -626,21 +636,6 @@ form.cyphersystem {
   flex: 0 0 45px;
   text-align: right;
   padding: 0 3px 0 6px;
-}
-
-.cyphersystem .editor-content {
-  padding: 3px 5px;
-  line-height: 1.4;
-}
-
-.cyphersystem .editor-content p {
-  margin: 3px 0 3px 0;
-}
-
-.cyphersystem .editor-content hr {
-  margin: 0;
-  border-bottom: 0;
-  border-top: 1px solid #999;
 }
 
 .cyphersystem .rollForLevel {
