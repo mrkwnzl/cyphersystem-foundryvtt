@@ -9,6 +9,18 @@
   margin: 0 0 0.2em 0;
 }
 
+#chat-log .message .message-content .pdfoundry-link {
+  font-size: smaller;
+  margin: 0 1px 0 1px;
+}
+
+#chat-log .message .message-content hr {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border-bottom: 0;
+  border-top: 1px solid rgba(187, 187, 187);
+}
+
 #chat-log .message .message-content ul,
 .flavor-text ul {
   list-style-type: disc;
@@ -203,14 +215,6 @@ form.cyphersystem {
   margin-bottom: 2px;
 }
 
-.sheet nav.sheet-tabs {
-  flex: 0 0 0;
-  border-top: none;
-  border-bottom: none;
-  margin: 5px 0 0 0;
-  padding: 0px;
-}
-
 ::-webkit-scrollbar-track {
   box-shadow: none;
 }
@@ -296,10 +300,14 @@ form.cyphersystem {
   text-align: right;
 }
 
-.cyphersystem .sheet-tabs {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
+.cyphersystem nav.sheet-tabs {
+  -webkit-box-flex: 0 0 0;
+  -ms-flex: 0 0 0;
+  flex: 0 0 0;
+  border-top: none;
+  border-bottom: none;
+  margin: 5px 0 0 0;
+  padding: 0px;
 }
 
 .cyphersystem .sheet-body .tab {
@@ -362,6 +370,12 @@ form.cyphersystem {
   font-weight: bold;
 }
 
+.cyphersystem .items-list hr {
+  margin: 0;
+  border-bottom: 0;
+  border-top: 1px solid rgba(187, 187, 187);
+}
+
 .cyphersystem .items-list .item {
   padding: 3px 5px;
   /*border-bottom: 1px solid #BBB;*/
@@ -407,13 +421,13 @@ form.cyphersystem {
   text-indent: 0px;
 }
 
-.cyphersystem .editor-content a.entity-link,
-.cyphersystem .editor-content a.content-link, 
-.cyphersystem .editor-content a.inline-roll,
-.cyphersystem .description a.entity-link,
-.cyphersystem .description a.content-link, 
-.cyphersystem .description a.inline-roll {
-  line-height: 1.7;
+.cyphersystem a.entity-link,
+.cyphersystem a.content-link, 
+.cyphersystem a.inline-roll,
+.cyphersystem a.pdfoundry-link,
+.cyphersystem a.rollForLevel {
+  font-size: smaller;
+  margin: 0 1px 0 1px;
 }
 
 .cyphersystem .items-list .item-name p {
@@ -469,6 +483,7 @@ form.cyphersystem {
   border-color: rgba(187, 187, 187);
   border-top-width: 1px;
   padding-left: 17px;
+  padding-top: 5px;
   padding-bottom: 5px;
   font-size: 13px;
   /* display: none; */
@@ -476,7 +491,7 @@ form.cyphersystem {
 
 .cyphersystem .items-list .description p {
   border-style: none;
-  margin: 3px 0 4px 0;
+  margin: 3px 0 3px 0;
 }
 
 .cyphersystem .items-list .description ul {
@@ -488,9 +503,11 @@ form.cyphersystem {
 }
 
 .cyphersystem .items-list .description p:last-of-type {
-  font-size: 13px;
-  border-style: none;
   margin: 3px 0 0 0;
+}
+
+.cyphersystem .items-list .description p:first-of-type {
+  margin: 0 0 3px 0;
 }
 
 .cyphersystem .items-list .item-skillLevel {
@@ -597,7 +614,7 @@ form.cyphersystem {
 
 .cyphersystem .description-image {
   float: right;
-  margin: 5px 3px 0 5px;
+  margin: 0 3px 0 5px;
 }
 
 .description-image-chat {
@@ -613,6 +630,17 @@ form.cyphersystem {
 
 .cyphersystem .editor-content {
   padding: 3px 5px;
+  line-height: 1.4;
+}
+
+.cyphersystem .editor-content p {
+  margin: 3px 0 3px 0;
+}
+
+.cyphersystem .editor-content hr {
+  margin: 0;
+  border-bottom: 0;
+  border-top: 1px solid #999;
 }
 
 .cyphersystem .rollForLevel {
