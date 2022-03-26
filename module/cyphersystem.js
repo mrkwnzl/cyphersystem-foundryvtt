@@ -191,6 +191,15 @@ Hooks.once("init", async function () {
     config: true
   });
 
+  game.settings.register("cyphersystem", "barBrawlDefaults", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingBarBrawlDefaults"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingBarBrawlDefaultsHint"),
+    scope: "world",
+    type: Boolean,
+    default: true,
+    config: game.modules.has("barbrawl") ? game.modules.get("barbrawl").active : false
+  });
+
   game.settings.register("cyphersystem", "useSlashForFractions", {
     scope: "world",
     type: Boolean,
@@ -554,22 +563,21 @@ Hooks.on("preCreateActor", function (actor) {
   }
 })
 
-Hooks.on("preCreateToken", function (doc, data, options, userId) {
+Hooks.on("preCreateToken", function (token, data, options, userId) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    doc.data.update({ "flags.cyphersystem.toggleDragRuler": true })
+    token.data.update({ "flags.cyphersystem.toggleDragRuler": true })
   } else {
-    doc.data.update({ "flags.cyphersystem.toggleDragRuler": false })
+    token.data.update({ "flags.cyphersystem.toggleDragRuler": false })
   }
 
   // Support for Bar Brawl
-  let barBrawlResourceBars = (actor.data.token.flags.barbrawl) ? Object.keys(actor.data.token.flags.barbrawl.resourceBars).length : 0;
-  if (barBrawlResourceBars === 0) {
+  if (game.settings.get("cyphersystem", "barBrawlDefaults")) {
     if (actor.data.type === "PC") {
-      doc.data.update({
+      token.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {
             id: "bar1",
@@ -598,7 +606,7 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
         }
       });
     } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-      doc.data.update({
+      token.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {
             id: "bar1",
@@ -619,7 +627,7 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
         }
       });
     } else if (actor.data.type === "Community") {
-      doc.data.update({
+      token.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {
             id: "bar1",
@@ -648,7 +656,7 @@ Hooks.on("preCreateToken", function (doc, data, options, userId) {
         }
       });
     } else if (actor.data.type === "Token" && actor.name != "GMI Range") {
-      doc.data.update({
+      token.data.update({
         "flags.barbrawl.resourceBars": {
           "bar1": {
             id: "bar1",
