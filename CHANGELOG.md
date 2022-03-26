@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - The lighting tab in the token settings now work properly.
+- Bar Brawl was behaving a bit unreliable, probably due to the fact that I tried to pre-configure it while at the same time allow for user-configured defaults. There is now a system setting with which you can choose to either use the Cypher system defaults (which will always overwrite your own defaults and prototype token settings) or let you configure Bar Brawl yourself. In both cases, existing tokens keep their Bar Brawl settings. This should let Bar Brawl work more reliable.
 
 ## [1.31.0] - 2022-03-09
 ### Added
