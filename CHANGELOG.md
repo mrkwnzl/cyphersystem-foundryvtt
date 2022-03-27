@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.31.1] - 2022-03-27
+### Changed
+- Renamed Compendia.
+- Document links and clickable roll formulas on the character sheet are now rendered smaller in order to be less invasive of the layout.
+
+### Fixed
+- The lighting tab in the token settings now works properly.
+- Bar Brawl was behaving a bit unreliable, probably due to the fact that I tried to pre-configure it while at the same time allow for user-configured defaults. There is now a system setting with which you can choose to either use the Cypher system defaults (which will always overwrite your own defaults and prototype token settings, and hide the resource tab on the token configuration window) or let you configure Bar Brawl yourself. In both cases, existing tokens keep their Bar Brawl settings. This should let Bar Brawl work more reliable.
+
+  **Note:** There are two macros in the Secret Setting compendium, with which you can either reset or remove the Bar Brawl settings of a selected token (or else all tokens on the canvas, if none is selected). This should make it easier to correct any wrong configurations.
+
 ## [1.31.0] - 2022-03-09
 ### Added
 - New macros and a marker to signify GMI Range, as it’s used in Disaster Mode (First Responders), Horror Mode (CSR and Stay Alive!), Redline Maneuvers & Void Rules (The Stars Are Fire), and Curse Mode (We Are All Mad Here).

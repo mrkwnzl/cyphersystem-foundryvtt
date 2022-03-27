@@ -15,6 +15,7 @@ import {
   chatCardAskForIntrusion
 } from "../utilities/chat-cards.js";
 import { useRecoveries } from "../utilities/actor-utilities.js";
+import { barBrawlData } from "../utilities/token-utilities.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -618,103 +619,31 @@ export function resetDragRulerDefaults() {
   ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AllTokenDragRuler"));
 }
 
-export function resetBarBrawlDefaults() {
+export async function resetBarBrawlDefaults(tokens) {
   if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
-  for (let token of canvas.tokens.objects.children) {
-    if (token.actor.data.type === "PC") {
-      token.document.setFlag("barbrawl", "resourceBars", {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "pools.intellect",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#00FF00",
-          maxcolor: "#00FF00",
-          position: "bottom-inner",
-          attribute: "pools.speed",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "pools.might",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        }
-      })
-    } else if (token.actor.data.type === "NPC" || token.actor.data.type === "Companion") {
-      token.document.setFlag("barbrawl", "resourceBars", {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        }
-      })
-    } else if (token.actor.data.type === "Community") {
-      token.document.setFlag("barbrawl", "resourceBars", {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "rank",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "bottom-inner",
-          attribute: "infrastructure",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar3": {
-          id: "bar3",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        }
-      })
-    } else if (token.actor.data.type === "Token") {
-      token.document.setFlag("barbrawl", "resourceBars", {
-        "bar1": {
-          id: "bar1",
-          mincolor: "#0000FF",
-          maxcolor: "#0000FF",
-          position: "top-inner",
-          attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-        },
-        "bar2": {
-          id: "bar2",
-          mincolor: "#FF0000",
-          maxcolor: "#FF0000",
-          position: "bottom-inner",
-          attribute: "quantity",
-          visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
-        }
-      })
-    }
+  tokens = (!tokens) ? canvas.tokens.objects.children : [tokens];
+  for (let token of tokens) {
+    let actor = game.actors.get(token.data.actorId);
+    await token.document.update({
+      [`flags.-=barbrawl`]: null,
+      "bar1.attribute": null,
+      "bar2.attribute": null
+    });
+    await token.document.update(barBrawlData(actor.data.type, actor));
   }
+}
+
+export async function removeBarBrawlSettings(tokens) {
+  if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
+  tokens = (!tokens) ? canvas.tokens.objects.children : [tokens];
+  for (let token of tokens) {
+    await token.document.update({
+      [`flags.-=barbrawl`]: null,
+      "bar1.attribute": null,
+      "bar2.attribute": null
+    });
+  }
+  location.reload();
 }
 
 export function quickStatChange(token, stat, modifier) {

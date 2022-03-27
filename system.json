@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.31.0",
+  "version": "1.31.1",
   "minimumCoreVersion": "0.8.5",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
@@ -17,42 +17,42 @@
   "packs": [
     {
       "name": "macros",
-      "label": "Cypher System Roll Macros",
+      "label": "Roll Macros",
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
       "entity": "Macro"
     },
     {
       "name": "marker",
-      "label": "Cypher System Markers",
+      "label": "Markers",
       "system": "cyphersystem",
       "path": "packs/markers.db",
       "entity": "Actor"
     },
     {
       "name": "scenes",
-      "label": "Cypher System Scenes",
+      "label": "Scenes",
       "system": "cyphersystem",
       "path": "packs/scenes.db",
       "entity": "Scene"
     },
     {
       "name": "utility-macros",
-      "label": "Cypher System Utility Macros",
+      "label": "Utility Macros",
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
       "entity": "Macro"
     },
     {
       "name": "secret-settings",
-      "label": "Cypher System Secret Settings",
+      "label": "Secret Settings",
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
       "entity": "Macro"
     },
     {
       "name": "basic-skills",
-      "label": "Cypher System Basic Skills",
+      "label": "Basic Skills",
       "system": "cyphersystem",
       "path": "packs/basic-skills.db",
       "entity": "Item"
@@ -94,6 +94,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.31.0/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.31.1/release.zip",
   "license": "LICENSE.md"
 }
