@@ -223,6 +223,10 @@ a.rollForLevel {
   margin: 0 1px 0 1px;
 }
 
+select.bar-attribute {
+  width: 0;
+}
+
 .editor-content {
   padding: 3px 5px;
   line-height: 1.4;
@@ -236,6 +240,10 @@ a.rollForLevel {
   margin: 0;
   border-bottom: 0;
   border-top: 1px solid #999;
+}
+
+.hidden-resource-barbrawl {
+  display: none;
 }
 
 /* Styles limited to cyphersystem sheets */

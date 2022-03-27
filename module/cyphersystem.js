@@ -36,6 +36,7 @@ import {
   toggleDragRuler,
   resetDragRulerDefaults,
   resetBarBrawlDefaults,
+  removeBarBrawlSettings,
   quickStatChange,
   proposeIntrusion,
   changeSymbolForFractions,
@@ -65,6 +66,7 @@ import {
   chatCardIntrusionRefused,
   chatCardWelcomeMessage
 } from "./utilities/chat-cards.js";
+import { barBrawlOverwrite } from "./utilities/token-utilities.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -102,6 +104,7 @@ Hooks.once("init", async function () {
     toggleDragRuler,
     resetDragRulerDefaults,
     resetBarBrawlDefaults,
+    removeBarBrawlSettings,
     quickStatChange,
     proposeIntrusion,
     changeSymbolForFractions,
@@ -563,120 +566,26 @@ Hooks.on("preCreateActor", function (actor) {
   }
 })
 
-Hooks.on("preCreateToken", function (token, data, options, userId) {
+Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
   if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    token.data.update({ "flags.cyphersystem.toggleDragRuler": true })
+    document.data.update({ "flags.cyphersystem.toggleDragRuler": true })
   } else {
-    token.data.update({ "flags.cyphersystem.toggleDragRuler": false })
+    document.data.update({ "flags.cyphersystem.toggleDragRuler": false })
   }
 
   // Support for Bar Brawl
-  if (game.settings.get("cyphersystem", "barBrawlDefaults")) {
-    if (actor.data.type === "PC") {
-      token.data.update({
-        "flags.barbrawl.resourceBars": {
-          "bar1": {
-            id: "bar1",
-            mincolor: "#0000FF",
-            maxcolor: "#0000FF",
-            position: "bottom-inner",
-            attribute: "pools.intellect",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar2": {
-            id: "bar2",
-            mincolor: "#00FF00",
-            maxcolor: "#00FF00",
-            position: "bottom-inner",
-            attribute: "pools.speed",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar3": {
-            id: "bar3",
-            mincolor: "#FF0000",
-            maxcolor: "#FF0000",
-            position: "bottom-inner",
-            attribute: "pools.might",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          }
-        }
-      });
-    } else if (actor.data.type === "NPC" || actor.data.type === "Companion") {
-      token.data.update({
-        "flags.barbrawl.resourceBars": {
-          "bar1": {
-            id: "bar1",
-            mincolor: "#0000FF",
-            maxcolor: "#0000FF",
-            position: "top-inner",
-            attribute: "level",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar2": {
-            id: "bar2",
-            mincolor: "#FF0000",
-            maxcolor: "#FF0000",
-            position: "bottom-inner",
-            attribute: "health",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          }
-        }
-      });
-    } else if (actor.data.type === "Community") {
-      token.data.update({
-        "flags.barbrawl.resourceBars": {
-          "bar1": {
-            id: "bar1",
-            mincolor: "#0000FF",
-            maxcolor: "#0000FF",
-            position: "top-inner",
-            attribute: "rank",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar2": {
-            id: "bar2",
-            mincolor: "#0000FF",
-            maxcolor: "#0000FF",
-            position: "bottom-inner",
-            attribute: "infrastructure",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar3": {
-            id: "bar3",
-            mincolor: "#FF0000",
-            maxcolor: "#FF0000",
-            position: "bottom-inner",
-            attribute: "health",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          }
-        }
-      });
-    } else if (actor.data.type === "Token" && actor.name != "GMI Range") {
-      token.data.update({
-        "flags.barbrawl.resourceBars": {
-          "bar1": {
-            id: "bar1",
-            mincolor: "#0000FF",
-            maxcolor: "#0000FF",
-            position: "top-inner",
-            attribute: "level",
-            visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-          },
-          "bar2": {
-            id: "bar2",
-            mincolor: "#FF0000",
-            maxcolor: "#FF0000",
-            position: "bottom-inner",
-            attribute: "quantity",
-            visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
-          }
-        }
-      });
-    }
+  if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
+    barBrawlOverwrite(document, actor);
+  }
+});
+
+Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
+  if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
+    const resource = html.find("a[data-tab='resources']").addClass('hidden-resource-barbrawl');
   }
 });
 
