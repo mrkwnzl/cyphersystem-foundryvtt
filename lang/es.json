@@ -498,5 +498,12 @@
     "CYPHERSYSTEM.SettingDiceTrayShowLeft": "Muestra la caja de dados a la izquierda",
     "CYPHERSYSTEM.SettingDiceTrayShowRight": "Muestra la caja de dados a la derecha",
     "CYPHERSYSTEM.Weapons": "Armas",
-    "CYPHERSYSTEM.Max": "Máx"
+    "CYPHERSYSTEM.Max": "Máx",
+    "CYPHERSYSTEM.SettingCypherIdentification": "Estado de Identificación por Defecto",
+    "CYPHERSYSTEM.SettingCypherIdentificationAsItem": "Usar la configuración de objeto",
+    "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Se identifican los dispositivos y artefactos por defecto",
+    "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "Cuando esta opción está activada, las configuraciones del sistema Cypher para Bar Brawl sobreescribe cualquier configuración del usuario para los nuevos tokens, y las barras de recursos no pueden ser configuradas. Cuando está desactivada, tienes que configurar Bar Brawl por tu cuenta. En cualquier caso, los tokens existentes conservan sus configuraciones actuales.",
+    "CYPHERSYSTEM.SettingCypherIdentificationHint": "Cuando arrastras un dispositivo o artefacto a una hoja de personaje, ¿debería ser identificado por defecto?",
+    "CYPHERSYSTEM.SettingCypherIdentificationNever": "Los dispositivos y artefactos no están identificados por defecto",
+    "CYPHERSYSTEM.SettingBarBrawlDefaults": "Sobreescribir la configuración de Bar Brawl"
 }
