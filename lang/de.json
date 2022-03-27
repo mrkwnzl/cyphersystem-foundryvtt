@@ -464,5 +464,6 @@
     "CYPHERSYSTEM.SettingCypherIdentificationHint": "Wenn ein Cypher oder Artefakt auf einen Charakterbogen gezogen wird, sollte der Cypher oder das Artefakt dann standardmäßig identifiziert sein?",
     "CYPHERSYSTEM.Max": "Max",
     "CYPHERSYSTEM.GMIRangeMissingOnScene": "Kein GMI-Range-Token auf der Szene gefunden (siehe Marker Kompendium).",
-    "CYPHERSYSTEM.Weapons": "Waffen"
+    "CYPHERSYSTEM.Weapons": "Waffen",
+    "CYPHERSYSTEM.SettingBarBrawlDefaults": "Bar Brawl Einstellungen überschreiben"
 }
