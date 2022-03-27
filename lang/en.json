@@ -69,7 +69,7 @@
   "CYPHERSYSTEM.SettingCypherIdentificationAsItem": "Use item setting",
   "CYPHERSYSTEM.SettingCypherIdentificationAlways": "Cyphers & artifacts are identified by default",
   "CYPHERSYSTEM.SettingCypherIdentificationNever": "Cyphers & artifacts are unidentified by default",
-  "CYPHERSYSTEM.SettingBarBrawlDefaults": "Overwrite Bar Brawl Defaults",
+  "CYPHERSYSTEM.SettingBarBrawlDefaults": "Overwrite Bar Brawl Settings",
   "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "When this setting is enabled, the Cypher system defaults for Bar Brawl overwrite any user configuration for newly created tokens, and the resource bars can no longer be configured. When this setting is disabled, you have to configure Bar Brawl on your own. In either case, already existing tokens keep their resource bar settings.",
   "CYPHERSYSTEM.UnitDistanceMeter": "meter",
   "CYPHERSYSTEM.UnitDistanceFeet": "feet",
