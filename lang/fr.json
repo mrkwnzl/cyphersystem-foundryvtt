@@ -503,5 +503,7 @@
     "CYPHERSYSTEM.SettingCypherIdentificationNever": "Les cyphers et les artefacts ne sont pas identifiés par défaut",
     "CYPHERSYSTEM.SettingCypherIdentification": "État de l'identification par défaut",
     "CYPHERSYSTEM.SettingCypherIdentificationHint": "Lors du glisser-déposer d'un cypher ou d'un artefact vers une fiche de personnage, ce cypher ou cet artefact doit-il être identifié par défaut ?",
-    "CYPHERSYSTEM.Max": "Max"
+    "CYPHERSYSTEM.Max": "Max",
+    "CYPHERSYSTEM.SettingBarBrawlDefaults": "Écraser les paramètres de Bar Brawl",
+    "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "Lorsque ce paramètre est activé, les valeurs par défaut du système Cypher pour Bar Brawl écrasent toute configuration utilisateur pour les tokens nouvellement créés et les barres de ressources ne peuvent plus être configurées. Lorsque ce paramètre est désactivé, vous devez configurer le module Bar Brawl vous-même. Dans les deux cas, les tokens déjà existants conservent leurs réglages respectifs de barres de ressources."
 }
