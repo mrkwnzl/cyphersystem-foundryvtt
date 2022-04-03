@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- The GMI Range marker and macros to change them now come with four different genres: modern (the current one), fantasy, horror, and sci-fi. Those need to be specified in the macros in order to change the marker.
+
 ## [1.31.1] - 2022-03-27
 ### Changed
 - Renamed Compendia.
