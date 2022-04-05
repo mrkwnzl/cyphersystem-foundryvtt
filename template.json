@@ -260,7 +260,10 @@
           "cyphersName": "",
           "artifactsName": "",
           "odditiesName": ""
-        }
+        },
+        "hideNotes": false,
+        "hideDescription": false,
+        "hideEquipment": false
       }
     },
     "Community": {
