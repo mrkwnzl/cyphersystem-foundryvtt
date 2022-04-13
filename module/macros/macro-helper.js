@@ -48,10 +48,10 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
   // Determine result with bonus/penalty
   let bonusResult = parseInt(roll.result) + parseInt(bonus);
   let operator = (bonus < 0) ? "-" : "+";
-  let resultInfo = (bonus != 0 && bonus != "") ? game.i18n.localize("CYPHERSYSTEM.Result") + ": " + bonusResult + " (" + roll.result + operator + Math.abs(bonus) + ")" + "<br>" : "";
+  let resultInfo = (bonus != 0 && bonus != "") ? game.i18n.localize("CYPHERSYSTEM.Result") + ": " + bonusResult + " [" + roll.result + operator + Math.abs(bonus) + "]" + "<br>" : "";
 
   // Add initiative result
-  let initiativeResult = roll.total + (modifier * 3) + bonus;
+  let initiativeResult = parseInt(roll.total) + (parseInt(modifier) * 3) + parseInt(bonus);
   let initiativeInfo = (initiativeRoll) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult : "";
 
   // Add reroll button
