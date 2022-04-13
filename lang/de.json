@@ -505,5 +505,8 @@
     "CYPHERSYSTEM.AttackerIsInDeepWater": "Angreifer ist im tiefen Wasser",
     "CYPHERSYSTEM.AttackerIsUnderwaterSlashing": "Angreifer ist mit einer Hieb- oder stumpfen Waffe unter Wasser",
     "CYPHERSYSTEM.TargetIsMoving": "Ziel bewegt sich",
-    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} befindet sich bereits in {recursion}."
+    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} befindet sich bereits in {recursion}.",
+    "CYPHERSYSTEM.HideDescription": "Beschreibung verbergen",
+    "CYPHERSYSTEM.HideEquipment": "Ausrüstung verbergen",
+    "CYPHERSYSTEM.HideNotes": "Notizen verbergen"
 }
