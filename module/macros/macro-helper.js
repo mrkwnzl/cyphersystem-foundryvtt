@@ -4,17 +4,17 @@
 
 import { htmlEscape } from "../utilities/html-escape.js";
 
-export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
+export async function diceRoller(title, info, modifier, initiativeRoll, actor, bonus) {
   // Fix for single quotation marks
   title = title.replace(/'/g, "&apos;");
   info = info.replace(/'/g, "&apos;");
 
   // Roll dice
   let roll = await new Roll("1d20").evaluate({ async: true });
-  let difficulty = Math.floor(roll.result / 3);
+  let difficulty = Math.floor((parseInt(roll.result) + parseInt(bonus)) / 3);
 
   // Determine result
-  let difficultyResult = determineDifficultyResult(roll, difficulty, modifier);
+  let difficultyResult = determineDifficultyResult(difficulty, modifier, bonus);
 
   // Determine special effect
   let possibleEffects = {
@@ -42,19 +42,24 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
 
   // Determine bars
   let bars = (info != "") ?
-    info + "<hr style='margin-top: 1px; margin-bottom: 2px;'>" :
-    "<hr style='margin-top: 1px; margin-bottom: 2px;'>";
+    info + "<hr class='hr-chat'>" :
+    "<hr class='hr-chat'>";
+
+  // Determine result with bonus/penalty
+  let bonusResult = parseInt(roll.result) + parseInt(bonus);
+  let operator = (bonus < 0) ? "-" : "+";
+  let resultInfo = (bonus != 0 && bonus != "") ? game.i18n.localize("CYPHERSYSTEM.Result") + ": " + bonusResult + " (" + roll.result + operator + Math.abs(bonus) + ")" + "<br>" : "";
 
   // Add initiative result
-  let initiativeResult = roll.total + (modifier * 3);
+  let initiativeResult = roll.total + (modifier * 3) + bonus;
   let initiativeInfo = (initiativeRoll) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult : "";
 
   // Add reroll button
   let actorID = (actor) ? actor.id : "";
-  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + title + "</b>" + bars + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + reRollButton;
+  let flavor = "<b>" + title + "</b>" + bars + resultInfo + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + reRollButton;
 
   // Create chat message
   roll.toMessage({
@@ -69,7 +74,7 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor) {
   }
 }
 
-function determineDifficultyResult(roll, difficulty, modifier) {
+function determineDifficultyResult(difficulty, modifier) {
   if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
     return difficulty + " (" + difficulty * 3 + ")";
   } else {

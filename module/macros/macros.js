@@ -88,7 +88,7 @@ export async function diceRollMacro(dice) {
   });
 }
 
-export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll) {
+export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -99,10 +99,10 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
 
   // If points are paid, roll dice
-  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor);
+  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus);
 }
 
-export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
+export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -122,23 +122,26 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   // Set initiativeRoll
   let initiativeRoll = (itemID) ? actor.items.get(itemID).data.data.isInitiative : false;
 
+  // Set default for bonus/penalty
+  if (!bonus) bonus = 0;
+
   // Create All-in-One dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.AllInOneRoll"),
-    content: allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, itemID),
+    content: allInOneRollDialogString(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, itemID, bonus),
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => {
-          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, false, itemID);
+          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, false, itemID, html.find('#bonus').val());
         }
       },
       pay: {
         icon: '<i class="fas fa-coins"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Pay"),
         callback: (html) => {
-          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, true, itemID);
+          rollAndPay(html.find('#pool').val(), html.find('#skill').val(), html.find('#assets').val(), html.find('#effort1').val(), html.find('#effort2').val(), html.find('#additionalCost').val(), html.find('#additionalSteps').val(), html.find('#stepModifier').val(), title, html.find('#damage').val(), html.find('#effort3').val(), html.find('#damagePerLOE').val(), teen, skipDialog, true, itemID, html.find('#bonus').val());
         }
       },
       cancel: {
@@ -152,10 +155,10 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   });
 
   // Skip dialog?
-  (!skipDialog) ? d.render(true) : rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID);
+  (!skipDialog) ? d.render(true) : rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus);
 
   // Prepare data and parse to allInOneRollMacro
-  function rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID) {
+  function rollAndPay(pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {
     // Title information
     let poolRoll = {
       "Might": game.i18n.localize("CYPHERSYSTEM.MightRoll"),
@@ -311,7 +314,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     if (poolVerification[pool]()) {
       costInfo = poolCostInfo[pool]() + "<br>" + totalCostInfo[pool]();
     } else {
-      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID);
+      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus);
       if (pool == "XP") {
         return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"))
       } else {
@@ -394,12 +397,12 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
       }
       ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + onlyCostInfo });
     } else {
-      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll);
+      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus);
     }
   }
 }
 
-export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll) {
+export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus) {
   // Find actor based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
@@ -438,7 +441,7 @@ export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1,
       skill = item.data.data.rollButton.skill;
     }
   }
-  if (!assets) assets = item.data.data.rollButton.assets;;
+  if (!assets) assets = item.data.data.rollButton.assets;
   if (!effort1) effort1 = item.data.data.rollButton.effort1;
   if (!effort2) effort2 = item.data.data.rollButton.effort2;
   if (!effort3) effort3 = item.data.data.rollButton.effort3;
@@ -487,6 +490,7 @@ export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1,
   }
   if (!damagePerLOE) damagePerLOE = item.data.data.rollButton.damagePerLOE;
   if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
+  if (!bonus) bonus = item.data.data.rollButton.bonus;
 
   // Create item type
   let itemType = "";
@@ -501,7 +505,7 @@ export async function itemRollMacro(actor, itemID, pool, skill, assets, effort1,
   }
 
   // Parse data to All-in-One Dialog
-  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, itemType + item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID)
+  allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, Math.abs(additionalSteps), stepModifier, itemType + item.name, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus)
 }
 
 /* -------------------------------------------- */

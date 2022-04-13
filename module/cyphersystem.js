@@ -393,8 +393,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let info = html.find('.reroll-stat').data('info');
     let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
     let initiativeRoll = html.find('.reroll-stat').data('initiative');
+    let bonus = html.find('.reroll-stat').data('bonus');
     let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
-    diceRoller(title, info, modifier, initiativeRoll, actor);
+    diceRoller(title, info, modifier, initiativeRoll, actor, bonus);
   });
 
   // Event Listener for rerolls of recovery rolls
