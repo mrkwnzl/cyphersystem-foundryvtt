@@ -4,8 +4,10 @@
   align-items: center;
 }
 
-#chat-log .message .message-content ul, ol,
-.flavor-text ul, ol {
+#chat-log .message .message-content ul,
+ol,
+.flavor-text ul,
+ol {
   margin: 0 0 0.2em 0;
 }
 
@@ -51,6 +53,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
+}
+
+#chat-log .hr-chat {
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 .dialog-select {
