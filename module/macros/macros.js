@@ -1291,13 +1291,13 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
   }
 }
 
-export function disasterModeMacro(token, mode) {
+export function disasterModeMacro(token, mode, genre) {
   if (!token) {
     let numberOfGMIRangeTokens = 0;
     for (let t of game.scenes.current.tokens) {
       if (t.name == "GMI Range") {
         token = t.object;
-        modeSelect(token, mode);
+        modeSelect(token, mode, genre);
         numberOfGMIRangeTokens++;
       }
     }
@@ -1305,32 +1305,33 @@ export function disasterModeMacro(token, mode) {
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingOnScene"));
     }
   } else if (token.name == "GMI Range") {
-    modeSelect(token, mode)
+    modeSelect(token, mode, genre)
   } else if (token.name != "GMI Range") {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingSelected"));
   };
 
-  function modeSelect(token, mode) {
+  function modeSelect(token, mode, genre) {
     let newLevel;
     switch (mode) {
       case "increase":
         newLevel = token.actor.data.data.level + 1
-        if (newLevel <= 20) changeGMIRange(token, newLevel);
+        if (newLevel <= 20) changeGMIRange(token, newLevel, genre);
         break;
       case "decrease":
         newLevel = token.actor.data.data.level - 1
-        if (newLevel >= 1) changeGMIRange(token, newLevel);
+        if (newLevel >= 1) changeGMIRange(token, newLevel, genre);
         break;
       case "reset":
-        changeGMIRange(token, 1);
+        changeGMIRange(token, 1, genre);
         break;
       default:
         break;
     }
   }
 
-  async function changeGMIRange(token, level) {
+  async function changeGMIRange(token, level, genre) {
+    genre = (!genre || genre == "modern") ? "" : genre + "-";
     await token.actor.update({ "data.level": level });
-    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + level + ".webp" });
+    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp" });
   }
 }

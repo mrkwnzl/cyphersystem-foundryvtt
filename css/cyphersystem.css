@@ -42,6 +42,17 @@
   padding: 0 0 0 10px;
 }
 
+#chat-log .table-result a.entity-link,
+#chat-log .table-result a.content-link,
+#chat-log .table-result a.pdfoundry-link {
+  display: inline-block;
+  max-width: 225px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
 .dialog-select {
   height: 26px;
   margin-bottom: 2px;
@@ -215,7 +226,7 @@ form.cyphersystem {
 }
 
 a.entity-link,
-a.content-link, 
+a.content-link,
 a.inline-roll,
 a.pdfoundry-link,
 a.rollForLevel {
@@ -338,7 +349,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .sheet-body .tab {
-  border:1px solid #999;
+  border: 1px solid #999;
   border-top: none;
   height: 455px;
   overflow-y: auto;
@@ -408,12 +419,12 @@ select.bar-attribute {
   /*border-bottom: 1px solid #BBB;*/
 }
 
-.cyphersystem .tabs .item~.item{
+.cyphersystem .tabs .item~.item {
   /* border: 1px solid #999; */
   border-left: none;
 }
 
-.cyphersystem .items-list .item~.item{
+.cyphersystem .items-list .item~.item {
   border-top: 1px solid #BBB;
 }
 
@@ -702,11 +713,12 @@ select.bar-attribute {
   white-space: nowrap;
   height: 19px;
 }
+
 .cyphersystem .all-stats {
   margin-top: 5px;
 }
 
-.cyphersystem .stat-block + .stat-block {
+.cyphersystem .stat-block+.stat-block {
   margin-left: 5px
 }
 

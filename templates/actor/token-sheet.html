@@ -54,11 +54,20 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{#unless data.isLimited}}
+    {{#unless data.settings.hideNotes}}
     <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
     {{/unless}}
+    {{/unless}}
+    {{#unless data.settings.hideDescription}}
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{/unless}}
     {{#unless data.isLimited}}
+    {{#unless data.settings.hideEquipment}}
     <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Items'}}</a>
+    {{/unless}}
+    {{#if (and data.settings.hideNotes data.settings.hideDescription data.settings.hideEquipment)}}
+    <i class="item">&nbsp;</i>
+    {{/if}}
     <a class="item" data-tab="settings" style="flex: 0 0 45px;">
       <i class="fas fa-cog"></i>
     </a>
@@ -134,9 +143,26 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked
-                data.settings.hideArchived}}>
+              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked data.settings.hideArchived}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.hideNotes" data-dtype="boolean" {{checked data.settings.hideNotes}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.HideNotes'}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.hideDescription" data-dtype="boolean" {{checked data.settings.hideDescription}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.HideDescription'}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" name="data.settings.hideEquipment" data-dtype="boolean" {{checked data.settings.hideEquipment}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.HideEquipment'}}
             </div>
           </li>
         </ol>
