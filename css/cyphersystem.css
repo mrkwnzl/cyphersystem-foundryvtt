@@ -44,6 +44,17 @@ ol {
   padding: 0 0 0 10px;
 }
 
+#chat-log .table-result a.entity-link,
+#chat-log .table-result a.content-link,
+#chat-log .table-result a.pdfoundry-link {
+  display: inline-block;
+  max-width: 225px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
 .dialog-select {
   height: 26px;
   margin-bottom: 2px;
@@ -249,6 +260,14 @@ select.bar-attribute {
 }
 
 /* Styles limited to cyphersystem sheets */
+
+.cyphersystem .noir {
+  margin: -8px;
+  padding: 8px;
+  background: url(../icons/sheets/background-noir.webp);
+  font-family: monospace;
+  font-size: 0.85em;
+}
 
 .cyphersystem .window-content {
   overflow: hidden;
