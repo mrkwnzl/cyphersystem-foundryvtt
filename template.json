@@ -408,7 +408,8 @@
           "additionalCost": 0,
           "damage": 0,
           "damagePerLOE": 3,
-          "teen": ""
+          "teen": "",
+          "bonus": 0
         }
       },
       "version": {
