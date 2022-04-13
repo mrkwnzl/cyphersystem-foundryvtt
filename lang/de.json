@@ -447,10 +447,10 @@
     "CYPHERSYSTEM.WhisperDifficultyToGMAndBeVague": "Schwierigkeit an SL flüstern, Spieler sehen vage Schwierigkeit",
     "CYPHERSYSTEM.TargetHasCover": "Das Ziel hat Deckung",
     "CYPHERSYSTEM.TargetIsStanding": "Das Ziel steht",
-    "CYPHERSYSTEM.ShowTagsTab": "Zeige Tags Reiter",
+    "CYPHERSYSTEM.ShowTagsTab": "Tags Reiter",
     "CYPHERSYSTEM.AdditionalOne": "Zusatz 1",
     "CYPHERSYSTEM.NewRecursion": "Neue Rekursion",
-    "CYPHERSYSTEM.ShowTagsInRecursionTab": "Zeige Tags im Rekursionstab",
+    "CYPHERSYSTEM.ShowTagsInRecursionTab": "Tags im Rekursionstab",
     "CYPHERSYSTEM.SettingDiceTrayHint": "Zeige Würfelablage für einfache W6-, W10-, W20- und W100-Würfe auf dem SC-Bogen",
     "CYPHERSYSTEM.SettingDiceTray": "Würfelablage",
     "CYPHERSYSTEM.SettingDiceTrayDisabled": "Ausgeschaltet",
@@ -505,5 +505,8 @@
     "CYPHERSYSTEM.AttackerIsInDeepWater": "Angreifer ist im tiefen Wasser",
     "CYPHERSYSTEM.AttackerIsUnderwaterSlashing": "Angreifer ist mit einer Hieb- oder stumpfen Waffe unter Wasser",
     "CYPHERSYSTEM.TargetIsMoving": "Ziel bewegt sich",
-    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} befindet sich bereits in {recursion}."
+    "CYPHERSYSTEM.PCAlreadyOnRecursion": "{actor} befindet sich bereits in {recursion}.",
+    "CYPHERSYSTEM.HideDescription": "Beschreibung verbergen",
+    "CYPHERSYSTEM.HideEquipment": "Ausrüstung verbergen",
+    "CYPHERSYSTEM.HideNotes": "Notizen verbergen"
 }

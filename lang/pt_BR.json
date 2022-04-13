@@ -502,5 +502,8 @@
     "CYPHERSYSTEM.Max": "Máx",
     "CYPHERSYSTEM.Weapons": "Armas",
     "CYPHERSYSTEM.SettingBarBrawlDefaults": "Substituir Configurações do Bar Brawl",
-    "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "Quando essa configuração está habilitada, os padrões do Cypher system para Bar Brawl substituem qualquer configuração de usuário para tokens recém-criados e as barras de recursos não podem mais ser configuradas. Quando esta configuração está desabilitada, você precisa configurar o Bar Brawl por conta própria. Em ambos os casos, os tokens já existentes mantêm suas configurações da barra de recursos."
+    "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "Quando essa configuração está habilitada, os padrões do Cypher system para Bar Brawl substituem qualquer configuração de usuário para tokens recém-criados e as barras de recursos não podem mais ser configuradas. Quando esta configuração está desabilitada, você precisa configurar o Bar Brawl por conta própria. Em ambos os casos, os tokens já existentes mantêm suas configurações da barra de recursos.",
+    "CYPHERSYSTEM.HideNotes": "Esconder Notas",
+    "CYPHERSYSTEM.HideDescription": "Esconder Descrição",
+    "CYPHERSYSTEM.HideEquipment": "Esconder Equipamento"
 }
