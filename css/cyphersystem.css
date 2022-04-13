@@ -261,14 +261,6 @@ select.bar-attribute {
 
 /* Styles limited to cyphersystem sheets */
 
-.cyphersystem .noir {
-  margin: -8px;
-  padding: 8px;
-  background: url(../icons/sheets/background-noir.webp);
-  font-family: monospace;
-  font-size: 0.85em;
-}
-
 .cyphersystem .window-content {
   overflow: hidden;
 }

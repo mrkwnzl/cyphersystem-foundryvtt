@@ -37,7 +37,6 @@ export class CypherActorSheet extends ActorSheet {
     data.owner = superData.owner;
     data.options = superData.options;
     data.effects = superData.effects;
-    data.theme = "";
 
     data.dtypes = ["String", "Number", "Boolean"];
 
