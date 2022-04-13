@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Bonus and penalties can now be added to the All-in-One rolls.
+
+### Changed
+- Roll macros based in the All-in-One roll macro are updated with new variable for bonuses or penalties for the rolls.
+
+### Fixed
+- The horizontal ruler in chat messages now has the correct margins.
+
 ## [1.31.2] - 2022-04-13
 ### Changed
 - The GMI Range marker and macros to change them now come with four different genres: modern (the current one), fantasy, horror, and sci-fi. Those need to be specified in the macros in order to change the marker.
