@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.32.0] - 2022-04-14
+### Added
+- On a natural 20, a button to regain the spent Pool points appears.
+
+### Changed
+- Button for rerolls is now an icon.
+
+### Fixed
+- The chat output for rolls no longer shows negative difficulties beaten, if they are eased by more steps than the difficulty was.
+
 ## [1.31.3] - 2022-04-14
 ### Changed
 - Bonus and penalties can now be added to the All-in-One rolls.

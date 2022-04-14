@@ -99,7 +99,7 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
 
   // If points are paid, roll dice
-  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus);
+  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool);
 }
 
 export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {

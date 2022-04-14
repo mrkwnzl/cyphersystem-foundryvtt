@@ -56,7 +56,8 @@ import {
 import {
   diceRoller,
   easedRollEffectiveMacro,
-  hinderedRollEffectiveMacro
+  hinderedRollEffectiveMacro,
+  regainPoolPoints
 } from "./macros/macro-helper.js";
 import {
   chatCardMarkItemIdentified,
@@ -64,7 +65,8 @@ import {
   chatCardAskForIntrusion,
   chatCardIntrusionAccepted,
   chatCardIntrusionRefused,
-  chatCardWelcomeMessage
+  chatCardWelcomeMessage,
+  chatCardRegainPoints
 } from "./utilities/chat-cards.js";
 import { barBrawlOverwrite } from "./utilities/token-utilities.js";
 
@@ -127,7 +129,8 @@ Hooks.once("init", async function () {
     chatCardAskForIntrusion,
     chatCardIntrusionAccepted,
     chatCardIntrusionRefused,
-    chatCardWelcomeMessage
+    chatCardWelcomeMessage,
+    chatCardRegainPoints
   };
 
   // Register system settings
@@ -403,7 +406,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let initiativeRoll = html.find('.reroll-stat').data('initiative');
     let bonus = html.find('.reroll-stat').data('bonus');
     let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
-    diceRoller(title, info, modifier, initiativeRoll, actor, bonus);
+    let cost = html.find('.reroll-stat').data('cost');
+    let pool = html.find('.reroll-stat').data('pool');
+    diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool);
   });
 
   // Event Listener for rerolls of recovery rolls
@@ -420,6 +425,17 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-dice-roll').data('dice');
     diceRollMacro(dice);
+  });
+
+  // Event Listener to regain pool points
+  html.find('.regain-points').click(clickEvent => {
+    let user = html.find('.regain-points').data('user');
+    if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
+    let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
+    let cost = html.find('.regain-points').data('cost');
+    let pool = html.find('.regain-points').data('pool');
+    let teen = html.find('.regain-points').data('teen');
+    regainPoolPoints(actor, cost, pool, teen);
   });
 
   // Event Listener for description in chat
