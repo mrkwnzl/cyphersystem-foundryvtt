@@ -4,12 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-### Added
-- Bonus and penalties can now be added to the All-in-One rolls.
-
+## [1.31.3] - 2022-04-14
 ### Changed
+- Bonus and penalties can now be added to the All-in-One rolls.
 - Roll macros based in the All-in-One roll macro are updated with new variable for bonuses or penalties for the rolls.
+- The chat output for AiO rolls has been streamlined. Now only the basic (skill level, assets, effort to ease task) info is always shown, while the rest only appears when it has a non-zero value.
 
 ### Fixed
 - The horizontal ruler in chat messages now has the correct margins.
