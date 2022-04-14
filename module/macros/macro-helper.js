@@ -61,12 +61,12 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
   // Add reroll button
   let actorID = (actor) ? actor.id : "";
   let teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
-  let reRollButton = `<a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${cost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${cost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></i></a>`
 
   // Add regain points button
   let regainPointsButton = "";
   if (cost > 0 && roll.result == 20 && (pool == "might" || pool == "speed" || pool == "intellect")) {
-    regainPointsButton = `<a class='regain-points' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${cost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a> / `
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${cost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a> / `
   }
 
   // Put buttons together
@@ -90,10 +90,12 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
 
 function determineDifficultyResult(difficulty, modifier) {
   if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
+    if (difficulty < 0) difficulty = 0;
     return difficulty + " (" + difficulty * 3 + ")";
   } else {
     let operator = (modifier < 0) ? "-" : "+";
     let effectiveDifficulty = difficulty + parseInt(modifier);
+    if (effectiveDifficulty < 0) effectiveDifficulty = 0;
     return effectiveDifficulty + " [" + difficulty + operator + Math.abs(modifier) + "]";
   }
 }
