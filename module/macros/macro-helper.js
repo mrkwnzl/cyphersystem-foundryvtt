@@ -65,7 +65,6 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
 
   // Add regain points button
   let regainPointsButton = "";
-  console.log(pool);
   if (cost > 0 && roll.result == 20 && (pool == "might" || pool == "speed" || pool == "intellect")) {
     regainPointsButton = `<a class='regain-points' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${cost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a> / `
   }
