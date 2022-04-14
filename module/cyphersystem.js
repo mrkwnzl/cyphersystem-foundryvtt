@@ -247,6 +247,14 @@ Hooks.once("init", async function () {
     }
   });
 
+  Handlebars.registerHelper("sum", function () {
+    let sum = 0;
+    for (let argument in arguments) {
+      if (Number.isInteger(arguments[argument])) sum = sum + arguments[argument];
+    }
+    return sum;
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
