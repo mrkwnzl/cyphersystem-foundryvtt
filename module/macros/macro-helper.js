@@ -2,16 +2,20 @@
 /*  Macro helper                                */
 /* -------------------------------------------- */
 
+import { chatCardRegainPoints } from "../utilities/chat-cards.js";
 import { htmlEscape } from "../utilities/html-escape.js";
 
-export async function diceRoller(title, info, modifier, initiativeRoll, actor, bonus) {
+export async function diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool) {
   // Fix for single quotation marks
   title = title.replace(/'/g, "&apos;");
   info = info.replace(/'/g, "&apos;");
 
+  // In case pool is passed capitalized
+  pool = pool.toLowerCase();
+
   // Roll dice
   let roll = await new Roll("1d20").evaluate({ async: true });
-  let difficulty = Math.floor((parseInt(roll.result) + parseInt(bonus)) / 3);
+  let difficulty = (parseInt(roll.result) + parseInt(bonus) < 0) ? Math.ceil((parseInt(roll.result) + parseInt(bonus)) / 3) : Math.floor((parseInt(roll.result) + parseInt(bonus)) / 3);
 
   // Determine result
   let difficultyResult = determineDifficultyResult(difficulty, modifier, bonus);
@@ -56,10 +60,21 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
 
   // Add reroll button
   let actorID = (actor) ? actor.id : "";
-  let reRollButton = `<div style='text-align: right'><a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
+  let reRollButton = `<a class='reroll-stat' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${cost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+
+  // Add regain points button
+  let regainPointsButton = "";
+  console.log(pool);
+  if (cost > 0 && roll.result == 20 && (pool == "might" || pool == "speed" || pool == "intellect")) {
+    regainPointsButton = `<a class='regain-points' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${cost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a> / `
+  }
+
+  // Put buttons together
+  let chatButtons = `<div style='text-align: right'>` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + title + "</b>" + bars + resultInfo + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + reRollButton;
+  let flavor = "<b>" + title + "</b>" + bars + resultInfo + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + chatButtons;
 
   // Create chat message
   roll.toMessage({
@@ -138,6 +153,28 @@ export async function payPoolPoints(actor, cost, pool, teen) {
   }
 
   return true;
+}
+
+export async function regainPoolPoints(actor, cost, pool, teen) {
+  pool = pool.toLowerCase();
+
+  // Determine stats
+  let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
+  let speedValue = (teen) ? actor.data.data.teen.pools.speed.value : actor.data.data.pools.speed.value;
+  let intellectValue = (teen) ? actor.data.data.teen.pools.intellect.value : actor.data.data.pools.intellect.value;
+
+  // Return points
+  if (pool == "might") {
+    (teen) ? actor.update({ "data.teen.pools.might.value": mightValue + cost }) : actor.update({ "data.pools.might.value": mightValue + cost })
+  } else if (pool == "speed") {
+    (teen) ? actor.update({ "data.teen.pools.speed.value": intellectValue + cost }) : actor.update({ "data.pools.speed.value": speedValue + cost })
+  } else if (pool == "intellect") {
+    (teen) ? actor.update({ "data.teen.pools.intellect.value": intellectValue + cost }) : actor.update({ "data.pools.intellect.value": intellectValue + cost })
+  }
+
+  ChatMessage.create({
+    content: chatCardRegainPoints(actor, cost, pool)
+  })
 }
 
 export function itemRollMacroQuick(actor, itemID, teen) {

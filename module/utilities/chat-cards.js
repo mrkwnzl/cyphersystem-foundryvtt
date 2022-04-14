@@ -24,7 +24,7 @@ export function chatCardIntrusionAccepted(actor, selectedActorId) {
   return content
 }
 
-export function chatCardIntrusionRefused(actor, selectedActorId) {
+export function chatCardIntrusionRefused(actor) {
   let content = game.i18n.format("CYPHERSYSTEM.IntrusionRefused", { actor: actor.data.name });
 
   return content
@@ -32,6 +32,25 @@ export function chatCardIntrusionRefused(actor, selectedActorId) {
 
 export function chatCardWelcomeMessage() {
   let content = "<p style='margin:5px 0 0 0; text-align:center'><b>" + game.i18n.localize("CYPHERSYSTEM.WelcomeMessage") + "</b></p><p style='margin:5px 0 0 0; text-align:center'><a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Getting-Started'>" + game.i18n.localize("CYPHERSYSTEM.GettingStarted") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki'>" + game.i18n.localize("CYPHERSYSTEM.UserManual") + "</a> | <a href='https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/main/CHANGELOG.md'>Changelog</a></p><p style='margin:5px 0 0 0; text-align:center'><a href='https://discord.gg/C5zGgtyhwa'>" + game.i18n.localize("CYPHERSYSTEM.JoinDiscord") + "</a></p>";
+
+  return content
+}
+
+export function chatCardRegainPoints(actor, cost, pool) {
+  pool = pool.toLowerCase();
+
+  let poolPoints = "";
+  if (pool == "might") {
+    poolPoints = (cost == 1) ? game.i18n.localize("CYPHERSYSTEM.MightPoint") : game.i18n.localize("CYPHERSYSTEM.MightPoints");
+  }
+  if (pool == "speed") {
+    poolPoints = (cost == 1) ? game.i18n.localize("CYPHERSYSTEM.SpeedPoint") : game.i18n.localize("CYPHERSYSTEM.SpeedPoints");
+  }
+  if (pool == "intellect") {
+    poolPoints = (cost == 1) ? game.i18n.localize("CYPHERSYSTEM.IntellectPoint") : game.i18n.localize("CYPHERSYSTEM.IntellectPoints");
+  }
+
+  let content = game.i18n.format("CYPHERSYSTEM.RegainedPoints", { actor: actor.data.name, cost: cost, poolPoints: poolPoints });
 
   return content
 }
