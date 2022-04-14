@@ -202,6 +202,8 @@
   "CYPHERSYSTEM.Shift": "Shift",
   "CYPHERSYSTEM.Shifts": "Shifts",
   "CYPHERSYSTEM.Combat": "Combat",
+  "CYPHERSYSTEM.Result": "Roll result",
+  "CYPHERSYSTEM.Bonus": "Bonus or penalty to roll",
   "CYPHERSYSTEM.DamageTrackAndRecoveryRolls": "Damage Track & Recovery Rolls",
   "CYPHERSYSTEM.Hale": "Hale",
   "CYPHERSYSTEM.HaleEffect": "No effect.",

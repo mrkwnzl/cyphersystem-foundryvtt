@@ -247,6 +247,14 @@ Hooks.once("init", async function () {
     }
   });
 
+  Handlebars.registerHelper("sum", function () {
+    let sum = 0;
+    for (let argument in arguments) {
+      if (Number.isInteger(arguments[argument])) sum = sum + arguments[argument];
+    }
+    return sum;
+  });
+
   // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
@@ -393,8 +401,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let info = html.find('.reroll-stat').data('info');
     let modifier = parseInt(html.find('.reroll-stat').data('modifier'));
     let initiativeRoll = html.find('.reroll-stat').data('initiative');
+    let bonus = html.find('.reroll-stat').data('bonus');
     let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
-    diceRoller(title, info, modifier, initiativeRoll, actor);
+    diceRoller(title, info, modifier, initiativeRoll, actor, bonus);
   });
 
   // Event Listener for rerolls of recovery rolls

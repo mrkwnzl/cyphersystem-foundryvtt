@@ -468,7 +468,7 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", false)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", false, "")
     });
 
     // Item pay pool points buttons
@@ -476,7 +476,7 @@ export class CypherActorSheet extends ActorSheet {
       const shownItem = $(clickEvent.currentTarget).parents(".item");
       const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", true)
+      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", true, "")
     });
 
     // Item cast spell button

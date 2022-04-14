@@ -378,7 +378,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog)
+      allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog, "", "", 0)
     });
 
     // Speed roll button
@@ -389,7 +389,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog)
+      allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog, "", "", 0)
     });
 
     // Intellect roll button
@@ -400,7 +400,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog)
+      allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog, "", "", 0)
     });
 
     // Recovery roll button
