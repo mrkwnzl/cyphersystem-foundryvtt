@@ -534,10 +534,6 @@ select.bar-attribute {
   list-style-type: disc;
 }
 
-.cyphersystem .items-list .description li {
-  line-height: 1.8;
-}
-
 .cyphersystem .items-list .description p:last-of-type {
   margin: 3px 0 0 0;
 }
