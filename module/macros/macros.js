@@ -79,7 +79,7 @@ export async function diceRollMacro(dice) {
   const roll = await new Roll(dice).evaluate({ async: false });
 
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-dice-roll' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`
+  let reRollButton = `<div style='text-align: right'><a class='reroll-dice-roll' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></a></div>`
 
   // Send chat message
   roll.toMessage({
