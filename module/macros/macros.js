@@ -348,7 +348,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     if (damage > 0 || effort3 > 0) {
       if (effort3 == 0) {
         attackModifierInfo = `<hr class=\"hr-chat\">${damageInfo}`;
-      } if (effort3 != 1) {
+      } else if (effort3 != 1) {
         attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
       } else {
         attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
