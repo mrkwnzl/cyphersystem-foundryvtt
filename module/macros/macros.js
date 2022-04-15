@@ -341,12 +341,16 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     // Damage information
     let damageEffort = parseInt(damagePerLOE) * parseInt(effort3);
     let totalDamage = parseInt(damage) + parseInt(damageEffort);
-    let damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} (${damage}+${damageEffort})`;
+    let damageInfo = (damageEffort > 0) ?
+      `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} [${damage}+${damageEffort}]` :
+      `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage}`;
 
     // Attack modifier information
     let attackModifierInfo = "";
     if (damage > 0 || effort3 > 0) {
-      if (effort3 != 1) {
+      if (effort3 == 0) {
+        attackModifierInfo = `<hr class=\"hr-chat\">${damageInfo}`;
+      } else if (effort3 != 1) {
         attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>${damageInfo}`;
       } else {
         attackModifierInfo = `<hr class=\"hr-chat\">${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effort3} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>${damageInfo}`
@@ -373,16 +377,10 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     }
 
     // Basic information
-    let basicInfo = "<hr class=\"hr-chat\">" + skillInfo + assetInfo + effortTaskInfo + effortOtherInfo
-
-    // Additional + cost info
-    let additionalAndCostInfo = additionalInfo + costInfo;
-
-    // Only cost info
-    let onlyCostInfo = costInfo;
+    let basicInfo = "<hr class=\"hr-chat\">" + skillInfo + assetInfo + effortTaskInfo + effortOtherInfo + additionalInfo;
 
     // Put it all together for info
-    let info = itemDescriptionInfo + basicInfo + attackModifierInfo + additionalAndCostInfo;
+    let info = itemDescriptionInfo + basicInfo + attackModifierInfo + costInfo;
 
     // Put it all together for total modifier
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
@@ -401,7 +399,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
       } else if (effort1 > 0 && effort2 > 0) {
         effortInfo = "<hr class=\"hr-chat\">" + effortTaskInfo + effortOtherInfo;
       }
-      ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + onlyCostInfo });
+      ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + costInfo });
     } else {
       allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus);
     }
