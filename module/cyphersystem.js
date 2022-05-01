@@ -416,7 +416,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-recovery').data('dice');
-    recoveryRollMacro("", dice);
+    let actor = game.actors.get(html.find('.reroll-recovery').data('actor-id'));
+    recoveryRollMacro(actor, dice, false);
   });
 
   // Event Listener for rerolls of dice rolls
