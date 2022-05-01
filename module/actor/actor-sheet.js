@@ -493,7 +493,8 @@ export class CypherActorSheet extends ActorSheet {
           name: this.actor.name,
           recoveryUsed: recoveryUsed,
           spellName: item.name
-        })
+        }),
+        flags: { itemID: shownItem.data("itemId") }
       });
     });
 
