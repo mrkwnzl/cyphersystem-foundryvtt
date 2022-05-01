@@ -88,7 +88,7 @@ export async function diceRollMacro(dice) {
   });
 }
 
-export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus) {
+export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -99,7 +99,7 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
 
   // If points are paid, roll dice
-  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool);
+  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool, itemID);
 }
 
 export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {
@@ -120,7 +120,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   if (!noRoll) noRoll = false;
 
   // Set initiativeRoll
-  let initiativeRoll = (itemID) ? actor.items.get(itemID).data.data.isInitiative : false;
+  let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).data.data.isInitiative : false;
 
   // Set default for bonus/penalty
   if (!bonus) bonus = 0;
@@ -176,7 +176,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     // Get item
     let itemDescription = "";
     let itemDescriptionInfo = ""
-    if (itemID) {
+    if (actor.items.get(itemID)) {
       let item = actor.items.get(itemID);
       itemDescription = (item.data.data.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + TextEditor.enrichHTML(item.data.data.description) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
       let styleHidden = "<div style=\"display: none\" class=\"chat-card-item-description\">";
@@ -211,7 +211,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     let effort = parseInt(effort1) + parseInt(effort2) + parseInt(effort3);
 
     if (effort > actor.data.data.basic.effort) {
-      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen);
+      if (!skipDialog) allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, itemID, bonus);
       return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
     };
 
@@ -386,7 +386,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
     let modifier = parseInt(skill) + parseInt(assets) + parseInt(effort1) + parseInt(additionalSteps);
 
     // Add button to title if itemID
-    if (itemID) title = "<a class=\"chat-description\">" + title + "</a>";
+    if (actor.items.get(itemID)) title = "<a class=\"chat-description\">" + title + "</a>";
 
     // Parse everything to allInOneRollMacro or payPoolPoints
     if (noRoll) {
@@ -401,7 +401,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
       }
       ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + costInfo });
     } else {
-      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus);
+      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID);
     }
   }
 }
@@ -541,12 +541,13 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   let roll = await new Roll(dice).evaluate({ async: true });
 
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"></i> ${game.i18n.localize("CYPHERSYSTEM.Reroll")}</a></div>`;
+  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"> <i class="fas fa-dice-d20"></i></a></div>`;
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", { name: actor.name, recoveryUsed: recoveryUsed }) + "</b>" + reRollButton
+    flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", { name: actor.name, recoveryUsed: recoveryUsed }) + "</b>" + reRollButton,
+    flags: { itemID: "recovery-roll" }
   });
 }
 

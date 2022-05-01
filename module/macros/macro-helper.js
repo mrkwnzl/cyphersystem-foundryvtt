@@ -5,10 +5,13 @@
 import { chatCardRegainPoints } from "../utilities/chat-cards.js";
 import { htmlEscape } from "../utilities/html-escape.js";
 
-export async function diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool) {
+export async function diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool, itemID) {
   // Fix for single quotation marks
   title = title.replace(/'/g, "&apos;");
   info = info.replace(/'/g, "&apos;");
+
+  // Default for itemID
+  if (!itemID) itemID = "";
 
   // In case pool is passed capitalized
   pool = pool.toLowerCase();
@@ -78,7 +81,8 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
   // Create chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
-    flavor: flavor
+    flavor: flavor,
+    flags: { itemID: itemID }
   });
 
   // Return total
@@ -180,7 +184,6 @@ export async function regainPoolPoints(actor, cost, pool, teen) {
 
 export function itemRollMacroQuick(actor, itemID, teen) {
   // Find actor and item based on item ID
-  const owner = game.actors.find(actor => actor.items.get(itemID));
   const item = actor.items.get(itemID);
 
   // Set defaults
