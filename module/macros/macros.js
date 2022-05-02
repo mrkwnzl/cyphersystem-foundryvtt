@@ -399,7 +399,11 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
       } else if (effort1 > 0 && effort2 > 0) {
         effortInfo = "<hr class=\"hr-chat\">" + effortTaskInfo + effortOtherInfo;
       }
-      ChatMessage.create({ content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + costInfo });
+      ChatMessage.create({
+        content: "<b>" + title + "</b>" + itemDescriptionInfo + effortInfo + attackModifierInfo + costInfo,
+        speaker: ChatMessage.getSpeaker(),
+        flags: { "itemID": itemID }
+      });
     } else {
       allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID);
     }
@@ -527,7 +531,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   }
 
   // Check if recovery should be used
-  if (!useRecovery) useRecovery = true;
+  if (!useRecovery) useRecovery = false;
 
   if (event.altKey) {
     useRecovery = (useRecovery) ? false : true;
@@ -541,13 +545,13 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   let roll = await new Roll(dice).evaluate({ async: true });
 
   // Add reroll button
-  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}'><i class="fas fa-redo"> <i class="fas fa-dice-d20"></i></a></div>`;
+  let reRollButton = `<div style='text-align: right'><a class='reroll-recovery' data-dice='${dice}' data-user='${game.user.id}' data-actor-id='${actor.data._id}'><i class="fas fa-redo"> <i class="fas fa-dice-d20"></i></a></div>`;
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
     flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", { name: actor.name, recoveryUsed: recoveryUsed }) + "</b>" + reRollButton,
-    flags: { itemID: "recovery-roll" }
+    flags: { "itemID": "recovery-roll" }
   });
 }
 

@@ -82,7 +82,7 @@ export async function diceRoller(title, info, modifier, initiativeRoll, actor, b
   roll.toMessage({
     speaker: ChatMessage.getSpeaker(),
     flavor: flavor,
-    flags: { itemID: itemID }
+    flags: { "itemID": itemID }
   });
 
   // Return total
