@@ -88,7 +88,7 @@ export async function diceRollMacro(dice) {
   });
 }
 
-export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID) {
+export async function allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID, totalCost) {
   // Check for PC actor
   if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
@@ -99,7 +99,7 @@ export async function allInOneRollMacro(actor, title, info, cost, pool, modifier
   const pointsPaid = await payPoolPoints(actor, cost, pool, teen);
 
   // If points are paid, roll dice
-  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus, cost, pool, itemID);
+  if (pointsPaid) diceRoller(title, info, modifier, initiativeRoll, actor, bonus, totalCost, pool, itemID);
 }
 
 export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {
@@ -405,7 +405,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
         flags: { "itemID": itemID }
       });
     } else {
-      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID);
+      allInOneRollMacro(actor, title, info, cost, pool, modifier, teen, initiativeRoll, bonus, itemID, totalCost);
     }
   }
 }
