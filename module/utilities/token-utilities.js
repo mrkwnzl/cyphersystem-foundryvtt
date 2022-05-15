@@ -18,7 +18,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#0000FF",
           position: "bottom-inner",
           attribute: "pools.intellect",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "speed": {
           id: "speed",
@@ -26,7 +26,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#00FF00",
           position: "bottom-inner",
           attribute: "pools.speed",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "might": {
           id: "might",
@@ -34,7 +34,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#FF0000",
           position: "bottom-inner",
           attribute: "pools.might",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
     }
@@ -47,7 +47,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#0000FF",
           position: "top-inner",
           attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
           id: "health",
@@ -55,7 +55,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#FF0000",
           position: "bottom-inner",
           attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
     }
@@ -68,7 +68,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#0000FF",
           position: "top-inner",
           attribute: "rank",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "infrastructure": {
           id: "infrastructure",
@@ -76,7 +76,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#0000FF",
           position: "bottom-inner",
           attribute: "infrastructure",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
           id: "health",
@@ -84,7 +84,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#FF0000",
           position: "bottom-inner",
           attribute: "health",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
     }
@@ -97,7 +97,7 @@ export function barBrawlData(type, actor) {
           maxcolor: "#0000FF",
           position: "top-inner",
           attribute: "level",
-          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+          visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "quantity": {
           id: "quantity",
