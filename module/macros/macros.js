@@ -644,6 +644,7 @@ export async function resetBarBrawlDefaults(tokens) {
     });
     await token.document.update(barBrawlData(actor.data.type, actor));
   }
+  location.reload();
 }
 
 export async function removeBarBrawlSettings(tokens) {
