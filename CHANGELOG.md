@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.32.7] - 2022-05-15
+### Changed
+- The default for Bar Brawl bars is now set to show up only when the owner of the token hovers above the token. **Note:** This only applies to newly created tokens. Tokens already on the canvas always show their bars. To change how the old tokens work, please use the “Reset Token Settings” macro found in the Secret Settings compendium.
+
+### Fixed
+- The dice tray on the PC sheets only shows up on PC sheets you own, not when viewing them with limited or observer permission.
+
 ## [1.32.6] - 2022-05-08
 ### Fixed
 - Fixed a bug where Edge wasn’t taken into account when regaining points on a rolled 20.
