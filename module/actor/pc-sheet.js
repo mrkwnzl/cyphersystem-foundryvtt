@@ -37,6 +37,29 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const diceTraySettings = ["hidden", "left", "right"];
     data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
     data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
+    data.cyphersheetsModuleActive = game.modules.get("cyphersheets").active;
+
+    if (game.modules.get("cyphersheets").active) {
+      data.backgroundImage = "foundry";
+      console.log("module active");
+    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
+      data.backgroundImage = actorData.data.teen.settings.backgroundImage;
+      console.log("Teen sheet");
+    } else {
+      data.backgroundImage = actorData.data.settings.backgroundImage;
+      console.log("Mask sheet");
+      console.log(data.backgroundImage);
+    }
+
+    if (game.modules.get("cyphersheets").active) {
+      data.backgroundIcon = "none";
+    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
+      data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
+    } else {
+      data.backgroundIcon = actorData.data.settings.backgroundIcon;
+    }
+
+    data.backgroundImageBaseSetting = (!game.modules.get("cyphersheets").active) ? "background-image" : "";
 
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {

@@ -1,11 +1,17 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{backgroundImageBaseSetting}} {{backgroundImage}} flexcol" autocomplete="off">
 
   {{#unless (or data.isLimited data.isObserver)}}
-  <div class="dice-tray-{{data.diceTray}}" style="left: {{data.sheetWidth}}px">
+  <div class="dice-tray-{{data.diceTray}} {{backgroundImage}}" style="left: {{data.sheetWidth}}px">
     <a class="dice-tray-d6"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d6.svg"></a>
     <a class="dice-tray-d10"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d10.svg"></a>
     <a class="dice-tray-d20"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d20.svg"></a>
     <a class="dice-tray-d100"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d100.svg"></a>
+  </div>
+  {{/unless}}
+
+  {{#unless (or cyphersheetsModuleActive (eq backgroundIcon "none"))}}
+  <div class="background-image-icon">
+    <img class="background-image-icon {{backgroundImage}}" src="systems/cyphersystem/icons/background/icon-{{backgroundIcon}}.svg" width="256" height="256">
   </div>
   {{/unless}}
 
@@ -574,7 +580,7 @@
             </div>
             {{else}}
             <div class="item-damage">
-              <select name="data.damage.damageTrack" style="min-width: 95px">
+              <select class="damage-track-select" name="data.damage.damageTrack">
                 {{#select data.damage.damageTrack}}
                 <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
                 <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
@@ -1037,6 +1043,103 @@
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>
+          {{#unless cyphersheetsModuleActive}}
+          {{#if (eq data.settings.gameMode.currentSheet "Teen")}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundImage'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="data.teen.settings.backgroundImage">
+                {{#select data.teen.settings.backgroundImage}}
+                <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
+                <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
+                <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
+                <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
+                <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
+                <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
+                <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
+                <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
+                <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
+                <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
+                <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="data.teen.settings.backgroundIcon">
+                {{#select data.teen.settings.backgroundIcon}}
+                <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
+                <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
+                <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
+                <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
+                <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
+                <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
+                <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
+                <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
+                <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
+                <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
+                <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
+                <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
+                <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          {{else}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundImage'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="data.settings.backgroundImage">
+                {{#select data.settings.backgroundImage}}
+                <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
+                <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
+                <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
+                <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
+                <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
+                <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
+                <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
+                <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
+                <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
+                <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
+                <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="data.settings.backgroundIcon">
+                {{#select data.settings.backgroundIcon}}
+                <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
+                <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
+                <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
+                <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
+                <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
+                <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
+                <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
+                <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
+                <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
+                <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
+                <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
+                <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
+                <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          {{/if}}
+          {{/unless}}
         </ol>
       </div>
       <div class="flexrow">
@@ -1238,4 +1341,7 @@
       </div>
     </div>
   </section>
+
+  <div class="background-image-rectangle {{backgroundImage}}"></div>
+
 </form>
