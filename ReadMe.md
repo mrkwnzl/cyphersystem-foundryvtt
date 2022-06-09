@@ -82,6 +82,7 @@ Unless explicitely mentioned below, all graphics under `icons/` are taken from [
 - Lorc ([lorcblog.blogspot.com](https://lorcblog.blogspot.com/))
 - sbed ([opengameart.org](http://opengameart.org/content/95-game-icons))
 - Skoll ([game-icons.net](https://game-icons.net/))
+- Willdabeast ([http://wjbstories.blogspot.com/](http://wjbstories.blogspot.com/))
 
 ### Other Graphics
 
@@ -91,3 +92,5 @@ The following graphics are taken from various sources, or have been created spec
 - Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
 - smaug18#2066: xp-marker.png
 - The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): Wooden Table Texture
+- wojtar-stock ([https://www.deviantart.com/wojtar-stock](https://www.deviantart.com/wojtar-stock)): metal texture 12
+- zoestock ([https://www.deviantart.com/zoestock](https://www.deviantart.com/zoestock)): slightly wrinkled paper
