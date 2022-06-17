@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - There are two new settings with which you can customize the visual look of PC sheets by changing the background image and a background icon. These can be set independently of each other. Teen and mask sheets have separate settings as well.
 
+### Changed
+- Some refactoring of system functions. Most notably, the all-in-one roll macros has been reworked into the Roll Engine, which will allow for easier customization and bug fixing. **Note:** As always when I touch the all-in-one roll, I like broke something, which is part of the reason for this refactoring. Please let me know if something does not work as expected.
+- When using a roll/pay button on a character sheet, the speaker in the chat  message is always the character it comes from, not the selected token.
+
 ### Fixed
 - Optimized the sheet actor sheets for font sizes of up to 7.
 - The styling of descriptions and editor contents has been slightly tweaked in order to make the paragraphs more noticeable.
