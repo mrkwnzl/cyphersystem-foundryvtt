@@ -489,7 +489,7 @@ export class CypherActorSheet extends ActorSheet {
       if (recoveryUsed == undefined) return;
 
       ChatMessage.create({
-        speaker: ChatMessage.getSpeaker(),
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
           name: this.actor.name,
           recoveryUsed: recoveryUsed,

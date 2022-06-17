@@ -6,10 +6,10 @@ import { CypherActorSheet } from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
-  allInOneRollDialog,
   diceRollMacro
 } from "../macros/macros.js";
 import { isExclusiveTagActive } from "../utilities/actor-utilities.js";
+import { rollEngineMain } from "../utilities/roll-engine/roll-engine-main.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
@@ -41,14 +41,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     if (game.modules.get("cyphersheets").active) {
       data.backgroundImage = "foundry";
-      console.log("module active");
     } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
       data.backgroundImage = actorData.data.teen.settings.backgroundImage;
-      console.log("Teen sheet");
     } else {
       data.backgroundImage = actorData.data.settings.backgroundImage;
-      console.log("Mask sheet");
-      console.log(data.backgroundImage);
     }
 
     if (game.modules.get("cyphersheets").active) {
@@ -401,7 +397,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog, "", "might-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.MightRoll"), "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Speed roll button
@@ -412,7 +408,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog, "", "speed-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Intellect roll button
@@ -423,7 +419,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog, "", "intellect-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Recovery roll button
