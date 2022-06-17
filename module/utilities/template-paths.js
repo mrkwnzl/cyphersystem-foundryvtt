@@ -1,4 +1,4 @@
-export async function preloadHandlebarsTemplates() {
+export async function preloadTemplates() {
   const templatePaths = [
     "systems/cyphersystem/templates/tabs/equipment.html",
     "systems/cyphersystem/templates/tabs/equipment-settings.html",
