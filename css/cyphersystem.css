@@ -365,6 +365,19 @@ select.bar-attribute {
   filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
 }
 
+.cyphersystem div.background-image-icon-roll-form {
+  position: absolute;
+  top: 80px;
+  left: 550px;
+  opacity: 25%;
+  z-index: 1;
+}
+
+.cyphersystem img.background-image-icon-roll-form {
+  border: none;
+  filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
+}
+
 .cyphersystem .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 210px;
@@ -421,6 +434,11 @@ select.bar-attribute {
   margin-bottom: 5px;
   border-bottom: 0;
   border-top: 1px solid #999;
+}
+
+.cyphersystem .hr-roll-engine {
+  border: none;
+  border-top: 1px solid #BBB;
 }
 
 .cyphersystem .stat-pool {

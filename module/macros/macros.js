@@ -1,5 +1,4 @@
 import {
-  diceRoller,
   toggleTagArchiveStatus,
   renameTag
 } from "./macro-helper.js";

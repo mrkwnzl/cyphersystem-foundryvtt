@@ -63,9 +63,9 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
     }
   } else {
-    if (difficultyModifier > 1) {
-      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", { amount: difficultyModifier })}<br>`;
-    } else if (difficultyModifier == 1) {
+    if (difficultyModifier < -1) {
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", { amount: Math.abs(difficultyModifier) })}<br>`;
+    } else if (difficultyModifier == -1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
     }
   }

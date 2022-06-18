@@ -1,6 +1,7 @@
 import {
   chatCardIntrusionAccepted,
-  chatCardIntrusionRefused
+  chatCardIntrusionRefused,
+  chatCardRegainPoints
 } from "./chat-cards.js";
 
 export async function payPoolPoints(actor, costCalculated, pool, teen) {

@@ -1,5 +1,5 @@
 import { rollEngineComputation } from "./roll-engine-computation.js";
-import { rollEngineDialog } from "./roll-engine-dialog.js";
+import { rollEngineForm } from "./roll-engine-form.js";
 
 export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
   // Check for PC actor
@@ -40,7 +40,7 @@ export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, 
 
   // Go to the next step after checking whether dialog should be skipped
   if (!skipDialog) {
-    rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
+    rollEngineForm(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
   } else if (skipDialog) {
     rollEngineComputation(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
   }

@@ -413,6 +413,7 @@
         </ol>
       </div>
 
+      {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
       {{#if actor.data.showSkillsTwo}}
       <div class="flexrow">
         <ol class="items-list">
@@ -472,6 +473,7 @@
         </ol>
       </div>
       {{/if}}
+      {{/unless}}
 
       {{#unless (eq data.settings.gameMode.currentSheet "Teen")}}
       {{#if data.settings.powerShifts.active}}

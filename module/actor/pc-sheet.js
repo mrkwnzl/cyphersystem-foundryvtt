@@ -397,7 +397,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.MightRoll"), "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Speed roll button
@@ -408,7 +408,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Intellect roll button
@@ -419,7 +419,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Recovery roll button
