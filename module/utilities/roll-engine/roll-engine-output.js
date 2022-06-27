@@ -152,7 +152,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   let poolCostInfoString = (poolPointCost != 0) ? poolCostInfo[pool]() + "<br>" : "";
   let costTotalInfoString = (costCalculated != 0) ? costTotalInfo[pool]() : "";
   let costInfoBlock = "";
-  if (poolCostInfoString != "" && costTotalInfoString != "") {
+  if (poolCostInfoString != "" || costTotalInfoString != "") {
     costInfoBlock = `<hr class=\"hr-chat\">` + poolCostInfoString + costTotalInfoString;
   }
 

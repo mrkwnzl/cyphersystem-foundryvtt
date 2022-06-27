@@ -1048,3 +1048,10 @@ export function disasterModeMacro(token, mode, genre) {
     await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp" });
   }
 }
+
+export async function lockStaticStatsMacro(actor) {
+  // Check for PC actor
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  actor.setFlag("cyphersystem", "disabledStaticStats", !actor.getFlag("cyphersystem", "disabledStaticStats"));
+}

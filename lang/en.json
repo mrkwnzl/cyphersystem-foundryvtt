@@ -99,7 +99,7 @@
   "CYPHERSYSTEM.HinderedStatRoll": "Hindered Stat Roll",
   "CYPHERSYSTEM.AllInOneRoll": "All-in-One Roll",
   "CYPHERSYSTEM.LevelOfEffort": "Level of Effort",
-  "CYPHERSYSTEM.EffortAvailable": "Available levels of Effort",
+  "CYPHERSYSTEM.EffortAvailable": "Applied levels of Effort",
   "CYPHERSYSTEM.SpendEffort": "Spend Effort",
   "CYPHERSYSTEM.EffortForDamage": "Effort for extra damage",
   "CYPHERSYSTEM.EffortForTask": "Effort to ease task",
@@ -396,9 +396,9 @@
   "CYPHERSYSTEM.NotEnoughSpeed": "You don’t have enough Speed points.",
   "CYPHERSYSTEM.NotEnoughIntellect": "You don’t have enough Intellect points.",
   "CYPHERSYSTEM.NotEnoughXP": "You don’t have enough XP.",
-  "CYPHERSYSTEM.SpendTooMuchEffort": "You are trying to apply too much Effort!",
-  "CYPHERSYSTEM.NotEnoughPoint": "You don’t have enough {pool} points!",
-  "CYPHERSYSTEM.AllocatePointsYourself": "You’ll need to allocate the point cost manually!",
+  "CYPHERSYSTEM.SpendTooMuchEffort": "Too many levels of Effort!",
+  "CYPHERSYSTEM.NotEnoughPoint": "Not enough {pool} points!",
+  "CYPHERSYSTEM.AllocatePointsYourself": "Manual allocation of point cost needed!",
   "CYPHERSYSTEM.MacroOnlyUsedBy": "This macro can only be used by {name}.",
   "CYPHERSYSTEM.NoRecoveriesLeft": "{name} doesn’t have the needed recovery rolls left.",
   "CYPHERSYSTEM.SelectAToken": "Please select a token.",
@@ -548,5 +548,8 @@
   "CYPHERSYSTEM.AttackDealsPointDamage": "Attack deals {amount} point of damage.",
   "CYPHERSYSTEM.AttackDealsPointsDamage": "Attack deals {amount} points of damage.",
   "CYPHERSYSTEM.TaskCostsPoints": "Total cost: {amount} {pool} points.",
-  "CYPHERSYSTEM.TaskCostsPoint": "Total cost: {amount} {pool} point."
+  "CYPHERSYSTEM.TaskCostsPoint": "Total cost: {amount} {pool} point.",
+  "CYPHERSYSTEM.PCIsImpaired": "Impaired: Effort costs +1 per level.",
+  "CYPHERSYSTEM.PCIsDebilitated": "Debilitated: Effort costs +1 per level.",
+  "CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel": "Armor: Speed Effort costs +{armorCost} per level."
 }

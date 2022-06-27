@@ -947,6 +947,16 @@ select.settings-input {
   color: white;
 }
 
+.cyphersystem .profile-img-overlay-lock {
+  position: absolute;
+  top: 102px;
+  left: 4px;
+  opacity: 85%;
+  text-shadow: 0px 0px 5px #000;
+  font-size: xx-small;
+  color: white;
+}
+
 .cyphersystem .dice-tray-right {
   position: absolute;
   width: 32px;
@@ -992,4 +1002,80 @@ select.settings-input {
 
 .cyphersystem .dice-icon:hover {
   filter: invert(1) blur(0.25px) drop-shadow(0 0 6px var(--color-shadow-primary))
+}
+
+.cyphersystem .exceeded {
+  color: red;
+}
+
+/* Roll Engine */
+
+.cyphersystem .roll-engine-left-column {
+  border-right: 1px solid #BBB;
+  padding-right: 4px;
+}
+
+.cyphersystem .roll-engine-heading {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.cyphersystem .roll-engine-label {
+  display: inline-block;
+  width: 170px;
+  text-align: right;
+}
+
+.cyphersystem .roll-engine-label-summary {
+  display: inline-block;
+  width: 95%;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.cyphersystem .roll-engine-summary-bottom {
+  position: absolute;
+  bottom: 10px;
+  width: 361px;
+  text-align: center;
+}
+
+.cyphersystem .roll-engine-label-summary.red {
+  color: red;
+}
+
+.cyphersystem .roll-engine-select {
+  height: 26px;
+  width: 170px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  text-align-last: center;
+}
+
+.cyphersystem .roll-engine-select-eased-hindered {
+  height: 26px;
+  width: 110px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  text-align-last: center;
+}
+
+.cyphersystem input.roll-engine-input {
+  width: 170px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.cyphersystem .roll-engine-input-eased-hindered {
+  width: 57px;
+  margin-left: 0px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.cyphersystem .roll-engine-button {
+  width: 32%;
 }

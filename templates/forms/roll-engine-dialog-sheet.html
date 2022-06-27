@@ -1,10 +1,4 @@
 <form class="flexcol" autocomplete="off">
-  <header class="sheet-header">
-  </header>
-
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-  </nav>
 
   <div class="background-image-icon-roll-form">
     <img class="background-image-icon-roll-form" src="systems/cyphersystem/icons/macros/d20.svg" width="192" height="192">
@@ -13,10 +7,10 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
     <div class="grid grid-2col">
-      <div style="border-right: 1px solid #BBB; padding-right: 4px" align="center">
-        <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</b></label><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.Pool'}}:</label>
-        <select name='pool' id='pool' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+      <div class="roll-engine-left-column" align="center">
+        <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</b></label><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.Pool'}}:</label>
+        <select name='pool' id='pool' class="dialog-select roll-engine-select">
           {{#select this.pool}}
           <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
           <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
@@ -24,8 +18,8 @@
           <option value="Pool">{{localize 'CYPHERSYSTEM.AnyPool'}}</option>
           {{/select}}
         </select><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.SkillLevel'}}:</label>
-        <select name='skillLevel' id='skillLevel' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.SkillLevel'}}:</label>
+        <select name='skillLevel' id='skillLevel' class="dialog-select roll-engine-select">
           {{#select this.skillLevel}}
           <option value="-1">{{localize 'CYPHERSYSTEM.Inability'}}</option>
           <option value="0">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
@@ -33,16 +27,16 @@
           <option value="2"> {{localize 'CYPHERSYSTEM.Specialized'}}</option>
           {{/select}}
         </select><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.Assets'}}:</label>
-        <select name='assets' id='assets' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.Assets'}}:</label>
+        <select name='assets' id='assets' class="dialog-select roll-engine-select">
           {{#select this.assets}}
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
           {{/select}}
         </select><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.EffortForTask'}}:</label>
-        <select name='effortToEase' id='effortToEase' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.EffortForTask'}}:</label>
+        <select name='effortToEase' id='effortToEase' class="dialog-select roll-engine-select">
           {{#select this.effortToEase}}
           <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
           <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
@@ -53,8 +47,8 @@
           <option value="6"> 6 {{localize 'CYPHERSYSTEM.levels'}}</option>
           {{/select}}
         </select><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.EffortForOther'}}:</label>
-        <select name='effortOtherUses' id='effortOtherUses' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.EffortForOther'}}:</label>
+        <select name='effortOtherUses' id='effortOtherUses' class="dialog-select roll-engine-select">
           {{#select this.effortOtherUses}}
           <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
           <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
@@ -67,11 +61,11 @@
         </select><br>
         <hr class="hr-roll-engine">
 
-        <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</b></label><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.Damage'}}:</label>
-        <input name='damage' id='damage' type='number' value='{{this.damage}}' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' /><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.EffortForDamage'}}:</label>
-        <select name='effortDamage' id='effortDamage' class='dialog-select' style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</b></label><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.Damage'}}:</label>
+        <input name='damage' id='damage' type='number' value='{{this.damage}}' class="roll-engine-input" /><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.EffortForDamage'}}:</label>
+        <select name='effortDamage' id='effortDamage' class="dialog-select roll-engine-select">
           {{#select this.effortDamage}}
           <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
           <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
@@ -82,64 +76,70 @@
           <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
           {{/select}}
         </select> <br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.DamageLevelEffort'}}:</label>
-        <input name='damagePerLOE' id='damagePerLOE' type='number' value='{{this.damagePerLOE}}' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' /><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.DamageLevelEffort'}}:</label>
+        <input name='damagePerLOE' id='damagePerLOE' type='number' value='{{this.damagePerLOE}}' class="roll-engine-input" /><br>
         <hr class="hr-roll-engine">
 
-        <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</b></label><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.Difficulty'}}:</label>
-        <select name='easedOrHindered' id='easedOrHindered' class='dialog-select' style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</b></label><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.Difficulty'}}:</label>
+        <select class="roll-engine-select-eased-hindered" name='easedOrHindered' id='easedOrHindered' class='dialog-select'>
           {{#select this.easedOrHindered}}
           <option value='eased'>{{localize 'CYPHERSYSTEM.easedBy'}}</option>
           <option value='hindered'>{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
           {{/select}}
         </select>
-        <input name='difficultyModifier' id='difficultyModifier' type='number' value='{{this.difficultyModifier}}' style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center' /><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.Bonus'}}:</label>
-        <input name='bonus' id='bonus' type='number' value='{{this.bonus}}' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' /><br>
-        <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.PoolCost'}}:</label>
-        <input name='poolPointCost' id='poolPointCost' type='number' value='{{this.poolPointCost}}' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' /><br>
+        <input class="roll-engine-input-eased-hindered" name='difficultyModifier' id='difficultyModifier' type='number' value='{{this.difficultyModifier}}' /><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.Bonus'}}:</label>
+        <input name='bonus' id='bonus' type='number' value='{{this.bonus}}' class="roll-engine-input" /><br>
+        <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.PoolCost'}}:</label>
+        <input name='poolPointCost' id='poolPointCost' type='number' value='{{this.poolPointCost}}' class="roll-engine-input" /><br>
       </div>
 
       <div align="center">
-        <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>{{localize 'CYPHERSYSTEM.Summary'}}</b></label><br>
-        <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px'>{{this.summaryTitle}}</label>
-        <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px'>{{this.summaryTaskModified}}</label>
+        <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.Summary'}}</b></label><br>
+        <label class="roll-engine-label-summary">{{this.summaryTitle}}</label>
+        <label class="roll-engine-label-summary">{{this.summaryTaskModified}}</label>
         {{#if this.summaryTotalDamage}}
-        <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px'>{{this.summaryTotalDamage}}</label>
+        <label class="roll-engine-label-summary">{{this.summaryTotalDamage}}</label>
         {{/if}}
-        <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px'>{{this.summaryTotalCostString}}</label>
+        <label class="roll-engine-label-summary">{{this.summaryTotalCostString}}</label>
 
-        <div style="position: absolute; bottom: 10px; width: 361px; text-align: center">
-          {{#if this.summaryTooMuchEffort}}
-          <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px; color: red'>{{this.summaryTooMuchEffort}}</label>
+        <div class="roll-engine-summary-bottom">
+          {{#if this.speedCostArmor}}
+          <label class="roll-engine-label-summary">{{this.speedCostArmor}}</label>
           {{/if}}
-          {{#if this.summaryNotEnoughPointsString}}
-          <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px; color: red'>{{this.summaryNotEnoughPointsString}}</label>
+          {{#if this.impairedString}}
+          <label class="roll-engine-label-summary">{{this.impairedString}}</label>
           {{/if}}
           {{#if this.summaryAllocatePoints}}
-          <label style='display: inline-block; width: 95%; text-align: left; margin-bottom: 5px; color: red'>{{this.summaryAllocatePoints}}</label>
+          <label class="roll-engine-label-summary">{{this.summaryAllocatePoints}}</label>
+          {{/if}}
+          {{#if this.summaryTooMuchEffort}}
+          <label class="roll-engine-label-summary red">{{this.summaryTooMuchEffort}}</label>
+          {{/if}}
+          {{#if this.summaryNotEnoughPointsString}}
+          <label class="roll-engine-label-summary red">{{this.summaryNotEnoughPointsString}}</label>
           {{/if}}
 
           <hr class="hr-roll-engine">
-          <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>{{localize 'CYPHERSYSTEM.CharacterPreview'}}</b></label><br>
-          <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.EffortAvailable'}}:</label>
-          <input name='effort' id='effort' type='text' value='{{this.totalEffort}}/{{this.actor.data.data.basic.effort}}' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
-          <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.MightPoolEdge'}}:</label>
-          <input name='might' id='might' type='text' value='{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
-          <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.SpeedPoolEdge'}}:</label>
-          <input name='speed' id='speed' type='text' value='{{this.speedValue}}/{{this.speedMax}} ({{this.speedEdge}})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
-          <label style='display: inline-block; width: 170px; text-align: right'>{{localize 'CYPHERSYSTEM.IntellectPoolEdge'}}:</label>
-          <input name='intellect' id='intellect' type='text' value='{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
+          <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.CharacterPreview'}}</b></label><br>
+          <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.EffortAvailable'}}:</label>
+          <input class="roll-engine-input {{this.exceedEffort}}" name='effort' id='effort' type='text' value='{{this.totalEffort}}/{{this.actor.data.data.basic.effort}}' disabled /><br>
+          <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.MightPoolEdge'}}:</label>
+          <input class="roll-engine-input {{this.exceedMight}}" name='might' id='might' type='text' value='{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})' disabled /><br>
+          <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.SpeedPoolEdge'}}:</label>
+          <input class="roll-engine-input {{this.exceedSpeed}}" name='speed' id='speed' type='text' value='{{this.speedValue}}/{{this.speedMax}} ({{this.speedEdge}})' disabled /><br>
+          <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.IntellectPoolEdge'}}:</label>
+          <input class="roll-engine-input {{this.exceedIntellect}}" name='intellect' id='intellect' type='text' value='{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})' disabled /><br>
           <hr class="hr-roll-engine">
 
-          <button type="button" class="dialog-button roll-engine-roll {{this.disabledButton}}" data-button="roll" style="width: 32%">
+          <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" data-button="roll">
             <i class="fas fa-dice-d20"></i> {{localize 'CYPHERSYSTEM.Roll'}}
           </button>
-          <button type="button" class="dialog-button roll-engine-pay {{this.disabledButton}}" data-button="pay" style="width: 32%">
+          <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" data-button="pay">
             <i class="fas fa-coins"></i> {{localize 'CYPHERSYSTEM.Pay'}}
           </button>
-          <button type="button" class="dialog-button roll-engine-cancel" data-button="cancel" style="width: 32%">
+          <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" data-button="cancel">
             <i class="fas fa-times"></i> {{localize 'CYPHERSYSTEM.Cancel'}}
           </button>
 
