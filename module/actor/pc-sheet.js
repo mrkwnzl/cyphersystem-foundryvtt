@@ -6,10 +6,10 @@ import { CypherActorSheet } from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
-  allInOneRollDialog,
   diceRollMacro
 } from "../macros/macros.js";
 import { isExclusiveTagActive } from "../utilities/actor-utilities.js";
+import { rollEngineMain } from "../utilities/roll-engine/roll-engine-main.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
@@ -37,6 +37,27 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const diceTraySettings = ["hidden", "left", "right"];
     data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
     data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
+    data.cyphersheetsModuleActive = game.modules.get("cyphersheets").active;
+
+    if (game.modules.get("cyphersheets").active) {
+      data.backgroundImage = "foundry";
+    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
+      data.backgroundImage = actorData.data.teen.settings.backgroundImage;
+    } else {
+      data.backgroundImage = actorData.data.settings.backgroundImage;
+    }
+
+    if (game.modules.get("cyphersheets").active) {
+      data.backgroundIcon = "none";
+    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
+      data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
+    } else {
+      data.backgroundIcon = actorData.data.settings.backgroundIcon;
+    }
+
+    data.backgroundImageBaseSetting = (!game.modules.get("cyphersheets").active) ? "background-image" : "";
+
+    data.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
 
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {
@@ -378,7 +399,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Might", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.MightRoll"), 0, 0, 3, "", skipDialog, "", "might-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Speed roll button
@@ -389,7 +410,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Speed", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.SpeedRoll"), 0, 0, 3, "", skipDialog, "", "speed-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Intellect roll button
@@ -400,7 +421,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         skipDialog = false;
       };
 
-      allInOneRollDialog(this.actor, "Intellect", "Practiced", 0, 0, 0, 0, 0, 0, game.i18n.localize("CYPHERSYSTEM.IntellectRoll"), 0, 0, 3, "", skipDialog, "", "intellect-roll", 0)
+      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Recovery roll button

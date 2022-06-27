@@ -89,6 +89,8 @@
       },
       "settings": {
         "hideArchived": false,
+        "backgroundImage": "foundry",
+        "backgroundIcon": "none",
         "powerShifts": {
           "active": false,
           "powerShiftsName": ""
@@ -199,6 +201,10 @@
         "armor": {
           "speedCostTotal": 0,
           "armorValueTotal": 0
+        },
+        "settings": {
+          "backgroundImage": "foundry",
+          "backgroundIcon": "none"
         }
       }
     },
