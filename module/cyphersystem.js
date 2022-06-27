@@ -46,7 +46,8 @@ import {
   recursionMacro,
   tagMacro,
   renameTagMacro,
-  disasterModeMacro
+  disasterModeMacro,
+  lockStaticStatsMacro
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -119,6 +120,7 @@ Hooks.once("init", async function () {
     tagMacro,
     renameTagMacro,
     disasterModeMacro,
+    lockStaticStatsMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,

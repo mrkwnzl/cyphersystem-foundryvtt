@@ -57,6 +57,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     data.backgroundImageBaseSetting = (!game.modules.get("cyphersheets").active) ? "background-image" : "";
 
+    data.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
+
     for (let i of data.items) {
       if (i.type == 'attack' || i.type == 'teen Attack') {
 
