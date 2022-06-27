@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.33.0] - Unreleased
+## [1.33.0] - 2022-06-27
 ### Added
 - There are two new settings with which you can customize the visual look of PC sheets by changing the background image and a background icon. These can be set independently of each other. Teen and mask sheets have separate settings as well.
 - New secret setting macro: This macro will lock some stats of the selected/controlled actor: Tier, Effort, advancements, max pool, recovery roll formula, and Cypher limit. A small lock icon on the PC’s image indicates this.
