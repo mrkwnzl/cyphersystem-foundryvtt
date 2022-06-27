@@ -7,11 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [1.33.0] - Unreleased
 ### Added
 - There are two new settings with which you can customize the visual look of PC sheets by changing the background image and a background icon. These can be set independently of each other. Teen and mask sheets have separate settings as well.
+- New secret setting macro: This macro will lock some stats of the selected/controlled actor: Tier, Effort, advancements, max pool, recovery roll formula, and Cypher limit. A small lock icon on the PC’s image indicates this.
 
 ### Changed
 - Some refactoring of system functions. Most notably, the All-in-One roll macros has been reworked into the Roll Engine, which will allow for easier customization and bug fixing. 
-- The All-in-One dialog has been changed from a dialog to a custom form, which allows for more interaction. The dialog now gives you a preview of the easements/hindrances, the total damage, and total cost. In addition, there’s a preview of the PC’s stat Pools after the roll.
-- **Note:** As always when I touch the all-in-one roll, I likely broke something, which is part of the reason for this refactoring. Please let me know if something does not work as expected.
+- The All-in-One dialog has been changed from a dialog to a custom form, which allows for more interaction. The dialog now gives you a preview of the easements/hindrances, the total damage, and total cost. In addition, there’s a preview of the PC’s stat Pools after the roll. **Note:** As always when I touch the all-in-one roll, I likely broke something, which is part of the reason for this refactoring. Please let me know if something does not work as expected.
 - When using a roll/pay button on a character sheet, the speaker in the chat  message is always the character it comes from, not the selected token.
 
 ### Fixed
