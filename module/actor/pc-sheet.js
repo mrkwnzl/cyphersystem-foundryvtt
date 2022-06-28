@@ -431,22 +431,22 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // d6 roll button
     html.find('.dice-tray-d6').click(clickEvent => {
-      diceRollMacro("d6");
+      diceRollMacro("d6", this.actor);
     });
 
     // d10 roll button
     html.find('.dice-tray-d10').click(clickEvent => {
-      diceRollMacro("d10");
+      diceRollMacro("d10", this.actor);
     });
 
     // d20 roll button
     html.find('.dice-tray-d20').click(clickEvent => {
-      diceRollMacro("d20");
+      diceRollMacro("d20", this.actor);
     });
 
     // d100 roll button
     html.find('.dice-tray-d100').click(clickEvent => {
-      diceRollMacro("d100");
+      diceRollMacro("d100", this.actor);
     });
 
     /**

@@ -72,7 +72,7 @@ export function hinderedRollMacro() {
   d.render(true);
 }
 
-export async function diceRollMacro(dice) {
+export async function diceRollMacro(dice, actor) {
   // Check whether the dice formula is "1dX" or "dX" to assure that both ways work
   if (dice.charAt(0) == "d") dice = "1" + dice;
 
@@ -84,7 +84,7 @@ export async function diceRollMacro(dice) {
 
   // Send chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker(),
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
     flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton
   });
 }
