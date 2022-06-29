@@ -2,7 +2,7 @@
   "name": "cyphersystem",
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.33.0",
+  "version": "1.33.1",
   "minimumCoreVersion": "0.8.5",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
@@ -80,11 +80,6 @@
       "path": "lang/de.json"
     },
     {
-      "lang": "it",
-      "name": "Italiano",
-      "path": "lang/it.json"
-    },
-    {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt_BR.json"
@@ -94,6 +89,6 @@
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.33.0/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.33.1/release.zip",
   "license": "LICENSE.md"
 }

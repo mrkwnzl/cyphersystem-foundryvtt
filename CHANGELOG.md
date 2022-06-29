@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.33.1] - 2022-06-29
+### Changed
+- Updated language files.
+
+### Removed
+- Removed the Italian translation for now. About half of the system is untranslated. If you have interest in translating the system into Italian, let me know.
+
+### Fixed
+- Locked stats can no longer be reached with tab.
+- The rolls from the dice tray now show the correct actor name in the chat, regardless of the selected actor.
+
 ## [1.33.0] - 2022-06-27
 ### Added
 - There are two new settings with which you can customize the visual look of PC sheets by changing the background image and a background icon. These can be set independently of each other. Teen and mask sheets have separate settings as well.
