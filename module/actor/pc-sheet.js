@@ -37,25 +37,31 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const diceTraySettings = ["hidden", "left", "right"];
     data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
     data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
-    data.cyphersheetsModuleActive = game.modules.get("cyphersheets").active;
 
-    if (game.modules.get("cyphersheets").active) {
-      data.backgroundImage = "foundry";
-    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
-      data.backgroundImage = actorData.data.teen.settings.backgroundImage;
+    if (game.modules.get("cyphersheets")) {
+      if (game.modules.get("cyphersheets").active) {
+        data.backgroundImage = "foundry";
+        data.backgroundIcon = "none";
+        data.cyphersheetsModuleActive = true;
+        data.backgroundImageBaseSetting = "";
+      } else {
+        backgroundData();
+      }
     } else {
-      data.backgroundImage = actorData.data.settings.backgroundImage;
+      backgroundData();
     }
 
-    if (game.modules.get("cyphersheets").active) {
-      data.backgroundIcon = "none";
-    } else if (actorData.data.settings.gameMode.currentSheet == "Teen") {
-      data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
-    } else {
-      data.backgroundIcon = actorData.data.settings.backgroundIcon;
+    function backgroundData() {
+      data.cyphersheetsModuleActive = false;
+      data.backgroundImageBaseSetting = "background-image";
+      if (actorData.data.settings.gameMode.currentSheet == "Teen") {
+        data.backgroundImage = actorData.data.teen.settings.backgroundImage;
+        data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
+      } else {
+        data.backgroundImage = actorData.data.settings.backgroundImage;
+        data.backgroundIcon = actorData.data.settings.backgroundIcon;
+      }
     }
-
-    data.backgroundImageBaseSetting = (!game.modules.get("cyphersheets").active) ? "background-image" : "";
 
     data.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
 
