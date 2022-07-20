@@ -1,0 +1,25 @@
+name: Create Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Substitute the Manifest and Download URLs in the module.json
+      - uses: microsoft/variable-substitution@v1 
+        with:
+          files: system.json
+        env:
+          version: ${{github.event.release.tag_name}}
+          manifest: https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/${{github.ref_name}}/system.json
+          download: https://github.com/mrkwnzl/cypherystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
+      
+      # Create zip file
+      - run: zip -r ./release.zip *
+      
+      
