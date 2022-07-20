@@ -31,3 +31,7 @@ jobs:
         with:
           allowUpdates: true
           artifacts: './system.json, ./release.zip'
+          omitBodyDuringUpdate: true
+          omitDraftDuringUpdate: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
