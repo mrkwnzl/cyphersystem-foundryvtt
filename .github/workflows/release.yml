@@ -2,7 +2,7 @@ name: Create Release
 
 on:
   release:
-    types: [published]
+    types: [published, unpublished]
 
 jobs:
   build:
@@ -23,6 +23,16 @@ jobs:
       
       # Create zip file
       - run: zip -r ./release.zip *
+      
+      # Substitute tag for changelog
+      - name: Substitute tag
+        id: substitute_tag
+        uses: ashley-taylor/regex-property-action@v1.2
+        with:
+          value: ${{github.event.release.tag_name}}
+          regex: "[v.]"
+          flags: "" # Optional, defaults to "g"
+          replacement: ""   
 
       # Update release with zip file
       - name: Update Release with Files
