@@ -27,7 +27,7 @@ jobs:
       # Substitute tag for changelog
       - name: Substitute tag
         id: substitute_tag
-        uses: ashley-taylor/regex-property-action@v1.2
+        uses: ashley-taylor/regex-property-action@1.2
         with:
           value: ${{github.event.release.tag_name}}
           regex: "[v.]"
