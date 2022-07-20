@@ -19,10 +19,20 @@ jobs:
         env:
           version: ${{github.event.release.tag_name}}
           manifest: https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/system.json
-          download: https://github.com/mrkwnzl/cypherystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
+          download: https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
       
       # Create zip file
       - run: zip -r ./release.zip *
+      
+      # Substitute tag for changelog
+      - name: Substitute tag
+        id: substitute_tag
+        uses: ashley-taylor/regex-property-action@v1.2
+        with:
+          value: ${{github.event.release.tag_name}}
+          regex: "[v.]"
+          flags: "" # Optional, defaults to "g"
+          replacement: ""   
 
       # Update release with zip file
       - name: Update Release with Files
@@ -31,7 +41,7 @@ jobs:
         with:
           allowUpdates: true
           artifacts: './system.json, ./release.zip'
-          omitBodyDuringUpdate: true
+          body: "Changelog: https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/main/CHANGELOG.md#${{steps.substitute-tag.outputs.value}}---$(date +%d-%m-%Y)"
           omitDraftDuringUpdate: true
           omitNameDuringUpdate: true
           omitPrereleaseDuringUpdate: true
