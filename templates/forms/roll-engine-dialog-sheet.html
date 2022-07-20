@@ -124,7 +124,7 @@
           <hr class="hr-roll-engine">
           <label class="roll-engine-heading"><b>{{localize 'CYPHERSYSTEM.CharacterPreview'}}</b></label><br>
           <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.EffortAvailable'}}:</label>
-          <input class="roll-engine-input {{this.exceedEffort}}" name='effort' id='effort' type='text' value='{{this.totalEffort}}/{{this.actor.data.data.basic.effort}}' disabled /><br>
+          <input class="roll-engine-input {{this.exceedEffort}}" name='effort' id='effort' type='text' value='{{this.totalEffort}}/{{this.actor.system.basic.effort}}' disabled /><br>
           <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.MightPoolEdge'}}:</label>
           <input class="roll-engine-input {{this.exceedMight}}" name='might' id='might' type='text' value='{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})' disabled /><br>
           <label class="roll-engine-label">{{localize 'CYPHERSYSTEM.SpeedPoolEdge'}}:</label>

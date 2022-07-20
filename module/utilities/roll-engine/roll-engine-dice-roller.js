@@ -1,4 +1,4 @@
-import { addCharacterToCombatTracker, setInitiativeForCharacter } from "../../utilities/actor-utilities.js";
+import {addCharacterToCombatTracker, setInitiativeForCharacter} from "../../utilities/actor-utilities.js";
 
 export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title, info, pool, modifier, bonus, totalCost) {
   // Fix for single quotation marks
@@ -12,7 +12,7 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
   pool = pool.toLowerCase();
 
   // Roll dice
-  let roll = await new Roll("1d20").evaluate({ async: true });
+  let roll = await new Roll("1d20").evaluate({async: true});
   let difficulty = (parseInt(roll.result) + parseInt(bonus) < 0) ? Math.ceil((parseInt(roll.result) + parseInt(bonus)) / 3) : Math.floor((parseInt(roll.result) + parseInt(bonus)) / 3);
 
   // Determine result
@@ -32,13 +32,13 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
   let modifiedBy = "";
   if (modifier != 0) {
     if (modifier > 1) {
-      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: modifier }) + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: modifier}) + ". "
     } else if (modifier == 1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased") + ". "
     } else if (modifier == -1) {
       modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered") + ". "
     } else if (modifier < -1) {
-      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(modifier) }) + ". "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(modifier)}) + ". "
     }
   }
 
@@ -58,7 +58,7 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
 
   // Add reroll button
   let actorID = (actor) ? actor.id : "";
-  let teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
+  let teen = (actor.system.settings.gameMode.currentSheet == "Teen") ? true : false;
   let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${totalCost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></i></a>`
 
   // Add regain points button
@@ -75,9 +75,9 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
 
   // Create chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker({ actor: actor }),
+    speaker: ChatMessage.getSpeaker({actor: actor}),
     flavor: flavor,
-    flags: { "itemID": itemID }
+    flags: {"itemID": itemID}
   });
 
   // Return total

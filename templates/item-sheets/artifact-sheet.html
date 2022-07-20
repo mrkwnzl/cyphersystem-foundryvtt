@@ -1,0 +1,50 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="centered-fields">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+            &nbsp;
+            <div class="item-quantity" style="flex: 0 0 80px;">
+              <input name="system.level" type="text" value="{{item.system.level}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+            </div>
+            {{#if sheetSettings.isGM}}
+              {{#if sheetSettings.identified}}
+                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye"></i></a>
+              {{else}}
+                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye-slash"></i></a>
+              {{/if}}
+            {{/if}}
+          </div>
+          <div class="resources grid grid-3col">
+            <div class="resource flex-center">
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.Depletion'}}
+              </label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="text" name="system.depletion" value="{{item.system.depletion}}" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor content=data.description target="system.description" button=true owner=owner editable=true}}
+    </div>
+
+  </section>
+</form>

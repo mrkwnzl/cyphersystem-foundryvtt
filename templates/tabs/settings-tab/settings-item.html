@@ -1,0 +1,326 @@
+<div class="tab settings" data-group="primary" data-tab="settings">
+  {{#if (eq item.type "ability")}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.SortUnder'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin setting-input" name="system.sorting" style="width: 135px">
+              {{#select item.system.sorting}}
+                <option value="Ability">
+                  {{#if (or (eq actor "") (eq actor.system.settings.abilities.nameAbilities ""))}}
+                    {{localize 'CYPHERSYSTEM.Abilities'}}
+                  {{else}}
+                    {{actor.system.settings.abilities.nameAbilities}}
+                  {{/if}}
+                </option>
+                {{#if (ne actor "")}}
+                  <option value="AbilityTwo">
+                    {{#if (eq actor.system.settings.abilities.nameCategoryTwo "")}}
+                      {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
+                    {{else}}
+                      {{actor.system.settings.abilities.nameCategoryTwo}}
+                    {{/if}}
+                  </option>
+                  <option value="AbilityThree">
+                    {{#if (eq actor.system.settings.abilities.nameCategoryThree "")}}
+                      {{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}
+                    {{else}}
+                      {{actor.system.settings.abilities.nameCategoryThree}}
+                    {{/if}}
+                  </option>
+                  <option value="AbilityFour">
+                    {{#if (eq actor.system.settings.abilities.nameCategoryFour "")}}
+                      {{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}
+                    {{else}}
+                      {{actor.system.settings.abilities.nameCategoryFour}}
+                    {{/if}}
+                  </option>
+                {{/if}}
+                <option value="Spell">
+                  {{#if (or (eq actor "") (eq actor.system.settings.abilities.nameSpells ""))}}
+                    {{localize 'CYPHERSYSTEM.Spells'}}
+                  {{else}}
+                    {{actor.system.settings.abilities.nameSpells}}
+                  {{/if}}
+                </option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        {{#if (eq item.system.sorting "Spell")}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.Tier'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin setting-input" name="system.tier" style="width: 135px">
+                {{#select item.system.tier}}
+                  <option value="low">
+                    {{localize 'CYPHERSYSTEM.LowTier'}}
+                  </option>
+                  <option value="mid">
+                    {{localize 'CYPHERSYSTEM.MidTier'}}
+                  </option>
+                  <option value="high">
+                    {{localize 'CYPHERSYSTEM.HighTier'}}
+                  </option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+        {{/if}}
+      </ol>
+    </div>
+  {{/if}}
+  {{#if (or (eq item.type "skill") (eq item.type "teen Skill"))}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+        </li>
+        {{#if (and (ne actor "") (ne item.type "teen Skill"))}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.SortUnder'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin setting-input" name="system.sorting" style="width: 135px">
+                {{#select item.system.sorting}}
+                  <option value="Skill">
+                    {{#if (eq actor.system.settings.skills.nameSkills "")}}
+                      {{localize 'CYPHERSYSTEM.Skills'}}
+                    {{else}}
+                      {{actor.system.settings.skills.nameSkills}}
+                    {{/if}}
+                  </option>
+                  <option value="SkillTwo">
+                    {{#if (eq actor.system.settings.skills.nameCategoryTwo "")}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}
+                    {{else}}
+                      {{actor.system.settings.skills.nameCategoryTwo}}
+                    {{/if}}
+                  </option>
+                  <option value="SkillThree">
+                    {{#if (eq actor.system.settings.skills.nameCategoryThree "")}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryThree'}}
+                    {{else}}
+                      {{actor.system.settings.skills.nameCategoryThree}}
+                    {{/if}}
+                  </option>
+                  <option value="SkillFour">
+                    {{#if (eq actor.system.settings.skills.nameCategoryFour "")}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryFour'}}
+                    {{else}}
+                      {{actor.system.settings.skills.nameCategoryFour}}
+                    {{/if}}
+                  </option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+        {{/if}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.isInitiative" {{checked item.system.isInitiative}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.UseAsInitiativeRoll'}}
+          </div>
+        </li>
+      </ol>
+    </div>
+  {{/if}}
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.RollButtonSettings'}}</div>
+      </li>
+    </ol>
+  </div>
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow">
+        <div class="item-name">
+          <i>{{localize 'CYPHERSYSTEM.BasicModifiers'}}</i>
+        </div>
+      </li>
+      {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.Pool'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin setting-input" name="system.rollButton.pool" style="width: 135px">
+              {{#select item.system.rollButton.pool}}
+                <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
+                <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
+                <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
+                <option value="Pool">{{localize 'CYPHERSYSTEM.AnyPool'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+      {{/unless}}
+      {{#unless (or (eq item.type "skill") (eq item.type "teen Skill") (eq item.type "attack") (eq item.type "teen Attack"))}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.SkillLevel'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin setting-input" name="system.rollButton.skill" style="width: 135px">
+              {{#select item.system.rollButton.skill}}
+                <option value="Specialized">{{localize 'CYPHERSYSTEM.Specialized'}}</option>
+                <option value="Trained">{{localize 'CYPHERSYSTEM.Trained'}}</option>
+                <option value="Practiced">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
+                <option value="Inability">{{localize 'CYPHERSYSTEM.Inability'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+      {{/unless}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Assets'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin setting-input" name="system.rollButton.assets" style="width: 135px">
+            {{#select item.system.rollButton.assets}}
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            {{/select}}
+          </select>
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EffortForTask'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin setting-input" name="system.rollButton.effort1" style="width: 135px">
+            {{#select item.system.rollButton.effort1}}
+              <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
+              <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
+              <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
+            {{/select}}
+          </select>
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EffortForOther'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin setting-input" name="system.rollButton.effort2" style="width: 135px">
+            {{#select item.system.rollButton.effort2}}
+              <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
+              <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
+              <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
+            {{/select}}
+          </select>
+        </div>
+      </li>
+    </ol>
+  </div>
+  {{#unless item.system.isInitiative}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow">
+          <div class="item-name">
+            <i>{{localize 'CYPHERSYSTEM.AttackModifiers'}}</i>
+          </div>
+        </li>
+        {{#unless (or (eq item.type "attack") (eq item.type "teen Attack"))}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.Damage'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin setting-input" name="system.rollButton.damage" type="text" value="{{item.system.rollButton.damage}}" placeholder="{{localize 'CYPHERSYSTEM.Damage'}}" />
+            </div>
+          </li>
+        {{/unless}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.EffortForDamage'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin setting-input" name="system.rollButton.effort3" style="width: 135px">
+              {{#select item.system.rollButton.effort3}}
+                <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
+                <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
+                <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
+                <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
+                <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
+                <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
+                <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.DamageLevelEffort'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.rollButton.damagePerLOE" type="text" value="{{item.system.rollButton.damagePerLOE}}" placeholder="{{localize 'CYPHERSYSTEM.DamageLevelEffort'}}" />
+          </div>
+        </li>
+      </ol>
+    </div>
+  {{/unless}}
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow">
+        <div class="item-name">
+          <i>{{localize 'CYPHERSYSTEM.AdditionalModifiers'}}</i>
+        </div>
+      </li>
+      {{#unless (or (eq item.type "attack") (eq item.type "teen Attack") (eq item.type "power Shift"))}}
+        <li class="item flexrow item-settings">
+          <label class="settings-list">
+            {{localize 'CYPHERSYSTEM.Difficulty'}}
+          </label>
+          <select class="auto-margin setting-input" name="system.rollButton.stepModifier" style="max-width:102px">
+            {{#select item.system.rollButton.stepModifier}}
+              <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
+              <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
+            {{/select}}
+          </select>
+          &nbsp;
+          <input class="auto-margin setting-input" name="system.rollButton.additionalSteps" type="text" value="{{item.system.rollButton.additionalSteps}}" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="max-width: 30px" />
+        </li>
+      {{/unless}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.Bonus'}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin setting-input" name="system.rollButton.bonus" type="text" value="{{item.system.rollButton.bonus}}" placeholder="{{localize 'CYPHERSYSTEM.Bonus'}}" />
+        </div>
+      </li>
+      {{#unless (or (eq item.type "ability") (eq item.type "teen Ability"))}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.PoolCost'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.rollButton.additionalCost" type="text" value="{{item.system.rollButton.additionalCost}}" placeholder="{{localize 'CYPHERSYSTEM.PoolCost'}}" />
+          </div>
+        </li>
+      {{/unless}}
+    </ol>
+  </div>
+</div>

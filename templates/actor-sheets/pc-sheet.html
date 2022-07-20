@@ -1,0 +1,147 @@
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+
+  {{!-- Dice Tray --}}
+  {{#unless (or sheetSettings.isLimited sheetSettings.isObserver)}}
+    <div class="dice-tray-{{sheetSettings.diceTray}} {{sheetSettings.backgroundImage}}" style="left: {{sheetSettings.sheetWidth}}px">
+      <a class="dice-tray-d6"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d6.svg"></a>
+      <a class="dice-tray-d10"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d10.svg"></a>
+      <a class="dice-tray-d20"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d20.svg"></a>
+      <a class="dice-tray-d100"><img class="dice-icon" src="systems/cyphersystem/icons/macros/d100.svg"></a>
+    </div>
+  {{/unless}}
+
+  {{!-- Background Icon --}}
+  {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
+    <div class="background-image-icon">
+      <img class="background-image-icon {{sheetSettings.backgroundImage}}" src="systems/cyphersystem/icons/background/icon-{{sheetSettings.backgroundIcon}}.svg" width="256" height="256">
+    </div>
+  {{/unless}}
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <div class="header-fields">
+      {{> systems/cyphersystem/templates/headers/pc-base-info.html}}
+      {{> systems/cyphersystem/templates/headers/pc-stats.html}}
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{#unless sheetSettings.isLimited}}
+      <a class="item" data-tab="skills">{{localize 'CYPHERSYSTEM.Skills'}}</a>
+      <a class="item" data-tab="combat">{{localize 'CYPHERSYSTEM.Combat'}}</a>
+      <a class="item" data-tab="abilities">{{localize 'CYPHERSYSTEM.Abilities'}}</a>
+      <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Equipment'}}</a>
+      <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
+    {{/unless}}
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{#unless sheetSettings.isLimited}}
+      {{#if (eq actor.system.settings.gameMode.current "Strange")}}
+        <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fas fa-at"></i></a>
+      {{else if actor.system.settings.tags.active}}
+        <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fas fa-hashtag"></i></a>
+      {{/if}}
+      <a class="item" data-tab="settings" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Settings'}}"><i class="fas fa-cog"></i></a>
+    {{/unless}}
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Skills Tab --}}
+    <div class="tab skills" data-group="primary" data-tab="skills">
+      {{!-- Skills --}}
+      {{> systems/cyphersystem/templates/tabs/skills-tab/skills.html}}
+
+      {{!-- Power Shifts --}}
+      {{> systems/cyphersystem/templates/tabs/skills-tab/power-shifts.html}}
+    </div>
+
+    {{!-- Combat Tab --}}
+    <div class="tab combat" data-group="primary" data-tab="combat">
+      {{!-- Damage Track --}}
+      {{> systems/cyphersystem/templates/tabs/combat-tab/damage-track.html}}
+
+      {{!-- Lasting Damage --}}
+      {{> systems/cyphersystem/templates/tabs/combat-tab/lasting-damage.html}}
+
+      {{!-- Attacks --}}
+      {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
+
+      {{!-- Ammo --}}
+      {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
+
+      {{!-- Armor --}}
+      {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
+    </div>
+
+    {{!-- Equipment Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+      {{!-- Currency --}}
+      {{> systems/cyphersystem/templates/tabs/equipment-tab/currency.html}}
+
+      {{!-- Equipment --}}
+      {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
+
+      {{!-- Cyphers --}}
+      {{#if actor.system.settings.equipment.cyphers}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
+      {{/if}}
+
+      {{!-- Artifacts --}}
+      {{#if actor.system.settings.equipment.artifacts}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
+      {{/if}}
+
+      {{!-- Oddities --}}
+      {{#if actor.system.settings.equipment.oddities}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
+      {{/if}}
+
+      {{!-- Materials --}}
+      {{#if actor.system.settings.equipment.materials}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
+      {{/if}}
+    </div>
+
+    {{!-- Abilities Tab --}}
+    <div class="tab abilities" data-group="primary" data-tab="abilities">
+      {{!-- Abilities --}}
+      {{> systems/cyphersystem/templates/tabs/abilities-tab/abilities.html}}
+
+      {{!-- Spells --}}
+      {{> systems/cyphersystem/templates/tabs/abilities-tab/spells.html}}
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="notes">
+      {{editor enrichedHTML.notes target="actor.system.basic.notes" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Description Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      {{editor enrichedHTML.description target="actor.system.basic.description" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Tags and Recursions Tab --}}
+    <div class="tab tags" data-group="primary" data-tab="tags">
+      {{!-- Recursions --}}
+      {{#if (eq actor.system.settings.gameMode.current "Strange")}}
+        {{> systems/cyphersystem/templates/tabs/tags-tab/recursions.html}}
+      {{/if}}
+
+      {{!-- Tags --}}
+      {{#if actor.system.settings.tags.active}}
+        {{> systems/cyphersystem/templates/tabs/tags-tab/tags.html}}
+      {{/if}}
+    </div>
+
+    {{!-- Settings Tab --}}
+    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-pc.html}}
+
+  </section>
+
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+
+</form>

@@ -106,7 +106,7 @@ export function spendEffortString() {
         <option value='Intellect'>${game.i18n.localize("CYPHERSYSTEM.Intellect")}</option>
     </select><br>
     <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.LevelOfEffort")}: </b></label>
-    <input name='level' id='level' style='width: 98px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 data-dtype='Number'/></div>`
+    <input name='level' id='level' style='width: 98px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 /></div>`
 
   return content;
 }
@@ -143,7 +143,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
       </select>
       <hr>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='cover' id='cover' data-dtype='boolean' ${(cover == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='cover' id='cover' ${(cover == 1 ? "checked" : "")}>
           &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetHasCover")}
       </div>
       <hr>
@@ -153,7 +153,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
         <option value='2' ${(positionProne == 2 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.TargetIsProneRanged")}</option>
       </select><br>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='positionHighGround' id='positionHighGround' data-dtype='boolean' ${(positionHighGround == 1 ? "checked" : "")}'>
+        <input class='dialog-checkbox' type='checkbox' name='positionHighGround' id='positionHighGround' ${(positionHighGround == 1 ? "checked" : "")}'>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerHasHighGround")}
       </div>
       <hr>
@@ -179,15 +179,15 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
       </select>
       <hr>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='mist' id='mist' data-dtype='boolean' ${(mist == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='mist' id='mist' ${(mist == 1 ? "checked" : "")}>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsInMist")}<br>
       </div>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='hiding' id='hiding' data-dtype='boolean' ${(hiding == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='hiding' id='hiding' ${(hiding == 1 ? "checked" : "")}>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsHiding")}<br>
       </div>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='invisible' id='invisible' data-dtype='boolean' ${(invisible == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='invisible' id='invisible' ${(invisible == 1 ? "checked" : "")}>
           &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsInvisible")}
       </div>
       <hr>
@@ -199,27 +199,27 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
       </select>
       <hr>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='targetMoving' id='targetMoving' data-dtype='boolean' ${(targetMoving == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='targetMoving' id='targetMoving' ${(targetMoving == 1 ? "checked" : "")}>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.TargetIsMoving")}<br>
       </div>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='attackerMoving' id='attackerMoving' data-dtype='boolean' ${(attackerMoving == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='attackerMoving' id='attackerMoving' ${(attackerMoving == 1 ? "checked" : "")}>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerIsMoving")}<br>
       </div>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='attackerJostled' id='attackerJostled' data-dtype='boolean' ${(attackerJostled == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='attackerJostled' id='attackerJostled' ${(attackerJostled == 1 ? "checked" : "")}>
         &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackerIsJostled")}
       </div>
       <hr>
       <div class="input-calcAttDiff">
-        <input class='dialog-checkbox' type='checkbox' name='gravity' id='gravity' data-dtype='boolean' ${(gravity == 1 ? "checked" : "")}>
+        <input class='dialog-checkbox' type='checkbox' name='gravity' id='gravity' ${(gravity == 1 ? "checked" : "")}>
           &nbsp;${game.i18n.localize("CYPHERSYSTEM.AttackInGravity")}
       </div>
       <hr>
 
       <div class="flex-center grid grid-3col" style="gap: 3px">
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalOneName' id='additionalOneName' type='text' value='${additionalOneName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalOne")}">
+          <input class='auto-margin dialog-input' name='additionalOneName' id='additionalOneName' type='text' value='${additionalOneName}' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalOne")}">
           <select name='stepModifierOne' id='stepModifierOne' class='dialog-select'>
             <option value='-1' ${(additionalOneValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalOneValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
@@ -228,7 +228,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
         </div>
 
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalTwoName' id='additionalTwoName' type='text' value='${additionalTwoName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalTwo")}">
+          <input class='auto-margin dialog-input' name='additionalTwoName' id='additionalTwoName' type='text' value='${additionalTwoName}' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalTwo")}">
           <select name='stepModifierTwo' id='stepModifierTwo' class='dialog-select'>
             <option value='-1' ${(additionalTwoValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalTwoValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>
@@ -237,7 +237,7 @@ export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage,
         </div>
 
         <div style="margin-bottom: 7px">
-          <input class='auto-margin dialog-input' name='additionalThreeName' id='additionalThreeName' type='text' value='${additionalThreeName}' data-dtype='String' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalThree")}">
+          <input class='auto-margin dialog-input' name='additionalThreeName' id='additionalThreeName' type='text' value='${additionalThreeName}' placeholder="${game.i18n.localize("CYPHERSYSTEM.AdditionalThree")}">
           <select name='stepModifierThree' id='stepModifierThree' class='dialog-select'>
             <option value='-1' ${(additionalThreeValue <= 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.easedBy")}</option>
             <option value='1' ${(additionalThreeValue > 0 ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.hinderedBy")}</option>

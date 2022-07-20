@@ -3,8 +3,8 @@
 * @extends {ItemSheet}
 */
 
-import { renameTag } from "../macros/macro-helper.js";
-import { htmlEscape } from "../utilities/html-escape.js";
+import {renameTag} from "../macros/macro-helper.js";
+import {htmlEscape} from "../utilities/html-escape.js";
 
 export class CypherItemSheet extends ItemSheet {
 
@@ -12,35 +12,42 @@ export class CypherItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
-      template: "systems/cyphersystem/templates/item-sheet.html",
       width: 550,
       height: 645,
       resizable: false,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]
     });
   }
 
   /** @override */
   get template() {
-    const path = "systems/cyphersystem/templates/item";
-    const itemType = this.item.data.type.toLowerCase().replace(/ /g, "-");
+    const path = "systems/cyphersystem/templates/item-sheets";
+    const itemType = this.item.type.toLowerCase().replace(/ /g, "-").replace("teen-", "");
     return `${path}/${itemType}-sheet.html`;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    const superData = super.getData();
-    const data = superData.data;
-    data.item = superData.item;
-    data.data.isGM = game.user.isGM;
-    data.data.isObserver = !this.options.editable;
-    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.data.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
-    data.dtypes = ["String", "Number", "Boolean"];
-    data.data.actor = data.item.parent ? data.item.parent.data : "";
+  async getData() {
+    const data = super.getData();
+
+    // Sheet settings
+    data.sheetSettings = {};
+    data.sheetSettings.isGM = game.user.isGM;
+    data.sheetSettings.isObserver = !this.options.editable;
+    data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
+    data.sheetSettings.identified = this.item.system.identified;
+
+    // Enriched HTML
+    data.enrichedHTML = {};
+    data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true});
+    // data.enrichedHTML.level = await TextEditor.enrichHTML(this.item.system.level, {async: true});
+    // data.enrichedHTML.depletion = await TextEditor.enrichHTML(this.item.system.depletion, {async: true});
+
+    data.actor = data.item.parent ? data.item.parent : "";
 
     return data;
   }
@@ -53,10 +60,10 @@ export class CypherItemSheet extends ItemSheet {
     if (!this.options.editable) return;
 
     html.find('.identify-item').click(clickEvent => {
-      if (this.item.data.data.identified) {
-        this.item.update({ "data.identified": false })
+      if (this.item.system.identified) {
+        this.item.update({"system.identified": false})
       } else {
-        this.item.update({ "data.identified": true })
+        this.item.update({"system.identified": true})
       }
     });
 

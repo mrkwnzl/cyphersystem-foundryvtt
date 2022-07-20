@@ -1,4 +1,4 @@
-import { rollEngineDialogSheet } from "../../forms/roll-engine-dialog-sheet.js";
+import {rollEngineDialogSheet} from "../../forms/roll-engine-dialog-sheet.js";
 
 export async function rollEngineForm(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
   // Create rollEngineForm

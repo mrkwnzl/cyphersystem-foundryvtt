@@ -1,0 +1,26 @@
+{{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+  {{#if actor.system.showSpells}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">
+            {{#if (eq actor.system.settings.abilities.nameSpells "")}}
+              {{localize 'CYPHERSYSTEM.Spells'}}
+            {{else}}
+              {{actor.system.settings.abilities.nameSpells}}
+            {{/if}}
+          </div>
+          <div class="item-cypher-limit">
+            <label for="actor.system.basic.preparedSpells" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+              {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
+            </label>
+          </div>
+          <div class="item-cypher-limit">
+            <input class="input-cypher-limit" type="number" name="system.basic.preparedSpells" value="{{actor.system.basic.preparedSpells}}" />
+          </div>
+        </li>
+        {{> systems/cyphersystem/templates/item-lists/spells-list.html}}
+      </ol>
+    </div>
+  {{/if}}
+{{/unless}}

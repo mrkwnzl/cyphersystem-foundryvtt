@@ -1,4 +1,4 @@
-import { rollEngineComputation } from "./roll-engine-computation.js";
+import {rollEngineComputation} from "./roll-engine-computation.js";
 
 export async function rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
   let rollEngineDialog = new Dialog({
@@ -34,15 +34,15 @@ export async function rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll
 
 function rollEngineDialogString(actor, itemID, teen, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
   // Define stats
-  let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
-  let mightMax = (teen) ? actor.data.data.teen.pools.might.max : actor.data.data.pools.might.max;
-  let mightEdge = (teen) ? actor.data.data.teen.pools.mightEdge : actor.data.data.pools.mightEdge;
-  let speedValue = (teen) ? actor.data.data.teen.pools.speed.value : actor.data.data.pools.speed.value;
-  let speedMax = (teen) ? actor.data.data.teen.pools.speed.max : actor.data.data.pools.speed.max;
-  let speedEdge = (teen) ? actor.data.data.teen.pools.speedEdge : actor.data.data.pools.speedEdge;
-  let intellectValue = (teen) ? actor.data.data.teen.pools.intellect.value : actor.data.data.pools.intellect.value;
-  let intellectMax = (teen) ? actor.data.data.teen.pools.intellect.max : actor.data.data.pools.intellect.max;
-  let intellectEdge = (teen) ? actor.data.data.teen.pools.intellectEdge : actor.data.data.pools.intellectEdge;
+  let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
+  let mightMax = (teen) ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
+  let mightEdge = (teen) ? actor.system.teen.pools.mightEdge : actor.system.pools.mightEdge;
+  let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
+  let speedMax = (teen) ? actor.system.teen.pools.speed.max : actor.system.pools.speed.max;
+  let speedEdge = (teen) ? actor.system.teen.pools.speedEdge : actor.system.pools.speedEdge;
+  let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
+  let intellectMax = (teen) ? actor.system.teen.pools.intellect.max : actor.system.pools.intellect.max;
+  let intellectEdge = (teen) ? actor.system.teen.pools.intellectEdge : actor.system.pools.intellectEdge;
 
   // Fallback for strings in skill
   if (skillLevel == 2) skillLevel = "Specialized";
@@ -52,7 +52,7 @@ function rollEngineDialogString(actor, itemID, teen, pool, skillLevel, assets, e
 
   // Check for initiative
   let item = actor.items.get(itemID);
-  let isInitiative = (item) ? item.data.data.isInitiative : false;
+  let isInitiative = (item) ? item.system.isInitiative : false;
 
   // Create HTML
   let basicModifiers =
@@ -134,7 +134,7 @@ function rollEngineDialogString(actor, itemID, teen, pool, skillLevel, assets, e
     <hr>
     <label style='display: inline-block; width: 100%; text-align: center; margin-bottom: 5px'><b>${game.i18n.localize("CYPHERSYSTEM.CharacterInfo")}</b></label><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.Effort")}:</label>
-    <input name='effort' id='effort' type='number' value=${actor.data.data.basic.effort} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
+    <input name='effort' id='effort' type='number' value=${actor.system.basic.effort} style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.MightPoolEdge")}:</label>
     <input name='might' id='might' type='text' value='${mightValue}/${mightMax} (${mightEdge})' style='width: 170px; margin-left: 5px; margin-bottom: 5px; text-align: center' disabled /><br>
     <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.SpeedPoolEdge")}:</label>

@@ -1,4 +1,4 @@
-import { deleteChatMessage, giveAdditionalXP } from "./actor-utilities.js";
+import {deleteChatMessage, giveAdditionalXP} from "./actor-utilities.js";
 
 
 export async function gameSockets() {

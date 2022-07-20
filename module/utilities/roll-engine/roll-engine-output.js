@@ -14,7 +14,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   if (actor.items.get(itemID)) {
     let item = actor.items.get(itemID);
 
-    itemDescription = (item.data.data.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + TextEditor.enrichHTML(item.data.data.description) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
+    itemDescription = (item.system.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + await TextEditor.enrichHTML(item.system.description, {async: true}) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
 
     let styleHidden = "<div style=\"display: none\" class=\"chat-card-item-description\">";
 
@@ -58,13 +58,13 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   let difficultyInfo = "";
   if (easedOrHindered != "hindered") {
     if (difficultyModifier > 1) {
-      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", { amount: difficultyModifier })}<br>`;
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: difficultyModifier})}<br>`;
     } else if (difficultyModifier == 1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
     }
   } else {
     if (difficultyModifier < -1) {
-      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", { amount: Math.abs(difficultyModifier) })}<br>`;
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: Math.abs(difficultyModifier)})}<br>`;
     } else if (difficultyModifier == -1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
     }

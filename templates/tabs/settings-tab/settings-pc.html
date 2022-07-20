@@ -1,0 +1,373 @@
+<div class="tab settings" data-group="primary" data-tab="settings">
+  
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+      </li>
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.GameMode'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="system.settings.gameMode.current">
+              {{#select actor.system.settings.gameMode.current}}
+                <option value="Cypher">Cypher System</option>
+                <option value="Unmasked">Unmasked</option>
+                <option value="Strange">The Strange</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+      {{/unless}}
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.additionalSentence.active" {{checked actor.system.settings.additionalSentence.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalSentenceField'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.settings.additionalSentence.name" type="text" value="{{actor.system.settings.additionalSentence.name}}" placeholder="{{#if (eq actor.system.settings.gameMode.current 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}" />
+          </div>
+        </li>
+      {{/unless}}
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.additionalPool.active" {{checked actor.system.additionalPool.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.additionalPool.additionalPoolName" type="text" value="{{actor.system.additionalPool.additionalPoolName}}" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" />
+          </div>
+        </li>
+      {{/unless}}
+      {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.additionalPool.teenActive" {{checked actor.system.additionalPool.teenActive}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolSetting'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.additionalPool.additionalTeenPoolName" type="text" value="{{actor.system.additionalPool.additionalTeenPoolName}}" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" />
+          </div>
+        </li>
+      {{/if}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.tags.active" {{checked actor.system.settings.tags.active}}>
+          &nbsp;{{#if (eq actor.system.settings.gameMode.current "Strange")}}{{localize 'CYPHERSYSTEM.ShowTagsInRecursionTab'}}{{else}}{{localize 'CYPHERSYSTEM.ShowTagsTab'}}{{/if}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.tags.tagsName" type="text" value="{{actor.system.settings.tags.tagsName}}" placeholder="{{localize 'CYPHERSYSTEM.Tags'}}" />
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.hideArchived" {{checked actor.system.settings.hideArchived}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
+        </div>
+      </li>
+      {{#unless cyphersheetsModuleActive}}
+        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundImage'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.teen.settings.backgroundImage">
+                {{#select actor.system.teen.settings.backgroundImage}}
+                  <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
+                  <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
+                  <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
+                  <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
+                  <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
+                  <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
+                  <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
+                  <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
+                  <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
+                  <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
+                  <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.teen.settings.backgroundIcon">
+                {{#select actor.system.teen.settings.backgroundIcon}}
+                  <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
+                  <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
+                  <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
+                  <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
+                  <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
+                  <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
+                  <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
+                  <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
+                  <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
+                  <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
+                  <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
+                  <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
+                  <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+        {{else}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundImage'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.settings.backgroundImage">
+                {{#select actor.system.settings.backgroundImage}}
+                  <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
+                  <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
+                  <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
+                  <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
+                  <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
+                  <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
+                  <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
+                  <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
+                  <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
+                  <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
+                  <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.settings.backgroundIcon">
+                {{#select actor.system.settings.backgroundIcon}}
+                  <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
+                  <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
+                  <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
+                  <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
+                  <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
+                  <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
+                  <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
+                  <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
+                  <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
+                  <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
+                  <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
+                  <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
+                  <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+        {{/if}}
+      {{/unless}}
+    </ol>
+  </div>
+
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.SkillsTab'}}</div>
+      </li>
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.SkillCategories'}}
+          </div>
+        </li>
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="grid grid-4col" style="margin: 0px">
+            <input class="auto-margin" name="system.settings.skills.nameSkills" type="text" value="{{actor.system.settings.skills.nameSkills}}" placeholder="{{localize 'CYPHERSYSTEM.Skills'}}">
+            <input class="auto-margin" name="system.settings.skills.nameCategoryTwo" type="text" value="{{actor.system.settings.skills.nameCategoryTwo}}" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}">
+            <input class="auto-margin" name="system.settings.skills.nameCategoryThree" type="text" value="{{actor.system.settings.skills.nameCategoryThree}}" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryThree'}}">
+            <input class="auto-margin" name="system.settings.skills.nameCategoryFour" type="text" value="{{actor.system.settings.skills.nameCategoryFour}}" placeholder="{{localize 'CYPHERSYSTEM.SkillCategoryFour'}}">
+          </div>
+        </li>
+      {{/unless}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.skills.sortByRating" {{checked actor.system.settings.skills.sortByRating}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.SortSkillsByRating'}}
+        </div>
+      </li>
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.powerShifts.active" {{checked actor.system.settings.powerShifts.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.PowerShifts'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.settings.powerShifts.powerShiftsName" type="text" value="{{actor.system.settings.powerShifts.powerShiftsName}}" placeholder="{{localize 'CYPHERSYSTEM.PowerShifts'}}" />
+          </div>
+        </li>
+      {{/unless}}
+    </ol>
+  </div>
+
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.CombatTab'}}</div>
+      </li>
+      {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="system.settings.additionalRecoveries.numberOneActionRecoveries">
+              {{#select actor.system.settings.additionalRecoveries.numberOneActionRecoveries}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.NumberOfTenMinuteRecoveryRolls'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="system.settings.additionalRecoveries.numberTenMinuteRecoveries">
+              {{#select actor.system.settings.additionalRecoveries.numberTenMinuteRecoveries}}
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+      {{/unless}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.lastingDamage.active" {{checked actor.system.settings.lastingDamage.active}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.LastingAndPermanentDamageSetting'}}
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.ammo" {{checked actor.system.settings.ammo}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AmmoList'}}
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  {{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.AbilitiesTab'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.AbilityCategories'}}
+          </div>
+        </li>
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="grid grid-5col" style="margin: 0px">
+            <input class="auto-margin" name="system.settings.abilities.nameAbilities" type="text" value="{{actor.system.settings.abilities.nameAbilities}}" placeholder="{{localize 'CYPHERSYSTEM.Abilities'}}">
+            <input class="auto-margin" name="system.settings.abilities.nameCategoryTwo" type="text" value="{{actor.system.settings.abilities.nameCategoryTwo}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}">
+            <input class="auto-margin" name="system.settings.abilities.nameCategoryThree" type="text" value="{{actor.system.settings.abilities.nameCategoryThree}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}">
+            <input class="auto-margin" name="system.settings.abilities.nameCategoryFour" type="text" value="{{actor.system.settings.abilities.nameCategoryFour}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}">
+            <input class="auto-margin" name="system.settings.abilities.nameSpells" type="text" value="{{actor.system.settings.abilities.nameSpells}}" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}">
+          </div>
+        </li>
+      </ol>
+    </div>
+  {{/unless}}
+
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.EquipmentTab'}}</div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.currency.active" {{checked actor.system.settings.currency.active}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.Currency'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin settings-input" name="system.settings.currency.howMany" type="Number">
+            {{#select actor.system.settings.currency.howMany}}
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            {{/select}}
+          </select>
+        </div>
+      </li>
+      {{#if actor.system.settings.currency.active}}
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.currency.namesHidden" {{checked actor.system.settings.currency.namesHidden}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.HideCurrency'}}
+          </div>
+        </li>
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="grid grid-6col" style="margin: 0px">
+            <input class="auto-margin" name="system.settings.currency.name6" type="text" value="{{actor.system.settings.currency.name6}}" placeholder="{{localize 'CYPHERSYSTEM.Adamantine'}}" {{#unless (gte actor.system.settings.currency.howMany 6)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.currency.name5" type="text" value="{{actor.system.settings.currency.name5}}" placeholder="{{localize 'CYPHERSYSTEM.Mithral'}}" {{#unless (gte actor.system.settings.currency.howMany 5)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.currency.name4" type="text" value="{{actor.system.settings.currency.name4}}" placeholder="{{localize 'CYPHERSYSTEM.Platinum'}}" {{#unless (gte actor.system.settings.currency.howMany 4)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.currency.name3" type="text" value="{{actor.system.settings.currency.name3}}" placeholder="{{localize 'CYPHERSYSTEM.Gold'}}" {{#unless (gte actor.system.settings.currency.howMany 3)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.currency.name2" type="text" value="{{actor.system.settings.currency.name2}}" placeholder="{{localize 'CYPHERSYSTEM.Silver'}}" {{#unless (gte actor.system.settings.currency.howMany 2)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.currency.name" type="text" value="{{actor.system.settings.currency.name}}" placeholder="{{#if (eq actor.system.settings.currency.howMany '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{else}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}">
+          </div>
+        </li>
+      {{/if}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.equipment.cyphers" {{checked actor.system.settings.equipment.cyphers}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.equipment.cyphersName" type="text" value="{{actor.system.settings.equipment.cyphersName}}" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.equipment.artifacts" {{checked
+            actor.system.settings.equipment.artifacts}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.Artifacts'}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.equipment.artifactsName" type="text" value="{{actor.system.settings.equipment.artifactsName}}" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" />
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.equipment.oddities" {{checked
+            actor.system.settings.equipment.oddities}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.Oddities'}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.equipment.odditiesName" type="text" value="{{actor.system.settings.equipment.odditiesName}}" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" />
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.equipment.materials" {{checked
+            actor.system.settings.equipment.materials}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.CraftingMaterial'}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.equipment.materialName" type="text" value="{{actor.system.settings.equipment.materialName}}" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
+        </div>
+      </li>
+    </ol>
+  </div>
+
+</div>

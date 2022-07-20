@@ -1,0 +1,31 @@
+{{#each data.itemLists.tags as |item id|}}
+  <li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+    <h4 class="item-name">
+      <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
+        <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
+        {{~item.name}}
+      </a>
+    </h4>
+    <div class="item-controls">
+      <a class="item-control item-tag {{#if ../sheetSettings.isObserver}}disabled{{/if}} {{#if data.active}}black{{else}}archived{{/if}}" title="{{#if data.active}}{{localize 'CYPHERSYSTEM.ArchiveItemsWithTag' tag=item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnarchiveItemsWithTag' tag=item.name}}{{/if}}">
+        {{#if data.exclusive}}<i class="fas fa-exclamation"></i>{{/if}}<i class="fas fa-hashtag"></i>
+      </a>
+      <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+        <i class="fas fa-file-alt"></i>
+      </a>
+      <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+        <i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i>
+      </a>
+    </div>
+  </li>
+
+  {{#if (expanded item._id)}}
+    <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+      <div class="description desc-{{item._id}}">
+        <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+        {{{enrichHTML data.description}}}
+      </div>
+    </li>
+  {{/if}}
+
+{{/each}}

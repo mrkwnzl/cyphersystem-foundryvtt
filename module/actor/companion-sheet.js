@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import { CypherActorSheet } from "./actor-sheet.js";
+import {CypherActorSheet} from "./actor-sheet.js";
 
 export class CypherActorSheetCompanion extends CypherActorSheet {
 
@@ -10,11 +10,11 @@ export class CypherActorSheetCompanion extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "companion"],
-      template: "systems/cyphersystem/templates/actor/companion-sheet.html",
+      template: "systems/cyphersystem/templates/actor-sheets/companion-sheet.html",
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items"]
     });
   }

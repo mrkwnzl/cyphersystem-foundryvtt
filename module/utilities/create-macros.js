@@ -32,7 +32,7 @@ export async function createCyphersystemMacro(data, slot) {
     type: "script",
     img: item.img,
     command: command,
-    flags: { "cyphersystem.itemMacro": true }
+    flags: {"cyphersystem.itemMacro": true}
   });
 
   game.user.assignHotbarMacro(macro, slot);

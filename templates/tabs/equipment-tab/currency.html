@@ -1,0 +1,7 @@
+{{#if actor.system.settings.currency.active}}
+  {{#if (or (gte actor.system.settings.currency.howMany 4) actor.system.settings.currency.namesHidden)}}
+    {{> systems/cyphersystem/templates/tabs/equipment-tab/currenciesUpToSix.html}}
+  {{else}}
+    {{> systems/cyphersystem/templates/tabs/equipment-tab/currenciesUpToThree.html}}
+  {{/if}}
+{{/if}}

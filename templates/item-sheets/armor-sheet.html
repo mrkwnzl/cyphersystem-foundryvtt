@@ -1,0 +1,67 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="centered-fields">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+          </div>
+          <div class="resources grid grid-3col" style="margin-bottom: 0">
+            <div class="resource flex-center">
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.ArmorRating'}}
+              </label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="number" name="system.armorValue" value="{{item.system.armorValue}}" />
+              </div>
+            </div>
+            <div class="resource flex-center">
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.SpeedCost'}}
+              </label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="number" name="system.speedCost" value="{{item.system.speedCost}}" />
+              </div>
+            </div>
+            <div class="resource flex-center">
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.Type'}}
+              </label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <select name="system.armorType">
+                  {{#select item.system.armorType}}
+                    <option value="light armor">{{localize 'CYPHERSYSTEM.LightArmor'}}</option>
+                    <option value="medium armor">{{localize 'CYPHERSYSTEM.MediumArmor'}}</option>
+                    <option value="heavy armor">{{localize 'CYPHERSYSTEM.HeavyArmor'}}</option>
+                    <option value="artifact">{{localize 'CYPHERSYSTEM.Artifact'}}</option>
+                    <option value="special ability">{{localize 'CYPHERSYSTEM.SpecialAbility'}}</option>
+                    <option value="n/a">{{localize 'CYPHERSYSTEM.n/a'}}</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="resource flex-center">
+            <input type="text" name="system.notes" value="{{item.system.notes}}" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+    </div>
+
+  </section>
+</form>

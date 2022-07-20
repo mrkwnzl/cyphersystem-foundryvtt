@@ -1,13 +1,4 @@
 export async function registerHandlebars() {
-  Handlebars.registerHelper('enrichHTML', (html) => {
-    if (!html) return "";
-    return TextEditor.enrichHTML(html);
-  });
-
-  Handlebars.registerHelper('log', function (data) {
-    console.log(data)
-  });
-
   Handlebars.registerHelper("expanded", function (itemID) {
     if (game.user.expanded != undefined) {
       return game.user.expanded[itemID] == true;

@@ -1,0 +1,224 @@
+{{#unless sheetSettings.isLimited}}
+  <div class="resources flexrow all-stats">
+
+    {{!-- Might --}}
+    <div class="resource flex-group-center stat-block">
+      <div class="flexrow">
+        <label for="actor.system.pools.might" class="resource-label {{#if sheetSettings.isObserver}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.Might'}}
+        </label>
+        <div class="stat-roll-button">
+          {{#if sheetSettings.rollButtons}}
+            <a class="item-control might-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}">
+              <i class="fas fa-dice-d20"></i>
+            </a>
+          {{/if}}
+        </div>
+      </div>
+      <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+          <input class="stat-input" type="number" name="system.teen.pools.might.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.teen.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.max}}{{/if}}" {{disabledStaticStats}} />
+        {{else}}
+          <input class="stat-input" type="number" name="system.pools.might.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.max}}{{/if}}" {{disabledStaticStats}} />
+        {{/if}}
+      </div>
+      <hr class="hr-pool">
+      <div class="resource-content flexrow flex-center">
+        <div class="stat-controls">
+          <a class="item-control decrease-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}">
+            <i class="far fa-minus-square stat"></i>
+          </a>
+          <a class="item-control increase-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}">
+            <i class="far fa-plus-square stat"></i>
+          </a>
+          <a class="item-control reset-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}">
+            <i class="fas fa-sync-alt stat"></i>
+          </a>
+        </div>
+        <div class="align-edge">
+          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0;" for="actor.system.pools.mightEdge" class="resource-label-normal">
+            {{localize 'CYPHERSYSTEM.Edge'}}
+          </label>
+          {{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}
+            <input class="edge-input" type="number" name="system.teen.pools.mightEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.mightEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{else}}
+            <input class="edge-input" type="number" name="system.pools.mightEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.mightEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Speed --}}
+    <div class="resource flex-group-center stat-block">
+      <div class="flexrow">
+        <label for="actor.system.pools.speed" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.Speed'}}
+        </label>
+        <div class="stat-roll-button">
+          {{#if sheetSettings.rollButtons}}
+            <a class="item-control speed-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}">
+              <i class="fas fa-dice-d20"></i>
+            </a>
+          {{/if}}
+        </div>
+      </div>
+      <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+          <input class="stat-input" type="number" name="system.teen.pools.speed.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.teen.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.max}}{{/if}}" {{disabledStaticStats}} />
+        {{else}}
+          <input class="stat-input" type="number" name="system.pools.speed.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.max}}{{/if}}" {{disabledStaticStats}} />
+        {{/if}}
+      </div>
+      <hr class="hr-pool">
+      <div class="resource-content flexrow flex-center">
+        <div class="stat-controls">
+          <a class="item-control decrease-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}">
+            <i class="far fa-minus-square stat"></i>
+          </a>
+          <a class="item-control increase-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}">
+            <i class="far fa-plus-square stat"></i>
+          </a>
+          <a class="item-control reset-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}">
+            <i class="fas fa-sync-alt stat"></i>
+          </a>
+        </div>
+        <div class="align-edge">
+          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="actor.system.pools.speedEdge" class="resource-label-normal">
+            {{localize 'CYPHERSYSTEM.Edge'}}
+          </label>
+          {{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}
+            <input class="edge-input" type="number" name="system.teen.pools.speedEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speedEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{else}}
+            <input class="edge-input" type="number" name="system.pools.speedEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speedEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Intellect --}}
+    <div class="resource flex-group-center stat-block">
+      <div class="flexrow">
+        <label for="actor.system.pools.intellect" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.Intellect'}}
+        </label>
+        <div class="stat-roll-button">
+          {{#if sheetSettings.rollButtons}}
+            <a class="item-control intellect-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}">
+              <i class="fas fa-dice-d20"></i>
+            </a>
+          {{/if}}
+        </div>
+      </div>
+      <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+          <input class="stat-input" type="number" name="system.teen.pools.intellect.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.teen.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.max}}{{/if}}" {{disabledStaticStats}} />
+        {{else}}
+          <input class="stat-input" type="number" name="system.pools.intellect.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.value}}{{/if}}" />
+          &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+          <input class="stat-input" type="number" name="system.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.max}}{{/if}}" {{disabledStaticStats}} />
+        {{/if}}
+      </div>
+      <hr class="hr-pool">
+      <div class="resource-content flexrow flex-center">
+        <div class="stat-controls">
+          <a class="item-control decrease-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}">
+            <i class="far fa-minus-square stat"></i>
+          </a>
+          <a class="item-control increase-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}">
+            <i class="far fa-plus-square stat"></i>
+          </a>
+          <a class="item-control reset-{{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}">
+            <i class="fas fa-sync-alt stat"></i>
+          </a>
+        </div>
+        <div class="align-edge">
+          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0; " for="actor.system.pools.intellectEdge" class="resource-label-normal">
+            {{localize 'CYPHERSYSTEM.Edge'}}
+          </label>
+          {{#if (eq actor.system.settings.gameMode.currentSheet 'Teen')}}
+            <input class="edge-input" type="number" name="system.teen.pools.intellectEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellectEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{else}}
+            <input class="edge-input" type="number" name="system.pools.intellectEdge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellectEdge}}{{/if}}" {{disabledStaticStats}} />
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Additional Pool --}}
+    {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+      {{#if actor.system.additionalPool.teenActive}}
+        <div class="resource flex-group-center stat-block additional-block">
+          <label for="actor.system.additionalPool.additionalTeenPoolName" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            {{#if (eq actor.system.additionalPool.additionalTeenPoolName "")}}
+              {{localize 'CYPHERSYSTEM.AdditionalPool'}}
+            {{else}}
+              {{actor.system.additionalPool.additionalTeenPoolName}}
+            {{/if}}
+          </label>
+          <div class="stat-roll-button"></div>
+          <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            <input class="stat-input" type="number" name="system.teen.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.value}}{{/if}}" />
+            &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+            <input class="stat-input" type="number" name="system.teen.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.max}}{{/if}}" {{disabledStaticStats}} />&nbsp;
+          </div>
+          <hr class="hr-pool">
+          <div class="resource-content flexrow flex-center">
+            <div class="stat-controls">
+              <a class="item-control decrease-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+                <i class="far fa-minus-square stat"></i>
+              </a>
+              <a class="item-control increase-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
+                <i class="far fa-plus-square stat"></i>
+              </a>
+              <a class="item-control reset-teen-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
+                <i class="fas fa-sync-alt stat"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    {{else}}
+      {{#if actor.system.additionalPool.active}}
+        <div class="resource flex-group-center stat-block additional-block">
+          <label for="actor.system.additionalPool.additionalPoolName" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            {{#if (eq actor.system.additionalPool.additionalPoolName "")}}
+              {{localize 'CYPHERSYSTEM.AdditionalPool'}}
+            {{else}}
+              {{actor.system.additionalPool.additionalPoolName}}
+            {{/if}}
+          </label>
+          <div class="stat-roll-button"></div>
+          <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            <input class="stat-input" type="number" name="system.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.value}}{{/if}}" />
+            &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+            <input class="stat-input" type="number" name="system.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.max}}{{/if}}" {{disabledStaticStats}} />&nbsp;
+          </div>
+          <hr class="hr-pool">
+          <div class="resource-content flexrow flex-center">
+            <div class="stat-controls">
+              <a class="item-control decrease-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+                <i class="far fa-minus-square stat"></i>
+              </a>
+              <a class="item-control increase-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
+                <i class="far fa-plus-square stat"></i>
+              </a>
+              <a class="item-control reset-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
+                <i class="fas fa-sync-alt stat"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+{{/unless}}

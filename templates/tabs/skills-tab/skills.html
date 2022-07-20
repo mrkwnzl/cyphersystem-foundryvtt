@@ -1,0 +1,92 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if (eq actor.system.settings.skills.nameSkills "")}}
+          {{localize 'CYPHERSYSTEM.Skills'}}
+        {{else}}
+          {{actor.system.settings.skills.nameSkills}}
+        {{/if}}
+      </div>
+      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+      <div class="item-controls">
+        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+          <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Skill">
+            <i class="fas fa-plus"></i>
+          </a>
+        {{else}}
+          <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="skill">
+            <i class="fas fa-plus"></i>
+          </a>
+        {{/if}}
+      </div>
+    </li>
+    {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+      {{> systems/cyphersystem/templates/item-lists/skills-list-teen.html}}
+    {{else}}
+      {{> systems/cyphersystem/templates/item-lists/skills-list-01.html}}
+    {{/if}}
+  </ol>
+</div>
+
+{{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+  {{#if actor.system.showSkillsTwo}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">
+            {{#if (eq actor.system.settings.skills.nameCategoryTwo "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}
+            {{else}}
+              {{actor.system.settings.skills.nameCategoryTwo}}
+            {{/if}}
+          </div>
+          <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+          <div class="item-controls">
+          </div>
+        </li>
+        {{> systems/cyphersystem/templates/item-lists/skills-list-02.html}}
+      </ol>
+    </div>
+  {{/if}}
+
+  {{#if actor.system.showSkillsThree}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">
+            {{#if (eq actor.system.settings.skills.nameCategoryThree "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryThree'}}
+            {{else}}
+              {{actor.system.settings.skills.nameCategoryThree}}
+            {{/if}}
+          </div>
+          <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+          <div class="item-controls">
+          </div>
+        </li>
+        {{> systems/cyphersystem/templates/item-lists/skills-list-03.html}}
+      </ol>
+    </div>
+  {{/if}}
+
+  {{#if actor.system.showSkillsFour}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">
+            {{#if (eq actor.system.settings.skills.nameCategoryFour "")}}
+              {{localize 'CYPHERSYSTEM.SkillCategoryFour'}}
+            {{else}}
+              {{actor.system.settings.skills.nameCategoryFour}}
+            {{/if}}
+          </div>
+          <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+          <div class="item-controls">
+          </div>
+        </li>
+        {{> systems/cyphersystem/templates/item-lists/skills-list-04.html}}
+      </ol>
+    </div>
+  {{/if}}
+{{/unless}}

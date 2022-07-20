@@ -1,0 +1,16 @@
+{{#if actor.system.settings.ammo}}
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.Ammo'}}</div>
+        <div class="item-quantity">{{localize 'CYPHERSYSTEM.Quantity'}}</div>
+        <div class="item-controls">
+          <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="Create item" data-type="ammo">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      </li>
+      {{> systems/cyphersystem/templates/item-lists/ammo-list.html}}
+    </ol>
+  </div>
+{{/if}}

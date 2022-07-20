@@ -1,0 +1,62 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="centered-fields">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+          </div>
+          <div class="resources grid grid-3col">
+            <div class="resource flex-center">
+              <label class="resource-label-normal">
+                {{localize 'CYPHERSYSTEM.DamagePoints'}}
+              </label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <input type="number" name="system.lastingDamageAmount" value="{{item.system.lastingDamageAmount}}" />
+              </div>
+            </div>
+            <div class="resource flex-center">
+              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <select name="system.lastingDamagePool">
+                  {{#select item.system.lastingDamagePool}}
+                    <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
+                    <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
+                    <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+            <div class="resource flex-center">
+              <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamageType'}}</label>
+              <div class="resource-content flexrow flex-center flex-between">
+                <select name="system.damageType" style="text-overflow: ellipsis; width: 100%">
+                  {{#select item.system.damageType}}
+                    <option value="Lasting">{{localize 'CYPHERSYSTEM.lastingDamage'}}</option>
+                    <option value="Permanent">{{localize 'CYPHERSYSTEM.permanent'}}</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+    </div>
+
+  </section>
+</form>

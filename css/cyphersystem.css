@@ -32,14 +32,13 @@ ol {
   list-style-type: disc;
 }
 
-#chat-log .message .message-content p:first-of-type,
-.flavor-text p:first-of-type {
+#chat-log .message .flavor-text p:first-of-type,
+.flavor-text p>p {
   margin: 0 0 0.5em 0;
 }
 
-#chat-log .message .message-content p:last-of-type,
-.flavor-text p:last-of-type {
-  margin: 0.5em 0 0 0;
+#chat-log .message .flavor-text p:last-of-type {
+  margin: 0 0 0 0;
 }
 
 #chat-log .message .message-content blockquote,
@@ -648,7 +647,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .items-list .description p:last-of-type {
-  margin: 0.5em 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .cyphersystem .items-list .description p:first-of-type {
@@ -677,13 +676,6 @@ select.bar-attribute {
   text-align: center;
 }
 
-.cyphersystem input[type="text"].input-cypher-limit {
-  width: 40px;
-  margin: -2px 0;
-  height: 19px;
-  padding: 0;
-}
-
 .cyphersystem .item-settings {
   height: 35px;
   align-items: center;
@@ -694,12 +686,21 @@ select.bar-attribute {
 }
 
 .cyphersystem input[type="text"],
+.cyphersystem input[type="number"],
 .cyphersystem input[type="password"],
 .cyphersystem input[type="datetime-local"] {
   margin-bottom: 2px;
   margin-top: 2px;
   width: 100%;
   text-align: center;
+}
+
+.cyphersystem input[type="text"].input-cypher-limit,
+.cyphersystem input[type="number"].input-cypher-limit {
+  width: 40px;
+  margin: -2px 0;
+  height: 19px;
+  padding: 0;
 }
 
 .cyphersystem input[type="text"].stat-input,
@@ -850,11 +851,12 @@ select.bar-attribute {
   max-width: 120px;
 }
 
-.cyphersystem input[type="text"].edge-input {
+.cyphersystem input[type="number"].edge-input {
   height: 19px;
   max-width: 40px;
   width: auto;
   margin: 0;
+  text-align: center;
 }
 
 .cyphersystem .fa-sync-alt.stat {

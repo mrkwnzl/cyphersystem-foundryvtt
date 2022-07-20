@@ -1,22 +1,22 @@
 // Import actors & items
-import { CypherActor } from "./actor/actor.js";
-import { CypherItem } from "./item/item.js";
+import {CypherActor} from "./actor/actor.js";
+import {CypherItem} from "./item/item.js";
 
 // Import actor & item sheets
-import { CypherItemSheet } from "./item/item-sheet.js";
-import { CypherActorSheet } from "./actor/actor-sheet.js";
-import { CypherActorSheetPC } from "./actor/pc-sheet.js";
-import { CypherActorSheetNPC } from "./actor/npc-sheet.js";
-import { CypherActorSheetCommunity } from "./actor/community-sheet.js";
-import { CypherActorSheetCompanion } from "./actor/companion-sheet.js";
-import { CypherActorSheetToken } from "./actor/token-sheet.js";
-import { CypherActorSheetVehicle } from "./actor/vehicle-sheet.js";
+import {CypherItemSheet} from "./item/item-sheet.js";
+import {CypherActorSheet} from "./actor/actor-sheet.js";
+import {CypherActorSheetPC} from "./actor/pc-sheet.js";
+import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
+import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
+import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
+import {CypherActorSheetToken} from "./actor/token-sheet.js";
+import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
 
 // Import utility functions
-import { preloadTemplates } from "./utilities/template-paths.js";
-import { applyXPFromIntrusion, regainPoolPoints } from "./utilities/actor-utilities.js";
-import { sendWelcomeMessage } from "./utilities/welcome-message.js";
-import { createCyphersystemMacro } from "./utilities/create-macros.js";
+import {preloadTemplates} from "./utilities/template-paths.js";
+import {applyXPFromIntrusion, regainPoolPoints} from "./utilities/actor-utilities.js";
+import {sendWelcomeMessage} from "./utilities/welcome-message.js";
+import {createCyphersystemMacro} from "./utilities/create-macros.js";
 
 // Import macros
 import {
@@ -62,12 +62,12 @@ import {
   chatCardWelcomeMessage,
   chatCardRegainPoints
 } from "./utilities/chat-cards.js";
-import { barBrawlOverwrite } from "./utilities/token-utilities.js";
-import { registerGameSettings } from "./utilities/game-settings.js";
-import { registerHandlebars } from "./utilities/handlebars.js";
-import { gameSockets } from "./utilities/game-sockets.js";
-import { initiativeSettings } from "./utilities/initiative-settings.js";
-import { rollEngineDiceRoller } from "./utilities/roll-engine/roll-engine-dice-roller.js";
+import {barBrawlOverwrite} from "./utilities/token-utilities.js";
+import {registerGameSettings} from "./utilities/game-settings.js";
+import {registerHandlebars} from "./utilities/handlebars.js";
+import {gameSockets} from "./utilities/game-sockets.js";
+import {initiativeSettings} from "./utilities/initiative-settings.js";
+import {rollEngineDiceRoller} from "./utilities/roll-engine/roll-engine-dice-roller.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -196,7 +196,7 @@ Hooks.on("canvasReady", function (canvas) {
     if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
       // do nothing
     } else {
-      if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+      if (t.actor.type !== "Token" && t.actor.type !== "Vehicle") {
         t.setFlag("cyphersystem", "toggleDragRuler", true);
       } else {
         t.setFlag("cyphersystem", "toggleDragRuler", false);
@@ -211,18 +211,17 @@ Hooks.once("ready", async function () {
 
   // Update existing characters
   for (let a of game.actors.contents) {
-    if (!a.data.data.settings.equipment.cyphersName) a.update({ "data.settings.equipment.cyphersName": "" });
-    if (!a.data.data.settings.equipment.artifactsName) a.update({ "data.settings.equipment.artifactsName": "" });
-    if (!a.data.data.settings.equipment.odditiesName) a.update({ "data.settings.equipment.odditiesName": "" });
-    if (!a.data.data.settings.equipment.materialName) a.update({ "data.settings.equipment.materialName": "" });
-    if (a.data.type === "PC" && !a.data.data.settings.equipment.cyphers) a.update({ "data.settings.equipment.cyphers": true });
-    if (a.data.type === "Token" && (a.data.data.settings.counting == "Down" || !a.data.data.settings.counting)) a.update({ "data.settings.counting": -1 });
-    if (a.data.type === "Token" && a.data.data.settings.counting == "Up") a.update({ "data.settings.counting": 1 });
-    if (a.data.type === "PC") {
-      if (a.data.data.settings.additionalRecoveries.active) {
-        a.update({
-          "data.settings.additionalRecoveries.numberOneActionRecoveries": parseInt(a.data.data.settings.additionalRecoveries.howManyRecoveries) + 1,
-          "data.settings.additionalRecoveries.active": false
+    if (!a.system.settings.equipment.cyphersName) a.updateSource({"system.settings.equipment.cyphersName": ""});
+    if (!a.system.settings.equipment.artifactsName) a.updateSource({"system.settings.equipment.artifactsName": ""});
+    if (!a.system.settings.equipment.odditiesName) a.updateSource({"system.settings.equipment.odditiesName": ""});
+    if (!a.system.settings.equipment.materialName) a.updateSource({"system.settings.equipment.materialName": ""});
+    if (a.type === "PC" && !a.system.settings.equipment.cyphers) a.updateSource({"system.settings.equipment.cyphers": true});
+    if (a.type === "Token" && (a.system.settings.counting == "Down" || !a.system.settings.counting)) a.updateSource({"system.settings.counting": -1});
+    if (a.type === "Token" && a.system.settings.counting == "Up") a.updateSource({"system.settings.counting": 1});
+    if (a.type === "PC") {
+      if (a.system.settings.additionalRecoveries.active) {
+        a.updateSource({
+          "system.settings.additionalRecoveries.numberOneActionRecoveries": parseInt(a.system.settings.additionalRecoveries.howManyRecoveries) + 1, "system.settings.additionalRecoveries.active": false
         })
       }
     }
@@ -232,14 +231,14 @@ Hooks.once("ready", async function () {
 });
 
 Hooks.on("preCreateItem", function (item) {
-  if (item.data.img == "icons/svg/item-bag.svg") {
-    item.data.update({ "img": `systems/cyphersystem/icons/items/${item.data.type.toLowerCase()}.svg` })
+  if (item.img == "icons/svg/item-bag.svg") {
+    item.updateSource({"img": `systems/cyphersystem/icons/items/${item.type.toLowerCase()}.svg`})
   }
 });
 
 Hooks.on("updateItem", function (item) {
-  let description = item.data.data.description.replace("<p></p>", "");
-  item.data.update({ "data.description": description });
+  let description = item.system.description.replace("<p></p>", "");
+  item.updateSource({"system.description": description});
 });
 
 Hooks.on("renderChatMessage", function (message, html, data) {
@@ -248,8 +247,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
     let actor = game.actors.get(html.find('.confirm').data('actor'));
     let item = actor.items.get(html.find('.confirm').data('item'));
-    item.update({ "data.identified": true });
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", { item: item.name, actor: actor.name }));
+    item.updateSource({"system.identified": true});
+    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
   });
 
   // Event Listener for rerolls of stat rolls
@@ -310,12 +309,12 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
-    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", { actor: actor.data.name }));
+    if (game.user.data.character != actor._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
 
     // Create list of PCs
     let list = "";
     for (let actor of game.actors.contents) {
-      if (actor.data.type === "PC" && actor.data._id != html.find('.accept-intrusion').data('actor')) list = list + `<option value=${actor.data._id}>${actor.data.name}</option>`;
+      if (actor.type === "PC" && actor._id != html.find('.accept-intrusion').data('actor')) list = list + `<option value=${actor._id}>${actor.name}</option>`;
     }
 
     // Create dialog content
@@ -347,7 +346,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for refusing intrusions
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
-    if (game.user.data.character != actor.data._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", { actor: actor.data.name }));
+    if (game.user.data.character != actor._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
     applyXPFromIntrusion(actor, "", data.message._id, -1)
   });
 });
@@ -356,10 +355,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
     get colors() {
       return [
-        { id: "immediate", default: 0x0000FF, name: "immediate" },
-        { id: "short", default: 0x008000, name: "short" },
-        { id: "long", default: 0xFFA500, name: "long" },
-        { id: "veryLong", default: 0xFF0000, name: "very long" }
+        {id: "immediate", default: 0x0000FF, name: "immediate"},
+        {id: "short", default: 0x008000, name: "short"},
+        {id: "long", default: 0xFFA500, name: "long"},
+        {id: "veryLong", default: 0xFF0000, name: "very long"}
       ]
     }
 
@@ -368,12 +367,12 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       let short = 0;
       let long = 0;
       let veryLong = 0;
-      if (token.scene.data.gridUnits == "m" || token.scene.data.gridUnits == "meter" || token.scene.data.gridUnits == "metre" || token.scene.data.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceMeter")) {
+      if (token.scene.gridUnits == "m" || token.scene.gridUnits == "meter" || token.scene.gridUnits == "metre" || token.scene.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceMeter")) {
         immediate = 3;
         short = 15;
         long = 30;
         veryLong = 150;
-      } else if (token.scene.data.gridUnits == "ft" || token.scene.data.gridUnits == "ft." || token.scene.data.gridUnits == "feet" || token.scene.data.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceFeet")) {
+      } else if (token.scene.gridUnits == "ft" || token.scene.gridUnits == "ft." || token.scene.gridUnits == "feet" || token.scene.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceFeet")) {
         immediate = 10;
         short = 50;
         long = 100;
@@ -381,10 +380,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       }
 
       const ranges = [
-        { range: immediate, color: "immediate" },
-        { range: short, color: "short" },
-        { range: long, color: "long" },
-        { range: veryLong, color: "veryLong" }
+        {range: immediate, color: "immediate"},
+        {range: short, color: "short"},
+        {range: long, color: "long"},
+        {range: veryLong, color: "veryLong"}
       ]
       return ranges
     }
@@ -394,7 +393,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.data.flags.cyphersystem.toggleDragRuler) {
+      if (token.flags.cyphersystem.toggleDragRuler) {
         return true
       } else {
         return false
@@ -409,43 +408,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", function (actor) {
-  if (actor.data.type == "NPC") {
-    actor.data.update({
-      "token.bar1": { "attribute": "health" },
-      "token.bar2": { "attribute": "level" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-    });
-  }
 
-  if (actor.data.type == "Companion") {
-    actor.data.update({
-      "token.bar1": { "attribute": "health" },
-      "token.bar2": { "attribute": "level" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-    });
-  }
-
-  if (actor.data.type == "PC" || actor.data.type == "Community") {
-    actor.data.update({
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-      "token.actorLink": true
-    });
-  }
-
-  if (actor.data.type == "Token") {
-    actor.data.update({
-      "token.bar1": { "attribute": "quantity" },
-      "token.bar2": { "attribute": "level" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-    });
-  }
 })
 
 Hooks.on("preCreateToken", function (document, data) {
@@ -453,10 +416,10 @@ Hooks.on("preCreateToken", function (document, data) {
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
-  if (actor.data.type !== "Token" && actor.data.type !== "Community") {
-    document.data.update({ "flags.cyphersystem.toggleDragRuler": true })
+  if (actor.type !== "Token" && actor.type !== "Community") {
+    document.data.update({"flags.cyphersystem.toggleDragRuler": true})
   } else {
-    document.data.update({ "flags.cyphersystem.toggleDragRuler": false })
+    document.data.update({"flags.cyphersystem.toggleDragRuler": false})
   }
 
   // Support for Bar Brawl
@@ -475,26 +438,26 @@ Hooks.on("updateCombat", function () {
   if (game.user.isGM) {
     let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
 
-    if (combatant.type == "Token" && combatant.data.data.settings.isCounter == true) {
-      let step = (!combatant.data.data.settings.counting) ? -1 : combatant.data.data.settings.counting;
-      let newQuantity = combatant.data.data.quantity.value + step;
-      combatant.update({ "data.quantity.value": newQuantity });
+    if (combatant.type == "Token" && combatant.system.settings.isCounter == true) {
+      let step = (!combatant.system.settings.counting) ? -1 : combatant.system.settings.counting;
+      let newQuantity = combatant.system.quantity.value + step;
+      combatant.updateSource({"system.quantity.value": newQuantity});
     }
   }
 });
 
 Hooks.on("createCombatant", function (combatant) {
   if (game.user.isGM) {
-    let actor = combatant.actor.data;
+    let actor = combatant.actor;
 
     if (actor.type == "NPC") {
-      combatant.update({ "initiative": (actor.data.level * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+      combatant.updateSource({"initiative": (actor.system.level * 3) + actor.system.settings.initiative.initiativeBonus - 0.5});
     } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
-      combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus - 0.5 });
+      combatant.updateSource({"initiative": (actor.system.rank * 3) + actor.system.settings.initiative.initiativeBonus - 0.5});
     } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
-      combatant.update({ "initiative": (actor.data.rank * 3) + actor.data.settings.initiative.initiativeBonus });
+      combatant.updateSource({"initiative": (actor.system.rank * 3) + actor.system.settings.initiative.initiativeBonus});
     } else if (actor.type == "Vehicle") {
-      combatant.update({ "initiative": (actor.data.level * 3) - 0.5 });
+      combatant.updateSource({"initiative": (actor.system.level * 3) - 0.5});
     }
   }
 });
