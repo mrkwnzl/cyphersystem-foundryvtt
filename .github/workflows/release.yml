@@ -41,7 +41,7 @@ jobs:
         with:
           allowUpdates: true
           artifacts: './system.json, ./release.zip'
-          body: "Changelog: https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/main/CHANGELOG.md#${{steps.substitute-tag.outputs.value}}---$(date +%d-%m-%Y)"
+          body: "Changelog: https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/${{github.ref_name}}/CHANGELOG.md#${{steps.substitute-tag.outputs.value}}---$(date +%d-%m-%Y)"
           omitDraftDuringUpdate: true
           omitNameDuringUpdate: true
           omitPrereleaseDuringUpdate: true
