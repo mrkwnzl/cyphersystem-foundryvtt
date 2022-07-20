@@ -11,15 +11,23 @@ jobs:
       - uses: actions/checkout@v3
 
       # Substitute the Manifest and Download URLs in the module.json
-      - uses: microsoft/variable-substitution@v1 
+      - name: Substitute Manifest and Download Links For Versioned Ones
+        id: sub_manifest_link_version
+        uses: microsoft/variable-substitution@v1 
         with:
           files: system.json
         env:
           version: ${{github.event.release.tag_name}}
-          manifest: https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/${{github.ref_name}}/system.json
+          manifest: https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/system.json
           download: https://github.com/mrkwnzl/cypherystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
       
       # Create zip file
       - run: zip -r ./release.zip *
-      
-      
+
+      # Update release with zip file
+      - name: Update Release with Files
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: './system.json, ./release.zip'
