@@ -19,7 +19,7 @@ jobs:
         env:
           version: ${{github.event.release.tag_name}}
           manifest: https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/system.json
-          download: https://github.com/mrkwnzl/cypherystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
+          download: https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/${{github.event.release.tag_name}}/release.zip
       
       # Create zip file
       - run: zip -r ./release.zip *
@@ -31,9 +31,7 @@ jobs:
         with:
           allowUpdates: true
           artifacts: './system.json, ./release.zip'
-          draft: false
-          prerelease: false
-          omitBodyDuringUpdate: true
+          body: "Changelog: https://github.com/mrkwnzl/cyphersystem-foundryvtt/blob/main/CHANGELOG.md#${{steps.substitute-tag.outputs.value}}---$(date +%d-%m-%Y)"
           omitDraftDuringUpdate: true
           omitNameDuringUpdate: true
           omitPrereleaseDuringUpdate: true
