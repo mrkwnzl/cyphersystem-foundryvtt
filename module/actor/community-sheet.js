@@ -29,14 +29,14 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
 
     // Increase Infrastructure
     html.find('.increase-infrastructure').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.infrastructure.value + amount;
       this.actor.update({"system.infrastructure.value": newValue});
     });
 
     // Decrease Infrastructure
     html.find('.decrease-infrastructure').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.infrastructure.value - amount;
       this.actor.update({"system.infrastructure.value": newValue});
     });

@@ -130,7 +130,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
 
   // Check for AiO dialog
   let skipDialog = true;
-  if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+  if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
     skipDialog = false;
   };
 
@@ -232,7 +232,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   // Check if recovery should be used
   if (!useRecovery) useRecovery = false;
 
-  if (event.altKey) {
+  if (game.keyboard.isModifierActive('Alt')) {
     useRecovery = (useRecovery) ? false : true;
   }
 
@@ -577,10 +577,10 @@ export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
   // Check for PC
   if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  if (!event.altKey) {
+  if (!game.keyboard.isModifierActive('Alt')) {
     await unarchiveItemsWithTag(actor, unarchiveTags);
     await archiveItemsWithTag(actor, archiveTags);
-  } else if (event.altKey) {
+  } else if (game.keyboard.isModifierActive('Alt')) {
     await unarchiveItemsWithTag(actor, archiveTags);
     await archiveItemsWithTag(actor, unarchiveTags);
   }
@@ -600,7 +600,7 @@ export async function recursionMacro(actor, item) {
 
 export async function tagMacro(actor, item) {
   if (item.data.active) {
-    if (!event.altKey) {
+    if (!game.keyboard.isModifierActive('Alt')) {
       await archiveItemsWithTag(actor, item.name)
       item.data.active = false;
       if (item.data.exclusive) {
@@ -610,7 +610,7 @@ export async function tagMacro(actor, item) {
       await unarchiveItemsWithTag(actor, item.name)
     }
   } else if (!item.data.active) {
-    if (!event.altKey) {
+    if (!game.keyboard.isModifierActive('Alt')) {
       await unarchiveItemsWithTag(actor, item.name)
       item.data.active = true;
       if (item.data.exclusive) {
@@ -729,7 +729,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     close: () => { }
   });
 
-  if (event.altKey) {
+  if (game.keyboard.isModifierActive('Alt')) {
     skipDialog = (skipDialog) ? false : true;
   }
 

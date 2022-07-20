@@ -348,7 +348,7 @@ export class CypherActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     html.find('.item-description').click(async clickEvent => {
-      if (!event.altKey) {
+      if (!game.keyboard.isModifierActive('Alt')) {
         const shownItem = $(clickEvent.currentTarget).parents(".item");
         const itemID = shownItem.data("itemId");
 
@@ -403,7 +403,7 @@ export class CypherActorSheet extends ActorSheet {
     // Delete Inventory Item
     html.find('.item-delete').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      if (event.altKey) {
+      if (game.keyboard.isModifierActive('Alt')) {
         item.delete();
       } else {
         let archived = (item.system.archived) ? false : true;
@@ -426,7 +426,7 @@ export class CypherActorSheet extends ActorSheet {
     // Add to Quantity
     html.find('.plus-one').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = item.system.quantity + amount;
       item.update({"system.quantity": newValue});
     });
@@ -434,7 +434,7 @@ export class CypherActorSheet extends ActorSheet {
     // Subtract from Quantity
     html.find('.minus-one').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = item.system.quantity - amount;
       item.update({"system.quantity": newValue});
     });
@@ -493,7 +493,7 @@ export class CypherActorSheet extends ActorSheet {
 
     // Send item description to chat
     html.find('.item-description').click(clickEvent => {
-      if (event.altKey) {
+      if (game.keyboard.isModifierActive('Alt')) {
         const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
         if (item.system.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
@@ -555,14 +555,14 @@ export class CypherActorSheet extends ActorSheet {
 
     // Increase Health
     html.find('.increase-health').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.health.value + amount;
       this.actor.update({"system.health.value": newValue});
     });
 
     // Decrease Health
     html.find('.decrease-health').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.health.value - amount;
       this.actor.update({"system.health.value": newValue});
     });
@@ -643,11 +643,11 @@ export class CypherActorSheet extends ActorSheet {
         if (["cypher", "artifact"].includes(originItem.type)) {
           let identifiedStatus;
           if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
-            identifiedStatus = (!event.altKey) ? originItemData.system.identified : !originItemData.system.identified;
+            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? originItemData.system.identified : !originItemData.system.identified;
           } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
-            identifiedStatus = (!event.altKey) ? true : false;
+            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? true : false;
           } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
-            identifiedStatus = (!event.altKey) ? false : true;
+            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? false : true;
           }
           originItemData.system.identified = identifiedStatus;
         };

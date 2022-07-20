@@ -29,14 +29,14 @@ export class CypherActorSheetToken extends CypherActorSheet {
 
     // Increase Quantity
     html.find('.increase-quantity').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.quantity.value + amount;
       this.actor.update({"system.quantity.value": newValue});
     });
 
     // Decrease Quantity
     html.find('.decrease-quantity').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.quantity.value - amount;
       this.actor.update({"system.quantity.value": newValue});
     });

@@ -11,7 +11,7 @@ export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, 
   // Set defaults for functions
   if (!teen) teen = (actor.system.settings.gameMode.currentSheet == "Teen") ? true : false;
   if (!skipDialog) skipDialog = false;
-  if (event.altKey) skipDialog = !skipDialog;
+  if (game.keyboard.isModifierActive('Alt')) skipDialog = !skipDialog;
   if (!skipRoll) skipRoll = false;
   if (!initiativeRoll) initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.isInitiative : false;
   if (!title) title = "";

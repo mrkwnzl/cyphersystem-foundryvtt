@@ -136,7 +136,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Add to Lasting Damage
     html.find('.plus-one-damage').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = item.system.lastingDamageAmount + amount;
       item.update({"system.lastingDamageAmount": newValue});
     });
@@ -144,7 +144,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Subtract from Lasting Damage
     html.find('.minus-one-damage').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = item.system.lastingDamageAmount - amount;
       item.update({"system.lastingDamageAmount": newValue});
     });
@@ -182,14 +182,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Might
     html.find('.increase-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.might.value + amount;
       this.actor.update({"system.pools.might.value": newValue});
     });
 
     // Decrease Might
     html.find('.decrease-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.might.value - amount;
       this.actor.update({"system.pools.might.value": newValue});
     });
@@ -207,14 +207,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Speed
     html.find('.increase-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.speed.value + amount;
       this.actor.update({"system.pools.speed.value": newValue});
     });
 
     // Decrease Speed
     html.find('.decrease-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.speed.value - amount;
       this.actor.update({"system.pools.speed.value": newValue});
     });
@@ -232,14 +232,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Intellect
     html.find('.increase-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.intellect.value + amount;
       this.actor.update({"system.pools.intellect.value": newValue});
     });
 
     // Decrease Intellect
     html.find('.decrease-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.intellect.value - amount;
       this.actor.update({"system.pools.intellect.value": newValue});
     });
@@ -257,14 +257,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Additional
     html.find('.increase-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.additional.value + amount;
       this.actor.update({"system.pools.additional.value": newValue});
     });
 
     // Decrease Additional
     html.find('.decrease-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.pools.additional.value - amount;
       this.actor.update({"system.pools.additional.value": newValue});
     });
@@ -279,14 +279,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Teen Might
     html.find('.increase-teen-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.might.value + amount;
       this.actor.update({"system.teen.pools.might.value": newValue});
     });
 
     // Decrease Teen Might
     html.find('.decrease-teen-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.might.value - amount;
       this.actor.update({"system.teen.pools.might.value": newValue});
     });
@@ -304,14 +304,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Speed
     html.find('.increase-teen-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.speed.value + amount;
       this.actor.update({"system.teen.pools.speed.value": newValue});
     });
 
     // Decrease Teen Speed
     html.find('.decrease-teen-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.speed.value - amount;
       this.actor.update({"system.teen.pools.speed.value": newValue});
     });
@@ -329,14 +329,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Intellect
     html.find('.increase-teen-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.intellect.value + amount;
       this.actor.update({"system.teen.pools.intellect.value": newValue});
     });
 
     // Decrease Teen Intellect
     html.find('.decrease-teen-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.intellect.value - amount;
       this.actor.update({"system.teen.pools.intellect.value": newValue});
     });
@@ -354,14 +354,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Increase Teen Additional
     html.find('.increase-teen-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.additional.value + amount;
       this.actor.update({"system.teen.pools.additional.value": newValue});
     });
 
     // Decrease Teen Additional
     html.find('.decrease-teen-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.teen.pools.additional.value - amount;
       this.actor.update({"system.teen.pools.additional.value": newValue});
     });
@@ -379,7 +379,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
         skipDialog = false;
       };
 
@@ -390,7 +390,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
         skipDialog = false;
       };
 
@@ -401,7 +401,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
       let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
+      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
         skipDialog = false;
       };
 
@@ -438,14 +438,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase XP
     html.find('.increase-xp').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.basic.xp + amount;
       this.actor.update({"system.basic.xp": newValue});
     });
 
     // Decrease XP
     html.find('.decrease-xp').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = this.actor.system.basic.xp - amount;
       this.actor.update({"system.basic.xp": newValue});
     });
