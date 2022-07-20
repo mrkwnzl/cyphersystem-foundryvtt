@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updated compatibility to Foundry VTT V10. Earlier versions are no longer supported.
 - Moving items between actors has been streamlined. It now simply always shows the dialog when moving items, so that players can choose the quantity or decide what to do with unique items on the origin actor.
 
+### Fixed
+- Replaced `event.altKey` with the more appropriate `game.keyboard.isModifierActive('Alt')`
+- Fixed download link in manifest file
+
 ## [1.33.2] - 2022-06-30
 ### Fixed
 - Fixed a bug preventing PC sheets to be opened when the Cypher System Custom Sheets module was not installed.
