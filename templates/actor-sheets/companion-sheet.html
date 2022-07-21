@@ -109,7 +109,7 @@
               </a>
             </div>
           </li>
-          {{> systems/cyphersystem/templates/tabs/skills.html}}
+          {{> systems/cyphersystem/templates/item-lists/skills-list-01.html}}
         </ol>
       </div>
 
@@ -123,7 +123,7 @@
               </a>
             </div>
           </li>
-          {{> systems/cyphersystem/templates/tabs/abilities.html}}
+          {{> systems/cyphersystem/templates/item-lists/abilities-list-01.html}}
         </ol>
       </div>
     </div>
@@ -131,34 +131,34 @@
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
 
-      {{> systems/cyphersystem/templates/tabs/equipment.html}}
+      {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
       {{#if actor.system.settings.equipment.attacks}}
-        {{> systems/cyphersystem/templates/tabs/attacks.html}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.ammo}}
-        {{> systems/cyphersystem/templates/tabs/ammo.html}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.armor}}
-        {{> systems/cyphersystem/templates/tabs/armorWithoutTotal.html}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.cyphers}}
-        {{> systems/cyphersystem/templates/tabs/cyphers.html}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.artifacts}}
-        {{> systems/cyphersystem/templates/tabs/artifacts.html}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.oddities}}
-        {{> systems/cyphersystem/templates/tabs/oddities.html}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
       {{/if}}
 
       {{#if actor.system.settings.equipment.materials}}
-        {{> systems/cyphersystem/templates/tabs/materials.html}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
       {{/if}}
 
     </div>
@@ -210,7 +210,7 @@
           </li>
         </ol>
       </div>
-      {{> systems/cyphersystem/templates/tabs/equipment-settings.html}}
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-equipment.html}}
     </div>
 
   </section>
