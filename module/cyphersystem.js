@@ -186,7 +186,7 @@ Hooks.once("init", async function () {
   // Pre-load HTML templates
   preloadTemplates();
 
-  // Load sockets
+  // Load game sockets
   gameSockets();
 });
 
@@ -242,6 +242,12 @@ Hooks.on("updateItem", function (item) {
 });
 
 Hooks.on("renderChatMessage", function (message, html, data) {
+  // Hide buttons
+  if (html.find('.chat-card-buttons').data('actor')) {
+    let actor = game.actors.get(html.find('.chat-card-buttons').data('actor'));
+    if (!actor.isOwner) html.find("div[class='chat-card-buttons']").addClass('hidden');
+  }
+
   // Event Listener to confirm cypher and artifact identification
   html.find('.confirm').click(clickEvent => {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
@@ -309,7 +315,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
-    if (game.user.data.character != actor._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
+    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
 
     // Create list of PCs
     let list = "";
@@ -346,7 +352,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for refusing intrusions
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
-    if (game.user.data.character != actor._id) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
+    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
     applyXPFromIntrusion(actor, "", data.message._id, -1)
   });
 });
@@ -408,7 +414,43 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", function (actor) {
+  if (actor.data.type == "NPC") {
+    actor.data.update({
+      "token.bar1": {"attribute": "health"},
+      "token.bar2": {"attribute": "level"},
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
+  }
 
+  if (actor.data.type == "Companion") {
+    actor.data.update({
+      "token.bar1": {"attribute": "health"},
+      "token.bar2": {"attribute": "level"},
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
+  }
+
+  if (["PC", "Community", "Vehicle"].includes(actor.data.type) == "PC") {
+    actor.data.update({
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "token.actorLink": true
+    });
+  }
+
+  if (actor.data.type == "Token") {
+    actor.data.update({
+      "token.bar1": {"attribute": "quantity"},
+      "token.bar2": {"attribute": "level"},
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+    });
+  }
 })
 
 Hooks.on("preCreateToken", function (document, data) {
@@ -430,7 +472,7 @@ Hooks.on("preCreateToken", function (document, data) {
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
   if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
-    const resource = html.find("a[data-tab='resources']").addClass('hidden-resource-barbrawl');
+    html.find("a[data-tab='resources']").addClass('hidden');
   }
 });
 

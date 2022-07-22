@@ -259,8 +259,13 @@ select.bar-attribute {
   border-top: 1px solid #999;
 }
 
-.hidden-resource-barbrawl {
+.hidden {
   display: none;
+}
+
+.chat-card-buttons {
+  text-align: right;
+  margin-top: 6px;
 }
 
 /* Styles limited to cyphersystem sheets */

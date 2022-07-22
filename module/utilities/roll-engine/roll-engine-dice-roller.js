@@ -64,11 +64,11 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
   // Add regain points button
   let regainPointsButton = "";
   if (totalCost > 0 && roll.result == 20 && (pool == "might" || pool == "speed" || pool == "intellect")) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${totalCost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a> / `
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${totalCost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a>`
   }
 
   // Put buttons together
-  let chatButtons = `<div style='text-align: right'>` + regainPointsButton + reRollButton + `</div>`;
+  let chatButtons = `<div class='chat-card-buttons' data-actor='${actorID}>` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
   let flavor = "<b>" + title + "</b>" + bars + resultInfo + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + chatButtons;

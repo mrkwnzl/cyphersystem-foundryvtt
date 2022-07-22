@@ -145,8 +145,13 @@ export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier
   actor.update({"system.basic.xp": actor.system.basic.xp + modifier});
 
   // Emit a socket event
-  game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
-  game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+  if (!game.user.isGM) {
+    game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
+    game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+  } else {
+    giveAdditionalXP({selectedActorId: selectedActorId, modifier: modifier});
+    deleteChatMessage({messageId: messageId})
+  }
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
 
