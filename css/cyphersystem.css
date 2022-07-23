@@ -487,6 +487,7 @@ select.bar-attribute {
 
 .cyphersystem .sheet-body .editor {
   height: 455px;
+  margin-top: 0px
 }
 
 .cyphersystem .resource-label {
@@ -672,6 +673,10 @@ select.bar-attribute {
 
 .cyphersystem .tox .tox-editor-container {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.cyphersystem .tox-tinymce {
+  border-radius: 0px;
 }
 
 .cyphersystem .centered-content {
