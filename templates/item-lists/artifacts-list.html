@@ -13,7 +13,7 @@
         {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
         {{localize 'CYPHERSYSTEM.depletion' ~}}
         {{localize 'CYPHERSYSTEM.Colon'}}
-        {{{item.system.depletion}}}
+        {{{enrichedHTMLItems ../this "depletion" item._id}}}
         {{~localize 'CYPHERSYSTEM.CloseParenthesis'}}
       {{/if}}
     </h4>
@@ -22,10 +22,10 @@
         {{#if item.system.rollForLevel}}
           <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
             <i class="fas fa-question"></i>
-            {{item.system.level}}
+            {{{enrichedHTMLItems ../this "level" item._id}}}
           </a>
         {{else}}
-          {{{item.system.level}}}
+          {{{enrichedHTMLItems ../this "level" item._id}}}
         {{/if}}
       {{else}}
         {{localize 'CYPHERSYSTEM.?'}}
@@ -51,7 +51,7 @@
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
         {{#if item.system.identified}}
-          {{{item.system.description}}}
+          {{{enrichedHTMLItems ../this "description" item._id}}}
         {{else}}
           <p>{{localize 'CYPHERSYSTEM.???'}}</p>
         {{/if}}

@@ -44,8 +44,6 @@ export class CypherItemSheet extends ItemSheet {
     // Enriched HTML
     data.enrichedHTML = {};
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true});
-    data.enrichedHTML.level = await TextEditor.enrichHTML(this.item.system.level, {async: true});
-    data.enrichedHTML.depletion = await TextEditor.enrichHTML(this.item.system.depletion, {async: true});
 
     data.actor = data.item.parent ? data.item.parent : "";
 

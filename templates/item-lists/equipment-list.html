@@ -29,7 +29,7 @@
     <li class="item-desc flexrow {{#if item.system.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-        {{{item.system.description}}}
+        {{{enrichedHTMLItems ../this "description" item._id}}}
       </div>
     </li>
   {{/if}}

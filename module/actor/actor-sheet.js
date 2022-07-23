@@ -41,11 +41,21 @@ export class CypherActorSheet extends ActorSheet {
     // Enriched HTML
     data.enrichedHTML = {};
 
-    // -- Notes and description
+    // --Notes and description
     let notes = (this.actor.type == "PC") ? this.actor.system.basic.notes : this.actor.system.biography;
     let description = (this.actor.type == "PC") ? this.actor.system.basic.description : this.actor.system.description;
     data.enrichedHTML.notes = await TextEditor.enrichHTML(notes, {async: true});
     data.enrichedHTML.description = await TextEditor.enrichHTML(description, {async: true});
+
+    data.enrichedHTML.itemDescription = {};
+    data.enrichedHTML.itemLevel = {};
+    data.enrichedHTML.itemDepletion = {};
+
+    for (let i of this.actor.items) {
+      data.enrichedHTML.itemDescription[i.id] = await TextEditor.enrichHTML(i.system.description, {async: true});
+      data.enrichedHTML.itemLevel[i.id] = await TextEditor.enrichHTML(i.system.level, {async: true});
+      data.enrichedHTML.itemDepletion[i.id] = await TextEditor.enrichHTML(i.system.depletion, {async: true});
+    }
 
     // Prepare items and return
     this.cyphersystem(data);

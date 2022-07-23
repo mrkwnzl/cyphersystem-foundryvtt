@@ -6,7 +6,7 @@
         {{~item.name}}
       </a>
     </h4>
-    <div class="item-quantity">{{#if (eq item.system.level "")}}—{{else}}{{item.system.level}}{{/if}}</div>
+    <div class="item-quantity">{{#if (eq item.system.level "")}}—{{else}}{{{enrichedHTMLItems ../this "level" item._id}}}{{/if}}</div>
     <div class="item-quantity">
       <a class="item-control minus-one {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
         <i class="far fa-minus-square"></i>
@@ -30,7 +30,7 @@
     <li class="item-desc flexrow {{#if item.system.archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-        {{{item.system.description}}}
+        {{{enrichedHTMLItems ../this "description" item._id}}}
       </div>
     </li>
   {{/if}}

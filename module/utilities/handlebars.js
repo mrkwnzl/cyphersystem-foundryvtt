@@ -26,4 +26,10 @@ export async function registerHandlebars() {
     }
     return sum;
   });
+
+  Handlebars.registerHelper("enrichedHTMLItems", function (sheetData, type, itemID) {
+    if (type == "description") return sheetData.enrichedHTML.itemDescription[itemID];
+    if (type == "level") return sheetData.enrichedHTML.itemLevel[itemID];
+    if (type == "depletion") return sheetData.enrichedHTML.itemDepletion[itemID];
+  })
 }
