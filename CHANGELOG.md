@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.34.0-rc1] - 2022-07-27
+### Changed
+- BREAKING: The paths to the description and notes of PC actors are now `actor.system.description` and `actor.system.notes`. For non-PC actors, `biography` has been replaced with `actor.system.notes` in order to bring this in line with the PC actors.
+
+### Fixed
+- Limited and observer permissions should work as expected again.
+
 ## [1.34.0-b1] - 2022-07-24
 ### Changed
 - Chat card buttons (accept/refuse GMI, regain pool points, re-roll dice) are now only visible for players who can actually use them, which now also always includes the GM.
 
-## Fixed
+### Fixed
 - Enriched item descriptions, levels, and depletion are now working on the actor sheets.
 
 ## [1.34.0-b2] - 2022-07-21
