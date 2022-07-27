@@ -68,6 +68,7 @@ import {registerHandlebars} from "./utilities/handlebars.js";
 import {gameSockets} from "./utilities/game-sockets.js";
 import {initiativeSettings} from "./utilities/initiative-settings.js";
 import {rollEngineDiceRoller} from "./utilities/roll-engine/roll-engine-dice-roller.js";
+import {actorDataMigration} from "./utilities/migration.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -209,23 +210,8 @@ Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
-  // Update existing characters
-  for (let a of game.actors.contents) {
-    if (!a.system.settings.equipment.cyphersName) a.updateSource({"system.settings.equipment.cyphersName": ""});
-    if (!a.system.settings.equipment.artifactsName) a.updateSource({"system.settings.equipment.artifactsName": ""});
-    if (!a.system.settings.equipment.odditiesName) a.updateSource({"system.settings.equipment.odditiesName": ""});
-    if (!a.system.settings.equipment.materialName) a.updateSource({"system.settings.equipment.materialName": ""});
-    if (a.type === "PC" && !a.system.settings.equipment.cyphers) a.updateSource({"system.settings.equipment.cyphers": true});
-    if (a.type === "Token" && (a.system.settings.counting == "Down" || !a.system.settings.counting)) a.updateSource({"system.settings.counting": -1});
-    if (a.type === "Token" && a.system.settings.counting == "Up") a.updateSource({"system.settings.counting": 1});
-    if (a.type === "PC") {
-      if (a.system.settings.additionalRecoveries.active) {
-        a.updateSource({
-          "system.settings.additionalRecoveries.numberOneActionRecoveries": parseInt(a.system.settings.additionalRecoveries.howManyRecoveries) + 1, "system.settings.additionalRecoveries.active": false
-        })
-      }
-    }
-  }
+  // Migrate actor data
+  actorDataMigration();
 
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 });
@@ -414,8 +400,8 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", function (actor) {
-  if (actor.data.type == "NPC") {
-    actor.data.update({
+  if (actor.type == "NPC") {
+    actor.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -424,8 +410,8 @@ Hooks.on("preCreateActor", function (actor) {
     });
   }
 
-  if (actor.data.type == "Companion") {
-    actor.data.update({
+  if (actor.type == "Companion") {
+    actor.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -434,16 +420,16 @@ Hooks.on("preCreateActor", function (actor) {
     });
   }
 
-  if (["PC", "Community", "Vehicle"].includes(actor.data.type) == "PC") {
-    actor.data.update({
+  if (["PC", "Community", "Vehicle"].includes(actor.type)) {
+    actor.update({
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.actorLink": true
     });
   }
 
-  if (actor.data.type == "Token") {
-    actor.data.update({
+  if (actor.type == "Token") {
+    actor.update({
       "token.bar1": {"attribute": "quantity"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
@@ -459,15 +445,15 @@ Hooks.on("preCreateToken", function (document, data) {
 
   // Support for Drag Ruler
   if (actor.type !== "Token" && actor.type !== "Community") {
-    document.data.update({"flags.cyphersystem.toggleDragRuler": true})
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": true})
   } else {
-    document.data.update({"flags.cyphersystem.toggleDragRuler": false})
-  }
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": false})
+  };
 
   // Support for Bar Brawl
   if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
     barBrawlOverwrite(document, actor);
-  }
+  };
 });
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {

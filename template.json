@@ -9,13 +9,15 @@
       "Token"
     ],
     "templates": {
-      "version": {
-        "version": 1
+      "common": {
+        "version": 1,
+        "description": "",
+        "notes": ""
       }
     },
     "PC": {
       "templates": [
-        "version"
+        "common"
       ],
       "basic": {
         "descriptor": "",
@@ -26,8 +28,6 @@
         "effort": 1,
         "cypherLimit": 2,
         "xp": 0,
-        "notes": "",
-        "description": "",
         "preparedSpells": 0
       },
       "pools": {
@@ -210,10 +210,9 @@
     },
     "NPC": {
       "templates": [
-        "version"
+        "common"
       ],
-      "biography": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
-      "description": "",
+      "notes": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
       "health": {
         "value": 3,
         "max": 3
@@ -242,10 +241,8 @@
     },
     "Token": {
       "templates": [
-        "version"
+        "common"
       ],
-      "biography": "",
-      "description": "",
       "quantity": {
         "value": 0,
         "max": 0
@@ -274,10 +271,9 @@
     },
     "Community": {
       "templates": [
-        "version"
+        "common"
       ],
-      "biography": "<p><strong>Government:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p>",
-      "description": "",
+      "notes": "<p><strong>Government:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p>",
       "health": {
         "value": 3,
         "max": 3
@@ -310,10 +306,9 @@
     },
     "Companion": {
       "templates": [
-        "version"
+        "common"
       ],
-      "biography": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
-      "description": "",
+      "notes": "<p><strong>Character Benefit:</strong>&nbsp;</p><p><strong>Background:</strong>&nbsp;</p><p><strong>Description:</strong>&nbsp;</p>",
       "health": {
         "value": 8,
         "max": 8
@@ -348,10 +343,8 @@
     },
     "Vehicle": {
       "templates": [
-        "version"
+        "common"
       ],
-      "biography": "",
-      "description": "",
       "level": 1,
       "crew": 1,
       "weaponSystems": 1,
