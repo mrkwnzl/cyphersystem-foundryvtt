@@ -26,7 +26,7 @@ export class CypherActorSheet extends ActorSheet {
 
   /** @override */
   async getData() {
-    const data = super.getData();
+    const data = await super.getData();
 
     // Item Data
     data.itemLists = {};
@@ -42,17 +42,17 @@ export class CypherActorSheet extends ActorSheet {
     data.enrichedHTML = {};
 
     // --Notes and description
-    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
-    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true});
+    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner});
+    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner});
 
     data.enrichedHTML.itemDescription = {};
     data.enrichedHTML.itemLevel = {};
     data.enrichedHTML.itemDepletion = {};
 
-    for (let i of this.actor.items) {
-      data.enrichedHTML.itemDescription[i.id] = await TextEditor.enrichHTML(i.system.description, {async: true});
-      data.enrichedHTML.itemLevel[i.id] = await TextEditor.enrichHTML(i.system.level, {async: true});
-      data.enrichedHTML.itemDepletion[i.id] = await TextEditor.enrichHTML(i.system.depletion, {async: true});
+    for (let item of this.actor.items) {
+      data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner});
+      data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.level, {async: true});
+      data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.depletion, {async: true});
     }
 
     // Prepare items and return
@@ -506,7 +506,7 @@ export class CypherActorSheet extends ActorSheet {
         if (item.system.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
         let brackets = "";
-        let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.system.description;
+        let description = `<hr style="margin:3px 0;"><img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + item.system.description;
         let points = "";
         let notes = "";
         let name = item.name;
@@ -612,137 +612,153 @@ export class CypherActorSheet extends ActorSheet {
     if (!targetActor.isOwner) return;
     if (originActorID == targetActorID) return;
 
-    // Handle character properties
-    if (typesCharacterProperties.includes(originItem.type)) {
-      if (originActor || targetItem || !["PC", "Companion"].includes(targetActor.type)) return;
-      targetActor.createEmbeddedDocuments("Item", [originItemData]);
-      enableItemLists();
-    };
-
-    // Handle unique items
-    if (typesUniqueItems.includes(originItem.type)) {
-      if (originActor) {
-        let d = new Dialog({
-          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
-          content: "",
-          buttons: {
-            move: {
-              icon: '<i class="fas fa-archive"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-              callback: (html) => archiveItem()
-            },
-            moveAll: {
-              icon: '<i class="fas fa-trash"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-              callback: (html) => deleteItem()
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => { }
-            }
-          },
-          default: "move",
-          close: () => { }
-        });
-        d.render(true);
-      } else {
-        // Handle cypher & artifact identification from world items
-        if (["cypher", "artifact"].includes(originItem.type)) {
-          let identifiedStatus;
-          if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
-            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? originItemData.system.identified : !originItemData.system.identified;
-          } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
-            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? true : false;
-          } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
-            identifiedStatus = (!game.keyboard.isModifierActive('Alt')) ? false : true;
-          }
-          originItemData.system.identified = identifiedStatus;
-        };
-
-        // Create item
+    // The GM copies any item
+    if (game.keyboard.isModifierActive('Alt') && game.user.isGM) {
+      if (typesCharacterProperties.includes(originItem.type) || typesUniqueItems.includes(originItem.type)) {
         targetActor.createEmbeddedDocuments("Item", [originItemData]);
-      }
-    };
-
-    // Handle items with quantity
-    if (typesQuantityItems.includes(originItem.type)) {
-      let maxQuantity = originItem.system.quantity;
-      if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
-      moveDialog();
-
-      function moveDialog() {
-        let d = new Dialog({
-          title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
-          content: createContent(),
-          buttons: createButtons(),
-          default: "move",
-          close: () => { }
-        });
-        d.render(true);
-      }
-
-      function createContent() {
-        let maxQuantityText = "";
-        if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
-        let content = `<div align="center"><label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='number' value="1" />` + maxQuantityText + `</div>`;
-        return content;
-      };
-
-      function createButtons() {
-        if (maxQuantity == null) {
-          return {
-            move: {
-              icon: '<i class="fas fa-share-square"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.find('#quantity').val(), originItem)
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => { }
-            }
-          }
-        } else {
-          return {
-            move: {
-              icon: '<i class="fas fa-share-square"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.find('#quantity').val(), originItem)
-            },
-            moveAll: {
-              icon: '<i class="fas fa-share-square"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
-              callback: (html) => moveItems(maxQuantity, originItem)
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => { }
-            }
-          }
-        }
-      }
-
-      function moveItems(quantity) {
-        quantity = parseInt(quantity);
-        if (originActor && (quantity > originItem.system.quantity || quantity <= 0)) {
-          moveDialog(quantity);
-          return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.quantity}));
-        }
-        if (originActor) {
-          let oldQuantity = parseInt(originItem.system.quantity) - quantity;
-          originItem.update({"system.quantity": oldQuantity});
-        }
+        enableItemLists();
+      } else if (typesQuantityItems.includes(originItem.type)) {
         if (!targetItem) {
-          originItemData.system.quantity = quantity;
           targetActor.createEmbeddedDocuments("Item", [originItemData]);
         } else {
-          let newQuantity = parseInt(targetItem.system.quantity) + quantity;
+          let newQuantity = parseInt(targetItem.system.quantity) + parseInt(originItem.system.quantity);
           targetItem.update({"system.quantity": newQuantity});
         }
       }
-    };
+    } else {
+      // Handle character properties
+      if (typesCharacterProperties.includes(originItem.type)) {
+        if (originActor || targetItem || !["PC", "Companion"].includes(targetActor.type)) return;
+        targetActor.createEmbeddedDocuments("Item", [originItemData]);
+        enableItemLists();
+      };
+
+      // Handle unique items
+      if (typesUniqueItems.includes(originItem.type)) {
+        if (originActor) {
+          let d = new Dialog({
+            title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
+            content: "",
+            buttons: {
+              move: {
+                icon: '<i class="fas fa-archive"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Archive"),
+                callback: (html) => archiveItem()
+              },
+              moveAll: {
+                icon: '<i class="fas fa-trash"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Delete"),
+                callback: (html) => deleteItem()
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            },
+            default: "move",
+            close: () => { }
+          });
+          d.render(true);
+        } else {
+          // Handle cypher & artifact identification from world items
+          if (["cypher", "artifact"].includes(originItem.type)) {
+            let identifiedStatus;
+            if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
+              identifiedStatus = originItemData.system.identified;
+            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
+              identifiedStatus = true;
+            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
+              identifiedStatus = false;
+            }
+            originItemData.system.identified = identifiedStatus;
+          };
+
+          // Create item
+          targetActor.createEmbeddedDocuments("Item", [originItemData]);
+          enableItemLists();
+        }
+      };
+
+      // Handle items with quantity
+      if (typesQuantityItems.includes(originItem.type)) {
+        let maxQuantity = originItem.system.quantity;
+        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
+        moveDialog();
+
+        function moveDialog() {
+          let d = new Dialog({
+            title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
+            content: createContent(),
+            buttons: createButtons(),
+            default: "move",
+            close: () => { }
+          });
+          d.render(true);
+        }
+
+        function createContent() {
+          let maxQuantityText = "";
+          if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
+          let content = `<div align="center"><label style="display: inline-block; width: 98px; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name="quantity" id="quantity" style="width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value="1" />` + maxQuantityText + `</div>`;
+          return content;
+        };
+
+        function createButtons() {
+          if (maxQuantity == null) {
+            return {
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), originItem)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            }
+          } else {
+            return {
+              move: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find('#quantity').val(), originItem)
+              },
+              moveAll: {
+                icon: '<i class="fas fa-share-square"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
+                callback: (html) => moveItems(maxQuantity, originItem)
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => { }
+              }
+            }
+          }
+        }
+
+        function moveItems(quantity) {
+          quantity = parseInt(quantity);
+          if (originActor && (quantity > originItem.system.quantity || quantity <= 0)) {
+            moveDialog(quantity);
+            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.quantity}));
+          }
+          if (originActor) {
+            let oldQuantity = parseInt(originItem.system.quantity) - quantity;
+            originItem.update({"system.quantity": oldQuantity});
+          }
+          if (!targetItem) {
+            originItemData.system.quantity = quantity;
+            targetActor.createEmbeddedDocuments("Item", [originItemData]);
+          } else {
+            let newQuantity = parseInt(targetItem.system.quantity) + quantity;
+            targetItem.update({"system.quantity": newQuantity});
+          }
+        }
+      };
+    }
 
     async function enableItemLists() {
       if (originItem.type == "artifact") targetActor.update({"system.settings.equipment.artifacts": true});

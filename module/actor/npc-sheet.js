@@ -22,8 +22,8 @@ export class CypherActorSheetNPC extends CypherActorSheet {
   /**
   * Additional data preparations
   */
-  getData() {
-    const data = super.getData();
+  async getData() {
+    const data = await super.getData();
 
     // Sheet settings
     data.sheetSettings = {};

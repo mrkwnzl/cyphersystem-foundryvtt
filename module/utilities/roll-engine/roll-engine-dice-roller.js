@@ -44,8 +44,8 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
 
   // Determine bars
   let bars = (info != "") ?
-    info + "<hr class='hr-chat'>" :
-    "<hr class='hr-chat'>";
+    info + '<hr class="hr-chat">' :
+    '<hr class="hr-chat">';
 
   // Determine result with bonus/penalty
   let bonusResult = parseInt(roll.result) + parseInt(bonus);
@@ -68,7 +68,7 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
   }
 
   // Put buttons together
-  let chatButtons = `<div class='chat-card-buttons' data-actor='${actorID}>` + regainPointsButton + reRollButton + `</div>`;
+  let chatButtons = `<div class="chat-card-buttons" data-actor="${actorID}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
   let flavor = "<b>" + title + "</b>" + bars + resultInfo + modifiedBy + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + initiativeInfo + "<br>" + effect + chatButtons;

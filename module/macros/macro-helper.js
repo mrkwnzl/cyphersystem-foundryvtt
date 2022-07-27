@@ -195,9 +195,9 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 export async function renameTag(actor, currentTag, newTag) {
   let updates = [];
   for (let item of actor.items) {
-    let name = (!item.data.name) ? "" : item.data.name;
+    let name = (!item.name) ? "" : item.name;
     let description = (!item.system.description) ? "" : item.system.description;
-    if ((item.data.type == "tag" || item.data.type == "recursion") && newTag != "") {
+    if ((item.type == "tag" || item.type == "recursion") && newTag != "") {
       if (name.includes(currentTag.replace(/[#@]/g, ''))) {
         name = name.replace(currentTag.replace(/[#@]/g, ''), newTag.replace(/[#@]/g, ''));
         updates.push({_id: item.id, "name": name});
@@ -206,7 +206,7 @@ export async function renameTag(actor, currentTag, newTag) {
     if (name.includes(currentTag) || description.includes(currentTag)) {
       name = name.replace(currentTag, newTag);
       description = description.replace(currentTag, newTag);
-      updates.push({_id: item.id, "name": name, "data.description": description});
+      updates.push({_id: item.id, "name": name, "system.description": description});
     }
   }
   await actor.updateEmbeddedDocuments("Item", updates);
@@ -220,23 +220,23 @@ export async function toggleTagArchiveStatus(actor, tags, archiveStatus) {
 
   let updates = [];
   for (let item of actor.items) {
-    let name = (!item.data.name) ? "" : item.data.name.toLowerCase();
+    let name = (!item.name) ? "" : item.name.toLowerCase();
     let description = (!item.system.description) ? "" : item.system.description.toLowerCase();
-    if (item.data.type == "Tag") return;
+    if (item.type == "Tag") return;
     if (Array.isArray(tags)) {
       for (let tag of tags) {
         if (tag == "") return;
         tag = "#" + htmlEscape(tag.toLowerCase().trim());
         let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
         if (regTag.test(name) || regTag.test(description)) {
-          updates.push({_id: item.id, "data.archived": archiveStatus});
+          updates.push({_id: item.id, "system.archived": archiveStatus});
         }
       }
     } else {
       let tag = "#" + htmlEscape(tags.toLowerCase().trim());
       let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
       if (regTag.test(name) || regTag.test(description)) {
-        updates.push({_id: item.id, "data.archived": archiveStatus});
+        updates.push({_id: item.id, "system.archived": archiveStatus});
       }
     }
   }

@@ -551,5 +551,7 @@
   "CYPHERSYSTEM.TaskCostsPoint": "Total cost: {amount} {pool} point.",
   "CYPHERSYSTEM.PCIsImpaired": "Impaired: Effort costs +1 per level.",
   "CYPHERSYSTEM.PCIsDebilitated": "Debilitated: Effort costs +1 per level.",
-  "CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel": "Armor: Speed Effort costs +{armorCost} per level."
+  "CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel": "Armor: Speed Effort costs +{armorCost} per level.",
+  "CYPHERSYSTEM.MigrationInProgress": "Applying Cypher System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
+  "CYPHERSYSTEM.MigrationDone": "Cypher System Migration to version {version} completed!"
 }

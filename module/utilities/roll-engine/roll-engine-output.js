@@ -14,17 +14,17 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   if (actor.items.get(itemID)) {
     let item = actor.items.get(itemID);
 
-    itemDescription = (item.system.description) ? "<img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + await TextEditor.enrichHTML(item.system.description, {async: true}) : "<img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>";
+    itemDescription = (item.system.description) ? `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + await TextEditor.enrichHTML(item.system.description, {async: true}) : `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>`;
 
-    let styleHidden = "<div style='display: none' class='chat-card-item-description'>";
+    let styleHidden = `<div style="display: none" class="chat-card-item-description">`;
 
-    let styleShow = "<div class='chat-card-item-description expanded'>";
+    let styleShow = `<div class="chat-card-item-description expanded">`;
 
     let style = (game.settings.get("cyphersystem", "alwaysShowDescriptionOnRoll")) ? styleShow : styleHidden;
 
-    itemDescriptionInfo = style + "<hr class='hr-chat'><div style='min-height: 51px'>" + itemDescription + "</div></div>";
+    itemDescriptionInfo = style + `<hr class="hr-chat"><div style="min-height: 51px">` + itemDescription + `</div></div>`;
 
-    title = "<a class='chat-description'>" + title + "</a>";
+    title = `<a class="chat-description">` + title + `</a>`;
   }
 
   // Skill information
@@ -77,7 +77,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   if (effortDamage == 1) {
     effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effortDamage} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
   } else if (effortDamage >= 2) {
-    attackModifierInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effortDamage} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
+    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effortDamage} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
   }
 
   let damageEffort = parseInt(damagePerLOE) * parseInt(effortDamage);
@@ -93,7 +93,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
 
   let damageInfoBlock = "";
   if (damageInfo != "") {
-    damageInfoBlock = `<hr class='hr-chat'>` + effortDamageInfo + damageInfo;
+    damageInfoBlock = `<hr class="hr-chat">` + effortDamageInfo + damageInfo;
   }
 
   // Cost information
@@ -153,7 +153,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
   let costTotalInfoString = (costCalculated != 0) ? costTotalInfo[pool]() : "";
   let costInfoBlock = "";
   if (poolCostInfoString != "" || costTotalInfoString != "") {
-    costInfoBlock = `<hr class='hr-chat'>` + poolCostInfoString + costTotalInfoString;
+    costInfoBlock = `<hr class="hr-chat">` + poolCostInfoString + costTotalInfoString;
   }
 
   // Putting it all together

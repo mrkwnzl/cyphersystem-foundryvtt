@@ -310,8 +310,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     }
 
     // Create dialog content
-    let content = `<div align="center"><label style='display: inline-block; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
-    <select name='selectPC' id='selectPC' style='width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>`+ list + `</select></div>`
+    let content = `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
+    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`
 
     // Create dialog
     let d = new Dialog({
@@ -399,9 +399,9 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 /**
 * Set default values for new actors' tokens
 */
-Hooks.on("preCreateActor", function (actor) {
+Hooks.on("preCreateActor", async function (actor) {
   if (actor.type == "NPC") {
-    actor.update({
+    actor.data.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -411,7 +411,7 @@ Hooks.on("preCreateActor", function (actor) {
   }
 
   if (actor.type == "Companion") {
-    actor.update({
+    actor.data.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -421,7 +421,7 @@ Hooks.on("preCreateActor", function (actor) {
   }
 
   if (["PC", "Community", "Vehicle"].includes(actor.type)) {
-    actor.update({
+    actor.data.update({
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.actorLink": true
@@ -429,7 +429,7 @@ Hooks.on("preCreateActor", function (actor) {
   }
 
   if (actor.type == "Token") {
-    actor.update({
+    actor.data.update({
       "token.bar1": {"attribute": "quantity"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
@@ -451,13 +451,13 @@ Hooks.on("preCreateToken", function (document, data) {
   };
 
   // Support for Bar Brawl
-  if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
+  if (game.modules.get("barbrawl")?.active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
     barBrawlOverwrite(document, actor);
   };
 });
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
-  if (game.modules.get("barbrawl").active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
+  if (game.modules.get("barbrawl")?.active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
     html.find("a[data-tab='resources']").addClass('hidden');
   }
 });

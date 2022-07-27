@@ -15,10 +15,10 @@
         {{#if item.system.rollForLevel}}
           <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
             <i class="fas fa-question"></i>
-            {{{enrichedHTMLItems ../this "level" item._id}}}
+            {{item.system.level}}
           </a>
         {{else}}
-          {{{enrichedHTMLItems ../this "level" item._id}}}
+        {{item.system.level}}
         {{/if}}
       {{else}}
         {{localize 'CYPHERSYSTEM.?'}}

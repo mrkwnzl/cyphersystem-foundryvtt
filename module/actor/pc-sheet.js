@@ -114,10 +114,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
       }
     }
 
-    this.actor.update({"system.armor.armorValueTotal": armorTotal});
-    this.actor.update({"system.armor.speedCostTotal": speedCostTotal});
-    this.actor.update({"system.teen.armor.armorValueTotal": teenArmorTotal});
-    this.actor.update({"system.teen.armor.speedCostTotal": teenSpeedCostTotal});
+    this.actor.update({
+      "system.armor.armorValueTotal": armorTotal,
+      "system.armor.speedCostTotal": speedCostTotal,
+      "system.teen.armor.armorValueTotal": teenArmorTotal,
+      "system.teen.armor.speedCostTotal": teenSpeedCostTotal
+    });
 
     return data;
   }
@@ -378,34 +380,19 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Might roll button
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", "", "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Speed roll button
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", "", "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Intellect roll button
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !game.keyboard.isModifierActive('Alt')) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && game.keyboard.isModifierActive('Alt'))) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain(this.actor, "", "", "", "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
     });
 
     // Recovery roll button

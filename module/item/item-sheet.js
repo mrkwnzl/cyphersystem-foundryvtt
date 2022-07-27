@@ -31,7 +31,7 @@ export class CypherItemSheet extends ItemSheet {
 
   /** @override */
   async getData() {
-    const data = super.getData();
+    const data = await super.getData();
 
     // Sheet settings
     data.sheetSettings = {};
@@ -43,7 +43,7 @@ export class CypherItemSheet extends ItemSheet {
 
     // Enriched HTML
     data.enrichedHTML = {};
-    data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true});
+    data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true, secrets: this.actor.isOwner});
 
     data.actor = data.item.parent ? data.item.parent : "";
 

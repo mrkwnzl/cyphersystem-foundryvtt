@@ -1,7 +1,7 @@
 {
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "[version]",
+  "version": "1.34.0",
   "esmodules": [
     "module/cyphersystem.js"
   ],

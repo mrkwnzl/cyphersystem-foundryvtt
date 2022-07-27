@@ -268,6 +268,10 @@ select.bar-attribute {
   margin-top: 6px;
 }
 
+.chat-card-item-description {
+  padding-bottom: 2px;
+}
+
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .window-content {
@@ -1081,7 +1085,7 @@ select.settings-input {
   text-align: center;
 }
 
-.cyphersystem .roll-engine-input-eased-hindered {
+.cyphersystem input.roll-engine-input-eased-hindered {
   width: 57px;
   margin-left: 0px;
   margin-bottom: 5px;

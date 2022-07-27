@@ -85,4 +85,12 @@ export async function registerGameSettings() {
     default: false,
     config: false
   });
+
+  game.settings.register("cyphersystem", "systemMigrationVersion", {
+    name: "System Migration Version",
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
 }
