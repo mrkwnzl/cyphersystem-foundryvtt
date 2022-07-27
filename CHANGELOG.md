@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.34.0-rc2] - 2022-07-27
+### Changed
+- When dragging & dropping items between actors, GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
+
+### Removed
+- Holding alt while dragging & droping cyphers or artifacts no longer flips the identified status. Use the system settings for a default or use the item settings for that.
+- The level field in cyphers and artifacts no longer support inline roll formulas.
+
+### Fixed
+- Actors in compendia are also mirated now.
+- Description of the item in roll outputs now work as intended.
+- Recursions and tags now work as expected, hopefully.
+- Cyphers and artifacts now correctly show the level after using the roll formula button.
+- The setting for default roll dialog now works as intended.
+- Using two or more levels of Effort for damage in the AiO dialog now works as intended.
+- Checks for Bar Brawl now work as intended.
+
 ## [1.34.0-rc1] - 2022-07-27
 ### Changed
 - BREAKING: The paths to the description and notes of PC actors are now `actor.system.description` and `actor.system.notes`. For non-PC actors, `biography` has been replaced with `actor.system.notes` in order to bring this in line with the PC actors.
