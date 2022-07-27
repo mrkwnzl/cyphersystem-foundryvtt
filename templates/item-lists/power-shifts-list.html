@@ -10,10 +10,10 @@
       {{item.system.powerShiftValue}}
     </div>
     <div class="item-controls">
-      <a class="item-control item-edit {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+      <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
         <i class="fas fa-file-alt"></i>
       </a>
-      <a class="item-control item-delete {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+      <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
         <i class="fas fa-{{#if item.system.archived}}undo{{else}}archive{{/if}}"></i>
       </a>
     </div>
