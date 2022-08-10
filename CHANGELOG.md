@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
+
+### Removed
+- The compendium with basic skills has been moved to the Cypher SRD Compendium.
+
 ## [1.34.0-rc2] - 2022-07-27
 ### Changed
 - When dragging & dropping items between actors, GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
