@@ -272,6 +272,10 @@ select.bar-attribute {
   padding-bottom: 2px;
 }
 
+.sheet nav.sheet-tabs .item {
+  padding: 0px 6px;
+}
+
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .window-content {
