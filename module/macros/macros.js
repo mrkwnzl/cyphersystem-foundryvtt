@@ -24,7 +24,6 @@ import {rollEngineDiceRoller} from "../utilities/roll-engine/roll-engine-dice-ro
 /* -------------------------------------------- */
 
 export function quickRollMacro(title) {
-  // diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0, "");
   rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", "", 0, 0, 0)
 }
 
