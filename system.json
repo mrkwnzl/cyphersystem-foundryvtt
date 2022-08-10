@@ -49,14 +49,6 @@
       "path": "packs/secret-settings.db",
       "type": "Macro",
       "private": false
-    },
-    {
-      "name": "basic-skills",
-      "label": "Basic Skills",
-      "system": "cyphersystem",
-      "path": "packs/basic-skills.db",
-      "type": "Item",
-      "private": false
     }
   ],
   "languages": [
