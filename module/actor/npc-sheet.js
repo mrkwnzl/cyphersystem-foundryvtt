@@ -15,7 +15,7 @@ export class CypherActorSheetNPC extends CypherActorSheet {
       height: false,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items"]
+      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items", ".editor-content"]
     });
   }
 

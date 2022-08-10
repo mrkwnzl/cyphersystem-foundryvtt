@@ -15,7 +15,7 @@ export class CypherActorSheetToken extends CypherActorSheet {
       height: false,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings"]
+      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings", ".editor-content"]
     });
   }
 

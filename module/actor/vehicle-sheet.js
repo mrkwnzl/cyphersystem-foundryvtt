@@ -15,7 +15,7 @@ export class CypherActorSheetVehicle extends CypherActorSheet {
       height: false,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings"]
+      scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings", ".editor-content"]
     });
   }
 }
