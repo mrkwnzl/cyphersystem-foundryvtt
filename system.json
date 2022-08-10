@@ -1,7 +1,7 @@
 {
   "title": "Cypher System",
   "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.34.0",
+  "version": "1.34.0-rc3",
   "esmodules": [
     "module/cyphersystem.js"
   ],
@@ -81,8 +81,8 @@
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
-  "manifest": "[manifest file]",
-  "download": "[download link]",
+  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v1.34.0-rc3/system.json",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.34.0-rc3/release.zip",
   "license": "LICENSE.md",
   "id": "cyphersystem",
   "authors": [
