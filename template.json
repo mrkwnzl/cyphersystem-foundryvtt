@@ -393,8 +393,6 @@
         "showDescription": false,
         "level": "",
         "archived": false,
-        "recursions": [],
-        "tags": [],
         "rollButton": {
           "pool": "Pool",
           "skill": "Practiced",
@@ -568,7 +566,7 @@
         "version"
       ],
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>",
-      "depletion": "1 in [[/r d6 # Depletion roll]]",
+      "depletion": "1 in [[/r d6]]",
       "identified": true
     },
     "oddity": {
