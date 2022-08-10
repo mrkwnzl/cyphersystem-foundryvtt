@@ -17,13 +17,15 @@ import {
 } from "../utilities/actor-utilities.js";
 import {barBrawlData} from "../utilities/token-utilities.js";
 import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
+import {rollEngineDiceRoller} from "../utilities/roll-engine/roll-engine-dice-roller.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
 /* -------------------------------------------- */
 
 export function quickRollMacro(title) {
-  diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0, "")
+  // diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", 0, 0, "");
+  rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", "", 0, 0, 0)
 }
 
 export function easedRollMacro() {
@@ -35,7 +37,7 @@ export function easedRollMacro() {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0, "")
+        callback: (html) => rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0, "")
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -58,7 +60,7 @@ export function hinderedRollMacro() {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => diceRoller(game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val() * -1, 0, "")
+        callback: (html) => rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val() * -1, 0, "")
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -113,7 +115,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
   // Check for actor that owns the item
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
+  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", { name: owner.name }));
 
   // Determine the item based on item ID
   const item = actor.items.get(itemID);
@@ -367,38 +369,38 @@ export function quickStatChange(token, stat, modifier) {
   switch (stat) {
     case "xp":
       if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
-      statData = calculateStatData(token.actor.system.basic.xp);
-      token.actor.update({"system.basic.xp": statData});
+      statData = calculateStatData(token.actor.data.data.basic.xp);
+      token.actor.update({ "data.basic.xp": statData });
       break;
     case "might":
       if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
-      statData = calculateStatData(token.actor.system.pools.might.value);
-      token.actor.update({"system.pools.might.value": statData});
+      statData = calculateStatData(token.actor.data.data.pools.might.value);
+      token.actor.update({"data.pools.might.value": statData});
       break;
     case "speed":
       if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
-      statData = calculateStatData(token.actor.system.pools.speed.value);
-      token.actor.update({"system.pools.speed.value": statData});
+      statData = calculateStatData(token.actor.data.data.pools.speed.value);
+      token.actor.update({"data.pools.speed.value": statData});
       break;
     case "intellect":
       if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
-      statData = calculateStatData(token.actor.system.pools.intellect.value);
-      token.actor.update({"system.pools.intellect.value": statData});
+      statData = calculateStatData(token.actor.data.data.pools.intellect.value);
+      token.actor.update({"data.pools.intellect.value": statData});
       break;
     case "health":
       if (!checkToken(["NPC", "Community", "Companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
-      statData = calculateStatData(token.actor.system.health.value);
-      token.actor.update({"system.health.value": statData});
+      statData = calculateStatData(token.actor.data.data.health.value);
+      token.actor.update({"data.health.value": statData});
       break;
     case "infrastructure":
       if (!checkToken(["Community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
-      statData = calculateStatData(token.actor.system.infrastructure.value);
-      token.actor.update({"system.infrastructure.value": statData});
+      statData = calculateStatData(token.actor.data.data.infrastructure.value);
+      token.actor.update({"data.infrastructure.value": statData});
       break;
     case "quantity":
       if (!checkToken(["Token"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
-      statData = calculateStatData(token.actor.system.quantity.value);
-      token.actor.update({"system.quantity.value": statData});
+      statData = calculateStatData(token.actor.data.data.quantity.value);
+      token.actor.update({ "data.quantity.value": statData });
       break;
     default:
       return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat}));
@@ -406,8 +408,8 @@ export function quickStatChange(token, stat, modifier) {
 
   // Check whether a correct token is selected
   function checkToken(actorTypes, statString) {
-    if (!token || !actorTypes.includes(token.actor.type)) {
-      ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString}));
+    if (!token || !actorTypes.includes(token.actor.data.type)) {
+      ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", { stat: statString }));
       return false;
     } else {
       return true;
@@ -483,13 +485,13 @@ export function toggleAlwaysShowDescriptionOnRoll() {
 }
 
 export function toggleAttacksOnSheet(token) {
-  let toggle = token.actor.system.settings.equipment.attacks ? false : true;
-  token.actor.update({"system.settings.equipment.attacks": toggle})
+  let toggle = token.actor.data.data.settings.equipment.attacks ? false : true;
+  token.actor.update({ "data.settings.equipment.attacks": toggle })
 }
 
 export function toggleArmorOnSheet(token) {
-  let toggle = token.actor.system.settings.equipment.armor ? false : true;
-  token.actor.update({"system.settings.equipment.armor": toggle})
+  let toggle = token.actor.data.data.settings.equipment.armor ? false : true;
+  token.actor.update({ "data.settings.equipment.armor": toggle })
 }
 
 export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
@@ -527,9 +529,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       let name = (!item.name) ? "" : item.name.toLowerCase().replace(regExceptions, "");
       let description = (!item.system.description) ? "" : item.system.description.toLowerCase().replace(regExceptions, "");
       if (regRecursion.test(name) || regRecursion.test(description)) {
-        updates.push({_id: item.id, "system.archived": false});
+        updates.push({ _id: item.id, "data.archived": false });
       } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
-        updates.push({_id: item.id, "system.archived": true});
+        updates.push({ _id: item.id, "data.archived": true });
       }
     }
 
@@ -653,7 +655,7 @@ export async function tagMacro(actor, item) {
       if (item.type == "tag" && item.system.exclusive && item.system.active) {
         if (item._id == itemID) return;
         await archiveItemsWithTag(actor, item.name.split(','));
-        await item.update({"system.active": false});
+        await item.update({ "data.active": false });
       }
     }
   }
@@ -943,7 +945,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     let difficultyResult = finalDifficulty + " (" + (finalDifficulty * 3) + ")";
 
-    resultInfo = '<hr class="hr-chat">' + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", {difficulty: difficultyResult});
+    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", { difficulty: difficultyResult });
 
     chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
 
@@ -1041,8 +1043,8 @@ export function disasterModeMacro(token, mode, genre) {
 
   async function changeGMIRange(token, level, genre) {
     genre = (!genre || genre == "modern") ? "" : genre + "-";
-    await token.actor.update({"system.level": level});
-    await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});
+    await token.actor.update({ "data.level": level });
+    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp" });
   }
 }
 
