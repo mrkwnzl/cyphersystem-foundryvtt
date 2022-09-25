@@ -30,20 +30,20 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
     // Increase Infrastructure
     html.find('.increase-infrastructure').click(clickEvent => {
       let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-      let newValue = this.actor.system.infrastructure.value + amount;
-      this.actor.update({"system.infrastructure.value": newValue});
+      let newValue = this.actor.system.pools.infrastructure.value + amount;
+      this.actor.update({"system.pools.infrastructure.value": newValue});
     });
 
     // Decrease Infrastructure
     html.find('.decrease-infrastructure').click(clickEvent => {
       let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-      let newValue = this.actor.system.infrastructure.value - amount;
-      this.actor.update({"system.infrastructure.value": newValue});
+      let newValue = this.actor.system.pools.infrastructure.value - amount;
+      this.actor.update({"system.pools.infrastructure.value": newValue});
     });
 
     // Reset Infrastructure
     html.find('.reset-infrastructure').click(clickEvent => {
-      this.actor.update({"system.infrastructure.value": this.actor.system.infrastructure.max})
+      this.actor.update({"system.pools.infrastructure.value": this.actor.system.pools.infrastructure.max})
     });
   }
 }

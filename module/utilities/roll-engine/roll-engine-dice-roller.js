@@ -25,7 +25,7 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
     18: "<span style='color:blue'><b>" + game.i18n.localize("CYPHERSYSTEM.TwoDamage") + "</b></span>",
     19: "<span style='color:green'><b>" + game.i18n.localize("CYPHERSYSTEM.MinorEffectRoll") + "</b></span>",
     20: "<span style='color:green'><b>" + game.i18n.localize("CYPHERSYSTEM.MajorEffectRoll") + "</b></span>"
-  };
+  }
   let effect = (possibleEffects[roll.result] || "");
 
   // Determine steps eased/hindered
@@ -85,7 +85,7 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
     await addCharacterToCombatTracker(actor);
     await setInitiativeForCharacter(actor, initiativeResult);
   }
-};
+}
 
 function determineDifficultyResult(difficulty, modifier) {
   if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
@@ -97,4 +97,4 @@ function determineDifficultyResult(difficulty, modifier) {
     if (effectiveDifficulty < 0) effectiveDifficulty = 0;
     return effectiveDifficulty + " [" + difficulty + operator + Math.abs(modifier) + "]";
   }
-};
+}

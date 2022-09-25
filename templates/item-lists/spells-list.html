@@ -33,9 +33,9 @@
           {{localize 'CYPHERSYSTEM.AnyPoolPoints' ~}},
         {{/if ~}}
       {{/if ~}}
-      {{#if (eq system.tier "low")}}{{localize 'CYPHERSYSTEM.LowTier'}}{{/if~}}
-        {{#if (eq system.tier "mid")}}{{localize 'CYPHERSYSTEM.MidTier'}}{{/if~}}
-          {{#if (eq system.tier "high")}}{{localize 'CYPHERSYSTEM.HighTier'}}{{/if~}}
+      {{#if (eq system.settings.general.spellTier "low")}}{{localize 'CYPHERSYSTEM.LowTier'}}{{/if~}}
+        {{#if (eq system.settings.general.spellTier "mid")}}{{localize 'CYPHERSYSTEM.MidTier'}}{{/if~}}
+          {{#if (eq system.settings.general.spellTier "high")}}{{localize 'CYPHERSYSTEM.HighTier'}}{{/if~}}
             {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
     </h4>
     <div class="item-controls{{#if ../sheetSettings.rollButtons}}-spells{{/if}}">

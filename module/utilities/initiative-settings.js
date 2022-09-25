@@ -3,23 +3,23 @@ export async function initiativeSettings() {
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
     decimals: 0
-  };
+  }
 
   Combatant.prototype._getInitiativeFormula = function () {
     let combatant = this.actor;
-    if (combatant.data.type == "PC") {
+    if (combatant.data.type == "pc") {
       return "1d20";
-    } else if (combatant.data.type == "NPC" || combatant.data.type == "Companion") {
-      return String(combatant.system.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
-    } else if (combatant.data.type == "Community" && combatant.hasPlayerOwner) {
-      return String(combatant.system.rank * 3) + " + @settings.initiative.initiativeBonus";
-    } else if (combatant.data.type == "Community" && !combatant.hasPlayerOwner) {
-      return String(combatant.system.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+    } else if (combatant.data.type == "npc" || combatant.data.type == "companion") {
+      return String(combatant.system.basic.level * 3) + " + @settings.initiative.initiativeBonus - 0.5";
+    } else if (combatant.data.type == "community" && combatant.hasPlayerOwner) {
+      return String(combatant.system.basic.rank * 3) + " + @settings.initiative.initiativeBonus";
+    } else if (combatant.data.type == "community" && !combatant.hasPlayerOwner) {
+      return String(combatant.system.basic.rank * 3) + " + @settings.initiative.initiativeBonus - 0.5";
     } else {
-      if (combatant.system.level >= 1) {
-        return String(combatant.system.level * 3) + "- 0.5";
+      if (combatant.system.basic.level >= 1) {
+        return String(combatant.system.basic.level * 3) + "- 0.5";
       } else {
-        return String(combatant.system.level * 3)
+        return String(combatant.system.basic.level * 3)
       }
     }
   }

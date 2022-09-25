@@ -5,7 +5,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
     "Speed": game.i18n.localize("CYPHERSYSTEM.SpeedRoll"),
     "Intellect": game.i18n.localize("CYPHERSYSTEM.IntellectRoll"),
     "Pool": game.i18n.localize("CYPHERSYSTEM.StatRoll")
-  };
+  }
   title = (title == "") ? (poolRoll[pool] || poolRoll["Pool"]) : title;
 
   // Item information
@@ -33,7 +33,7 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
     "0": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`,
     "1": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`,
     "2": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`
-  };
+  }
   let skillInfo = (skillRating[skillLevel] || skillRating[0]);
 
   // Asset information

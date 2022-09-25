@@ -2,14 +2,14 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (or (eq actor.system.settings.abilities.nameAbilities "") (eq actor.system.settings.gameMode.currentSheet "Teen"))}}
+        {{#if (or (eq actor.system.settings.abilities.nameCategory1 "") (eq actor.system.basic.unmaskedForm "Teen"))}}
           {{localize 'CYPHERSYSTEM.Abilities'}}
         {{else}}
-          {{actor.system.settings.abilities.nameAbilities}}
+          {{actor.system.settings.abilities.nameCategory1}}
         {{/if}}
       </div>
       <div class="item-controls">
-        {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+        {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="teen Ability">
             <i class="fas fa-plus"></i>
           </a>
@@ -20,7 +20,7 @@
         {{/if}}
       </div>
     </li>
-    {{#if (eq actor.system.settings.gameMode.currentSheet "Teen")}}
+    {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
       {{> systems/cyphersystem/templates/item-lists/abilities-list-teen.html}}
     {{else}}
       {{> systems/cyphersystem/templates/item-lists/abilities-list-01.html}}
@@ -28,16 +28,16 @@
   </ol>
 </div>
 
-{{#unless (eq actor.system.settings.gameMode.currentSheet "Teen")}}
-  {{#if actor.system.showAbilitiesTwo}}
+{{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
+  {{#if sheetSettings.showAbilitiesTwo}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
           <div class="item-name">
-            {{#if (eq actor.system.settings.abilities.nameCategoryTwo "")}}
+            {{#if (eq actor.system.settings.abilities.nameCategory2 "")}}
               {{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}
             {{else}}
-              {{actor.system.settings.abilities.nameCategoryTwo}}
+              {{actor.system.settings.abilities.nameCategory2}}
             {{/if}}
           </div>
         </li>
@@ -46,15 +46,15 @@
     </div>
   {{/if}}
 
-  {{#if actor.system.showAbilitiesThree}}
+  {{#if sheetSettings.showAbilitiesThree}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
           <div class="item-name">
-            {{#if (eq actor.system.settings.abilities.nameCategoryThree "")}}
+            {{#if (eq actor.system.settings.abilities.nameCategory3 "")}}
               {{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}
             {{else}}
-              {{actor.system.settings.abilities.nameCategoryThree}}
+              {{actor.system.settings.abilities.nameCategory3}}
             {{/if}}
           </div>
         </li>
@@ -63,15 +63,15 @@
     </div>
   {{/if}}
 
-  {{#if actor.system.showAbilitiesFour}}
+  {{#if sheetSettings.showAbilitiesFour}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
           <div class="item-name">
-            {{#if (eq actor.system.settings.abilities.nameCategoryFour "")}}
+            {{#if (eq actor.system.settings.abilities.nameCategory4 "")}}
               {{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}
             {{else}}
-              {{actor.system.settings.abilities.nameCategoryFour}}
+              {{actor.system.settings.abilities.nameCategory4}}
             {{/if}}
           </div>
         </li>

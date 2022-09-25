@@ -31,7 +31,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   */
   async getData() {
     const data = await super.getData();
-    const actorData = data.actor.system;
+    const actorData = data.actor;
 
     // Sheet settings
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
@@ -56,12 +56,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
     function backgroundData() {
       data.sheetSettings.cyphersheetsModuleActive = false;
       data.sheetSettings.backgroundImageBaseSetting = "background-image";
-      if (actorData.settings.gameMode.currentSheet == "Teen") {
-        data.sheetSettings.backgroundImage = actorData.teen.settings.backgroundImage;
-        data.sheetSettings.backgroundIcon = actorData.teen.settings.backgroundIcon;
+      if (actorData.system.basic.unmaskedForm == "Teen") {
+        data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
       } else {
-        data.sheetSettings.backgroundImage = actorData.settings.backgroundImage;
-        data.sheetSettings.backgroundIcon = actorData.settings.backgroundIcon;
+        data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
       }
     }
 
@@ -115,10 +115,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
     }
 
     this.actor.update({
-      "system.armor.armorValueTotal": armorTotal,
-      "system.armor.speedCostTotal": speedCostTotal,
-      "system.teen.armor.armorValueTotal": teenArmorTotal,
-      "system.teen.armor.speedCostTotal": teenSpeedCostTotal
+      "system.combat.armor.ratingTotal": armorTotal,
+      "system.combat.armor.costTotal": speedCostTotal,
+      "system.teen.combat.armor.armorValueTotal": teenArmorTotal,
+      "system.teen.combat.armor.speedCostTotal": teenSpeedCostTotal
     });
 
     return data;
@@ -160,23 +160,23 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Apply damage track to rolls
     html.find('.apply-impaired').click(clickEvent => {
-      let newValue = (this.actor.system.damage.applyImpaired) ? false : true;
-      this.actor.update({"system.damage.applyImpaired": newValue});
+      let newValue = (this.actor.system.combat.damageTrack.applyImpaired) ? false : true;
+      this.actor.update({"system.combat.damageTrack.applyImpaired": newValue});
     });
 
     html.find('.apply-debilitated').click(clickEvent => {
-      let newValue = (this.actor.system.damage.applyDebilitated) ? false : true;
-      this.actor.update({"system.damage.applyDebilitated": newValue});
+      let newValue = (this.actor.system.combat.damageTrack.applyDebilitated) ? false : true;
+      this.actor.update({"system.combat.damageTrack.applyDebilitated": newValue});
     });
 
     html.find('.apply-impaired-teen').click(clickEvent => {
-      let newValue = (this.actor.system.teen.damage.applyImpaired) ? false : true;
-      this.actor.update({"system.teen.damage.applyImpaired": newValue});
+      let newValue = (this.actor.system.teen.combat.damage.applyImpaired) ? false : true;
+      this.actor.update({"system.teen.combat.damage.applyImpaired": newValue});
     });
 
     html.find('.apply-debilitated-teen').click(clickEvent => {
-      let newValue = (this.actor.system.teen.damage.applyDebilitated) ? false : true;
-      this.actor.update({"system.teen.damage.applyDebilitated": newValue});
+      let newValue = (this.actor.system.teen.combat.damage.applyDebilitated) ? false : true;
+      this.actor.update({"system.teen.combat.damage.applyDebilitated": newValue});
     });
 
     /**
@@ -440,28 +440,28 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Reset Advancements
     html.find('.reset-advancement').click(clickEvent => {
       this.actor.update({
-        "system.advancement.advStats": false,
-        "system.advancement.advEffort": false,
-        "system.advancement.advEdge": false,
-        "system.advancement.advSkill": false,
-        "system.advancement.advOther": false
+        "system.basic.advancement.stats": false,
+        "system.basic.advancement.effort": false,
+        "system.basic.advancement.edge": false,
+        "system.basic.advancement.skill": false,
+        "system.basic.advancement.other": false
       })
     });
 
     // Reset Recovery Rolls
     html.find('.reset-recovery-rolls').click(clickEvent => {
       this.actor.update({
-        "system.recoveries.oneAction": false,
-        "system.recoveries.oneActionTwo": false,
-        "system.recoveries.oneActionThree": false,
-        "system.recoveries.oneActionFour": false,
-        "system.recoveries.oneActionFive": false,
-        "system.recoveries.oneActionSix": false,
-        "system.recoveries.oneActionSeven": false,
-        "system.recoveries.tenMinutes": false,
-        "system.recoveries.tenMinutesTwo": false,
-        "system.recoveries.oneHour": false,
-        "system.recoveries.tenHours": false
+        "system.combat.recoveries.oneAction": false,
+        "system.combat.recoveries.oneAction2": false,
+        "system.combat.recoveries.oneAction3": false,
+        "system.combat.recoveries.oneAction4": false,
+        "system.combat.recoveries.oneAction5": false,
+        "system.combat.recoveries.oneAction6": false,
+        "system.combat.recoveries.oneAction7": false,
+        "system.combat.recoveries.tenMinutes": false,
+        "system.combat.recoveries.tenMinutes2": false,
+        "system.combat.recoveries.oneHour": false,
+        "system.combat.recoveries.tenHours": false
       })
     });
   }

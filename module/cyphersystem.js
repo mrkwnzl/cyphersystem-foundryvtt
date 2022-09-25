@@ -9,7 +9,7 @@ import {CypherActorSheetPC} from "./actor/pc-sheet.js";
 import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
 import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
 import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
-import {CypherActorSheetToken} from "./actor/token-sheet.js";
+import {CypherActorSheetMarker} from "./actor/marker-sheet.js";
 import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
 
 // Import utility functions
@@ -89,7 +89,7 @@ Hooks.once("init", async function () {
     CypherActorSheetCommunity,
     CypherActorSheetCompanion,
     CypherActorSheetVehicle,
-    CypherActorSheetToken,
+    CypherActorSheetMarker,
 
     // Macros
     quickRollMacro,
@@ -131,7 +131,7 @@ Hooks.once("init", async function () {
     chatCardIntrusionRefused,
     chatCardWelcomeMessage,
     chatCardRegainPoints
-  };
+  }
 
   // Define custom Entity classes
   CONFIG.Actor.documentClass = CypherActor;
@@ -140,32 +140,32 @@ Hooks.once("init", async function () {
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cypher", CypherActorSheetPC, {
-    types: ['PC'],
+    types: ['pc'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassPC"
   });
   Actors.registerSheet("cypher", CypherActorSheetNPC, {
-    types: ['NPC'],
+    types: ['npc'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassNPC"
   });
-  Actors.registerSheet("cypher", CypherActorSheetToken, {
-    types: ['Token'],
+  Actors.registerSheet("cypher", CypherActorSheetMarker, {
+    types: ['marker'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassToken"
   });
   Actors.registerSheet("cypher", CypherActorSheetCommunity, {
-    types: ['Community'],
+    types: ['community'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassCommunity"
   });
   Actors.registerSheet("cypher", CypherActorSheetCompanion, {
-    types: ['Companion'],
+    types: ['companion'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassCompanion"
   });
   Actors.registerSheet("cypher", CypherActorSheetVehicle, {
-    types: ['Vehicle'],
+    types: ['vehicle'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassVehicle"
   });
@@ -197,7 +197,7 @@ Hooks.on("canvasReady", function (canvas) {
     if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
       // do nothing
     } else {
-      if (t.actor.type !== "Token" && t.actor.type !== "Vehicle") {
+      if (t.actor.type !== "marker" && t.actor.type !== "vehicle") {
         t.setFlag("cyphersystem", "toggleDragRuler", true);
       } else {
         t.setFlag("cyphersystem", "toggleDragRuler", false);
@@ -211,8 +211,12 @@ Hooks.once("ready", async function () {
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
   // Migrate actor data
-  actorDataMigration();
+  await actorDataMigration();
 
+  // Overwrite document types after migration - remove in future version, when item migration is done
+  game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag"];
+
+  // Send welcome message
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 });
 
@@ -223,8 +227,8 @@ Hooks.on("preCreateItem", function (item) {
 });
 
 Hooks.on("updateItem", function (item) {
-  let description = item.system.description.replace("<p></p>", "");
-  item.updateSource({"system.description": description});
+  // let description = item.system.description.replace("<p></p>", "");
+  // item.updateSource({"system.description": description});
 });
 
 Hooks.on("renderChatMessage", function (message, html, data) {
@@ -306,7 +310,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     // Create list of PCs
     let list = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "PC" && actor._id != html.find('.accept-intrusion').data('actor')) list = list + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc" && actor._id != html.find('.accept-intrusion').data('actor')) list = list + `<option value=${actor._id}>${actor.name}</option>`;
     }
 
     // Create dialog content
@@ -326,11 +330,11 @@ Hooks.on("renderChatMessage", function (message, html, data) {
         cancel: {
           icon: '<i class="fas fa-times"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-          callback: () => { }
+          callback: () => {}
         }
       },
       default: "apply",
-      close: () => { }
+      close: () => {}
     });
     d.render(true);
   });
@@ -400,7 +404,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", async function (actor) {
-  if (actor.type == "NPC") {
+  if (actor.type == "npc") {
     actor.data.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
@@ -410,7 +414,7 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   }
 
-  if (actor.type == "Companion") {
+  if (actor.type == "companion") {
     actor.data.update({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
@@ -420,7 +424,7 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   }
 
-  if (["PC", "Community", "Vehicle"].includes(actor.type)) {
+  if (["pc", "community", "vehicle"].includes(actor.type)) {
     actor.data.update({
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
@@ -428,7 +432,7 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   }
 
-  if (actor.type == "Token") {
+  if (actor.type == "marker") {
     actor.data.update({
       "token.bar1": {"attribute": "quantity"},
       "token.bar2": {"attribute": "level"},
@@ -444,16 +448,16 @@ Hooks.on("preCreateToken", function (document, data) {
   let actor = game.actors.get(data.actorId);
 
   // Support for Drag Ruler
-  if (actor.type !== "Token" && actor.type !== "Community") {
+  if (actor.type !== "marker" && actor.type !== "community") {
     document.updateSource({"flags.cyphersystem.toggleDragRuler": true})
   } else {
     document.updateSource({"flags.cyphersystem.toggleDragRuler": false})
-  };
+  }
 
   // Support for Bar Brawl
   if (game.modules.get("barbrawl")?.active && game.settings.get("cyphersystem", "barBrawlDefaults")) {
     barBrawlOverwrite(document, actor);
-  };
+  }
 });
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
@@ -466,10 +470,10 @@ Hooks.on("updateCombat", function () {
   if (game.user.isGM) {
     let combatant = (game.combat.combatant) ? game.combat.combatant.actor : "";
 
-    if (combatant.type == "Token" && combatant.system.settings.isCounter == true) {
-      let step = (!combatant.system.settings.counting) ? -1 : combatant.system.settings.counting;
-      let newQuantity = combatant.system.quantity.value + step;
-      combatant.updateSource({"system.quantity.value": newQuantity});
+    if (combatant.type == "marker" && combatant.system.settings.general.isCounter == true) {
+      let step = (!combatant.system.settings.general.counting) ? -1 : combatant.system.settings.general.counting;
+      let newQuantity = combatant.system.pools.quantity.value + step;
+      combatant.updateSource({"system.pools.quantity.value": newQuantity});
     }
   }
 });
@@ -478,14 +482,14 @@ Hooks.on("createCombatant", function (combatant) {
   if (game.user.isGM) {
     let actor = combatant.actor;
 
-    if (actor.type == "NPC") {
-      combatant.updateSource({"initiative": (actor.system.level * 3) + actor.system.settings.initiative.initiativeBonus - 0.5});
-    } else if (actor.type == "Community" && !combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.rank * 3) + actor.system.settings.initiative.initiativeBonus - 0.5});
-    } else if (actor.type == "Community" && combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.rank * 3) + actor.system.settings.initiative.initiativeBonus});
-    } else if (actor.type == "Vehicle") {
-      combatant.updateSource({"initiative": (actor.system.level * 3) - 0.5});
+    if (actor.type == "npc") {
+      combatant.updateSource({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+    } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
+      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+    } else if (actor.type == "community" && combatant.hasPlayerOwner) {
+      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
+    } else if (actor.type == "vehicle") {
+      combatant.updateSource({"initiative": (actor.system.basic.level * 3) - 0.5});
     }
   }
 });

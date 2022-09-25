@@ -15,10 +15,10 @@
         {{#if item.system.rollForLevel}}
           <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
             <i class="fas fa-question"></i>
-            {{item.system.level}}
+            {{item.system.basic.level}}
           </a>
         {{else}}
-        {{item.system.level}}
+          {{item.system.basic.level}}
         {{/if}}
       {{else}}
         {{localize 'CYPHERSYSTEM.?'}}

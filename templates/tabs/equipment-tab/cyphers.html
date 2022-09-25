@@ -2,13 +2,13 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq actor.system.settings.equipment.cyphersName "")}}
+        {{#if (eq actor.system.settings.equipment.cyphers.name "")}}
           {{localize 'CYPHERSYSTEM.Cyphers'}}
         {{else}}
-          {{actor.system.settings.equipment.cyphersName}}
+          {{actor.system.settings.equipment.cyphers.name}}
         {{/if}}
       </div>
-      {{#if (eq actor.type "PC")}}
+      {{#if (eq actor.type "pc")}}
         <div class="item-cypher-limit">
           <label for="system.basic.cypherLimit" class="resource-label {{#if (or actor.system.isLimited system.isObserver)}}disabled{{/if}}">
             {{localize 'CYPHERSYSTEM.CypherLimit'}}:&nbsp;

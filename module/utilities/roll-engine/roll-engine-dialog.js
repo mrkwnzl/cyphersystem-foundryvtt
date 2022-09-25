@@ -22,11 +22,11 @@ export async function rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "roll",
-    close: () => { }
+    close: () => {}
   });
 
   rollEngineDialog.render(true);
@@ -36,13 +36,13 @@ function rollEngineDialogString(actor, itemID, teen, pool, skillLevel, assets, e
   // Define stats
   let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
   let mightMax = (teen) ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
-  let mightEdge = (teen) ? actor.system.teen.pools.mightEdge : actor.system.pools.mightEdge;
+  let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
   let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
   let speedMax = (teen) ? actor.system.teen.pools.speed.max : actor.system.pools.speed.max;
-  let speedEdge = (teen) ? actor.system.teen.pools.speedEdge : actor.system.pools.speedEdge;
+  let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
   let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
   let intellectMax = (teen) ? actor.system.teen.pools.intellect.max : actor.system.pools.intellect.max;
-  let intellectEdge = (teen) ? actor.system.teen.pools.intellectEdge : actor.system.pools.intellectEdge;
+  let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
   // Fallback for strings in skill
   if (skillLevel == 2) skillLevel = "Specialized";

@@ -1,54 +1,60 @@
 {
+  "id": "cyphersystem",
   "title": "Cypher System",
-  "description": "A very modular implementation of the Cypher System for Foundry VTT.",
-  "version": "1.34.0-rc3",
+  "description": "A flexible implementation of the Cypher System for Foundry VTT.",
+  "version": "2.0.0b1",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10",
+    "maximum": "10"
+  },
+  "authors": [
+    {
+      "name": "Marko Wenzel",
+      "discord": "mrkwnzl#7407"
+    }
+  ],
   "esmodules": [
     "module/cyphersystem.js"
   ],
   "styles": [
     "css/cyphersystem.css"
   ],
-  "socket": true,
   "packs": [
     {
       "name": "macros",
       "label": "Roll Macros",
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
-      "type": "Macro",
-      "private": false
+      "type": "Macro"
     },
     {
       "name": "marker",
       "label": "Markers",
       "system": "cyphersystem",
       "path": "packs/markers.db",
-      "type": "Actor",
-      "private": false
+      "type": "Actor"
     },
     {
       "name": "scenes",
       "label": "Scenes",
       "system": "cyphersystem",
       "path": "packs/scenes.db",
-      "type": "Scene",
-      "private": false
+      "type": "Scene"
     },
     {
       "name": "utility-macros",
       "label": "Utility Macros",
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
-      "type": "Macro",
-      "private": false
+      "type": "Macro"
     },
     {
       "name": "secret-settings",
       "label": "Secret Settings",
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
-      "type": "Macro",
-      "private": false
+      "type": "Macro"
     }
   ],
   "languages": [
@@ -78,20 +84,10 @@
       "path": "lang/pt_BR.json"
     }
   ],
+  "socket": true,
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v1.34.0-rc3/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.34.0-rc3/release.zip",
-  "license": "LICENSE.md",
-  "id": "cyphersystem",
-  "authors": [
-    {
-      "name": "Marko Wenzel"
-    }
-  ],
-  "compatibility": {
-    "minimum": "10",
-    "verified": "10"
-  }
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v1.34.0-rc3/release.zip"
 }

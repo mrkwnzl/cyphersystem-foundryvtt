@@ -41,11 +41,11 @@ export function easedRollMacro() {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "roll",
-    close: () => { }
+    close: () => {}
   });
   d.render(true);
 }
@@ -64,11 +64,11 @@ export function hinderedRollMacro() {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "roll",
-    close: () => { }
+    close: () => {}
   });
   d.render(true);
 }
@@ -114,7 +114,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
   // Check for actor that owns the item
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", { name: owner.name }));
+  if (!actor || actor.data.type != "pc") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
 
   // Determine the item based on item ID
   const item = actor.items.get(itemID);
@@ -194,7 +194,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
     }
   }
   if (!damagePerLOE) damagePerLOE = item.system.rollButton.damagePerLOE;
-  if (!teen) teen = (actor.system.settings.gameMode.currentSheet == "Teen") ? true : false;
+  if (!teen) teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   if (!bonus) bonus = item.system.rollButton.bonus;
 
   // Create item type
@@ -221,10 +221,10 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   // Check for dice
   if (!dice) {
     // Check for PC actor
-    if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+    if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
     // Define dice
-    dice = actor.system.recoveries.recoveryRoll;
+    dice = actor.system.combat.recoveries.roll;
   }
 
   // Check if recovery should be used
@@ -254,7 +254,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
 
 export function spendEffortMacro(actor) {
   // Check for PC actor
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Create dialog
   let d = new Dialog({
@@ -269,11 +269,11 @@ export function spendEffortMacro(actor) {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "roll",
-    close: () => { }
+    close: () => {}
   });
   d.render(true);
 
@@ -281,12 +281,12 @@ export function spendEffortMacro(actor) {
   function applyToPool(pool, level) {
     // -- Determine impaired & debilitated status
     let impairedStatus = false;
-    if (actor.system.settings.gameMode.currentSheet == "Teen") {
-      if (actor.system.teen.damage.damageTrack == "Impaired" && actor.system.teen.damage.applyImpaired) impairedStatus = true;
-      if (actor.system.teen.damage.damageTrack == "Debilitated" && actor.system.teen.damage.applyDebilitated) impairedStatus = true;
-    } else if (actor.system.settings.gameMode.currentSheet == "Mask") {
-      if (actor.system.damage.damageTrack == "Impaired" && actor.system.damage.applyImpaired) impairedStatus = true;
-      if (actor.system.damage.damageTrack == "Debilitated" && actor.system.damage.applyDebilitated) impairedStatus = true;
+    if (actor.system.basic.unmaskedForm == "Teen") {
+      if (actor.system.teen.combat.damage.damageTrack == "Impaired" && actor.system.teen.combat.damage.applyImpaired) impairedStatus = true;
+      if (actor.system.teen.combat.damage.damageTrack == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) impairedStatus = true;
+    } else if (actor.system.basic.unmaskedForm == "Mask") {
+      if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) impairedStatus = true;
+      if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) impairedStatus = true;
     }
 
     // Set penalty when impaired
@@ -294,7 +294,7 @@ export function spendEffortMacro(actor) {
 
     // Determine point cost including penalty due to armor
     let cost = (pool == "Speed") ?
-      (level * 2) + 1 + (level * actor.system.armor.speedCostTotal) + parseInt(penalty) :
+      (level * 2) + 1 + (level * actor.system.combat.armor.costTotal) + parseInt(penalty) :
       (level * 2) + 1 + parseInt(penalty);
 
     // Pay pool points
@@ -320,7 +320,7 @@ export function toggleDragRuler(token) {
 export function resetDragRulerDefaults() {
   if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
   for (let token of canvas.tokens.objects.children) {
-    if (token.actor.type !== "Token" && token.actor.type !== "Vehicle") {
+    if (token.actor.type !== "marker" && token.actor.type !== "vehicle") {
       token.document.setFlag("cyphersystem", "toggleDragRuler", true);
     } else {
       token.document.setFlag("cyphersystem", "toggleDragRuler", false);
@@ -367,39 +367,39 @@ export function quickStatChange(token, stat, modifier) {
   // Get stat data
   switch (stat) {
     case "xp":
-      if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
+      if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
       statData = calculateStatData(token.actor.data.data.basic.xp);
-      token.actor.update({ "data.basic.xp": statData });
+      token.actor.update({"data.basic.xp": statData});
       break;
     case "might":
-      if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
+      if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
       statData = calculateStatData(token.actor.data.data.pools.might.value);
       token.actor.update({"data.pools.might.value": statData});
       break;
     case "speed":
-      if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
+      if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
       statData = calculateStatData(token.actor.data.data.pools.speed.value);
       token.actor.update({"data.pools.speed.value": statData});
       break;
     case "intellect":
-      if (!checkToken(["PC"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
+      if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
       statData = calculateStatData(token.actor.data.data.pools.intellect.value);
       token.actor.update({"data.pools.intellect.value": statData});
       break;
     case "health":
-      if (!checkToken(["NPC", "Community", "Companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
+      if (!checkToken(["npc", "community", "companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
       statData = calculateStatData(token.actor.data.data.health.value);
       token.actor.update({"data.health.value": statData});
       break;
     case "infrastructure":
-      if (!checkToken(["Community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
+      if (!checkToken(["community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
       statData = calculateStatData(token.actor.data.data.infrastructure.value);
       token.actor.update({"data.infrastructure.value": statData});
       break;
     case "quantity":
-      if (!checkToken(["Token"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
+      if (!checkToken(["marker"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
       statData = calculateStatData(token.actor.data.data.quantity.value);
-      token.actor.update({ "data.quantity.value": statData });
+      token.actor.update({"data.quantity.value": statData});
       break;
     default:
       return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat}));
@@ -408,7 +408,7 @@ export function quickStatChange(token, stat, modifier) {
   // Check whether a correct token is selected
   function checkToken(actorTypes, statString) {
     if (!token || !actorTypes.includes(token.actor.data.type)) {
-      ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", { stat: statString }));
+      ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString}));
       return false;
     } else {
       return true;
@@ -432,7 +432,7 @@ export function proposeIntrusion(actor) {
     // Create list of PCs
     let selectOptions = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "PC") selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc") selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}</option>`;
     }
 
     if (selectOptions == "") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoPCsNoIntrusion"));
@@ -450,15 +450,15 @@ export function proposeIntrusion(actor) {
         cancel: {
           icon: '<i class="fas fa-times"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-          callback: () => { }
+          callback: () => {}
         }
       },
       default: "apply",
-      close: () => { }
+      close: () => {}
     });
     d.render(true);
   } else {
-    if (actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+    if (actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
     askForIntrusion(actor._id);
   }
 
@@ -485,17 +485,17 @@ export function toggleAlwaysShowDescriptionOnRoll() {
 
 export function toggleAttacksOnSheet(token) {
   let toggle = token.actor.data.data.settings.equipment.attacks ? false : true;
-  token.actor.update({ "data.settings.equipment.attacks": toggle })
+  token.actor.update({"data.settings.equipment.attacks": toggle})
 }
 
 export function toggleArmorOnSheet(token) {
   let toggle = token.actor.data.data.settings.equipment.armor ? false : true;
-  token.actor.update({ "data.settings.equipment.armor": toggle })
+  token.actor.update({"data.settings.equipment.armor": toggle})
 }
 
 export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
   // Check for PC
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Define recursion name & workarble recursion variable
   let recursionName = recursion;
@@ -505,7 +505,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   await actor.update({
     "system.basic.focus": focus,
     "system.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName,
-    "system.settings.additionalSentence.active": true
+    "system.settings.general.additionalSentence.active": true
   });
 
   if (!mightModifier) mightModifier = 0;
@@ -528,9 +528,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       let name = (!item.name) ? "" : item.name.toLowerCase().replace(regExceptions, "");
       let description = (!item.system.description) ? "" : item.system.description.toLowerCase().replace(regExceptions, "");
       if (regRecursion.test(name) || regRecursion.test(description)) {
-        updates.push({ _id: item.id, "data.archived": false });
+        updates.push({_id: item.id, "data.archived": false});
       } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
-        updates.push({ _id: item.id, "data.archived": true });
+        updates.push({_id: item.id, "data.archived": true});
       }
     }
 
@@ -557,9 +557,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
       "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
       "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.mightEdge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speedEdge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellectEdge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
+      "system.pools.might.edge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
+      "system.pools.speed.edge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "system.pools.intellect.edge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
       "flags.cyphersystem.recursion": recursion,
       "flags.cyphersystem.recursionMightModifier": mightModifier,
       "flags.cyphersystem.recursionSpeedModifier": speedModifier,
@@ -573,7 +573,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 
 export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
   // Check for PC
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   if (!game.keyboard.isModifierActive('Alt')) {
     await unarchiveItemsWithTag(actor, unarchiveTags);
@@ -637,9 +637,9 @@ export async function tagMacro(actor, item) {
       "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
       "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
       "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.mightEdge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speedEdge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellectEdge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
+      "system.pools.might.edge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
+      "system.pools.speed.edge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "system.pools.intellect.edge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
       "flags.cyphersystem.tagMightModifier": mightModifier,
       "flags.cyphersystem.tagSpeedModifier": speedModifier,
       "flags.cyphersystem.tagIntellectModifier": intellectModifier,
@@ -654,7 +654,7 @@ export async function tagMacro(actor, item) {
       if (item.type == "tag" && item.system.exclusive && item.system.active) {
         if (item._id == itemID) return;
         await archiveItemsWithTag(actor, item.name.split(','));
-        await item.update({ "data.active": false });
+        await item.update({"data.active": false});
       }
     }
   }
@@ -664,7 +664,7 @@ export async function tagMacro(actor, item) {
 
 export function renameTagMacro(actor, currentTag, newTag) {
   // Check for PC actor
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Create dialog
   let d = new Dialog({
@@ -679,11 +679,11 @@ export function renameTagMacro(actor, currentTag, newTag) {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "roll",
-    close: () => { }
+    close: () => {}
   });
   d.render(true);
 
@@ -720,11 +720,11 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => { }
+        callback: () => {}
       }
     },
     default: "calculate",
-    close: () => { }
+    close: () => {}
   });
 
   if (game.keyboard.isModifierActive('Alt')) {
@@ -944,7 +944,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     let difficultyResult = finalDifficulty + " (" + (finalDifficulty * 3) + ")";
 
-    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", { difficulty: difficultyResult });
+    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", {difficulty: difficultyResult});
 
     chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
 
@@ -1019,17 +1019,17 @@ export function disasterModeMacro(token, mode, genre) {
     modeSelect(token, mode, genre)
   } else if (token.name != "GMI Range") {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingSelected"));
-  };
+  }
 
   function modeSelect(token, mode, genre) {
     let newLevel;
     switch (mode) {
       case "increase":
-        newLevel = token.actor.system.level + 1
+        newLevel = token.actor.system.basic.level + 1
         if (newLevel <= 20) changeGMIRange(token, newLevel, genre);
         break;
       case "decrease":
-        newLevel = token.actor.system.level - 1
+        newLevel = token.actor.system.basic.level - 1
         if (newLevel >= 1) changeGMIRange(token, newLevel, genre);
         break;
       case "reset":
@@ -1042,14 +1042,14 @@ export function disasterModeMacro(token, mode, genre) {
 
   async function changeGMIRange(token, level, genre) {
     genre = (!genre || genre == "modern") ? "" : genre + "-";
-    await token.actor.update({ "data.level": level });
-    await token.document.update({ "img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp" });
+    await token.actor.update({"data.level": level});
+    await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});
   }
 }
 
 export async function lockStaticStatsMacro(actor) {
   // Check for PC actor
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   actor.setFlag("cyphersystem", "disabledStaticStats", !actor.getFlag("cyphersystem", "disabledStaticStats"));
 }

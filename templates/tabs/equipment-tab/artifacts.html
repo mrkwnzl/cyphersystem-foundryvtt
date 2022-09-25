@@ -2,10 +2,10 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq actor.system.settings.equipment.artifactsName "")}}
+        {{#if (eq actor.system.settings.equipment.artifacts.name "")}}
           {{localize 'CYPHERSYSTEM.Artifacts'}}
         {{else}}
-          {actor.system.settings.equipment.artifactsName}}
+          {{actor.system.settings.equipment.artifacts.name}}
         {{/if}}
       </div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>

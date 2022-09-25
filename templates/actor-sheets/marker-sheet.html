@@ -10,7 +10,7 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="system.level" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.level}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="system.basic.level" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.level}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
@@ -21,7 +21,7 @@
               </div>
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                  <label for="system.quantity.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <label for="system.pools.quantity.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
                     {{localize 'CYPHERSYSTEM.Quantity'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
@@ -39,9 +39,9 @@
                   {{/unless}}
                 </div>
                 <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
-                  <input class="stat-input" name="system.quantity.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.quantity.value}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.quantity.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.quantity.value}}{{/if}}" />
                   &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-                  <input class="stat-input" name="system.quantity.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.quantity.max}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.quantity.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.quantity.max}}{{/if}}" />
                 </div>
               </div>
             </div>
@@ -54,18 +54,18 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{#unless sheetSettings.isLimited}}
-      {{#unless actor.system.settings.hideNotes}}
+      {{#unless actor.system.settings.general.hideNotes}}
         <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
       {{/unless}}
     {{/unless}}
-    {{#unless actor.system.settings.hideDescription}}
+    {{#unless actor.system.settings.general.hideDescription}}
       <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{/unless}}
     {{#unless sheetSettings.isLimited}}
-      {{#unless actor.system.settings.hideEquipment}}
+      {{#unless actor.system.settings.general.hideEquipment}}
         <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Items'}}</a>
       {{/unless}}
-      {{#if (and actor.system.settings.hideNotes actor.system.settings.hideDescription actor.system.settings.hideEquipment)}}
+      {{#if (and actor.system.settings.general.hideNotes actor.system.settings.general.hideDescription actor.system.settings.general.hideEquipment)}}
         <i class="item">&nbsp;</i>
       {{/if}}
       <a class="item" data-tab="settings" style="flex: 0 0 45px;">
@@ -92,31 +92,31 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
-      {{#if actor.system.settings.equipment.attacks}}
+      {{#if actor.system.settings.equipment.attacks.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.ammo}}
+      {{#if actor.system.settings.equipment.ammo.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.armor}}
+      {{#if actor.system.settings.equipment.armor.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.cyphers}}
+      {{#if actor.system.settings.equipment.cyphers.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.artifacts}}
+      {{#if actor.system.settings.equipment.artifacts.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.oddities}}
+      {{#if actor.system.settings.equipment.oddities.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.materials}}
+      {{#if actor.system.settings.equipment.materials.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
       {{/if}}
 
@@ -133,35 +133,35 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.isCounter" {{checked
-                actor.system.settings.isCounter}}>
+              <input type="checkbox" name="system.settings.general.isCounter" {{checked
+                actor.system.settings.general.isCounter}}>
               &nbsp;{{localize 'CYPHERSYSTEM.CountQuantityOnInitiative'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="system.settings.counting" type="number" value="{{actor.system.settings.counting}}" placeholder="-1" style="width: auto;" />
+              <input class="auto-margin" name="system.settings.general.counting" type="number" value="{{actor.system.settings.general.counting}}" placeholder="-1" style="width: auto;" />
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideArchived" {{checked actor.system.settings.hideArchived}}>
+              <input type="checkbox" name="system.settings.general.hideArchive" {{checked actor.system.settings.general.hideArchive}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideNotes" {{checked actor.system.settings.hideNotes}}>
+              <input type="checkbox" name="system.settings.general.hideNotes" {{checked actor.system.settings.general.hideNotes}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideNotes'}}
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideDescription" {{checked actor.system.settings.hideDescription}}>
+              <input type="checkbox" name="system.settings.general.hideDescription" {{checked actor.system.settings.general.hideDescription}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideDescription'}}
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideEquipment" {{checked actor.system.settings.hideEquipment}}>
+              <input type="checkbox" name="system.settings.general.hideEquipment" {{checked actor.system.settings.general.hideEquipment}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideEquipment'}}
             </div>
           </li>

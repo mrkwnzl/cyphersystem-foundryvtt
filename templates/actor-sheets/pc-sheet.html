@@ -36,9 +36,9 @@
     {{/unless}}
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#unless sheetSettings.isLimited}}
-      {{#if (eq actor.system.settings.gameMode.current "Strange")}}
+      {{#if (eq actor.system.settings.general.gameMode "Strange")}}
         <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fas fa-at"></i></a>
-      {{else if actor.system.settings.tags.active}}
+      {{else if actor.system.settings.general.tags.active}}
         <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fas fa-hashtag"></i></a>
       {{/if}}
       <a class="item" data-tab="settings" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Settings'}}"><i class="fas fa-cog"></i></a>
@@ -84,22 +84,22 @@
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
       {{!-- Cyphers --}}
-      {{#if actor.system.settings.equipment.cyphers}}
+      {{#if actor.system.settings.equipment.cyphers.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
       {{/if}}
 
       {{!-- Artifacts --}}
-      {{#if actor.system.settings.equipment.artifacts}}
+      {{#if actor.system.settings.equipment.artifacts.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
       {{/if}}
 
       {{!-- Oddities --}}
-      {{#if actor.system.settings.equipment.oddities}}
+      {{#if actor.system.settings.equipment.oddities.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
       {{/if}}
 
       {{!-- Materials --}}
-      {{#if actor.system.settings.equipment.materials}}
+      {{#if actor.system.settings.equipment.materials.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
       {{/if}}
     </div>
@@ -126,12 +126,12 @@
     {{!-- Tags and Recursions Tab --}}
     <div class="tab tags" data-group="primary" data-tab="tags">
       {{!-- Recursions --}}
-      {{#if (eq actor.system.settings.gameMode.current "Strange")}}
+      {{#if (eq actor.system.settings.general.gameMode "Strange")}}
         {{> systems/cyphersystem/templates/tabs/tags-tab/recursions.html}}
       {{/if}}
 
       {{!-- Tags --}}
-      {{#if actor.system.settings.tags.active}}
+      {{#if actor.system.settings.general.tags.active}}
         {{> systems/cyphersystem/templates/tabs/tags-tab/tags.html}}
       {{/if}}
     </div>

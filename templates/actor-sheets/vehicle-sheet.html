@@ -10,7 +10,7 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="system.level" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.level}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="system.basic.level" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.level}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
@@ -72,31 +72,31 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
-      {{#if actor.system.settings.equipment.attacks}}
+      {{#if actor.system.settings.equipment.attacks.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.ammo}}
+      {{#if actor.system.settings.equipment.ammo.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.armor}}
+      {{#if actor.system.settings.equipment.armor.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.cyphers}}
+      {{#if actor.system.settings.equipment.cyphers.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.artifacts}}
+      {{#if actor.system.settings.equipment.artifacts.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.oddities}}
+      {{#if actor.system.settings.equipment.oddities.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.materials}}
+      {{#if actor.system.settings.equipment.materials.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
       {{/if}}
 
@@ -115,13 +115,13 @@
               &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="system.settings.initiative.initiativeBonus" type="text" value="{{actor.system.settings.initiative.initiativeBonus}}" placeholder="0" style="width: auto;" />
+              <input class="auto-margin" name="system.settings.general.initiativeBonus" type="text" value="{{actor.system.settings.general.initiativeBonus}}" placeholder="0" style="width: auto;" />
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideArchived" {{checked
-                actor.system.settings.hideArchived}}>
+              <input type="checkbox" name="system.settings.general.hideArchive" {{checked
+                actor.system.settings.general.hideArchive}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>

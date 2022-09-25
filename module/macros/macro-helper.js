@@ -12,7 +12,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   let info = "";
   let modifier = 0;
   let pointsPaid = true;
-  if (!teen) teen = (actor.system.settings.gameMode.currentSheet == "Teen") ? true : false;
+  if (!teen) teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
 
   // Set title
   let itemTypeStrings = {
@@ -33,7 +33,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     "oddity": game.i18n.localize("ITEM.TypeOddity"),
     "teen Armor": game.i18n.localize("ITEM.TypeTeen Armor"),
     "teen lasting Damage": game.i18n.localize("ITEM.TypeTeen Lasting Damage")
-  };
+  }
   let itemType = (itemTypeStrings[item.type] || "");
 
   if (item.type == "skill" || item.type == "teen Skill") {
@@ -43,7 +43,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": game.i18n.localize("CYPHERSYSTEM.Practiced"),
       "Trained": game.i18n.localize("CYPHERSYSTEM.Trained"),
       "Specialized": game.i18n.localize("CYPHERSYSTEM.Specialized")
-    };
+    }
     let skillInfo = (relevantSkill[item.system.skillLevel] || relevantSkill["Practiced"]);
 
     // Set info
@@ -55,7 +55,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": 0,
       "Trained": 1,
       "Specialized": 2
-    };
+    }
 
     // Set difficulty modifier
     modifier = (skillLevels[item.system.skillLevel] || 0);
@@ -82,7 +82,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": 0,
       "Trained": 1,
       "Specialized": 2
-    };
+    }
     let skillRating = (attackSkill[item.system.skillRating] || 0);
 
     // Set difficulty modifier
@@ -101,15 +101,15 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     // Check if there is a point cost and prepare costInfo
     if (item.system.costPoints != "" && item.system.costPoints != "0") {
       // Determine edge
-      let mightEdge = (teen) ? actor.system.teen.pools.mightEdge : actor.system.pools.mightEdge;
-      let speedEdge = (teen) ? actor.system.teen.pools.speedEdge : actor.system.pools.speedEdge;
-      let intellectEdge = (teen) ? actor.system.teen.pools.intellectEdge : actor.system.pools.intellectEdge;
+      let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
+      let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
+      let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
       let relevantEdge = {
         "Might": mightEdge,
         "Speed": speedEdge,
         "Intellect": intellectEdge
-      };
+      }
       let edge = (relevantEdge[item.system.costPool] || 0)
 
       // Determine point cost
@@ -162,8 +162,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 
   } else if (item.type == "cypher") {
     // Determine level info
-    let levelInfo = (item.system.level != "") ?
-      ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.system.level :
+    let levelInfo = (item.system.basic.level != "") ?
+      ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.system.basic.level :
       "";
 
     // Put it all together for info
@@ -171,8 +171,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 
   } else if (item.type == "artifact") {
     // Determine level info
-    let levelInfo = (item.system.level != "") ?
-      game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.system.level + ". " :
+    let levelInfo = (item.system.basic.level != "") ?
+      game.i18n.localize("CYPHERSYSTEM.Level") + ": " + item.system.basic.level + ". " :
       "";
 
     // Determine depletion info
@@ -214,7 +214,7 @@ export async function renameTag(actor, currentTag, newTag) {
 
 export async function toggleTagArchiveStatus(actor, tags, archiveStatus) {
   // Check for PC
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   if (tags.length == 0) return;
 

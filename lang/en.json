@@ -12,10 +12,10 @@
   "ITEM.TypeAttack": "Attack",
   "ITEM.TypeCypher": "Cypher",
   "ITEM.TypeEquipment": "Equipment",
-  "ITEM.TypeLasting Damage": "Lasting Damage",
+  "ITEM.TypeLasting-damage": "Lasting Damage",
   "ITEM.TypeMaterial": "Crafting Material",
   "ITEM.TypeOddity": "Oddity",
-  "ITEM.TypePower Shift": "Power Shift",
+  "ITEM.TypePower-shift": "Power Shift",
   "ITEM.TypeSkill": "Skill",
   "ITEM.TypeRecursion": "Recursion",
   "ITEM.TypeTag": "Tag",
@@ -553,5 +553,6 @@
   "CYPHERSYSTEM.PCIsDebilitated": "Debilitated: Effort costs +1 per level.",
   "CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel": "Armor: Speed Effort costs +{armorCost} per level.",
   "CYPHERSYSTEM.MigrationInProgress": "Applying Cypher System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
-  "CYPHERSYSTEM.MigrationDone": "Cypher System Migration to version {version} completed!"
+  "CYPHERSYSTEM.MigrationDone": "Cypher System Migration to version {version} completed!",
+  "CYPHERSYSTEM.ReloadFoundry": "Reloading Foundry!"
 }

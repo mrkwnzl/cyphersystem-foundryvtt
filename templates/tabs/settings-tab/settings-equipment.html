@@ -2,19 +2,19 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq actor.type "NPC")}}
+        {{#if (eq actor.type "npc")}}
           {{localize 'CYPHERSYSTEM.Inventory'}}
         {{/if}}
-        {{#if (eq actor.type "Companion")}}
+        {{#if (eq actor.type "companion")}}
           {{localize 'CYPHERSYSTEM.Inventory'}}
         {{/if}}
-        {{#if (eq actor.type "Community")}}
+        {{#if (eq actor.type "community")}}
           {{localize 'CYPHERSYSTEM.Storage'}}
         {{/if}}
-        {{#if (eq actor.type "Vehicle")}}
+        {{#if (eq actor.type "vehicle")}}
           {{localize 'CYPHERSYSTEM.Storage'}}
         {{/if}}
-        {{#if (eq actor.type "Token")}}
+        {{#if (eq actor.type "marker")}}
           {{localize 'CYPHERSYSTEM.Items'}}
         {{/if}}
         {{localize 'CYPHERSYSTEM.Tab'}}
@@ -22,44 +22,44 @@
     </li>
     <li class="item flexrow item-settings">
       <div class="settings-list">
-        <input type="checkbox" name="system.settings.equipment.ammo" {{checked actor.system.settings.equipment.ammo}}>
+        <input type="checkbox" name="system.settings.equipment.ammo.active" {{checked actor.system.settings.equipment.ammo.active}}>
         &nbsp;{{localize 'CYPHERSYSTEM.Ammo'}}
       </div>
     </li>
     <li class="item flexrow item-settings">
       <div class="settings-list">
-        <input type="checkbox" name="system.settings.equipment.cyphers" {{checked actor.system.settings.equipment.cyphers}}>
+        <input type="checkbox" name="system.settings.equipment.cyphers.active" {{checked actor.system.settings.equipment.cyphers.active}}>
         &nbsp;{{localize 'CYPHERSYSTEM.Cyphers'}}
       </div>
       <div class="item-quantity">
-        <input class="auto-margin settings-input" name="system.settings.equipment.cyphersName" type="text" value="{{actor.system.settings.equipment.cyphersName}}" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
+        <input class="auto-margin settings-input" name="system.settings.equipment.cyphers.name" type="text" value="{{actor.system.settings.equipment.cyphers.name}}" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
       </div>
     </li>
     <li class="item flexrow item-settings">
       <div class="settings-list">
-        <input type="checkbox" name="system.settings.equipment.artifacts" {{checked actor.system.settings.equipment.artifacts}}>
+        <input type="checkbox" name="system.settings.equipment.artifacts.active" {{checked actor.system.settings.equipment.artifacts.active}}>
         &nbsp;{{localize 'CYPHERSYSTEM.Artifacts'}}
       </div>
       <div class="item-quantity">
-        <input class="auto-margin settings-input" name="system.settings.equipment.artifactsName" type="text" value="{{actor.system.settings.equipment.artifactsName}}" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" />
+        <input class="auto-margin settings-input" name="system.settings.equipment.artifacts.name" type="text" value="{{actor.system.settings.equipment.artifacts.name}}" placeholder="{{localize 'CYPHERSYSTEM.Artifacts'}}" />
       </div>
     </li>
     <li class="item flexrow item-settings">
       <div class="settings-list">
-        <input type="checkbox" name="system.settings.equipment.oddities" {{checked actor.system.settings.equipment.oddities}}>
+        <input type="checkbox" name="system.settings.equipment.oddities.active" {{checked actor.system.settings.equipment.oddities.active}}>
         &nbsp;{{localize 'CYPHERSYSTEM.Oddities'}}
       </div>
       <div class="item-quantity">
-        <input class="auto-margin settings-input" name="system.settings.equipment.odditiesName" type="text" value="{{actor.system.settings.equipment.odditiesName}}" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" />
+        <input class="auto-margin settings-input" name="system.settings.equipment.oddities.name" type="text" value="{{actor.system.settings.equipment.oddities.name}}" placeholder="{{localize 'CYPHERSYSTEM.Oddities'}}" />
       </div>
     </li>
     <li class="item flexrow item-settings">
       <div class="settings-list">
-        <input type="checkbox" name="system.settings.equipment.materials" {{checked actor.system.settings.equipment.materials}}>
+        <input type="checkbox" name="system.settings.equipment.materials.active" {{checked actor.system.settings.equipment.materials.active}}>
         &nbsp;{{localize 'CYPHERSYSTEM.CraftingMaterial'}}
       </div>
       <div class="item-quantity">
-        <input class="auto-margin settings-input" name="system.settings.equipment.materialName" type="text" value="{{actor.system.settings.equipment.materialName}}" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
+        <input class="auto-margin settings-input" name="system.settings.equipment.materials.name" type="text" value="{{actor.system.settings.equipment.materials.name}}" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
       </div>
     </li>
   </ol>

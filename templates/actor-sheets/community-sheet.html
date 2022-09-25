@@ -10,14 +10,14 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="system.rank" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.rank}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Rank'}}" title="{{localize 'CYPHERSYSTEM.Rank'}}" />
+              <input name="system.basic.rank" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.rank}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Rank'}}" title="{{localize 'CYPHERSYSTEM.Rank'}}" />
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
             <div class="resources grid grid-3col">
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                  <label for="system.health.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <label for="system.pools.health.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
                     {{localize 'CYPHERSYSTEM.Health'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
@@ -35,14 +35,14 @@
                   {{/unless}}
                 </div>
                 <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
-                  <input class="stat-input" name="system.health.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.health.value}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.health.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.health.value}}{{/if}}" />
                   &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-                  <input class="stat-input" name="system.health.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.health.max}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.health.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.health.max}}{{/if}}" />
                 </div>
               </div>
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                  <label for="system.infrastructure.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <label for="system.pools.infrastructure.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
                     {{localize 'CYPHERSYSTEM.Infrastructure'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
@@ -60,9 +60,9 @@
                   {{/unless}}
                 </div>
                 <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
-                  <input class="stat-input" name="system.infrastructure.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.infrastructure.value}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.infrastructure.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.infrastructure.value}}{{/if}}" />
                   &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-                  <input class="stat-input" name="system.infrastructure.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.infrastructure.max}}{{/if}}" />
+                  <input class="stat-input" name="system.pools.infrastructure.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.infrastructure.max}}{{/if}}" />
                 </div>
               </div>
               <div class="resource flex-group-center">
@@ -77,7 +77,7 @@
                 <div class="resource-content flexrow flex-center flex-between">
                   <input name="system.damage" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.damage}}{{/if}}" />
                   &nbsp;
-                  <input name="system.armor" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.armor}}{{/if}}" />
+                  <input name="system.combat.armor" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.combat.armor}}{{/if}}" />
                 </div>
               </div>
             </div>
@@ -119,31 +119,31 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
-      {{#if actor.system.settings.equipment.attacks}}
+      {{#if actor.system.settings.equipment.attacks.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.ammo}}
+      {{#if actor.system.settings.equipment.ammo.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.armor}}
+      {{#if actor.system.settings.equipment.armor.active}}
         {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.cyphers}}
+      {{#if actor.system.settings.equipment.cyphers.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.artifacts}}
+      {{#if actor.system.settings.equipment.artifacts.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.oddities}}
+      {{#if actor.system.settings.equipment.oddities.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
       {{/if}}
 
-      {{#if actor.system.settings.equipment.materials}}
+      {{#if actor.system.settings.equipment.materials.active}}
         {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
       {{/if}}
 
@@ -160,13 +160,13 @@
             <div class="settings-list"><input type="checkbox" name="system.settings.initiative.active" checked disabled>
               &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
-            <div class="item-quantity"><input class="auto-margin" name="system.settings.initiative.initiativeBonus" type="text" value="{{actor.system.settings.initiative.initiativeBonus}}" placeholder="0" style="width: auto;" />
+            <div class="item-quantity"><input class="auto-margin" name="system.settings.general.initiativeBonus" type="text" value="{{actor.system.settings.general.initiativeBonus}}" placeholder="0" style="width: auto;" />
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.hideArchived" {{checked
-                actor.system.settings.hideArchived}}>
+              <input type="checkbox" name="system.settings.general.hideArchive" {{checked
+                actor.system.settings.general.hideArchive}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>

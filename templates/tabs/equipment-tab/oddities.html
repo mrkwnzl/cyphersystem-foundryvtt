@@ -2,10 +2,10 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq actor.system.settings.equipment.odditiesName "")}}
+        {{#if (eq actor.system.settings.equipment.oddities.name "")}}
           {{localize 'CYPHERSYSTEM.Oddities'}}
         {{else}}
-          {actor.system.settings.equipment.odditiesName}}
+          {{actor.system.settings.equipment.oddities.name}}
         {{/if}}
       </div>
       <div class="item-controls">

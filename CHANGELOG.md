@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The level field in cyphers and artifacts no longer support inline roll formulas.
 
 ### Fixed
-- Actors in compendia are also mirated now.
+- Actors in compendia are also migrated now.
 - Description of the item in roll outputs now work as intended.
 - Recursions and tags now work as expected, hopefully.
 - Cyphers and artifacts now correctly show the level after using the roll formula button.

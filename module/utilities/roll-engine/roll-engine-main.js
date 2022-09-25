@@ -3,13 +3,13 @@ import {rollEngineForm} from "./roll-engine-form.js";
 
 export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
   // Check for PC actor
-  if (!actor || actor.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Check whether pool == XP
   if (pool == "XP" && !skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
 
   // Set defaults for functions
-  if (!teen) teen = (actor.system.settings.gameMode.currentSheet == "Teen") ? true : false;
+  if (!teen) teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   if (!skipDialog) skipDialog = !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
   skipDialog = (game.keyboard.isModifierActive('Alt')) ? !skipDialog : skipDialog;
   if (!skipRoll) skipRoll = false;

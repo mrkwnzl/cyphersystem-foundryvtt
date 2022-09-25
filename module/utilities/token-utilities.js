@@ -9,7 +9,7 @@ export async function barBrawlOverwrite(document, actor) {
 
 export function barBrawlData(type, actor) {
   let data;
-  if (type === "PC") {
+  if (type === "pc") {
     data = {
       "flags.barbrawl.resourceBars": {
         "intellect": {
@@ -38,7 +38,7 @@ export function barBrawlData(type, actor) {
         }
       }
     }
-  } else if (type === "NPC" || type === "Companion") {
+  } else if (type === "npc" || type === "companion") {
     data = {
       "flags.barbrawl.resourceBars": {
         "level": {
@@ -59,7 +59,7 @@ export function barBrawlData(type, actor) {
         }
       }
     }
-  } else if (type === "Community") {
+  } else if (type === "community") {
     data = {
       "flags.barbrawl.resourceBars": {
         "rank": {
@@ -88,7 +88,7 @@ export function barBrawlData(type, actor) {
         }
       }
     }
-  } else if (type === "Token" && actor.name != "GMI Range") {
+  } else if (type === "marker" && actor.name != "GMI Range") {
     data = {
       "flags.barbrawl.resourceBars": {
         "level": {

@@ -1,4 +1,4 @@
-{{#if actor.system.settings.ammo}}
+{{#if (or actor.system.settings.combat.ammo.active actor.system.settings.equipment.ammo.active)}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">

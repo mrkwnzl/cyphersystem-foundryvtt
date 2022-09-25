@@ -28,15 +28,15 @@ export class rollEngineDialogSheet extends FormApplication {
 
     data.mightValue = (data.teen) ? data.actor.system.teen.pools.might.value : data.actor.system.pools.might.value;
     data.mightMax = (data.teen) ? data.actor.system.teen.pools.might.max : data.actor.system.pools.might.max;
-    data.mightEdge = (data.teen) ? data.actor.system.teen.pools.mightEdge : data.actor.system.pools.mightEdge;
+    data.mightEdge = (data.teen) ? data.actor.system.teen.pools.might.edge : data.actor.system.pools.might.edge;
 
     data.speedValue = (data.teen) ? data.actor.system.teen.pools.speed.value : data.actor.system.pools.speed.value;
     data.speedMax = (data.teen) ? data.actor.system.teen.pools.speed.max : data.actor.system.pools.speed.max;
-    data.speedEdge = (data.teen) ? data.actor.system.teen.pools.speedEdge : data.actor.system.pools.speedEdge;
+    data.speedEdge = (data.teen) ? data.actor.system.teen.pools.speed.edge : data.actor.system.pools.speed.edge;
 
     data.intellectValue = (data.teen) ? data.actor.system.teen.pools.intellect.value : data.actor.system.pools.intellect.value;
     data.intellectMax = (data.teen) ? data.actor.system.teen.pools.intellect.max : data.actor.system.pools.intellect.max;
-    data.intellectEdge = (data.teen) ? data.actor.system.teen.pools.intellectEdge : data.actor.system.pools.intellectEdge;
+    data.intellectEdge = (data.teen) ? data.actor.system.teen.pools.intellect.edge : data.actor.system.pools.intellect.edge;
 
     // Summary
     data.summaryTaskModified = summaryTaskModified(data);
@@ -58,13 +58,13 @@ export class rollEngineDialogSheet extends FormApplication {
     data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
 
     data.impairedString = "";
-    if (data.actor.system.damage.damageTrack == "Impaired" && data.actor.system.damage.applyImpaired) {
+    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
-    } else if (data.actor.system.damage.damageTrack == "Debilitated" && data.actor.system.damage.applyDebilitated) {
+    } else if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
-    };
+    }
 
-    data.armorCost = (!data.teen) ? data.actor.system.armor.speedCostTotal : data.actor.system.teen.armor.speedCostTotal;
+    data.armorCost = (!data.teen) ? data.actor.system.combat.armor.costTotal : data.actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
@@ -112,13 +112,13 @@ export class rollEngineDialogSheet extends FormApplication {
     data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
 
     data.impairedString = "";
-    if (data.actor.system.damage.damageTrack == "Impaired" && data.actor.system.damage.applyImpaired) {
+    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
-    } else if (data.actor.system.damage.damageTrack == "Debilitated" && data.actor.system.damage.applyDebilitated) {
+    } else if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
-    };
+    }
 
-    data.armorCost = (!data.teen) ? data.actor.system.armor.speedCostTotal : data.actor.system.teen.armor.speedCostTotal;
+    data.armorCost = (!data.teen) ? data.actor.system.combat.armor.costTotal : data.actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
@@ -195,26 +195,26 @@ function summaryTotalCost(actor, data, teen) {
   let armorCost = 0;
 
   if (data.pool == "Speed") {
-    armorCost = (!teen) ? actor.system.armor.speedCostTotal : actor.system.teen.armor.speedCostTotal;
+    armorCost = (!teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
   }
 
   let impairedCost = 0;
-  if (actor.system.damage.damageTrack == "Impaired" && actor.system.damage.applyImpaired) {
+  if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) {
     impairedCost = 1;
   }
-  if (actor.system.damage.damageTrack == "Debilitated" && actor.system.damage.applyDebilitated) {
+  if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) {
     impairedCost = 1;
   }
 
   let edge = 0;
   if (!teen) {
-    if (data.pool == "Might") edge = actor.system.pools.mightEdge;
-    if (data.pool == "Speed") edge = actor.system.pools.speedEdge;
-    if (data.pool == "Intellect") edge = actor.system.pools.intellectEdge;
+    if (data.pool == "Might") edge = actor.system.pools.might.edge;
+    if (data.pool == "Speed") edge = actor.system.pools.speed.edge;
+    if (data.pool == "Intellect") edge = actor.system.pools.intellect.edge;
   } else {
-    if (data.pool == "Might") edge = actor.system.teen.pools.mightEdge;
-    if (data.pool == "Speed") edge = actor.system.teen.pools.speedEdge;
-    if (data.pool == "Intellect") edge = actor.system.teen.pools.intellectEdge;
+    if (data.pool == "Might") edge = actor.system.teen.pools.might.edge;
+    if (data.pool == "Speed") edge = actor.system.teen.pools.speed.edge;
+    if (data.pool == "Intellect") edge = actor.system.teen.pools.intellect.edge;
   }
 
   let effortCost = 1 + (data.totalEffort * 2) + (data.totalEffort * armorCost) + (data.totalEffort * impairedCost);

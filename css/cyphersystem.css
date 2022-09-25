@@ -272,10 +272,6 @@ select.bar-attribute {
   padding-bottom: 2px;
 }
 
-.sheet nav.sheet-tabs .item {
-  padding: 0px 6px;
-}
-
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .window-content {
@@ -515,7 +511,7 @@ select.bar-attribute {
   vertical-align: middle;
 }
 
-.cyphersystem .tabs .item {
+.cyphersystem nav.sheet-tabs .item {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #999;
   border-radius: 3px 3px 0 0;
@@ -524,6 +520,7 @@ select.bar-attribute {
   white-space: nowrap;
   width: -webkit-fill-available;
   width: -moz-available;
+  padding: 0px 6px;
 }
 
 .cyphersystem .tabs .item.active {
@@ -534,6 +531,7 @@ select.bar-attribute {
   border: 1px solid #999;
   border-bottom: none;
   border-radius: 3px 3px 0 0;
+  padding: 0px 6px;
 }
 
 .cyphersystem .items-list {
@@ -561,6 +559,7 @@ select.bar-attribute {
 .cyphersystem .tabs .item~.item {
   /* border: 1px solid #999; */
   border-left: none;
+  padding: 0px 6px;
 }
 
 .cyphersystem .items-list .item~.item {
@@ -1017,7 +1016,7 @@ select.settings-input {
 
 .cyphersystem .dice-icon {
   border: 0;
-  filter: invert(1) blur(0.25px);
+  filter: invert(1) drop-shadow(0px 0px 1px white);
 }
 
 .cyphersystem .dice-icon:hover {

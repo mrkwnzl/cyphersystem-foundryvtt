@@ -7,18 +7,18 @@ import {
 export async function payPoolPoints(actor, costCalculated, pool, teen) {
   // Determine stats
   let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
-  let mightEdge = (teen) ? actor.system.teen.pools.mightEdge : actor.system.pools.mightEdge;
+  let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
   let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
-  let speedEdge = (teen) ? actor.system.teen.pools.speedEdge : actor.system.pools.speedEdge;
+  let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
   let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
-  let intellectEdge = (teen) ? actor.system.teen.pools.intellectEdge : actor.system.pools.intellectEdge;
+  let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
   // Determine edge
   let relevantEdge = {
     "Might": mightEdge,
     "Speed": speedEdge,
     "Intellect": intellectEdge
-  };
+  }
   let edge = (relevantEdge[pool] || 0);
 
   // Check for weakness
@@ -84,42 +84,42 @@ export async function regainPoolPoints(actor, cost, pool, teen) {
 
 export function useRecoveries(actor, spell) {
   if (!spell) spell = false;
-  let recoveries = actor.system.recoveries;
-  let additionalRecoveries = actor.system.settings.additionalRecoveries;
+  let recoveries = actor.system.combat.recoveries;
+  let additionalRecoveries = actor.system.settings.combat;
   let recoveryUsed = "";
 
   if (!recoveries.oneAction) {
-    actor.update({"system.recoveries.oneAction": true});
+    actor.update({"system.combat.recoveries.oneAction": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionTwo && additionalRecoveries.numberOneActionRecoveries >= 2) {
-    actor.update({"system.recoveries.oneActionTwo": true});
+  } else if (!recoveries.oneAction2 && additionalRecoveries.numberOneActionRecoveries >= 2) {
+    actor.update({"system.combat.recoveries.oneAction2": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionThree && additionalRecoveries.numberOneActionRecoveries >= 3) {
-    actor.update({"system.recoveries.oneActionThree": true});
+  } else if (!recoveries.oneAction3 && additionalRecoveries.numberOneActionRecoveries >= 3) {
+    actor.update({"system.combat.recoveries.oneAction3": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionFour && additionalRecoveries.numberOneActionRecoveries >= 4) {
-    actor.update({"system.recoveries.oneActionFour": true});
+  } else if (!recoveries.oneAction4 && additionalRecoveries.numberOneActionRecoveries >= 4) {
+    actor.update({"system.combat.recoveries.oneAction4": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionFive && additionalRecoveries.numberOneActionRecoveries >= 5) {
-    actor.update({"system.recoveries.oneActionFive": true});
+  } else if (!recoveries.oneAction5 && additionalRecoveries.numberOneActionRecoveries >= 5) {
+    actor.update({"system.combat.recoveries.oneAction5": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionSix && additionalRecoveries.numberOneActionRecoveries >= 6) {
-    actor.update({"system.recoveries.oneActionSix": true});
+  } else if (!recoveries.oneAction6 && additionalRecoveries.numberOneActionRecoveries >= 6) {
+    actor.update({"system.combat.recoveries.oneAction6": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionSeven && additionalRecoveries.numberOneActionRecoveries >= 7) {
-    actor.update({"system.recoveries.oneActionSeven": true});
+  } else if (!recoveries.oneAction7 && additionalRecoveries.numberOneActionRecoveries >= 7) {
+    actor.update({"system.combat.recoveries.oneAction7": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
   } else if (!recoveries.tenMinutes && additionalRecoveries.numberTenMinuteRecoveries >= 1) {
-    actor.update({"system.recoveries.tenMinutes": true});
+    actor.update({"system.combat.recoveries.tenMinutes": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
-  } else if (!recoveries.tenMinutesTwo && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
-    actor.update({"system.recoveries.tenMinutesTwo": true});
+  } else if (!recoveries.tenMinutes2 && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
+    actor.update({"system.combat.recoveries.tenMinutes2": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
   } else if (!recoveries.oneHour) {
-    actor.update({"system.recoveries.oneHour": true});
+    actor.update({"system.combat.recoveries.oneHour": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
   } else if (!recoveries.tenHours && spell == false) {
-    actor.update({"system.recoveries.tenHours": true});
+    actor.update({"system.combat.recoveries.tenHours": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenHours");
   } else {
     return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", {name: actor.name}));

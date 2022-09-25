@@ -31,7 +31,7 @@
     </h4>
     <div class="item-quantity">{{item.system.armorValue}}/{{item.system.speedCost}}</div>
     <div class="item-controls">
-      {{#if (eq ../type "PC")}}
+      {{#if (eq ../type "pc")}}
         <a class="item-control armor-active {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
           <i class="fas fa-check {{#unless item.system.armorActive}}archived{{/unless}}" aria-hidden="true"></i>
         </a>
