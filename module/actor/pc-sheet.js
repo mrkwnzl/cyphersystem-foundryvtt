@@ -68,18 +68,18 @@ export class CypherActorSheetPC extends CypherActorSheet {
     data.sheetSettings.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
 
     for (let i of data.items) {
-      if (i.type == 'attack' || i.type == 'teen Attack') {
+      if (i.type == 'attack') {
 
         let skillRating = 0;
-        let modifiedBy = i.system.modifiedBy;
+        let modifiedBy = i.system.basic.steps;
         let totalModifier = 0;
         let totalModified = "";
 
-        if (i.system.skillRating == "Inability") skillRating = -1;
-        if (i.system.skillRating == "Trained") skillRating = 1;
-        if (i.system.skillRating == "Specialized") skillRating = 2;
+        if (i.system.basic.skillRating == "Inability") skillRating = -1;
+        if (i.system.basic.skillRating == "Trained") skillRating = 1;
+        if (i.system.basic.skillRating == "Specialized") skillRating = 2;
 
-        if (i.system.modified == "hindered") modifiedBy = modifiedBy * -1;
+        if (i.system.basic.modifier == "hindered") modifiedBy = modifiedBy * -1;
 
         totalModifier = skillRating + modifiedBy;
 
@@ -101,16 +101,16 @@ export class CypherActorSheetPC extends CypherActorSheet {
     let teenSpeedCostTotal = 0;
 
     for (let piece of data.itemLists.armor) {
-      if (piece.system.armorActive === true && piece.system.archived === false) {
-        armorTotal = armorTotal + piece.system.armorValue;
-        speedCostTotal = speedCostTotal + piece.system.speedCost;
+      if (piece.system.active === true && piece.system.archived === false) {
+        armorTotal = armorTotal + piece.system.basic.rating;
+        speedCostTotal = speedCostTotal + piece.system.basic.cost;
       }
     }
 
     for (let piece of data.itemLists.teenArmor) {
-      if (piece.system.armorActive === true && piece.system.archived === false) {
-        teenArmorTotal = teenArmorTotal + piece.system.armorValue;
-        teenSpeedCostTotal = teenSpeedCostTotal + piece.system.speedCost;
+      if (piece.system.active === true && piece.system.archived === false) {
+        teenArmorTotal = teenArmorTotal + piece.system.basic.rating;
+        teenSpeedCostTotal = teenSpeedCostTotal + piece.system.basic.cost;
       }
     }
 
@@ -139,23 +139,23 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.plus-one-damage').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-      let newValue = item.system.lastingDamageAmount + amount;
-      item.update({"system.lastingDamageAmount": newValue});
+      let newValue = item.system.basic.damage + amount;
+      item.update({"system.basic.damage": newValue});
     });
 
     // Subtract from Lasting Damage
     html.find('.minus-one-damage').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-      let newValue = item.system.lastingDamageAmount - amount;
-      item.update({"system.lastingDamageAmount": newValue});
+      let newValue = item.system.basic.damage - amount;
+      item.update({"system.basic.damage": newValue});
     });
 
     // Change Armor Active
     html.find('.armor-active').click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let newValue = (item.system.armorActive) ? false : true;
-      item.update({"system.armorActive": newValue});
+      let newValue = (item.system.active) ? false : true;
+      item.update({"system.active": newValue});
     });
 
     // Apply damage track to rolls
@@ -200,8 +200,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "lasting Damage" && item.system.lastingDamagePool == "Might" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Might" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.pools.might.value": this.actor.system.pools.might.max - lastingDamage})
@@ -225,8 +225,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "lasting Damage" && item.system.lastingDamagePool == "Speed" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Speed" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.pools.speed.value": this.actor.system.pools.speed.max - lastingDamage})
@@ -250,8 +250,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "lasting Damage" && item.system.lastingDamagePool == "Intellect" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Intellect" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.pools.intellect.value": this.actor.system.pools.intellect.max - lastingDamage})
@@ -297,8 +297,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "teen lasting Damage" && item.system.lastingDamagePool == "Might" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage"  && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Might" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.teen.pools.might.value": this.actor.system.teen.pools.might.max - lastingDamage})
@@ -322,8 +322,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "teen lasting Damage" && item.system.lastingDamagePool == "Speed" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Speed" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.teen.pools.speed.value": this.actor.system.teen.pools.speed.max - lastingDamage})
@@ -347,8 +347,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "teen lasting Damage" && item.system.lastingDamagePool == "Intellect" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Intellect" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
       this.actor.update({"system.teen.pools.intellect.value": this.actor.system.teen.pools.intellect.max - lastingDamage})

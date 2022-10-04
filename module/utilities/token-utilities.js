@@ -46,7 +46,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "level",
+          attribute: "basic.level",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
@@ -54,7 +54,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "health",
+          attribute: "pools.health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
@@ -67,7 +67,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "rank",
+          attribute: "basic.rank",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "infrastructure": {
@@ -75,7 +75,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "bottom-inner",
-          attribute: "infrastructure",
+          attribute: "pools.infrastructure",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
@@ -83,7 +83,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "health",
+          attribute: "pools.health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
@@ -96,7 +96,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "level",
+          attribute: "basic.level",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "quantity": {
@@ -104,7 +104,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "quantity",
+          attribute: "pools.quantity",
           visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
         }
       }

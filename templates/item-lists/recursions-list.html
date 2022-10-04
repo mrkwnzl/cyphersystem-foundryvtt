@@ -3,7 +3,7 @@
     <h4 class="item-name">
       <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
-        {{~item.name}}{{#unless (eq item.system.focus "")}} ({{item.system.focus}}){{/unless}}
+        {{~item.name}}{{#unless (eq item.system.basic.focus "")}} ({{item.system.basic.focus}}){{/unless}}
       </a>
     </h4>
     <div class="item-controls">

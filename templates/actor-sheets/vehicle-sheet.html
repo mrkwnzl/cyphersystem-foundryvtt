@@ -22,7 +22,7 @@
                   {{localize 'CYPHERSYSTEM.Crew'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="system.crew" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.crew}}{{/if}}" />
+                  <input name="system.basic.crew" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.crew}}{{/if}}" />
                 </div>
               </div>
               <div class="resource flex-group-center">
@@ -30,7 +30,7 @@
                   {{localize 'CYPHERSYSTEM.WeaponSystems'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="system.weaponSystems" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.weaponSystems}}{{/if}}" />
+                  <input name="system.basic.weaponSystems" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.weaponSystems}}{{/if}}" />
                 </div>
               </div>
             </div>
@@ -111,8 +111,7 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="system.settings.initiative.active" checked disabled>
-              &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
+              {{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
             <div class="item-quantity">
               <input class="auto-margin" name="system.settings.general.initiativeBonus" type="text" value="{{actor.system.settings.general.initiativeBonus}}" placeholder="0" style="width: auto;" />

@@ -5,29 +5,29 @@
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~item.name}}
       </a>
-      {{#unless (or (eq item.system.costPoints "0") (eq item.system.costPoints 0) (eq item.system.costPoints ""))}}
+      {{#unless (or (eq item.system.basic.cost "0") (eq item.system.basic.cost 0) (eq item.system.basic.cost ""))}}
         {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-        {{item.system.costPoints}}
-        {{#if (eq item.system.costPoints "1") ~}}
-          {{#if (eq item.system.costPool "Might") ~}}
+        {{item.system.basic.cost}}
+        {{#if (eq item.system.basic.cost "1") ~}}
+          {{#if (eq item.system.basic.pool "Might") ~}}
             {{localize 'CYPHERSYSTEM.MightPoint' ~}}
-          {{else if (eq item.system.costPool "Speed") ~}}
+          {{else if (eq item.system.basic.pool "Speed") ~}}
             {{localize 'CYPHERSYSTEM.SpeedPoint' ~}}
-          {{else if (eq item.system.costPool "Intellect") ~}}
+          {{else if (eq item.system.basic.pool "Intellect") ~}}
             {{localize 'CYPHERSYSTEM.IntellectPoint' ~}}
-          {{else if (eq item.system.costPool "XP") ~}}
+          {{else if (eq item.system.basic.pool "XP") ~}}
             {{localize 'CYPHERSYSTEM.XP' ~}}
           {{else ~}}
             {{localize 'CYPHERSYSTEM.AnyPoolPoint' ~}}
           {{/if ~}}
         {{else ~}}
-          {{#if (eq item.system.costPool "Might") ~}}
+          {{#if (eq item.system.basic.pool "Might") ~}}
             {{localize 'CYPHERSYSTEM.MightPoints' ~}}
-          {{else if (eq item.system.costPool "Speed") ~}}
+          {{else if (eq item.system.basic.pool "Speed") ~}}
             {{localize 'CYPHERSYSTEM.SpeedPoints' ~}}
-          {{else if (eq item.system.costPool "Intellect") ~}}
+          {{else if (eq item.system.basic.pool "Intellect") ~}}
             {{localize 'CYPHERSYSTEM.IntellectPoints' ~}}
-          {{else if (eq item.system.costPool "XP") ~}}
+          {{else if (eq item.system.basic.pool "XP") ~}}
             {{localize 'CYPHERSYSTEM.XP' ~}}
           {{else ~}}
             {{localize 'CYPHERSYSTEM.AnyPoolPoints' ~}}

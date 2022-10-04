@@ -6,34 +6,34 @@
         {{~item.name}}
       </a>
       {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-      {{#if (eq item.system.armorType "artifact") ~}}
+      {{#if (eq item.system.basic.type "artifact") ~}}
         {{localize 'CYPHERSYSTEM.Artifact' ~}}
-      {{else if (eq item.system.armorType "special ability") ~}}
+      {{else if (eq item.system.basic.type "special ability") ~}}
         {{localize 'CYPHERSYSTEM.SpecialAbility' ~}}
-      {{else if (eq item.system.armorType "light armor") ~}}
+      {{else if (eq item.system.basic.type "light armor") ~}}
         {{localize 'CYPHERSYSTEM.LightArmor' ~}}
-      {{else if (eq item.system.armorType "medium armor") ~}}
+      {{else if (eq item.system.basic.type "medium armor") ~}}
         {{localize 'CYPHERSYSTEM.MediumArmor' ~}}
-      {{else if (eq item.system.armorType "heavy armor") ~}}
+      {{else if (eq item.system.basic.type "heavy armor") ~}}
         {{localize 'CYPHERSYSTEM.HeavyArmor' ~}}
-      {{else if (eq item.system.armorType "artifact") ~}}
+      {{else if (eq item.system.basic.type "artifact") ~}}
         {{localize 'CYPHERSYSTEM.Artifact' ~}}
-      {{else if (eq item.system.armorType "special ability") ~}}
+      {{else if (eq item.system.basic.type "special ability") ~}}
         {{localize 'CYPHERSYSTEM.SepcialAbility' ~}}
-      {{else if (eq item.system.armorType "n/a") ~}}
+      {{else if (eq item.system.basic.type "n/a") ~}}
         {{localize 'CYPHERSYSTEM.n/a' ~}}
       {{/if ~}}
-      {{#unless (eq item.system.notes "") ~}}
+      {{#unless (eq item.system.basic.notes "") ~}}
         {{localize 'CYPHERSYSTEM.Comma'}}
-        {{{enrichHTML item.system.notes}}}
+        {{item.system.basic.notes}}
         {{~/unless ~}}
         {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
     </h4>
-    <div class="item-quantity">{{item.system.armorValue}}/{{item.system.speedCost}}</div>
+    <div class="item-quantity">{{item.system.basic.rating}}/{{item.system.basic.cost}}</div>
     <div class="item-controls">
       {{#if (eq ../type "pc")}}
         <a class="item-control armor-active {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
-          <i class="fas fa-check {{#unless item.system.armorActive}}archived{{/unless}}" aria-hidden="true"></i>
+          <i class="fas fa-check {{#unless item.system.active}}archived{{/unless}}" aria-hidden="true"></i>
         </a>
       {{/if}}
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="Edit Item">

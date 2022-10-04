@@ -4,60 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-### Fixed
-- TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
+## [2.0.0] - 
+### Added
+- Macro to manually start the migration process.
 
-### Removed
-- The compendium with basic skills has been moved to the Cypher SRD Compendium.
-
-## [1.33.3] - 2022-08-10
-### Fixed
-- Quick roll macros work again.
-
-## [1.34.0-rc2] - 2022-07-27
 ### Changed
-- When dragging & dropping items between actors, GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
+- BREAKING: The Data Paths of actors and items have been changed. You need to update those in you macros. Existing actors and items in the world migrate automatically, actors and items in compendia need manual migration (by importing the actors and items, using the [World] Migrate Data macro, and exporting the actors and items again). For details, see [wiki].
+- Updated compatibility to Foundry VTT V10. Earlier versions are no longer supported.
+- Moving items between actors has been streamlined. It now simply always shows the dialog when moving items, so that players can choose the quantity or decide what to do with unique items on the origin actor. GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
+- Chat card buttons (accept/refuse GMI, regain pool points, re-roll dice) are now only visible for players who can actually use them, which now also always includes the GM.
+- Skills, Abilities, Armor, Attack, and Lasting Damage now have a setting to show these on the mask or teen sheet, if the game mode is set to Unmasked. This setting defaults to the sheet active at the time of creation. Dragging & dropping items does not change the setting.
 
 ### Removed
 - Holding alt while dragging & droping cyphers or artifacts no longer flips the identified status. Use the system settings for a default or use the item settings for that.
 - The level field in cyphers and artifacts no longer support inline roll formulas.
-
-### Fixed
-- Actors in compendia are also migrated now.
-- Description of the item in roll outputs now work as intended.
-- Recursions and tags now work as expected, hopefully.
-- Cyphers and artifacts now correctly show the level after using the roll formula button.
-- The setting for default roll dialog now works as intended.
-- Using two or more levels of Effort for damage in the AiO dialog now works as intended.
-- Checks for Bar Brawl now work as intended.
-
-## [1.34.0-rc1] - 2022-07-27
-### Changed
-- BREAKING: The paths to the description and notes of PC actors are now `actor.system.description` and `actor.system.notes`. For non-PC actors, `biography` has been replaced with `actor.system.notes` in order to bring this in line with the PC actors.
-
-### Fixed
-- Limited and observer permissions should work as expected again.
-
-## [1.34.0-b1] - 2022-07-24
-### Changed
-- Chat card buttons (accept/refuse GMI, regain pool points, re-roll dice) are now only visible for players who can actually use them, which now also always includes the GM.
-
-### Fixed
-- Enriched item descriptions, levels, and depletion are now working on the actor sheets.
-
-## [1.34.0-b2] - 2022-07-21
-### Fixed
-- All actor sheets should be working again.
-
-## [1.34.0-b1] - 2022-07-20
-### Changed
-- Updated compatibility to Foundry VTT V10. Earlier versions are no longer supported.
-- Moving items between actors has been streamlined. It now simply always shows the dialog when moving items, so that players can choose the quantity or decide what to do with unique items on the origin actor.
+- The compendium with basic skills has been moved to the Cypher SRD Compendium.
+- Teen items have been removed in favor of a setting for normal items.
 
 ### Fixed
 - Replaced `event.altKey` with the more appropriate `game.keyboard.isModifierActive('Alt')`
 - Fixed download link in manifest file
+- Checks for Bar Brawl now work as intended.
+- TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
+- When the teen form regains points from a roll using the chat, the correct pools regains the points and the name of the teen is shown in the chat message.
 
 ## [1.33.2] - 2022-06-30
 ### Fixed

@@ -58,13 +58,13 @@ export async function rollEngineDiceRoller(actor, itemID, initiativeRoll, title,
 
   // Add reroll button
   let actorID = (actor) ? actor.id : "";
-  let teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
-  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${totalCost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+  let teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
+  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-title='${title}' data-info='${info}' data-modifier='${modifier}' data-initiative='${initiativeRoll}' data-actor='${actorID}' data-user='${game.user.id}' data-bonus='${bonus}' data-cost='${totalCost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`
 
   // Add regain points button
   let regainPointsButton = "";
   if (totalCost > 0 && roll.result == 20 && (pool == "might" || pool == "speed" || pool == "intellect")) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${totalCost}' data-pool='${pool}'><i class="fas fa-undo"></i> <i class="fas fa-coins"></i></a>`
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${totalCost}' data-pool='${pool}' data-teen='${teen}'><i class="fas fa-coins"></i> </a>`
   }
 
   // Put buttons together

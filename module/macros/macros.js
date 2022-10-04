@@ -18,6 +18,7 @@ import {
 import {barBrawlData} from "../utilities/token-utilities.js";
 import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
 import {rollEngineDiceRoller} from "../utilities/roll-engine/roll-engine-dice-roller.js";
+import {dataMigration} from "../utilities/migration.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -103,7 +104,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   let easedOrHindered = stepModifier;
   let skipRoll = !noRoll;
 
-  let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.isInitiative : false;
+  let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.settings.general.initiative : false;
 
   // Apply to roll eninge
   rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
@@ -123,7 +124,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   if (item == null) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
 
   // Check for combat-readiness
-  let initiativeRoll = item.system.isInitiative;
+  let initiativeRoll = item.system.settings.general.initiative;
   if (initiativeRoll) {
     if (!game.combat) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoCombatActive"));
     if (actor.getActiveTokens().length == 0) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoTokensOnScene", {name: actor.name}));
@@ -138,74 +139,74 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   // Prepare data
   // Prepare defaults in case none are set by users in the macro
   if (!skillLevel) {
-    if (item.type == "skill" || item.type == "teen Skill") {
-      skillLevel = item.system.skillLevel;
-    } else if (item.type == "attack" || item.type == "teen Attack") {
-      skillLevel = item.system.skillRating;
+    if (item.type == "skill") {
+      skillLevel = item.system.basic.rating;
+    } else if (item.type == "attack") {
+      skillLevel = item.system.basic.skillRating;
     } else {
-      skillLevel = item.system.rollButton.skill;
+      skillLevel = item.system.settings.rollButton.skill;
     }
   }
-  if (!assets) assets = item.system.rollButton.assets;
-  if (!effort1) effort1 = item.system.rollButton.effort1;
-  if (!effort2) effort2 = item.system.rollButton.effort2;
-  if (!effort3) effort3 = item.system.rollButton.effort3;
+  if (!assets) assets = item.system.settings.rollButton.assets;
+  if (!effort1) effort1 = item.system.settings.rollButton.effort1;
+  if (!effort2) effort2 = item.system.settings.rollButton.effort2;
+  if (!effort3) effort3 = item.system.settings.rollButton.effort3;
   if (!additionalCost) {
-    if (item.type == "ability" || item.type == "teen Ability") {
-      let checkPlus = item.system.costPoints.slice(-1)
+    if (item.type == "ability") {
+      let checkPlus = item.system.basic.cost.slice(-1)
       if (checkPlus == "+") {
-        let cost = item.system.costPoints.slice(0, -1);
+        let cost = item.system.basic.cost.slice(0, -1);
         additionalCost = parseInt(cost);
       } else {
-        let cost = item.system.costPoints;
+        let cost = item.system.basic.cost;
         additionalCost = parseInt(cost);
       }
     } else {
-      additionalCost = item.system.rollButton.additionalCost;
+      additionalCost = item.system.settings.rollButton.additionalCost;
     }
   }
   if (!stepModifier && !additionalSteps) {
-    if (item.type == "attack" || item.type == "teen Attack") {
-      additionalSteps = item.system.modifiedBy;
-      stepModifier = item.system.modified;
+    if (item.type == "attack") {
+      additionalSteps = item.system.basic.steps;
+      stepModifier = item.system.basic.modifier;
     } else {
-      additionalSteps = item.system.rollButton.additionalSteps;
-      stepModifier = item.system.rollButton.stepModifier;
+      additionalSteps = item.system.settings.rollButton.additionalSteps;
+      stepModifier = item.system.settings.rollButton.stepModifier;
     }
   } else if (!stepModifier && additionalSteps) {
-    if (item.type == "attack" || item.type == "teen Attack") {
-      stepModifier = item.system.modified;
+    if (item.type == "attack") {
+      stepModifier = item.system.basic.modifier;
     } else {
       stepModifier = (additionalSteps < 0) ? "hindered" : "eased";
     }
   }
   if (!damage) {
-    if (item.type == "attack" || item.type == "teen Attack") {
-      damage = item.system.damage;
+    if (item.type == "attack") {
+      damage = item.system.basic.damage;
     } else {
-      damage = item.system.rollButton.damage;
+      damage = item.system.settings.rollButton.damage;
     }
   }
   if (!pool) {
-    if (item.type == "ability" || item.type == "teen Ability") {
-      pool = item.system.costPool;
+    if (item.type == "ability") {
+      pool = item.system.basic.pool;
     } else {
-      pool = item.system.rollButton.pool;
+      pool = item.system.settings.rollButton.pool;
     }
   }
-  if (!damagePerLOE) damagePerLOE = item.system.rollButton.damagePerLOE;
+  if (!damagePerLOE) damagePerLOE = item.system.settings.rollButton.damagePerLOE;
   if (!teen) teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
-  if (!bonus) bonus = item.system.rollButton.bonus;
+  if (!bonus) bonus = item.system.settings.rollButton.bonus;
 
   // Create item type
   let itemType = "";
   if (item.type == "ability" && item.system.spell) {
     itemType = game.i18n.localize("CYPHERSYSTEM.Spell") + ": ";
-  } else if ((item.type == "ability" || item.type == "teen Ability") && !item.system.spell) {
+  } else if ((item.type == "ability") && !item.system.spell) {
     itemType = game.i18n.localize("ITEM.TypeAbility") + ": ";
-  } else if (item.type == "attack" || item.type == "teen Attack") {
+  } else if (item.type == "attack") {
     itemType = game.i18n.localize("ITEM.TypeAttack") + ": ";
-  } else if (item.type == "skill" || item.type == "teen Skill") {
+  } else if (item.type == "skill") {
     itemType = game.i18n.localize("ITEM.TypeSkill") + ": ";
   }
 
@@ -557,9 +558,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
       "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
       "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.might.edge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speed.edge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellect.edge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
+      "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
+      "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
       "flags.cyphersystem.recursion": recursion,
       "flags.cyphersystem.recursionMightModifier": mightModifier,
       "flags.cyphersystem.recursionSpeedModifier": speedModifier,
@@ -593,7 +594,7 @@ export async function archiveItemsWithTag(actor, tags) {
 }
 
 export async function recursionMacro(actor, item) {
-  await translateToRecursion(actor, item.name, item.system.focus, item.system.mightModifier, item.system.speedModifier, item.system.intellectModifier, item.system.mightEdgeModifier, item.system.speedEdgeModifier, item.system.intellectEdgeModifier, item.id);
+  await translateToRecursion(actor, item.name, item.system.basic.focus, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.edge, item.id);
 }
 
 export async function tagMacro(actor, item) {
@@ -612,7 +613,7 @@ export async function tagMacro(actor, item) {
       await unarchiveItemsWithTag(actor, item.name)
       await item.update({"system.active": true});
       if (item.system.exclusive) {
-        await changeStats(actor, item.system.mightModifier, item.system.mightEdgeModifier, item.system.speedModifier, item.system.speedEdgeModifier, item.system.intellectModifier, item.system.intellectEdgeModifier);
+        await changeStats(actor, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
         await disableActiveExclusiveTag(actor, item._id);
       }
     } else {
@@ -637,9 +638,9 @@ export async function tagMacro(actor, item) {
       "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
       "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
       "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.might.edge": pool.mightEdge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speed.edge": pool.speedEdge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellect.edge": pool.intellectEdge + intellectEdgeModifier - oldIntellectEdgeModifier,
+      "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
+      "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
+      "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
       "flags.cyphersystem.tagMightModifier": mightModifier,
       "flags.cyphersystem.tagSpeedModifier": speedModifier,
       "flags.cyphersystem.tagIntellectModifier": intellectModifier,
@@ -1052,4 +1053,11 @@ export async function lockStaticStatsMacro(actor) {
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   actor.setFlag("cyphersystem", "disabledStaticStats", !actor.getFlag("cyphersystem", "disabledStaticStats"));
+}
+
+export async function migrateDataMacro() {
+  game.settings.set("cyphersystem", "systemMigrationVersion", "1.0.0");
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ReloadFoundry"));
+  await new Promise(r => setTimeout(r, 2000));
+  location.reload();
 }

@@ -11,12 +11,12 @@
             {{/if}}
           </div>
           <div class="item-cypher-limit">
-            <label for="actor.system.basic.preparedSpells" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            <label for="actor.system.abilities.preparedSpells" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
               {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
             </label>
           </div>
           <div class="item-cypher-limit">
-            <input class="input-cypher-limit" type="number" name="system.basic.preparedSpells" value="{{actor.system.basic.preparedSpells}}" />
+            <input class="input-cypher-limit" type="number" name="system.abilities.preparedSpells" value="{{actor.system.abilities.preparedSpells}}" />
           </div>
         </li>
         {{> systems/cyphersystem/templates/item-lists/spells-list.html}}

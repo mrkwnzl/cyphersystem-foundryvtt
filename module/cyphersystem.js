@@ -47,7 +47,8 @@ import {
   tagMacro,
   renameTagMacro,
   disasterModeMacro,
-  lockStaticStatsMacro
+  lockStaticStatsMacro,
+  migrateDataMacro
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -68,7 +69,7 @@ import {registerHandlebars} from "./utilities/handlebars.js";
 import {gameSockets} from "./utilities/game-sockets.js";
 import {initiativeSettings} from "./utilities/initiative-settings.js";
 import {rollEngineDiceRoller} from "./utilities/roll-engine/roll-engine-dice-roller.js";
-import {actorDataMigration} from "./utilities/migration.js";
+import {dataMigration} from "./utilities/migration.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -122,6 +123,7 @@ Hooks.once("init", async function () {
     renameTagMacro,
     disasterModeMacro,
     lockStaticStatsMacro,
+    migrateDataMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -211,7 +213,7 @@ Hooks.once("ready", async function () {
   Hooks.on("hotbarDrop", (bar, data, slot) => createCyphersystemMacro(data, slot));
 
   // Migrate actor data
-  await actorDataMigration();
+  await dataMigration();
 
   // Overwrite document types after migration - remove in future version, when item migration is done
   game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag"];
@@ -222,7 +224,10 @@ Hooks.once("ready", async function () {
 
 Hooks.on("preCreateItem", function (item) {
   if (item.img == "icons/svg/item-bag.svg") {
-    item.updateSource({"img": `systems/cyphersystem/icons/items/${item.type.toLowerCase()}.svg`})
+    item.updateSource({"img": `systems/cyphersystem/icons/items/${item.type}.svg`});
+  }
+  if (item.parent.system.basic.unmaskedForm == "Teen" && ["ability", "armor", "attack", "lasting-damage", "skill"].includes(item.type)) {
+    item.updateSource({"system.settings.general.unmaskedForm": "Teen"});
   }
 });
 
@@ -243,7 +248,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
     let actor = game.actors.get(html.find('.confirm').data('actor'));
     let item = actor.items.get(html.find('.confirm').data('item'));
-    item.updateSource({"system.identified": true});
+    item.updateSource({"system.basic.identified": true});
     ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
   });
 
@@ -404,6 +409,14 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 * Set default values for new actors' tokens
 */
 Hooks.on("preCreateActor", async function (actor) {
+  if (["pc", "community", "vehicle"].includes(actor.type)) {
+    actor.data.update({
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "token.actorLink": true
+    });
+  }
+
   if (actor.type == "npc") {
     actor.data.update({
       "token.bar1": {"attribute": "health"},
@@ -420,13 +433,6 @@ Hooks.on("preCreateActor", async function (actor) {
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
-    });
-  }
-
-  if (["pc", "community", "vehicle"].includes(actor.type)) {
-    actor.data.update({
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.actorLink": true
     });

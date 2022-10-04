@@ -6,14 +6,14 @@
         {{~item.name}}
       </a>
       {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-      {{#if (eq item.system.lastingDamagePool "Might") ~}}
+      {{#if (eq item.system.basic.pool "Might") ~}}
         {{localize 'CYPHERSYSTEM.Might' ~}}
-      {{else if (eq item.system.lastingDamagePool "Speed") ~}}
+      {{else if (eq item.system.basic.pool "Speed") ~}}
         {{localize 'CYPHERSYSTEM.Speed' ~}}
-      {{else if (eq item.system.lastingDamagePool "Intellect") ~}}
+      {{else if (eq item.system.basic.pool "Intellect") ~}}
         {{localize 'CYPHERSYSTEM.Intellect' ~}}
       {{/if ~}}
-      {{#if (eq item.system.damageType "Permanent") ~}}
+      {{#if (eq item.system.basic.type "Permanent") ~}}
         {{localize 'CYPHERSYSTEM.Comma'}}
         {{localize 'CYPHERSYSTEM.permanent' ~}}
       {{/if ~}}
@@ -23,7 +23,7 @@
       <a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
         <i class="far fa-minus-square"></i>
       </a>
-      <p class="number">&nbsp;{{item.system.lastingDamageAmount}}&nbsp;</p>
+      <p class="number">&nbsp;{{item.system.basic.damage}}&nbsp;</p>
       <a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
         <i class="far fa-plus-square"></i>
       </a>

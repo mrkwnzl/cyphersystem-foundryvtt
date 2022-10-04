@@ -36,8 +36,10 @@ export function chatCardWelcomeMessage() {
   return content
 }
 
-export function chatCardRegainPoints(actor, cost, pool) {
+export function chatCardRegainPoints(actor, cost, pool, teen) {
   pool = pool.toLowerCase();
+
+  let name = (teen) ? actor.system.teen.basic.name : actor.name;
 
   let poolPoints = "";
   if (pool == "might") {
@@ -50,7 +52,7 @@ export function chatCardRegainPoints(actor, cost, pool) {
     poolPoints = (cost == 1) ? game.i18n.localize("CYPHERSYSTEM.IntellectPoint") : game.i18n.localize("CYPHERSYSTEM.IntellectPoints");
   }
 
-  let content = game.i18n.format("CYPHERSYSTEM.RegainedPoints", {actor: actor.name, cost: cost, poolPoints: poolPoints});
+  let content = game.i18n.format("CYPHERSYSTEM.RegainedPoints", {actor: name, cost: cost, poolPoints: poolPoints});
 
   return content
 }

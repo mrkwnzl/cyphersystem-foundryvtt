@@ -1,4 +1,4 @@
-export async function actorDataMigration() {
+export async function dataMigration() {
   // Check for newer version
   if (!isNewerVersion(game.system.version, game.settings.get("cyphersystem", "systemMigrationVersion"))) return;
 
@@ -133,7 +133,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicAdvancements();
       await migratePoolsEdge();
       await migrateCombatRecoveries();
-      await migrateCombatDamage();
+      await migrateCombatDamageTrack();
       await migrateCombatArmor();
       await migrateAbilitiesPreparedSpells();
       await migrateEquipmentCypherLimit();
@@ -152,8 +152,7 @@ async function migrationActorV1ToV2(actor) {
     if (actor.type == "npc") {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
-      await migrateCombatDamage();
-      await migrateCombatArmor();
+      await migrateCombatDamageAndArmor()
       await migrateNotesAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -166,8 +165,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicCompanion();
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
-      await migrateCombatDamage();
-      await migrateCombatArmor();
+      await migrateCombatDamageAndArmor()
       await migrateNotesAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -180,8 +178,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
       await migratePoolsInfrastructure();
-      await migrateCombatDamage();
-      await migrateCombatArmor();
+      await migrateCombatDamageAndArmor()
       await migrateNotesAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -193,6 +190,7 @@ async function migrationActorV1ToV2(actor) {
     if (actor.type == "vehicle") {
       await migrateBasicLevelAndRank();
       await migrateBasicVehicle();
+      await migrateBasicCrewAndWeaponSystems();
       await migrateNotesAndDescription();
       await migrateSettingsHideArchive()
       await migrateSettingsEquipment();
@@ -201,7 +199,6 @@ async function migrationActorV1ToV2(actor) {
     }
 
     if (actor.type == "marker") {
-      await migrateTokenToMarker();
       await migrateBasicLevelAndRank();
       await migratePoolsQuantity();
       await migrateNotesAndDescription();
@@ -315,6 +312,18 @@ async function migrationActorV1ToV2(actor) {
     }
   }
 
+  async function migrateBasicCrewAndWeaponSystems() {
+    if (actor.system.crew != null) {
+      updateData.system.basic.crew = actor.system.crew;
+      delete updateData.system["crew"];
+    }
+
+    if (actor.system.weaponSystems != null) {
+      updateData.system.basic.weaponSystems = actor.system.weaponSystems;
+      delete updateData.system["weaponSystems"];
+    }
+  }
+
   async function migrateCombatRecoveries() {
     if (actor.system.recoveries != null) {
       updateData.system.combat.recoveries.roll = actor.system.recoveries.recoveryRoll;
@@ -333,7 +342,7 @@ async function migrationActorV1ToV2(actor) {
     }
   }
 
-  async function migrateCombatDamage() {
+  async function migrateCombatDamageTrack() {
     if (actor.system.damage != null) {
       updateData.system.combat.damageTrack.state = actor.system.damage.damageTrack;
       updateData.system.combat.damageTrack.applyImpaired = actor.system.damage.applyImpaired;
@@ -341,10 +350,21 @@ async function migrationActorV1ToV2(actor) {
       delete updateData.system["damage"];
     }
     if (actor.system.teen?.damage != null) {
-      updateData.system.teen.combat.damageTrack.state = actor.system.damage.damageTrack;
+      updateData.system.teen.combat.damageTrack.state = actor.system.teen.damage.damageTrack;
       updateData.system.teen.combat.damageTrack.applyImpaired = actor.system.teen.damage.applyImpaired;
       updateData.system.teen.combat.damageTrack.applyDebilitated = actor.system.teen.damage.applyDebilitated;
       delete updateData.system.teen["damage"];
+    }
+  }
+
+  async function migrateCombatDamageAndArmor() {
+    if (actor.system.damage != null) {
+      updateData.system.combat.damage = actor.system.damage;
+      delete updateData.system["damage"];
+    }
+    if (actor.system.armor != null) {
+      updateData.system.combat.armor = actor.system.armor;
+      delete updateData.system["armor"];
     }
   }
 
@@ -399,9 +419,9 @@ async function migrationActorV1ToV2(actor) {
 
   async function migrateSettingsGeneral() {
     if (actor.system.additionalPool != null) {
-      updateData.system.settings.general.additionalPool.name = actor.system.additionalPool.additionalPoolName;
+      updateData.system.settings.general.additionalPool.label = actor.system.additionalPool.additionalPoolName;
       updateData.system.settings.general.additionalPool.active = actor.system.additionalPool.active;
-      updateData.system.teen.settings.general.additionalPool.name = actor.system.additionalPool.additionalTeenPoolName;
+      updateData.system.teen.settings.general.additionalPool.label = actor.system.additionalPool.additionalTeenPoolName;
       updateData.system.teen.settings.general.additionalPool.active = actor.system.additionalPool.teenactive;
       delete updateData.system["additionalPool"];
     }
@@ -412,14 +432,14 @@ async function migrationActorV1ToV2(actor) {
     }
     if (actor.system.settings.additionalSentence != null) {
       updateData.system.settings.general.additionalSentence.active = actor.system.settings.additionalSentence.active;
-      updateData.system.settings.general.additionalSentence.name = actor.system.settings.additionalSentence.name;
-      delete updateData.system.settings["name"];
+      updateData.system.settings.general.additionalSentence.label = actor.system.settings.additionalSentence.name;
+      delete updateData.system.settings["additionalSentence"];
     }
     if (actor.system.settings.tags.active != null) {
       updateData.system.settings.general.tags.active = actor.system.settings.tags.active;
     }
     if (actor.system.settings.tags.tagsName != null) {
-      updateData.system.settings.general.tags.name = actor.system.settings.tags.tagsName;
+      updateData.system.settings.general.tags.label = actor.system.settings.tags.tagsName;
     }
     if (actor.system.settings.tags != null) {
       delete updateData.system.settings["tags"];
@@ -487,10 +507,10 @@ async function migrationActorV1ToV2(actor) {
 
   async function migrateSettingsSkillsAndPowerShifts() {
     if (actor.system.settings.skills != null) {
-      updateData.system.settings.skills.nameCategory1 = actor.system.settings.skills.nameSkills;
-      updateData.system.settings.skills.nameCategory2 = actor.system.settings.skills.nameCategoryTwo;
-      updateData.system.settings.skills.nameCategory3 = actor.system.settings.skills.nameCategoryThree;
-      updateData.system.settings.skills.nameCategory4 = actor.system.settings.skills.nameCategoryFour;
+      updateData.system.settings.skills.labelCategory1 = actor.system.settings.skills.nameSkills;
+      updateData.system.settings.skills.labelCategory2 = actor.system.settings.skills.nameCategoryTwo;
+      updateData.system.settings.skills.labelCategory3 = actor.system.settings.skills.nameCategoryThree;
+      updateData.system.settings.skills.labelCategory4 = actor.system.settings.skills.nameCategoryFour;
       delete updateData.system.settings.skills["nameSkills"];
       delete updateData.system.settings.skills["nameCategoryTwo"];
       delete updateData.system.settings.skills["nameCategoryThree"];
@@ -498,7 +518,7 @@ async function migrationActorV1ToV2(actor) {
     }
     if (actor.system.settings.powerShifts != null) {
       updateData.system.settings.skills.powerShifts.active = actor.system.settings.powerShifts.active;
-      updateData.system.settings.skills.powerShifts.name = actor.system.settings.powerShifts.powerShiftsName;
+      updateData.system.settings.skills.powerShifts.label = actor.system.settings.powerShifts.powerShiftsName;
       delete updateData.system.settings["powerShifts"];
     }
   }
@@ -521,10 +541,10 @@ async function migrationActorV1ToV2(actor) {
 
   async function migrateSettingsAbilities() {
     if (actor.system.settings.abilities != null) {
-      updateData.system.settings.abilities.nameCategory1 = actor.system.settings.abilities.nameAbilities;
-      updateData.system.settings.abilities.nameCategory2 = actor.system.settings.abilities.nameCategoryTwo;
-      updateData.system.settings.abilities.nameCategory3 = actor.system.settings.abilities.nameCategoryThree;
-      updateData.system.settings.abilities.nameCategory4 = actor.system.settings.abilities.nameCategoryFour;
+      updateData.system.settings.abilities.labelCategory1 = actor.system.settings.abilities.nameAbilities;
+      updateData.system.settings.abilities.labelCategory2 = actor.system.settings.abilities.nameCategoryTwo;
+      updateData.system.settings.abilities.labelCategory3 = actor.system.settings.abilities.nameCategoryThree;
+      updateData.system.settings.abilities.labelCategory4 = actor.system.settings.abilities.nameCategoryFour;
       delete updateData.system.settings.abilities["nameAbilities"];
       delete updateData.system.settings.abilities["nameCategoryTwo"];
       delete updateData.system.settings.abilities["nameCategoryThree"];
@@ -539,14 +559,14 @@ async function migrationActorV1ToV2(actor) {
   async function migrateSettingsCurrency() {
     if (actor.system.settings.currency != null) {
       updateData.system.settings.equipment.currency.active = actor.system.settings.currency.active;
-      updateData.system.settings.equipment.currency.hideNames = actor.system.settings.currency.namesHidden;
+      updateData.system.settings.equipment.currency.hideLabels = actor.system.settings.currency.namesHidden;
       updateData.system.settings.equipment.currency.numberCategories = actor.system.settings.currency.howMany;
-      updateData.system.settings.equipment.currency.nameCategory1 = actor.system.settings.currency.name;
-      updateData.system.settings.equipment.currency.nameCategory2 = actor.system.settings.currency.name2;
-      updateData.system.settings.equipment.currency.nameCategory3 = actor.system.settings.currency.name3;
-      updateData.system.settings.equipment.currency.nameCategory4 = actor.system.settings.currency.name4;
-      updateData.system.settings.equipment.currency.nameCategory5 = actor.system.settings.currency.name5;
-      updateData.system.settings.equipment.currency.nameCategory6 = actor.system.settings.currency.name6;
+      updateData.system.settings.equipment.currency.labelCategory1 = actor.system.settings.currency.name;
+      updateData.system.settings.equipment.currency.labelCategory2 = actor.system.settings.currency.name2;
+      updateData.system.settings.equipment.currency.labelCategory3 = actor.system.settings.currency.name3;
+      updateData.system.settings.equipment.currency.labelCategory4 = actor.system.settings.currency.name4;
+      updateData.system.settings.equipment.currency.labelCategory5 = actor.system.settings.currency.name5;
+      updateData.system.settings.equipment.currency.labelCategory6 = actor.system.settings.currency.name6;
       updateData.system.settings.equipment.currency.quantity1 = actor.system.settings.currency.quantity;
       updateData.system.settings.equipment.currency.quantity2 = actor.system.settings.currency.quantity2;
       updateData.system.settings.equipment.currency.quantity3 = actor.system.settings.currency.quantity3;
@@ -559,19 +579,19 @@ async function migrationActorV1ToV2(actor) {
 
   async function migrateSettingsEquipment() {
     if (actor.system.settings.equipment.cyphers != null && actor.system.settings.equipment.cyphersName != null) {
-      updateData.system.settings.equipment.cyphers = {"active": actor.system.settings.equipment.cyphers, "name": actor.system.settings.equipment.cyphersName};
+      updateData.system.settings.equipment.cyphers = {"active": actor.system.settings.equipment.cyphers, "label": actor.system.settings.equipment.cyphersName};
       delete updateData.system.settings.equipment["cyphersName"];
     }
     if (actor.system.settings.equipment.artifacts != null && actor.system.settings.equipment.artifactsName != null) {
-      updateData.system.settings.equipment.artifacts = {"active": actor.system.settings.equipment.artifacts, "name": actor.system.settings.equipment.artifactsName};
+      updateData.system.settings.equipment.artifacts = {"active": actor.system.settings.equipment.artifacts, "label": actor.system.settings.equipment.artifactsName};
       delete updateData.system.settings.equipment["artifactsName"];
     }
     if (actor.system.settings.equipment.oddities != null && actor.system.settings.equipment.odditiesName != null) {
-      updateData.system.settings.equipment.oddities = {"active": actor.system.settings.equipment.oddities, "name": actor.system.settings.equipment.odditiesName};
+      updateData.system.settings.equipment.oddities = {"active": actor.system.settings.equipment.oddities, "label": actor.system.settings.equipment.odditiesName};
       delete updateData.system.settings.equipment["odditiesName"];
     }
     if (actor.system.settings.equipment.materials != null && actor.system.settings.equipment.materialName != null) {
-      updateData.system.settings.equipment.materials = {"active": actor.system.settings.equipment.materials, "name": actor.system.settings.equipment.materialName};
+      updateData.system.settings.equipment.materials = {"active": actor.system.settings.equipment.materials, "label": actor.system.settings.equipment.materialName};
       delete updateData.system.settings.equipment["materialName"];
     }
   }
@@ -605,6 +625,7 @@ async function migrationActorV1ToV2(actor) {
       "system.teen.pools.-=speedEdge": null,
       "system.teen.pools.-=intellectEdge": null,
       "system.-=health": null,
+      "system.-=damage": null,
       "system.-=infrastructure": null,
       "system.-=quantity": null,
       "system.-=recoveries": null,
@@ -647,6 +668,7 @@ async function migrationActorV1ToV2(actor) {
       "system.settings.abilities.-=nameCategoryTwo": null,
       "system.settings.abilities.-=nameCategoryThree": null,
       "system.settings.abilities.-=nameCategoryFour": null,
+      "system.settings.abilities.-=nameSpells": null,
       "system.settings.abilities.-=categoryTwoActive": null,
       "system.settings.abilities.-=categoryThreeActive": null,
       "system.settings.abilities.-=categoryFourActive": null,
@@ -671,6 +693,7 @@ async function migrationItemV1ToV2(item) {
   // Migration for v2 data paths
   if (item.system.version == 1) {
     if (item.type == "ability") {
+      await migrateNewIconPath();
       await migrateBasicAbility();
       await migrateSettingsRollButton();
       await migrateSettingsSorting();
@@ -684,6 +707,7 @@ async function migrationItemV1ToV2(item) {
     }
 
     if (item.type == "armor") {
+      await migrateNewIconPath();
       await migrateBasicArmor();
       await migrateBasicNotes();
       await deleteUnnecessaryData();
@@ -697,6 +721,7 @@ async function migrationItemV1ToV2(item) {
     }
 
     if (item.type == "attack") {
+      await migrateNewIconPath();
       await migrateBasicAttack();
       await migrateBasicNotes();
       await migrateSettingsRollButton();
@@ -716,6 +741,7 @@ async function migrationItemV1ToV2(item) {
     }
 
     if (item.type == "lasting-damage") {
+      await migrateNewIconPath();
       await migrateBasicLastingDamage();
       await deleteUnnecessaryData();
     }
@@ -732,6 +758,7 @@ async function migrationItemV1ToV2(item) {
     }
 
     if (item.type == "power-shift") {
+      await migrateNewIconPath();
       await migrateBasicPowerShift();
       await deleteUnnecessaryData();
     }
@@ -743,6 +770,7 @@ async function migrationItemV1ToV2(item) {
     }
 
     if (item.type == "skill") {
+      await migrateNewIconPath();
       await migrateBasicSkill();
       await migrateSettingsRollButton();
       await migrateSettingsSorting();
@@ -787,6 +815,12 @@ async function migrationItemV1ToV2(item) {
 
     if (item.type == "teen Skill") {
       await item.update({"type": "skill", "system.settings.general.unmaskedForm": "Teen"});
+    }
+  }
+
+  async function migrateNewIconPath() {
+    if (item.img.includes("systems/cyphersystem/icons/items")) {
+      updateData.img = item.img.toLowerCase().replace(/ /g, "-").replace("teen-", "");
     }
   }
 

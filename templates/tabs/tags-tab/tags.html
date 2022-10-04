@@ -2,7 +2,11 @@
   <ol class="items-list">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{localize 'CYPHERSYSTEM.Tags'}}
+        {{#if (eq actor.system.settings.general.tags.label "")}}
+          {{localize 'CYPHERSYSTEM.Tags'}}
+        {{else}}
+          {{actor.system.settings.general.tags.label}}
+        {{/if}}
       </div>
       <div class="item-controls">
         <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="tag">

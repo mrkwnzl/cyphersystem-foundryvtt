@@ -52,7 +52,7 @@ function rollEngineDialogString(actor, itemID, teen, pool, skillLevel, assets, e
 
   // Check for initiative
   let item = actor.items.get(itemID);
-  let isInitiative = (item) ? item.system.isInitiative : false;
+  let isInitiative = (item) ? item.system.settings.general.initiative : false;
 
   // Create HTML
   let basicModifiers =

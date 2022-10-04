@@ -190,11 +190,11 @@
     {{else}}
       {{#if actor.system.settings.general.additionalPool.active}}
         <div class="resource flex-group-center stat-block additional-block">
-          <label for="actor.system.settings.general.additionalPool.name" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
-            {{#if (eq actor.system.settings.general.additionalPool.name "")}}
+          <label for="actor.system.settings.general.additionalPool.label" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            {{#if (eq actor.system.settings.general.additionalPool.label "")}}
               {{localize 'CYPHERSYSTEM.AdditionalPool'}}
             {{else}}
-              {{actor.system.settings.general.additionalPool.name}}
+              {{actor.system.settings.general.additionalPool.label}}
             {{/if}}
           </label>
           <div class="stat-roll-button"></div>

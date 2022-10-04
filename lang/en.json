@@ -554,5 +554,6 @@
   "CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel": "Armor: Speed Effort costs +{armorCost} per level.",
   "CYPHERSYSTEM.MigrationInProgress": "Applying Cypher System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
   "CYPHERSYSTEM.MigrationDone": "Cypher System Migration to version {version} completed!",
-  "CYPHERSYSTEM.ReloadFoundry": "Reloading Foundry!"
+  "CYPHERSYSTEM.ReloadFoundry": "Reloading Foundry!",
+  "CYPHERSYSTEM.UnmaskedForm": "Unmasked Form"
 }

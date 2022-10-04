@@ -17,15 +17,15 @@ export function bySkillRating(itemA, itemB) {
   let ratingA;
   let ratingB;
 
-  if (itemA.system.skillLevel === 'Specialized') {ratingA = 1}
-  else if (itemA.system.skillLevel === 'Trained') {ratingA = 2}
-  else if (itemA.system.skillLevel === 'Practiced') {ratingA = 3}
-  else if (itemA.system.skillLevel === 'Inability') {ratingA = 4}
+  if (itemA.system.basic.rating === 'Specialized') {ratingA = 1}
+  else if (itemA.system.basic.rating === 'Trained') {ratingA = 2}
+  else if (itemA.system.basic.rating === 'Practiced') {ratingA = 3}
+  else if (itemA.system.basic.rating === 'Inability') {ratingA = 4}
 
-  if (itemB.system.skillLevel === 'Specialized') {ratingB = 1}
-  else if (itemB.system.skillLevel === 'Trained') {ratingB = 2}
-  else if (itemB.system.skillLevel === 'Practiced') {ratingB = 3}
-  else if (itemB.system.skillLevel === 'Inability') {ratingB = 4}
+  if (itemB.system.basic.rating === 'Specialized') {ratingB = 1}
+  else if (itemB.system.basic.rating === 'Trained') {ratingB = 2}
+  else if (itemB.system.basic.rating === 'Practiced') {ratingB = 3}
+  else if (itemB.system.basic.rating === 'Inability') {ratingB = 4}
 
   if (ratingA < ratingB) {
     return -1;
@@ -64,11 +64,11 @@ export function byIdentifiedStatus(itemA, itemB) {
   let ratingA;
   let ratingB;
 
-  if (itemA.system.identified === false) {ratingA = 2}
-  else if (itemA.system.identified === true) {ratingA = 1}
+  if (itemA.system.basic.identified === false) {ratingA = 2}
+  else if (itemA.system.basic.identified === true) {ratingA = 1}
 
-  if (itemB.system.identified === false) {ratingB = 2}
-  else if (itemB.system.identified === true) {ratingB = 1}
+  if (itemB.system.basic.identified === false) {ratingB = 2}
+  else if (itemB.system.basic.identified === true) {ratingB = 1}
 
   if (ratingA < ratingB) {
     return -1;

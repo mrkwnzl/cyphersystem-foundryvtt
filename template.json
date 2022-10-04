@@ -84,15 +84,15 @@
           "gameMode": "Cypher",
           "additionalSentence": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "additionalPool": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "tags": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "hideArchive": false,
           "background": {
@@ -102,13 +102,13 @@
         },
         "skills": {
           "sortByRating": false,
-          "nameCategory1": "",
-          "nameCategory2": "",
-          "nameCategory3": "",
-          "nameCategory4": "",
+          "labelCategory1": "",
+          "labelCategory2": "",
+          "labelCategory3": "",
+          "labelCategory4": "",
           "powerShifts": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         },
         "combat": {
@@ -122,23 +122,23 @@
           }
         },
         "abilities": {
-          "nameCategory1": "",
-          "nameCategory2": "",
-          "nameCategory3": "",
-          "nameCategory4": "",
-          "nameSpells": ""
+          "labelCategory1": "",
+          "labelCategory2": "",
+          "labelCategory3": "",
+          "labelCategory4": "",
+          "labelSpells": ""
         },
         "equipment": {
           "currency": {
             "active": false,
-            "hideNames": false,
+            "hideLabels": false,
             "numberCategories": 1,
-            "nameCategory1": "",
-            "nameCategory2": "",
-            "nameCategory3": "",
-            "nameCategory4": "",
-            "nameCategory5": "",
-            "nameCategory6": "",
+            "labelCategory1": "",
+            "labelCategory2": "",
+            "labelCategory3": "",
+            "labelCategory4": "",
+            "labelCategory5": "",
+            "labelCategory6": "",
             "quantity1": 0,
             "quantity2": 0,
             "quantity3": 0,
@@ -148,19 +148,19 @@
           },
           "cyphers": {
             "active": true,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       },
@@ -191,8 +191,8 @@
           }
         },
         "combat": {
-          "damage": {
-            "damageTrack": "Hale",
+          "damageTrack": {
+            "state": "Hale",
             "applyImpaired": true,
             "applyDebilitated": true
           },
@@ -206,7 +206,7 @@
         "settings": {
           "general": {
             "additionalPool": {
-              "name": "",
+              "label": "",
               "active": false
             },
             "background": {
@@ -251,19 +251,19 @@
           },
           "cyphers": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       }
@@ -308,19 +308,19 @@
           },
           "cyphers": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       }
@@ -363,19 +363,19 @@
           },
           "cyphers": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       }
@@ -405,19 +405,19 @@
           },
           "cyphers": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       }
@@ -456,19 +456,19 @@
           },
           "cyphers": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "artifacts": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "oddities": {
             "active": false,
-            "name": ""
+            "label": ""
           },
           "materials": {
             "active": false,
-            "name": ""
+            "label": ""
           }
         }
       }

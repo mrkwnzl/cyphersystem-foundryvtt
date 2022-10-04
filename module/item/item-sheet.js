@@ -23,7 +23,7 @@ export class CypherItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = "systems/cyphersystem/templates/item-sheets";
-    const itemType = this.item.type.toLowerCase().replace(/ /g, "-").replace("teen-", "");
+    const itemType = this.item.type;
     return `${path}/${itemType}-sheet.html`;
   }
 
@@ -39,7 +39,7 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.isObserver = !this.options.editable;
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
-    data.sheetSettings.identified = this.item.system.identified;
+    data.sheetSettings.identified = this.item.system.basic.identified;
 
     // Enriched HTML
     data.enrichedHTML = {};
@@ -58,10 +58,10 @@ export class CypherItemSheet extends ItemSheet {
     if (!this.options.editable) return;
 
     html.find('.identify-item').click(clickEvent => {
-      if (this.item.system.identified) {
-        this.item.update({"system.identified": false})
+      if (this.item.system.basic.identified) {
+        this.item.update({"system.basic.identified": false})
       } else {
-        this.item.update({"system.identified": true})
+        this.item.update({"system.basic.identified": true})
       }
     });
 

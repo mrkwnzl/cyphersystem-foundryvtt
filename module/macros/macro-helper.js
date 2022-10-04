@@ -17,26 +17,21 @@ export function itemRollMacroQuick(actor, itemID, teen) {
   // Set title
   let itemTypeStrings = {
     "skill": game.i18n.localize("ITEM.TypeSkill"),
-    "teen Skill": game.i18n.localize("ITEM.TypeTeen Skill"),
-    "power Shift": game.i18n.localize("ITEM.TypePower Shift"),
+    "power-shift": game.i18n.localize("ITEM.TypePower Shift"),
     "attack": game.i18n.localize("ITEM.TypeAttack"),
-    "teen Attack": game.i18n.localize("ITEM.TypeTeen Attack"),
     "ability": game.i18n.localize("ITEM.TypeAbility"),
-    "teen Ability": game.i18n.localize("ITEM.TypeTeen Ability"),
     "cypher": game.i18n.localize("ITEM.TypeCypher"),
     "artifact": game.i18n.localize("ITEM.TypeArtifact"),
     "ammo": game.i18n.localize("ITEM.TypeAmmo"),
     "armor": game.i18n.localize("ITEM.TypeArmor"),
     "equipment": game.i18n.localize("ITEM.TypeEquipment"),
-    "lasting Damage": game.i18n.localize("ITEM.TypeLasting Damage"),
+    "lasting-damage": game.i18n.localize("ITEM.TypeLasting Damage"),
     "material": game.i18n.localize("ITEM.TypeMaterial"),
-    "oddity": game.i18n.localize("ITEM.TypeOddity"),
-    "teen Armor": game.i18n.localize("ITEM.TypeTeen Armor"),
-    "teen lasting Damage": game.i18n.localize("ITEM.TypeTeen Lasting Damage")
+    "oddity": game.i18n.localize("ITEM.TypeOddity")
   }
   let itemType = (itemTypeStrings[item.type] || "");
 
-  if (item.type == "skill" || item.type == "teen Skill") {
+  if (item.type == "skill") {
     // Set skill Levels
     let relevantSkill = {
       "Inability": game.i18n.localize("CYPHERSYSTEM.Inability"),
@@ -44,7 +39,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Trained": game.i18n.localize("CYPHERSYSTEM.Trained"),
       "Specialized": game.i18n.localize("CYPHERSYSTEM.Specialized")
     }
-    let skillInfo = (relevantSkill[item.system.skillLevel] || relevantSkill["Practiced"]);
+    let skillInfo = (relevantSkill[item.system.basic.rating] || relevantSkill["Practiced"]);
 
     // Set info
     info = itemType + ". " + game.i18n.localize("CYPHERSYSTEM.Level") + ": " + skillInfo;
@@ -58,23 +53,23 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     }
 
     // Set difficulty modifier
-    modifier = (skillLevels[item.system.skillLevel] || 0);
+    modifier = (skillLevels[item.system.basic.rating] || 0);
 
-  } else if (item.type == "power Shift") {
+  } else if (item.type == "power-shift") {
     // Set info
-    info = itemType + ". " + item.system.powerShiftValue + ((item.system.powerShiftValue == 1) ?
+    info = itemType + ". " + item.system.basic.shifts + ((item.system.basic.shifts == 1) ?
       " " + game.i18n.localize("CYPHERSYSTEM.Shift") :
       " " + game.i18n.localize("CYPHERSYSTEM.Shifts"));
 
     // Set difficulty modifier
-    modifier = item.system.powerShiftValue;
+    modifier = item.system.basic.shifts;
 
-  } else if (item.type == "attack" || item.type == "teen Attack") {
+  } else if (item.type == "attack") {
     // Set info
-    info = itemType + ". " + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + item.system.damage;
+    info = itemType + ". " + game.i18n.localize("CYPHERSYSTEM.Damage") + ": " + item.system.basic.damage;
 
     // Determine whether the roll is eased or hindered
-    let modifiedBy = (item.system.modified == "hindered") ? item.system.modifiedBy * -1 : item.system.modifiedBy;
+    let modifiedBy = (item.system.basic.modifier == "hindered") ? item.system.basic.steps * -1 : item.system.basic.steps;
 
     // Determine skill level
     let attackSkill = {
@@ -83,23 +78,23 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Trained": 1,
       "Specialized": 2
     }
-    let skillRating = (attackSkill[item.system.skillRating] || 0);
+    let skillRating = (attackSkill[item.system.basic.skillRating] || 0);
 
     // Set difficulty modifier
     modifier = skillRating + modifiedBy;
 
-  } else if (item.type == "ability" || item.type == "teen Ability") {
+  } else if (item.type == "ability") {
     // Set defaults
     let costInfo = "";
 
     // Slice possible "+" from cost
-    let checkPlus = item.system.costPoints.slice(-1);
+    let checkPlus = item.system.basic.cost.slice(-1);
     let pointCost = (checkPlus == "+") ?
-      item.system.costPoints.slice(0, -1) :
-      item.system.costPoints;
+      item.system.basic.cost.slice(0, -1) :
+      item.system.basic.cost;
 
     // Check if there is a point cost and prepare costInfo
-    if (item.system.costPoints != "" && item.system.costPoints != "0") {
+    if (item.system.basic.cost != "" && item.system.basic.cost != "0") {
       // Determine edge
       let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
       let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
@@ -110,10 +105,10 @@ export function itemRollMacroQuick(actor, itemID, teen) {
         "Speed": speedEdge,
         "Intellect": intellectEdge
       }
-      let edge = (relevantEdge[item.system.costPool] || 0)
+      let edge = (relevantEdge[item.system.basic.pool] || 0)
 
       // Determine point cost
-      let checkPlus = item.system.costPoints.slice(-1);
+      let checkPlus = item.system.basic.cost.slice(-1);
       let pointCostInfo = pointCost - edge;
       if (pointCostInfo < 0) pointCostInfo = 0;
 
@@ -143,7 +138,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
           return game.i18n.localize("CYPHERSYSTEM.XP")
         }
       }
-      let poolPoints = (relevantPool[item.system.costPool]() || relevantPool["Pool"]());
+      let poolPoints = (relevantPool[item.system.basic.pool]() || relevantPool["Pool"]());
 
       // Determine edge info
       let operator = (edge < 0) ? "+" : "-";
@@ -157,7 +152,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     info = itemType + costInfo
 
     // Pay pool points and check whether there are enough points
-    let payPoolPointsInfo = payPoolPoints(actor, pointCost, item.system.costPool, teen);
+    let payPoolPointsInfo = payPoolPoints(actor, pointCost, item.system.basic.pool, teen);
     pointsPaid = payPoolPointsInfo[0];
 
   } else if (item.type == "cypher") {
@@ -176,7 +171,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "";
 
     // Determine depletion info
-    let depletionInfo = game.i18n.localize("CYPHERSYSTEM.Depletion") + ": " + item.system.depletion;
+    let depletionInfo = game.i18n.localize("CYPHERSYSTEM.Depletion") + ": " + item.system.basic.depletion;
 
     // Put it all together for info
     info = itemType + ". " + levelInfo + depletionInfo;

@@ -698,7 +698,8 @@ select.bar-attribute {
   align-items: center;
 }
 
-.cyphersystem input[type="text"].setting-input {
+.cyphersystem input[type="text"].setting-input,
+.cyphersystem input[type="number"].setting-input {
   width: 135px;
 }
 

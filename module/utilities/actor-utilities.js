@@ -78,7 +78,7 @@ export async function regainPoolPoints(actor, cost, pool, teen) {
 
   ChatMessage.create({
     speaker: ChatMessage.getSpeaker({actor: actor}),
-    content: chatCardRegainPoints(actor, cost, pool)
+    content: chatCardRegainPoints(actor, cost, pool, teen)
   })
 }
 

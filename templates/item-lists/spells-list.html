@@ -6,28 +6,28 @@
         {{~item.name}}
       </a>
       {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-      {{#if (eq system.costPoints "1") ~}}
-        {{system.costPoints}}
-        {{#if (eq system.costPool "Might") ~}}
+      {{#if (eq system.basic.cost "1") ~}}
+        {{system.basic.cost}}
+        {{#if (eq system.basic.pool "Might") ~}}
           {{localize 'CYPHERSYSTEM.MightPoint' ~}},
-        {{else if (eq system.costPool "Speed") ~}}
+        {{else if (eq system.basic.pool "Speed") ~}}
           {{localize 'CYPHERSYSTEM.SpeedPoint' ~}},
-        {{else if (eq system.costPool "Intellect") ~}}
+        {{else if (eq system.basic.pool "Intellect") ~}}
           {{localize 'CYPHERSYSTEM.IntellectPoint' ~}},
-        {{else if (eq system.costPool "XP") ~}}
+        {{else if (eq system.basic.pool "XP") ~}}
           {{localize 'CYPHERSYSTEM.XP' ~}},
         {{else ~}}
           {{localize 'CYPHERSYSTEM.AnyPoolPoint' ~}},
         {{/if ~}}
-      {{else if (and (ne system.costPoints "0") (ne system.costPoints "") (ne system.costPoints 0)) ~}}
-        {{system.costPoints}}
-        {{#if (eq system.costPool "Might") ~}}
+      {{else if (and (ne system.basic.cost "0") (ne system.basic.cost "") (ne system.basic.cost 0)) ~}}
+        {{system.basic.cost}}
+        {{#if (eq system.basic.pool "Might") ~}}
           {{localize 'CYPHERSYSTEM.MightPoints' ~}},
-        {{else if (eq system.costPool "Speed") ~}}
+        {{else if (eq system.basic.pool "Speed") ~}}
           {{localize 'CYPHERSYSTEM.SpeedPoints' ~}},
-        {{else if (eq system.costPool "Intellect") ~}}
+        {{else if (eq system.basic.pool "Intellect") ~}}
           {{localize 'CYPHERSYSTEM.IntellectPoints' ~}},
-        {{else if (eq system.costPool "XP") ~}}
+        {{else if (eq system.basic.pool "XP") ~}}
           {{localize 'CYPHERSYSTEM.XP' ~}},
         {{else ~}}
           {{localize 'CYPHERSYSTEM.AnyPoolPoints' ~}},

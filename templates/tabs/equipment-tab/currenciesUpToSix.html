@@ -3,19 +3,19 @@
 
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 6)}}
       <div class="resource flex-center">
-        {{#unless actor.system.settings.equipment.currency.hideNames}}
+        {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
             <b>
-              {{#if (eq actor.system.settings.equipment.currency.nameCategory6 "")}}
+              {{#if (eq actor.system.settings.equipment.currency.labelCategory6 "")}}
                 {{localize 'CYPHERSYSTEM.Adamantine'}}
               {{else}}
-                {{actor.system.settings.equipment.currency.nameCategory6}}
+                {{actor.system.settings.equipment.currency.labelCategory6}}
               {{/if}}
             </b>
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
-          <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory6 '')}}{{localize 'CYPHERSYSTEM.Adamantine'}}{{else}}{{actor.system.settings.equipment.currency.nameCategory6}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity6" value="{{actor.system.settings.equipment.currency.quantity6}}" />
+          <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory6 '')}}{{localize 'CYPHERSYSTEM.Adamantine'}}{{else}}{{actor.system.settings.equipment.currency.labelCategory6}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity6" value="{{actor.system.settings.equipment.currency.quantity6}}" />
         </div>
       </div>
     {{else}}
@@ -24,19 +24,19 @@
 
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 5)}}
       <div class="resource flex-center">
-        {{#unless actor.system.settings.equipment.currency.hideNames}}
+        {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
             <b>
-              {{#if (eq actor.system.settings.equipment.currency.nameCategory5 "")}}
+              {{#if (eq actor.system.settings.equipment.currency.labelCategory5 "")}}
                 {{localize 'CYPHERSYSTEM.Mithral'}}
               {{else}}
-                {{actor.system.settings.equipment.currency.nameCategory5}}
+                {{actor.system.settings.equipment.currency.labelCategory5}}
               {{/if}}
             </b>
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
-          <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory5 '')}}{{localize 'CYPHERSYSTEM.Mithral'}}{{else}}{{actor.system.settings.equipment.currency.nameCategory5}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity5" value="{{actor.system.settings.equipment.currency.quantity5}}" />
+          <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory5 '')}}{{localize 'CYPHERSYSTEM.Mithral'}}{{else}}{{actor.system.settings.equipment.currency.labelCategory5}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity5" value="{{actor.system.settings.equipment.currency.quantity5}}" />
         </div>
       </div>
     {{else}}
@@ -45,19 +45,19 @@
 
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 4)}}
       <div class="resource flex-center">
-        {{#unless actor.system.settings.equipment.currency.hideNames}}
+        {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
             <b>
-              {{#if (eq actor.system.settings.equipment.currency.nameCategory4 "")}}
+              {{#if (eq actor.system.settings.equipment.currency.labelCategory4 "")}}
                 {{localize 'CYPHERSYSTEM.Platinum'}}
               {{else}}
-                {{actor.system.settings.equipment.currency.nameCategory4}}
+                {{actor.system.settings.equipment.currency.labelCategory4}}
               {{/if}}
             </b>
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
-          <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory4 '')}}{{localize 'CYPHERSYSTEM.Platinum'}}{{else}}{{actor.system.settings.equipment.currency.nameCategory4}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity4" value="{{actor.system.settings.equipment.currency.quantity4}}" />
+          <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory4 '')}}{{localize 'CYPHERSYSTEM.Platinum'}}{{else}}{{actor.system.settings.equipment.currency.labelCategory4}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity4" value="{{actor.system.settings.equipment.currency.quantity4}}" />
         </div>
       </div>
     {{else}}
@@ -66,19 +66,19 @@
 
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 3)}}
       <div class="resource flex-center">
-        {{#unless actor.system.settings.equipment.currency.hideNames}}
+        {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
             <b>
-              {{#if (eq actor.system.settings.equipment.currency.nameCategory3 "")}}
+              {{#if (eq actor.system.settings.equipment.currency.labelCategory3 "")}}
                 {{localize 'CYPHERSYSTEM.Gold'}}
               {{else}}
-                {{actor.system.settings.equipment.currency.nameCategory3}}
+                {{actor.system.settings.equipment.currency.labelCategory3}}
               {{/if}}
             </b>
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
-          <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory3 '')}}{{localize 'CYPHERSYSTEM.Gold'}}{{else}}{{actor.system.settings.equipment.currency.nameCategory3}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity3" value="{{actor.system.settings.equipment.currency.quantity3}}" />
+          <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory3 '')}}{{localize 'CYPHERSYSTEM.Gold'}}{{else}}{{actor.system.settings.equipment.currency.labelCategory3}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity3" value="{{actor.system.settings.equipment.currency.quantity3}}" />
         </div>
       </div>
     {{else}}
@@ -87,19 +87,19 @@
 
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}
       <div class="resource flex-center">
-        {{#unless actor.system.settings.equipment.currency.hideNames}}
+        {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
             <b>
-              {{#if (eq actor.system.settings.equipment.currency.nameCategory2 "")}}
+              {{#if (eq actor.system.settings.equipment.currency.labelCategory2 "")}}
                 {{localize 'CYPHERSYSTEM.Silver'}}
               {{else}}
-                {{actor.system.settings.equipment.currency.nameCategory2}}
+                {{actor.system.settings.equipment.currency.labelCategory2}}
               {{/if}}
             </b>
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
-          <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory2 '')}}{{localize 'CYPHERSYSTEM.Silver'}}{{else}}{{actor.system.settings.equipment.currency.nameCategory2}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity2" value="{{actor.system.settings.equipment.currency.quantity2}}" />
+          <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory2 '')}}{{localize 'CYPHERSYSTEM.Silver'}}{{else}}{{actor.system.settings.equipment.currency.labelCategory2}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity2" value="{{actor.system.settings.equipment.currency.quantity2}}" />
         </div>
       </div>
     {{else}}
@@ -107,10 +107,10 @@
     {{/if}}
 
     <div class="resource flex-center">
-      {{#unless actor.system.settings.equipment.currency.hideNames}}
+      {{#unless actor.system.settings.equipment.currency.hideLabels}}
         <label class="resource-label-normal">
           <b>
-            {{#if (eq actor.system.settings.equipment.currency.nameCategory1 "")}}
+            {{#if (eq actor.system.settings.equipment.currency.labelCategory1 "")}}
               {{#if (eq actor.system.settings.equipment.currency.numberCategories "1")}}
                 {{localize 'CYPHERSYSTEM.Shins'}}
               {{/if}}
@@ -118,13 +118,13 @@
                 {{localize 'CYPHERSYSTEM.Copper'}}
               {{/if}}
             {{else}}
-              {{actor.system.settings.equipment.currency.nameCategory1}}
+              {{actor.system.settings.equipment.currency.labelCategory1}}
             {{/if}}
           </b>
         </label>
       {{/unless}}
       <div class="resource-content flexrow flex-center flex-between">
-        <input title="{{#if (eq actor.system.settings.equipment.currency.nameCategory1 '')}}{{#if (eq actor.system.settings.equipment.currency.numberCategories '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}{{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}{{else}}{{actor.system.settings.equipment.currency.nameCategory1}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity1" value="{{actor.system.settings.equipment.currency.quantity1}}" />
+        <input title="{{#if (eq actor.system.settings.equipment.currency.labelCategory1 '')}}{{#if (eq actor.system.settings.equipment.currency.numberCategories '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}{{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}{{else}}{{actor.system.settings.equipment.currency.labelCategory1}}{{/if}}" type="number" name="system.settings.equipment.currency.quantity1" value="{{actor.system.settings.equipment.currency.quantity1}}" />
       </div>
     </div>
 

@@ -13,7 +13,7 @@ export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, 
   if (!skipDialog) skipDialog = !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
   skipDialog = (game.keyboard.isModifierActive('Alt')) ? !skipDialog : skipDialog;
   if (!skipRoll) skipRoll = false;
-  if (!initiativeRoll) initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.isInitiative : false;
+  if (!initiativeRoll) initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.settings.general.initiative : false;
   if (!title) title = "";
 
   // Set default basic modifiers
