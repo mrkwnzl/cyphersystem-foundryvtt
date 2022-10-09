@@ -19,7 +19,7 @@ export function chatCardAskForIntrusion(actor, actorId) {
 
 export function chatCardIntrusionAccepted(actor, selectedActorId) {
   let selectedActor = game.actors.get(selectedActorId);
-  let content = game.i18n.format("CYPHERSYSTEM.IntrusionAccepted", {actor: actor.name, selectedActor: selectedActor.data.name});
+  let content = (selectedActorId) ? game.i18n.format("CYPHERSYSTEM.IntrusionAcceptedAndGaveXP", {actor: actor.name, selectedActor: selectedActor.name}) : game.i18n.format("CYPHERSYSTEM.IntrusionAccepted", {actor: actor.name});
 
   return content
 }

@@ -17,27 +17,25 @@ import {
 } from "../utilities/actor-utilities.js";
 import {barBrawlData} from "../utilities/token-utilities.js";
 import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
-import {rollEngineDiceRoller} from "../utilities/roll-engine/roll-engine-dice-roller.js";
-import {dataMigration} from "../utilities/migration.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
 /* -------------------------------------------- */
 
 export function quickRollMacro(title) {
-  rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", "", 0, 0, 0)
+  rollEngineMain({title: title});
 }
 
 export function easedRollMacro() {
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.EasedStatRoll"),
     content: `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}: </b></label>
-    <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="text" value=1 /></div>`,
+    <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val(), 0, "")
+        callback: (html) => rollEngineMain({title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), difficultyModifier: parseInt(html.find('input').val()), easedOrHindered: "eased"})
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -55,12 +53,12 @@ export function hinderedRollMacro() {
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll"),
     content: `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}: </b></label>
-    <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="text" value=1 /></div>`,
+    <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: {
       roll: {
         icon: '<i class="fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) => rollEngineDiceRoller("", "", false, game.i18n.localize("CYPHERSYSTEM.StatRoll"), "", html.find('input').val() * -1, 0, "")
+        callback: (html) => rollEngineMain({title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), difficultyModifier: parseInt(html.find('input').val()), easedOrHindered: "hindered"})
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
@@ -115,7 +113,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
   // Check for actor that owns the item
-  if (!actor || actor.data.type != "pc") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name}));
 
   // Determine the item based on item ID
   const item = actor.items.get(itemID);
@@ -129,12 +127,6 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
     if (!game.combat) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoCombatActive"));
     if (actor.getActiveTokens().length == 0) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoTokensOnScene", {name: actor.name}));
   }
-
-  // Check for AiO dialog
-  let skipDialog = "";
-
-  // Check for noRoll
-  let skipRoll = (noRoll) ? true : false;
 
   // Prepare data
   // Prepare defaults in case none are set by users in the macro
@@ -156,10 +148,10 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
       let checkPlus = item.system.basic.cost.slice(-1)
       if (checkPlus == "+") {
         let cost = item.system.basic.cost.slice(0, -1);
-        additionalCost = parseInt(cost);
+        additionalCost = cost;
       } else {
         let cost = item.system.basic.cost;
-        additionalCost = parseInt(cost);
+        additionalCost = cost;
       }
     } else {
       additionalCost = item.system.settings.rollButton.additionalCost;
@@ -211,7 +203,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   }
 
   // Parse data to All-in-One Dialog
-  rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, itemType + item.name, pool, skillLevel, assets, effort1, effort2, damage, effort3, damagePerLOE, Math.abs(additionalSteps), stepModifier, bonus, additionalCost)
+  rollEngineMain({actor: actor, itemID: itemID, teen: teen, skipRoll: noRoll, initiative: initiativeRoll, title: itemType + item.name, pool: pool, skillLevel: skillLevel, assets: parseInt(assets), effortToEase: parseInt(effort1), effortOtherUses: parseInt(effort2), damage: parseInt(damage), effortDamage: parseInt(effort3), damagePerLOE: parseInt(damagePerLOE), difficultyModifier: parseInt(Math.abs(additionalSteps)), easedOrHindered: stepModifier, bonus: parseInt(bonus), poolPointCost: parseInt(additionalCost)})
 }
 
 /* -------------------------------------------- */
@@ -295,8 +287,8 @@ export function spendEffortMacro(actor) {
 
     // Determine point cost including penalty due to armor
     let cost = (pool == "Speed") ?
-      (level * 2) + 1 + (level * actor.system.combat.armor.costTotal) + parseInt(penalty) :
-      (level * 2) + 1 + parseInt(penalty);
+      (level * 2) + 1 + (level * actor.system.combat.armor.costTotal) + penalty :
+      (level * 2) + 1 + penalty;
 
     // Pay pool points
     payPoolPoints(actor, cost, pool);
@@ -408,7 +400,7 @@ export function quickStatChange(token, stat, modifier) {
 
   // Check whether a correct token is selected
   function checkToken(actorTypes, statString) {
-    if (!token || !actorTypes.includes(token.actor.data.type)) {
+    if (!token || !actorTypes.includes(token.actor.type)) {
       ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString}));
       return false;
     } else {
@@ -433,7 +425,7 @@ export function proposeIntrusion(actor) {
     // Create list of PCs
     let selectOptions = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "pc") selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc" && actor.hasPlayerOwner) selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}</option>`;
     }
 
     if (selectOptions == "") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoPCsNoIntrusion"));
@@ -474,7 +466,7 @@ export function proposeIntrusion(actor) {
 }
 
 export function changeSymbolForFractions() {
-  let slash = game.settings.get("cyphersystem", "useSlashForFractions") ? false : true;
+  let slash = !game.settings.get("cyphersystem", "useSlashForFractions");
   game.settings.set("cyphersystem", "useSlashForFractions", slash);
 }
 
@@ -939,7 +931,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       modifier = modifier * -1;
     }
 
-    let finalDifficulty = parseInt(difficulty) + parseInt(modifier);
+    let finalDifficulty = difficulty + modifier;
 
     if (finalDifficulty < 0) finalDifficulty = 0;
 

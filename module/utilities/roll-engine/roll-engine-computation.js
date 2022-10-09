@@ -1,62 +1,83 @@
 import {payPoolPoints} from "../actor-utilities.js";
-import {rollEngineDialog} from "./roll-engine-dialog.js";
-import {rollEngineDiceRoller} from "./roll-engine-dice-roller.js";
+import {rollEngineForm} from "./roll-engine-form.js";
 import {rollEngineOutput} from "./roll-engine-output.js";
 
-export async function rollEngineComputation(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
-  // Check for effort
-  let effortTotal = parseInt(effortToEase) + parseInt(effortOtherUses) + parseInt(effortDamage);
+export async function rollEngineComputation(data) {
+  // Roll dice
+  data.roll = await new Roll("1d20").evaluate({async: true});
 
-  if (effortTotal > actor.system.basic.effort) {
-    if (!skipDialog) {
-      rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
-    }
+  // Check for effort
+  data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;
+  if (data.effortTotal > data.actor.system.basic.effort) {
     return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
   }
 
   // Determine impaired & debilitated status
-  let impairedStatus = false;
-  if (actor.system.basic.unmaskedForm == "Teen") {
-    if (actor.system.teen.combat.damage.damageTrack == "Impaired" && actor.system.teen.combat.damage.applyImpaired) impairedStatus = true;
-    if (actor.system.teen.combat.damage.damageTrack == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) impairedStatus = true;
-  } else if (actor.system.basic.unmaskedForm == "Mask") {
-    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) impairedStatus = true;
-    if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) impairedStatus = true;
+  if (data.teen) {
+    if (data.actor.system.teen.combat.damage.damageTrack == "Impaired" && data.actor.system.teen.combat.damage.applyImpaired) data.impairedStatus = true;
+    if (data.actor.system.teen.combat.damage.damageTrack == "Debilitated" && data.actor.system.teen.combat.damage.applyDebilitated) data.impairedStatus = true;
+  } else if (!data.teen) {
+    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) data.impairedStatus = true;
+    if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) data.impairedStatus = true;
+  } else {
+    data.impairedStatus = false;
   }
 
-  // Calculate total cost
-  let impaired = (impairedStatus) ? effortTotal : 0;
-  let armorCost = (pool == "Speed") ? parseInt(effortTotal) * parseInt(actor.system.combat.armor.costTotal) : 0;
-  let costCalculated = (effortTotal > 0) ? (effortTotal * 2) + 1 + parseInt(poolPointCost) + parseInt(armorCost) + parseInt(impaired) : parseInt(poolPointCost);
+  // Calculate damage
+  data.damageEffort = data.damagePerLOE * data.effortDamage;
+  data.totalDamage = data.damage + data.damageEffort;
 
-  let payPoolPointsInfo = await payPoolPoints(actor, costCalculated, pool, teen);
-  let costTotal = payPoolPointsInfo[1];
-  let edge = payPoolPointsInfo[2];
+  data.damageEffect = 0;
+  if (data.roll.total >= 17 && !data.impairedStatus) {
+    data.damageEffect = data.roll.total - 16;
+  } else if (data.roll.total >= 17 && data.impairedStatus) {
+    data.damageEffect = 1;
+  }
+
+  data.damageWithEffect = data.totalDamage + data.damageEffect;
+
+  // Calculate total cost
+  data.impaired = (data.impairedStatus) ? effortTotal : 0;
+  data.armorCost = (data.pool == "Speed") ? data.effortTotal * data.actor.system.combat.armor.costTotal : 0;
+  data.costCalculated = (data.effortTotal > 0) ? (data.effortTotal * 2) + 1 + data.poolPointCost + data.armorCost + data.impaired : data.poolPointCost;
+
+  let payPoolPointsInfo = [];
+  if (!data.reroll) {
+    payPoolPointsInfo = await payPoolPoints(data.actor, data.costCalculated, data.pool, data.teen);
+  } else if (data.reroll) {
+    let edge = data.actor.system.pools[data.pool.toLowerCase()].edge;
+    payPoolPointsInfo = [true, data.costCalculated - edge, edge]
+  }
+  data.costTotal = payPoolPointsInfo[1];
+  data.edge = payPoolPointsInfo[2];
 
   // Calculate roll modifiers
-  if (easedOrHindered == "hindered") difficultyModifier = difficultyModifier * -1;
-  let difficultyModifierTotal = parseInt(skillLevel) + parseInt(assets) + parseInt(effortToEase) + parseInt(difficultyModifier);
+  if (data.easedOrHindered == "hindered") data.difficultyModifier = data.difficultyModifier * -1;
+  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + data.difficultyModifier;
+
+  // Calculate rollTotal
+  data.rollTotal = data.roll.total + data.bonus;
+
+  // Calculate difficulty
+  data.difficulty = (data.rollTotal < 0) ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);
+  data.difficultyResult = determineDifficultyResult(data.difficulty, data.difficultyModifierTotal, data.bonus);
 
   // Go to next step
   if (payPoolPointsInfo[0]) {
-    let rollEngineOutputArray = await rollEngineOutput(actor, itemID, skipRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, poolPointCost, costCalculated, costTotal, edge);
-    title = rollEngineOutputArray[0];
-    let info = rollEngineOutputArray[1];
-
-    if (!skipRoll) {
-      rollEngineDiceRoller(actor, itemID, initiativeRoll, title, info, pool, difficultyModifierTotal, bonus, costTotal);
-    } else if (skipRoll) {
-      rollEnginePayPoints(actor, itemID, title, info);
-    }
-  } else if (!payPoolPointsInfo[0] && !skipDialog) {
-    rollEngineDialog(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost, costCalculated, costTotal, edge);
+    rollEngineOutput(data);
+  } else if (!payPoolPointsInfo[0] && !data.skipDialog) {
+    rollEngineForm(data);
   }
 }
 
-export async function rollEnginePayPoints(actor, itemID, title, info) {
-  ChatMessage.create({
-    content: "<b>" + title + "</b>" + info,
-    speaker: ChatMessage.getSpeaker({actor: actor}),
-    flags: {"itemID": itemID}
-  });
+function determineDifficultyResult(difficulty, difficultyModifierTotal) {
+  if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
+    if (difficulty < 0) difficulty = 0;
+    return difficulty + " (" + difficulty * 3 + ")";
+  } else {
+    let operator = (difficultyModifierTotal < 0) ? "-" : "+";
+    let effectiveDifficulty = difficulty + difficultyModifierTotal;
+    if (effectiveDifficulty < 0) effectiveDifficulty = 0;
+    return effectiveDifficulty + " [" + difficulty + operator + Math.abs(difficultyModifierTotal) + "]";
+  }
 }

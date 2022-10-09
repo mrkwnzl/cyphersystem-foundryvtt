@@ -5,11 +5,6 @@ export async function dataMigration() {
   // Warn about migration
   ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MigrationInProgress", {version: game.system.version}));
 
-  // Migrate invalid actor types
-  if (game.actors.invalidDocumentIds.size > 0) {
-    await migrationActorTypes();
-  }
-
   // Migrate actors & embedded items in the world
   for (let actor of game.actors) {
     console.log(`Migrating Actor document ${actor.name}`);
@@ -30,7 +25,7 @@ export async function dataMigration() {
         await pack.configure({locked: false});
         let actor = await pack.getDocument(index._id);
         console.log(`Migrating Actor document ${actor.name}`);
-        await migrationRoutineActor(actor)
+        await migrationRoutineActor(actor);
         await pack.configure({locked: lockedStatus});
       }
     }
@@ -63,34 +58,45 @@ export async function dataMigration() {
   await ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}));
 }
 
-async function migrationActorTypes() {
-  const updates = [];
-  for (const invalidId of game.actors.invalidDocumentIds) {
-    const doc = game.actors.getInvalid(invalidId);
-    if (doc.type == "PC") {
-      updates.push({_id: doc.id, type: "pc"});
+export async function dataMigrationPacks(packageName) {
+  // Warn about migration
+  ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MigrationInProgress", {version: game.system.version}));
+
+  // Make all types valid again
+  game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag", "lasting Damage", "power Shift", "teen Ability", "teen Armor", "teen Attack", "teen lasting Damage", "teen Skill"];
+
+  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker", "PC", "NPC", "Companion", "Community", "Vehicle", "Token"]
+
+  for (let pack of game.packs) {
+    if (pack.metadata.type == "Actor" && pack.metadata.packageName == packageName) {
+      for (let index of pack.index) {
+        let lockedStatus = pack.locked;
+        await pack.configure({locked: false});
+        let actor = await pack.getDocument(index._id);
+        console.log(`Migrating Actor document ${actor.name}`);
+        await migrationRoutineActor(actor);
+        await pack.configure({locked: lockedStatus});
+      }
     }
-    if (doc.type == "NPC") {
-      updates.push({_id: doc.id, type: "npc"});
-    }
-    if (doc.type == "Companion") {
-      updates.push({_id: doc.id, type: "companion"});
-    }
-    if (doc.type == "Community") {
-      updates.push({_id: doc.id, type: "community"});
-    }
-    if (doc.type == "Vehicle") {
-      updates.push({_id: doc.id, type: "vehicle"});
-    }
-    if (doc.type == "Token") {
-      updates.push({_id: doc.id, type: "marker"});
+    if (pack.metadata.type == "Item" && pack.metadata.packageName == packageName) {
+      for (let index of pack.index) {
+        let lockedStatus = pack.locked;
+        await pack.configure({locked: false});
+        let item = await pack.getDocument(index._id);
+        console.log(`Migrating Item document ${item.name}`);
+        await migrationRoutineItem(item)
+        await pack.configure({locked: lockedStatus});
+      }
     }
   }
-  await Actor.updateDocuments(updates);
-  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ReloadFoundry"));
 
-  await new Promise(r => setTimeout(r, 2000));
-  location.reload();
+  // Remove invalid types again
+  game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag"];
+
+  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"]
+
+  // Notify about finished migration
+  await ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}));
 }
 
 async function migrationRoutineActor(actor) {
@@ -124,6 +130,8 @@ async function migrationRoutineItem(item) {
 }
 
 async function migrationActorV1ToV2(actor) {
+  await migrationActorTypes();
+
   // Create updateData object
   let updateData = foundry.utils.deepClone(actor.toObject());
 
@@ -212,6 +220,14 @@ async function migrationActorV1ToV2(actor) {
     // Update to version 2
     updateData.system.version = 2;
     return updateData;
+  }
+
+  async function migrationActorTypes() {
+    if (actor.type == "Token") {
+      await actor.update({"type": "marker"});
+    } else {
+      await actor.update({"type": actor.type.toLowerCase()});
+    }
   }
 
   async function migrateBasicLevelAndRank() {
@@ -475,7 +491,7 @@ async function migrationActorV1ToV2(actor) {
       delete updateData.system.settings["isCounter"];
     }
     if (actor.system.settings.counting != null) {
-      updateData.system.settings.general.counting = actor.system.settings.counting;
+      updateData.system.settings.general.counting = (Number.isInteger(actor.system.settings.counting)) ? actor.system.settings.counting : -1;
       delete updateData.system.settings["counting"];
     }
     if (actor.system.settings.hideNotes != null) {

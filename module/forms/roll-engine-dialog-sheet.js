@@ -5,7 +5,7 @@
 
 import {rollEngineComputation} from "../utilities/roll-engine/roll-engine-computation.js";
 
-export class rollEngineDialogSheet extends FormApplication {
+export class RollEngineDialogSheet extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -48,9 +48,10 @@ export class rollEngineDialogSheet extends FormApplication {
     data.summaryTooMuchEffort = summaryCheckEffort(data.actor, data);
     data.summaryNotEnoughPointsString = summaryCheckPoints(data);
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
+    data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
 
     // Derived data
-    data.totalEffort = parseInt(data.effortToEase) + parseInt(data.effortOtherUses) + parseInt(data.effortDamage);
+    data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
     data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
 
     data.mightValue = (data.pool == "Might") ? data.mightValue - data.summaryTotalCost : data.mightValue;
@@ -80,18 +81,18 @@ export class rollEngineDialogSheet extends FormApplication {
     let data = this.object;
 
     // Basic data
-    data.assets = (formData.assets) ? parseInt(formData.assets) : 0;
-    data.bonus = (formData.bonus) ? parseInt(formData.bonus) : 0;
-    data.damage = (formData.damage) ? parseInt(formData.damage) : 0;
-    data.damagePerLOE = (formData.damagePerLOE) ? parseInt(formData.damagePerLOE) : 3;
-    data.difficultyModifier = (formData.difficultyModifier) ? parseInt(formData.difficultyModifier) : 0;
-    data.easedOrHindered = formData.easedOrHindered;
-    data.effortDamage = parseInt(formData.effortDamage);
-    data.effortOtherUses = parseInt(formData.effortOtherUses);
-    data.effortToEase = parseInt(formData.effortToEase);
     data.pool = formData.pool;
-    data.poolPointCost = (formData.poolPointCost) ? parseInt(formData.poolPointCost) : 0;
     data.skillLevel = parseInt(formData.skillLevel);
+    data.assets = (formData.assets) ? parseInt(formData.assets) : 0;
+    data.effortToEase = parseInt(formData.effortToEase);
+    data.effortOtherUses = parseInt(formData.effortOtherUses);
+    data.damage = (formData.damage) ? formData.damage : 0;
+    data.effortDamage = parseInt(formData.effortDamage);
+    data.damagePerLOE = (formData.damagePerLOE) ? formData.damagePerLOE : 3;
+    data.easedOrHindered = formData.easedOrHindered;
+    data.difficultyModifier = (formData.difficultyModifier) ? formData.difficultyModifier : 0;
+    data.bonus = (formData.bonus) ? formData.bonus : 0;
+    data.poolPointCost = (formData.poolPointCost) ? formData.poolPointCost : 0;
 
     // Summary
     data.summaryTaskModified = summaryTaskModified(formData);
@@ -104,7 +105,7 @@ export class rollEngineDialogSheet extends FormApplication {
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
 
     // Derived data
-    data.totalEffort = parseInt(formData.effortToEase) + parseInt(formData.effortOtherUses) + parseInt(formData.effortDamage);
+    data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
     data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
 
     data.mightValue = (data.pool == "Might") ? data.mightValue - data.summaryTotalCost : data.mightValue;
@@ -136,34 +137,34 @@ export class rollEngineDialogSheet extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('.roll-engine-roll').click(clickEvent => {
-      rollEngineComputation(this.object.actor, this.object.itemID, this.object.teen, this.object.skipDialog, false, this.object.initiativeRoll, this.object.title, this.object.pool, this.object.skillLevel, this.object.assets, this.object.effortToEase, this.object.effortOtherUses, this.object.damage, this.object.effortDamage, this.object.damagePerLOE, this.object.difficultyModifier, this.object.easedOrHindered, this.object.bonus, this.object.poolPointCost);
+    let data = this.object;
 
+    html.find('.roll-engine-roll').click(clickEvent => {
+      rollEngineComputation(data);
       this.close();
     });
 
     html.find('.roll-engine-pay').click(clickEvent => {
-      rollEngineComputation(this.object.actor, this.object.itemID, this.object.teen, this.object.skipDialog, true, this.object.initiativeRoll, this.object.title, this.object.pool, this.object.skillLevel, this.object.assets, this.object.effortToEase, this.object.effortOtherUses, this.object.damage, this.object.effortDamage, this.object.damagePerLOE, this.object.difficultyModifier, this.object.easedOrHindered, this.object.bonus, this.object.poolPointCost);
-
+      data.skipRoll = true;
+      rollEngineComputation(data);
       this.close();
     });
 
     html.find('.roll-engine-cancel').click(clickEvent => {
       this.close();
     });
-
   }
 }
 
 function summaryTaskModified(data) {
-  let difficultyModifier = (data.easedOrHindered == "hindered") ? parseInt(data.difficultyModifier) * -1 : parseInt(data.difficultyModifier);
+  let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
 
-  let sum = parseInt(data.skillLevel) + parseInt(data.assets) + parseInt(data.effortToEase) + difficultyModifier;
+  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
 
   let taskModifiedString = "";
 
   if (sum <= -2) {
-    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskHinderedBySteps", {amount: Math.abs(parseInt(sum))});
+    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskHinderedBySteps", {amount: Math.abs(sum)});
   } else if (sum == -1) {
     taskModifiedString = game.i18n.localize("CYPHERSYSTEM.TaskHinderedByStep");
   } else if (sum == 0) {
@@ -171,21 +172,21 @@ function summaryTaskModified(data) {
   } else if (sum == 1) {
     taskModifiedString = game.i18n.localize("CYPHERSYSTEM.TaskEasedByStep");
   } else if (sum >= 2) {
-    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskEasedBySteps", {amount: parseInt(sum)});
+    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskEasedBySteps", {amount: sum});
   }
 
   return taskModifiedString;
 }
 
 function summaryTotalDamage(data) {
-  let sum = parseInt(data.damage) + (parseInt(data.effortDamage) * parseInt(data.damagePerLOE))
+  let sum = data.damage + (data.effortDamage * data.damagePerLOE)
 
   let totalDamageString = "";
 
   if (sum == 1) {
-    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointDamage", {amount: parseInt(sum)});
+    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointDamage", {amount: sum});
   } else if (sum >= 2) {
-    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointsDamage", {amount: parseInt(sum)});
+    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointsDamage", {amount: sum});
   }
 
   return totalDamageString;
@@ -219,14 +220,14 @@ function summaryTotalCost(actor, data, teen) {
 
   let effortCost = 1 + (data.totalEffort * 2) + (data.totalEffort * armorCost) + (data.totalEffort * impairedCost);
 
-  let totalCost = (data.totalEffort >= 1) ? parseInt(data.poolPointCost) + effortCost - edge : parseInt(data.poolPointCost) - edge;
+  let totalCost = (data.totalEffort >= 1) ? data.poolPointCost + effortCost - edge : data.poolPointCost - edge;
   if (totalCost < 0) totalCost = 0;
 
   let totalCostString = "";
   if (totalCost == 1) {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: parseInt(totalCost), pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: totalCost, pool: data.pool});
   } else {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: parseInt(totalCost), pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: data.pool});
   }
 
   return [totalCost, totalCostString];

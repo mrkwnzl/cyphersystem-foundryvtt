@@ -93,4 +93,18 @@ export async function registerGameSettings() {
     type: String,
     default: ""
   });
+
+  game.settings.register("cyphersystem", "useGlobalGMIRange", {
+    scope: "world",
+    type: Boolean,
+    default: true,
+    config: false
+  });
+
+  game.settings.register("cyphersystem", "globalGMIRange", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 1
+  });
 }

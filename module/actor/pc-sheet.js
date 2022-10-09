@@ -297,7 +297,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.reset-teen-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.type == "lasting-damage"  && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Might" && !item.system.archived) {
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Might" && !item.system.archived) {
           lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
@@ -380,19 +380,19 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Might roll button
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain(this.actor, "", "", "", "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actor: this.actor, pool: "Might"});
     });
 
     // Speed roll button
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain(this.actor, "", "", "", "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actor: this.actor, pool: "Speed"});
     });
 
     // Intellect roll button
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain(this.actor, "", "", "", "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actor: this.actor, pool: "Intellect"});
     });
 
     // Recovery roll button

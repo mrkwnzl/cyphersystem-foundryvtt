@@ -4,12 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 
+## [2.0.0-a2]
 ### Added
 - Macro to manually start the migration process.
+- A button in the token controls to propose an intrusion to a PC. (This is the same functionality as the macro).
+- A new GMI range engine (used in Horror Mode, Disaster Mode, and Redline Maneuvers, among others), with which you can set either individual GMI range values for each PC actor that has a player owner, or a global value that applies to all PC actors. This can be accessed by both players and the GM with a button in the token controls, but players can only change the GMI range of their own characters. The GMI range is used in stat rolls and the current GMI range is displayed in the summary of the AiO roll dialog.
 
 ### Changed
-- BREAKING: The Data Paths of actors and items have been changed. You need to update those in you macros. Existing actors and items in the world migrate automatically, actors and items in compendia need manual migration (by importing the actors and items, using the [World] Migrate Data macro, and exporting the actors and items again). For details, see [wiki].
+- BREAKING: The Data Paths of actors and items have been changed. You need to update those in you macros. Existing actors and items in the world migrate automatically, actors and items in compendia need manual migration (by using `game.cyphersystem.dataMigrationPacks(packageName)`).
 - Updated compatibility to Foundry VTT V10. Earlier versions are no longer supported.
 - Moving items between actors has been streamlined. It now simply always shows the dialog when moving items, so that players can choose the quantity or decide what to do with unique items on the origin actor. GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
 - Chat card buttons (accept/refuse GMI, regain pool points, re-roll dice) are now only visible for players who can actually use them, which now also always includes the GM.
@@ -27,6 +29,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Checks for Bar Brawl now work as intended.
 - TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
 - When the teen form regains points from a roll using the chat, the correct pools regains the points and the name of the teen is shown in the chat message.
+- Rerolling a stat roll no longer applies its result as the initiative value.
+- The Propose Intrusion macro now also works when only one PC actor has an owner.
 
 ## [1.33.2] - 2022-06-30
 ### Fixed

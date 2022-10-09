@@ -2,7 +2,7 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "2.0.0-a1",
+  "version": "2.0.0-a2",
   "compatibility": {
     "minimum": "10",
     "verified": "10",
@@ -26,35 +26,40 @@
       "label": "Roll Macros",
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
-      "type": "Macro"
+      "type": "Macro",
+      "private": false
     },
     {
       "name": "marker",
       "label": "Markers",
       "system": "cyphersystem",
       "path": "packs/markers.db",
-      "type": "Actor"
+      "type": "Actor",
+      "private": false
     },
     {
       "name": "scenes",
       "label": "Scenes",
       "system": "cyphersystem",
       "path": "packs/scenes.db",
-      "type": "Scene"
+      "type": "Scene",
+      "private": false
     },
     {
       "name": "utility-macros",
       "label": "Utility Macros",
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
-      "type": "Macro"
+      "type": "Macro",
+      "private": false
     },
     {
       "name": "secret-settings",
       "label": "Secret Settings",
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
-      "type": "Macro"
+      "type": "Macro",
+      "private": false
     }
   ],
   "languages": [
@@ -88,6 +93,6 @@
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
-  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.0.0-a1/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.0.0-a1/release.zip"
+  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.0.0-a2/system.json",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.0.0-a2/release.zip"
 }

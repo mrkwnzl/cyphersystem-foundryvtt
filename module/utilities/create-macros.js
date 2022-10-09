@@ -12,9 +12,8 @@ import {
 * @returns {Promise}
 */
 export async function createCyphersystemMacro(data, slot) {
-  if (data.type !== "Item") return;
-  if (!("data" in data)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems"));
-  const item = data.data;
+  const item = await fromUuid(data.uuid);
+  if (!item.isOwned) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CanOnlyCreateMacroForOwnedItems"));
 
   // Create the macro command
   let command = "";
@@ -36,5 +35,4 @@ export async function createCyphersystemMacro(data, slot) {
   });
 
   game.user.assignHotbarMacro(macro, slot);
-  return false;
 }

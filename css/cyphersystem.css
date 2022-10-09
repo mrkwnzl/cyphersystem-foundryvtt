@@ -61,6 +61,43 @@ ol {
 #chat-log .hr-chat {
   margin-top: 1px;
   margin-bottom: 2px;
+  border-bottom: none;
+  border-top: 1px solid #7a7971;
+}
+
+#chat-log .intrusion {
+  color: red;
+}
+
+#chat-log .effect1718 {
+  color: blue;
+}
+
+#chat-log .effect1920 {
+  color: green;
+}
+
+#chat-log .roll-result {
+  font-size: 1em;
+  color: black;
+  font-weight: bold;
+}
+
+#chat-log .roll-difficulty {
+  font-size: 1em;
+  color: black;
+  font-weight: bold;
+}
+
+#chat-log .roll-effect {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#chat-log .roll-initiative {
+  font-size: 1em;
+  color: black;
+  font-weight: bold;
 }
 
 .dialog-select {
@@ -386,6 +423,19 @@ select.bar-attribute {
   filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
 }
 
+.cyphersystem div.background-image-gmi-range-form {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  opacity: 25%;
+  z-index: 1;
+}
+
+.cyphersystem img.background-image-gmi-range-form {
+  border: none;
+  filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
+}
+
 .cyphersystem .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 210px;
@@ -416,6 +466,10 @@ select.bar-attribute {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
   border-radius: 3px;
+}
+
+.cyphersystem .profile-img-gmi {
+  border: none;
 }
 
 .cyphersystem .sheet-header .header-fields {
@@ -482,6 +536,61 @@ select.bar-attribute {
   z-index: 1;
 }
 
+.cyphersystem.gmi-form {
+  border: 1px solid var(--color-border-dark-1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.cyphersystem .gmi-img-container {
+  position: relative;
+  max-width: 48px;
+  height: 48px;
+  margin-right: 5px;
+}
+
+.gmi-form .window-content {
+  margin: -8px;
+  background: unset;
+}
+
+.cyphersystem .gmi-body {
+  text-shadow: 1px 1px 4px var(--color-shadow-dark);
+  color: var(--color-text-light-highlight);
+}
+
+.cyphersystem .gmi-actor-name {
+  flex: 1;
+  overflow: hidden;
+}
+
+.cyphersystem .gmi-controls {
+  flex: 0 0 20px;
+  font-size: var(--font-size-14);
+  line-height: 20px;
+  padding-left: 2px;
+}
+
+.cyphersystem .gmi-h4 {
+  flex: 0 0 14px;
+  line-height: 14px;
+  margin: 0 0 2px;
+  padding: 9px 0 0 2px;
+}
+
+.cyphersystem .gmi-range-value-container {
+  display: flex;
+  flex: 0 0 4em;
+  align-items: center;
+  justify-content: center;
+}
+
+.cyphersystem .gmi-range-value {
+  display: flex;
+  margin: 0;
+  font-size: large;
+}
+
 .cyphersystem .sheet-body .tab {
   border: 1px solid #999;
   border-top: none;
@@ -541,8 +650,16 @@ select.bar-attribute {
   overflow-y: auto;
 }
 
+.cyphersystem .items-list.gmi-list {
+  padding: 0 0px;
+}
+
 .cyphersystem .items-list .item-header {
   font-weight: bold;
+}
+
+.cyphersystem .items-list .item-header.gmi-header {
+  padding-left: 0;
 }
 
 .cyphersystem .items-list hr {
@@ -554,6 +671,10 @@ select.bar-attribute {
 .cyphersystem .items-list .item {
   padding: 3px 5px;
   /*border-bottom: 1px solid #BBB;*/
+}
+
+.cyphersystem .items-list .item.gmi-item {
+  padding-left: 0;
 }
 
 .cyphersystem .tabs .item~.item {
