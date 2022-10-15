@@ -11,14 +11,14 @@
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamagePoints'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <input type="text" name="data.lastingDamageAmount" value="{{data.lastingDamageAmount}}" data-dtype="Number" />
+                                <input type="text" name="lastingDamageAmount" value="{{lastingDamageAmount}}" data-dtype="Number" />
                             </div>
                         </div>
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <select name="data.lastingDamagePool">
-                                    {{#select data.lastingDamagePool}}
+                                <select name="lastingDamagePool">
+                                    {{#select lastingDamagePool}}
                                     <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
                                     <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
                                     <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
@@ -29,8 +29,8 @@
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamageType'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <select name="data.damageType">
-                                    {{#select data.damageType}}
+                                <select name="damageType">
+                                    {{#select damageType}}
                                     <option value="Lasting">{{localize 'CYPHERSYSTEM.lastingDamage'}}</option>
                                     <option value="Permanent">{{localize 'CYPHERSYSTEM.permanent'}}</option>
                                     {{/select}}
@@ -53,7 +53,7 @@
 
         {{!-- Description Tab --}}
         <div class="tab" data-group="primary" data-tab="description">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+            {{editor content=description target="description" button=true owner=owner editable=true}}
         </div>
 
     </section>

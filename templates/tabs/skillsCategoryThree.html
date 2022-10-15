@@ -1,46 +1,46 @@
-{{#each actor.data.skillsThree as |item id|}}
-<li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+{{#each actor.skillsThree as |item id|}}
+<li class="item flexrow {{#if archived}}archived{{/if}}" data-item-id="{{item._id}}">
 	<h4 class="item-name">
 		<a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
 			<i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
 			{{~item.name}}
 		</a>
 	</h4>
-	<div class="item-quantity {{#if data.archived}}archived{{else}}{{data.skillLevel}}{{/if}}">
-		{{#if (eq data.skillLevel 'Inability')}}
+	<div class="item-quantity {{#if archived}}archived{{else}}{{skillLevel}}{{/if}}">
+		{{#if (eq skillLevel 'Inability')}}
 		{{localize 'CYPHERSYSTEM.Inability'}}
-		{{else if (eq data.skillLevel 'Trained')}}
+		{{else if (eq skillLevel 'Trained')}}
 		{{localize 'CYPHERSYSTEM.Trained'}}
-		{{else if (eq data.skillLevel 'Specialized')}}
+		{{else if (eq skillLevel 'Specialized')}}
 		{{localize 'CYPHERSYSTEM.Specialized'}}
 		{{else}}
 		{{localize 'CYPHERSYSTEM.Practiced'}}
 		{{/if}}
 	</div>
 	<div class="item-controls">
-		{{#if ../data.rollButtons}}
-		<a class="item-control item-roll {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RollItem'}}">
-			{{#if data.isInitiative}}
+		{{#if ../rollButtons}}
+		<a class="item-control item-roll {{#if ../isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RollItem'}}">
+			{{#if isInitiative}}
 			<i class="fas fa-fist-raised" style="width: 13.13px; text-align: center"></i>
 			{{else}}
 			<i class="fas fa-dice-d20"></i>
 			{{/if}}
 		</a>
 		{{/if}}
-		<a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+		<a class="item-control item-edit {{#if ../isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
 			<i class="fas fa-file-alt"></i>
 		</a>
-		<a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
-			<i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i>
+		<a class="item-control item-delete {{#if ../isObserver}}disabled{{/if}}" title="{{#if archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+			<i class="fas fa-{{#if archived}}undo{{else}}archive{{/if}}"></i>
 		</a>
 	</div>
 </li>
 
 {{#if (expanded item._id)}}
-<li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+<li class="item-desc flexrow {{#if archived}}archived{{/if}}">
 	<div class="description desc-{{item._id}}">
-		<img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-		{{{enrichHTML data.description}}}
+		<img class="description-image {{#if archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+		{{{enrichHTML description}}}
 	</div>
 </li>
 {{/if}}

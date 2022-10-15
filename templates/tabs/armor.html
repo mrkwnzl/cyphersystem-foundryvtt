@@ -1,55 +1,55 @@
-{{#each actor.data.armor as |item id|}}
-<li class="item flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+{{#each actor.armor as |item id|}}
+<li class="item flexrow {{#if archived}}archived{{/if}}" data-item-id="{{item._id}}">
   <h4 class="item-name">
     <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
       <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
       {{~item.name}}
     </a>
     {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-    {{#if (eq data.armorType "artifact") ~}}
+    {{#if (eq armorType "artifact") ~}}
     {{localize 'CYPHERSYSTEM.Artifact' ~}}
-    {{else if (eq data.armorType "special ability") ~}}
+    {{else if (eq armorType "special ability") ~}}
     {{localize 'CYPHERSYSTEM.SpecialAbility' ~}}
-    {{else if (eq data.armorType "light armor") ~}}
+    {{else if (eq armorType "light armor") ~}}
     {{localize 'CYPHERSYSTEM.LightArmor' ~}}
-    {{else if (eq data.armorType "medium armor") ~}}
+    {{else if (eq armorType "medium armor") ~}}
     {{localize 'CYPHERSYSTEM.MediumArmor' ~}}
-    {{else if (eq data.armorType "heavy armor") ~}}
+    {{else if (eq armorType "heavy armor") ~}}
     {{localize 'CYPHERSYSTEM.HeavyArmor' ~}}
-    {{else if (eq data.armorType "artifact") ~}}
+    {{else if (eq armorType "artifact") ~}}
     {{localize 'CYPHERSYSTEM.Artifact' ~}}
-    {{else if (eq data.armorType "special ability") ~}}
+    {{else if (eq armorType "special ability") ~}}
     {{localize 'CYPHERSYSTEM.SepcialAbility' ~}}
-    {{else if (eq data.armorType "n/a") ~}}
+    {{else if (eq armorType "n/a") ~}}
     {{localize 'CYPHERSYSTEM.n/a' ~}}
     {{/if ~}}
-    {{#unless (eq data.notes "") ~}}
+    {{#unless (eq notes "") ~}}
     {{localize 'CYPHERSYSTEM.Comma'}}
-    {{{enrichHTML data.notes}}}
+    {{{enrichHTML notes}}}
     {{~/unless ~}}
     {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
   </h4>
-  <div class="item-quantity">{{data.armorValue}}/{{data.speedCost}}</div>
+  <div class="item-quantity">{{armorValue}}/{{speedCost}}</div>
   <div class="item-controls">
     {{#if (eq ../type "PC")}}
-    <a class="item-control armor-active {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
-      <i class="fas fa-check {{#unless data.armorActive}}archived{{/unless}}" aria-hidden="true"></i>
+    <a class="item-control armor-active {{#if ../isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
+      <i class="fas fa-check {{#unless armorActive}}archived{{/unless}}" aria-hidden="true"></i>
     </a>
     {{/if}}
-    <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="Edit Item">
+    <a class="item-control item-edit {{#if ../isObserver}}disabled{{/if}}" title="Edit Item">
       <i class="fas fa-file-alt"></i>
     </a>
-    <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
-      <i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i>
+    <a class="item-control item-delete {{#if ../isObserver}}disabled{{/if}}" title="{{#if archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+      <i class="fas fa-{{#if archived}}undo{{else}}archive{{/if}}"></i>
     </a>
   </div>
 </li>
 
 {{#if (expanded item._id)}}
-<li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+<li class="item-desc flexrow {{#if archived}}archived{{/if}}">
   <div class="description desc-{{item._id}}">
-    <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-    {{{enrichHTML data.description}}}
+    <img class="description-image {{#if archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+    {{{enrichHTML description}}}
   </div>
 </li>
 {{/if}}

@@ -12,19 +12,19 @@
       </li>
       <li class="item flexrow item-settings" style="border-top-style: dashed">
         <div class="flexrow" style="margin: 0px">
-          <input class="auto-margin" name="data.archiveTags" type="text" value="{{data.archiveTags}}" data-dtype="String" placeholder="" style="text-align: left">
+          <input class="auto-margin" name="archiveTags" type="text" value="{{archiveTags}}" data-dtype="String" placeholder="" style="text-align: left">
         </div>
       </li> -->
       <li class="item flexrow item-settings">
         <div class="settings-list">
-          <input type="checkbox" name="data.exclusive" data-dtype="boolean" {{checked data.exclusive}}>
+          <input type="checkbox" name="exclusive" data-dtype="boolean" {{checked exclusive}}>
           &nbsp;{{localize 'CYPHERSYSTEM.ExclusiveTag'}}
         </div>
       </li>
     </ol>
   </div>
   {{/if}}
-  {{#if (or data.exclusive (eq item.type "recursion"))}}
+  {{#if (or exclusive (eq item.type "recursion"))}}
   <div class="flexrow">
     <ol class="items-list">
       <li class="item flexrow item-header">
@@ -35,7 +35,7 @@
           {{localize 'CYPHERSYSTEM.MightPool'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.mightModifier" type="number" value="{{data.mightModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="mightModifier" type="number" value="{{mightModifier}}" placeholder="0" />
         </div>
       </li>
       <li class="item flexrow item-settings">
@@ -43,7 +43,7 @@
           {{localize 'CYPHERSYSTEM.MightEdge'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.mightEdgeModifier" type="number" value="{{data.mightEdgeModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="mightEdgeModifier" type="number" value="{{mightEdgeModifier}}" placeholder="0" />
         </div>
       </li>
       <li class="item flexrow item-settings">
@@ -51,7 +51,7 @@
           {{localize 'CYPHERSYSTEM.SpeedPool'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.speedModifier" type="number" value="{{data.speedModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="speedModifier" type="number" value="{{speedModifier}}" placeholder="0" />
         </div>
       </li>
       <li class="item flexrow item-settings">
@@ -59,7 +59,7 @@
           {{localize 'CYPHERSYSTEM.SpeedEdge'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.speedEdgeModifier" type="number" value="{{data.speedEdgeModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="speedEdgeModifier" type="number" value="{{speedEdgeModifier}}" placeholder="0" />
         </div>
       </li>
       <li class="item flexrow item-settings">
@@ -67,7 +67,7 @@
           {{localize 'CYPHERSYSTEM.IntellectPool'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.intellectModifier" type="number" value="{{data.intellectModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="intellectModifier" type="number" value="{{intellectModifier}}" placeholder="0" />
         </div>
       </li>
       <li class="item flexrow item-settings">
@@ -75,7 +75,7 @@
           {{localize 'CYPHERSYSTEM.IntellectEdge'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin setting-input" name="data.intellectEdgeModifier" type="number" value="{{data.intellectEdgeModifier}}" placeholder="0" />
+          <input class="auto-margin setting-input" name="intellectEdgeModifier" type="number" value="{{intellectEdgeModifier}}" placeholder="0" />
         </div>
       </li>
     </ol>

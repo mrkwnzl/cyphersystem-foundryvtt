@@ -11,20 +11,20 @@
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.SpeedCost'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <input type="text" name="data.speedCost" value="{{data.speedCost}}" data-dtype="Number" />
+                                <input type="text" name="speedCost" value="{{speedCost}}" data-dtype="Number" />
                             </div>
                         </div>
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.ArmorRating'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <input type="text" name="data.armorValue" value="{{data.armorValue}}" data-dtype="Number" />
+                                <input type="text" name="armorValue" value="{{armorValue}}" data-dtype="Number" />
                             </div>
                         </div>
                         <div class="resource flex-center">
                             <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Type'}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                <select name="data.armorType">
-                                    {{#select data.armorType}}
+                                <select name="armorType">
+                                    {{#select armorType}}
                                     <option value="light armor">{{localize 'CYPHERSYSTEM.LightArmor'}}</option>
                                     <option value="medium armor">{{localize 'CYPHERSYSTEM.MediumArmor'}}</option>
                                     <option value="heavy armor">{{localize 'CYPHERSYSTEM.HeavyArmor'}}</option>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="resource flex-center">
-                        <input type="text" name="data.notes" value="{{data.notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
+                        <input type="text" name="notes" value="{{notes}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
 
         {{!-- Description Tab --}}
         <div class="tab" data-group="primary" data-tab="description">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+            {{editor content=description target="description" button=true owner=owner editable=true}}
         </div>
 
     </section>

@@ -8,7 +8,7 @@
                         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
                         &nbsp;
                         <div class="item-quantity" style="flex: 0 0 80px;">
-                            <input name="data.level" type="text" value="{{data.level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+                            <input name="level" type="text" value="{{level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
 
         {{!-- Description Tab --}}
         <div class="tab" data-group="primary" data-tab="description">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+            {{editor content=description target="description" button=true owner=owner editable=true}}
         </div>
 
     </section>

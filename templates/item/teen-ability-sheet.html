@@ -11,14 +11,14 @@
             <div class="resource flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.PointCost'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.costPoints" value="{{data.costPoints}}" data-dtype="String" />
+                <input type="text" name="costPoints" value="{{costPoints}}" data-dtype="String" />
               </div>
             </div>
             <div class="resource flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
-                <select name="data.costPool">
-                  {{#select data.costPool}}
+                <select name="costPool">
+                  {{#select costPool}}
                   <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
                   <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
                   <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
@@ -45,7 +45,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+      {{editor content=description target="description" button=true owner=owner editable=true}}
     </div>
 
     {{!-- Settings Tab --}}

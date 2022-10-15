@@ -33,14 +33,15 @@ export class CypherItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const superData = super.getData();
-    const data = superData.data;
+    console.log('superData', superData)
+    const data = superData.data.system;
     data.item = superData.item;
-    data.data.isGM = game.user.isGM;
-    data.data.isObserver = !this.options.editable;
-    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.data.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
+    data.isGM = game.user.isGM;
+    data.isObserver = !this.options.editable;
+    data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
     data.dtypes = ["String", "Number", "Boolean"];
-    data.data.actor = data.item.parent ? data.item.parent.data : "";
+    data.actor = data.item.parent ? data.item.parent.data : "";
 
     return data;
   }

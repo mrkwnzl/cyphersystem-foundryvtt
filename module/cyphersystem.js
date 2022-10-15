@@ -196,7 +196,7 @@ Hooks.on("canvasReady", function (canvas) {
     if (t.getFlag("cyphersystem", "toggleDragRuler") !== undefined) {
       // do nothing
     } else {
-      if (t.actor.data.type !== "Token" && t.actor.data.type !== "Vehicle") {
+      if (t.actor.type !== "Token" && t.actor.type !== "Vehicle") {
         t.setFlag("cyphersystem", "toggleDragRuler", true);
       } else {
         t.setFlag("cyphersystem", "toggleDragRuler", false);

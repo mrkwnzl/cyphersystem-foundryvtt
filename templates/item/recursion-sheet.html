@@ -8,7 +8,7 @@
             <input class="input-recursion" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
           </div>
           <div class="resource flex-center">
-            <input type="text" name="data.focus" value="{{data.focus}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.FocusOnThisRecursion'}}" />
+            <input type="text" name="focus" value="{{focus}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.FocusOnThisRecursion'}}" />
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+      {{editor content=description target="description" button=true owner=owner editable=true}}
     </div>
 
     {{!-- Settings Tab --}}

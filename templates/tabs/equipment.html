@@ -4,13 +4,13 @@
       <div class="item-name">{{localize 'CYPHERSYSTEM.Items'}}</div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Quantity'}}</div>
       <div class="item-controls">
-        <a class="item-control item-create {{#if ./data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="equipment">
+        <a class="item-control item-create {{#if ./isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="equipment">
           <i class="fas fa-plus"></i>
         </a>
       </div>
     </li>
-    {{#each actor.data.equipment as |item id|}}
-    <li class="item resource-content flexrow {{#if data.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+    {{#each actor.equipment as |item id|}}
+    <li class="item resource-content flexrow {{#if archived}}archived{{/if}}" data-item-id="{{item._id}}">
       <h4 class="item-name">
         <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
           <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
@@ -18,29 +18,29 @@
         </a>
       </h4>
       <div class="item-quantity">
-        <a class="item-control minus-one {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+        <a class="item-control minus-one {{#if ../isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
           <i class="far fa-minus-square"></i>
         </a>
-        <p class="number">&nbsp;{{data.quantity}}&nbsp;</p>
-        <a class="item-control plus-one {{#if ../data.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
+        <p class="number">&nbsp;{{quantity}}&nbsp;</p>
+        <a class="item-control plus-one {{#if ../isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
           <i class="far fa-plus-square"></i>
         </a>
       </div>
       <div class="item-controls">
-        <a class="item-control item-edit {{#if ../data.isObserver}}disabled{{/if}}" title="Edit Item">
+        <a class="item-control item-edit {{#if ../isObserver}}disabled{{/if}}" title="Edit Item">
           <i class="fas fa-file-alt"></i>
         </a>
-        <a class="item-control item-delete {{#if ../data.isObserver}}disabled{{/if}}" title="{{#if data.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
-          <i class="fas fa-{{#if data.archived}}undo{{else}}archive{{/if}}"></i>
+        <a class="item-control item-delete {{#if ../isObserver}}disabled{{/if}}" title="{{#if archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+          <i class="fas fa-{{#if archived}}undo{{else}}archive{{/if}}"></i>
         </a>
       </div>
     </li>
 
     {{#if (expanded item._id)}}
-    <li class="item-desc flexrow {{#if data.archived}}archived{{/if}}">
+    <li class="item-desc flexrow {{#if archived}}archived{{/if}}">
       <div class="description desc-{{item._id}}">
-        <img class="description-image {{#if data.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
-        {{{enrichHTML data.description}}}
+        <img class="description-image {{#if archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+        {{{enrichHTML description}}}
       </div>
     </li>
     {{/if}}

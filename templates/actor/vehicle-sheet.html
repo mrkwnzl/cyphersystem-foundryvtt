@@ -10,7 +10,7 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="data.level" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.level}}{{/if}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="level" type="text" value="{{#if isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{level}}{{/if}}" data-dtype="Number" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
@@ -18,19 +18,19 @@
               <div class="resource">
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+                <label class="resource-label-additional {{#if (or isLimited isObserver)}}disabled{{/if}}">
                   {{localize 'CYPHERSYSTEM.Crew'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.crew" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.crew}}{{/if}}" data-dtype="Number" />
+                  <input name="crew" type="text" value="{{#if isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{crew}}{{/if}}" data-dtype="Number" />
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label-additional {{#if (or data.isLimited data.isObserver)}}disabled{{/if}}">
+                <label class="resource-label-additional {{#if (or isLimited isObserver)}}disabled{{/if}}">
                   {{localize 'CYPHERSYSTEM.WeaponSystems'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
-                  <input name="data.weaponSystems" type="text" value="{{#if data.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{data.weaponSystems}}{{/if}}" data-dtype="Number" />
+                  <input name="weaponSystems" type="text" value="{{#if isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{weaponSystems}}{{/if}}" data-dtype="Number" />
                 </div>
               </div>
             </div>
@@ -42,11 +42,11 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    {{#unless data.isLimited}}
+    {{#unless isLimited}}
     <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
     {{/unless}}
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
-    {{#unless data.isLimited}}
+    {{#unless isLimited}}
     <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Storage'}}</a>
     <a class="item" data-tab="settings" style="flex: 0 0 45px;">
       <i class="fas fa-cog"></i>
@@ -59,12 +59,12 @@
 
     {{!-- Notes Tab --}}
     <div class="tab biography" data-group="primary" data-tab="notes">
-      {{editor content=data.biography target="data.biography" button=true owner=owner editable=true}}
+      {{editor content=biography target="biography" button=true owner=owner editable=true}}
     </div>
 
     {{!-- Description Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+      {{editor content=description target="description" button=true owner=owner editable=true}}
     </div>
 
     {{!-- Owned Items Tab --}}
@@ -72,31 +72,31 @@
 
       {{> systems/cyphersystem/templates/tabs/equipment.html}}
 
-      {{#if data.settings.equipment.attacks}}
+      {{#if settings.equipment.attacks}}
       {{> systems/cyphersystem/templates/tabs/attacks.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.ammo}}
+      {{#if settings.equipment.ammo}}
       {{> systems/cyphersystem/templates/tabs/ammo.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.armor}}
+      {{#if settings.equipment.armor}}
       {{> systems/cyphersystem/templates/tabs/armorWithoutTotal.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.cyphers}}
+      {{#if settings.equipment.cyphers}}
       {{> systems/cyphersystem/templates/tabs/cyphers.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.artifacts}}
+      {{#if settings.equipment.artifacts}}
       {{> systems/cyphersystem/templates/tabs/artifacts.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.oddities}}
+      {{#if settings.equipment.oddities}}
       {{> systems/cyphersystem/templates/tabs/oddities.html}}
       {{/if}}
 
-      {{#if data.settings.equipment.materials}}
+      {{#if settings.equipment.materials}}
       {{> systems/cyphersystem/templates/tabs/materials.html}}
       {{/if}}
 
@@ -111,17 +111,17 @@
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.initiative.active" data-dtype="boolean" checked disabled>
+              <input type="checkbox" name="settings.initiative.active" data-dtype="boolean" checked disabled>
               &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin" name="data.settings.initiative.initiativeBonus" type="text" value="{{data.settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;" />
+              <input class="auto-margin" name="settings.initiative.initiativeBonus" type="text" value="{{settings.initiative.initiativeBonus}}" data-dtype="Number" placeholder="0" style="width: auto;" />
             </div>
           </li>
           <li class="item flexrow item-settings">
             <div class="settings-list">
-              <input type="checkbox" name="data.settings.hideArchived" data-dtype="boolean" {{checked
-                data.settings.hideArchived}}>
+              <input type="checkbox" name="settings.hideArchived" data-dtype="boolean" {{checked
+                settings.hideArchived}}>
               &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
             </div>
           </li>

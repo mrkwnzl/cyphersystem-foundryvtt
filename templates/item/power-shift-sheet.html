@@ -11,7 +11,7 @@
             <div class="resource flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Shifts'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
-                <input name="data.powerShiftValue" type="text" value="{{data.powerShiftValue}}" data-dtype="Number" />
+                <input name="powerShiftValue" type="text" value="{{powerShiftValue}}" data-dtype="Number" />
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+      {{editor content=description target="description" button=true owner=owner editable=true}}
     </div>
 
   </section>

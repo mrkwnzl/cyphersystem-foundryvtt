@@ -1,40 +1,40 @@
 <div class="flexrow">&nbsp;
   <div class="resources grid grid-6col" style="margin-bottom: 0px">
 
-    {{#if (gte data.settings.currency.howMany 3)}}
+    {{#if (gte settings.currency.howMany 3)}}
     <div class="resource-content flexrow flex-center">
       <label class="resource-label-normal" style="text-align:right">
         <b>
-          {{#if (eq data.settings.currency.name3 "")}}
+          {{#if (eq settings.currency.name3 "")}}
           {{localize 'CYPHERSYSTEM.Gold'}}
           {{else}}
-          {{data.settings.currency.name3}}
+          {{settings.currency.name3}}
           {{/if}}
         </b>
       </label>
     </div>
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name3 '')}}{{localize 'CYPHERSYSTEM.Gold'}}{{else}}{{data.settings.currency.name3}}{{/if}}" type="text" name="data.settings.currency.quantity3" value="{{data.settings.currency.quantity3}}" />
+      <input title="{{#if (eq settings.currency.name3 '')}}{{localize 'CYPHERSYSTEM.Gold'}}{{else}}{{settings.currency.name3}}{{/if}}" type="text" name="settings.currency.quantity3" value="{{settings.currency.quantity3}}" />
     </div>
     {{else}}
     <div></div>
     <div></div>
     {{/if}}
 
-    {{#if (gte data.settings.currency.howMany 2)}}
+    {{#if (gte settings.currency.howMany 2)}}
     <div class="resource-content flexrow flex-center" style="text-align:right">
       <label class="resource-label-normal">
         <b>
-          {{#if (eq data.settings.currency.name2 "")}}
+          {{#if (eq settings.currency.name2 "")}}
           {{localize 'CYPHERSYSTEM.Silver'}}
           {{else}}
-          {{data.settings.currency.name2}}
+          {{settings.currency.name2}}
           {{/if}}
         </b>
       </label>
     </div>
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name2 '')}}{{localize 'CYPHERSYSTEM.Silver'}}{{else}}{{data.settings.currency.name2}}{{/if}}" type="text" name="data.settings.currency.quantity2" value="{{data.settings.currency.quantity2}}" />
+      <input title="{{#if (eq settings.currency.name2 '')}}{{localize 'CYPHERSYSTEM.Silver'}}{{else}}{{settings.currency.name2}}{{/if}}" type="text" name="settings.currency.quantity2" value="{{settings.currency.quantity2}}" />
     </div>
     {{else}}
     <div></div>
@@ -44,15 +44,15 @@
     <div class="resource-content flexrow flex-center">
       <label class="resource-label-normal" style="text-align:right">
         <b>
-          {{#if (eq data.settings.currency.name "")}}
-          {{#if (eq data.settings.currency.howMany "1")}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}
-          {{#if (gte data.settings.currency.howMany 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}
-          {{else}}{{data.settings.currency.name}}{{/if}}
+          {{#if (eq settings.currency.name "")}}
+          {{#if (eq settings.currency.howMany "1")}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}
+          {{#if (gte settings.currency.howMany 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}
+          {{else}}{{settings.currency.name}}{{/if}}
         </b>
       </label>
     </div>
     <div class="resource-content flexrow flex-center flex-between">
-      <input title="{{#if (eq data.settings.currency.name '')}}{{#if (eq data.settings.currency.howMany '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}{{#if (gte data.settings.currency.howMany 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}{{else}}{{data.settings.currency.name}}{{/if}}" type="text" name="data.settings.currency.quantity" value="{{data.settings.currency.quantity}}" />
+      <input title="{{#if (eq settings.currency.name '')}}{{#if (eq settings.currency.howMany '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}{{#if (gte settings.currency.howMany 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}{{else}}{{settings.currency.name}}{{/if}}" type="text" name="settings.currency.quantity" value="{{settings.currency.quantity}}" />
     </div>
 
   </div>

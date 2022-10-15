@@ -31,12 +31,13 @@ export class CypherActorSheetPC extends CypherActorSheet {
   */
   getData() {
     const data = super.getData();
-    const actorData = data.actor.data;
-    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
+    const actorData = data.actor.data.system;
+    console.log('actorData', actorData)
+    data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
     const diceTraySettings = ["hidden", "left", "right"];
-    data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
-    data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
+    data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
+    data.sheetWidth = (data.diceTray == "right") ? this.actor.sheet.options.width : -32;
 
     if (game.modules.get("cyphersheets")) {
       if (game.modules.get("cyphersheets").active) {
@@ -54,12 +55,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
     function backgroundData() {
       data.cyphersheetsModuleActive = false;
       data.backgroundImageBaseSetting = "background-image";
-      if (actorData.data.settings.gameMode.currentSheet == "Teen") {
-        data.backgroundImage = actorData.data.teen.settings.backgroundImage;
-        data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
+      if (actorData.settings.gameMode.currentSheet == "Teen") {
+        data.backgroundImage = actorData.teen.settings.backgroundImage;
+        data.backgroundIcon = actorData.teen.settings.backgroundIcon;
       } else {
-        data.backgroundImage = actorData.data.settings.backgroundImage;
-        data.backgroundIcon = actorData.data.settings.backgroundIcon;
+        data.backgroundImage = actorData.settings.backgroundImage;
+        data.backgroundIcon = actorData.settings.backgroundIcon;
       }
     }
 
@@ -92,23 +93,28 @@ export class CypherActorSheetPC extends CypherActorSheet {
       }
     }
 
-    // Update armor
+    // Update armor -> where are they??
     let armorTotal = 0;
     let speedCostTotal = 0;
     let teenArmorTotal = 0;
     let teenSpeedCostTotal = 0;
-
-    for (let piece of actorData.armor) {
-      if (piece.data.armorActive === true && piece.data.archived === false) {
-        armorTotal = armorTotal + piece.data.armorValue;
-        speedCostTotal = speedCostTotal + piece.data.speedCost;
+    actorData.armor.pieces = []
+    if (actorData.armor.pieces.length > 0) {
+      for (let piece of actorData.armor.pieces) {
+        if (piece.data?.armorActive === true && piece?.data?.archived === false) {
+          armorTotal = armorTotal + piece.data.armorValue;
+          speedCostTotal = speedCostTotal + piece.data.speedCost;
+        }
       }
     }
+    actorData.teen.armor.pieces = []
+    if (actorData.teen.armor.pieces.length > 0) {
 
-    for (let piece of actorData.teenArmor) {
-      if (piece.data.armorActive === true && piece.data.archived === false) {
-        teenArmorTotal = teenArmorTotal + piece.data.armorValue;
-        teenSpeedCostTotal = teenSpeedCostTotal + piece.data.speedCost;
+      for (let piece of actorData.teen.armor.pieces) {
+        if (piece.data.armorActive === true && piece.data.archived === false) {
+          teenArmorTotal = teenArmorTotal + piece.data.armorValue;
+          teenSpeedCostTotal = teenSpeedCostTotal + piece.data.speedCost;
+        }
       }
     }
 

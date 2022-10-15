@@ -8,10 +8,10 @@
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
             &nbsp;
             <div class="item-quantity" style="flex: 0 0 80px;">
-              <input name="data.level" type="text" value="{{data.level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
+              <input name="level" type="text" value="{{level}}" data-dtype="String" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
-            {{#if data.isGM}}
-            {{#if data.identified}}
+            {{#if isGM}}
+            {{#if identified}}
             <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye"></i></a>
             {{else}}
             <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye-slash"></i></a>
@@ -24,7 +24,7 @@
                 {{localize 'CYPHERSYSTEM.Depletion'}}
               </label>
               <div class="resource-content flexrow flex-center flex-between">
-                <input type="text" name="data.depletion" value="{{data.depletion}}" data-dtype="String" />
+                <input type="text" name="depletion" value="{{depletion}}" data-dtype="String" />
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+      {{editor content=description target="description" button=true owner=owner editable=true}}
     </div>
 
   </section>

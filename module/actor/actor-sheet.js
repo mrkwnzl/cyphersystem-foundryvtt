@@ -27,11 +27,14 @@ export class CypherActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const superData = super.getData();
-    const data = superData.data;
-    data.data.isGM = game.user.isGM;
-    data.data.isLimited = this.actor.limited;
-    data.data.isObserver = !this.options.editable;
-    data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
+    console.log('superData', superData)
+    const data = superData.actor.data.system;
+    const user = game.users.find(({_id}) => game.data.userId === _id);
+    console.log('user', user, superData.actor.data._id, data )
+    data.isGM = user?.isGM
+    data.isLimited = this.actor.limited;
+    data.isObserver = !this.options.editable;
+    data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.actor = superData.actor;
     data.items = superData.items;
     data.owner = superData.owner;
