@@ -1,0 +1,1 @@
+export const recursionDocumentLinkExceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium", "@pdf", "@uuid"];

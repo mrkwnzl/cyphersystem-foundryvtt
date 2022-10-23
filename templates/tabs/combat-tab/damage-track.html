@@ -1,0 +1,143 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
+    </li>
+    <li class="item flexrow non-draggable">
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        <div class="item-damage">
+          <select name="system.teen.combat.damage.damageTrack" style="min-width: 95px">
+            {{#select actor.system.teen.combat.damage.damageTrack}}
+              <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
+              <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
+              <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
+              <option value="Dead">{{localize 'CYPHERSYSTEM.Dead'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="centered-content" style="min-height: 38px; line-height: 1.4">
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Hale")}}
+            {{localize 'CYPHERSYSTEM.HaleEffect'}}
+          {{/if}}
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Impaired")}}
+            {{localize 'CYPHERSYSTEM.ImpairedEffect1'}}
+            <br>
+            {{localize 'CYPHERSYSTEM.ImpairedEffect2'}}
+          {{/if}}
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Debilitated")}}
+            {{localize 'CYPHERSYSTEM.DebilitatedEffect1'}}
+            <br>
+            {{localize 'CYPHERSYSTEM.DebilitatedEffect2'}}
+          {{/if}}
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Dead")}}
+            {{localize 'CYPHERSYSTEM.DeadEffect'}}
+          {{/if}}
+        </div>
+        <div class="damage-track-apply centered-content">
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Impaired")}}
+            <a class="item-control apply-impaired-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyImpaired}}grey{{/unless}}"></i>
+            </a>
+          {{/if}}
+          {{#if (eq actor.system.teen.combat.damage.damageTrack "Debilitated")}}
+            <a class="item-control apply-debilitated-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyDebilitated}}grey{{/unless}}"></i>
+            </a>
+          {{/if}}
+        </div>
+      {{else}}
+        <div class="item-damage">
+          <select class="damage-track-select" name="system.combat.damageTrack.state">
+            {{#select actor.system.combat.damageTrack.state}}
+              <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
+              <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
+              <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="centered-content" style="min-height: 38px; line-height: 1.4">
+          {{#if (eq actor.system.combat.damageTrack.state "Hale")}}
+            {{localize 'CYPHERSYSTEM.HaleEffect'}}
+          {{/if}}
+          {{#if (eq actor.system.combat.damageTrack.state "Impaired")}}
+            {{localize 'CYPHERSYSTEM.ImpairedEffect1'}}
+            <br>
+            {{localize 'CYPHERSYSTEM.ImpairedEffect2'}}
+          {{/if}}
+          {{#if (eq actor.system.combat.damageTrack.state "Debilitated")}}
+            {{localize 'CYPHERSYSTEM.DebilitatedEffect1'}}
+            <br>
+            {{localize 'CYPHERSYSTEM.DebilitatedEffect2'}}
+          {{/if}}
+          {{#if (eq actor.system.combat.damageTrack.state "Dead")}}
+            {{localize 'CYPHERSYSTEM.DeadEffect'}}
+          {{/if}}
+        </div>
+        <div class="damage-track-apply centered-content">
+          {{#if (eq actor.system.combat.damageTrack.state "Impaired")}}
+            <a class="item-control apply-impaired {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyImpaired}}grey{{/unless}}"></i>
+            </a>
+          {{/if}}
+          {{#if (eq actor.system.combat.damageTrack.state "Debilitated")}}
+            <a class="item-control apply-debilitated {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyDebilitated}}grey{{/unless}}"></i>
+            </a>
+          {{/if}}
+        </div>
+      {{/if}}
+    </li>
+    <li class="item flexrow non-draggable">
+      <div class="item-quantity">
+        <input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="system.combat.recoveries.roll" type="text" value="{{actor.system.combat.recoveries.roll}}" placeholder="1d6+1" {{sheetSettings.disabledStaticStats}} />
+      </div>
+      <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
+        <div class="recovery-rolls">
+          <input type="checkbox" name="system.combat.recoveries.oneAction" {{checked actor.system.combat.recoveries.oneAction}} />
+          {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 2)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction2" {{checked actor.system.combat.recoveries.oneAction2}} />
+            {{/if}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 3)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction3" {{checked actor.system.combat.recoveries.oneAction3}} />
+            {{/if}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 4)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction4" {{checked actor.system.combat.recoveries.oneAction4}} />
+            {{/if}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 5)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction5" {{checked actor.system.combat.recoveries.oneAction5}} />
+            {{/if}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 6)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction6" {{checked actor.system.combat.recoveries.oneAction6}} />
+            {{/if}}
+            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 7)}}
+              <input type="checkbox" name="system.combat.recoveries.oneAction7" {{checked actor.system.combat.recoveries.oneAction7}} />
+            {{/if}}
+          {{/unless}}
+          &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;
+          {{#if (gte actor.system.settings.combat.numberTenMinuteRecoveries 1)}}
+            <input type="checkbox" name="system.combat.recoveries.tenMinutes" {{checked actor.system.combat.recoveries.tenMinutes}} />
+            {{#if (gte actor.system.settings.combat.numberTenMinuteRecoveries 2)}}
+              <input type="checkbox" name="system.combat.recoveries.tenMinutes2" {{checked actor.system.combat.recoveries.tenMinutes2}} />
+            {{/if}}
+            &nbsp;{{localize 'CYPHERSYSTEM.RecoveryMinutes'}}&nbsp;&nbsp;
+          {{/if}}
+          <input type="checkbox" name="system.combat.recoveries.oneHour" {{checked actor.system.combat.recoveries.oneHour}} />
+          &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHour'}}&nbsp;&nbsp;
+          <input type="checkbox" name="system.combat.recoveries.tenHours" {{checked actor.system.combat.recoveries.tenHours}} />
+          &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}
+        </div>
+        <div class="item-controls">
+          {{#if sheetSettings.rollButtons}}
+            <a class="item-control recovery-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}">
+              <i class="fas fa-dice-d20"></i>
+            </a>
+          {{/if}}
+          <a class="item-control reset-recovery-rolls {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}">
+            <i class="fas fa-sync-alt"></i>
+          </a>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>

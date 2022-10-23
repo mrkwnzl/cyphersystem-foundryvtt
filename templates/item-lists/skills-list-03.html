@@ -1,0 +1,48 @@
+{{#each itemLists.skillsThree as |item id|}}
+	<li class="item flexrow {{#if system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+		<h4 class="item-name">
+			<a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
+				<i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
+				{{~item.name}}
+			</a>
+		</h4>
+		<div class="item-quantity {{#if system.archived}}archived{{else}}{{system.basic.rating}}{{/if}}">
+			{{#if (eq system.basic.rating 'Inability')}}
+				{{localize 'CYPHERSYSTEM.Inability'}}
+			{{else if (eq system.basic.rating 'Trained')}}
+				{{localize 'CYPHERSYSTEM.Trained'}}
+			{{else if (eq system.basic.rating 'Specialized')}}
+				{{localize 'CYPHERSYSTEM.Specialized'}}
+			{{else}}
+				{{localize 'CYPHERSYSTEM.Practiced'}}
+			{{/if}}
+		</div>
+		<div class="item-controls">
+			{{#if ../sheetSettings.rollButtons}}
+				<a class="item-control item-roll {{#if ../system.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RollItem'}}">
+					{{#if system.settings.general.initiative}}
+						<i class="fas fa-swords" style="text-align: center"></i>
+					{{else}}
+						<i class="fas fa-dice-d20"></i>
+					{{/if}}
+				</a>
+			{{/if}}
+			<a class="item-control item-edit {{#if ../system.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+				<i class="fas fa-file-alt"></i>
+			</a>
+			<a class="item-control item-delete {{#if ../system.isObserver}}disabled{{/if}}" title="{{#if system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+				<i class="fas fa-{{#if system.archived}}undo{{else}}archive{{/if}}"></i>
+			</a>
+		</div>
+	</li>
+
+	{{#if (expanded item._id)}}
+		<li class="item-desc flexrow {{#if system.archived}}archived{{/if}}">
+			<div class="description desc-{{item._id}}">
+				<img class="description-image {{#if system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+				{{{enrichedHTMLItems ../this "description" item._id}}}
+			</div>
+		</li>
+	{{/if}}
+
+{{/each}}

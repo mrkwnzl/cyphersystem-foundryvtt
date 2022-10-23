@@ -8,6 +8,6 @@ If you want to help shape the Cypher system by contributing code, that’s very 
 
 3. If you work on multiple features at the same time, it might be a good idea to create separate branches for each feature, so it’s easier to commit some of your features while still working on others.
 
-4. I’m not vain when it comes to the coding style (although I’d appreciate it if you tried to keep it consistent with my style), but I’m also a relative beginner, so I want to make sure I understand your code. I’m still having some difficulties reading nested code and shortcuts (like the arrow functions or terinary operators, though it’s getting better), so please try to avoid that where it can sensibly avoided.
+4. I’m not vain when it comes to the coding style (although I’d appreciate it if you tried to keep it consistent with my style), but I’m also a relative beginner, so I want to make sure I understand your code. I’m still having some difficulties reading nested code and shortcuts (like arrow functions, though it’s getting better), so please try to avoid that where it can sensibly avoided.
 
 5. Create a pull request for each feature to the develop branch. Pull requests that target the main branch will be closed with the request for a new pull request targeting the develop branch.

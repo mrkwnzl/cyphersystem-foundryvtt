@@ -4,12 +4,12 @@ export async function barBrawlOverwrite(document, actor) {
     "bar1.attribute": null,
     "bar2.attribute": null
   });
-  await document.data.update(barBrawlData(actor.data.type, actor));
+  await document.data.update(barBrawlData(actor.type, actor));
 }
 
 export function barBrawlData(type, actor) {
   let data;
-  if (type === "PC") {
+  if (type === "pc") {
     data = {
       "flags.barbrawl.resourceBars": {
         "intellect": {
@@ -38,7 +38,7 @@ export function barBrawlData(type, actor) {
         }
       }
     }
-  } else if (type === "NPC" || type === "Companion") {
+  } else if (type === "npc" || type === "companion") {
     data = {
       "flags.barbrawl.resourceBars": {
         "level": {
@@ -46,7 +46,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "level",
+          attribute: "basic.level",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
@@ -54,12 +54,12 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "health",
+          attribute: "pools.health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
     }
-  } else if (type === "Community") {
+  } else if (type === "community") {
     data = {
       "flags.barbrawl.resourceBars": {
         "rank": {
@@ -67,7 +67,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "rank",
+          attribute: "basic.rank",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "infrastructure": {
@@ -75,7 +75,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "bottom-inner",
-          attribute: "infrastructure",
+          attribute: "pools.infrastructure",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "health": {
@@ -83,12 +83,12 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "health",
+          attribute: "pools.health",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
     }
-  } else if (type === "Token" && actor.name != "GMI Range") {
+  } else if (type === "marker" && actor.name != "GMI Range") {
     data = {
       "flags.barbrawl.resourceBars": {
         "level": {
@@ -96,7 +96,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#0000FF",
           maxcolor: "#0000FF",
           position: "top-inner",
-          attribute: "level",
+          attribute: "basic.level",
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         },
         "quantity": {
@@ -104,7 +104,7 @@ export function barBrawlData(type, actor) {
           mincolor: "#FF0000",
           maxcolor: "#FF0000",
           position: "bottom-inner",
-          attribute: "quantity",
+          attribute: "pools.quantity",
           visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
         }
       }

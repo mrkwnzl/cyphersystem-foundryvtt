@@ -4,9 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.33.3] - 2022-08-10
+## [2.0.0-b1]
+### Added
+- Macro to manually start the migration process.
+- A button in the token controls to propose an intrusion to a PC. (This is the same functionality as the macro).
+- A new GMI range engine (used in Horror Mode, Disaster Mode, and Redline Maneuvers, among others), with which you can set either individual GMI range values for each PC actor that has a player owner, or a global value that applies to all PC actors. This can be accessed by both players and the GM with a button in the token controls, but players can only change the GMI range of their own characters. The GMI range is used in stat rolls and the current GMI range is displayed in the summary of the AiO roll dialog.
+- A new multi-roll action mode. When holding alt while pressing the roll or pay button on the All-in-One roll dialog, you enter multi-roll action mode. In this mode, your used edge and Effort values are temporarily reduced until you no longer hold alt in the All-in-One roll dialog, which ends the multi roll mode and reverts your stats to their original value. Pressing the dice icon on the character portrait, representing multi-roll mode, also ends multi-roll mode.
+
+### Changed
+- BREAKING: The Data Paths of actors and items have been changed. You need to update those in you macros. Existing actors and items in the world migrate automatically, actors and items in compendia need manual migration (by using `game.cyphersystem.dataMigrationPacks(packageName)`).
+- Updated compatibility to Foundry VTT V10. Earlier versions are no longer supported.
+- Moving items between actors has been streamlined. It now simply always shows the dialog when moving items, so that players can choose the quantity or decide what to do with unique items on the origin actor. GMs now have the option to hold alt and simply duplicate the item onto the new actor. Players always see the copy dialog with the appropriate options for the item, regardless of whether they hold alt or not.
+- Chat card buttons (accept/refuse GMI, regain pool points, re-roll dice) are now only visible for players who can actually use them, which now also always includes the GM.
+- Skills, Abilities, Armor, Attack, and Lasting Damage now have a setting to show these on the mask or teen sheet, if the game mode is set to Unmasked. This setting defaults to the sheet active at the time of creation. Dragging & dropping items does not change the setting.
+
+### Removed
+- Holding alt while dragging & droping cyphers or artifacts no longer flips the identified status. Use the system settings for a default or use the item settings for that.
+- The level field in cyphers and artifacts no longer support inline roll formulas.
+- The compendium with basic skills has been moved to the Cypher SRD Compendium.
+- Teen items have been removed in favor of a setting for normal items.
+
 ### Fixed
-- Quick roll macros work again.
+- Replaced `event.altKey` with the more appropriate `game.keyboard.isModifierActive('Alt')`
+- Fixed download link in manifest file
+- Checks for Bar Brawl now work as intended.
+- TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
+- When the teen form regains points from a roll using the chat, the correct pools regains the points and the name of the teen is shown in the chat message.
+- Rerolling a stat roll no longer applies its result as the initiative value.
+- The Propose Intrusion macro now also works when only one PC actor has an owner.
 
 ## [1.33.2] - 2022-06-30
 ### Fixed

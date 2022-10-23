@@ -1,31 +1,40 @@
-export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, poolPointCost, costCalculated, costTotal, edge) {
+import {
+  addCharacterToCombatTracker,
+  setInitiativeForCharacter
+} from "../actor-utilities.js";
+
+export async function rollEngineOutput(data) {
+  let actor = await fromUuid(data.actorUuid);
+
   // Title information
   let poolRoll = {
     "Might": game.i18n.localize("CYPHERSYSTEM.MightRoll"),
     "Speed": game.i18n.localize("CYPHERSYSTEM.SpeedRoll"),
     "Intellect": game.i18n.localize("CYPHERSYSTEM.IntellectRoll"),
     "Pool": game.i18n.localize("CYPHERSYSTEM.StatRoll")
-  };
-  title = (title == "") ? (poolRoll[pool] || poolRoll["Pool"]) : title;
+  }
+  if (data.title == "") {
+    data.title = poolRoll[data.pool] || poolRoll["Pool"];
+  }
 
   // Item information
   let itemDescription = "";
-  let itemDescriptionInfo = ""
-  if (actor.items.get(itemID)) {
-    let item = actor.items.get(itemID);
+  let itemDescriptionInfo = "";
+  if (actor.items.get(data.itemID)) {
+    let item = actor.items.get(data.itemID);
 
-    itemDescription = (item.data.data.description) ? "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>" + TextEditor.enrichHTML(item.data.data.description) : "<img class=\"description-image-chat\" src=\"" + item.img + "\" width=\"50\" height=\"50\"/>";
+    itemDescription = (item.system.description) ? `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + await TextEditor.enrichHTML(item.system.description, {async: true}) : `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>`;
 
-    let styleHidden = "<div style=\"display: none\" class=\"chat-card-item-description\">";
-
-    let styleShow = "<div class=\"chat-card-item-description expanded\">";
-
+    let styleHidden = `<div style="display: none" class="chat-card-item-description">`;
+    let styleShow = `<div class="chat-card-item-description expanded">`;
     let style = (game.settings.get("cyphersystem", "alwaysShowDescriptionOnRoll")) ? styleShow : styleHidden;
 
-    itemDescriptionInfo = style + "<hr class=\"hr-chat\"><div style=\"min-height: 51px\">" + itemDescription + "</div></div>";
+    itemDescriptionInfo = style + `<hr class="hr-chat"><div style="min-height: 50px">` + itemDescription + `</div></div>`;
 
-    title = "<a class=\"chat-description\">" + title + "</a>";
+    data.title = `<a class="chat-description">` + data.title + `</a>`;
   }
+
+  // --- Modfier block
 
   // Skill information
   let skillRating = {
@@ -33,133 +42,220 @@ export async function rollEngineOutput(actor, itemID, skipRoll, title, pool, ski
     "0": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`,
     "1": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`,
     "2": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`
-  };
-  let skillInfo = (skillRating[skillLevel] || skillRating[0]);
+  }
+  let skillInfo = (skillRating[data.skillLevel] || skillRating[0]);
 
   // Asset information
-  let assetsInfo = `${game.i18n.localize("CYPHERSYSTEM.Assets")}: ${assets}<br>`;
+  let assetsInfo = `${game.i18n.localize("CYPHERSYSTEM.Assets")}: ${data.assets}<br>`;
 
   // effortToEase information
-  let effortToEaseInfo = (effortToEase != 1) ?
-    `${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${effortToEase} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
-    `${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${effortToEase} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+  let effortToEaseInfo = (data.effortToEase != 1) ?
+    `${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${data.effortToEase} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
+    `${game.i18n.localize("CYPHERSYSTEM.EffortForTask")}: ${data.effortToEase} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
 
   // effortOtherUses information
   let effortOtherUsesInfo = "";
-  if (effortOtherUses == 1) {
-    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`
-  } else if (effortOtherUses >= 1) {
-    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
+  if (data.effortOtherUses == 1) {
+    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${data.effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`
+  } else if (data.effortOtherUses >= 1) {
+    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${data.effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
   }
 
   // Additional step(s) information
-  difficultyModifier = parseInt(difficultyModifier);
-
   let difficultyInfo = "";
-  if (easedOrHindered != "hindered") {
-    if (difficultyModifier > 1) {
-      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", { amount: difficultyModifier })}<br>`;
-    } else if (difficultyModifier == 1) {
+  if (data.easedOrHindered != "hindered") {
+    if (data.difficultyModifier > 1) {
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: data.difficultyModifier})}<br>`;
+    } else if (data.difficultyModifier == 1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
     }
   } else {
-    if (difficultyModifier < -1) {
-      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", { amount: Math.abs(difficultyModifier) })}<br>`;
-    } else if (difficultyModifier == -1) {
+    if (data.difficultyModifier < -1) {
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: Math.abs(data.difficultyModifier)})}<br>`;
+    } else if (data.difficultyModifier == -1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
     }
   }
 
   let basicInfoBlock = `<hr class="hr-chat">` + skillInfo + assetsInfo + effortToEaseInfo + effortOtherUsesInfo + difficultyInfo;
 
+  // --- Damage block
+
   // Damage information
   let effortDamageInfo = "";
-  if (effortDamage == 1) {
-    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effortDamage} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
-  } else if (effortDamage >= 2) {
-    attackModifierInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${effortDamage} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
+  if (data.effortDamage == 1) {
+    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${data.effortDamage} ${game.i18n.localize("CYPHERSYSTEM.level")} (+${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.Damage")})<br>`;
+  } else if (data.effortDamage >= 2) {
+    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForDamage")}: ${data.effortDamage} ${game.i18n.localize("CYPHERSYSTEM.levels")} (+${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.Damage")})<br>`;
   }
 
-  let damageEffort = parseInt(damagePerLOE) * parseInt(effortDamage);
-  let totalDamage = parseInt(damage) + parseInt(damageEffort);
   let damageInfo = "";
-  if (totalDamage > 0) {
-    if (damageEffort > 0) {
-      damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage} [${damage}+${damageEffort}]`;
-    } else {
-      damageInfo = `${game.i18n.localize("CYPHERSYSTEM.Damage")}: ${totalDamage}`;
-    }
+  if (data.totalDamage > 0 && data.damageEffect == 0) {
+    damageInfo = game.i18n.format("CYPHERSYSTEM.DamageInfo", {totalDamage: data.totalDamage});
+  } else if (data.totalDamage > 0 && data.damageEffect >= 1 && data.damageEffect <= 2) {
+    damageInfo = game.i18n.format("CYPHERSYSTEM.DamageInfo", {totalDamage: data.damageWithEffect});
+  } else if (data.totalDamage > 0 && data.damageEffect >= 3) {
+    damageInfo = game.i18n.format("CYPHERSYSTEM.DamageWithEffectInfo", {totalDamage: data.totalDamage, damageWithEffect: data.damageWithEffect});
   }
 
   let damageInfoBlock = "";
   if (damageInfo != "") {
-    damageInfoBlock = `<hr class=\"hr-chat\">` + effortDamageInfo + damageInfo;
+    damageInfoBlock = `<hr class="hr-chat">` + effortDamageInfo + damageInfo;
   }
+
+  // --- Cost info block
 
   // Cost information
   let poolCostInfo = {
     "Might": function () {
-      return (poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
+      return (data.poolPointCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
     },
     "Speed": function () {
-      return (poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
+      return (data.poolPointCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
     },
     "Intellect": function () {
-      return (poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
+      return (data.poolPointCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
     },
     "Pool": function () {
-      return (poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
+      return (data.poolPointCost != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
     },
     "XP": function () {
-      return `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${poolPointCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`
+      return `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`
     }
   }
 
   let costTotalInfo = {
     "Might": function () {
-      return (costTotal != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
+      return (data.costTotal != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.MightPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.MightPoint")}`;
     },
     "Speed": function () {
-      return (costTotal != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
+      return (data.costTotal != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.SpeedPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.SpeedPoint")}`;
     },
     "Intellect": function () {
-      return (costTotal != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} [${costCalculated}-${edge}] ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
+      return (data.costTotal != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.IntellectPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} [${data.costCalculated}-${data.edge}] ${game.i18n.localize("CYPHERSYSTEM.IntellectPoint")}`;
     },
     "Pool": function () {
-      return (costTotal != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
+      return (data.costTotal != 1) ?
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoints")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
     },
     "XP": function () {
-      return `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${costTotal} ${game.i18n.localize("CYPHERSYSTEM.XP")}`
+      return `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.XP")}`
     }
   }
 
-  let poolCostInfoString = (poolPointCost != 0) ? poolCostInfo[pool]() + "<br>" : "";
-  let costTotalInfoString = (costCalculated != 0) ? costTotalInfo[pool]() : "";
+  let poolCostInfoString = (data.poolPointCost != 0) ? poolCostInfo[data.pool]() + "<br>" : "";
+  let costTotalInfoString = (data.costCalculated != 0) ? costTotalInfo[data.pool]() : "";
   let costInfoBlock = "";
   if (poolCostInfoString != "" || costTotalInfoString != "") {
-    costInfoBlock = `<hr class=\"hr-chat\">` + poolCostInfoString + costTotalInfoString;
+    costInfoBlock = "<hr class='hr-chat'>" + poolCostInfoString + costTotalInfoString;
   }
 
-  // Putting it all together
-  let rollInfo = (!skipRoll) ? itemDescriptionInfo + basicInfoBlock + damageInfoBlock + costInfoBlock : itemDescriptionInfo + costInfoBlock;
+  // --- Roll result block
 
-  let rollEngineOutput = [title, rollInfo];
+  // Determine result with bonus/penalty
+  let operator = (data.bonus < 0) ? "-" : "+";
+  let resultInfo = (data.bonus != 0 && data.bonus != "") ? "<span class='roll-result'>" + game.i18n.localize("CYPHERSYSTEM.Result") + ": " + data.rollTotal + " [" + data.roll.total + operator + Math.abs(data.bonus) + "]" + "</span><br>" : "";
 
-  return rollEngineOutput;
+  // Determine special effect
+  let effect = "";
+
+  if (data.roll.total == 17 && !data.impairedStatus && data.totalDamage >= 1) {
+    effect = "<br><span class='roll-effect effect1718'>" + game.i18n.localize("CYPHERSYSTEM.OneDamage") + "</span>";
+  } else if (data.roll.total == 18 && !data.impairedStatus && data.totalDamage >= 1) {
+    effect = "<br><span class='roll-effect effect1718'>" + game.i18n.localize("CYPHERSYSTEM.TwoDamage") + "</span>";
+  } else if (data.roll.total == 19 && !data.impairedStatus && data.totalDamage >= 1) {
+    effect = "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.DamageOrMinorEffectRoll") + "</span>";
+  } else if (data.roll.total == 19 && !data.impairedStatus && data.totalDamage <= 0) {
+    effect = "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.MinorEffectRoll") + "</span>";
+  } else if (data.roll.total == 20 && !data.impairedStatus && data.totalDamage >= 1) {
+    effect = "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.DamageOrMajorEffectRoll") + "</span>";
+  } else if (data.roll.total == 20 && !data.impairedStatus && data.totalDamage <= 0) {
+    effect = "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.MajorEffectRoll") + "</span>";
+  } else if ([17, 18, 19, 20].includes(data.roll.total) && data.impairedStatus && data.totalDamage >= 1) {
+    effect = "<br><span class='roll-effect effect1718'>" + game.i18n.localize("CYPHERSYSTEM.OneDamage") + "</span>";
+  }
+
+  let gmiEffect = "";
+  if (data.roll.total <= data.gmiRange) {
+    gmiEffect = "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.GMIntrusion") + "</span>";
+  }
+
+  // Determine steps eased/hindered
+  let modifiedBy = "";
+  if (data.difficultyModifierTotal != 0) {
+    if (data.difficultyModifierTotal > 1) {
+      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: data.difficultyModifierTotal}) + ".</span> "
+    } else if (data.difficultyModifierTotal == 1) {
+      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.Eased") + ".</span> "
+    } else if (data.difficultyModifierTotal == -1) {
+      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.Hindered") + ".</span> "
+    } else if (data.difficultyModifierTotal < -1) {
+      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(data.difficultyModifierTotal)}) + ".</span> "
+    }
+  }
+
+  // Create beatenDifficulty
+  let beatenDifficulty = modifiedBy + "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
+
+  // Add initiative result
+  let initiativeResult = data.roll.total + (data.difficultyModifierTotal * 3) + data.bonus;
+  let initiativeInfo = (data.initiativeRoll) ? "<br><span class='roll-initiative'>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult + "</span > " : "";
+
+  // Create info block
+  let info = basicInfoBlock + damageInfoBlock + costInfoBlock;
+
+  // Add reroll button
+  let actorUuid = (actor) ? actor.uuid : "";
+  let dataString = JSON.stringify(data);
+  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+
+  // Add regain points button
+  let regainPointsButton = "";
+  if (data.costTotal > 0 && data.roll.total == 20 && ["Might", "Speed", "Intellect"].includes(data.pool)) {
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i> </a>`
+  }
+
+  // Put buttons together
+  let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
+
+  // Put it all together into the chat flavor
+  let flavor = "<b>" + data.title + "</b>" + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + effect + gmiEffect + chatButtons;
+
+  // ---
+
+  if (data.skipRoll) {
+    ChatMessage.create({
+      content: "<b>" + data.title + "</b>" + itemDescriptionInfo + info,
+      speaker: ChatMessage.getSpeaker({actor: actor}),
+      flags: {"itemID": data.itemID}
+    });
+  } else if (!data.skipRoll) {
+    // Create chat message
+    data.roll.toMessage({
+      speaker: ChatMessage.getSpeaker({actor: actor}),
+      flavor: flavor,
+      flags: {"itemID": data.itemID}
+    });
+
+    // Handle initiative
+    if (data.initiativeRoll) {
+      await addCharacterToCombatTracker(actor);
+      await setInitiativeForCharacter(actor, initiativeResult);
+    }
+  }
 }

@@ -1,0 +1,57 @@
+{{#each itemLists.cyphers as |item id|}}
+  <li class="item flexrow {{#if item.system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
+    <h4 class="item-name">
+      <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
+        <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
+        {{~#if item.system.basic.identified ~}}
+        {{~item.name ~}}
+        {{~else ~}}
+        {{~localize 'CYPHERSYSTEM.UnidentifiedCypher' ~}}
+        {{~/if ~}}
+      </a>
+    </h4>
+    <div class="item-quantity">
+      {{#if item.system.basic.identified}}
+        {{#if item.system.rollForLevel}}
+          <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
+            <i class="fas fa-question"></i>
+            {{item.system.basic.level}}
+          </a>
+        {{else}}
+          {{item.system.basic.level}}
+        {{/if}}
+      {{else}}
+        {{localize 'CYPHERSYSTEM.?'}}
+      {{/if}}
+    </div>
+    <div class="item-controls">
+      {{#unless item.system.basic.identified}}
+        <a class="item-control identify-item {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
+          <i class="far fa-eye-slash"></i>
+        </a>
+      {{/unless}}
+      {{#if (or item.system.basic.identified ../sheetSettings.isGM)}}
+        <a class="item-control item-edit {{#if ../system.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+          <i class="fas fa-file-alt"></i>
+        </a>
+      {{/if}}
+      <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
+        <i class="fas fa-{{#if item.system.archived}}undo{{else}}archive{{/if}}"></i>
+      </a>
+    </div>
+  </li>
+
+  {{#if (expanded item._id)}}
+    <li class="item-desc flexrow {{#if item.system.archived}}archived{{/if}}">
+      <div class="description desc-{{item._id}}">
+        <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
+        {{#if item.system.basic.identified}}
+          {{{enrichedHTMLItems ../this "description" item._id}}}
+        {{else}}
+          <p>{{localize 'CYPHERSYSTEM.???'}}</p>
+        {{/if}}
+      </div>
+    </li>
+  {{/if}}
+
+{{/each}}

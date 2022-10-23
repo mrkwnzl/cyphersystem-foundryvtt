@@ -2,7 +2,7 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import { CypherActorSheet } from "./actor-sheet.js";
+import {CypherActorSheet} from "./actor-sheet.js";
 
 export class CypherActorSheetNPC extends CypherActorSheet {
 
@@ -10,22 +10,23 @@ export class CypherActorSheetNPC extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "npc"],
-      template: "systems/cyphersystem/templates/actor/npc-sheet.html",
+      template: "systems/cyphersystem/templates/actor-sheets/npc-sheet.html",
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
-      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items"]
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items", ".editor-content"]
     });
   }
 
   /**
   * Additional data preparations
   */
-  getData() {
-    const data = super.getData();
-    const actorData = data.actor.data;
-    data.data.rollButtons = false;
+  async getData() {
+    const data = await super.getData();
+
+    // Sheet settings
+    data.sheetSettings.rollButtons = false;
 
     return data;
   }

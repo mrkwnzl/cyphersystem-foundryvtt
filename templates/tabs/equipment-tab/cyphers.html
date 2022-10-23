@@ -1,0 +1,32 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if (eq actor.system.settings.equipment.cyphers.label "")}}
+          {{localize 'CYPHERSYSTEM.Cyphers'}}
+        {{else}}
+          {{actor.system.settings.equipment.cyphers.label}}
+        {{/if}}
+      </div>
+      {{#if (eq actor.type "pc")}}
+        <div class="item-cypher-limit">
+          <label for="system.basic.cypherLimit" class="resource-label {{#if (or actor.system.isLimited system.isObserver)}}disabled{{/if}}">
+            {{localize 'CYPHERSYSTEM.CypherLimit'}}:&nbsp;
+          </label>
+        </div>
+        <div class="item-cypher-limit">
+          <input class="input-cypher-limit" type="text" name="system.equipment.cypherLimit" value="{{actor.system.equipment.cypherLimit}}" {{sheetSettings.disabledStaticStats}} />
+        </div>
+      {{/if}}
+      <div class="item-quantity">
+        {{localize 'CYPHERSYSTEM.Level'}}
+      </div>
+      <div class="item-controls">
+        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    {{> systems/cyphersystem/templates/item-lists/cyphers-list.html}}
+  </ol>
+</div>
