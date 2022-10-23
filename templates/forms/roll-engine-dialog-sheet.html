@@ -139,13 +139,13 @@
           <input class="roll-engine-input {{this.multiRollIntellectEdge}} {{this.exceedIntellect}}" name="intellect" id="intellect" type="text" value="{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})" disabled /><br>
           <hr class="hr-roll-engine">
 
-          <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" data-button="roll">
+          <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.RollButtonTooltip'}}" data-button="roll">
             <i class="fas fa-dice-d20"></i> {{localize "CYPHERSYSTEM.Roll"}}
           </button>
-          <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" data-button="pay">
+          <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.PayButtonTooltip'}}" data-button="pay">
             <i class="fas fa-coins"></i> {{localize "CYPHERSYSTEM.Pay"}}
           </button>
-          <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" data-button="cancel">
+          <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" title="{{localize 'CYPHERSYSTEM.CancelButtonTooltip'}}" data-button="cancel">
             <i class="fas fa-times"></i> {{localize "CYPHERSYSTEM.Cancel"}}
           </button>
 

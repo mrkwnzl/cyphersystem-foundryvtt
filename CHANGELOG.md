@@ -25,8 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Teen items have been removed in favor of a setting for normal items.
 
 ### Fixed
-- Replaced `event.altKey` with the more appropriate `game.keyboard.isModifierActive('Alt')`
-- Fixed download link in manifest file
+- Replaced `event.altKey` with the more appropriate `game.keyboard.isModifierActive('Alt')`.
 - Checks for Bar Brawl now work as intended.
 - TinyMCE editor content now keeps its scroll position when the sheet is re-rendered.
 - When the teen form regains points from a roll using the chat, the correct pools regains the points and the name of the teen is shown in the chat message.
