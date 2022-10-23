@@ -20,24 +20,24 @@ export async function dataMigration() {
   // Migrate actors, embedded items, and items in compendia
   for (let pack of game.packs) {
     if (pack.metadata.type == "Actor" && pack.metadata.packageType == "world") {
+      let lockedStatus = pack.locked;
+      await pack.configure({locked: false});
       for (let index of pack.index) {
-        let lockedStatus = pack.locked;
-        await pack.configure({locked: false});
         let actor = await pack.getDocument(index._id);
         console.log(`Migrating Actor document ${actor.name}`);
         await migrationRoutineActor(actor);
-        await pack.configure({locked: lockedStatus});
       }
+      await pack.configure({locked: lockedStatus});
     }
     if (pack.metadata.type == "Item" && pack.metadata.packageType == "world") {
+      let lockedStatus = pack.locked;
+      await pack.configure({locked: false});
       for (let index of pack.index) {
-        let lockedStatus = pack.locked;
-        await pack.configure({locked: false});
         let item = await pack.getDocument(index._id);
         console.log(`Migrating Item document ${item.name}`);
         await migrationRoutineItem(item)
-        await pack.configure({locked: lockedStatus});
       }
+      await pack.configure({locked: lockedStatus});
     }
   }
 
@@ -69,24 +69,24 @@ export async function dataMigrationPacks(packageName) {
 
   for (let pack of game.packs) {
     if (pack.metadata.type == "Actor" && pack.metadata.packageName == packageName) {
+      let lockedStatus = pack.locked;
+      await pack.configure({locked: false});
       for (let index of pack.index) {
-        let lockedStatus = pack.locked;
-        await pack.configure({locked: false});
         let actor = await pack.getDocument(index._id);
         console.log(`Migrating Actor document ${actor.name}`);
         await migrationRoutineActor(actor);
-        await pack.configure({locked: lockedStatus});
       }
+      await pack.configure({locked: lockedStatus});
     }
     if (pack.metadata.type == "Item" && pack.metadata.packageName == packageName) {
+      let lockedStatus = pack.locked;
+      await pack.configure({locked: false});
       for (let index of pack.index) {
-        let lockedStatus = pack.locked;
-        await pack.configure({locked: false});
         let item = await pack.getDocument(index._id);
         console.log(`Migrating Item document ${item.name}`);
         await migrationRoutineItem(item)
-        await pack.configure({locked: lockedStatus});
       }
+      await pack.configure({locked: lockedStatus});
     }
   }
 
