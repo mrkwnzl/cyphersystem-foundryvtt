@@ -7,8 +7,7 @@ export async function registerHandlebars() {
     }
   });
 
-  Handlebars.registerHelper("recursion", function (actorID, itemID) {
-    let actor = game.actors.get(actorID);
+  Handlebars.registerHelper("recursion", function (actor, itemID) {
     let item = actor.items.get(itemID);
     let actorRecursion = !actor.getFlag("cyphersystem", "recursion") ? "" : actor.getFlag("cyphersystem", "recursion");
     let itemRecursion = "@" + item.name.toLowerCase();

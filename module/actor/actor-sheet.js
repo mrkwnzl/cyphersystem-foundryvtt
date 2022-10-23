@@ -8,6 +8,8 @@ import {
 } from "../utilities/chat-cards.js";
 
 import {
+  changeRecursionStats,
+  changeTagStats,
   itemRollMacro,
   recursionMacro,
   tagMacro
@@ -412,6 +414,11 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".item-delete").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       if (game.keyboard.isModifierActive("Alt")) {
+        if (item.type == "tag" && item.system.exclusive && item.system.active) {
+          changeTagStats(this.actor, 0, 0, 0, 0, 0, 0);
+        } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
+          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0)
+        }
         item.delete();
       } else {
         let archived = (item.system.archived) ? false : true;
@@ -741,6 +748,7 @@ export class CypherActorSheet extends ActorSheet {
 
         function moveItems(quantity) {
           quantity = parseInt(quantity);
+          if (quantity == null) {quantity = 0};
           if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
             moveDialog(quantity);
             return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
@@ -761,8 +769,9 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
+      console.log(originItem);
       if (originItem.type == "artifact") targetActor.update({"system.settings.equipment.artifacts.active": true});
-      if (originItem.type == "cypher") targetActor.update({"system.settings.equipment.cyphers": true});
+      if (originItem.type == "cypher") targetActor.update({"system.settings.equipment.cyphers.active": true});
       if (originItem.type == "oddity") targetActor.update({"system.settings.equipment.oddities.active": true});
       if (originItem.type == "material") targetActor.update({"system.settings.equipment.materials.active": true});
       if (originItem.type == "ammo") targetActor.update({"system.settings.combat.ammo.active": true});

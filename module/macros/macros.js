@@ -203,7 +203,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   }
 
   // Parse data to All-in-One Dialog
-  rollEngineMain({actor: actor, itemID: itemID, teen: teen, skipRoll: noRoll, initiative: initiativeRoll, title: itemType + item.name, pool: pool, skillLevel: skillLevel, assets: parseInt(assets), effortToEase: parseInt(effort1), effortOtherUses: parseInt(effort2), damage: parseInt(damage), effortDamage: parseInt(effort3), damagePerLOE: parseInt(damagePerLOE), difficultyModifier: parseInt(Math.abs(additionalSteps)), easedOrHindered: stepModifier, bonus: parseInt(bonus), poolPointCost: parseInt(additionalCost)})
+  rollEngineMain({actorUuid: actor.uuid, itemID: itemID, teen: teen, skipRoll: noRoll, initiative: initiativeRoll, title: itemType + item.name, pool: pool, skillLevel: skillLevel, assets: parseInt(assets), effortToEase: parseInt(effort1), effortOtherUses: parseInt(effort2), damage: parseInt(damage), effortDamage: parseInt(effort3), damagePerLOE: parseInt(damagePerLOE), difficultyModifier: parseInt(Math.abs(additionalSteps)), easedOrHindered: stepModifier, bonus: parseInt(bonus), poolPointCost: parseInt(additionalCost)})
 }
 
 /* -------------------------------------------- */
@@ -508,13 +508,12 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   if (!speedEdgeModifier) speedEdgeModifier = 0;
   if (!intellectEdgeModifier) intellectEdgeModifier = 0;
 
-  await applyStatChanges();
+  await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
   await applyRecursion();
 
   async function applyRecursion() {
     let updates = [];
-    let exceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium", "@pdf"];
-    let regExceptions = new RegExp(exceptions.join("|"), "gi");
+    let regExceptions = new RegExp(game.cyphersystem.recursionDocumentLinkExceptions.join("|"), "gi");
     let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
     let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
     for (let item of actor.items) {
@@ -532,36 +531,36 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
     // Notify about translation
     ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}))
   }
+}
 
-  async function applyStatChanges() {
-    let pool = actor.system.pools;
+export async function changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
+  let pool = actor.system.pools;
 
-    let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
-    let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");
-    let oldIntellectModifier = (!actor.getFlag("cyphersystem", "recursionIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectModifier");
-    let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "recursionMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightEdgeModifier");
-    let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier");
-    let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier");
+  let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
+  let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");
+  let oldIntellectModifier = (!actor.getFlag("cyphersystem", "recursionIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectModifier");
+  let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "recursionMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightEdgeModifier");
+  let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier");
+  let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier");
 
-    await actor.update({
-      "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
-      "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
-      "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
-      "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
-      "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
-      "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
-      "flags.cyphersystem.recursion": recursion,
-      "flags.cyphersystem.recursionMightModifier": mightModifier,
-      "flags.cyphersystem.recursionSpeedModifier": speedModifier,
-      "flags.cyphersystem.recursionIntellectModifier": intellectModifier,
-      "flags.cyphersystem.recursionMightEdgeModifier": mightEdgeModifier,
-      "flags.cyphersystem.recursionSpeedEdgeModifier": speedEdgeModifier,
-      "flags.cyphersystem.recursionIntellectEdgeModifier": intellectEdgeModifier
-    });
-  }
+  await actor.update({
+    "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
+    "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
+    "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
+    "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
+    "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
+    "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
+    "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
+    "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
+    "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
+    "flags.cyphersystem.recursion": recursion,
+    "flags.cyphersystem.recursionMightModifier": mightModifier,
+    "flags.cyphersystem.recursionSpeedModifier": speedModifier,
+    "flags.cyphersystem.recursionIntellectModifier": intellectModifier,
+    "flags.cyphersystem.recursionMightEdgeModifier": mightEdgeModifier,
+    "flags.cyphersystem.recursionSpeedEdgeModifier": speedEdgeModifier,
+    "flags.cyphersystem.recursionIntellectEdgeModifier": intellectEdgeModifier
+  });
 }
 
 export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
@@ -595,64 +594,63 @@ export async function tagMacro(actor, item) {
       await archiveItemsWithTag(actor, item.name)
       await item.update({"system.active": false});
       if (item.system.exclusive) {
-        await changeStats(actor, 0, 0, 0, 0, 0, 0);
+        await changeTagStats(actor, 0, 0, 0, 0, 0, 0);
       }
     } else {
       await unarchiveItemsWithTag(actor, item.name)
     }
   } else if (!item.system.active) {
     if (!game.keyboard.isModifierActive('Alt')) {
-      await unarchiveItemsWithTag(actor, item.name)
-      await item.update({"system.active": true});
       if (item.system.exclusive) {
-        await changeStats(actor, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+        await changeTagStats(actor, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
         await disableActiveExclusiveTag(actor, item._id);
       }
+      await unarchiveItemsWithTag(actor, item.name)
+      await item.update({"system.active": true});
     } else {
       await archiveItemsWithTag(actor, item.name)
     }
   }
 
-  async function changeStats(actor, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
-    let pool = actor.system.pools;
-
-    let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
-    let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
-    let oldIntellectModifier = (!actor.getFlag("cyphersystem", "tagIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectModifier");
-    let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "tagMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightEdgeModifier");
-    let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "tagSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedEdgeModifier");
-    let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "tagIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectEdgeModifier");
-
-    await actor.update({
-      "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
-      "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
-      "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
-      "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
-      "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
-      "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-      "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
-      "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
-      "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
-      "flags.cyphersystem.tagMightModifier": mightModifier,
-      "flags.cyphersystem.tagSpeedModifier": speedModifier,
-      "flags.cyphersystem.tagIntellectModifier": intellectModifier,
-      "flags.cyphersystem.tagMightEdgeModifier": mightEdgeModifier,
-      "flags.cyphersystem.tagSpeedEdgeModifier": speedEdgeModifier,
-      "flags.cyphersystem.tagIntellectEdgeModifier": intellectEdgeModifier
-    });
-  }
-
   async function disableActiveExclusiveTag(actor, itemID) {
     for (let item of actor.items) {
-      if (item.type == "tag" && item.system.exclusive && item.system.active) {
-        if (item._id == itemID) return;
+      if (item.type == "tag" && item.system.exclusive && item.system.active && item._id != itemID) {
         await archiveItemsWithTag(actor, item.name.split(','));
-        await item.update({"data.active": false});
+        await item.update({"system.active": false});
       }
     }
   }
 
   await actor.updateEmbeddedDocuments("Item", [item]);
+}
+
+export async function changeTagStats(actor, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
+  let pool = actor.system.pools;
+
+  let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
+  let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
+  let oldIntellectModifier = (!actor.getFlag("cyphersystem", "tagIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectModifier");
+  let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "tagMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightEdgeModifier");
+  let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "tagSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedEdgeModifier");
+  let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "tagIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectEdgeModifier");
+
+  await actor.update({
+    "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
+    "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
+    "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
+    "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
+    "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
+    "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
+    "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
+    "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
+    "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
+    "flags.cyphersystem.tagMightModifier": mightModifier,
+    "flags.cyphersystem.tagSpeedModifier": speedModifier,
+    "flags.cyphersystem.tagIntellectModifier": intellectModifier,
+    "flags.cyphersystem.tagMightEdgeModifier": mightEdgeModifier,
+    "flags.cyphersystem.tagSpeedEdgeModifier": speedEdgeModifier,
+    "flags.cyphersystem.tagIntellectEdgeModifier": intellectEdgeModifier
+  });
 }
 
 export function renameTagMacro(actor, currentTag, newTag) {

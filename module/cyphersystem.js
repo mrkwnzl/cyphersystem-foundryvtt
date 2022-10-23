@@ -48,7 +48,9 @@ import {
   renameTagMacro,
   disasterModeMacro,
   lockStaticStatsMacro,
-  migrateDataMacro
+  migrateDataMacro,
+  changeTagStats,
+  changeRecursionStats
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -73,7 +75,7 @@ import {
   dataMigrationPacks
 } from "./utilities/migration.js";
 import {rollEngineMain} from "./utilities/roll-engine/roll-engine-main.js";
-import {gmiRangeForm} from "./forms/gmi-range-sheet.js";
+import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -83,6 +85,8 @@ Hooks.once("init", async function () {
   console.log("Initializing Cypher System");
 
   // CONFIG.debug.hooks = true;
+
+  const recursionDocumentLinkExceptions = ["@macro", "@actor", "@scene", "@item", "@rolltable", "@journalentry", "@cards", "@playlist", "@playlistsound", "@compendium", "@pdf", "@uuid"];
 
   game.cyphersystem = {
     // Actor sheets
@@ -137,7 +141,10 @@ Hooks.once("init", async function () {
     chatCardIntrusionAccepted,
     chatCardIntrusionRefused,
     chatCardWelcomeMessage,
-    chatCardRegainPoints
+    chatCardRegainPoints,
+
+    // Recursion Document Link Exceptions
+    recursionDocumentLinkExceptions
   }
 
   // Define custom Entity classes
@@ -258,7 +265,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
 
 Hooks.on("preCreateActor", async function (actor) {
   if (["pc", "community", "vehicle"].includes(actor.type)) {
-    actor.data.update({
+    actor.updateSource({
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.actorLink": true
@@ -266,7 +273,7 @@ Hooks.on("preCreateActor", async function (actor) {
   }
 
   if (actor.type == "npc") {
-    actor.data.update({
+    actor.updateSource({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -276,7 +283,7 @@ Hooks.on("preCreateActor", async function (actor) {
   }
 
   if (actor.type == "companion") {
-    actor.data.update({
+    actor.updateSource({
       "token.bar1": {"attribute": "health"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
@@ -287,7 +294,7 @@ Hooks.on("preCreateActor", async function (actor) {
   }
 
   if (actor.type == "marker") {
-    actor.data.update({
+    actor.updateSource({
       "token.bar1": {"attribute": "quantity"},
       "token.bar2": {"attribute": "level"},
       "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
@@ -297,18 +304,28 @@ Hooks.on("preCreateActor", async function (actor) {
   }
 });
 
+Hooks.on("updateActor", async function (actor, data, options, userId) {
+  if (data.ownership) {
+    game.socket.emit("system.cyphersystem", {operation: "renderGMIForm"});
+    renderGMIForm();
+  }
+});
+
 Hooks.on("preCreateItem", function (item) {
   if (item.img == "icons/svg/item-bag.svg") {
     item.updateSource({"img": `systems/cyphersystem/icons/items/${item.type}.svg`});
   }
-  if (item.parent.system.basic.unmaskedForm == "Teen" && ["ability", "armor", "attack", "lasting-damage", "skill"].includes(item.type)) {
+  if (item.parent?.system.basic.unmaskedForm == "Teen" && ["ability", "armor", "attack", "lasting-damage", "skill"].includes(item.type)) {
     item.updateSource({"system.settings.general.unmaskedForm": "Teen"});
   }
 });
 
-Hooks.on("updateItem", function (item) {
-  // let description = item.system.description.replace("<p></p>", "");
-  // item.updateSource({"system.description": description});
+Hooks.on("updateItem", async function (item) {
+  if (item.type == "tag" && item.system.exclusive && item.system.active) {
+    await changeTagStats(fromUuidSync(item.actor.uuid), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+  } else if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
+    await changeRecursionStats(fromUuidSync(item.actor.uuid), "@" + item.name.toLowerCase(), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+  }
 });
 
 Hooks.on("preCreateToken", function (document, data) {
@@ -360,7 +377,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Hide buttons
   if (html.find('.chat-card-buttons').data('actor')) {
     let actor = game.actors.get(html.find('.chat-card-buttons').data('actor'));
-    if (!actor.isOwner) html.find("div[class='chat-card-buttons']").addClass('hidden');
+    if (!actor.isOwner) html.find("div[class='chat-card-buttons']").addClass('chat-hidden');
   }
 
   // Event Listener to confirm cypher and artifact identification
@@ -377,7 +394,6 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-stat').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     const data = html.find('.reroll-stat').data('data');
-    data.actor = game.actors.get(html.find('.reroll-stat').data('actor'));
     delete data["skipDialog"];
     delete data["roll"];
     data.reroll = true;
@@ -389,7 +405,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-recovery').data('dice');
-    let actor = game.actors.get(html.find('.reroll-recovery').data('actor-id'));
+    let actor = fromUuidSync(html.find('.reroll-stat').data('actor-uuid'));
     recoveryRollMacro(actor, dice, false);
   });
 
@@ -489,12 +505,12 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       let short = 0;
       let long = 0;
       let veryLong = 0;
-      if (token.scene.gridUnits == "m" || token.scene.gridUnits == "meter" || token.scene.gridUnits == "metre" || token.scene.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceMeter")) {
+      if (["m", "meter", "metre"].includes(token.scene.grid.units) || token.scene.grid.units == game.i18n.localize("CYPHERSYSTEM.UnitDistanceMeter")) {
         immediate = 3;
         short = 15;
         long = 30;
         veryLong = 150;
-      } else if (token.scene.gridUnits == "ft" || token.scene.gridUnits == "ft." || token.scene.gridUnits == "feet" || token.scene.gridUnits == game.i18n.localize("CYPHERSYSTEM.UnitDistanceFeet")) {
+      } else if (["ft", "ft.", "feet"].includes(token.scene.grid.units) || token.scene.grid.units == game.i18n.localize("CYPHERSYSTEM.UnitDistanceFeet")) {
         immediate = 10;
         short = 50;
         long = 100;
@@ -515,7 +531,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
     }
 
     usesRuler(token) {
-      if (token.flags.cyphersystem.toggleDragRuler) {
+      if (token.document.flags.cyphersystem.toggleDragRuler) {
         return true
       } else {
         return false

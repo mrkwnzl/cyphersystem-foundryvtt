@@ -4,7 +4,7 @@ import {
 } from "../actor-utilities.js";
 
 export async function rollEngineOutput(data) {
-  let actor = data.actor;
+  let actor = await fromUuid(data.actorUuid);
 
   // Title information
   let poolRoll = {
@@ -220,18 +220,18 @@ export async function rollEngineOutput(data) {
   let info = basicInfoBlock + damageInfoBlock + costInfoBlock;
 
   // Add reroll button
-  let actorID = (actor) ? actor.id : "";
+  let actorUuid = (actor) ? actor.uuid : "";
   let dataString = JSON.stringify(data);
-  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-actor='${actorID}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`
 
   // Add regain points button
   let regainPointsButton = "";
   if (data.costTotal > 0 && data.roll.total == 20 && ["Might", "Speed", "Intellect"].includes(data.pool)) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor='${actorID}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i> </a>`
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i> </a>`
   }
 
   // Put buttons together
-  let chatButtons = `<div class="chat-card-buttons" data-actor="${actorID}">` + regainPointsButton + reRollButton + `</div>`;
+  let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
   let flavor = "<b>" + data.title + "</b>" + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + effect + gmiEffect + chatButtons;
@@ -241,7 +241,7 @@ export async function rollEngineOutput(data) {
   if (data.skipRoll) {
     ChatMessage.create({
       content: "<b>" + data.title + "</b>" + itemDescriptionInfo + info,
-      speaker: ChatMessage.getSpeaker({actor: data.actor}),
+      speaker: ChatMessage.getSpeaker({actor: actor}),
       flags: {"itemID": data.itemID}
     });
   } else if (!data.skipRoll) {

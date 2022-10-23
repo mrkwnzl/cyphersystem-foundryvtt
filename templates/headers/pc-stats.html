@@ -19,11 +19,11 @@
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.might.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.teen.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.teen.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{else}}
           <input class="stat-input" type="number" name="system.pools.might.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.pools.might.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{/if}}
       </div>
       <hr class="hr-pool">
@@ -44,9 +44,9 @@
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
-            <input class="edge-input" type="number" name="system.teen.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input" type="number" name="system.teen.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input" type="number" name="system.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollMightEdge}}" type="number" name="system.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>
@@ -70,11 +70,11 @@
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.speed.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.teen.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.teen.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{else}}
           <input class="stat-input" type="number" name="system.pools.speed.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.pools.speed.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{/if}}
       </div>
       <hr class="hr-pool">
@@ -95,9 +95,9 @@
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
-            <input class="edge-input" type="number" name="system.teen.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input" type="number" name="system.teen.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input" type="number" name="system.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollSpeedEdge}}" type="number" name="system.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>
@@ -121,11 +121,11 @@
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.intellect.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.teen.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.teen.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{else}}
           <input class="stat-input" type="number" name="system.pools.intellect.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-          <input class="stat-input" type="number" name="system.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.max}}{{/if}}" {{disabledStaticStats}} />
+          <input class="stat-input" type="number" name="system.pools.intellect.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
         {{/if}}
       </div>
       <hr class="hr-pool">
@@ -146,9 +146,9 @@
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
-            <input class="edge-input" type="number" name="system.teen.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input" type="number" name="system.teen.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input" type="number" name="system.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.edge}}{{/if}}" {{disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollIntellectEdge}}" type="number" name="system.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>
@@ -169,7 +169,7 @@
           <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
             <input class="stat-input" type="number" name="system.teen.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.value}}{{/if}}" />
             &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-            <input class="stat-input" type="number" name="system.teen.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.max}}{{/if}}" {{disabledStaticStats}} />&nbsp;
+            <input class="stat-input" type="number" name="system.teen.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />&nbsp;
           </div>
           <hr class="hr-pool">
           <div class="resource-content flexrow flex-center">
@@ -201,7 +201,7 @@
           <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
             <input class="stat-input" type="number" name="system.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.value}}{{/if}}" />
             &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
-            <input class="stat-input" type="number" name="system.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.max}}{{/if}}" {{disabledStaticStats}} />&nbsp;
+            <input class="stat-input" type="number" name="system.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />&nbsp;
           </div>
           <hr class="hr-pool">
           <div class="resource-content flexrow flex-center">

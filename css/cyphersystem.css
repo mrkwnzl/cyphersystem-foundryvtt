@@ -296,7 +296,7 @@ select.bar-attribute {
   border-top: 1px solid #999;
 }
 
-.hidden {
+.chat-hidden {
   display: none;
 }
 
@@ -1098,6 +1098,16 @@ select.settings-input {
   color: white;
 }
 
+.cyphersystem .profile-img-overlay-multi-roll {
+  position: absolute;
+  top: 33.5px;
+  left: 27.5px;
+  opacity: 85%;
+  text-shadow: 0px 0px 5px #000000;
+  font-size: xxx-large;
+  color: white;
+}
+
 .cyphersystem .dice-tray-right {
   position: absolute;
   width: 32px;
@@ -1145,10 +1155,6 @@ select.settings-input {
   filter: invert(1) blur(0.25px) drop-shadow(0 0 6px var(--color-shadow-primary))
 }
 
-.cyphersystem .exceeded {
-  color: red;
-}
-
 /* Roll Engine */
 
 .cyphersystem .roll-engine-left-column {
@@ -1183,7 +1189,19 @@ select.settings-input {
   text-align: center;
 }
 
+.cyphersystem .multi-roll-active {
+  color: blue;
+}
+
 .cyphersystem .roll-engine-label-summary.red {
+  color: red;
+}
+
+.cyphersystem .roll-engine-label-summary.blue {
+  color: blue;
+}
+
+.cyphersystem .exceeded {
   color: red;
 }
 

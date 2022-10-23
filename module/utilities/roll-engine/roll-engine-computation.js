@@ -3,22 +3,24 @@ import {rollEngineForm} from "./roll-engine-form.js";
 import {rollEngineOutput} from "./roll-engine-output.js";
 
 export async function rollEngineComputation(data) {
+  let actor = await fromUuid(data.actorUuid);
+
   // Roll dice
   data.roll = await new Roll("1d20").evaluate({async: true});
 
   // Check for effort
   data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;
-  if (data.effortTotal > data.actor.system.basic.effort) {
+  if (data.effortTotal > actor.system.basic.effort) {
     return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
   }
 
   // Determine impaired & debilitated status
   if (data.teen) {
-    if (data.actor.system.teen.combat.damage.damageTrack == "Impaired" && data.actor.system.teen.combat.damage.applyImpaired) data.impairedStatus = true;
-    if (data.actor.system.teen.combat.damage.damageTrack == "Debilitated" && data.actor.system.teen.combat.damage.applyDebilitated) data.impairedStatus = true;
+    if (actor.system.teen.combat.damage.damageTrack == "Impaired" && actor.system.teen.combat.damage.applyImpaired) data.impairedStatus = true;
+    if (actor.system.teen.combat.damage.damageTrack == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) data.impairedStatus = true;
   } else if (!data.teen) {
-    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) data.impairedStatus = true;
-    if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) data.impairedStatus = true;
+    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) data.impairedStatus = true;
+    if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) data.impairedStatus = true;
   } else {
     data.impairedStatus = false;
   }
@@ -37,15 +39,16 @@ export async function rollEngineComputation(data) {
   data.damageWithEffect = data.totalDamage + data.damageEffect;
 
   // Calculate total cost
-  data.impaired = (data.impairedStatus) ? effortTotal : 0;
-  data.armorCost = (data.pool == "Speed") ? data.effortTotal * data.actor.system.combat.armor.costTotal : 0;
+  data.impaired = (data.impairedStatus) ? data.effortTotal : 0;
+  data.armorCost = (data.pool == "Speed") ? data.effortTotal * actor.system.combat.armor.costTotal : 0;
   data.costCalculated = (data.effortTotal > 0) ? (data.effortTotal * 2) + 1 + data.poolPointCost + data.armorCost + data.impaired : data.poolPointCost;
 
+  // Pay pool points
   let payPoolPointsInfo = [];
   if (!data.reroll) {
-    payPoolPointsInfo = await payPoolPoints(data.actor, data.costCalculated, data.pool, data.teen);
+    payPoolPointsInfo = await payPoolPoints(actor, data.costCalculated, data.pool, data.teen);
   } else if (data.reroll) {
-    let edge = data.actor.system.pools[data.pool.toLowerCase()].edge;
+    let edge = actor.system.pools[data.pool.toLowerCase()].edge;
     payPoolPointsInfo = [true, data.costCalculated - edge, edge]
   }
   data.costTotal = payPoolPointsInfo[1];

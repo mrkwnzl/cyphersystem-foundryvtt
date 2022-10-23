@@ -24,28 +24,33 @@ export class RollEngineDialogSheet extends FormApplication {
   getData() {
     // Basic data
     const data = super.getData().object;
+
+    let actor = fromUuidSync(data.actorUuid);
+
     if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
-    data.mightValue = (data.teen) ? data.actor.system.teen.pools.might.value : data.actor.system.pools.might.value;
-    data.mightMax = (data.teen) ? data.actor.system.teen.pools.might.max : data.actor.system.pools.might.max;
-    data.mightEdge = (data.teen) ? data.actor.system.teen.pools.might.edge : data.actor.system.pools.might.edge;
+    data.effortValue = actor.system.basic.effort;
 
-    data.speedValue = (data.teen) ? data.actor.system.teen.pools.speed.value : data.actor.system.pools.speed.value;
-    data.speedMax = (data.teen) ? data.actor.system.teen.pools.speed.max : data.actor.system.pools.speed.max;
-    data.speedEdge = (data.teen) ? data.actor.system.teen.pools.speed.edge : data.actor.system.pools.speed.edge;
+    data.mightValue = (data.teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
+    data.mightMax = (data.teen) ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
+    data.mightEdge = (data.teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
 
-    data.intellectValue = (data.teen) ? data.actor.system.teen.pools.intellect.value : data.actor.system.pools.intellect.value;
-    data.intellectMax = (data.teen) ? data.actor.system.teen.pools.intellect.max : data.actor.system.pools.intellect.max;
-    data.intellectEdge = (data.teen) ? data.actor.system.teen.pools.intellect.edge : data.actor.system.pools.intellect.edge;
+    data.speedValue = (data.teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
+    data.speedMax = (data.teen) ? actor.system.teen.pools.speed.max : actor.system.pools.speed.max;
+    data.speedEdge = (data.teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
+
+    data.intellectValue = (data.teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
+    data.intellectMax = (data.teen) ? actor.system.teen.pools.intellect.max : actor.system.pools.intellect.max;
+    data.intellectEdge = (data.teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
     // Summary
     data.summaryTaskModified = summaryTaskModified(data);
     data.summaryTotalDamage = summaryTotalDamage(data);
-    data.summaryTotalCostArray = summaryTotalCost(data.actor, data, data.teen);
+    data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
     data.summaryTotalCost = data.summaryTotalCostArray[0];
     data.summaryTotalCostString = data.summaryTotalCostArray[1];
     data.summaryTitle = data.title + ".";
-    data.summaryTooMuchEffort = summaryCheckEffort(data.actor, data);
+    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
     data.summaryNotEnoughPointsString = summaryCheckPoints(data);
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
     data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
@@ -59,13 +64,13 @@ export class RollEngineDialogSheet extends FormApplication {
     data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
 
     data.impairedString = "";
-    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) {
+    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
-    } else if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) {
+    } else if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
     }
 
-    data.armorCost = (!data.teen) ? data.actor.system.combat.armor.costTotal : data.actor.system.teen.combat.armor.speedCostTotal;
+    data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
@@ -73,12 +78,21 @@ export class RollEngineDialogSheet extends FormApplication {
     data.exceedSpeed = (data.pool == "Speed" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
     data.exceedIntellect = (data.pool == "Intellect" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
 
+    // MultiRoll data
+    data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+
     // Return data
     return data;
   }
 
   _updateObject(event, formData) {
     let data = this.object;
+
+    let actor = fromUuidSync(data.actorUuid);
 
     // Basic data
     data.pool = formData.pool;
@@ -97,10 +111,10 @@ export class RollEngineDialogSheet extends FormApplication {
     // Summary
     data.summaryTaskModified = summaryTaskModified(formData);
     data.summaryTotalDamage = summaryTotalDamage(formData);
-    data.summaryTotalCostArray = summaryTotalCost(data.actor, formData, data.teen);
+    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
     data.summaryTotalCost = data.summaryTotalCostArray[0];
     data.summaryTotalCostString = data.summaryTotalCostArray[1];
-    data.summaryTooMuchEffort = summaryCheckEffort(data.actor, formData);
+    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
     data.summaryNotEnoughPointsString = summaryCheckPoints(data);
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
 
@@ -113,19 +127,26 @@ export class RollEngineDialogSheet extends FormApplication {
     data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
 
     data.impairedString = "";
-    if (data.actor.system.combat.damageTrack.state == "Impaired" && data.actor.system.combat.damageTrack.applyImpaired) {
+    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
-    } else if (data.actor.system.combat.damageTrack.state == "Debilitated" && data.actor.system.combat.damageTrack.applyDebilitated) {
+    } else if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
     }
 
-    data.armorCost = (!data.teen) ? data.actor.system.combat.armor.costTotal : data.actor.system.teen.combat.armor.speedCostTotal;
+    data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
     data.exceedMight = (data.pool == "Might" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
     data.exceedSpeed = (data.pool == "Speed" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
     data.exceedIntellect = (data.pool == "Intellect" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
+
+    // MultiRoll data
+    data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
     // Render sheet
     this.render();
@@ -138,22 +159,95 @@ export class RollEngineDialogSheet extends FormApplication {
     super.activateListeners(html);
 
     let data = this.object;
+    let actor = fromUuidSync(data.actorUuid);
 
     html.find('.roll-engine-roll').click(clickEvent => {
+      if (actor.system.basic.unmaskedForm != "Teen") {
+        if (game.keyboard.isModifierActive("Alt")) {
+          enableMultiRoll(actor, data);
+        } else {
+          disableMultiRoll(actor);
+        }
+      }
       rollEngineComputation(data);
       this.close();
     });
 
     html.find('.roll-engine-pay').click(clickEvent => {
+      if (actor.system.basic.unmaskedForm != "Teen") {
+        if (game.keyboard.isModifierActive("Alt")) {
+          enableMultiRoll(actor, data);
+        } else {
+          disableMultiRoll(actor);
+        }
+      }
       data.skipRoll = true;
       rollEngineComputation(data);
       this.close();
     });
 
     html.find('.roll-engine-cancel').click(clickEvent => {
+      if (actor.system.basic.unmaskedForm != "Teen") {
+        if (game.keyboard.isModifierActive("Alt")) {
+          // do nothing
+        } else {
+          disableMultiRoll(actor);
+        }
+      }
       this.close();
     });
   }
+}
+
+async function enableMultiRoll(actor, data) {
+  let pool = actor.system.pools;
+
+  let oldEffortModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") || 0;
+  let oldMightEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") || 0;
+  let oldSpeedEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") || 0;
+  let oldIntellectEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") || 0;
+
+  let mightCost = (data.pool == "Might") ? data.summaryTotalCostArray[2] : 0;
+  let speedCost = (data.pool == "Speed") ? data.summaryTotalCostArray[2] : 0;
+  let intellectCost = (data.pool == "Intellect") ? data.summaryTotalCostArray[2] : 0;
+
+  let effortModifier = data.totalEffort * -1;
+  let mightEdgeModifier = Math.min(actor.system.pools.might.edge, mightCost) * -1;
+  let speedEdgeModifier = Math.min(actor.system.pools.speed.edge, speedCost) * -1;
+  let intellectEdgeModifier = Math.min(actor.system.pools.intellect.edge, intellectCost) * -1;
+
+  await actor.update({
+    "system.basic.effort": actor.system.basic.effort + effortModifier,
+    "system.pools.might.edge": pool.might.edge + mightEdgeModifier,
+    "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier,
+    "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier,
+    "flags.cyphersystem.multiRoll.active": true,
+    "flags.cyphersystem.multiRoll.modifiers.effort": oldEffortModifier + effortModifier,
+    "flags.cyphersystem.multiRoll.modifiers.might.edge": oldMightEdgeModifier + mightEdgeModifier,
+    "flags.cyphersystem.multiRoll.modifiers.speed.edge": oldSpeedEdgeModifier + speedEdgeModifier,
+    "flags.cyphersystem.multiRoll.modifiers.intellect.edge": oldIntellectEdgeModifier + intellectEdgeModifier
+  });
+}
+
+export async function disableMultiRoll(actor) {
+  let pool = actor.system.pools;
+
+  let oldEffortModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") || 0;
+  let oldMightEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") || 0;
+  let oldSpeedEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") || 0;
+  let oldIntellectEdgeModifier = actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") || 0;
+
+  await actor.update({
+    "system.basic.effort": actor.system.basic.effort - oldEffortModifier,
+    "system.pools.might.edge": pool.might.edge - oldMightEdgeModifier,
+    "system.pools.speed.edge": pool.speed.edge - oldSpeedEdgeModifier,
+    "system.pools.intellect.edge": pool.intellect.edge - oldIntellectEdgeModifier,
+    "flags.cyphersystem.multiRoll.active": false,
+    "flags.cyphersystem.multiRoll.modifiers.effort": 0,
+    "flags.cyphersystem.multiRoll.modifiers.might.edge": 0,
+    "flags.cyphersystem.multiRoll.modifiers.speed.edge": 0,
+    "flags.cyphersystem.multiRoll.modifiers.intellect.edge": 0
+  });
 }
 
 function summaryTaskModified(data) {
@@ -220,7 +314,9 @@ function summaryTotalCost(actor, data, teen) {
 
   let effortCost = 1 + (data.totalEffort * 2) + (data.totalEffort * armorCost) + (data.totalEffort * impairedCost);
 
-  let totalCost = (data.totalEffort >= 1) ? data.poolPointCost + effortCost - edge : data.poolPointCost - edge;
+  let costWithoutEdge = (data.totalEffort >= 1) ? data.poolPointCost + effortCost : data.poolPointCost;
+
+  let totalCost = costWithoutEdge - edge;
   if (totalCost < 0) totalCost = 0;
 
   let totalCostString = "";
@@ -230,7 +326,7 @@ function summaryTotalCost(actor, data, teen) {
     totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: data.pool});
   }
 
-  return [totalCost, totalCostString];
+  return [totalCost, totalCostString, costWithoutEdge];
 }
 
 function summaryCheckEffort(actor, data) {

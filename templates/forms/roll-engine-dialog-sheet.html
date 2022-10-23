@@ -117,6 +117,9 @@
           {{#if this.summaryAllocatePoints}}
             <label class="roll-engine-label-summary">{{this.summaryAllocatePoints}}</label>
           {{/if}}
+          {{#if this.multiRollActive}}
+            <label class="roll-engine-label-summary blue">{{localize "CYPHERSYSTEM.MultiRoll"}}</label>
+          {{/if}}
           {{#if this.summaryTooMuchEffort}}
             <label class="roll-engine-label-summary red">{{this.summaryTooMuchEffort}}</label>
           {{/if}}
@@ -127,13 +130,13 @@
           <hr class="hr-roll-engine">
           <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.CharacterPreview"}}</b></label><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortAvailable"}}:</label>
-          <input class="roll-engine-input {{this.exceedEffort}}" name="effort" id="effort" type="text" value="{{this.totalEffort}}/{{this.actor.system.basic.effort}}" disabled /><br>
+          <input class="roll-engine-input {{this.multiRollEffort}} {{this.exceedEffort}}" name="effort" id="effort" type="text" value="{{this.totalEffort}}/{{this.effortValue}}" disabled /><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.MightPoolEdge"}}:</label>
-          <input class="roll-engine-input {{this.exceedMight}}" name="might" id="might" type="text" value="{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})" disabled /><br>
+          <input class="roll-engine-input {{this.multiRollMightEdge}} {{this.exceedMight}}" name="might" id="might" type="text" value="{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})" disabled /><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.SpeedPoolEdge"}}:</label>
-          <input class="roll-engine-input {{this.exceedSpeed}}" name="speed" id="speed" type="text" value="{{this.speedValue}}/{{this.speedMax}} ({{this.speedEdge}})" disabled /><br>
+          <input class="roll-engine-input {{this.multiRollSpeedEdge}} {{this.exceedSpeed}}" name="speed" id="speed" type="text" value="{{this.speedValue}}/{{this.speedMax}} ({{this.speedEdge}})" disabled /><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.IntellectPoolEdge"}}:</label>
-          <input class="roll-engine-input {{this.exceedIntellect}}" name="intellect" id="intellect" type="text" value="{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})" disabled /><br>
+          <input class="roll-engine-input {{this.multiRollIntellectEdge}} {{this.exceedIntellect}}" name="intellect" id="intellect" type="text" value="{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})" disabled /><br>
           <hr class="hr-roll-engine">
 
           <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" data-button="roll">

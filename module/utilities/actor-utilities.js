@@ -4,22 +4,24 @@ import {
   chatCardRegainPoints
 } from "./chat-cards.js";
 
-export async function payPoolPoints(actor, costCalculated, pool, teen) {
+export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
   // Determine stats
   let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
-  let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
   let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
-  let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
   let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
-  let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
   // Determine edge
-  let relevantEdge = {
-    "Might": mightEdge,
-    "Speed": speedEdge,
-    "Intellect": intellectEdge
+  if (!edge) {
+    let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
+    let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
+    let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
+    let relevantEdge = {
+      "Might": mightEdge,
+      "Speed": speedEdge,
+      "Intellect": intellectEdge
+    }
+    edge = (relevantEdge[pool] || 0);
   }
-  let edge = (relevantEdge[pool] || 0);
 
   // Check for weakness
   edge = (edge < 0 && (costCalculated == 0 || costCalculated == "")) ? 0 : edge;

@@ -39,7 +39,7 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.isObserver = !this.options.editable;
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
-    data.sheetSettings.identified = this.item.system.basic.identified;
+    data.sheetSettings.identified = this.item.system.basic?.identified;
 
     // Enriched HTML
     data.enrichedHTML = {};
@@ -66,6 +66,7 @@ export class CypherItemSheet extends ItemSheet {
     });
 
     html.find('.input-tag').change(changeEvent => {
+      if (!this.item.actor?.id) return;
       let currentTag = "#" + htmlEscape(this.item.name.trim());
       let newTag = "#" + htmlEscape(changeEvent.target.value.trim());
       let actor = game.actors.get(this.item.actor.id);
@@ -74,6 +75,7 @@ export class CypherItemSheet extends ItemSheet {
     });
 
     html.find('.input-recursion').change(changeEvent => {
+      if (!this.item.actor?.id) return;
       let currentTag = "@" + htmlEscape(this.item.name.trim());
       let newTag = "@" + htmlEscape(changeEvent.target.value.trim());
       let actor = game.actors.get(this.item.actor.id);

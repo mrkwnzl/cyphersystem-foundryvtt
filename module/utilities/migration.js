@@ -44,7 +44,7 @@ export async function dataMigration() {
   // Migrate tokens on scenes
   for (let scene of game.scenes) {
     for (let token of scene.tokens) {
-      if (!token.actorLink) {
+      if (token.actorLink) {
         console.log(`Migrating Token document ${token.name}`);
         await migrationRoutineActor(token.actor)
       }
@@ -510,7 +510,7 @@ async function migrationActorV1ToV2(actor) {
 
   async function migrateSettingsInitiative() {
     if (actor.system.settings.initiative != null) {
-      updateData.system.settings.general.initiativeBonus = actor.system.settings.initiative.initiativeBonus;
+      updateData.system.settings.general.initiativeBonus = parseInt(actor.system.settings.initiative.initiativeBonus);
       delete updateData.system.settings["initiative"];
     }
   }

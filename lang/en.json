@@ -566,5 +566,7 @@
   "CYPHERSYSTEM.IndividualGMIRange": "Individual",
   "CYPHERSYSTEM.GMIRange": "GM Intrusion Range",
   "CYPHERSYSTEM.AllPCs": "All Player Characters",
-  "CYPHERSYSTEM.CurrentGMIRange": "GM Intrusion Range: 1–{gmiRange}."
+  "CYPHERSYSTEM.CurrentGMIRange": "GM Intrusion Range: 1–{gmiRange}.",
+  "CYPHERSYSTEM.MultiRoll": "Multi roll action.",
+  "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions."
 }

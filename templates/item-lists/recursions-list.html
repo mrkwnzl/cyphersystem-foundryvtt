@@ -7,7 +7,7 @@
       </a>
     </h4>
     <div class="item-controls">
-      <a class="item-control item-recursion {{#if ../sheetSettings.isObserver}}disabled{{/if}} {{#if (recursion ../actor._id item._id)}}black{{else}}archived{{/if}}" title="{{localize 'CYPHERSYSTEM.TranslateToRecursion' recursion=item.name}}">
+      <a class="item-control item-recursion {{#if ../sheetSettings.isObserver}}disabled{{/if}} {{#if (recursion ../actor item._id)}}black{{else}}archived{{/if}}" title="{{localize 'CYPHERSYSTEM.TranslateToRecursion' recursion=item.name}}">
         <i class="fas fa-street-view"></i>
       </a>
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">

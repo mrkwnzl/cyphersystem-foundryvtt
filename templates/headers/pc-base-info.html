@@ -11,6 +11,11 @@
         <i class="fas fa-lock"></i>
       </div>
     {{/if}}
+    {{#if sheetSettings.multiRollActive}}
+      <div class="profile-img-overlay-multi-roll">
+        <a class="disable-multi-roll"><i class="fas fa-dice"></i></a>
+      </div>
+    {{/if}}
   </div>
   <div class="centered-fields">
     <div class="resource-content flexrow flex-center">
@@ -34,7 +39,7 @@
         <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
           {{localize 'CYPHERSYSTEM.Tier'}}
         </label>
-        <input style="flex:0 0 30px" type="number" name="system.basic.tier" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.tier}}{{/if}}" {{disabledStaticStats}} />
+        <input style="flex:0 0 30px" type="number" name="system.basic.tier" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.tier}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
       {{/unless}}
     </div>
     <div class="resource-content flexrow flex-center">
@@ -58,7 +63,7 @@
         <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
           {{localize 'CYPHERSYSTEM.Effort'}}
         </label>
-        <input style="flex:0 0 30px" type="number" name="system.basic.effort" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.effort}}{{/if}}" {{disabledStaticStats}} />
+        <input class="{{sheetSettings.multiRollEffort}}" style="flex:0 0 30px" type="number" name="system.basic.effort" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.effort}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
       {{/unless}}
     </div>
     <div class="resource-content flexrow flex-center">
@@ -85,15 +90,15 @@
     <div class="resource-content flexrow flex-center" style="margin-top: 4px">
       <div class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="padding-left: 0px; display: flex; justify-content: center">
         {{#unless sheetSettings.isLimited}}
-          <input type="checkbox" name="system.basic.advancement.stats" {{checked actor.system.basic.advancement.stats}} {{disabledStaticStats}}>
+          <input type="checkbox" name="system.basic.advancement.stats" {{checked actor.system.basic.advancement.stats}} {{sheetSettings.disabledStaticStats}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
-          <input type="checkbox" name="system.basic.advancement.effort" {{checked actor.system.basic.advancement.effort}} {{disabledStaticStats}}>
+          <input type="checkbox" name="system.basic.advancement.effort" {{checked actor.system.basic.advancement.effort}} {{sheetSettings.disabledStaticStats}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
-          <input type="checkbox" name="system.basic.advancement.edge" {{checked actor.system.basic.advancement.edge}} {{disabledStaticStats}}>
+          <input type="checkbox" name="system.basic.advancement.edge" {{checked actor.system.basic.advancement.edge}} {{sheetSettings.disabledStaticStats}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
-          <input type="checkbox" name="system.basic.advancement.skill" {{checked actor.system.basic.advancement.skill}} {{disabledStaticStats}}>
+          <input type="checkbox" name="system.basic.advancement.skill" {{checked actor.system.basic.advancement.skill}} {{sheetSettings.disabledStaticStats}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
-          <input type="checkbox" name="system.basic.advancement.other" {{checked actor.system.basic.advancement.other}} {{disabledStaticStats}}>
+          <input type="checkbox" name="system.basic.advancement.other" {{checked actor.system.basic.advancement.other}} {{sheetSettings.disabledStaticStats}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}
         {{/unless}}
       </div>

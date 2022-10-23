@@ -3,7 +3,7 @@ import {rollEngineForm} from "./roll-engine-form.js";
 
 export async function rollEngineMain(data) {
   data = Object.assign({
-    actor: undefined,
+    actorUuid: undefined,
     itemID: "",
     teen: undefined,
     skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
@@ -26,27 +26,31 @@ export async function rollEngineMain(data) {
     poolPointCost: 0
   }, data);
 
-  if (!data.actor) data.actor = game.user.character;
+  if (!data.actorUuid) data.actorUuid = game.user.character.uuid;
+
+  let actor = await fromUuid(data.actorUuid);
 
   // Check for PC actor
-  if (!data.actor || data.actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Check whether pool == XP
   if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
 
   // Set defaults for functions
   if (data.teen === undefined) {
-    data.teen = (data.actor.system.basic.unmaskedForm == "Teen") ? true : false;
+    data.teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   }
   data.skipDialog = (game.keyboard.isModifierActive('Alt')) ? !data.skipDialog : data.skipDialog;
-  data.initiativeRoll = (data.actor.items.get(data.itemID)) ? data.actor.items.get(data.itemID).system.settings.general.initiative : false;
+  data.skipDialog = (actor.getFlag("cyphersystem", "multiRoll.active")) ? false : data.skipDialog;
+
+  data.initiativeRoll = (actor.items.get(data.itemID)) ? actor.items.get(data.itemID).system.settings.general.initiative : false;
 
   // Set GMI Range
   if (data.gmiRange === undefined) {
     if (game.settings.get("cyphersystem", "useGlobalGMIRange")) {
       data.gmiRange = game.settings.get("cyphersystem", "globalGMIRange");
     } else if (!game.settings.get("cyphersystem", "useGlobalGMIRange")) {
-      data.gmiRange = data.actor.system.basic.gmiRange;
+      data.gmiRange = actor.system.basic.gmiRange;
     }
   }
 

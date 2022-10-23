@@ -10,6 +10,7 @@ import {
 } from "../macros/macros.js";
 import {isExclusiveTagActive} from "../utilities/actor-utilities.js";
 import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
+import {disableMultiRoll} from "../forms/roll-engine-dialog-sheet.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
@@ -35,6 +36,11 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Sheet settings
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.sheetSettings.multiRollActive = this.actor.getFlag("cyphersystem", "multiRoll.active");
+    data.sheetSettings.multiRollEffort = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollMightEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollSpeedEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollIntellectEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
     data.sheetSettings.isExclusiveTagActive = isExclusiveTagActive(this.actor);
     const diceTraySettings = ["hidden", "left", "right"];
     data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
@@ -380,19 +386,19 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Might roll button
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain({actor: this.actor, pool: "Might"});
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Might"});
     });
 
     // Speed roll button
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain({actor: this.actor, pool: "Speed"});
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Speed"});
     });
 
     // Intellect roll button
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
-      rollEngineMain({actor: this.actor, pool: "Intellect"});
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Intellect"});
     });
 
     // Recovery roll button
@@ -463,6 +469,11 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "system.combat.recoveries.oneHour": false,
         "system.combat.recoveries.tenHours": false
       })
+    });
+
+    // Disable multi roll
+    html.find('.disable-multi-roll').click(clickEvent => {
+      disableMultiRoll(this.actor)
     });
   }
 }
