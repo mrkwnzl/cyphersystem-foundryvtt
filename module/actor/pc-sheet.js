@@ -37,10 +37,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Sheet settings
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.sheetSettings.multiRollActive = this.actor.getFlag("cyphersystem", "multiRoll.active");
-    data.sheetSettings.multiRollEffort = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
-    data.sheetSettings.multiRollMightEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
-    data.sheetSettings.multiRollSpeedEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
-    data.sheetSettings.multiRollIntellectEdge = (this.actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollEffort = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollMightEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollSpeedEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollIntellectEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
     data.sheetSettings.isExclusiveTagActive = isExclusiveTagActive(this.actor);
     const diceTraySettings = ["hidden", "left", "right"];
     data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
@@ -71,7 +71,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       }
     }
 
-    data.sheetSettings.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
+    data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 
     for (let i of data.items) {
       if (i.type == 'attack') {

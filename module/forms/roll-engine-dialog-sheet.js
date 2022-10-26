@@ -161,37 +161,38 @@ export class RollEngineDialogSheet extends FormApplication {
     let data = this.object;
     let actor = fromUuidSync(data.actorUuid);
 
-    html.find('.roll-engine-roll').click(clickEvent => {
+    html.find('.roll-engine-roll').click(async clickEvent => {
       if (actor.system.basic.unmaskedForm != "Teen") {
         if (game.keyboard.isModifierActive("Alt")) {
-          enableMultiRoll(actor, data);
+          await enableMultiRoll(actor, data);
         } else {
-          disableMultiRoll(actor);
+          await disableMultiRoll(actor);
         }
       }
-      rollEngineComputation(data);
+      data.skipRoll = false;
+      await rollEngineComputation(data);
       this.close();
     });
 
-    html.find('.roll-engine-pay').click(clickEvent => {
+    html.find('.roll-engine-pay').click(async clickEvent => {
       if (actor.system.basic.unmaskedForm != "Teen") {
         if (game.keyboard.isModifierActive("Alt")) {
-          enableMultiRoll(actor, data);
+          await enableMultiRoll(actor, data);
         } else {
-          disableMultiRoll(actor);
+          await disableMultiRoll(actor);
         }
       }
       data.skipRoll = true;
-      rollEngineComputation(data);
+      await rollEngineComputation(data);
       this.close();
     });
 
-    html.find('.roll-engine-cancel').click(clickEvent => {
+    html.find('.roll-engine-cancel').click(async clickEvent => {
       if (actor.system.basic.unmaskedForm != "Teen") {
         if (game.keyboard.isModifierActive("Alt")) {
           // do nothing
         } else {
-          disableMultiRoll(actor);
+          await disableMultiRoll(actor);
         }
       }
       this.close();

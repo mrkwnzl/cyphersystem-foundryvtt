@@ -100,6 +100,10 @@ ol {
   font-weight: bold;
 }
 
+#chat-log .multi-roll-active {
+  color: blue;
+}
+
 .dialog-select {
   height: 26px;
   margin-bottom: 2px;
@@ -307,6 +311,10 @@ select.bar-attribute {
 
 .chat-card-item-description {
   padding-bottom: 2px;
+}
+
+.sheet.journal-entry .journal-entry-page {
+  line-height: 1.4;
 }
 
 /* Styles limited to cyphersystem sheets */

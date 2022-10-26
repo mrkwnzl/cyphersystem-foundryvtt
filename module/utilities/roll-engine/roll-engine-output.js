@@ -209,6 +209,9 @@ export async function rollEngineOutput(data) {
     }
   }
 
+  // Determine multi roll
+  let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<br><span class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</span>" : "";
+
   // Create beatenDifficulty
   let beatenDifficulty = modifiedBy + "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
 
@@ -234,7 +237,7 @@ export async function rollEngineOutput(data) {
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + data.title + "</b>" + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + effect + gmiEffect + chatButtons;
+  let flavor = "<b>" + data.title + "</b>" + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + effect + gmiEffect + chatButtons;
 
   // ---
 

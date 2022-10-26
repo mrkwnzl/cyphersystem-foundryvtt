@@ -361,37 +361,37 @@ export function quickStatChange(token, stat, modifier) {
   switch (stat) {
     case "xp":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
-      statData = calculateStatData(token.actor.data.data.basic.xp);
+      statData = calculateStatData(token.actor.system.basic.xp);
       token.actor.update({"data.basic.xp": statData});
       break;
     case "might":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
-      statData = calculateStatData(token.actor.data.data.pools.might.value);
+      statData = calculateStatData(token.actor.system.pools.might.value);
       token.actor.update({"data.pools.might.value": statData});
       break;
     case "speed":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
-      statData = calculateStatData(token.actor.data.data.pools.speed.value);
+      statData = calculateStatData(token.actor.system.pools.speed.value);
       token.actor.update({"data.pools.speed.value": statData});
       break;
     case "intellect":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
-      statData = calculateStatData(token.actor.data.data.pools.intellect.value);
+      statData = calculateStatData(token.actor.system.pools.intellect.value);
       token.actor.update({"data.pools.intellect.value": statData});
       break;
     case "health":
       if (!checkToken(["npc", "community", "companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
-      statData = calculateStatData(token.actor.data.data.health.value);
+      statData = calculateStatData(token.actor.system.pools.health.value);
       token.actor.update({"data.health.value": statData});
       break;
     case "infrastructure":
       if (!checkToken(["community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
-      statData = calculateStatData(token.actor.data.data.infrastructure.value);
+      statData = calculateStatData(token.actor.system.pools.infrastructure.value);
       token.actor.update({"data.infrastructure.value": statData});
       break;
     case "quantity":
       if (!checkToken(["marker"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
-      statData = calculateStatData(token.actor.data.data.quantity.value);
+      statData = calculateStatData(token.actor.system.pools.quantity.value);
       token.actor.update({"data.quantity.value": statData});
       break;
     default:
@@ -477,12 +477,12 @@ export function toggleAlwaysShowDescriptionOnRoll() {
 }
 
 export function toggleAttacksOnSheet(token) {
-  let toggle = token.actor.data.data.settings.equipment.attacks ? false : true;
+  let toggle = token.actor.system.settings.equipment.attacks ? false : true;
   token.actor.update({"data.settings.equipment.attacks": toggle})
 }
 
 export function toggleArmorOnSheet(token) {
-  let toggle = token.actor.data.data.settings.equipment.armor ? false : true;
+  let toggle = token.actor.system.settings.equipment.armor ? false : true;
   token.actor.update({"data.settings.equipment.armor": toggle})
 }
 

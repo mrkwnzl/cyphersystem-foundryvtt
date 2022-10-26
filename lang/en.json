@@ -567,9 +567,11 @@
   "CYPHERSYSTEM.GMIRange": "GM Intrusion Range",
   "CYPHERSYSTEM.AllPCs": "All Player Characters",
   "CYPHERSYSTEM.CurrentGMIRange": "GM Intrusion Range: 1–{gmiRange}.",
-  "CYPHERSYSTEM.MultiRoll": "Multi roll action.",
+  "CYPHERSYSTEM.MultiRoll": "Multi roll action",
   "CYPHERSYSTEM.RollButtonTooltip": "Roll dice (alt-click to start or continue multi-roll action)",
   "CYPHERSYSTEM.PayButtonTooltip": "Pay the cost without rolling (alt-click to start or continue multi-roll action)",
   "CYPHERSYSTEM.CancelButtonTooltip": "Cancel (alt-click to continue multi-roll action)",
-  "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions."
+  "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions.",
+  "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
+  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel."
 }

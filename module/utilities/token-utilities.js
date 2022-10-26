@@ -4,7 +4,7 @@ export async function barBrawlOverwrite(document, actor) {
     "bar1.attribute": null,
     "bar2.attribute": null
   });
-  await document.data.update(barBrawlData(actor.type, actor));
+  await document.updateSource(barBrawlData(actor.type, actor));
 }
 
 export function barBrawlData(type, actor) {

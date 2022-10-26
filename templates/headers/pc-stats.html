@@ -46,7 +46,7 @@
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
             <input class="edge-input" type="number" name="system.teen.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input {{sheetSettings.multiRollMightEdge}}" type="number" name="system.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollMightEdge}}" type="number" name="system.pools.might.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.might.edge}}{{/if}}" title="{{#if sheetSettings.multiRollMightEdge}}{{localize 'CYPHERSYSTEM.MultiRollValueChanged'}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>
@@ -97,7 +97,7 @@
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
             <input class="edge-input" type="number" name="system.teen.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input {{sheetSettings.multiRollSpeedEdge}}" type="number" name="system.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollSpeedEdge}}" type="number" name="system.pools.speed.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.speed.edge}}{{/if}}" title="{{#if sheetSettings.multiRollSpeedEdge}}{{localize 'CYPHERSYSTEM.MultiRollValueChanged'}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>
@@ -148,7 +148,7 @@
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
             <input class="edge-input" type="number" name="system.teen.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{else}}
-            <input class="edge-input {{sheetSettings.multiRollIntellectEdge}}" type="number" name="system.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+            <input class="edge-input {{sheetSettings.multiRollIntellectEdge}}" type="number" name="system.pools.intellect.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.intellect.edge}}{{/if}}" title="{{#if sheetSettings.multiRollIntellectEdge}}{{localize 'CYPHERSYSTEM.MultiRollValueChanged'}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
           {{/if}}
         </div>
       </div>

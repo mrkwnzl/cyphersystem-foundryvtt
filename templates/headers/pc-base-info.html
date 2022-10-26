@@ -13,7 +13,7 @@
     {{/if}}
     {{#if sheetSettings.multiRollActive}}
       <div class="profile-img-overlay-multi-roll">
-        <a class="disable-multi-roll"><i class="fas fa-dice"></i></a>
+        <a class="disable-multi-roll" title="{{localize 'CYPHERSYSTEM.MultiRollInProgress'}}"><i class="fas fa-dice"></i></a>
       </div>
     {{/if}}
   </div>
@@ -63,7 +63,7 @@
         <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
           {{localize 'CYPHERSYSTEM.Effort'}}
         </label>
-        <input class="{{sheetSettings.multiRollEffort}}" style="flex:0 0 30px" type="number" name="system.basic.effort" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.effort}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+        <input class="{{sheetSettings.multiRollEffort}}" style="flex:0 0 30px" type="number" name="system.basic.effort" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.effort}}{{/if}}" title="{{#if sheetSettings.multiRollEffort}}{{localize 'CYPHERSYSTEM.MultiRollValueChanged'}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
       {{/unless}}
     </div>
     <div class="resource-content flexrow flex-center">
