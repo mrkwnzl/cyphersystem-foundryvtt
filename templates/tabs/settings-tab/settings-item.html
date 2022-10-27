@@ -114,31 +114,31 @@
               <select class="auto-margin setting-input" name="system.settings.general.sorting" style="width: 135px">
                 {{#select item.system.settings.general.sorting}}
                   <option value="Skill">
-                    {{#if (eq actor.system.settings.skills.labelCategory1 "")}}
-                      {{localize 'CYPHERSYSTEM.Skills'}}
-                    {{else}}
+                    {{#if actor.system.settings.skills.labelCategory1}}
                       {{actor.system.settings.skills.labelCategory1}}
+                    {{else}}
+                      {{localize 'CYPHERSYSTEM.Skills'}}
                     {{/if}}
                   </option>
                   <option value="SkillTwo">
-                    {{#if (eq actor.system.settings.skills.labelCategory2 "")}}
-                      {{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}
-                    {{else}}
+                    {{#if actor.system.settings.skills.labelCategory2}}
                       {{actor.system.settings.skills.labelCategory2}}
+                    {{else}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryTwo'}}
                     {{/if}}
                   </option>
                   <option value="SkillThree">
-                    {{#if (eq actor.system.settings.skills.labelCategory3 "")}}
-                      {{localize 'CYPHERSYSTEM.SkillCategoryThree'}}
-                    {{else}}
+                    {{#if actor.system.settings.skills.labelCategory3}}
                       {{actor.system.settings.skills.labelCategory3}}
+                    {{else}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryThree'}}
                     {{/if}}
                   </option>
                   <option value="SkillFour">
-                    {{#if (eq actor.system.settings.skills.labelCategory4 "")}}
-                      {{localize 'CYPHERSYSTEM.SkillCategoryFour'}}
-                    {{else}}
+                    {{#if actor.system.settings.skills.labelCategory4}}
                       {{actor.system.settings.skills.labelCategory4}}
+                    {{else}}
+                      {{localize 'CYPHERSYSTEM.SkillCategoryFour'}}
                     {{/if}}
                   </option>
                 {{/select}}

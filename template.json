@@ -1312,7 +1312,7 @@
       },
       "settings": {
         "general": {
-          "sorting": "Skills",
+          "sorting": "Skill",
           "initiative": false,
           "unmaskedForm": "Mask"
         }
@@ -1329,7 +1329,7 @@
       },
       "settings": {
         "general": {
-          "sorting": "Skills",
+          "sorting": "Skill",
           "initiative": false,
           "unmaskedForm": "Mask"
         }

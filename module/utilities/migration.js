@@ -1000,6 +1000,9 @@ async function migrationItemV1ToV2(item) {
   async function migrateSettingsSorting() {
     if (item.system.sorting != null) {
       updateData.system.settings.general.sorting = item.system.sorting;
+      if (updateData.system.settings.general.sorting == "Skills") {
+        updateData.system.settings.general.sorting = "Skill";
+      }
       delete updateData.system["sorting"];
     }
   }
