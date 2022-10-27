@@ -161,7 +161,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
       await migrateCombatDamageAndArmor()
-      await migrateNotesAndDescription();
+      await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
       await migrateSettingsEquipment();
@@ -174,7 +174,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
       await migrateCombatDamageAndArmor()
-      await migrateNotesAndDescription();
+      await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
       await migrateSettingsEquipment();
@@ -187,7 +187,7 @@ async function migrationActorV1ToV2(actor) {
       await migratePoolsHealth();
       await migratePoolsInfrastructure();
       await migrateCombatDamageAndArmor()
-      await migrateNotesAndDescription();
+      await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
       await migrateSettingsEquipment();
@@ -199,7 +199,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migrateBasicVehicle();
       await migrateBasicCrewAndWeaponSystems();
-      await migrateNotesAndDescription();
+      await migrateBiographyAndDescription();
       await migrateSettingsHideArchive()
       await migrateSettingsEquipment();
       await migrateSettingsEquipmentAttacksArmorAmmo();
@@ -209,7 +209,7 @@ async function migrationActorV1ToV2(actor) {
     if (actor.type == "marker") {
       await migrateBasicLevelAndRank();
       await migratePoolsQuantity();
-      await migrateNotesAndDescription();
+      await migrateBiographyAndDescription();
       await migrateSettingsHideArchive()
       await migrateSettingsEquipment();
       await migrateSettingsEquipmentAttacksArmorAmmo();
@@ -426,6 +426,13 @@ async function migrationActorV1ToV2(actor) {
     if (actor.system.teen?.basic.notes != null) {
       updateData.system.teen.notes = actor.system.teen.basic.notes;
       delete updateData.system.teen.basic["notes"];
+    }
+  }
+
+  async function migrateBiographyAndDescription() {
+    if (actor.system.basic.description != null) {
+      updateData.system.description = actor.system.basic.description;
+      delete updateData.system.basic["description"];
     }
     if (actor.system.biography != null) {
       updateData.system.notes = actor.system.biography;

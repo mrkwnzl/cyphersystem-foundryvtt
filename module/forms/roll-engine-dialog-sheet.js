@@ -162,28 +162,34 @@ export class RollEngineDialogSheet extends FormApplication {
     let actor = fromUuidSync(data.actorUuid);
 
     html.find('.roll-engine-roll').click(async clickEvent => {
+      data.skipRoll = false;
       if (actor.system.basic.unmaskedForm != "Teen") {
         if (game.keyboard.isModifierActive("Alt")) {
           await enableMultiRoll(actor, data);
+          await rollEngineComputation(data);
         } else {
+          await rollEngineComputation(data);
           await disableMultiRoll(actor);
         }
+      } else {
+        await rollEngineComputation(data);
       }
-      data.skipRoll = false;
-      await rollEngineComputation(data);
       this.close();
     });
 
     html.find('.roll-engine-pay').click(async clickEvent => {
+      data.skipRoll = true;
       if (actor.system.basic.unmaskedForm != "Teen") {
         if (game.keyboard.isModifierActive("Alt")) {
           await enableMultiRoll(actor, data);
+          await rollEngineComputation(data);
         } else {
+          await rollEngineComputation(data);
           await disableMultiRoll(actor);
         }
+      } else {
+        await rollEngineComputation(data);
       }
-      data.skipRoll = true;
-      await rollEngineComputation(data);
       this.close();
     });
 

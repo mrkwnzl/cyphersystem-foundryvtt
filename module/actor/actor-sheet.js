@@ -769,7 +769,6 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
-      console.log(originItem);
       if (originItem.type == "artifact") targetActor.update({"system.settings.equipment.artifacts.active": true});
       if (originItem.type == "cypher") targetActor.update({"system.settings.equipment.cyphers.active": true});
       if (originItem.type == "oddity") targetActor.update({"system.settings.equipment.oddities.active": true});
