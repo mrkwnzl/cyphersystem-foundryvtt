@@ -321,10 +321,12 @@ Hooks.on("preCreateItem", function (item) {
 });
 
 Hooks.on("updateItem", async function (item) {
-  if (item.type == "tag" && item.system.exclusive && item.system.active) {
-    await changeTagStats(fromUuidSync(item.actor.uuid), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
-  } else if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-    await changeRecursionStats(fromUuidSync(item.actor.uuid), "@" + item.name.toLowerCase(), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+  if (item.actor) {
+    if (item.type == "tag" && item.system.exclusive && item.system.active) {
+      await changeTagStats(fromUuidSync(item.actor.uuid), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+    } else if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
+      await changeRecursionStats(fromUuidSync(item.actor.uuid), "@" + item.name.toLowerCase(), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+    }
   }
 });
 
