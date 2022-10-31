@@ -576,5 +576,7 @@
     "CYPHERSYSTEM.IndividualGMIRange": "Individuell",
     "CYPHERSYSTEM.GMIRange": "Reichweite für Spielleitereingriff",
     "CYPHERSYSTEM.CurrentGMIRange": "Reichweite für Spielleitereingriff: 1–{gmiRange}.",
-    "CYPHERSYSTEM.MultiRoll": "Mehrfachwurfaktion."
+    "CYPHERSYSTEM.MultiRoll": "Mehrfachwurfaktion",
+    "CYPHERSYSTEM.MultiRollInProgress": "Mehrfachwurfaktion läuft. Klicken, um zu beenden.",
+    "CYPHERSYSTEM.MultiRollValueChanged": "Werte aufgrund von Mehrfachwurfaktion geändert."
 }

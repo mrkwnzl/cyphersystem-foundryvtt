@@ -576,5 +576,5 @@
     "CYPHERSYSTEM.GMIRange": "Rango de Intromisión del DJ",
     "CYPHERSYSTEM.AllPCs": "Todos los Personajes Jugadores",
     "CYPHERSYSTEM.CurrentGMIRange": "Rango de Intromisión del DJ: 1–{gmiRange}.",
-    "CYPHERSYSTEM.MultiRoll": "Acción multi-tirada."
+    "CYPHERSYSTEM.MultiRoll": "Acción multi-tirada"
 }

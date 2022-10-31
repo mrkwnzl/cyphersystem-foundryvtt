@@ -572,6 +572,6 @@
     "CYPHERSYSTEM.GMIRange": "Alcance da Intromissão do Mestre",
     "CYPHERSYSTEM.AllPCs": "Todos os Personagens dos Jogadores",
     "CYPHERSYSTEM.CurrentGMIRange": "Alcance da Intromissão do Mestre: 1–{gmiRange}.",
-    "CYPHERSYSTEM.MultiRoll": "Ação de jogadas múltiplas.",
+    "CYPHERSYSTEM.MultiRoll": "Ação de jogadas múltiplas",
     "CYPHERSYSTEM.TeensCantMultiRoll": "Formulários Teen não podem usar ações de jogadas múltiplas."
 }
