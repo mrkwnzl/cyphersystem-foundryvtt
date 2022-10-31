@@ -80,10 +80,10 @@ export class RollEngineDialogSheet extends FormApplication {
 
     // MultiRoll data
     data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
-    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
-    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
     // Return data
     return data;
@@ -143,10 +143,10 @@ export class RollEngineDialogSheet extends FormApplication {
 
     // MultiRoll data
     data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
-    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
-    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
     // Render sheet
     this.render();
