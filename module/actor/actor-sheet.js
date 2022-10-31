@@ -8,6 +8,8 @@ import {
 } from "../utilities/chat-cards.js";
 
 import {
+  changeRecursionStats,
+  changeTagStats,
   itemRollMacro,
   recursionMacro,
   tagMacro
@@ -20,29 +22,43 @@ import {
   byIdentifiedStatus
 } from "../utilities/sorting.js";
 
-import { useRecoveries } from "../utilities/actor-utilities.js";
+import {useRecoveries} from "../utilities/actor-utilities.js";
 
 export class CypherActorSheet extends ActorSheet {
 
   /** @override */
-  getData() {
-    const superData = super.getData();
-    const data = superData.data;
-    data.data.isGM = game.user.isGM;
-    data.data.isLimited = this.actor.limited;
-    data.data.isObserver = !this.options.editable;
-    data.data.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
-    data.actor = superData.actor;
-    data.items = superData.items;
-    data.owner = superData.owner;
-    data.options = superData.options;
-    data.effects = superData.effects;
+  async getData() {
+    const data = await super.getData();
 
-    data.dtypes = ["String", "Number", "Boolean"];
+    // Item Data
+    data.itemLists = {};
 
-    // Prepare items
+    // Sheet settings
+    data.sheetSettings = {};
+    data.sheetSettings.isGM = game.user.isGM;
+    data.sheetSettings.isLimited = this.actor.limited;
+    data.sheetSettings.isObserver = !this.options.editable;
+    data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
+
+    // Enriched HTML
+    data.enrichedHTML = {};
+
+    // --Notes and description
+    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner});
+    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner});
+
+    data.enrichedHTML.itemDescription = {};
+    data.enrichedHTML.itemLevel = {};
+    data.enrichedHTML.itemDepletion = {};
+
+    for (let item of this.actor.items) {
+      data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner});
+      data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.basic?.level, {async: true});
+      data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true});
+    }
+
+    // Prepare items and return
     this.cyphersystem(data);
-
     return data;
   }
 
@@ -54,7 +70,8 @@ export class CypherActorSheet extends ActorSheet {
   * @return {undefined}
   */
   cyphersystem(data) {
-    const actorData = data.actor.data;
+    const actorData = data.actor;
+    const itemLists = data.itemLists;
 
     // Initialize containers
     const equipment = [];
@@ -85,101 +102,101 @@ export class CypherActorSheet extends ActorSheet {
     const tags = []
 
     // Iterate through items, allocating to containers
-    for (let i of data.items) {
-      // let item = i.data;
-      i.img = i.img || DEFAULT_TOKEN;
+    for (let item of data.items) {
+      // let item = item.system;
+      item.img = item.img || DEFAULT_TOKEN;
 
       // Check for hidden item
       let hidden = false;
-      if (actorData.data.settings.hideArchived && i.data.archived) hidden = true;
+      if (actorData.system.settings.general.hideArchive && item.system.archived) hidden = true;
 
       // Check for roll button on level
-      if (i.type == "cypher" || i.type == "artifact") {
-        if (Roll.validate(i.data.level.toString()) && i.data.level && isNaN(i.data.level)) {
-          i.data.rollForLevel = true;
+      if (item.type == "cypher" || item.type == "artifact") {
+        if (Roll.validate(item.system.basic.level.toString()) && item.system.basic.level && isNaN(item.system.basic.level)) {
+          item.system.rollForLevel = true;
         } else {
-          i.data.rollForLevel = false;
+          item.system.rollForLevel = false;
         }
       }
 
       // Append to containers
-      if (i.type === 'equipment' && !hidden) {
-        equipment.push(i);
+      if (item.type === "equipment" && !hidden) {
+        equipment.push(item);
       }
-      else if (i.type === 'ammo' && !hidden) {
-        ammo.push(i);
+      else if (item.type === "ammo" && !hidden) {
+        ammo.push(item);
       }
-      else if (i.type === 'ability' && !hidden && !(i.data.sorting == "Spell" || i.data.sorting == "AbilityTwo" || i.data.sorting == "AbilityThree" || i.data.sorting == "AbilityFour")) {
-        abilities.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Ability") {
+        abilities.push(item);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "Spell") {
-        spells.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Spell") {
+        spells.push(item);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityTwo") {
-        abilitiesTwo.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "AbilityTwo") {
+        abilitiesTwo.push(item);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityThree") {
-        abilitiesThree.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "AbilityThree") {
+        abilitiesThree.push(item);
       }
-      else if (i.type === 'ability' && !hidden && i.data.sorting == "AbilityFour") {
-        abilitiesFour.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "AbilityFour") {
+        abilitiesFour.push(item);
       }
-      else if (i.type === 'skill' && !hidden && !(i.data.sorting == "SkillTwo" || i.data.sorting == "SkillThree" || i.data.sorting == "SkillFour")) {
-        skills.push(i);
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Skill") {
+        skills.push(item);
       }
-      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillTwo") {
-        skillsTwo.push(i);
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "SkillTwo") {
+        skillsTwo.push(item);
       }
-      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillThree") {
-        skillsThree.push(i);
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "SkillThree") {
+        skillsThree.push(item);
       }
-      else if (i.type === 'skill' && !hidden && i.data.sorting == "SkillFour") {
-        skillsFour.push(i);
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "SkillFour") {
+        skillsFour.push(item);
       }
-      else if (i.type === 'attack' && !hidden) {
-        attacks.push(i);
+      else if (item.type === "attack" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
+        attacks.push(item);
       }
-      else if (i.type === 'armor' && !hidden) {
-        armor.push(i);
+      else if (item.type === "armor" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
+        armor.push(item);
       }
-      else if (i.type === 'lasting Damage' && !hidden) {
-        lastingDamage.push(i);
+      else if (item.type === "lasting-damage" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
+        lastingDamage.push(item);
       }
-      else if (i.type === 'power Shift' && !hidden) {
-        powerShifts.push(i);
+      else if (item.type === "power-shift" && !hidden) {
+        powerShifts.push(item);
       }
-      else if (i.type === 'cypher' && !hidden) {
-        cyphers.push(i);
+      else if (item.type === "cypher" && !hidden) {
+        cyphers.push(item);
       }
-      else if (i.type === 'artifact' && !hidden) {
-        artifacts.push(i);
+      else if (item.type === "artifact" && !hidden) {
+        artifacts.push(item);
       }
-      else if (i.type === 'oddity' && !hidden) {
-        oddities.push(i);
+      else if (item.type === "oddity" && !hidden) {
+        oddities.push(item);
       }
-      else if (i.type === 'teen Skill' && !hidden) {
-        teenSkills.push(i);
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Teen" && !hidden) {
+        teenSkills.push(item);
       }
-      else if (i.type === 'teen Ability' && !hidden) {
-        teenAbilities.push(i);
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Teen" && !hidden) {
+        teenAbilities.push(item);
       }
-      else if (i.type === 'teen Attack' && !hidden) {
-        teenAttacks.push(i);
+      else if (item.type === "attack" && item.system.settings.general.unmaskedForm == "Teen" && !hidden) {
+        teenAttacks.push(item);
       }
-      else if (i.type === 'teen Armor' && !hidden) {
-        teenArmor.push(i);
+      else if (item.type === "armor" && item.system.settings.general.unmaskedForm == "Teen" && !hidden) {
+        teenArmor.push(item);
       }
-      else if (i.type === 'teen lasting Damage' && !hidden) {
-        teenLastingDamage.push(i);
+      else if (item.type === "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && !hidden) {
+        teenLastingDamage.push(item);
       }
-      else if (i.type === 'material' && !hidden) {
-        materials.push(i);
+      else if (item.type === "material" && !hidden) {
+        materials.push(item);
       }
-      else if (i.type === 'recursion' && !hidden) {
-        recursions.push(i);
+      else if (item.type === "recursion" && !hidden) {
+        recursions.push(item);
       }
-      else if (i.type === 'tag' && !hidden) {
-        tags.push(i);
+      else if (item.type === "tag" && !hidden) {
+        tags.push(item);
       }
     }
 
@@ -212,8 +229,8 @@ export class CypherActorSheet extends ActorSheet {
     tags.sort(byNameAscending);
 
     // Sort by skill rating
-    if (actorData.type == "PC" || actorData.type == "Companion") {
-      if (actorData.data.settings.skills.sortByRating) {
+    if (this.actor.type == "pc" || this.actor.type == "companion") {
+      if (actorData.system.settings.skills.sortByRating) {
         skills.sort(bySkillRating);
         skillsTwo.sort(bySkillRating);
         skillsThree.sort(bySkillRating);
@@ -256,80 +273,80 @@ export class CypherActorSheet extends ActorSheet {
 
     // Check for spells
     if (spells.length > 0) {
-      actorData.showSpells = true;
+      data.sheetSettings.showSpells = true;
     } else {
-      actorData.showSpells = false;
+      data.sheetSettings.showSpells = false;
     }
 
     // Check for ability category 2
     if (abilitiesTwo.length > 0) {
-      actorData.showAbilitiesTwo = true;
+      data.sheetSettings.showAbilitiesTwo = true;
     } else {
-      actorData.showAbilitiesTwo = false;
+      data.sheetSettings.showAbilitiesTwo = false;
     }
 
     // Check for ability category 3
     if (abilitiesThree.length > 0) {
-      actorData.showAbilitiesThree = true;
+      data.sheetSettings.showAbilitiesThree = true;
     } else {
-      actorData.showAbilitiesThree = false;
+      data.sheetSettings.showAbilitiesThree = false;
     }
 
     // Check for ability category 4
     if (abilitiesFour.length > 0) {
-      actorData.showAbilitiesFour = true;
+      data.sheetSettings.showAbilitiesFour = true;
     } else {
-      actorData.showAbilitiesFour = false;
+      data.sheetSettings.showAbilitiesFour = false;
     }
 
     // Check for skill category 2
     if (skillsTwo.length > 0) {
-      actorData.showSkillsTwo = true;
+      data.sheetSettings.showSkillsTwo = true;
     } else {
-      actorData.showSkillsTwo = false;
+      data.sheetSettings.showSkillsTwo = false;
     }
 
     // Check for skill category 3
     if (skillsThree.length > 0) {
-      actorData.showSkillsThree = true;
+      data.sheetSettings.showSkillsThree = true;
     } else {
-      actorData.showSkillsThree = false;
+      data.sheetSettings.showSkillsThree = false;
     }
 
     // Check for skill category 4
     if (skillsFour.length > 0) {
-      actorData.showSkillsFour = true;
+      data.sheetSettings.showSkillsFour = true;
     } else {
-      actorData.showSkillsFour = false;
+      data.sheetSettings.showSkillsFour = false;
     }
 
     // Assign and return
-    actorData.equipment = equipment;
-    actorData.abilities = abilities;
-    actorData.abilitiesTwo = abilitiesTwo;
-    actorData.abilitiesThree = abilitiesThree;
-    actorData.abilitiesFour = abilitiesFour;
-    actorData.spells = spells;
-    actorData.skills = skills;
-    actorData.skillsTwo = skillsTwo;
-    actorData.skillsThree = skillsThree;
-    actorData.skillsFour = skillsFour;
-    actorData.attacks = attacks;
-    actorData.armor = armor;
-    actorData.lastingDamage = lastingDamage;
-    actorData.powerShifts = powerShifts;
-    actorData.cyphers = cyphers;
-    actorData.artifacts = artifacts;
-    actorData.oddities = oddities;
-    actorData.teenSkills = teenSkills;
-    actorData.teenAbilities = teenAbilities;
-    actorData.teenAttacks = teenAttacks;
-    actorData.teenArmor = teenArmor;
-    actorData.teenLastingDamage = teenLastingDamage;
-    actorData.materials = materials;
-    actorData.ammo = ammo;
-    actorData.recursions = recursions;
-    actorData.tags = tags;
+    itemLists.equipment = equipment;
+    itemLists.abilities = abilities;
+    itemLists.abilitiesTwo = abilitiesTwo;
+    itemLists.abilitiesThree = abilitiesThree;
+    itemLists.abilitiesFour = abilitiesFour;
+    itemLists.spells = spells;
+    itemLists.skills = skills;
+    itemLists.skillsTwo = skillsTwo;
+    itemLists.skillsThree = skillsThree;
+    itemLists.skillsFour = skillsFour;
+    itemLists.attacks = attacks;
+    itemLists.armor = armor;
+    itemLists.lastingDamage = lastingDamage;
+    itemLists.powerShifts = powerShifts;
+    itemLists.cyphers = cyphers;
+    itemLists.artifacts = artifacts;
+    itemLists.oddities = oddities;
+    itemLists.teenSkills = teenSkills;
+    itemLists.teenAbilities = teenAbilities;
+    itemLists.teenAttacks = teenAttacks;
+    itemLists.teenArmor = teenArmor;
+    itemLists.teenLastingDamage = teenLastingDamage;
+    itemLists.materials = materials;
+    itemLists.ammo = ammo;
+    itemLists.recursions = recursions;
+    itemLists.tags = tags;
   }
 
   /**
@@ -340,8 +357,8 @@ export class CypherActorSheet extends ActorSheet {
   async activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('.item-description').click(async clickEvent => {
-      if (!event.altKey) {
+    html.find(".item-description").click(async clickEvent => {
+      if (!game.keyboard.isModifierActive("Alt")) {
         const shownItem = $(clickEvent.currentTarget).parents(".item");
         const itemID = shownItem.data("itemId");
 
@@ -366,7 +383,7 @@ export class CypherActorSheet extends ActorSheet {
     */
 
     // Add Inventory Item
-    html.find('.item-create').click(clickEvent => {
+    html.find(".item-create").click(clickEvent => {
       const itemCreatedPromise = this._onItemCreate(clickEvent);
       itemCreatedPromise.then(itemData => {
         this.actor.items.get(itemData.id).sheet.render(true);
@@ -374,19 +391,16 @@ export class CypherActorSheet extends ActorSheet {
     });
 
     // Edit Inventory Item
-    html.find('.item-edit').click(clickEvent => {
-      const editedItem = $(clickEvent.currentTarget).parents(".item");
-      this.actor.items.get(editedItem.data("itemId")).sheet.render(true);
+    html.find(".item-edit").click(clickEvent => {
+      this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId")).sheet.render(true);
     });
 
     // Mark Item Identified
-    html.find('.identify-item').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+    html.find(".identify-item").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
       if (game.user.isGM) {
-        item.data.identified = true;
-        this.actor.updateEmbeddedDocuments("Item", [item]);
+        item.update({"system.basic.identified": true});
       } else {
         ChatMessage.create({
           content: chatCardMarkItemIdentified(this.actor, item),
@@ -397,66 +411,58 @@ export class CypherActorSheet extends ActorSheet {
     });
 
     // Delete Inventory Item
-    html.find('.item-delete').click(clickEvent => {
-      const deletedItem = $(clickEvent.currentTarget).parents(".item");
-      if (event.altKey) {
-        this.actor.deleteEmbeddedDocuments("Item", [deletedItem.data("itemId")]);
+    html.find(".item-delete").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      if (game.keyboard.isModifierActive("Alt")) {
+        if (item.type == "tag" && item.system.exclusive && item.system.active) {
+          changeTagStats(this.actor, 0, 0, 0, 0, 0, 0);
+        } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
+          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0)
+        }
+        item.delete();
       } else {
-        const item = duplicate(this.actor.getEmbeddedDocument("Item", deletedItem.data("itemId")));
-
-        if (item.data.archived === true) {
-          item.data.archived = false;
-        }
-        else {
-          item.data.archived = true;
-        }
-        this.actor.updateEmbeddedDocuments("Item", [item]);
+        let archived = (item.system.archived) ? false : true;
+        item.update({"system.archived": archived});
       }
     });
 
     // Translate to recursion
-    html.find('.item-recursion').click(async clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedDocument("Item", shownItem.data("itemId")));
+    html.find(".item-recursion").click(async clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       await recursionMacro(this.actor, item);
     });
 
     // (Un)Archive tag
-    html.find('.item-tag').click(async clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.getEmbeddedDocument("Item", shownItem.data("itemId")));
+    html.find(".item-tag").click(async clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       await tagMacro(this.actor, item);
     });
 
     // Add to Quantity
-    html.find('.plus-one').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.altKey) ? 10 : 1;
-      item.data.quantity = item.data.quantity + amount;
-      this.actor.updateEmbeddedDocuments("Item", [item]);
+    html.find(".plus-one").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+      let newValue = item.system.basic.quantity + amount;
+      item.update({"system.basic.quantity": newValue});
     });
 
     // Subtract from Quantity
-    html.find('.minus-one').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.altKey) ? 10 : 1;
-      item.data.quantity = item.data.quantity - amount;
-      this.actor.updateEmbeddedDocuments("Item", [item]);
+    html.find(".minus-one").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+      let newValue = item.system.basic.quantity - amount;
+      item.update({"system.basic.quantity": newValue});
     });
 
     // Roll for level
-    html.find('.rollForLevel').click(async clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let roll = await new Roll(item.data.level).evaluate({ async: false });
+    html.find(".rollForLevel").click(async clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let roll = await new Roll(item.system.basic.level).evaluate({async: true});
       roll.toMessage({
         speaker: ChatMessage.getSpeaker(),
-        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", { item: item.name })
+        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", {item: item.name})
       });
-      item.data.level = roll.total;
-      await this.actor.updateEmbeddedDocuments("Item", [item]);
+      item.update({"system.basic.level": roll.total});
     });
 
     /**
@@ -464,38 +470,35 @@ export class CypherActorSheet extends ActorSheet {
     */
 
     // Item roll buttons
-    html.find('.item-roll').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+    html.find(".item-roll").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", false, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "")
     });
 
     // Item pay pool points buttons
-    html.find('.item-pay').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+    html.find(".item-pay").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, shownItem.data("itemId"), "", "", "", "", "", "", "", "", "", "", "", "", true, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "")
     });
 
     // Item cast spell button
-    html.find('.cast-spell').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
+    html.find(".cast-spell").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
       let recoveryUsed = useRecoveries(this.actor, true);
 
       if (recoveryUsed == undefined) return;
 
       ChatMessage.create({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
         content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
           name: this.actor.name,
           recoveryUsed: recoveryUsed,
           spellName: item.name
         }),
-        flags: { "itemID": shownItem.data("itemId") }
+        flags: {"itemID": item.id}
       });
     });
 
@@ -503,41 +506,40 @@ export class CypherActorSheet extends ActorSheet {
     * General sheet functions
     */
 
-    // Show item description or send to chat
-    html.find('.item-description').click(clickEvent => {
-      if (event.altKey) {
-        const shownItem = $(clickEvent.currentTarget).parents(".item");
-        const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-        if (item.data.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
+    // Send item description to chat
+    html.find(".item-description").click(clickEvent => {
+      if (game.keyboard.isModifierActive("Alt")) {
+        const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+        if (item.system.basic.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
         let message = "";
         let brackets = "";
-        let description = "<hr style='margin:3px 0;'><img class='description-image-chat' src='" + item.img + "' width='50' height='50'/>" + item.data.description;
+        let description = `<hr style="margin:3px 0;"><img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + item.system.description;
         let points = "";
         let notes = "";
         let name = item.name;
-        if (item.data.notes != "") notes = ", " + item.data.notes;
-        if (item.type == "skill" || item.type == "teen Skill") {
-          brackets = " (" + item.data.skillLevel + ")";
-        } else if (item.type == "power Shift") {
-          brackets = " (" + item.data.powerShiftValue + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
-        } else if (item.type == "ability" || item.type == "teen Ability") {
-          points = (item.data.costPoints == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
-          if (item.data.costPoints != 0 && item.data.costPoints != 0) brackets = " (" + item.data.costPoints + " " + item.data.costPool + points + ")";
+        if (item.system.basic.notes != "") notes = ", " + item.system.basic.notes;
+        if (item.type == "skill") {
+          brackets = " (" + item.system.basic.rating + ")";
+        } else if (item.type == "power-shift") {
+          brackets = " (" + item.system.basic.shifts + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
+        } else if (item.type == "ability") {
+          points = (item.system.basic.cost == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
+          if (item.system.basic.cost != 0 && item.system.basic.cost != 0) brackets = " (" + item.system.basic.cost + " " + item.system.basic.pool + points + ")";
         } else if (item.type == "attack") {
-          points = (item.data.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
-          let damage = ", " + item.data.damage + " " + points;
-          let attackType = item.data.attackType;
+          points = (item.system.basic.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
+          let damage = ", " + item.system.basic.damage + " " + points;
+          let attackType = item.system.basic.type;
           let range = "";
-          if (item.data.range != "") range = ", " + item.data.range;
+          if (item.system.basic.range != "") range = ", " + item.system.basic.range;
           brackets = " (" + attackType + damage + range + notes + ")";
-        } else if (item.type == "armor" || item.type == "teen Armor") {
-          brackets = " (" + item.data.armorType + notes + ")";
-        } else if (item.type == "lasting Damage") {
+        } else if (item.type == "armor") {
+          brackets = " (" + item.system.basic.type + notes + ")";
+        } else if (item.type == "lasting-damage") {
           let permanent = "";
-          if (item.data.damageType == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
-          brackets = " (" + item.data.lastingDamagePool + permanent + ")";
+          if (item.system.basic.type == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
+          brackets = " (" + item.system.basic.pool + permanent + ")";
         } else {
-          if (item.data.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.data.level + ")";
+          if (item.system.basic.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
         }
         message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
         ChatMessage.create({
@@ -551,7 +553,7 @@ export class CypherActorSheet extends ActorSheet {
     if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
       // Find all items on the character sheet.
-      html.find('li.item').each((i, li) => {
+      html.find("li.item").each((i, li) => {
         // Ignore for the header row.
         if (li.classList.contains("item-header")) return;
         if (li.classList.contains("non-draggable")) return;
@@ -567,23 +569,23 @@ export class CypherActorSheet extends ActorSheet {
     */
 
     // Increase Health
-    html.find('.increase-health').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.health.value + amount;
-      this.actor.update({ "data.health.value": newValue });
+    html.find(".increase-health").click(clickEvent => {
+      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+      let newValue = this.actor.system.pools.health.value + amount;
+      this.actor.update({"system.pools.health.value": newValue});
     });
 
     // Decrease Health
-    html.find('.decrease-health').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.health.value - amount;
-      this.actor.update({ "data.health.value": newValue });
+    html.find(".decrease-health").click(clickEvent => {
+      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+      let newValue = this.actor.system.pools.health.value - amount;
+      this.actor.update({"system.pools.health.value": newValue});
     });
 
     // Reset Health
-    html.find('.reset-health').click(clickEvent => {
+    html.find(".reset-health").click(clickEvent => {
       this.actor.update({
-        "data.health.value": this.actor.data.data.health.max
+        "system.pools.health.value": this.actor.system.pools.health.max
       })
     });
   }
@@ -597,190 +599,195 @@ export class CypherActorSheet extends ActorSheet {
   */
   async _onDropItem(event, data) {
     event.preventDefault();
-    // if (!this.actor.owner) return false;
-    const item = await Item.fromDropData(data);
-    const itemData = duplicate(item.data);
+    // Define items & actors
+    const originItem = await Item.fromDropData(data);
+    let originItemData = foundry.utils.deepClone(originItem.toObject());
+    const originActor = originItem.actor;
+    const targetActor = this.actor;
+    const targetItem = targetActor.items.getName(originItem.name);
 
-    // Handle item sorting within the same Actor
-    const actor = this.actor;
-    let sameActor = (data.actorId === actor.data._id) || (actor.isToken && (data.tokenId === actor.token.id));
-    if (sameActor) return this._onSortItem(event, itemData);
+    // Define actor IDs
+    const originActorID = (originActor) ? originActor.id : "";
+    const targetActorID = (targetActor) ? targetActor.id : "";
 
-    // Get origin actor. If any, get originItem
-    let originActor;
-    if (!data.tokenId) {
-      originActor = game.actors.get(data.actorId);
+    // Define item type categories
+    const typesCharacterProperties = ["ability", "lasting-damage", "power-shift", "skill", "recursion", "tag"];
+    const typesUniqueItems = ["armor", "artifact", "attack", "cypher", "oddity"];
+    const typesQuantityItems = ["ammo", "equipment", "material"];
+
+    // Return statements
+    if (!targetActor.isOwner) return;
+    if (originActorID == targetActorID) return;
+
+    // The GM copies any item
+    if (game.keyboard.isModifierActive("Alt") && game.user.isGM) {
+      if (typesCharacterProperties.includes(originItem.type) || typesUniqueItems.includes(originItem.type)) {
+        targetActor.createEmbeddedDocuments("Item", [originItemData]);
+        enableItemLists();
+      } else if (typesQuantityItems.includes(originItem.type)) {
+        if (!targetItem) {
+          targetActor.createEmbeddedDocuments("Item", [originItemData]);
+        } else {
+          let newQuantity = parseInt(targetItem.system.basic.quantity) + parseInt(originItem.system.basic.quantity);
+          targetItem.update({"system.basic.quantity": newQuantity});
+        }
+      }
     } else {
-      originActor = canvas.tokens.get(data.tokenId).actor;
-    }
-    let originItem;
-    if (originActor) { originItem = originActor.items.find(i => i.data._id === item.data._id) };
-
-    // Create the owned item or increase quantity
-    let itemOwned = false;
-
-    if (!(itemData.type == "artifact" || itemData.type == "cypher" || itemData.type == "oddity")) {
-      itemOwned = actor.items.find(i => i.data.name === item.data.name && i.data.type === item.data.type);
-    }
-
-    let hasQuantity = false;
-
-    if ("quantity" in item.data.data) hasQuantity = true;
-
-    // Activate settings for items
-    if (itemData.type == "artifact") actor.update({ "data.settings.equipment.artifacts": true });
-    if (itemData.type == "cypher") actor.update({ "data.settings.equipment.cyphers": true });
-    if (itemData.type == "oddity") actor.update({ "data.settings.equipment.oddities": true });
-    if (itemData.type == "material") actor.update({ "data.settings.equipment.materials": true });
-    if (itemData.type == "ammo") actor.update({ "data.settings.ammo": true });
-    if (itemData.type == "power Shift") actor.update({ "data.settings.powerShifts.active": true });
-    if (itemData.type == "lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
-    if (itemData.type == "teen lasting Damage") actor.update({ "data.settings.lastingDamage.active": true });
-
-    // Handle cypher & artifact identification
-    if (itemData.type == "cypher" || itemData.type == "artifact") {
-      let identifiedStatus;
-      if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
-        identifiedStatus = (!event.altKey) ? itemData.data.identified : !itemData.data.identified;
-      } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
-        identifiedStatus = (!event.altKey) ? true : false;
-      } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
-        identifiedStatus = (!event.altKey) ? false : true;
+      // Handle character properties
+      if (typesCharacterProperties.includes(originItem.type)) {
+        if (originActor || targetItem || !["pc", "companion"].includes(targetActor.type)) return;
+        targetActor.createEmbeddedDocuments("Item", [originItemData]);
+        enableItemLists();
       }
-      itemData.data.identified = identifiedStatus;
-    }
 
-    // Define fuctions for archiving and deleting items
-    function archiveItem(actorSheet) {
-      originItem.update({ "data.archived": true })
-      actorSheet._onDropItemCreate(itemData);
-    }
-
-    function deleteItem(actorSheet) {
-      originItem.delete();
-      actorSheet._onDropItemCreate(itemData);
-    }
-
-    if (!hasQuantity) {
-      const actorSheet = this;
-      if (!originActor) this._onDropItemCreate(itemData);
-      if (!event.altKey && originActor) {
-        let d = new Dialog({
-          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
-          content: "",
-          buttons: {
-            move: {
-              icon: '<i class="fas fa-archive"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-              callback: (html) => archiveItem(actorSheet)
-            },
-            moveAll: {
-              icon: '<i class="fas fa-trash"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-              callback: (html) => deleteItem(actorSheet)
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => { }
-            }
-          },
-          default: "move",
-          close: () => { }
-        });
-        d.render(true);
-      } else if (event.altKey && originActor) {
-        actorSheet._onDropItemCreate(itemData);
-      }
-    } else if (hasQuantity) {
-      if (!event.altKey) {
-        let maxQuantity = item.data.data.quantity;
-        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
-        let quantity = 1;
-        moveDialog(quantity, itemData);
-
-        function moveDialog(quantity, itemData) {
+      // Handle unique items
+      if (typesUniqueItems.includes(originItem.type)) {
+        if (originActor) {
           let d = new Dialog({
-            title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: itemData.name }),
-            content: createContent(quantity),
-            buttons: buttons(),
+            title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
+            content: "",
+            buttons: {
+              move: {
+                icon: "<i class='fas fa-archive'></i>",
+                label: game.i18n.localize("CYPHERSYSTEM.Archive"),
+                callback: (html) => archiveItem()
+              },
+              moveAll: {
+                icon: "<i class='fas fa-trash'></i>",
+                label: game.i18n.localize("CYPHERSYSTEM.Delete"),
+                callback: (html) => deleteItem()
+              },
+              cancel: {
+                icon: "<i class='fas fa-times'></i>",
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => {}
+              }
+            },
             default: "move",
-            close: () => { }
+            close: () => {}
+          });
+          d.render(true);
+        } else {
+          // Handle cypher & artifact identification from world items
+          if (["cypher", "artifact"].includes(originItem.type)) {
+            let identifiedStatus;
+            if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
+              identifiedStatus = originItemData.system.basic.identified;
+            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
+              identifiedStatus = true;
+            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
+              identifiedStatus = false;
+            }
+            originItemData.system.basic.identified = identifiedStatus;
+          }
+
+          // Create item
+          targetActor.createEmbeddedDocuments("Item", [originItemData]);
+          enableItemLists();
+        }
+      }
+
+      // Handle items with quantity
+      if (typesQuantityItems.includes(originItem.type)) {
+        let maxQuantity = originItem.system.basic.quantity;
+        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
+        moveDialog();
+
+        function moveDialog() {
+          let d = new Dialog({
+            title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
+            content: createContent(),
+            buttons: createButtons(),
+            default: "move",
+            close: () => {}
           });
           d.render(true);
         }
 
-        function createContent(quantity) {
+        function createContent() {
           let maxQuantityText = "";
           if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
-          let content = `<div align="center"><label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name='quantity' id='quantity' style='width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=${quantity} data-dtype='Number'/>` + maxQuantityText + `</div>`;
+          let content = `<div align="center"><label style="display: inline-block; width: 98px; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name="quantity" id="quantity" style="width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value="1" />` + maxQuantityText + `</div>`;
           return content;
         }
 
-        function buttons() {
-          if (maxQuantity != null) {
-            return ({
+        function createButtons() {
+          if (maxQuantity == null) {
+            return {
               move: {
-                icon: '<i class="fas fa-share-square"></i>',
+                icon: "<i class='fas fa-share-square'></i>",
                 label: game.i18n.localize("CYPHERSYSTEM.Move"),
-                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
+                callback: (html) => moveItems(html.find("#quantity").val(), originItem)
+              },
+              cancel: {
+                icon: "<i class='fas fa-times'></i>",
+                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+                callback: () => {}
+              }
+            }
+          } else {
+            return {
+              move: {
+                icon: "<i class='fas fa-share-square'></i>",
+                label: game.i18n.localize("CYPHERSYSTEM.Move"),
+                callback: (html) => moveItems(html.find("#quantity").val(), originItem)
               },
               moveAll: {
-                icon: '<i class="fas fa-share-square"></i>',
+                icon: "<i class='fas fa-share-square'></i>",
                 label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
-                callback: (html) => moveItems(maxQuantity, itemData)
+                callback: (html) => moveItems(maxQuantity, originItem)
               },
               cancel: {
-                icon: '<i class="fas fa-times"></i>',
+                icon: "<i class='fas fa-times'></i>",
                 label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-                callback: () => { }
+                callback: () => {}
               }
-            })
-          } else {
-            return ({
-              move: {
-                icon: '<i class="fas fa-share-square"></i>',
-                label: game.i18n.localize("CYPHERSYSTEM.Move"),
-                callback: (html) => moveItems(html.find('#quantity').val(), itemData)
-              },
-              cancel: {
-                icon: '<i class="fas fa-times"></i>',
-                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-                callback: () => { }
-              }
-            })
+            }
           }
         }
 
-        function moveItems(quantity, itemData) {
+        function moveItems(quantity) {
           quantity = parseInt(quantity);
-          if (item.data.data.quantity != null && (quantity > item.data.data.quantity || quantity <= 0)) {
-            moveDialog(quantity, itemData);
-            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", { max: item.data.data.quantity }));
+          if (quantity == null) {quantity = 0};
+          if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
+            moveDialog(quantity);
+            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
           }
-          if (item.data.data.quantity && originActor) {
-            let oldQuantity = item.data.data.quantity - parseInt(quantity);
-            originItem.update({ "data.quantity": oldQuantity });
+          if (originActor) {
+            let oldQuantity = parseInt(originItem.system.basic.quantity) - quantity;
+            originItem.update({"system.basic.quantity": oldQuantity});
           }
-          if (!itemOwned) {
-            itemData.data.quantity = quantity;
-            actor.createEmbeddedDocuments("Item", [itemData]);
+          if (!targetItem) {
+            originItemData.system.basic.quantity = quantity;
+            targetActor.createEmbeddedDocuments("Item", [originItemData]);
           } else {
-            let newQuantity = parseInt(itemOwned.data.data.quantity) + parseInt(quantity);
-            itemOwned.update({ "data.quantity": newQuantity });
+            let newQuantity = parseInt(targetItem.system.basic.quantity) + quantity;
+            targetItem.update({"system.basic.quantity": newQuantity});
           }
-        }
-      } else if (event.altKey) {
-        if (!itemOwned) {
-          if (!item.data.data.quantity) {
-            itemData.data.quantity = 0;
-          }
-          this._onDropItemCreate(itemData);
-        } else {
-          let newQuantity = itemOwned.data.data.quantity + item.data.data.quantity;
-          itemOwned.update({ "data.quantity": newQuantity });
         }
       }
+    }
+
+    async function enableItemLists() {
+      if (originItem.type == "artifact") targetActor.update({"system.settings.equipment.artifacts.active": true});
+      if (originItem.type == "cypher") targetActor.update({"system.settings.equipment.cyphers.active": true});
+      if (originItem.type == "oddity") targetActor.update({"system.settings.equipment.oddities.active": true});
+      if (originItem.type == "material") targetActor.update({"system.settings.equipment.materials.active": true});
+      if (originItem.type == "ammo") targetActor.update({"system.settings.combat.ammo.active": true});
+      if (originItem.type == "power-shift") targetActor.update({"system.settings.skills.powerShifts.active": true});
+      if (originItem.type == "lasting-damage") targetActor.update({"system.settings.combat.lastingDamage.active": true});
+    }
+
+    async function archiveItem() {
+      originItem.update({"system.archived": true})
+      targetActor.createEmbeddedDocuments("Item", [originItemData]);
+      enableItemLists();
+    }
+
+    function deleteItem() {
+      originItem.delete();
+      targetActor.createEmbeddedDocuments("Item", [originItemData]);
+      enableItemLists();
     }
   }
 
@@ -792,10 +799,13 @@ export class CypherActorSheet extends ActorSheet {
   _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
+
     // Get the type of item to create.
     const type = header.dataset.type;
+
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
+
     // Initialize a default name.
     const types = {
       "ability": game.i18n.localize("CYPHERSYSTEM.NewAbility"),
@@ -805,23 +815,18 @@ export class CypherActorSheet extends ActorSheet {
       "attack": game.i18n.localize("CYPHERSYSTEM.NewAttack"),
       "cypher": game.i18n.localize("CYPHERSYSTEM.NewCypher"),
       "equipment": game.i18n.localize("CYPHERSYSTEM.NewEquipment"),
-      "lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewLastingDamage"),
+      "lasting-damage": game.i18n.localize("CYPHERSYSTEM.NewLastingDamage"),
       "material": game.i18n.localize("CYPHERSYSTEM.NewMaterial"),
       "oddity": game.i18n.localize("CYPHERSYSTEM.NewOddity"),
-      "power Shift": game.i18n.localize("CYPHERSYSTEM.NewPowerShift"),
+      "power-shift": game.i18n.localize("CYPHERSYSTEM.NewPowerShift"),
       "skill": game.i18n.localize("CYPHERSYSTEM.NewSkill"),
-      "teen Ability": game.i18n.localize("CYPHERSYSTEM.NewTeenAbility"),
-      "teen Armor": game.i18n.localize("CYPHERSYSTEM.NewTeenArmor"),
-      "teen Attack": game.i18n.localize("CYPHERSYSTEM.NewTeenAttack"),
-      "teen lasting Damage": game.i18n.localize("CYPHERSYSTEM.NewTeenLastingDamage"),
-      "teen Skill": game.i18n.localize("CYPHERSYSTEM.NewTeenSkill"),
       "recursion": game.i18n.localize("CYPHERSYSTEM.NewRecursion"),
       "tag": game.i18n.localize("CYPHERSYSTEM.NewTag"),
       "default": game.i18n.localize("CYPHERSYSTEM.NewDefault")
-    };
+    }
     const name = (types[type] || types["default"]);
 
     // Finally, create the item!
-    return Item.create({ type: type, data, name: name }, { parent: this.actor });
+    return Item.create({type: type, data, name: name}, {parent: this.actor});
   }
 }

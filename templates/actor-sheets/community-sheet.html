@@ -1,0 +1,179 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        <div style="margin-top: auto; margin-bottom: auto;">
+          <div class="resource-content flexrow flex-center">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
+            &nbsp;
+            <div class="item-quantity" style="flex: 0 0 80px;">
+              <input name="system.basic.rank" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.rank}}{{/if}}" placeholder="{{localize 'CYPHERSYSTEM.Rank'}}" title="{{localize 'CYPHERSYSTEM.Rank'}}" />
+            </div>
+          </div>
+          <div class="resource-content flexrow flex-center">
+            <div class="resources grid grid-3col">
+              <div class="resource flex-group-center">
+                <div class="flexrow">
+                  <label for="system.pools.health.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                    {{localize 'CYPHERSYSTEM.Health'}}
+                  </label>
+                  {{#unless sheetSettings.isLimited}}
+                    <div class="nonPC-stat-buttons">
+                      <a class="item-control decrease-health {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}">
+                        <i class="far fa-minus-square stat"></i>
+                      </a>
+                      <a class="item-control increase-health {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}">
+                        <i class="far fa-plus-square stat"></i>
+                      </a>
+                      <a class="item-control reset-health {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}">
+                        <i class="fas fa-sync-alt stat"></i>
+                      </a>
+                    </div>
+                  {{/unless}}
+                </div>
+                <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <input class="stat-input" name="system.pools.health.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.health.value}}{{/if}}" />
+                  &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+                  <input class="stat-input" name="system.pools.health.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.health.max}}{{/if}}" />
+                </div>
+              </div>
+              <div class="resource flex-group-center">
+                <div class="flexrow">
+                  <label for="system.pools.infrastructure.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                    {{localize 'CYPHERSYSTEM.Infrastructure'}}
+                  </label>
+                  {{#unless sheetSettings.isLimited}}
+                    <div class="nonPC-stat-buttons">
+                      <a class="item-control decrease-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractInfrastructure'}}">
+                        <i class="far fa-minus-square stat"></i>
+                      </a>
+                      <a class="item-control increase-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddInfrastructure'}}">
+                        <i class="far fa-plus-square stat"></i>
+                      </a>
+                      <a class="item-control reset-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetInfrastructure'}}">
+                        <i class="fas fa-sync-alt stat"></i>
+                      </a>
+                    </div>
+                  {{/unless}}
+                </div>
+                <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <input class="stat-input" name="system.pools.infrastructure.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.infrastructure.value}}{{/if}}" />
+                  &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
+                  <input class="stat-input" name="system.pools.infrastructure.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.infrastructure.max}}{{/if}}" />
+                </div>
+              </div>
+              <div class="resource flex-group-center">
+                <div class="resource-content flexrow flex-center flex-between">
+                  <label class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                    {{localize 'CYPHERSYSTEM.Damage'}}
+                  </label>
+                  <label class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                    {{localize 'CYPHERSYSTEM.Armor'}}
+                  </label>
+                </div>
+                <div class="resource-content flexrow flex-center flex-between">
+                  <input name="system.combat.damage" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.combat.damage}}{{/if}}" />
+                  &nbsp;
+                  <input name="system.combat.armor" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.combat.armor}}{{/if}}" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{#unless sheetSettings.isLimited}}
+      <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
+    {{/unless}}
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{#unless sheetSettings.isLimited}}
+      <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Storage'}}</a>
+      <a class="item" data-tab="settings" style="flex: 0 0 45px;">
+        <i class="fas fa-cog"></i>
+      </a>
+    {{/unless}}
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Notes Tab --}}
+    <div class="tab description" data-group="primary" data-tab="notes">
+      {{editor enrichedHTML.notes target="system.notes" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Equipment Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+
+      {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
+
+      {{#if actor.system.settings.equipment.attacks.active}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/attacks.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.ammo.active}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/ammo.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.armor.active}}
+        {{> systems/cyphersystem/templates/tabs/combat-tab/armor.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.cyphers.active}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/cyphers.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.artifacts.active}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/artifacts.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.oddities.active}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/oddities.html}}
+      {{/if}}
+
+      {{#if actor.system.settings.equipment.materials.active}}
+        {{> systems/cyphersystem/templates/tabs/equipment-tab/materials.html}}
+      {{/if}}
+
+    </div>
+
+    {{!-- Settings Tab --}}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      <div class="flexrow">
+        <ol class="items-list">
+          <li class="item flexrow item-header">
+            <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list"><input type="checkbox" name="system.settings.initiative.active" checked disabled>
+              &nbsp;{{localize 'CYPHERSYSTEM.InitiativeBonus'}}
+            </div>
+            <div class="item-quantity"><input class="auto-margin" name="system.settings.general.initiativeBonus" type="text" value="{{actor.system.settings.general.initiativeBonus}}" placeholder="0" style="width: auto;" />
+            </div>
+          </li>
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              <input type="checkbox" name="system.settings.general.hideArchive" {{checked
+                actor.system.settings.general.hideArchive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
+            </div>
+          </li>
+        </ol>
+      </div>
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-equipment.html}}
+    </div>
+
+  </section>
+</form>

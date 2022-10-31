@@ -1,0 +1,20 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if (eq actor.system.settings.equipment.artifacts.label "")}}
+          {{localize 'CYPHERSYSTEM.Artifacts'}}
+        {{else}}
+          {{actor.system.settings.equipment.artifacts.label}}
+        {{/if}}
+      </div>
+      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+      <div class="item-controls">
+        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="artifact">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    {{> systems/cyphersystem/templates/item-lists/artifacts-list.html}}
+  </ol>
+</div>

@@ -3,5 +3,5 @@
 * @extends {Actor}
 */
 export class CypherItem extends Item {
-  
+  static LOG_V10_COMPATIBILITY_WARNINGS = true;
 }

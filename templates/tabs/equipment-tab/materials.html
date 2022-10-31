@@ -1,0 +1,21 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if (eq actor.system.settings.equipment.materials.label "")}}
+          {{localize 'CYPHERSYSTEM.IotumAndParts'}}
+        {{else}}
+          {{actor.system.settings.equipment.materials.label}}
+        {{/if}}
+      </div>
+      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Level'}}</div>
+      <div class="item-quantity">{{localize 'CYPHERSYSTEM.Units'}}</div>
+      <div class="item-controls">
+        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="material">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    {{> systems/cyphersystem/templates/item-lists/materials-list.html}}
+  </ol>
+</div>

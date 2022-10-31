@@ -4,22 +4,24 @@ import {
   chatCardRegainPoints
 } from "./chat-cards.js";
 
-export async function payPoolPoints(actor, costCalculated, pool, teen) {
+export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
   // Determine stats
-  let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
-  let mightEdge = (teen) ? actor.data.data.teen.pools.mightEdge : actor.data.data.pools.mightEdge;
-  let speedValue = (teen) ? actor.data.data.teen.pools.speed.value : actor.data.data.pools.speed.value;
-  let speedEdge = (teen) ? actor.data.data.teen.pools.speedEdge : actor.data.data.pools.speedEdge;
-  let intellectValue = (teen) ? actor.data.data.teen.pools.intellect.value : actor.data.data.pools.intellect.value;
-  let intellectEdge = (teen) ? actor.data.data.teen.pools.intellectEdge : actor.data.data.pools.intellectEdge;
+  let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
+  let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
+  let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
 
   // Determine edge
-  let relevantEdge = {
-    "Might": mightEdge,
-    "Speed": speedEdge,
-    "Intellect": intellectEdge
-  };
-  let edge = (relevantEdge[pool] || 0);
+  if (!edge) {
+    let mightEdge = (teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
+    let speedEdge = (teen) ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
+    let intellectEdge = (teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
+    let relevantEdge = {
+      "Might": mightEdge,
+      "Speed": speedEdge,
+      "Intellect": intellectEdge
+    }
+    edge = (relevantEdge[pool] || 0);
+  }
 
   // Check for weakness
   edge = (edge < 0 && (costCalculated == 0 || costCalculated == "")) ? 0 : edge;
@@ -31,28 +33,28 @@ export async function payPoolPoints(actor, costCalculated, pool, teen) {
   // Check if enough points are avalable and update actor
   if (pool == "Might") {
     if (costCalculated > mightValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
-    (teen) ? actor.update({ "data.teen.pools.might.value": mightValue - costCalculated }) : actor.update({ "data.pools.might.value": mightValue - costCalculated })
+    (teen) ? actor.update({"system.teen.pools.might.value": mightValue - costCalculated}) : actor.update({"system.pools.might.value": mightValue - costCalculated})
   } else if (pool == "Speed") {
     if (costCalculated > speedValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
-    (teen) ? actor.update({ "data.teen.pools.speed.value": intellectValue - costCalculated }) : actor.update({ "data.pools.speed.value": speedValue - costCalculated })
+    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue - costCalculated}) : actor.update({"system.pools.speed.value": speedValue - costCalculated})
   } else if (pool == "Intellect") {
     if (costCalculated > intellectValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
-    (teen) ? actor.update({ "data.teen.pools.intellect.value": intellectValue - costCalculated }) : actor.update({ "data.pools.intellect.value": intellectValue - costCalculated })
+    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue - costCalculated}) : actor.update({"system.pools.intellect.value": intellectValue - costCalculated})
   } else if (pool == "XP") {
-    if (costCalculated > actor.data.data.basic.xp) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
+    if (costCalculated > actor.system.basic.xp) {
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
       return false;
     }
-    actor.update({ "data.basic.xp": actor.data.data.basic.xp - costCalculated })
+    actor.update({"system.basic.xp": actor.system.basic.xp - costCalculated})
   }
 
   let payPoolPointsInfo = [true, costCalculated, edge, pool];
@@ -63,66 +65,66 @@ export async function regainPoolPoints(actor, cost, pool, teen) {
   pool = pool.toLowerCase();
 
   // Determine stats
-  let mightValue = (teen) ? actor.data.data.teen.pools.might.value : actor.data.data.pools.might.value;
-  let speedValue = (teen) ? actor.data.data.teen.pools.speed.value : actor.data.data.pools.speed.value;
-  let intellectValue = (teen) ? actor.data.data.teen.pools.intellect.value : actor.data.data.pools.intellect.value;
+  let mightValue = (teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
+  let speedValue = (teen) ? actor.system.teen.pools.speed.value : actor.system.pools.speed.value;
+  let intellectValue = (teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
 
   // Return points
   if (pool == "might") {
-    (teen) ? actor.update({ "data.teen.pools.might.value": mightValue + cost }) : actor.update({ "data.pools.might.value": mightValue + cost })
+    (teen) ? actor.update({"system.teen.pools.might.value": mightValue + cost}) : actor.update({"system.pools.might.value": mightValue + cost})
   } else if (pool == "speed") {
-    (teen) ? actor.update({ "data.teen.pools.speed.value": intellectValue + cost }) : actor.update({ "data.pools.speed.value": speedValue + cost })
+    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue + cost}) : actor.update({"system.pools.speed.value": speedValue + cost})
   } else if (pool == "intellect") {
-    (teen) ? actor.update({ "data.teen.pools.intellect.value": intellectValue + cost }) : actor.update({ "data.pools.intellect.value": intellectValue + cost })
+    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue + cost}) : actor.update({"system.pools.intellect.value": intellectValue + cost})
   }
 
   ChatMessage.create({
-    speaker: ChatMessage.getSpeaker({ actor: actor }),
-    content: chatCardRegainPoints(actor, cost, pool)
+    speaker: ChatMessage.getSpeaker({actor: actor}),
+    content: chatCardRegainPoints(actor, cost, pool, teen)
   })
 }
 
 export function useRecoveries(actor, spell) {
   if (!spell) spell = false;
-  let recoveries = actor.data.data.recoveries;
-  let additionalRecoveries = actor.data.data.settings.additionalRecoveries;
+  let recoveries = actor.system.combat.recoveries;
+  let additionalRecoveries = actor.system.settings.combat;
   let recoveryUsed = "";
 
   if (!recoveries.oneAction) {
-    actor.update({ "data.recoveries.oneAction": true });
+    actor.update({"system.combat.recoveries.oneAction": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionTwo && additionalRecoveries.numberOneActionRecoveries >= 2) {
-    actor.update({ "data.recoveries.oneActionTwo": true });
+  } else if (!recoveries.oneAction2 && additionalRecoveries.numberOneActionRecoveries >= 2) {
+    actor.update({"system.combat.recoveries.oneAction2": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionThree && additionalRecoveries.numberOneActionRecoveries >= 3) {
-    actor.update({ "data.recoveries.oneActionThree": true });
+  } else if (!recoveries.oneAction3 && additionalRecoveries.numberOneActionRecoveries >= 3) {
+    actor.update({"system.combat.recoveries.oneAction3": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionFour && additionalRecoveries.numberOneActionRecoveries >= 4) {
-    actor.update({ "data.recoveries.oneActionFour": true });
+  } else if (!recoveries.oneAction4 && additionalRecoveries.numberOneActionRecoveries >= 4) {
+    actor.update({"system.combat.recoveries.oneAction4": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionFive && additionalRecoveries.numberOneActionRecoveries >= 5) {
-    actor.update({ "data.recoveries.oneActionFive": true });
+  } else if (!recoveries.oneAction5 && additionalRecoveries.numberOneActionRecoveries >= 5) {
+    actor.update({"system.combat.recoveries.oneAction5": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionSix && additionalRecoveries.numberOneActionRecoveries >= 6) {
-    actor.update({ "data.recoveries.oneActionSix": true });
+  } else if (!recoveries.oneAction6 && additionalRecoveries.numberOneActionRecoveries >= 6) {
+    actor.update({"system.combat.recoveries.oneAction6": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
-  } else if (!recoveries.oneActionSeven && additionalRecoveries.numberOneActionRecoveries >= 7) {
-    actor.update({ "data.recoveries.oneActionSeven": true });
+  } else if (!recoveries.oneAction7 && additionalRecoveries.numberOneActionRecoveries >= 7) {
+    actor.update({"system.combat.recoveries.oneAction7": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
   } else if (!recoveries.tenMinutes && additionalRecoveries.numberTenMinuteRecoveries >= 1) {
-    actor.update({ "data.recoveries.tenMinutes": true });
+    actor.update({"system.combat.recoveries.tenMinutes": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
-  } else if (!recoveries.tenMinutesTwo && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
-    actor.update({ "data.recoveries.tenMinutesTwo": true });
+  } else if (!recoveries.tenMinutes2 && additionalRecoveries.numberTenMinuteRecoveries >= 2) {
+    actor.update({"system.combat.recoveries.tenMinutes2": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenMinutes");
   } else if (!recoveries.oneHour) {
-    actor.update({ "data.recoveries.oneHour": true });
+    actor.update({"system.combat.recoveries.oneHour": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
   } else if (!recoveries.tenHours && spell == false) {
-    actor.update({ "data.recoveries.tenHours": true });
+    actor.update({"system.combat.recoveries.tenHours": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenHours");
   } else {
-    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", { name: actor.name }));
+    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", {name: actor.name}));
   }
 
   return recoveryUsed;
@@ -131,7 +133,7 @@ export function useRecoveries(actor, spell) {
 export function isExclusiveTagActive(actor) {
   let countExclusiveTags = 0;
   for (let item of actor.items) {
-    if (item.type == "tag" && item.data.data.exclusive && item.data.data.active) countExclusiveTags++;
+    if (item.type == "tag" && item.system.exclusive && item.system.active) countExclusiveTags++;
   }
   return (countExclusiveTags > 0) ? true : false;
 }
@@ -142,11 +144,16 @@ export function deleteChatMessage(data) {
 
 // Function to apply XP when an intrusion is accepted
 export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier) {
-  actor.update({ "data.basic.xp": actor.data.data.basic.xp + modifier });
+  actor.update({"system.basic.xp": actor.system.basic.xp + modifier});
 
   // Emit a socket event
-  game.socket.emit('system.cyphersystem', { operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier });
-  game.socket.emit('system.cyphersystem', { operation: 'deleteChatMessage', messageId: messageId });
+  if (!game.user.isGM && selectedActorId) {
+    game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
+    game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+  } else if (selectedActorId) {
+    giveAdditionalXP({selectedActorId: selectedActorId, modifier: modifier});
+    deleteChatMessage({messageId: messageId})
+  }
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
 
@@ -158,7 +165,7 @@ export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier
 export function giveAdditionalXP(data) {
   if (game.user.isGM) {
     let selectedActor = game.actors.get(data.selectedActorId);
-    selectedActor.update({ "data.basic.xp": selectedActor.data.data.basic.xp + data.modifier });
+    selectedActor.update({"system.basic.xp": selectedActor.system.basic.xp + data.modifier});
   }
 }
 

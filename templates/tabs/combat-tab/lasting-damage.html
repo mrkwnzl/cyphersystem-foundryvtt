@@ -1,0 +1,20 @@
+{{#if actor.system.settings.combat.lastingDamage.active}}
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.LastingDamage'}}</div>
+        <div class="item-quantity">{{localize 'CYPHERSYSTEM.Damage'}}</div>
+        <div class="item-controls">
+          <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="lasting-damage">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      </li>
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        {{> systems/cyphersystem/templates/item-lists/lasting-damage-list-teen.html}}
+      {{else}}
+        {{> systems/cyphersystem/templates/item-lists/lasting-damage-list.html}}
+      {{/if}}
+    </ol>
+  </div>
+{{/if}}

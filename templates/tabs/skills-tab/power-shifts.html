@@ -1,0 +1,26 @@
+{{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
+  {{#if actor.system.settings.skills.powerShifts.active}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">
+            {{#if (eq actor.system.settings.skills.powerShifts.label "")}}
+              {{localize 'CYPHERSYSTEM.PowerShifts'}}
+            {{else}}
+              {{actor.system.settings.skills.powerShifts.label}}
+            {{/if}}
+          </div>
+          <div class="item-quantity">
+            {{localize 'CYPHERSYSTEM.Shifts'}}
+          </div>
+          <div class="item-controls">
+            <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="Create item" data-type="power-shift">
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
+        </li>
+        {{> systems/cyphersystem/templates/item-lists/power-shifts-list.html}}
+      </ol>
+    </div>
+  {{/if}}
+{{/unless}}

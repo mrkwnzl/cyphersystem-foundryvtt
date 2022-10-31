@@ -1,4 +1,4 @@
-import { chatCardWelcomeMessage } from "./chat-cards.js";
+import {chatCardWelcomeMessage} from "./chat-cards.js";
 
 export function sendWelcomeMessage() {
   ChatMessage.create({

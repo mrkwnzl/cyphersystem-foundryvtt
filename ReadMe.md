@@ -14,14 +14,14 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Highlights
 
-- Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall).
+- Support for Numenera, The Strange, and any Cypher System game (including Unmasked, Predation, and Gods of the Fall).
 - An Unmasked mode in which you can switch between your Teen Form and Mask Form.
 - An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 - A robust pre-made macro system which you can use to customize the game for your own needs.
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
-- The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil), and Spanish.
+- The Cypher System for Foundry VTT is available in English, French, German, Portuguese (Brazil), and Spanish.
 
 ## Add-on Modules
 
@@ -50,13 +50,15 @@ If the Cypher System for Foundry VTT makes your games more accessible and fun, I
 
 ## Licenses
 
-- Cypher System game terms and any material owned by Monte Cook Games is used in accordance with the Fan Use Policy.
+- Cypher System game terms and rules are licensed under the Cypher System Open License.
 - Images present under the `icons/` directory are distributed under the CC BY 3.0 license.
 - The software component of this system is distributed under the MIT license.
 
-## Fan Use Policy
+## Cypher System Open License
 
-*The Monte Cook Games logo, Numenera, the Cypher System, No Thank You, Evil!, Invisible Sun, and their respective logos are are trademarks of Monte Cook Games, LLC in the U.S.A. and other countries. All Monte Cook Games characters and character names, and the distinctive likenesses thereof, are trademarks of Monte Cook Games, LLC. Content on this site or associated files derived from Monte Cook Games publications is © 2013-2021 Monte Cook Games, LLC. Monte Cook Games permits web sites and similar fan-created publications for their games, subject to the policy given at [https://www.montecookgames.com/fan-use-policy/](https://www.montecookgames.com/fan-use-policy/). The contents of this site are for personal, non-commercial use only. Monte Cook Games is not responsible for this site or any of the content, that did not originate directly from Monte Cook Games, on or in it. Use of Monte Cook Games’s trademarks and copyrighted materials anywhere on this site and its associated files should not be construed as a challenge to those trademarks or copyrights. Materials on this site may not be reproduced or distributed except with the permission of the site owner and in compliance with Monte Cook Games policy given at [https://www.montecookgames.com/fan-use-policy/](https://www.montecookgames.com/fan-use-policy/).*
+This product is an independent production and is not affiliated with Monte Cook Games, LLC. It is published under the Cypher System Open License, found at [http://csol.montecookgames.com](http://csol.montecookgames.com).
+
+CYPHER SYSTEM and its logo are trademarks of Monte Cook Games, LLC in the U.S.A. and other countries. All Monte Cook Games characters and character names, and the distinctive likenesses thereof, are trademarks of Monte Cook Games, LLC. 
 
 ## Credits
 

@@ -2,14 +2,15 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import { CypherActorSheet } from "./actor-sheet.js";
+import {CypherActorSheet} from "./actor-sheet.js";
 
 import {
   recoveryRollMacro,
   diceRollMacro
 } from "../macros/macros.js";
-import { isExclusiveTagActive } from "../utilities/actor-utilities.js";
-import { rollEngineMain } from "../utilities/roll-engine/roll-engine-main.js";
+import {isExclusiveTagActive} from "../utilities/actor-utilities.js";
+import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
+import {disableMultiRoll} from "../forms/roll-engine-dialog-sheet.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
@@ -17,33 +18,40 @@ export class CypherActorSheetPC extends CypherActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
-      template: "systems/cyphersystem/templates/actor/pc-sheet.html",
+      template: "systems/cyphersystem/templates/actor-sheets/pc-sheet.html",
       width: 650,
       height: false,
       resizable: false,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
-      scrollY: [".sheet-body", ".tab", ".skills", ".biography", ".combat", ".items", ".abilities", ".settings"]
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".combat", ".items", ".abilities", ".settings", ".tags", ".editor-content"]
     });
   }
 
   /**
   * Additional data preparations
   */
-  getData() {
-    const data = super.getData();
-    const actorData = data.actor.data;
-    data.data.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.data.isExclusiveTagActive = isExclusiveTagActive(this.actor);
+  async getData() {
+    const data = await super.getData();
+    const actorData = data.actor;
+
+    // Sheet settings
+    data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.sheetSettings.multiRollActive = this.actor.getFlag("cyphersystem", "multiRoll.active");
+    data.sheetSettings.multiRollEffort = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollMightEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollSpeedEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.multiRollIntellectEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.sheetSettings.isExclusiveTagActive = isExclusiveTagActive(this.actor);
     const diceTraySettings = ["hidden", "left", "right"];
-    data.data.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
-    data.data.sheetWidth = (data.data.diceTray == "right") ? this.actor.sheet.options.width : -32;
+    data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
+    data.sheetSettings.sheetWidth = (data.sheetSettings.diceTray == "right") ? this.actor.sheet.options.width : -32;
 
     if (game.modules.get("cyphersheets")) {
       if (game.modules.get("cyphersheets").active) {
-        data.backgroundImage = "foundry";
-        data.backgroundIcon = "none";
-        data.cyphersheetsModuleActive = true;
-        data.backgroundImageBaseSetting = "";
+        data.sheetSettings.backgroundImage = "foundry";
+        data.sheetSettings.backgroundIcon = "none";
+        data.sheetSettings.cyphersheetsModuleActive = true;
+        data.sheetSettings.backgroundImageBaseSetting = "";
       } else {
         backgroundData();
       }
@@ -52,42 +60,42 @@ export class CypherActorSheetPC extends CypherActorSheet {
     }
 
     function backgroundData() {
-      data.cyphersheetsModuleActive = false;
-      data.backgroundImageBaseSetting = "background-image";
-      if (actorData.data.settings.gameMode.currentSheet == "Teen") {
-        data.backgroundImage = actorData.data.teen.settings.backgroundImage;
-        data.backgroundIcon = actorData.data.teen.settings.backgroundIcon;
+      data.sheetSettings.cyphersheetsModuleActive = false;
+      data.sheetSettings.backgroundImageBaseSetting = "background-image";
+      if (actorData.system.basic.unmaskedForm == "Teen") {
+        data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
       } else {
-        data.backgroundImage = actorData.data.settings.backgroundImage;
-        data.backgroundIcon = actorData.data.settings.backgroundIcon;
+        data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
       }
     }
 
-    data.disabledStaticStats = (data.actor.getFlag("cyphersystem", "disabledStaticStats")) ? "disabled" : "";
+    data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 
     for (let i of data.items) {
-      if (i.type == 'attack' || i.type == 'teen Attack') {
+      if (i.type == 'attack') {
 
         let skillRating = 0;
-        let modifiedBy = i.data.modifiedBy;
+        let modifiedBy = i.system.basic.steps;
         let totalModifier = 0;
         let totalModified = "";
 
-        if (i.data.skillRating == "Inability") skillRating = -1;
-        if (i.data.skillRating == "Trained") skillRating = 1;
-        if (i.data.skillRating == "Specialized") skillRating = 2;
+        if (i.system.basic.skillRating == "Inability") skillRating = -1;
+        if (i.system.basic.skillRating == "Trained") skillRating = 1;
+        if (i.system.basic.skillRating == "Specialized") skillRating = 2;
 
-        if (i.data.modified == "hindered") modifiedBy = modifiedBy * -1;
+        if (i.system.basic.modifier == "hindered") modifiedBy = modifiedBy * -1;
 
         totalModifier = skillRating + modifiedBy;
 
         if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
-        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", { amount: totalModifier });
+        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", {amount: totalModifier});
         if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
-        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", { amount: Math.abs(totalModifier) });
+        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", {amount: Math.abs(totalModifier)});
 
         // Assign and return
-        i.data.totalModified = totalModified;
+        i.system.totalModified = totalModified;
         this.actor.updateEmbeddedDocuments("Item", [i]);
       }
     }
@@ -98,24 +106,26 @@ export class CypherActorSheetPC extends CypherActorSheet {
     let teenArmorTotal = 0;
     let teenSpeedCostTotal = 0;
 
-    for (let piece of actorData.armor) {
-      if (piece.data.armorActive === true && piece.data.archived === false) {
-        armorTotal = armorTotal + piece.data.armorValue;
-        speedCostTotal = speedCostTotal + piece.data.speedCost;
+    for (let piece of data.itemLists.armor) {
+      if (piece.system.active === true && piece.system.archived === false) {
+        armorTotal = armorTotal + piece.system.basic.rating;
+        speedCostTotal = speedCostTotal + piece.system.basic.cost;
       }
     }
 
-    for (let piece of actorData.teenArmor) {
-      if (piece.data.armorActive === true && piece.data.archived === false) {
-        teenArmorTotal = teenArmorTotal + piece.data.armorValue;
-        teenSpeedCostTotal = teenSpeedCostTotal + piece.data.speedCost;
+    for (let piece of data.itemLists.teenArmor) {
+      if (piece.system.active === true && piece.system.archived === false) {
+        teenArmorTotal = teenArmorTotal + piece.system.basic.rating;
+        teenSpeedCostTotal = teenSpeedCostTotal + piece.system.basic.cost;
       }
     }
 
-    this.actor.update({ "data.armor.armorValueTotal": armorTotal });
-    this.actor.update({ "data.armor.speedCostTotal": speedCostTotal });
-    this.actor.update({ "data.teen.armor.armorValueTotal": teenArmorTotal });
-    this.actor.update({ "data.teen.armor.speedCostTotal": teenSpeedCostTotal });
+    this.actor.update({
+      "system.combat.armor.ratingTotal": armorTotal,
+      "system.combat.armor.costTotal": speedCostTotal,
+      "system.teen.combat.armor.armorValueTotal": teenArmorTotal,
+      "system.teen.combat.armor.speedCostTotal": teenSpeedCostTotal
+    });
 
     return data;
   }
@@ -133,54 +143,46 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Add to Lasting Damage
     html.find('.plus-one-damage').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.altKey) ? 10 : 1;
-      item.data.lastingDamageAmount = item.data.lastingDamageAmount + amount;
-      this.actor.updateEmbeddedDocuments("Item", [item]);
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = item.system.basic.damage + amount;
+      item.update({"system.basic.damage": newValue});
     });
 
     // Subtract from Lasting Damage
     html.find('.minus-one-damage').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      let amount = (event.altKey) ? 10 : 1;
-      item.data.lastingDamageAmount = item.data.lastingDamageAmount - amount;
-      this.actor.updateEmbeddedDocuments("Item", [item]);
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = item.system.basic.damage - amount;
+      item.update({"system.basic.damage": newValue});
     });
 
     // Change Armor Active
     html.find('.armor-active').click(clickEvent => {
-      const shownItem = $(clickEvent.currentTarget).parents(".item");
-      const item = duplicate(this.actor.items.get(shownItem.data("itemId")));
-      if (item.data.armorActive === true) {
-        item.data.armorActive = false;
-      }
-      else {
-        item.data.armorActive = true;
-      }
-      this.actor.updateEmbeddedDocuments("Item", [item]);
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let newValue = (item.system.active) ? false : true;
+      item.update({"system.active": newValue});
     });
 
     // Apply damage track to rolls
     html.find('.apply-impaired').click(clickEvent => {
-      let newValue = (this.actor.data.data.damage.applyImpaired) ? false : true;
-      this.actor.update({ "data.damage.applyImpaired": newValue });
+      let newValue = (this.actor.system.combat.damageTrack.applyImpaired) ? false : true;
+      this.actor.update({"system.combat.damageTrack.applyImpaired": newValue});
     });
 
     html.find('.apply-debilitated').click(clickEvent => {
-      let newValue = (this.actor.data.data.damage.applyDebilitated) ? false : true;
-      this.actor.update({ "data.damage.applyDebilitated": newValue });
+      let newValue = (this.actor.system.combat.damageTrack.applyDebilitated) ? false : true;
+      this.actor.update({"system.combat.damageTrack.applyDebilitated": newValue});
     });
 
     html.find('.apply-impaired-teen').click(clickEvent => {
-      let newValue = (this.actor.data.data.teen.damage.applyImpaired) ? false : true;
-      this.actor.update({ "data.teen.damage.applyImpaired": newValue });
+      let newValue = (this.actor.system.teen.combat.damage.applyImpaired) ? false : true;
+      this.actor.update({"system.teen.combat.damage.applyImpaired": newValue});
     });
 
     html.find('.apply-debilitated-teen').click(clickEvent => {
-      let newValue = (this.actor.data.data.teen.damage.applyDebilitated) ? false : true;
-      this.actor.update({ "data.teen.damage.applyDebilitated": newValue });
+      let newValue = (this.actor.system.teen.combat.damage.applyDebilitated) ? false : true;
+      this.actor.update({"system.teen.combat.damage.applyDebilitated": newValue});
     });
 
     /**
@@ -188,104 +190,96 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Might
     html.find('.increase-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.might.value + amount;
-      this.actor.update({ "data.pools.might.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.might.value + amount;
+      this.actor.update({"system.pools.might.value": newValue});
     });
 
     // Decrease Might
     html.find('.decrease-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.might.value - amount;
-      this.actor.update({ "data.pools.might.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.might.value - amount;
+      this.actor.update({"system.pools.might.value": newValue});
     });
 
     // Reset Might
     html.find('.reset-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Might" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.pools.might.value": this.actor.data.data.pools.might.max - lastingDamage
-      })
+      this.actor.update({"system.pools.might.value": this.actor.system.pools.might.max - lastingDamage})
     });
 
     // Increase Speed
     html.find('.increase-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.speed.value + amount;
-      this.actor.update({ "data.pools.speed.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.speed.value + amount;
+      this.actor.update({"system.pools.speed.value": newValue});
     });
 
     // Decrease Speed
     html.find('.decrease-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.speed.value - amount;
-      this.actor.update({ "data.pools.speed.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.speed.value - amount;
+      this.actor.update({"system.pools.speed.value": newValue});
     });
 
     // Reset Speed
     html.find('.reset-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Speed" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.pools.speed.value": this.actor.data.data.pools.speed.max - lastingDamage
-      })
+      this.actor.update({"system.pools.speed.value": this.actor.system.pools.speed.max - lastingDamage})
     });
 
     // Increase Intellect
     html.find('.increase-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.intellect.value + amount;
-      this.actor.update({ "data.pools.intellect.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.intellect.value + amount;
+      this.actor.update({"system.pools.intellect.value": newValue});
     });
 
     // Decrease Intellect
     html.find('.decrease-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.intellect.value - amount;
-      this.actor.update({ "data.pools.intellect.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.intellect.value - amount;
+      this.actor.update({"system.pools.intellect.value": newValue});
     });
 
     // Reset Intellect
     html.find('.reset-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.basic.pool == "Intellect" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.pools.intellect.value": this.actor.data.data.pools.intellect.max - lastingDamage
-      })
+      this.actor.update({"system.pools.intellect.value": this.actor.system.pools.intellect.max - lastingDamage})
     });
 
     // Increase Additional
     html.find('.increase-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.additional.value + amount;
-      this.actor.update({ "data.pools.additional.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.additional.value + amount;
+      this.actor.update({"system.pools.additional.value": newValue});
     });
 
     // Decrease Additional
     html.find('.decrease-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.pools.additional.value - amount;
-      this.actor.update({ "data.pools.additional.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.pools.additional.value - amount;
+      this.actor.update({"system.pools.additional.value": newValue});
     });
 
     // Reset Additional Pool
     html.find('.reset-additionalPool').click(clickEvent => {
-      this.actor.update({
-        "data.pools.additional.value": this.actor.data.data.pools.additional.max
-      })
+      this.actor.update({"system.pools.additional.value": this.actor.system.pools.additional.max})
     });
 
     /**
@@ -293,104 +287,96 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase Teen Might
     html.find('.increase-teen-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.might.value + amount;
-      this.actor.update({ "data.teen.pools.might.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.might.value + amount;
+      this.actor.update({"system.teen.pools.might.value": newValue});
     });
 
     // Decrease Teen Might
     html.find('.decrease-teen-might').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.might.value - amount;
-      this.actor.update({ "data.teen.pools.might.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.might.value - amount;
+      this.actor.update({"system.teen.pools.might.value": newValue});
     });
 
     // Reset Teen Might
     html.find('.reset-teen-might').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Might" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Might" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.teen.pools.might.value": this.actor.data.data.teen.pools.might.max - lastingDamage
-      })
+      this.actor.update({"system.teen.pools.might.value": this.actor.system.teen.pools.might.max - lastingDamage})
     });
 
     // Increase Teen Speed
     html.find('.increase-teen-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.speed.value + amount;
-      this.actor.update({ "data.teen.pools.speed.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.speed.value + amount;
+      this.actor.update({"system.teen.pools.speed.value": newValue});
     });
 
     // Decrease Teen Speed
     html.find('.decrease-teen-speed').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.speed.value - amount;
-      this.actor.update({ "data.teen.pools.speed.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.speed.value - amount;
+      this.actor.update({"system.teen.pools.speed.value": newValue});
     });
 
     // Reset Teen Speed
     html.find('.reset-teen-speed').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Speed" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Speed" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.teen.pools.speed.value": this.actor.data.data.teen.pools.speed.max - lastingDamage
-      })
+      this.actor.update({"system.teen.pools.speed.value": this.actor.system.teen.pools.speed.max - lastingDamage})
     });
 
     // Increase Teen Intellect
     html.find('.increase-teen-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.intellect.value + amount;
-      this.actor.update({ "data.teen.pools.intellect.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.intellect.value + amount;
+      this.actor.update({"system.teen.pools.intellect.value": newValue});
     });
 
     // Decrease Teen Intellect
     html.find('.decrease-teen-intellect').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.intellect.value - amount;
-      this.actor.update({ "data.teen.pools.intellect.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.intellect.value - amount;
+      this.actor.update({"system.teen.pools.intellect.value": newValue});
     });
 
     // Reset Teen Intellect
     html.find('.reset-teen-intellect').click(clickEvent => {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
-        if (item.data.type == "teen lasting Damage" && item.data.data.lastingDamagePool == "Intellect" && !item.data.data.archived) {
-          lastingDamage = lastingDamage + item.data.data.lastingDamageAmount
+        if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Intellect" && !item.system.archived) {
+          lastingDamage = lastingDamage + item.system.basic.damage
         }
       }
-      this.actor.update({
-        "data.teen.pools.intellect.value": this.actor.data.data.teen.pools.intellect.max - lastingDamage
-      })
+      this.actor.update({"system.teen.pools.intellect.value": this.actor.system.teen.pools.intellect.max - lastingDamage})
     });
 
     // Increase Teen Additional
     html.find('.increase-teen-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.additional.value + amount;
-      this.actor.update({ "data.teen.pools.additional.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.additional.value + amount;
+      this.actor.update({"system.teen.pools.additional.value": newValue});
     });
 
     // Decrease Teen Additional
     html.find('.decrease-teen-additional').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.teen.pools.additional.value - amount;
-      this.actor.update({ "data.teen.pools.additional.value": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.teen.pools.additional.value - amount;
+      this.actor.update({"system.teen.pools.additional.value": newValue});
     });
 
     // Reset Additional Teen Pool
     html.find('.reset-teen-additionalPool').click(clickEvent => {
-      this.actor.update({
-        "data.teen.pools.additional.value": this.actor.data.data.teen.pools.additional.max
-      })
+      this.actor.update({"system.teen.pools.additional.value": this.actor.system.teen.pools.additional.max})
     });
 
     /**
@@ -400,34 +386,19 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Might roll button
     html.find('.might-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Might", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Might"});
     });
 
     // Speed roll button
     html.find('.speed-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Speed", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Speed"});
     });
 
     // Intellect roll button
     html.find('.intellect-roll').click(clickEvent => {
       // Check for AiO dialog
-      let skipDialog = true;
-      if ((game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && !event.altKey) || (!game.settings.get("cyphersystem", "itemMacrosUseAllInOne") && event.altKey)) {
-        skipDialog = false;
-      };
-
-      rollEngineMain(this.actor, "", "", skipDialog, "", false, "", "Intellect", "Practiced", 0, 0, 0, 0, 0, 3, 0, "eased", 0, 0);
+      rollEngineMain({actorUuid: this.actor.uuid, pool: "Intellect"});
     });
 
     // Recovery roll button
@@ -460,44 +431,49 @@ export class CypherActorSheetPC extends CypherActorSheet {
     */
     // Increase XP
     html.find('.increase-xp').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.basic.xp + amount;
-      this.actor.update({ "data.basic.xp": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.basic.xp + amount;
+      this.actor.update({"system.basic.xp": newValue});
     });
 
     // Decrease XP
     html.find('.decrease-xp').click(clickEvent => {
-      let amount = (event.altKey) ? 10 : 1;
-      let newValue = this.actor.data.data.basic.xp - amount;
-      this.actor.update({ "data.basic.xp": newValue });
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
+      let newValue = this.actor.system.basic.xp - amount;
+      this.actor.update({"system.basic.xp": newValue});
     });
 
     // Reset Advancements
     html.find('.reset-advancement').click(clickEvent => {
       this.actor.update({
-        "data.advancement.advStats": false,
-        "data.advancement.advEffort": false,
-        "data.advancement.advEdge": false,
-        "data.advancement.advSkill": false,
-        "data.advancement.advOther": false
+        "system.basic.advancement.stats": false,
+        "system.basic.advancement.effort": false,
+        "system.basic.advancement.edge": false,
+        "system.basic.advancement.skill": false,
+        "system.basic.advancement.other": false
       })
     });
 
     // Reset Recovery Rolls
     html.find('.reset-recovery-rolls').click(clickEvent => {
       this.actor.update({
-        "data.recoveries.oneAction": false,
-        "data.recoveries.oneActionTwo": false,
-        "data.recoveries.oneActionThree": false,
-        "data.recoveries.oneActionFour": false,
-        "data.recoveries.oneActionFive": false,
-        "data.recoveries.oneActionSix": false,
-        "data.recoveries.oneActionSeven": false,
-        "data.recoveries.tenMinutes": false,
-        "data.recoveries.tenMinutesTwo": false,
-        "data.recoveries.oneHour": false,
-        "data.recoveries.tenHours": false
+        "system.combat.recoveries.oneAction": false,
+        "system.combat.recoveries.oneAction2": false,
+        "system.combat.recoveries.oneAction3": false,
+        "system.combat.recoveries.oneAction4": false,
+        "system.combat.recoveries.oneAction5": false,
+        "system.combat.recoveries.oneAction6": false,
+        "system.combat.recoveries.oneAction7": false,
+        "system.combat.recoveries.tenMinutes": false,
+        "system.combat.recoveries.tenMinutes2": false,
+        "system.combat.recoveries.oneHour": false,
+        "system.combat.recoveries.tenHours": false
       })
+    });
+
+    // Disable multi roll
+    html.find('.disable-multi-roll').click(clickEvent => {
+      disableMultiRoll(this.actor)
     });
   }
 }

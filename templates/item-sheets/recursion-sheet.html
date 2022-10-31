@@ -1,0 +1,36 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="centered-fields">
+          <div class="resource-content flexrow flex-center">
+            <input class="input-recursion" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+          </div>
+          <div class="resource flex-center">
+            <input type="text" name="system.basic.focus" value="{{item.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.FocusOnThisRecursion'}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fas fa-cog"></i></a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+    </div>
+
+    {{!-- Settings Tab --}}
+    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-tag.html}}
+
+  </section>
+</form>

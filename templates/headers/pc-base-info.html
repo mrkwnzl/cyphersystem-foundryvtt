@@ -1,0 +1,114 @@
+<div class="flexrow">
+  <div class="profile-img-container">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    {{#if sheetSettings.isExclusiveTagActive}}
+      <div class="profile-img-overlay">
+        <i class="fas fa-exclamation"></i><i class="fas fa-hashtag"></i>
+      </div>
+    {{/if}}
+    {{#if sheetSettings.disabledStaticStats}}
+      <div class="profile-img-overlay-lock">
+        <i class="fas fa-lock"></i>
+      </div>
+    {{/if}}
+    {{#if sheetSettings.multiRollActive}}
+      <div class="profile-img-overlay-multi-roll">
+        <a class="disable-multi-roll" title="{{localize 'CYPHERSYSTEM.MultiRollInProgress'}}"><i class="fas fa-dice"></i></a>
+      </div>
+    {{/if}}
+  </div>
+  <div class="centered-fields">
+    <div class="resource-content flexrow flex-center">
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        <input name="system.teen.basic.name" type="text" value="{{actor.system.teen.basic.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+      {{else}}
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
+      {{/if}}
+      {{#if (eq actor.system.settings.general.gameMode "Unmasked")}}
+        &nbsp;
+        <div class="item-quantity" style="flex: 0 0 80px;">
+          <select name="system.basic.unmaskedForm" style="width: 80px;">
+            {{#select actor.system.basic.unmaskedForm}}
+              <option value="Mask">{{localize 'CYPHERSYSTEM.Mask'}}</option>
+              <option value="Teen">{{localize 'CYPHERSYSTEM.Teen'}}</option>
+            {{/select}}
+          </select>
+        </div>
+      {{/if}}
+      {{#unless sheetSettings.isLimited}}
+        <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.Tier'}}
+        </label>
+        <input style="flex:0 0 30px" type="number" name="system.basic.tier" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.tier}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+      {{/unless}}
+    </div>
+    <div class="resource-content flexrow flex-center">
+      <label class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 55px;">
+        {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+          {{localize 'CYPHERSYSTEM.Is'}}
+        {{else}}
+          {{localize 'CYPHERSYSTEM.IsA'}}
+        {{/if}}
+      </label>
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        <input name="system.teen.basic.descriptor" type="text" value="{{actor.system.teen.basic.descriptor}}" placeholder="{{localize 'CYPHERSYSTEM.Descriptor'}}" />
+      {{else}}
+        <input name="system.basic.descriptor" type="text" value="{{actor.system.basic.descriptor}}" placeholder="{{localize 'CYPHERSYSTEM.Descriptor'}}" />
+      {{/if}}
+      {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
+        &nbsp;
+        <input name="system.basic.type" type="text" value="{{actor.system.basic.type}}" placeholder="{{localize 'CYPHERSYSTEM.Type'}}" />
+      {{/unless}}
+      {{#unless sheetSettings.isLimited}}
+        <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.Effort'}}
+        </label>
+        <input class="{{sheetSettings.multiRollEffort}}" style="flex:0 0 30px" type="number" name="system.basic.effort" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.effort}}{{/if}}" title="{{#if sheetSettings.multiRollEffort}}{{localize 'CYPHERSYSTEM.MultiRollValueChanged'}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+      {{/unless}}
+    </div>
+    <div class="resource-content flexrow flex-center">
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        <div></div>
+      {{else}}
+        <label class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 55px;">
+          {{localize 'CYPHERSYSTEM.Who'}}
+        </label>
+        <input name="system.basic.focus" type="text" value="{{actor.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" />
+        {{#if actor.system.settings.general.additionalSentence.active}}
+          &nbsp;
+          <input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" />
+        {{/if}}
+      {{/if}}
+      {{#unless sheetSettings.isLimited}}
+        <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
+          {{localize 'CYPHERSYSTEM.XP'}}
+        </label>
+        <input style="flex:0 0 30px" type="number" name="system.basic.xp" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.xp}}{{/if}}" />
+      {{/unless}}
+    </div>
+
+    <div class="resource-content flexrow flex-center" style="margin-top: 4px">
+      <div class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="padding-left: 0px; display: flex; justify-content: center">
+        {{#unless sheetSettings.isLimited}}
+          <input type="checkbox" name="system.basic.advancement.stats" {{checked actor.system.basic.advancement.stats}} {{sheetSettings.disabledStaticStats}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
+          <input type="checkbox" name="system.basic.advancement.effort" {{checked actor.system.basic.advancement.effort}} {{sheetSettings.disabledStaticStats}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
+          <input type="checkbox" name="system.basic.advancement.edge" {{checked actor.system.basic.advancement.edge}} {{sheetSettings.disabledStaticStats}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
+          <input type="checkbox" name="system.basic.advancement.skill" {{checked actor.system.basic.advancement.skill}} {{sheetSettings.disabledStaticStats}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
+          <input type="checkbox" name="system.basic.advancement.other" {{checked actor.system.basic.advancement.other}} {{sheetSettings.disabledStaticStats}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}
+        {{/unless}}
+      </div>
+      {{#unless sheetSettings.isLimited}}
+        <div style="max-width: 20px">
+          <a class="item-control reset-advancement {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}">
+            <i class="fas fa-sync-alt"></i>
+          </a>
+        </div>
+      {{/unless}}
+    </div>
+  </div>
+</div>

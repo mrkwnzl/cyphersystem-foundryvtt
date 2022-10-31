@@ -1,47 +1,69 @@
-import { rollEngineComputation } from "./roll-engine-computation.js";
-import { rollEngineForm } from "./roll-engine-form.js";
+import {rollEngineComputation} from "./roll-engine-computation.js";
+import {rollEngineForm} from "./roll-engine-form.js";
 
-export async function rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost) {
+export async function rollEngineMain(data) {
+  data = Object.assign({
+    actorUuid: undefined,
+    itemID: "",
+    teen: undefined,
+    skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
+    skipRoll: false,
+    initiativeRoll: false,
+    reroll: false,
+    gmiRange: undefined,
+    title: "",
+    pool: "Pool",
+    skillLevel: 0,
+    assets: 0,
+    effortToEase: 0,
+    effortOtherUses: 0,
+    damage: 0,
+    effortDamage: 0,
+    damagePerLOE: 0,
+    difficultyModifier: 0,
+    easedOrHindered: "eased",
+    bonus: 0,
+    poolPointCost: 0
+  }, data);
+
+  if (!data.actorUuid) data.actorUuid = game.user.character.uuid;
+
+  let actor = await fromUuid(data.actorUuid);
+
   // Check for PC actor
-  if (!actor || actor.data.type != "PC") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Check whether pool == XP
-  if (pool == "XP" && !skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
+  if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
 
   // Set defaults for functions
-  if (!teen) teen = (actor.data.data.settings.gameMode.currentSheet == "Teen") ? true : false;
-  if (!skipDialog) skipDialog = false;
-  if (KeyboardEvent.altKey) skipDialog = !skipDialog;
-  if (!skipRoll) skipRoll = false;
-  if (!initiativeRoll) initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).data.data.isInitiative : false;
-  if (!title) title = "";
+  if (data.teen === undefined) {
+    data.teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
+  }
+  data.skipDialog = (game.keyboard.isModifierActive('Alt')) ? !data.skipDialog : data.skipDialog;
+  data.skipDialog = (actor.getFlag("cyphersystem", "multiRoll.active")) ? false : data.skipDialog;
+
+  data.initiativeRoll = (actor.items.get(data.itemID)) ? actor.items.get(data.itemID).system.settings.general.initiative : false;
+
+  // Set GMI Range
+  if (data.gmiRange === undefined) {
+    if (game.settings.get("cyphersystem", "useGlobalGMIRange")) {
+      data.gmiRange = game.settings.get("cyphersystem", "globalGMIRange");
+    } else if (!game.settings.get("cyphersystem", "useGlobalGMIRange")) {
+      data.gmiRange = actor.system.basic.gmiRange;
+    }
+  }
 
   // Set default basic modifiers
-  if (!pool) pool = "Pool";
-  if (!skillLevel) skillLevel = 0;
-  if (skillLevel == "Specialized") skillLevel = 2;
-  if (skillLevel == "Trained") skillLevel = 1;
-  if (skillLevel == "Practiced") skillLevel = 0;
-  if (skillLevel == "Inability") skillLevel = -1;
-  if (!assets) assets = 0;
-  if (!effortToEase) effortToEase = 0;
-  if (!effortOtherUses) effortOtherUses = 0;
-
-  // Set defaults for combat modifiers
-  if (!damage) damage = 0;
-  if (!effortDamage) effortDamage = 0;
-  if (!damagePerLOE) damagePerLOE = 3;
-
-  // Set defaults for additional modifiers
-  if (!difficultyModifier) difficultyModifier = 0;
-  if (!easedOrHindered) easedOrHindered = (difficultyModifier >= 0) ? "eased" : "hindered";
-  if (!bonus) bonus = 0;
-  if (!poolPointCost) poolPointCost = 0;
+  if (data.skillLevel == "Specialized") data.skillLevel = 2;
+  if (data.skillLevel == "Trained") data.skillLevel = 1;
+  if (data.skillLevel == "Practiced") data.skillLevel = 0;
+  if (data.skillLevel == "Inability") data.skillLevel = -1;
 
   // Go to the next step after checking whether dialog should be skipped
-  if (!skipDialog) {
-    rollEngineForm(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
-  } else if (skipDialog) {
-    rollEngineComputation(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
+  if (!data.skipDialog) {
+    rollEngineForm(data);
+  } else if (data.skipDialog) {
+    rollEngineComputation(data);
   }
 }

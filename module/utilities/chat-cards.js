@@ -1,5 +1,5 @@
 export function chatCardMarkItemIdentified(actor, item) {
-  let content = game.i18n.format("CYPHERSYSTEM.PCAskingForIdentification", { actor: actor.name }) + `<div style='text-align: right; margin-top: 6px;'><a class='confirm' data-item='${item._id}' data-actor='${actor.id}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Confirm")}</a></div>`;
+  let content = game.i18n.format("CYPHERSYSTEM.PCAskingForIdentification", {actor: actor.name}) + `<div class='chat-card-buttons'><a class='confirm' data-item='${item._id}' data-actor='${actor.id}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Confirm")}</a></div>`;
 
   return content
 }
@@ -12,20 +12,22 @@ export function chatCardProposeIntrusion(selectOptions) {
 }
 
 export function chatCardAskForIntrusion(actor, actorId) {
-  let content = game.i18n.format("CYPHERSYSTEM.ProposingIntrusion", { actor: actor.data.name }) + `<div style='text-align: right; margin-top: 6px;'><a class='accept-intrusion' data-actor='${actorId}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Accept")}</a> | <a class='refuse-intrusion' data-actor='${actorId}'><i class="fas fa-times"></i> ${game.i18n.localize("CYPHERSYSTEM.Refuse")}</a></div>`;
+  let refuseButton = (actor.system.basic.xp > 0) ? ` | <a class='refuse-intrusion ' data-actor='${actorId}'><i class="fas fa-times"></i> ${game.i18n.localize("CYPHERSYSTEM.Refuse")}</a>` : "";
+
+  let content = game.i18n.format("CYPHERSYSTEM.ProposingIntrusion", {actor: actor.name}) + `<div class='chat-card-buttons' data-actor='${actorId}'><a class='accept-intrusion' data-actor='${actorId}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Accept")}</a>` + refuseButton + "</div>";
 
   return content
 }
 
 export function chatCardIntrusionAccepted(actor, selectedActorId) {
   let selectedActor = game.actors.get(selectedActorId);
-  let content = game.i18n.format("CYPHERSYSTEM.IntrusionAccepted", { actor: actor.data.name, selectedActor: selectedActor.data.name });
+  let content = (selectedActorId) ? game.i18n.format("CYPHERSYSTEM.IntrusionAcceptedAndGaveXP", {actor: actor.name, selectedActor: selectedActor.name}) : game.i18n.format("CYPHERSYSTEM.IntrusionAccepted", {actor: actor.name});
 
   return content
 }
 
 export function chatCardIntrusionRefused(actor) {
-  let content = game.i18n.format("CYPHERSYSTEM.IntrusionRefused", { actor: actor.data.name });
+  let content = game.i18n.format("CYPHERSYSTEM.IntrusionRefused", {actor: actor.name});
 
   return content
 }
@@ -36,8 +38,10 @@ export function chatCardWelcomeMessage() {
   return content
 }
 
-export function chatCardRegainPoints(actor, cost, pool) {
+export function chatCardRegainPoints(actor, cost, pool, teen) {
   pool = pool.toLowerCase();
+
+  let name = (teen) ? actor.system.teen.basic.name : actor.name;
 
   let poolPoints = "";
   if (pool == "might") {
@@ -50,7 +54,7 @@ export function chatCardRegainPoints(actor, cost, pool) {
     poolPoints = (cost == 1) ? game.i18n.localize("CYPHERSYSTEM.IntellectPoint") : game.i18n.localize("CYPHERSYSTEM.IntellectPoints");
   }
 
-  let content = game.i18n.format("CYPHERSYSTEM.RegainedPoints", { actor: actor.data.name, cost: cost, poolPoints: poolPoints });
+  let content = game.i18n.format("CYPHERSYSTEM.RegainedPoints", {actor: name, cost: cost, poolPoints: poolPoints});
 
   return content
 }

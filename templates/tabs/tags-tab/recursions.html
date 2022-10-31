@@ -1,0 +1,15 @@
+<div class="flexrow">
+  <ol class="items-list">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{localize 'CYPHERSYSTEM.Recursions'}}
+      </div>
+      <div class="item-controls">
+        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="recursion">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    {{> systems/cyphersystem/templates/item-lists/recursions-list.html}}
+  </ol>
+</div>

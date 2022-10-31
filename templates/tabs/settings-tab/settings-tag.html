@@ -1,0 +1,74 @@
+<div class="tab settings" data-group="primary" data-tab="settings">
+  {{#if (eq item.type "tag")}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.exclusive" {{checked item.system.exclusive}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.ExclusiveTag'}}
+          </div>
+        </li>
+      </ol>
+    </div>
+  {{/if}}
+  {{#if (or item.system.exclusive (eq item.type "recursion"))}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.StatModifiers'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.MightPool'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.might.value" type="number" value="{{item.system.settings.statModifiers.might.value}}" placeholder="0" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.MightEdge'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.might.edge" type="number" value="{{item.system.settings.statModifiers.might.edge}}" placeholder="0" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.SpeedPool'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.speed.value" type="number" value="{{item.system.settings.statModifiers.speed.value}}" placeholder="0" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.SpeedEdge'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.speed.edge" type="number" value="{{item.system.settings.statModifiers.speed.edge}}" placeholder="0" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.IntellectPool'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.intellect.value" type="number" value="{{item.system.settings.statModifiers.intellect.value}}" placeholder="0" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.IntellectEdge'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.statModifiers.intellect.edge" type="number" value="{{item.system.settings.statModifiers.intellect.edge}}" placeholder="0" />
+          </div>
+        </li>
+      </ol>
+    </div>
+  {{/if}}
+</div>
