@@ -576,5 +576,5 @@
     "CYPHERSYSTEM.GMIRange": "Portée d'Intrusion du MJ",
     "CYPHERSYSTEM.AllPCs": "Tous les Personnages des Joueurs",
     "CYPHERSYSTEM.CurrentGMIRange": "Portée d'Intrusion du MJ : 1–{gmiRange}.",
-    "CYPHERSYSTEM.MultiRoll": "Actions à jets multiples."
+    "CYPHERSYSTEM.MultiRoll": "Actions à jets multiples"
 }
