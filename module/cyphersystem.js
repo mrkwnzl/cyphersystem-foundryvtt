@@ -237,6 +237,11 @@ Hooks.once("ready", async function () {
 
   game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"];
 
+  // Send warning for people with CSRD Compendium v3.2.0
+  if (game.modules.get("cyphersystem-compendium")?.version == "v3.2.0") {
+    ui.notifications.error("There has been a bug in the update process for the Cypher SRD Compendium. Please uninstall and reinstall the module in the Foundry setup to get the newest version. Sorry for the inconvenience! –Marko", {permanent: true, console: true});
+  }
+
   // Send welcome message
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 });
