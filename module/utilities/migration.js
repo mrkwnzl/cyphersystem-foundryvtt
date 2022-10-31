@@ -55,10 +55,12 @@ export async function dataMigration() {
   await game.settings.set("cyphersystem", "systemMigrationVersion", game.system.version);
 
   // Notify about finished migration
-  await ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}));
+  await ui.notifications.info(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}), {permanent: true, console: true});
 }
 
 export async function dataMigrationPacks(packageName) {
+  if (!game.modules.get(packageName)?.active) return ui.notifications.error("Package " + packageName + " not found in active modules!");
+
   // Warn about migration
   ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MigrationInProgress", {version: game.system.version}));
 
@@ -96,7 +98,7 @@ export async function dataMigrationPacks(packageName) {
   game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"]
 
   // Notify about finished migration
-  await ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}));
+  await ui.notifications.info(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}), {permanent: true, console: true});
 }
 
 async function migrationRoutineActor(actor) {

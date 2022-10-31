@@ -33,25 +33,25 @@ export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
   // Check if enough points are avalable and update actor
   if (pool == "Might") {
     if (costCalculated > mightValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.might.value": mightValue - costCalculated}) : actor.update({"system.pools.might.value": mightValue - costCalculated})
   } else if (pool == "Speed") {
     if (costCalculated > speedValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue - costCalculated}) : actor.update({"system.pools.speed.value": speedValue - costCalculated})
   } else if (pool == "Intellect") {
     if (costCalculated > intellectValue) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue - costCalculated}) : actor.update({"system.pools.intellect.value": intellectValue - costCalculated})
   } else if (pool == "XP") {
     if (costCalculated > actor.system.basic.xp) {
-      ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
       return false;
     }
     actor.update({"system.basic.xp": actor.system.basic.xp - costCalculated})

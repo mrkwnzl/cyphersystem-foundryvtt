@@ -2,7 +2,7 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "2.0.0-b3",
+  "version": "2.0.0",
   "compatibility": {
     "minimum": "10",
     "verified": "10",
@@ -11,7 +11,8 @@
   "authors": [
     {
       "name": "Marko Wenzel",
-      "discord": "mrkwnzl#7407"
+      "discord": "mrkwnzl#7407",
+      "flags": { }
     }
   ],
   "esmodules": [
@@ -27,7 +28,8 @@
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
       "type": "Macro",
-      "private": false
+      "private": false,
+      "flags": { }
     },
     {
       "name": "marker",
@@ -35,7 +37,8 @@
       "system": "cyphersystem",
       "path": "packs/markers.db",
       "type": "Actor",
-      "private": false
+      "private": false,
+      "flags": { }
     },
     {
       "name": "scenes",
@@ -43,7 +46,8 @@
       "system": "cyphersystem",
       "path": "packs/scenes.db",
       "type": "Scene",
-      "private": false
+      "private": false,
+      "flags": { }
     },
     {
       "name": "utility-macros",
@@ -51,7 +55,8 @@
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
       "type": "Macro",
-      "private": false
+      "private": false,
+      "flags": { }
     },
     {
       "name": "secret-settings",
@@ -59,40 +64,46 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
       "type": "Macro",
-      "private": false
+      "private": false,
+      "flags": { }
     }
   ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": { }
     },
     {
       "lang": "fr",
       "name": "Français",
-      "path": "lang/fr.json"
+      "path": "lang/fr.json",
+      "flags": { }
     },
     {
       "lang": "es",
       "name": "Español",
-      "path": "lang/es.json"
+      "path": "lang/es.json",
+      "flags": { }
     },
     {
       "lang": "de",
       "name": "Deutsch",
-      "path": "lang/de.json"
+      "path": "lang/de.json",
+      "flags": { }
     },
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
-      "path": "lang/pt_BR.json"
+      "path": "lang/pt_BR.json",
+      "flags": { }
     }
   ],
   "socket": true,
   "gridDistance": 1.5,
   "gridUnits": "m",
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
-  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.0.0-b3/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.0.0-b3/release.zip"
+  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.0.0/system.json",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.0.0/release.zip"
 }

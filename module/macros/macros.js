@@ -529,7 +529,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
     await actor.updateEmbeddedDocuments("Item", updates);
 
     // Notify about translation
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}))
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}))
   }
 }
 
@@ -1038,11 +1038,13 @@ export function disasterModeMacro(token, mode, genre) {
   }
 }
 
-export async function lockStaticStatsMacro(actor) {
+export async function lockStaticStatsMacro(actor, locked) {
   // Check for PC actor
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  actor.setFlag("cyphersystem", "disabledStaticStats", !actor.getFlag("cyphersystem", "disabledStaticStats"));
+  locked = locked ?? !actor.getFlag("cyphersystem", "disabledStaticStats");
+
+  actor.setFlag("cyphersystem", "disabledStaticStats", locked);
 }
 
 export async function migrateDataMacro() {

@@ -11,7 +11,7 @@ export async function rollEngineComputation(data) {
   // Check for effort
   data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;
   if (data.effortTotal > actor.system.basic.effort) {
-    return ui.notifications.notify(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
+    return ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
   }
 
   // Determine impaired & debilitated status

@@ -12,7 +12,9 @@ export function chatCardProposeIntrusion(selectOptions) {
 }
 
 export function chatCardAskForIntrusion(actor, actorId) {
-  let content = game.i18n.format("CYPHERSYSTEM.ProposingIntrusion", {actor: actor.name}) + `<div class='chat-card-buttons' data-actor='${actorId}'><a class='accept-intrusion' data-actor='${actorId}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Accept")}</a> | <a class='refuse-intrusion' data-actor='${actorId}'><i class="fas fa-times"></i> ${game.i18n.localize("CYPHERSYSTEM.Refuse")}</a></div>`;
+  let refuseButton = (actor.system.basic.xp > 0) ? ` | <a class='refuse-intrusion ' data-actor='${actorId}'><i class="fas fa-times"></i> ${game.i18n.localize("CYPHERSYSTEM.Refuse")}</a>` : "";
+
+  let content = game.i18n.format("CYPHERSYSTEM.ProposingIntrusion", {actor: actor.name}) + `<div class='chat-card-buttons' data-actor='${actorId}'><a class='accept-intrusion' data-actor='${actorId}'><i class="fas fa-check"></i> ${game.i18n.localize("CYPHERSYSTEM.Accept")}</a>` + refuseButton + "</div>";
 
   return content
 }

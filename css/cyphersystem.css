@@ -317,6 +317,19 @@ select.bar-attribute {
   line-height: 1.4;
 }
 
+.sheet.journal-entry .csrd-table {
+  width: 100%;
+}
+
+.sheet.journal-entry .csrd-table td {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.sheet.journal-entry .csrd-td-equipment {
+  width: 250px
+}
+
 /* Styles limited to cyphersystem sheets */
 
 .cyphersystem .window-content {

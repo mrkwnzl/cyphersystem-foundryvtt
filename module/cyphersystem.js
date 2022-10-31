@@ -386,7 +386,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let actor = game.actors.get(html.find('.confirm').data('actor'));
     let item = actor.items.get(html.find('.confirm').data('item'));
     item.updateSource({"system.basic.identified": true});
-    ui.notifications.notify(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
   });
 
   // Event Listener for rerolls of stat rolls
