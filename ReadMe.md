@@ -14,14 +14,14 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Highlights
 
-- Support for Numenera and any Cypher System game (including Unmasked, Predation, and Gods of the Fall).
+- Support for Numenera, The Strange, and any Cypher System game (including Unmasked, Predation, and Gods of the Fall).
 - An Unmasked mode in which you can switch between your Teen Form and Mask Form.
 - An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
 - An option for an additional pool, for people with the Luck Descriptor or the Datasphere in Numenera. This pool can be renamed to anything you like.
 - A robust pre-made macro system which you can use to customize the game for your own needs.
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
-- The Cypher System for Foundry VTT is available in English, French, German, Italian, Portuguese (Brazil), and Spanish.
+- The Cypher System for Foundry VTT is available in English, French, German, Portuguese (Brazil), and Spanish.
 
 ## Add-on Modules
 
