@@ -44,17 +44,17 @@ export class CypherActorSheet extends ActorSheet {
     data.enrichedHTML = {};
 
     // --Notes and description
-    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner});
-    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner});
+    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
+    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
 
     data.enrichedHTML.itemDescription = {};
     data.enrichedHTML.itemLevel = {};
     data.enrichedHTML.itemDepletion = {};
 
     for (let item of this.actor.items) {
-      data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner});
-      data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.basic?.level, {async: true});
-      data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true});
+      data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: item});
+      data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.basic?.level, {async: true, relativeTo: item});
+      data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true, relativeTo: item});
     }
 
     // Prepare items and return
