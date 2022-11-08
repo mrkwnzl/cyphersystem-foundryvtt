@@ -44,7 +44,7 @@ export async function dataMigration() {
   // Migrate tokens on scenes
   for (let scene of game.scenes) {
     for (let token of scene.tokens) {
-      if (token.actorLink) {
+      if (!token.actorLink && token.actor) {
         console.log(`Migrating Token document ${token.name}`);
         await migrationRoutineActor(token.actor)
       }
@@ -104,6 +104,9 @@ export async function dataMigrationPacks(packageName) {
 async function migrationRoutineActor(actor) {
   try {
     for (let item of actor.items) {
+      if (item.system.version == null) {
+        
+      }
       const updateDataItem = await migrationItemV1ToV2(item);
       if (!foundry.utils.isEmpty(updateDataItem)) {
         await item.update(updateDataItem, {enforceTypes: false});
