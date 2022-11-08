@@ -3,7 +3,7 @@ import {rollEngineForm} from "./roll-engine-form.js";
 import {rollEngineOutput} from "./roll-engine-output.js";
 
 export async function rollEngineComputation(data) {
-  let actor = await fromUuid(data.actorUuid);
+  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
   // Roll dice
   data.roll = await new Roll("1d20").evaluate({async: true});
@@ -63,7 +63,8 @@ export async function rollEngineComputation(data) {
 
   // Calculate difficulty
   data.difficulty = (data.rollTotal < 0) ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);
-  data.difficultyResult = determineDifficultyResult(data.difficulty, data.difficultyModifierTotal, data.bonus);
+  data.difficultyResult = determineDifficultyResult(data.difficulty, data.difficultyModifierTotal);
+  data.finalDifficulty = (data.baseDifficulty != "none" && !game.settings.get("cyphersystem", "effectiveDifficulty")) ? Math.max(data.baseDifficulty - data.difficultyModifierTotal, 0) : data.baseDifficulty;
 
   // Go to next step
   if (payPoolPointsInfo[0]) {

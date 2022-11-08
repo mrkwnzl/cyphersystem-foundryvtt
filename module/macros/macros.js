@@ -105,7 +105,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.settings.general.initiative : false;
 
   // Apply to roll eninge
-  rollEngineMain(actor, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
+  rollEngineMain(actor.Uuid, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
 }
 
 export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus) {
@@ -235,7 +235,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   let roll = await new Roll(dice).evaluate({async: true});
 
   // Add reroll button
-  let reRollButton = `<div style="text-align: right"><a class="reroll-recovery" data-dice="${dice}" data-user="${game.user.id}" data-actor-id="${actor._id}"><i class="fas fa-redo"> <i class="fas fa-dice-d20"></i></a></div>`;
+  let reRollButton = `<div style="text-align: right"><a class="reroll-recovery" data-dice="${dice}" data-user="${game.user.id}" data-actor-uuid="${actor.uuid}"><i class="fas fa-dice-d20"></i></a></div>`;
 
   // Send chat message
   roll.toMessage({
@@ -929,7 +929,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       modifier = modifier * -1;
     }
 
-    let finalDifficulty = difficulty + modifier;
+    let finalDifficulty = parseInt(difficulty) + parseInt(modifier);
 
     if (finalDifficulty < 0) finalDifficulty = 0;
 
@@ -974,7 +974,8 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     if (chatMessage == 0) {
       ChatMessage.create({
-        content: chatMessageText
+        content: chatMessageText,
+        flags: {"difficulty": finalDifficulty}
       });
     } else if (chatMessage == 1) {
       ChatMessage.create({

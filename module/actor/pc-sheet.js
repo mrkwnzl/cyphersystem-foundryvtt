@@ -77,7 +77,8 @@ export class CypherActorSheetPC extends CypherActorSheet {
       if (i.type == 'attack') {
 
         let skillRating = 0;
-        let modifiedBy = i.system.basic.steps;
+        // parseInt to correct old error
+        let modifiedBy = parseInt(i.system.basic.steps);
         let totalModifier = 0;
         let totalModified = "";
 

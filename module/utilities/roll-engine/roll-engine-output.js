@@ -4,7 +4,7 @@ import {
 } from "../actor-utilities.js";
 
 export async function rollEngineOutput(data) {
-  let actor = await fromUuid(data.actorUuid);
+  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
   // Title information
   let poolRoll = {
@@ -209,7 +209,10 @@ export async function rollEngineOutput(data) {
     }
   }
 
-  // Determine multi roll
+  // Create difficulty info
+  let finalDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + data.finalDifficulty : "";
+
+  // Create multi roll
   let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<br><span class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</span>" : "";
 
   // Create beatenDifficulty
@@ -218,6 +221,13 @@ export async function rollEngineOutput(data) {
   // Add initiative result
   let initiativeResult = data.roll.total + (data.difficultyModifierTotal * 3) + data.bonus;
   let initiativeInfo = (data.initiativeRoll) ? "<br><span class='roll-initiative'>" + game.i18n.localize("CYPHERSYSTEM.Initiative") + ": " + initiativeResult + "</span > " : "";
+
+  // Create success info
+  let successInfo = "";
+  if (data.baseDifficulty != "none") {
+    let difficultyBeaten = data.difficulty + data.difficultyModifierTotal;
+    successInfo = (difficultyBeaten >= data.finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
+  }
 
   // Create info block
   let info = basicInfoBlock + damageInfoBlock + costInfoBlock;
@@ -230,14 +240,14 @@ export async function rollEngineOutput(data) {
   // Add regain points button
   let regainPointsButton = "";
   if (data.costTotal > 0 && data.roll.total == 20 && ["Might", "Speed", "Intellect"].includes(data.pool)) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i> </a>`
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i></a>`
   }
 
   // Put buttons together
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + data.title + "</b>" + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + effect + gmiEffect + chatButtons;
+  let flavor = "<b>" + data.title + "</b>" + finalDifficultyInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
 
   // ---
 
