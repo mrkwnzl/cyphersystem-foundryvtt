@@ -2,12 +2,15 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "compatibility": {
     "minimum": "10",
-    "verified": "10.288",
+    "verified": "10",
     "maximum": "10"
   },
+  "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
+  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.1.0/release.zip",
   "authors": [
     {
       "name": "Marko Wenzel",
@@ -102,8 +105,5 @@
   ],
   "socket": true,
   "gridDistance": 1.5,
-  "gridUnits": "m",
-  "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
-  "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.0.2/release.zip"
+  "gridUnits": "m"
 }
