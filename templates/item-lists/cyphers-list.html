@@ -4,9 +4,9 @@
       <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~#if item.system.basic.identified ~}}
-        {{~item.name ~}}
+          {{~item.name ~}}
         {{~else ~}}
-        {{~localize 'CYPHERSYSTEM.UnidentifiedCypher' ~}}
+          {{~localize 'CYPHERSYSTEM.UnidentifiedCypher' ~}}
         {{~/if ~}}
       </a>
     </h4>
@@ -31,7 +31,7 @@
         </a>
       {{/unless}}
       {{#if (or item.system.basic.identified ../sheetSettings.isGM)}}
-        <a class="item-control item-edit {{#if ../system.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+        <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
           <i class="fas fa-file-alt"></i>
         </a>
       {{/if}}
