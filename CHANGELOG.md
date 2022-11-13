@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.1.0] - 2022-11-13
 ### Added
 - The All-in-One roll dialog now includes an option to include the difficulty, which then outputs if the roll is successful or not. If a chat message with a difficulty from the Calculate Difficulty macro is the last message in the chat, the difficulty is being used as the default for the roll coming right after that message.
 - The Calculate Difficulty macro is now also accessible via button in the token controls.
@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed a bug where linked tokens that don’t represent an actor stopped migration.
 - Roll macros are working again.
 - Roll buttons & macros used on unlinked tokens now work on the token instead of the represented actor.
+- Recursion and tag macros have been fixed. It might be needed that you create new macros by dragging & dropping recursions or tags onto the hotbar.
+- Fixed migration for old actors & items that don’t have a version.
 
 ## [2.0.2] - 2022-10-31
 ### Added
