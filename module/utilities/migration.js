@@ -44,7 +44,7 @@ export async function dataMigration() {
   // Migrate tokens on scenes
   for (let scene of game.scenes) {
     for (let token of scene.tokens) {
-      if (token.actorLink) {
+      if (!token.actorLink && token.actor) {
         console.log(`Migrating Token document ${token.name}`);
         await migrationRoutineActor(token.actor)
       }
@@ -138,7 +138,7 @@ async function migrationActorV1ToV2(actor) {
   let updateData = foundry.utils.deepClone(actor.toObject());
 
   // Migration for v2 data paths
-  if (actor.system.version == 1) {
+  if (actor.system.version == 1 || actor.system.version == null) {
     if (actor.type == "pc") {
       await migrateBasicAdvancements();
       await migratePoolsEdge();
@@ -716,7 +716,7 @@ async function migrationItemV1ToV2(item) {
   let updateData = foundry.utils.deepClone(item.toObject());
 
   // Migration for v2 data paths
-  if (item.system.version == 1) {
+  if (item.system.version == 1 || item.system.version == null) {
     if (item.type == "ability") {
       await migrateNewIconPath();
       await migrateBasicAbility();

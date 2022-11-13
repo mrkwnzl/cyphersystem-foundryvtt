@@ -75,6 +75,9 @@ import {
   dataMigrationPacks
 } from "./utilities/migration.js";
 import {rollEngineMain} from "./utilities/roll-engine/roll-engine-main.js";
+import {rollEngineComputation} from "./utilities/roll-engine/roll-engine-computation.js";
+import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
+import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
 import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
 
 /* -------------------------------------------- */
@@ -133,6 +136,10 @@ Hooks.once("init", async function () {
     lockStaticStatsMacro,
     migrateDataMacro,
     dataMigrationPacks,
+    rollEngineMain,
+    rollEngineComputation,
+    rollEngineForm,
+    rollEngineOutput,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -248,6 +255,15 @@ Hooks.once("ready", async function () {
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
   let tokenControls = hudButtons.find(val => {return val.name == "token"})
+  if (tokenControls && game.user.isGM) {
+    tokenControls.tools.push({
+      name: "calculateDifficulty",
+      title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
+      icon: "fas fa-calculator",
+      onClick: () => {calculateAttackDifficulty()},
+      button: true
+    });
+  }
   if (tokenControls && game.user.isGM) {
     tokenControls.tools.push({
       name: "proposeGMI",
@@ -412,7 +428,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-recovery').data('dice');
-    let actor = fromUuidSync(html.find('.reroll-stat').data('actor-uuid'));
+    let actorUuid = html.find('.reroll-recovery').data('actor-uuid')
+    let actor = (actorUuid.includes("Token")) ? fromUuidSync(actorUuid).actor : fromUuidSync(actorUuid);
     recoveryRollMacro(actor, dice, false);
   });
 
@@ -428,7 +445,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   html.find('.regain-points').click(clickEvent => {
     let user = html.find('.regain-points').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
-    let actor = game.actors.get(html.find('.reroll-stat').data('actor'));
+    let actorUuid = html.find('.regain-points').data('actor-uuid');
+    let actor = (actorUuid.includes("Token")) ? fromUuidSync(actorUuid).actor : fromUuidSync(actorUuid);
     let cost = html.find('.regain-points').data('cost');
     let pool = html.find('.regain-points').data('pool');
     let teen = html.find('.regain-points').data('teen');

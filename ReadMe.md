@@ -25,10 +25,21 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Add-on Modules
 
+These modules have been written specifically to expand the functionality of the Cypher System.
+
+- [Cypher SRD Compendium](https://foundryvtt.com/packages/cyphersystem-compendium)
+- [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums)
 - [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
-- [Cypher System Compendium](https://foundryvtt.com/packages/cyphersystem-compendium)
 - [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
+
+## Modules with Cypher System Integration
+
+These modules come pre-configured with Cypher-specific functionality.
+
+- [Bar Brawl](https://foundryvtt.com/packages/barbrawl)
+- [Drag Ruler](https://foundryvtt.com/packages/drag-ruler)
+- [Party Overwiew](https://foundryvtt.com/packages/party-overview)
 
 ## Support, Community, and Contributing
 

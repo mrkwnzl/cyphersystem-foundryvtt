@@ -77,8 +77,8 @@ export function recursionString(actorID, itemID) {
   let content =
     `// Do not change anything below
 
-    let actor = game.actors.get("${actorID}");
-    let item = duplicate(actor.getEmbeddedDocument("Item", "${itemID}"));
+    actor = game.actors.get("${actorID}");
+    let item = actor.items.get("${itemID}");
 
     game.cyphersystem.recursionMacro(actor, item);`;
 
@@ -89,8 +89,8 @@ export function tagString(actorID, itemID) {
   let content =
     `// Do not change anything below
 
-    let actor = game.actors.get("${actorID}");
-    let item = duplicate(actor.getEmbeddedDocument("Item", "${itemID}"));
+    actor = game.actors.get("${actorID}");
+    let item = actor.items.get("${itemID}");
 
     game.cyphersystem.tagMacro(actor, item);`;
 
@@ -112,6 +112,13 @@ export function spendEffortString() {
 }
 
 export function calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName) {
+  additionalOneName = (!additionalOneName) ? "" : additionalOneName;
+  additionalOneValue = (!additionalOneValue) ? 0 : additionalOneValue;
+  additionalTwoName = (!additionalTwoName) ? "" : additionalTwoName;
+  additionalTwoValue = (!additionalTwoValue) ? 0 : additionalTwoValue;
+  additionalThreeName = (!additionalThreeName) ? "" : additionalThreeName;
+  additionalThreeValue = (!additionalThreeValue) ? 0 : additionalThreeValue;
+
   let content =
     `<div>
       <select name='difficulty' id='difficulty' class='dialog-calcAttDiff'>

@@ -12,6 +12,7 @@ export async function rollEngineMain(data) {
     reroll: false,
     gmiRange: undefined,
     title: "",
+    baseDifficulty: "none",
     pool: "Pool",
     skillLevel: 0,
     assets: 0,
@@ -28,13 +29,17 @@ export async function rollEngineMain(data) {
 
   if (!data.actorUuid) data.actorUuid = game.user.character.uuid;
 
-  let actor = await fromUuid(data.actorUuid);
+  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
   // Check for PC actor
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Check whether pool == XP
   if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
+
+  // Set default for difficulty
+  let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
+  data.baseDifficulty = (lastChatMessage?.flags?.difficulty) ? lastChatMessage.flags.difficulty : "none";
 
   // Set defaults for functions
   if (data.teen === undefined) {

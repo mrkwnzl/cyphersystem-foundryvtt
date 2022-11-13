@@ -25,7 +25,7 @@ export class RollEngineDialogSheet extends FormApplication {
     // Basic data
     const data = super.getData().object;
 
-    let actor = fromUuidSync(data.actorUuid);
+    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
     if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
@@ -44,6 +44,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.intellectEdge = (data.teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
     // Summary
+    data.summaryFinalDifficulty = summaryFinalDifficulty(data);
     data.summaryTaskModified = summaryTaskModified(data);
     data.summaryTotalDamage = summaryTotalDamage(data);
     data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
@@ -80,10 +81,10 @@ export class RollEngineDialogSheet extends FormApplication {
 
     // MultiRoll data
     data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
-    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
-    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
     // Return data
     return data;
@@ -92,9 +93,10 @@ export class RollEngineDialogSheet extends FormApplication {
   _updateObject(event, formData) {
     let data = this.object;
 
-    let actor = fromUuidSync(data.actorUuid);
+    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
     // Basic data
+    data.baseDifficulty = formData.baseDifficulty;
     data.pool = formData.pool;
     data.skillLevel = parseInt(formData.skillLevel);
     data.assets = (formData.assets) ? parseInt(formData.assets) : 0;
@@ -109,6 +111,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.poolPointCost = (formData.poolPointCost) ? formData.poolPointCost : 0;
 
     // Summary
+    data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
     data.summaryTaskModified = summaryTaskModified(formData);
     data.summaryTotalDamage = summaryTotalDamage(formData);
     data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
@@ -143,10 +146,10 @@ export class RollEngineDialogSheet extends FormApplication {
 
     // MultiRoll data
     data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
-    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
-    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
-    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollEffort = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
+    data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
+    data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
     // Render sheet
     this.render();
@@ -159,7 +162,7 @@ export class RollEngineDialogSheet extends FormApplication {
     super.activateListeners(html);
 
     let data = this.object;
-    let actor = fromUuidSync(data.actorUuid);
+    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
     html.find('.roll-engine-roll').click(async clickEvent => {
       data.skipRoll = false;
@@ -255,6 +258,15 @@ export async function disableMultiRoll(actor) {
     "flags.cyphersystem.multiRoll.modifiers.speed.edge": 0,
     "flags.cyphersystem.multiRoll.modifiers.intellect.edge": 0
   });
+}
+
+function summaryFinalDifficulty(data) {
+  let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
+  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
+  let finalDifficulty = (!game.settings.get("cyphersystem", "effectiveDifficulty")) ? Math.max(data.baseDifficulty - sum, 0) : data.baseDifficulty;
+  let finalDifficultyString = (data.baseDifficulty != "none") ? game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + finalDifficulty + "." : "";
+
+  return finalDifficultyString;
 }
 
 function summaryTaskModified(data) {
