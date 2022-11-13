@@ -77,8 +77,8 @@ export function recursionString(actorID, itemID) {
   let content =
     `// Do not change anything below
 
-    let actor = game.actors.get("${actorID}");
-    let item = duplicate(actor.getEmbeddedDocument("Item", "${itemID}"));
+    actor = game.actors.get("${actorID}");
+    let item = actor.items.get("${itemID}");
 
     game.cyphersystem.recursionMacro(actor, item);`;
 
@@ -89,8 +89,8 @@ export function tagString(actorID, itemID) {
   let content =
     `// Do not change anything below
 
-    let actor = game.actors.get("${actorID}");
-    let item = duplicate(actor.getEmbeddedDocument("Item", "${itemID}"));
+    actor = game.actors.get("${actorID}");
+    let item = actor.items.get("${itemID}");
 
     game.cyphersystem.tagMacro(actor, item);`;
 
