@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- PC actors with armor no longer throw an error when opened in a locked compendium.
+
 ## [2.1.0] - 2022-11-13
 ### Added
 - The All-in-One roll dialog now includes an option to include the difficulty, which then outputs if the roll is successful or not. If a chat message with a difficulty from the Calculate Difficulty macro is the last message in the chat, the difficulty is being used as the default for the roll coming right after that message.
