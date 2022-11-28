@@ -1,5 +1,5 @@
 export async function barBrawlOverwrite(document, actor) {
-  await document.data.update({
+  await document.updateSource({
     [`flags.-=barbrawl`]: null,
     "bar1.attribute": null,
     "bar2.attribute": null

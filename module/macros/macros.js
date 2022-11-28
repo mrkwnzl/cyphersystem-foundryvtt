@@ -326,7 +326,7 @@ export async function resetBarBrawlDefaults(tokens) {
   if (!game.modules.get("barbrawl").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateBarBrawl"));
   tokens = (!tokens) ? canvas.tokens.objects.children : [tokens];
   for (let token of tokens) {
-    let actor = game.actors.get(token.data.actorId);
+    let actor = game.actors.get(token.document.actorId);
     await token.document.update({
       [`flags.-=barbrawl`]: null,
       "bar1.attribute": null,
@@ -334,7 +334,7 @@ export async function resetBarBrawlDefaults(tokens) {
     });
     await token.document.update(barBrawlData(actor.type, actor));
   }
-  location.reload();
+  // location.reload();
 }
 
 export async function removeBarBrawlSettings(tokens) {
