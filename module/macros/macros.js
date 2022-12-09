@@ -92,20 +92,30 @@ export async function diceRollMacro(dice, actor) {
 export async function allInOneRollDialog(actor, pool, skill, assets, effort1, effort2, additionalCost, additionalSteps, stepModifier, title, damage, effort3, damagePerLOE, teen, skipDialog, noRoll, itemID, bonus) {
   if (!actor) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  // Convert to roll engine
-  let skillLevel = skill;
-  let effortToEase = effort1;
-  let effortOtherUses = effort2;
-  let effortDamage = effort3;
-  let poolPointCost = additionalCost;
-  let difficultyModifier = additionalSteps;
-  let easedOrHindered = stepModifier;
-  let skipRoll = !noRoll;
-
   let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.settings.general.initiative : false;
 
   // Apply to roll eninge
-  rollEngineMain(actor.Uuid, itemID, teen, skipDialog, skipRoll, initiativeRoll, title, pool, skillLevel, assets, effortToEase, effortOtherUses, damage, effortDamage, damagePerLOE, difficultyModifier, easedOrHindered, bonus, poolPointCost);
+  rollEngineMain({
+    actorUuid: actor.uuid,
+    itemID: itemID,
+    teen: teen,
+    skipDialog: skipDialog,
+    skipRoll: noRoll,
+    initiative: initiativeRoll,
+    title: title,
+    pool: pool,
+    skillLevel: skill,
+    assets: parseInt(assets),
+    effortToEase: parseInt(effort1),
+    effortOtherUses: parseInt(effort2),
+    damage: parseInt(damage),
+    effortDamage: parseInt(effort3),
+    damagePerLOE: parseInt(damagePerLOE),
+    difficultyModifier: parseInt(additionalSteps),
+    easedOrHindered: stepModifier,
+    bonus: parseInt(bonus),
+    poolPointCost: parseInt(additionalCost)
+  });
 }
 
 export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus) {
@@ -203,7 +213,26 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   }
 
   // Parse data to All-in-One Dialog
-  rollEngineMain({actorUuid: actor.uuid, itemID: itemID, teen: teen, skipRoll: noRoll, initiative: initiativeRoll, title: itemType + item.name, pool: pool, skillLevel: skillLevel, assets: parseInt(assets), effortToEase: parseInt(effort1), effortOtherUses: parseInt(effort2), damage: parseInt(damage), effortDamage: parseInt(effort3), damagePerLOE: parseInt(damagePerLOE), difficultyModifier: parseInt(Math.abs(additionalSteps)), easedOrHindered: stepModifier, bonus: parseInt(bonus), poolPointCost: parseInt(additionalCost)})
+  rollEngineMain({
+    actorUuid: actor.uuid,
+    itemID: itemID,
+    teen: teen,
+    skipRoll: noRoll,
+    initiative: initiativeRoll,
+    title: itemType + item.name,
+    pool: pool,
+    skillLevel: skillLevel,
+    assets: parseInt(assets),
+    effortToEase: parseInt(effort1),
+    effortOtherUses: parseInt(effort2),
+    damage: parseInt(damage),
+    effortDamage: parseInt(effort3),
+    damagePerLOE: parseInt(damagePerLOE),
+    difficultyModifier: parseInt(Math.abs(additionalSteps)),
+    easedOrHindered: stepModifier,
+    bonus: parseInt(bonus),
+    poolPointCost: parseInt(additionalCost)
+  });
 }
 
 /* -------------------------------------------- */
