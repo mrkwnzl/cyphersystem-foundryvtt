@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed compatibility warning for Bar Brawl.
 - Background image and icon settings no longer show up when the Cypher System Custom Sheets module is installed.
 - All-in-One Roll macro again works as expected.
+- Dragging & dropping ammo and crafting material now enables their respective lists when they were disabled before.
 
 ## [2.1.0] - 2022-11-13
 ### Added
