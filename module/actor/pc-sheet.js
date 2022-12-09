@@ -46,15 +46,11 @@ export class CypherActorSheetPC extends CypherActorSheet {
     data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
     data.sheetSettings.sheetWidth = (data.sheetSettings.diceTray == "right") ? this.actor.sheet.options.width : -32;
 
-    if (game.modules.get("cyphersheets")) {
-      if (game.modules.get("cyphersheets").active) {
-        data.sheetSettings.backgroundImage = "foundry";
-        data.sheetSettings.backgroundIcon = "none";
-        data.sheetSettings.cyphersheetsModuleActive = true;
-        data.sheetSettings.backgroundImageBaseSetting = "";
-      } else {
-        backgroundData();
-      }
+    if (game.modules.get("cyphersheets")?.active) {
+      data.sheetSettings.backgroundImage = "foundry";
+      data.sheetSettings.backgroundIcon = "none";
+      data.sheetSettings.cyphersheetsModuleActive = true;
+      data.sheetSettings.backgroundImageBaseSetting = "";
     } else {
       backgroundData();
     }
@@ -121,12 +117,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
       }
     }
 
-    this.actor.update({
-      "system.combat.armor.ratingTotal": armorTotal,
-      "system.combat.armor.costTotal": speedCostTotal,
-      "system.teen.combat.armor.armorValueTotal": teenArmorTotal,
-      "system.teen.combat.armor.speedCostTotal": teenSpeedCostTotal
-    });
+    if (this.actor.system.combat.armor.ratingTotal != armorTotal || this.actor.system.combat.armor.costTotal != speedCostTotal || this.actor.system.teen.combat.armor.armorValueTotal != teenArmorTotal || this.actor.system.teen.combat.armor.speedCostTotal != teenSpeedCostTotal) {
+      this.actor.update({
+        "system.combat.armor.ratingTotal": armorTotal,
+        "system.combat.armor.costTotal": speedCostTotal,
+        "system.teen.combat.armor.armorValueTotal": teenArmorTotal,
+        "system.teen.combat.armor.speedCostTotal": teenSpeedCostTotal
+      });
+    }
 
     return data;
   }

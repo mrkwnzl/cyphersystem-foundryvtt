@@ -627,9 +627,11 @@ export class CypherActorSheet extends ActorSheet {
       } else if (typesQuantityItems.includes(originItem.type)) {
         if (!targetItem) {
           targetActor.createEmbeddedDocuments("Item", [originItemData]);
+          enableItemLists();
         } else {
           let newQuantity = parseInt(targetItem.system.basic.quantity) + parseInt(originItem.system.basic.quantity);
           targetItem.update({"system.basic.quantity": newQuantity});
+          enableItemLists();
         }
       }
     } else {
@@ -756,26 +758,43 @@ export class CypherActorSheet extends ActorSheet {
           if (originActor) {
             let oldQuantity = parseInt(originItem.system.basic.quantity) - quantity;
             originItem.update({"system.basic.quantity": oldQuantity});
+            enableItemLists();
           }
           if (!targetItem) {
             originItemData.system.basic.quantity = quantity;
             targetActor.createEmbeddedDocuments("Item", [originItemData]);
+            enableItemLists();
           } else {
             let newQuantity = parseInt(targetItem.system.basic.quantity) + quantity;
             targetItem.update({"system.basic.quantity": newQuantity});
+            enableItemLists();
           }
         }
       }
     }
 
     async function enableItemLists() {
-      if (originItem.type == "artifact") targetActor.update({"system.settings.equipment.artifacts.active": true});
-      if (originItem.type == "cypher") targetActor.update({"system.settings.equipment.cyphers.active": true});
-      if (originItem.type == "oddity") targetActor.update({"system.settings.equipment.oddities.active": true});
-      if (originItem.type == "material") targetActor.update({"system.settings.equipment.materials.active": true});
-      if (originItem.type == "ammo") targetActor.update({"system.settings.combat.ammo.active": true});
-      if (originItem.type == "power-shift") targetActor.update({"system.settings.skills.powerShifts.active": true});
-      if (originItem.type == "lasting-damage") targetActor.update({"system.settings.combat.lastingDamage.active": true});
+      if (originItem.type == "artifact") {
+        targetActor.update({"system.settings.equipment.artifacts.active": true});
+      }
+      else if (originItem.type == "cypher") {
+        targetActor.update({"system.settings.equipment.cyphers.active": true});
+      }
+      else if (originItem.type == "oddity") {
+        targetActor.update({"system.settings.equipment.oddities.active": true});
+      }
+      else if (originItem.type == "material") {
+        targetActor.update({"system.settings.equipment.materials.active": true});
+      }
+      else if (originItem.type == "ammo") {
+        targetActor.update({"system.settings.combat.ammo.active": true});
+      }
+      else if (originItem.type == "power-shift") {
+        targetActor.update({"system.settings.skills.powerShifts.active": true});
+      }
+      else if (originItem.type == "lasting-damage") {
+        targetActor.update({"system.settings.combat.lastingDamage.active": true});
+      }
     }
 
     async function archiveItem() {

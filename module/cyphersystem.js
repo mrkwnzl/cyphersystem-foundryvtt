@@ -326,7 +326,7 @@ Hooks.on("preCreateActor", async function (actor) {
 });
 
 Hooks.on("updateActor", async function (actor, data, options, userId) {
-  if (data.ownership) {
+  if (actor.type == "pc" && data.ownership) {
     game.socket.emit("system.cyphersystem", {operation: "renderGMIForm"});
     renderGMIForm();
   }
