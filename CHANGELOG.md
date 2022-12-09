@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [2.1.1] - 2022-12-09
+### Changed
+- The difficulty preview in the All-in-One Roll summary now also displays the taget number.
+
 ### Fixed
 - PC actors with armor no longer throw an error when opened in a locked compendium.
+- Fixed compatibility warning for Bar Brawl.
+- Background image and icon settings no longer show up when the Cypher System Custom Sheets module is installed.
+- All-in-One Roll macro again works as expected.
 
 ## [2.1.0] - 2022-11-13
 ### Added
@@ -239,12 +245,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   | Difficulty | Vague Description                                      |
   | ---------: | ------------------------------------------------------ |
-  | 0          | This is a routine task.                                |
-  | 1-3        | This is a typical everyday task.                       |
-  | 3-5        | This is a difficult, but doable task.                  |
-  | 5-7        | This is a hard task, likely requiring some effort.     |
-  | 7-9        | This is a heroic task, worthy of tales of adventuring. |
-  | >=9        | This is impossible!                                    |
+  |          0 | This is a routine task.                                |
+  |        1-3 | This is a typical everyday task.                       |
+  |        3-5 | This is a difficult, but doable task.                  |
+  |        5-7 | This is a hard task, likely requiring some effort.     |
+  |        7-9 | This is a heroic task, worthy of tales of adventuring. |
+  |        >=9 | This is impossible!                                    |
 
   As usual, all defaults can be changed in the macro. alt-clicking the macro skips the dialog, using the defaults specified in the macro.
 
