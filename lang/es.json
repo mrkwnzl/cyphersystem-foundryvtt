@@ -172,6 +172,7 @@
     "CYPHERSYSTEM.MinorEffectRoll": "Efecto Menor",
     "CYPHERSYSTEM.MajorEffectRoll": "Efecto Mayor",
     "CYPHERSYSTEM.Difficulty": "Dificultad",
+    "CYPHERSYSTEM.DifficultyModifier": "Modificador de Dificultad",
     "CYPHERSYSTEM.RollBeatDifficulty": "Supera dificultad",
     "CYPHERSYSTEM.Roll": "Tirada",
     "CYPHERSYSTEM.StatRoll": "Tirada de Atributo",
