@@ -341,9 +341,9 @@ function summaryTotalCost(actor, data, teen) {
 
   let totalCostString = "";
   if (totalCost == 1) {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: totalCost, pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: totalCost, pool: game.i18n.format("CYPHERSYSTEM." + data.pool)});
   } else {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: game.i18n.format("CYPHERSYSTEM." + data.pool)});
   }
 
   return [totalCost, totalCostString, costWithoutEdge];
