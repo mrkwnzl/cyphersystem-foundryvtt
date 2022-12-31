@@ -72,3 +72,18 @@ export async function rollEngineMain(data) {
     rollEngineComputation(data);
   }
 }
+
+export function useEffectiveDifficulty(difficulty) {
+  let setting = game.settings.get("cyphersystem", "effectiveDifficulty");
+  if (setting === 0) {
+    return false;
+  } else if (setting === 1) {
+    return true;
+  } else if (setting === 2) {
+    if (difficulty === "none") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}

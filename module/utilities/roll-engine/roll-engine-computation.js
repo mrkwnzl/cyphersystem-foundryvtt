@@ -1,5 +1,6 @@
 import {payPoolPoints} from "../actor-utilities.js";
 import {rollEngineForm} from "./roll-engine-form.js";
+import {useEffectiveDifficulty} from "./roll-engine-main.js";
 import {rollEngineOutput} from "./roll-engine-output.js";
 
 export async function rollEngineComputation(data) {
@@ -61,10 +62,12 @@ export async function rollEngineComputation(data) {
   // Calculate rollTotal
   data.rollTotal = data.roll.total + data.bonus;
 
+  // Determine whether 
+
   // Calculate difficulty
   data.difficulty = (data.rollTotal < 0) ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);
-  data.difficultyResult = determineDifficultyResult(data.difficulty, data.difficultyModifierTotal);
-  data.finalDifficulty = (data.baseDifficulty != "none" && !game.settings.get("cyphersystem", "effectiveDifficulty")) ? Math.max(data.baseDifficulty - data.difficultyModifierTotal, 0) : data.baseDifficulty;
+  data.difficultyResult = determineDifficultyResult(data.baseDifficulty, data.difficulty, data.difficultyModifierTotal);
+  data.finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? data.baseDifficulty : Math.max(data.baseDifficulty - data.difficultyModifierTotal, 0);
 
   // Go to next step
   if (payPoolPointsInfo[0]) {
@@ -74,14 +77,14 @@ export async function rollEngineComputation(data) {
   }
 }
 
-function determineDifficultyResult(difficulty, difficultyModifierTotal) {
-  if (!game.settings.get("cyphersystem", "effectiveDifficulty")) {
-    if (difficulty < 0) difficulty = 0;
-    return difficulty + " (" + difficulty * 3 + ")";
-  } else {
+function determineDifficultyResult(baseDifficulty, difficulty, difficultyModifierTotal) {
+  if (useEffectiveDifficulty(baseDifficulty)) {
     let operator = (difficultyModifierTotal < 0) ? "-" : "+";
     let effectiveDifficulty = difficulty + difficultyModifierTotal;
     if (effectiveDifficulty < 0) effectiveDifficulty = 0;
     return effectiveDifficulty + " [" + difficulty + operator + Math.abs(difficultyModifierTotal) + "]";
+  } else {
+    if (difficulty < 0) difficulty = 0;
+    return difficulty + " (" + difficulty * 3 + ")";
   }
 }
