@@ -1,0 +1,32 @@
+/* Global */
+
+.sheet.journal-entry .journal-entry-page {
+  line-height: 1.4;
+}
+
+/* Tables */
+
+.sheet.journal-entry .csrd-table {
+  width: 100%;
+}
+
+.sheet.journal-entry .csrd-table td {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.sheet.journal-entry .csrd-td-equipment {
+  width: 250px
+}
+
+/* Details & Summary */
+
+.sheet.journal-entry details {
+  border: 1px solid var(--color-border-light-tertiary);
+  border-radius: 4px;
+  padding: 0px 5px;
+}
+
+.sheet.journal-entry summary {
+  margin: 5px 5px;
+}

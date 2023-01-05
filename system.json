@@ -22,7 +22,8 @@
     "module/cyphersystem.js"
   ],
   "styles": [
-    "css/cyphersystem.css"
+    "css/cyphersystem.css",
+    "css/journals.css"
   ],
   "packs": [
     {
