@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.2] - 2023-01-05
+### Changed
+- Updated Spanish translation.
+- The Effective Difficulty can now be set to be applied dynamically depending on whether a difficulty has been set for the roll or not.
+- Some CSS for the Cypher SRD Compendium.
+
 ## [2.1.1] - 2022-12-09
 ### Changed
 - The difficulty preview in the All-in-One Roll summary now also displays the taget number.
