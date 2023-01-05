@@ -131,6 +131,12 @@ async function migrationRoutineItem(item) {
   }
 }
 
+async function migrationRoutineSettings() {
+  if (game.settings.get("cyphersystem", "effectiveDifficulty") === true) {
+    game.settings.set("cyphersystem", "effectiveDifficulty", 1)
+  }
+}
+
 async function migrationActorV1ToV2(actor) {
   await migrationActorTypes();
 

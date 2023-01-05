@@ -4,6 +4,7 @@
 */
 
 import {rollEngineComputation} from "../utilities/roll-engine/roll-engine-computation.js";
+import {useEffectiveDifficulty} from "../utilities/roll-engine/roll-engine-main.js";
 
 export class RollEngineDialogSheet extends FormApplication {
   /** @override */
@@ -263,7 +264,7 @@ export async function disableMultiRoll(actor) {
 function summaryFinalDifficulty(data) {
   let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
   let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
-  let finalDifficulty = (!game.settings.get("cyphersystem", "effectiveDifficulty")) ? Math.max(data.baseDifficulty - sum, 0) : data.baseDifficulty;
+  let finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? data.baseDifficulty : Math.max(data.baseDifficulty - sum, 0);
   let targetNumber = finalDifficulty * 3;
   let finalDifficultyString = (data.baseDifficulty != "none") ? game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + finalDifficulty + " (" + targetNumber + ")" + "." : "";
 
@@ -341,9 +342,9 @@ function summaryTotalCost(actor, data, teen) {
 
   let totalCostString = "";
   if (totalCost == 1) {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: totalCost, pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoint", {amount: totalCost, pool: game.i18n.format("CYPHERSYSTEM." + data.pool)});
   } else {
-    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: data.pool});
+    totalCostString = game.i18n.format("CYPHERSYSTEM.TaskCostsPoints", {amount: totalCost, pool: game.i18n.format("CYPHERSYSTEM." + data.pool)});
   }
 
   return [totalCost, totalCostString, costWithoutEdge];
