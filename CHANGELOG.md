@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.2.0] - 2023-01-08
 ### Added
 - New customization options. There’s a new Compatible with Cypher System logo on the right hand side of the stat pools. This new logo, the  background image, and background icon can now be customized with your own images. The opacity of the logo and icon as well as a white overlay for the background image can freeley be set, so that you can ensure readability with all images.
-  **Note:** The default player permissions don’t allow players to open the file picker and select their own images, and for good reason. If you want your players to do that themselves, make them to trusted players or set the permissions accordingly in the User Management.
+    **Note:** The default player permissions don’t allow players to open the file picker and select their own images, and for good reason. If you want your players to do that themselves, make them to trusted players or set the permissions accordingly in the User Management.
 - The additional Pool now has an option to enable an Edge value for it.
 
 ## [2.1.2] - 2023-01-05
