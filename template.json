@@ -59,7 +59,8 @@
         },
         "additional": {
           "value": 3,
-          "max": 3
+          "max": 3,
+          "edge": 0
         }
       },
       "combat": {
@@ -104,7 +105,8 @@
           },
           "additionalPool": {
             "active": false,
-            "label": ""
+            "label": "",
+            "hasEdge": false
           },
           "tags": {
             "active": false,
@@ -113,7 +115,16 @@
           "hideArchive": false,
           "background": {
             "image": "foundry",
-            "icon": "none"
+            "imagePath": "",
+            "overlayOpacity": 0.75,
+            "icon": "none",
+            "iconPath": "",
+            "iconOpacity": 0.5
+          },
+          "logo": {
+            "image": "black",
+            "imagePath": "",
+            "imageOpacity": 1
           }
         },
         "skills": {
@@ -227,7 +238,15 @@
             },
             "background": {
               "image": "foundry",
-              "icon": "none"
+              "imagePath": "",
+              "overlayOpacity": 0.75,
+              "icon": "none",
+              "iconPath": "",
+              "iconOpacity": 0.5
+            },
+            "logo": {
+              "image": "black",
+              "imagePath": ""
             }
           }
         }

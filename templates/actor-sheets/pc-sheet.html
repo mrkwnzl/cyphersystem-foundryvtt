@@ -13,7 +13,7 @@
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundImage}}" src="systems/cyphersystem/icons/background/icon-{{sheetSettings.backgroundIcon}}.svg" width="256" height="256">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
