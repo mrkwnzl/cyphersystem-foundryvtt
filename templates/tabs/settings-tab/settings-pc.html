@@ -42,6 +42,14 @@
             <input class="auto-margin settings-input" name="system.settings.general.additionalPool.label" type="text" value="{{actor.system.settings.general.additionalPool.label}}" placeholder="{{localize 'CYPHERSYSTEM.AdditionalPool'}}" />
           </div>
         </li>
+        {{#if actor.system.settings.general.additionalPool.active}}
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              <input type="checkbox" name="system.settings.general.additionalPool.hasEdge" {{checked actor.system.settings.general.additionalPool.hasEdge}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.AdditionalPoolHasEdge'}}
+            </div>
+          </li>
+        {{/if}}
       {{/unless}}
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
         <li class="item flexrow item-settings">
@@ -69,8 +77,8 @@
           &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
         </div>
       </li>
-      {{#unless sheetSettings.cyphersheetsModuleActive}}
-        {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+      {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        {{#unless sheetSettings.cyphersheetsModuleActive}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.BackgroundImage'}}
@@ -89,10 +97,27 @@
                   <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
                   <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
                   <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.BGImageCustom'}}</option>
                 {{/select}}
               </select>
             </div>
           </li>
+          {{#if (eq actor.system.teen.settings.general.background.image "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.teen.settings.general.background.imagePath" value="{{actor.system.teen.settings.general.background.imagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileBackground'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.teen.settings.general.background.imagePath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.BGImageOverlayOpacity'}}
+              </div>
+              {{rangePicker name="system.teen.settings.general.background.overlayOpacity" value=actor.system.teen.settings.general.background.overlayOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
@@ -113,11 +138,64 @@
                   <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
                   <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
                   <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.BGIconCustom'}}</option>
                 {{/select}}
               </select>
             </div>
           </li>
-        {{else}}
+          {{#if (eq actor.system.teen.settings.general.background.icon "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.teen.settings.general.background.iconPath" value="{{actor.system.teen.settings.general.background.iconPath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileIcon'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.teen.settings.general.background.iconPath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.BGIconOpacity'}}
+              </div>
+              {{rangePicker name="system.teen.settings.general.background.iconOpacity" value=actor.system.teen.settings.general.background.iconOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
+        {{/unless}}
+        {{#unless actor.system.teen.settings.general.additionalPool.active}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.CypherLogo'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.teen.settings.general.logo.image">
+                {{#select actor.system.teen.settings.general.logo.image}}
+                  <option value="none">{{localize 'CYPHERSYSTEM.CSLogoNone'}}</option>
+                  <option value="black">{{localize 'CYPHERSYSTEM.CSLogoBlack'}}</option>
+                  <option value="white">{{localize 'CYPHERSYSTEM.CSLogoWhite'}}</option>
+                  <option value="color">{{localize 'CYPHERSYSTEM.CSLogoColor'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.CSLogoCustom'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          {{#if (eq actor.system.teen.settings.general.logo.image "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.teen.settings.general.logo.imagePath" value="{{actor.system.teen.settings.general.logo.imagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileLogo'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.teen.settings.general.logo.imagePath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.CSLogoOpacity'}}
+              </div>
+              {{rangePicker name="system.teen.settings.general.logo.imageOpacity" value=actor.system.teen.settings.general.logo.imageOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
+        {{/unless}}
+      {{else}}
+        {{#unless sheetSettings.cyphersheetsModuleActive}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.BackgroundImage'}}
@@ -136,10 +214,27 @@
                   <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
                   <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
                   <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.BGImageCustom'}}</option>
                 {{/select}}
               </select>
             </div>
           </li>
+          {{#if (eq actor.system.settings.general.background.image "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.settings.general.background.imagePath" value="{{actor.system.settings.general.background.imagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileBackground'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.settings.general.background.imagePath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.BGImageOverlayOpacity'}}
+              </div>
+              {{rangePicker name="system.settings.general.background.overlayOpacity" value=actor.system.settings.general.background.overlayOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
@@ -161,12 +256,63 @@
                   <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
                   <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
                   <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.BGIconCustom'}}</option>
                 {{/select}}
               </select>
             </div>
           </li>
-        {{/if}}
-      {{/unless}}
+          {{#if (eq actor.system.settings.general.background.icon "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.settings.general.background.iconPath" value="{{actor.system.settings.general.background.iconPath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileIcon'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.settings.general.background.iconPath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.BGIconOpacity'}}
+              </div>
+              {{rangePicker name="system.settings.general.background.iconOpacity" value=actor.system.settings.general.background.iconOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
+        {{/unless}}
+        {{#unless actor.system.settings.general.additionalPool.active}}
+          <li class="item flexrow item-settings">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.CypherLogo'}}
+            </div>
+            <div class="item-quantity">
+              <select class="auto-margin settings-input" name="system.settings.general.logo.image">
+                {{#select actor.system.settings.general.logo.image}}
+                  <option value="none">{{localize 'CYPHERSYSTEM.CSLogoNone'}}</option>
+                  <option value="black">{{localize 'CYPHERSYSTEM.CSLogoBlack'}}</option>
+                  <option value="white">{{localize 'CYPHERSYSTEM.CSLogoWhite'}}</option>
+                  <option value="color">{{localize 'CYPHERSYSTEM.CSLogoColor'}}</option>
+                  <option value="custom">{{localize 'CYPHERSYSTEM.CSLogoCustom'}}</option>
+                {{/select}}
+              </select>
+            </div>
+          </li>
+          {{#if (eq actor.system.settings.general.logo.image "custom")}}
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                <input type="text" class="auto-margin" name="system.settings.general.logo.imagePath" value="{{actor.system.settings.general.logo.imagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileLogo'}}" style="text-align: left">
+              </div>
+              <div class="item-quantity">
+                {{filePicker type="image" target="system.settings.general.logo.imagePath"}}
+              </div>
+            </li>
+            <li class="item flexrow item-settings" style="border-top-style: dashed">
+              <div class="settings-list">
+                {{localize 'CYPHERSYSTEM.CSLogoOpacity'}}
+              </div>
+              {{rangePicker name="system.settings.general.logo.imageOpacity" value=actor.system.settings.general.logo.imageOpacity min=0 max=1 step=0.05}}
+            </li>
+          {{/if}}
+        {{/unless}}
+      {{/if}}
     </ol>
   </div>
 

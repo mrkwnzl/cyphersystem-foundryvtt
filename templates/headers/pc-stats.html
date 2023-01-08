@@ -157,7 +157,7 @@
     {{!-- Additional Pool --}}
     {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
       {{#if actor.system.teen.settings.general.additionalPool.active}}
-        <div class="resource flex-group-center stat-block additional-block">
+        <div class="resource flex-group-center stat-block">
           <label for="actor.system.teen.settings.general.additionalPool.name" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
             {{#if (eq actor.system.teen.settings.general.additionalPool.name "")}}
               {{localize 'CYPHERSYSTEM.AdditionalPool'}}
@@ -186,10 +186,16 @@
             </div>
           </div>
         </div>
+      {{else}}
+        {{#unless (eq actor.system.teen.settings.general.logo.image "none")}}
+          <div class="resource stat-block cypher-logo flex-group-center">
+            <img class="cypher-logo {{actor.system.teen.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}">
+          </div>
+        {{/unless}}
       {{/if}}
     {{else}}
       {{#if actor.system.settings.general.additionalPool.active}}
-        <div class="resource flex-group-center stat-block additional-block">
+        <div class="resource flex-group-center stat-block">
           <label for="actor.system.settings.general.additionalPool.label" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
             {{#if (eq actor.system.settings.general.additionalPool.label "")}}
               {{localize 'CYPHERSYSTEM.AdditionalPool'}}
@@ -216,8 +222,22 @@
                 <i class="fas fa-sync-alt stat"></i>
               </a>
             </div>
+            {{#if actor.system.settings.general.additionalPool.hasEdge}}
+              <div class="align-edge">
+                <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0" for="actor.system.pools.additional.edge" class="resource-label-normal">
+                  {{localize 'CYPHERSYSTEM.Edge'}}
+                </label>
+                <input class="edge-input" type="number" name="system.pools.additional.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
+              </div>
+            {{/if}}
           </div>
         </div>
+      {{else}}
+        {{#unless (eq actor.system.settings.general.logo.image "none")}}
+          <div class="resource stat-block cypher-logo flex-group-center">
+            <img class="cypher-logo {{actor.system.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}" height="75px">
+          </div>
+        {{/unless}}
       {{/if}}
     {{/if}}
   </div>
