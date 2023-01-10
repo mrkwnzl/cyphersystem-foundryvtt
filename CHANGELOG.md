@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- Updated dice tray styling. Generic enough for all backgrounds and fitting the Foundry aesthetics.
+
 ## [2.2.0] - 2023-01-08
 ### Added
 - New customization options. There’s a new Compatible with Cypher System logo on the right hand side of the stat pools. This new logo, the  background image, and background icon can now be customized with your own images. The opacity of the logo and icon as well as a white overlay for the background image can freely be set, so that you can ensure readability with all images.
