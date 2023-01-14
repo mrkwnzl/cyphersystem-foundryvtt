@@ -38,9 +38,6 @@ import {
   toggleAttacksOnSheet,
   toggleArmorOnSheet,
   translateToRecursion,
-  archiveItemsWithTag,
-  unarchiveItemsWithTag,
-  archiveStatusByTag,
   toggleAlwaysShowDescriptionOnRoll,
   calculateAttackDifficulty,
   recursionMacro,
@@ -49,7 +46,6 @@ import {
   disasterModeMacro,
   lockStaticStatsMacro,
   migrateDataMacro,
-  changeTagStats,
   changeRecursionStats
 } from "./macros/macros.js";
 import {
@@ -79,6 +75,7 @@ import {rollEngineComputation} from "./utilities/roll-engine/roll-engine-computa
 import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
 import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
 import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
+import {changeTagStats} from "./utilities/tagging-engine/tagging-engine-computation.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -124,9 +121,6 @@ Hooks.once("init", async function () {
     toggleAttacksOnSheet,
     toggleArmorOnSheet,
     translateToRecursion,
-    archiveItemsWithTag,
-    unarchiveItemsWithTag,
-    archiveStatusByTag,
     toggleAlwaysShowDescriptionOnRoll,
     calculateAttackDifficulty,
     recursionMacro,
@@ -287,40 +281,34 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
 Hooks.on("preCreateActor", async function (actor) {
   if (["pc", "community", "vehicle"].includes(actor.type)) {
     actor.updateSource({
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-      "token.actorLink": true
+      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "prototypeToken.actorLink": true
     });
-  }
-
-  if (actor.type == "npc") {
+  } else if (actor.type == "npc") {
     actor.updateSource({
-      "token.bar1": {"attribute": "health"},
-      "token.bar2": {"attribute": "level"},
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+      "prototypeToken.bar1": {"attribute": "health"},
+      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
     });
-  }
-
-  if (actor.type == "companion") {
+  } else if (actor.type == "companion") {
     actor.updateSource({
-      "token.bar1": {"attribute": "health"},
-      "token.bar2": {"attribute": "level"},
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-      "token.actorLink": true
+      "prototypeToken.bar1": {"attribute": "health"},
+      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
+      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "prototypeToken.actorLink": true
     });
-  }
-
-  if (actor.type == "marker") {
+  } else if (actor.type == "marker") {
     actor.updateSource({
-      "token.bar1": {"attribute": "quantity"},
-      "token.bar2": {"attribute": "level"},
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+      "prototypeToken.bar1": {"attribute": "quantity"},
+      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
+      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
     });
   }
 });
@@ -344,7 +332,14 @@ Hooks.on("preCreateItem", function (item) {
 Hooks.on("updateItem", async function (item) {
   if (item.actor) {
     if (item.type == "tag" && item.system.exclusive && item.system.active) {
-      await changeTagStats(fromUuidSync(item.actor.uuid), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+      await changeTagStats(fromUuidSync(item.actor.uuid), {
+        mightModifier: item.system.settings.statModifiers.might.value,
+        mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+        speedModifier: item.system.settings.statModifiers.speed.value,
+        speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+        intellectModifier: item.system.settings.statModifiers.intellect.value,
+        intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge
+      });
     } else if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
       await changeRecursionStats(fromUuidSync(item.actor.uuid), "@" + item.name.toLowerCase(), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
     }

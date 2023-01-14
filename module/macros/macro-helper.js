@@ -3,6 +3,7 @@
 /* -------------------------------------------- */
 
 import {htmlEscape} from "../utilities/html-escape.js";
+import {regexEscape} from "../utilities/regex-escape.js";
 
 export function itemRollMacroQuick(actor, itemID, teen) {
   // Find actor and item based on item ID
@@ -207,32 +208,22 @@ export async function renameTag(actor, currentTag, newTag) {
   await actor.updateEmbeddedDocuments("Item", updates);
 }
 
-export async function toggleTagArchiveStatus(actor, tags, archiveStatus) {
+export async function toggleTagArchiveStatus(actor, tag, archiveStatus) {
   // Check for PC
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  if (tags.length == 0) return;
+  if (tag.length == 0) return;
+
+  tag = "#" + htmlEscape(regexEscape(tag.toLowerCase().trim()));
 
   let updates = [];
   for (let item of actor.items) {
     let name = (!item.name) ? "" : item.name.toLowerCase();
     let description = (!item.system.description) ? "" : item.system.description.toLowerCase();
     if (item.type == "Tag") return;
-    if (Array.isArray(tags)) {
-      for (let tag of tags) {
-        if (tag == "") return;
-        tag = "#" + htmlEscape(tag.toLowerCase().trim());
-        let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
-        if (regTag.test(name) || regTag.test(description)) {
-          updates.push({_id: item.id, "system.archived": archiveStatus});
-        }
-      }
-    } else {
-      let tag = "#" + htmlEscape(tags.toLowerCase().trim());
-      let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
-      if (regTag.test(name) || regTag.test(description)) {
-        updates.push({_id: item.id, "system.archived": archiveStatus});
-      }
+    let regTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + tag + "(\\s|$|&nbsp;|<.+?>)", "gi");
+    if (regTag.test(name) || regTag.test(description)) {
+      updates.push({_id: item.id, "system.archived": archiveStatus});
     }
   }
   await actor.updateEmbeddedDocuments("Item", updates);

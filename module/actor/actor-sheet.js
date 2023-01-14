@@ -9,10 +9,8 @@ import {
 
 import {
   changeRecursionStats,
-  changeTagStats,
   itemRollMacro,
   recursionMacro,
-  tagMacro
 } from "../macros/macros.js";
 
 import {
@@ -23,6 +21,7 @@ import {
 } from "../utilities/sorting.js";
 
 import {useRecoveries} from "../utilities/actor-utilities.js";
+import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -435,7 +434,7 @@ export class CypherActorSheet extends ActorSheet {
     // (Un)Archive tag
     html.find(".item-tag").click(async clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      await tagMacro(this.actor, item);
+      await taggingEngineMain(this.actor, {item: item});
     });
 
     // Add to Quantity
@@ -599,21 +598,30 @@ export class CypherActorSheet extends ActorSheet {
   */
   async _onDropItem(event, data) {
     event.preventDefault();
+    // Define item type categories
+    const typesCharacterProperties = ["ability", "lasting-damage", "power-shift", "skill", "recursion", "tag"];
+    const typesUniqueItems = ["armor", "artifact", "attack", "cypher", "oddity"];
+    const typesQuantityItems = ["ammo", "equipment", "material"];
+
     // Define items & actors
     const originItem = await Item.fromDropData(data);
     let originItemData = foundry.utils.deepClone(originItem.toObject());
     const originActor = originItem.actor;
     const targetActor = this.actor;
-    const targetItem = targetActor.items.getName(originItem.name);
+    let targetItem = null;
+
+    // Check for duplicate character properties
+    if (typesCharacterProperties.includes(originItem.type)) {
+      for (let item of targetActor.items) {
+        if (originItem.type == item.type && originItem.name == item.name) {
+          targetItem = item;
+        }
+      }
+    }
 
     // Define actor IDs
     const originActorID = (originActor) ? originActor.id : "";
     const targetActorID = (targetActor) ? targetActor.id : "";
-
-    // Define item type categories
-    const typesCharacterProperties = ["ability", "lasting-damage", "power-shift", "skill", "recursion", "tag"];
-    const typesUniqueItems = ["armor", "artifact", "attack", "cypher", "oddity"];
-    const typesQuantityItems = ["ammo", "equipment", "material"];
 
     // Return statements
     if (!targetActor.isOwner) return;

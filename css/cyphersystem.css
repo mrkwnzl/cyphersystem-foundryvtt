@@ -342,68 +342,42 @@ select.bar-attribute {
   background-size: cover;
 }
 
-.cyphersystem .dice-tray-right.paper,
-.cyphersystem .dice-tray-left.paper {
-  background-image: url(/systems/cyphersystem/icons/background/background-paper.webp);
-}
-
-.cyphersystem .background-image.metal,
-.cyphersystem .dice-tray-right.metal,
-.cyphersystem .dice-tray-left.metal {
+.cyphersystem .background-image.metal {
   background-image: url(/systems/cyphersystem/icons/background/background-metal.webp);
   background-size: cover;
 }
 
-.cyphersystem .background-image.pride,
-.cyphersystem .dice-tray-right.pride,
-.cyphersystem .dice-tray-left.pride {
+.cyphersystem .background-image.pride {
   background-image: url(/systems/cyphersystem/icons/background/background-pride.webp);
   background-size: cover;
 }
 
-.cyphersystem .background-image.plain.red,
-.cyphersystem .dice-tray-right.plain.red,
-.cyphersystem .dice-tray-left.plain.red {
+.cyphersystem .background-image.plain.red {
   background: rgb(153, 0, 0);
 }
 
-.cyphersystem .background-image.plain.blue,
-.cyphersystem .dice-tray-right.plain.blue,
-.cyphersystem .dice-tray-left.plain.blue {
+.cyphersystem .background-image.plain.blue {
   background: rgb(0, 77, 129);
 }
 
-.cyphersystem .background-image.plain.green,
-.cyphersystem .dice-tray-right.plain.green,
-.cyphersystem .dice-tray-left.plain.green {
+.cyphersystem .background-image.plain.green {
   background: rgb(20, 104, 66);
 }
 
-.cyphersystem .background-image.plain.purple,
-.cyphersystem .dice-tray-right.plain.purple,
-.cyphersystem .dice-tray-left.plain.purple {
+.cyphersystem .background-image.plain.purple {
   background: rgb(154, 24, 96);
 }
 
-.cyphersystem .background-image.plain.yellow,
-.cyphersystem .dice-tray-right.plain.yellow,
-.cyphersystem .dice-tray-left.plain.yellow {
+.cyphersystem .background-image.plain.yellow {
   background: rgb(247, 186, 0);
 }
 
-.cyphersystem .background-image.plain.grey,
-.cyphersystem .dice-tray-right.plain.grey,
-.cyphersystem .dice-tray-left.plain.grey {
+.cyphersystem .background-image.plain.grey {
   background: rgb(128, 128, 128);
 }
 
 .cyphersystem .background-image.cypher-blue {
   background-image: linear-gradient(rgb(203, 203, 218), white);
-}
-
-.cyphersystem .dice-tray-right.cypher-blue,
-.cyphersystem .dice-tray-left.cypher-blue {
-  background-image: linear-gradient(rgb(203, 203, 218), rgb(212, 212, 224));
 }
 
 .cyphersystem .background-image.custom {
@@ -729,7 +703,7 @@ select.bar-attribute {
   border-bottom: 1px solid #BBB;
 }
 
-.cyphersystem .settings .items-list .item:last-child {
+.cyphersystem .settings .items-list .item-settings:last-child {
   border-bottom: 1px solid #BBB;
   height: 36px;
 }
@@ -860,6 +834,11 @@ select.bar-attribute {
 .cyphersystem .item-settings {
   height: 35px;
   align-items: center;
+}
+
+.cyphersystem .item-subheading {
+  height: 35px;
+  align-items: end;
 }
 
 .cyphersystem input[type="text"].setting-input,
@@ -1152,51 +1131,35 @@ select.settings-input {
   color: white;
 }
 
-.cyphersystem .dice-tray-right {
+.cyphersystem .dice-tray {
   position: absolute;
   width: 32px;
   height: 115px;
   border: 0;
-  border-left: 1px solid #999;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  left: 650px;
   top: 38px;
-  background: url(/ui/parchment.jpg) repeat;
+  background: url(/ui/denim075.png) repeat;
   box-shadow: 0 0 20px var(--color-shadow-dark);
   z-index: -1;
   padding: 6px 4px 6px 4px;
   text-align: center;
+  color: var(--color-text-light-highlight);
+  font-size: 22px;
+  /* backdrop-filter: blur(5px); */
 }
 
-.cyphersystem .dice-tray-left {
-  position: absolute;
-  width: 32px;
-  height: 115px;
-  border: 0;
-  border-right: 1px solid #999;
+
+.cyphersystem .dice-tray.right {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.cyphersystem .dice-tray.left {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
-  left: -32px;
-  top: 38px;
-  background: url(/ui/parchment.jpg) repeat;
-  box-shadow: 0 0 20px var(--color-shadow-dark);
-  z-index: -1;
-  padding: 6px 4px 6px 4px;
-  text-align: center;
 }
 
 .cyphersystem .dice-tray-hidden {
   display: none;
-}
-
-.cyphersystem .dice-icon {
-  border: 0;
-  filter: invert(1) drop-shadow(0px 0px 1px white);
-}
-
-.cyphersystem .dice-icon:hover {
-  filter: invert(1) blur(0.25px) drop-shadow(0 0 6px var(--color-shadow-primary))
 }
 
 /* Roll Engine */
