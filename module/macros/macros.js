@@ -17,6 +17,7 @@ import {
 } from "../utilities/actor-utilities.js";
 import {barBrawlData} from "../utilities/token-utilities.js";
 import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
+import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -391,37 +392,37 @@ export function quickStatChange(token, stat, modifier) {
     case "xp":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
       statData = calculateStatData(token.actor.system.basic.xp);
-      token.actor.update({"data.basic.xp": statData});
+      token.actor.update({"system.basic.xp": statData});
       break;
     case "might":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
       statData = calculateStatData(token.actor.system.pools.might.value);
-      token.actor.update({"data.pools.might.value": statData});
+      token.actor.update({"system.pools.might.value": statData});
       break;
     case "speed":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
       statData = calculateStatData(token.actor.system.pools.speed.value);
-      token.actor.update({"data.pools.speed.value": statData});
+      token.actor.update({"system.pools.speed.value": statData});
       break;
     case "intellect":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
       statData = calculateStatData(token.actor.system.pools.intellect.value);
-      token.actor.update({"data.pools.intellect.value": statData});
+      token.actor.update({"system.pools.intellect.value": statData});
       break;
     case "health":
       if (!checkToken(["npc", "community", "companion"], game.i18n.localize("CYPHERSYSTEM.Health"))) return;
       statData = calculateStatData(token.actor.system.pools.health.value);
-      token.actor.update({"data.health.value": statData});
+      token.actor.update({"system.pools.health.value": statData});
       break;
     case "infrastructure":
       if (!checkToken(["community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
       statData = calculateStatData(token.actor.system.pools.infrastructure.value);
-      token.actor.update({"data.infrastructure.value": statData});
+      token.actor.update({"system.pools.infrastructure.value": statData});
       break;
     case "quantity":
       if (!checkToken(["marker"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
       statData = calculateStatData(token.actor.system.pools.quantity.value);
-      token.actor.update({"data.quantity.value": statData});
+      token.actor.update({"system.pools.quantity.value": statData});
       break;
     default:
       return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat}));
@@ -549,9 +550,9 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
       let name = (!item.name) ? "" : item.name.toLowerCase().replace(regExceptions, "");
       let description = (!item.system.description) ? "" : item.system.description.toLowerCase().replace(regExceptions, "");
       if (regRecursion.test(name) || regRecursion.test(description)) {
-        updates.push({_id: item.id, "data.archived": false});
+        updates.push({_id: item.id, "system.archived": false});
       } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
-        updates.push({_id: item.id, "data.archived": true});
+        updates.push({_id: item.id, "system.archived": true});
       }
     }
 
@@ -592,94 +593,16 @@ export async function changeRecursionStats(actor, recursion, mightModifier, migh
   });
 }
 
-export async function archiveStatusByTag(actor, archiveTags, unarchiveTags) {
-  // Check for PC
-  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  if (!game.keyboard.isModifierActive('Alt')) {
-    await unarchiveItemsWithTag(actor, unarchiveTags);
-    await archiveItemsWithTag(actor, archiveTags);
-  } else if (game.keyboard.isModifierActive('Alt')) {
-    await unarchiveItemsWithTag(actor, archiveTags);
-    await archiveItemsWithTag(actor, unarchiveTags);
-  }
-}
-
-export async function unarchiveItemsWithTag(actor, tags) {
-  toggleTagArchiveStatus(actor, tags, false);
-}
-
-export async function archiveItemsWithTag(actor, tags) {
-  toggleTagArchiveStatus(actor, tags, true);
-}
-
 export async function recursionMacro(actor, item) {
+  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"))
+  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"))
   await translateToRecursion(actor, item.name, item.system.basic.focus, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.edge, item.id);
 }
 
 export async function tagMacro(actor, item) {
-  if (item.system.active) {
-    if (!game.keyboard.isModifierActive('Alt')) {
-      await archiveItemsWithTag(actor, item.name)
-      await item.update({"system.active": false});
-      if (item.system.exclusive) {
-        await changeTagStats(actor, 0, 0, 0, 0, 0, 0);
-      }
-    } else {
-      await unarchiveItemsWithTag(actor, item.name)
-    }
-  } else if (!item.system.active) {
-    if (!game.keyboard.isModifierActive('Alt')) {
-      if (item.system.exclusive) {
-        await changeTagStats(actor, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
-        await disableActiveExclusiveTag(actor, item._id);
-      }
-      await unarchiveItemsWithTag(actor, item.name)
-      await item.update({"system.active": true});
-    } else {
-      await archiveItemsWithTag(actor, item.name)
-    }
-  }
-
-  async function disableActiveExclusiveTag(actor, itemID) {
-    for (let item of actor.items) {
-      if (item.type == "tag" && item.system.exclusive && item.system.active && item._id != itemID) {
-        await archiveItemsWithTag(actor, item.name.split(','));
-        await item.update({"system.active": false});
-      }
-    }
-  }
-
-  await actor.updateEmbeddedDocuments("Item", [item]);
-}
-
-export async function changeTagStats(actor, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
-  let pool = actor.system.pools;
-
-  let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
-  let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
-  let oldIntellectModifier = (!actor.getFlag("cyphersystem", "tagIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectModifier");
-  let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "tagMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightEdgeModifier");
-  let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "tagSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedEdgeModifier");
-  let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "tagIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectEdgeModifier");
-
-  await actor.update({
-    "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
-    "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
-    "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
-    "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
-    "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
-    "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-    "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
-    "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
-    "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
-    "flags.cyphersystem.tagMightModifier": mightModifier,
-    "flags.cyphersystem.tagSpeedModifier": speedModifier,
-    "flags.cyphersystem.tagIntellectModifier": intellectModifier,
-    "flags.cyphersystem.tagMightEdgeModifier": mightEdgeModifier,
-    "flags.cyphersystem.tagSpeedEdgeModifier": speedEdgeModifier,
-    "flags.cyphersystem.tagIntellectEdgeModifier": intellectEdgeModifier
-  });
+  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"))
+  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"))
+  await taggingEngineMain(actor, {item: item});
 }
 
 export function renameTagMacro(actor, currentTag, newTag) {
@@ -1063,7 +986,7 @@ export function disasterModeMacro(token, mode, genre) {
 
   async function changeGMIRange(token, level, genre) {
     genre = (!genre || genre == "modern") ? "" : genre + "-";
-    await token.actor.update({"data.level": level});
+    await token.actor.update({"system.level": level});
     await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});
   }
 }

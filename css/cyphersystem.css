@@ -703,7 +703,7 @@ select.bar-attribute {
   border-bottom: 1px solid #BBB;
 }
 
-.cyphersystem .settings .items-list .item:last-child {
+.cyphersystem .settings .items-list .item-settings:last-child {
   border-bottom: 1px solid #BBB;
   height: 36px;
 }
@@ -834,6 +834,11 @@ select.bar-attribute {
 .cyphersystem .item-settings {
   height: 35px;
   align-items: center;
+}
+
+.cyphersystem .item-subheading {
+  height: 35px;
+  align-items: end;
 }
 
 .cyphersystem input[type="text"].setting-input,
