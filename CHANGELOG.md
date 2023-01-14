@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Updated dice tray styling. Generic enough for all backgrounds and fitting the Foundry aesthetics.
 
+### Fixed
+- The Multi-Roll action is working again (this have been a macOS specific bug).
+- The prototype token now has sensible defaults based on their type again.
+- Refactored the tagging engine so that it works with better performance, more reliable, and on unlinked actor tokens.
+- The quick stat change macros now work again on non-PC actors.
+
 ## [2.2.0] - 2023-01-08
 ### Added
 - New customization options. There’s a new Compatible with Cypher System logo on the right hand side of the stat pools. This new logo, the  background image, and background icon can now be customized with your own images. The opacity of the logo and icon as well as a white overlay for the background image can freely be set, so that you can ensure readability with all images.
