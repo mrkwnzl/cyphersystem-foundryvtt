@@ -98,7 +98,7 @@ export class CypherActorSheet extends ActorSheet {
     const materials = [];
     const ammo = [];
     const recursions = [];
-    const tags = []
+    const tags = [];
 
     // Iterate through items, allocating to containers
     for (let item of data.items) {
@@ -405,7 +405,7 @@ export class CypherActorSheet extends ActorSheet {
           content: chatCardMarkItemIdentified(this.actor, item),
           whisper: ChatMessage.getWhisperRecipients("GM"),
           blind: true
-        })
+        });
       }
     });
 
@@ -416,7 +416,7 @@ export class CypherActorSheet extends ActorSheet {
         if (item.type == "tag" && item.system.exclusive && item.system.active) {
           changeTagStats(this.actor, 0, 0, 0, 0, 0, 0);
         } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0)
+          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0);
         }
         item.delete();
       } else {
@@ -472,14 +472,14 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".item-roll").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "");
     });
 
     // Item pay pool points buttons
     html.find(".item-pay").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "");
     });
 
     // Item cast spell button
@@ -585,7 +585,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".reset-health").click(clickEvent => {
       this.actor.update({
         "system.pools.health.value": this.actor.system.pools.health.max
-      })
+      });
     });
   }
 
@@ -734,7 +734,7 @@ export class CypherActorSheet extends ActorSheet {
                 label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
                 callback: () => {}
               }
-            }
+            };
           } else {
             return {
               move: {
@@ -752,13 +752,13 @@ export class CypherActorSheet extends ActorSheet {
                 label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
                 callback: () => {}
               }
-            }
+            };
           }
         }
 
         function moveItems(quantity) {
           quantity = parseInt(quantity);
-          if (quantity == null) {quantity = 0};
+          if (quantity == null) {quantity = 0;};
           if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
             moveDialog(quantity);
             return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
@@ -806,7 +806,7 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function archiveItem() {
-      originItem.update({"system.archived": true})
+      originItem.update({"system.archived": true});
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
       enableItemLists();
     }
@@ -850,7 +850,7 @@ export class CypherActorSheet extends ActorSheet {
       "recursion": game.i18n.localize("CYPHERSYSTEM.NewRecursion"),
       "tag": game.i18n.localize("CYPHERSYSTEM.NewTag"),
       "default": game.i18n.localize("CYPHERSYSTEM.NewDefault")
-    }
+    };
     const name = (types[type] || types["default"]);
 
     // Finally, create the item!

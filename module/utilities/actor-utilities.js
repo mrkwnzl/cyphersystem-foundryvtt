@@ -19,7 +19,7 @@ export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
       "Might": mightEdge,
       "Speed": speedEdge,
       "Intellect": intellectEdge
-    }
+    };
     edge = (relevantEdge[pool] || 0);
   }
 
@@ -36,25 +36,25 @@ export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
-    (teen) ? actor.update({"system.teen.pools.might.value": mightValue - costCalculated}) : actor.update({"system.pools.might.value": mightValue - costCalculated})
+    (teen) ? actor.update({"system.teen.pools.might.value": mightValue - costCalculated}) : actor.update({"system.pools.might.value": mightValue - costCalculated});
   } else if (pool == "Speed") {
     if (costCalculated > speedValue) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
-    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue - costCalculated}) : actor.update({"system.pools.speed.value": speedValue - costCalculated})
+    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue - costCalculated}) : actor.update({"system.pools.speed.value": speedValue - costCalculated});
   } else if (pool == "Intellect") {
     if (costCalculated > intellectValue) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
-    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue - costCalculated}) : actor.update({"system.pools.intellect.value": intellectValue - costCalculated})
+    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue - costCalculated}) : actor.update({"system.pools.intellect.value": intellectValue - costCalculated});
   } else if (pool == "XP") {
     if (costCalculated > actor.system.basic.xp) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
       return false;
     }
-    actor.update({"system.basic.xp": actor.system.basic.xp - costCalculated})
+    actor.update({"system.basic.xp": actor.system.basic.xp - costCalculated});
   }
 
   let payPoolPointsInfo = [true, costCalculated, edge, pool];
@@ -71,17 +71,17 @@ export async function regainPoolPoints(actor, cost, pool, teen) {
 
   // Return points
   if (pool == "might") {
-    (teen) ? actor.update({"system.teen.pools.might.value": mightValue + cost}) : actor.update({"system.pools.might.value": mightValue + cost})
+    (teen) ? actor.update({"system.teen.pools.might.value": mightValue + cost}) : actor.update({"system.pools.might.value": mightValue + cost});
   } else if (pool == "speed") {
-    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue + cost}) : actor.update({"system.pools.speed.value": speedValue + cost})
+    (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue + cost}) : actor.update({"system.pools.speed.value": speedValue + cost});
   } else if (pool == "intellect") {
-    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue + cost}) : actor.update({"system.pools.intellect.value": intellectValue + cost})
+    (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue + cost}) : actor.update({"system.pools.intellect.value": intellectValue + cost});
   }
 
   ChatMessage.create({
     speaker: ChatMessage.getSpeaker({actor: actor}),
     content: chatCardRegainPoints(actor, cost, pool, teen)
-  })
+  });
 }
 
 export function useRecoveries(actor, spell) {
@@ -152,14 +152,14 @@ export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier
     game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
   } else if (selectedActorId) {
     giveAdditionalXP({selectedActorId: selectedActorId, modifier: modifier});
-    deleteChatMessage({messageId: messageId})
+    deleteChatMessage({messageId: messageId});
   }
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);
 
   ChatMessage.create({
     content: content
-  })
+  });
 }
 
 export function giveAdditionalXP(data) {

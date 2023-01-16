@@ -29,7 +29,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     "lasting-damage": game.i18n.localize("ITEM.TypeLasting Damage"),
     "material": game.i18n.localize("ITEM.TypeMaterial"),
     "oddity": game.i18n.localize("ITEM.TypeOddity")
-  }
+  };
   let itemType = (itemTypeStrings[item.type] || "");
 
   if (item.type == "skill") {
@@ -39,7 +39,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": game.i18n.localize("CYPHERSYSTEM.Practiced"),
       "Trained": game.i18n.localize("CYPHERSYSTEM.Trained"),
       "Specialized": game.i18n.localize("CYPHERSYSTEM.Specialized")
-    }
+    };
     let skillInfo = (relevantSkill[item.system.basic.rating] || relevantSkill["Practiced"]);
 
     // Set info
@@ -51,7 +51,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": 0,
       "Trained": 1,
       "Specialized": 2
-    }
+    };
 
     // Set difficulty modifier
     modifier = (skillLevels[item.system.basic.rating] || 0);
@@ -78,7 +78,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
       "Practiced": 0,
       "Trained": 1,
       "Specialized": 2
-    }
+    };
     let skillRating = (attackSkill[item.system.basic.skillRating] || 0);
 
     // Set difficulty modifier
@@ -105,8 +105,8 @@ export function itemRollMacroQuick(actor, itemID, teen) {
         "Might": mightEdge,
         "Speed": speedEdge,
         "Intellect": intellectEdge
-      }
-      let edge = (relevantEdge[item.system.basic.pool] || 0)
+      };
+      let edge = (relevantEdge[item.system.basic.pool] || 0);
 
       // Determine point cost
       let checkPlus = item.system.basic.cost.slice(-1);
@@ -136,9 +136,9 @@ export function itemRollMacroQuick(actor, itemID, teen) {
             game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint");
         },
         "XP": function () {
-          return game.i18n.localize("CYPHERSYSTEM.XP")
+          return game.i18n.localize("CYPHERSYSTEM.XP");
         }
-      }
+      };
       let poolPoints = (relevantPool[item.system.basic.pool]() || relevantPool["Pool"]());
 
       // Determine edge info
@@ -150,7 +150,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
     }
 
     // Put everything together for info
-    info = itemType + costInfo
+    info = itemType + costInfo;
 
     // Pay pool points and check whether there are enough points
     let payPoolPointsInfo = payPoolPoints(actor, pointCost, item.system.basic.pool, teen);
@@ -179,7 +179,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 
   } else {
     // Default to simply outputting item type
-    info = itemType
+    info = itemType;
   }
 
   // Parse to dice roller macro
@@ -234,11 +234,11 @@ export async function toggleTagArchiveStatus(actor, tag, archiveStatus) {
 /* -------------------------------------------- */
 
 export function easedRollEffectiveMacro() {
-  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.EasedRollEffectiveMacro"))
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.EasedRollEffectiveMacro"));
 }
 
 export function hinderedRollEffectiveMacro() {
-  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.HinderedRollEffectiveMacro"))
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.HinderedRollEffectiveMacro"));
 }
 
 /* -------------------------------------------- */

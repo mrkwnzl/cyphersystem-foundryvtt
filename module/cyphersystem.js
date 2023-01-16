@@ -146,7 +146,7 @@ Hooks.once("init", async function () {
 
     // Recursion Document Link Exceptions
     recursionDocumentLinkExceptions
-  }
+  };
 
   // Define custom Entity classes
   CONFIG.Actor.documentClass = CypherActor;
@@ -248,13 +248,13 @@ Hooks.once("ready", async function () {
 });
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
-  let tokenControls = hudButtons.find(val => {return val.name == "token"})
+  let tokenControls = hudButtons.find(val => {return val.name == "token";});
   if (tokenControls && game.user.isGM) {
     tokenControls.tools.push({
       name: "calculateDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
       icon: "fas fa-calculator",
-      onClick: () => {calculateAttackDifficulty()},
+      onClick: () => {calculateAttackDifficulty();},
       button: true
     });
   }
@@ -263,7 +263,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "proposeGMI",
       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
       icon: "fas fa-bolt",
-      onClick: () => {proposeIntrusion()},
+      onClick: () => {proposeIntrusion();},
       button: true
     });
   }
@@ -272,7 +272,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "gmiRange",
       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
       icon: "fas fa-exclamation-triangle",
-      onClick: () => {gmiRangeForm()},
+      onClick: () => {gmiRangeForm();},
       button: true
     });
   }
@@ -352,9 +352,9 @@ Hooks.on("preCreateToken", function (document, data) {
 
   // Support for Drag Ruler
   if (actor.type !== "marker" && actor.type !== "community") {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": true})
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": true});
   } else {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": false})
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": false});
   }
 
   // Support for Bar Brawl
@@ -423,7 +423,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-recovery').data('dice');
-    let actorUuid = html.find('.reroll-recovery').data('actor-uuid')
+    let actorUuid = html.find('.reroll-recovery').data('actor-uuid');
     let actor = (actorUuid.includes("Token")) ? fromUuidSync(actorUuid).actor : fromUuidSync(actorUuid);
     recoveryRollMacro(actor, dice, false);
   });
@@ -473,7 +473,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
 
     // Create dialog content
     let content = `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
-    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`
+    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`;
 
     // Create dialog
     let d = new Dialog({
@@ -495,7 +495,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
       close: () => {}
     });
     if (list == "") {
-      applyXPFromIntrusion(actor, "", data.message._id, 1)
+      applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
       d.render(true);
     }
@@ -505,7 +505,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
     if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
-    applyXPFromIntrusion(actor, "", data.message._id, -1)
+    applyXPFromIntrusion(actor, "", data.message._id, -1);
   });
 });
 
@@ -517,7 +517,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         {id: "short", default: 0x008000, name: "short"},
         {id: "long", default: 0xFFA500, name: "long"},
         {id: "veryLong", default: 0xFF0000, name: "very long"}
-      ]
+      ];
     }
 
     getRanges(token) {
@@ -542,25 +542,25 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         {range: short, color: "short"},
         {range: long, color: "long"},
         {range: veryLong, color: "veryLong"}
-      ]
-      return ranges
+      ];
+      return ranges;
     }
 
     get defaultUnreachableColor() {
-      return 0x000000
+      return 0x000000;
     }
 
     usesRuler(token) {
       if (token.document.flags.cyphersystem.toggleDragRuler) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     }
   }
 
-  dragRuler.registerSystem("cyphersystem", CypherSystemSpeedProvider)
-})
+  dragRuler.registerSystem("cyphersystem", CypherSystemSpeedProvider);
+});
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
   if (game.modules.get("barbrawl")?.active && game.settings.get("cyphersystem", "barBrawlDefaults")) {

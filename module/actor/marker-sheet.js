@@ -43,7 +43,7 @@ export class CypherActorSheetMarker extends CypherActorSheet {
 
     // Reset Quantity
     html.find('.reset-quantity').click(clickEvent => {
-      this.actor.update({"system.pools.quantity.value": this.actor.system.pools.quantity.max})
+      this.actor.update({"system.pools.quantity.value": this.actor.system.pools.quantity.max});
     });
   }
 }

@@ -8,13 +8,13 @@ export async function dataMigration() {
   // Migrate actors & embedded items in the world
   for (let actor of game.actors) {
     console.log(`Migrating Actor document ${actor.name}`);
-    await migrationRoutineActor(actor)
+    await migrationRoutineActor(actor);
   }
 
   // Migrate items in world
   for (let item of game.items) {
     console.log(`Migrating Item document ${item.name}`);
-    await migrationRoutineItem(item)
+    await migrationRoutineItem(item);
   }
 
   // Migrate actors, embedded items, and items in compendia
@@ -35,7 +35,7 @@ export async function dataMigration() {
       for (let index of pack.index) {
         let item = await pack.getDocument(index._id);
         console.log(`Migrating Item document ${item.name}`);
-        await migrationRoutineItem(item)
+        await migrationRoutineItem(item);
       }
       await pack.configure({locked: lockedStatus});
     }
@@ -46,7 +46,7 @@ export async function dataMigration() {
     for (let token of scene.tokens) {
       if (!token.actorLink && token.actor) {
         console.log(`Migrating Token document ${token.name}`);
-        await migrationRoutineActor(token.actor)
+        await migrationRoutineActor(token.actor);
       }
     }
   }
@@ -67,7 +67,7 @@ export async function dataMigrationPacks(packageName) {
   // Make all types valid again
   game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag", "lasting Damage", "power Shift", "teen Ability", "teen Armor", "teen Attack", "teen lasting Damage", "teen Skill"];
 
-  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker", "PC", "NPC", "Companion", "Community", "Vehicle", "Token"]
+  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker", "PC", "NPC", "Companion", "Community", "Vehicle", "Token"];
 
   for (let pack of game.packs) {
     if (pack.metadata.type == "Actor" && pack.metadata.packageName == packageName) {
@@ -86,7 +86,7 @@ export async function dataMigrationPacks(packageName) {
       for (let index of pack.index) {
         let item = await pack.getDocument(index._id);
         console.log(`Migrating Item document ${item.name}`);
-        await migrationRoutineItem(item)
+        await migrationRoutineItem(item);
       }
       await pack.configure({locked: lockedStatus});
     }
@@ -95,7 +95,7 @@ export async function dataMigrationPacks(packageName) {
   // Remove invalid types again
   game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag"];
 
-  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"]
+  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"];
 
   // Notify about finished migration
   await ui.notifications.info(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}), {permanent: true, console: true});
@@ -133,7 +133,7 @@ async function migrationRoutineItem(item) {
 
 async function migrationRoutineSettings() {
   if (game.settings.get("cyphersystem", "effectiveDifficulty") === true) {
-    game.settings.set("cyphersystem", "effectiveDifficulty", 1)
+    game.settings.set("cyphersystem", "effectiveDifficulty", 1);
   }
 }
 
@@ -168,7 +168,7 @@ async function migrationActorV1ToV2(actor) {
     if (actor.type == "npc") {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
-      await migrateCombatDamageAndArmor()
+      await migrateCombatDamageAndArmor();
       await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -181,7 +181,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicCompanion();
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
-      await migrateCombatDamageAndArmor()
+      await migrateCombatDamageAndArmor();
       await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -194,7 +194,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migratePoolsHealth();
       await migratePoolsInfrastructure();
-      await migrateCombatDamageAndArmor()
+      await migrateCombatDamageAndArmor();
       await migrateBiographyAndDescription();
       await migrateSettingsHideArchive();
       await migrateSettingsInitiative();
@@ -208,7 +208,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicVehicle();
       await migrateBasicCrewAndWeaponSystems();
       await migrateBiographyAndDescription();
-      await migrateSettingsHideArchive()
+      await migrateSettingsHideArchive();
       await migrateSettingsEquipment();
       await migrateSettingsEquipmentAttacksArmorAmmo();
       await deleteUnnecessaryData();
@@ -218,7 +218,7 @@ async function migrationActorV1ToV2(actor) {
       await migrateBasicLevelAndRank();
       await migratePoolsQuantity();
       await migrateBiographyAndDescription();
-      await migrateSettingsHideArchive()
+      await migrateSettingsHideArchive();
       await migrateSettingsEquipment();
       await migrateSettingsEquipmentAttacksArmorAmmo();
       await migrateSettingsMarker();
@@ -709,7 +709,7 @@ async function migrationActorV1ToV2(actor) {
       "system.settings.equipment.-=artifactsName": null,
       "system.settings.equipment.-=odditiesName": null,
       "system.settings.equipment.-=materialName": null
-    }
+    };
     await actor.update(deleteData);
   }
 }
@@ -1095,7 +1095,7 @@ async function migrationItemV1ToV2(item) {
       "system.-=intellectModifier": null,
       "system.-=intellectEdgeModifier": null,
       "system.-=isInitiative": null
-    }
+    };
     await item.update(deleteData);
   }
 }

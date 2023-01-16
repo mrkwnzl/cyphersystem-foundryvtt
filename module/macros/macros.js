@@ -81,7 +81,7 @@ export async function diceRollMacro(dice, actor) {
   const roll = await new Roll(dice).evaluate({async: false});
 
   // Add reroll button
-  let reRollButton = `<div style="text-align: right"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></a></div>`
+  let reRollButton = `<div style="text-align: right"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></a></div>`;
 
   // Send chat message
   roll.toMessage({
@@ -156,7 +156,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   if (!effort3) effort3 = item.system.settings.rollButton.effort3;
   if (!additionalCost) {
     if (item.type == "ability") {
-      let checkPlus = item.system.basic.cost.slice(-1)
+      let checkPlus = item.system.basic.cost.slice(-1);
       if (checkPlus == "+") {
         let cost = item.system.basic.cost.slice(0, -1);
         additionalCost = cost;
@@ -328,7 +328,7 @@ export function spendEffortMacro(actor) {
 export function toggleDragRuler(token) {
   if (!game.modules.get("drag-ruler").active) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ActivateDragRuler"));
   if (!token) {
-    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"))
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"));
   }
 
   if (!token.document.data.flags.cyphersystem.toggleDragRuler) {
@@ -491,7 +491,7 @@ export function proposeIntrusion(actor) {
 
     ChatMessage.create({
       content: chatCardAskForIntrusion(actor, actorId)
-    })
+    });
   }
 }
 
@@ -508,12 +508,12 @@ export function toggleAlwaysShowDescriptionOnRoll() {
 
 export function toggleAttacksOnSheet(token) {
   let toggle = token.actor.system.settings.equipment.attacks ? false : true;
-  token.actor.update({"data.settings.equipment.attacks": toggle})
+  token.actor.update({"data.settings.equipment.attacks": toggle});
 }
 
 export function toggleArmorOnSheet(token) {
   let toggle = token.actor.system.settings.equipment.armor ? false : true;
-  token.actor.update({"data.settings.equipment.armor": toggle})
+  token.actor.update({"data.settings.equipment.armor": toggle});
 }
 
 export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
@@ -559,7 +559,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
     await actor.updateEmbeddedDocuments("Item", updates);
 
     // Notify about translation
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}))
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}));
   }
 }
 
@@ -594,14 +594,14 @@ export async function changeRecursionStats(actor, recursion, mightModifier, migh
 }
 
 export async function recursionMacro(actor, item) {
-  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"))
-  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"))
+  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"));
+  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"));
   await translateToRecursion(actor, item.name, item.system.basic.focus, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.edge, item.id);
 }
 
 export async function tagMacro(actor, item) {
-  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"))
-  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"))
+  if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"));
+  if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"));
   await taggingEngineMain(actor, {item: item});
 }
 
@@ -639,7 +639,7 @@ export function renameTagMacro(actor, currentTag, newTag) {
       renameTagMacro(actor, currentTag, newTag);
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.TagsStartWith#"));
     }
-    renameTag(actor, currentTag, newTag)
+    renameTag(actor, currentTag, newTag);
   }
 }
 
@@ -680,7 +680,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     let stepModifierOne = (additionalOneValue >= 0) ? 1 : -1;
     let stepModifierTwo = (additionalTwoValue >= 0) ? 1 : -1;
     let stepModifierThree = (additionalThreeValue >= 0) ? 1 : -1;
-    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6)
+    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6);
   }
 
   function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6) {
@@ -844,9 +844,9 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     } else if ((additionalOneValue == 1 && pcRole == 1) || (additionalOneValue == -1 && pcRole == 0)) {
       additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
     } else if ((additionalOneValue >= 2 && pcRole == 0) || (additionalOneValue <= -2 && pcRole == 1)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalOneValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalOneValue)});
     } else if ((additionalOneValue >= 2 && pcRole == 1) || (additionalOneValue <= -2 && pcRole == 0)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalOneValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalOneValue)});
     }
 
     if (additionalTwoValue != 0) {
@@ -858,9 +858,9 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     } else if ((additionalTwoValue == 1 && pcRole == 1) || (additionalTwoValue == -1 && pcRole == 0)) {
       additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
     } else if ((additionalTwoValue >= 2 && pcRole == 0) || (additionalTwoValue <= -2 && pcRole == 1)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalTwoValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalTwoValue)});
     } else if ((additionalTwoValue >= 2 && pcRole == 1) || (additionalTwoValue <= -2 && pcRole == 0)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalTwoValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalTwoValue)});
     }
 
     if (additionalThreeValue != 0) {
@@ -872,9 +872,9 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     } else if ((additionalThreeValue == 1 && pcRole == 1) || (additionalThreeValue == -1 && pcRole == 0)) {
       additionalInfo = additionalInfo + game.i18n.localize("CYPHERSYSTEM.Eased");
     } else if ((additionalThreeValue >= 2 && pcRole == 0) || (additionalThreeValue <= -2 && pcRole == 1)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalThreeValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalThreeValue)});
     } else if ((additionalThreeValue >= 2 && pcRole == 1) || (additionalThreeValue <= -2 && pcRole == 0)) {
-      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalThreeValue)})
+      additionalInfo = additionalInfo + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalThreeValue)});
     }
 
     if (pcRole == 1) {
@@ -893,13 +893,13 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     let rng = Math.floor(Math.random() * 2);
 
-    chatMessageVagueText = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '</b><hr class="hr-chat">'
+    chatMessageVagueText = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '</b><hr class="hr-chat">';
 
     if (description1 == "") description1 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyRoutine");
     if (description2 == "") description2 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyTypical");
-    if (description3 == "") description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult")
-    if (description4 == "") description4 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyInitimidating")
-    if (description5 == "") description5 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyHeroic")
+    if (description3 == "") description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult");
+    if (description4 == "") description4 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyInitimidating");
+    if (description5 == "") description5 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyHeroic");
     if (description6 == "") description6 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyImpossible");
 
     if (finalDifficulty == 0) {
@@ -960,7 +960,7 @@ export function disasterModeMacro(token, mode, genre) {
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingOnScene"));
     }
   } else if (token.name == "GMI Range") {
-    modeSelect(token, mode, genre)
+    modeSelect(token, mode, genre);
   } else if (token.name != "GMI Range") {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.GMIRangeMissingSelected"));
   }
@@ -969,11 +969,11 @@ export function disasterModeMacro(token, mode, genre) {
     let newLevel;
     switch (mode) {
       case "increase":
-        newLevel = token.actor.system.basic.level + 1
+        newLevel = token.actor.system.basic.level + 1;
         if (newLevel <= 20) changeGMIRange(token, newLevel, genre);
         break;
       case "decrease":
-        newLevel = token.actor.system.basic.level - 1
+        newLevel = token.actor.system.basic.level - 1;
         if (newLevel >= 1) changeGMIRange(token, newLevel, genre);
         break;
       case "reset":
