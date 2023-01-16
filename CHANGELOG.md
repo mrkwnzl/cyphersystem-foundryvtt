@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2023-01-16
+### Added
+- Ten new utility macros to announce the difficulty to the chat. If this is the last chat message in the chat, the announced difficulty is bein used for rolls and as the base difficulty in the All-in-One roll dialog.
+- You can now set a name (or rough description) for unidentified cyphers and artifacts in the cypher’s or artifact’s item setting tab.
+
+### Fixed
+- The order of the dice icons in the dice tray is now correct again.
+
 ## [2.2.1] - 2023-01-14
 ### Changed
 - Updated dice tray styling. Generic enough for all backgrounds and fitting the Foundry aesthetics.
