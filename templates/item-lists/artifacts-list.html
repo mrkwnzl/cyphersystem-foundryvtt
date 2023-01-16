@@ -4,10 +4,12 @@
       <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~#if item.system.basic.identified ~}}
-        {{~item.name ~}}
+          {{~item.name ~}}
+        {{~else if item.system.settings.general.nameUnidentified ~}}
+          {{~item.system.settings.general.nameUnidentified ~}}
         {{~else ~}}
-        {{~localize 'CYPHERSYSTEM.UnidentifiedArtifact' ~}}
-        {{~/if~}}
+          {{~localize 'CYPHERSYSTEM.UnidentifiedArtifact' ~}}
+        {{~/if ~}}
       </a>
       {{#if (and item.system.basic.depletion item.system.basic.identified) ~}}
         {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}

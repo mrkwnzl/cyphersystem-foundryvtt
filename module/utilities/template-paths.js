@@ -44,6 +44,7 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/tabs/equipment-tab/equipment.html",
     "systems/cyphersystem/templates/tabs/equipment-tab/materials.html",
     "systems/cyphersystem/templates/tabs/equipment-tab/oddities.html",
+    "systems/cyphersystem/templates/tabs/settings-tab/settings-cyphers-and-artifacts.html",
     "systems/cyphersystem/templates/tabs/settings-tab/settings-equipment.html",
     "systems/cyphersystem/templates/tabs/settings-tab/settings-item.html",
     "systems/cyphersystem/templates/tabs/settings-tab/settings-pc.html",

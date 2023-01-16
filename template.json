@@ -1142,6 +1142,11 @@
         "depletion": "1 in [[/r d6]]",
         "identified": true
       },
+      "settings": {
+        "general": {
+          "nameUnidentified": ""
+        }
+      },
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p><p><strong>Depletion:</strong>&nbsp;</p>"
     },
     "attack": {
@@ -1194,6 +1199,11 @@
       "basic": {
         "level": "",
         "identified": true
+      },
+      "settings": {
+        "general": {
+          "nameUnidentified": ""
+        }
       },
       "description": "<p><strong>Level:</strong>&nbsp;</p><p><strong>Form:</strong>&nbsp;</p><p><strong>Effect:</strong>&nbsp;</p>"
     },

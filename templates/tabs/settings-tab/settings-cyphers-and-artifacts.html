@@ -1,0 +1,17 @@
+<div class="tab settings" data-group="primary" data-tab="settings">
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{#if (eq item.type 'cypher')}}{{localize 'CYPHERSYSTEM.NameOfUnidentifiedCypher'}}{{else}}{{localize 'CYPHERSYSTEM.NameOfUnidentifiedArtifact'}}{{/if}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin settings-input" name="system.settings.general.nameUnidentified" type="text" value="{{item.system.settings.general.nameUnidentified}}" placeholder="{{#if (eq item.type 'cypher')}}{{localize 'CYPHERSYSTEM.UnidentifiedCypher'}}{{else}}{{localize 'CYPHERSYSTEM.UnidentifiedArtifact'}}{{/if}}" />
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
