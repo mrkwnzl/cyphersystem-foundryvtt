@@ -396,6 +396,8 @@
   "CYPHERSYSTEM.UnidentifiedArtifact": "Unidentified artifact",
   "CYPHERSYSTEM.MarkIdentified": "Mark identified",
   "CYPHERSYSTEM.MarkUnidentified": "Mark unidentified",
+  "CYPHERSYSTEM.NameOfUnidentifiedCypher": "Name of Unidentified Cypher",
+  "CYPHERSYSTEM.NameOfUnidentifiedArtifact": "Name of Unidentified Artifact",
   "CYPHERSYSTEM.???": "???",
   "CYPHERSYSTEM.?": "?",
   "CYPHERSYSTEM.PCAskingForIdentification": "{actor} wants to identify an unidentified item.",
