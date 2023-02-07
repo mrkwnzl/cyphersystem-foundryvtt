@@ -478,7 +478,7 @@
     "CYPHERSYSTEM.AttackerIsJostled": "Angreifer ist aus dem Tritt",
     "CYPHERSYSTEM.AttackInGravity": "Aktion findet in hoher Gravitation oder in Schwerelosigkeit statt",
     "CYPHERSYSTEM.AdditionalModifier": "Zusätzlicher Modifikator",
-    "CYPHERSYSTEM.FinalDifficulty": "Dies ist eine Aufgabe mit Schwierigkeit {difficulty}.",
+    "CYPHERSYSTEM.ThisIsADifficultyTask": "Dies ist eine Aufgabe mit Schwierigkeit {difficulty}.",
     "CYPHERSYSTEM.VagueDifficultyRoutine": "Dies ist eine Routineaufgabe.",
     "CYPHERSYSTEM.VagueDifficultyTypical": "Dies ist eine typische Alltagsaufgabe.",
     "CYPHERSYSTEM.VagueDifficultyDifficult": "Dies ist eine schwierige, aber machbare Aufgabe.",

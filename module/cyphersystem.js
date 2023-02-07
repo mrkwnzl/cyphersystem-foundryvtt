@@ -35,8 +35,6 @@ import {
   quickStatChange,
   proposeIntrusion,
   changeSymbolForFractions,
-  toggleAttacksOnSheet,
-  toggleArmorOnSheet,
   translateToRecursion,
   toggleAlwaysShowDescriptionOnRoll,
   calculateAttackDifficulty,
@@ -46,7 +44,8 @@ import {
   disasterModeMacro,
   lockStaticStatsMacro,
   migrateDataMacro,
-  changeRecursionStats
+  changeRecursionStats,
+  selectedTokenRollMacro
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -118,8 +117,6 @@ Hooks.once("init", async function () {
     quickStatChange,
     proposeIntrusion,
     changeSymbolForFractions,
-    toggleAttacksOnSheet,
-    toggleArmorOnSheet,
     translateToRecursion,
     toggleAlwaysShowDescriptionOnRoll,
     calculateAttackDifficulty,
@@ -134,6 +131,7 @@ Hooks.once("init", async function () {
     rollEngineComputation,
     rollEngineForm,
     rollEngineOutput,
+    selectedTokenRollMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -415,6 +413,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     delete data["skipDialog"];
     delete data["roll"];
     data.reroll = true;
+    console.log(data);
     rollEngineMain(data);
   });
 

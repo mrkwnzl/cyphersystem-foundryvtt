@@ -617,6 +617,11 @@ select.bar-attribute {
   margin-top: 0px
 }
 
+.cyphersystem .sheet-body.limited .tab,
+.cyphersystem .sheet-body.limited .editor {
+  height: 549px;
+}
+
 .cyphersystem .resource-label {
   font-weight: bold;
   text-overflow: ellipsis;

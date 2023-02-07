@@ -4,7 +4,7 @@ import {useEffectiveDifficulty} from "./roll-engine-main.js";
 import {rollEngineOutput} from "./roll-engine-output.js";
 
 export async function rollEngineComputation(data) {
-  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+  let actor = fromUuidSync(data.actorUuid);
 
   // Roll dice
   data.roll = await new Roll("1d20").evaluate({async: true});
@@ -61,8 +61,6 @@ export async function rollEngineComputation(data) {
 
   // Calculate rollTotal
   data.rollTotal = data.roll.total + data.bonus;
-
-  // Determine whether 
 
   // Calculate difficulty
   data.difficulty = (data.rollTotal < 0) ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);

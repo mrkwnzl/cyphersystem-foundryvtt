@@ -418,7 +418,7 @@
     "CYPHERSYSTEM.TargetIsInPointBlankRange": "El objetivo está a bocajarro",
     "CYPHERSYSTEM.TargetIsInVeryDimLightImmediate": "El objetivo está bajo luz muy tenue y en alcance inmediato",
     "CYPHERSYSTEM.AttackerIsUnderwaterSlashing": "El atacante está bajo el agua con un arma cortante o contundente",
-    "CYPHERSYSTEM.FinalDifficulty": "Esta es una tarea de dificultad {difficulty}.",
+    "CYPHERSYSTEM.ThisIsADifficultyTask": "Esta es una tarea de dificultad {difficulty}.",
     "CYPHERSYSTEM.VagueDifficultyInitimidating": "Es una tarea difícil, seguramente requiera esfuerzo.",
     "CYPHERSYSTEM.PCIsAttacker": "El PJ es activo/atacante",
     "CYPHERSYSTEM.PCIsTarget": "El PJ es pasivo/objetivo",

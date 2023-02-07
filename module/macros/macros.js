@@ -1,5 +1,4 @@
 import {
-  toggleTagArchiveStatus,
   renameTag
 } from "./macro-helper.js";
 import {
@@ -16,7 +15,10 @@ import {
   payPoolPoints
 } from "../utilities/actor-utilities.js";
 import {barBrawlData} from "../utilities/token-utilities.js";
-import {rollEngineMain} from "../utilities/roll-engine/roll-engine-main.js";
+import {
+  rollEngineMain,
+  useEffectiveDifficulty
+} from "../utilities/roll-engine/roll-engine-main.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
 
 /* -------------------------------------------- */
@@ -53,7 +55,11 @@ export function easedRollMacro() {
 export function hinderedRollMacro() {
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll"),
-    content: `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}: </b></label>
+    content: `
+    <div align="center">
+    <label style="display: inline-block; text-align: right">
+    <b>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}: </b>
+    </label>
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: {
       roll: {
@@ -71,6 +77,137 @@ export function hinderedRollMacro() {
     close: () => {}
   });
   d.render(true);
+}
+
+export async function selectedTokenRollMacro(actor, title) {
+  // Check for actorUuid
+  if (!actor) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SelectAToken"));
+
+  let actorUuid = actor.uuid;
+
+  // Set default for difficulty
+  let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
+  let difficulty = (lastChatMessage?.flags?.difficulty) ? lastChatMessage.flags.difficulty : "none";
+
+  let skipDialog = (game.keyboard.isModifierActive('Alt')) ? game.settings.get("cyphersystem", "itemMacrosUseAllInOne") : !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
+
+  let d = new Dialog({
+    title: game.i18n.localize("CYPHERSYSTEM.StatRoll"),
+    content: `
+    <div align="center">
+      <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}:</label>
+      <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select" style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <option value="none" ${(difficulty == "none" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
+        <option value="0" ${(difficulty == 0 ? "selected" : "")}>0</option>
+        <option value="1" ${(difficulty == 1 ? "selected" : "")}>1</option>
+        <option value="2" ${(difficulty == 2 ? "selected" : "")}>2</option>
+        <option value="3" ${(difficulty == 3 ? "selected" : "")}>3</option>
+        <option value="4" ${(difficulty == 4 ? "selected" : "")}>4</option>
+        <option value="5" ${(difficulty == 5 ? "selected" : "")}>5</option>
+        <option value="6" ${(difficulty == 6 ? "selected" : "")}>6</option>
+        <option value="7" ${(difficulty == 7 ? "selected" : "")}>7</option>
+        <option value="8" ${(difficulty == 8 ? "selected" : "")}>8</option>
+        <option value="9" ${(difficulty == 9 ? "selected" : "")}>9</option>
+        <option value="10" ${(difficulty == 10 ? "selected" : "")}>10</option>
+        <option value="11" ${(difficulty == 11 ? "selected" : "")}>11</option>
+        <option value="12" ${(difficulty == 12 ? "selected" : "")}>12</option>
+        <option value="13" ${(difficulty == 13 ? "selected" : "")}>13</option>
+        <option value="14" ${(difficulty == 14 ? "selected" : "")}>14</option>
+        <option value="15" ${(difficulty == 15 ? "selected" : "")}>15</option>
+      </select><br>
+      <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.DifficultyModifier")}:</label>
+      <select name="easedOrHindered" id="easedOrHindered" class="dialog-select" style='height: 26px; width: 110px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
+        <option value='eased'>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}</option>
+        <option value='hindered'>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}</option>
+      </select>
+      <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="0" style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
+    </div>
+    `,
+    buttons: {
+      roll: {
+        icon: '<i class="fas fa-dice-d20"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Roll"),
+        callback: (html) => rollDice({actorUuid: actorUuid, title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), baseDifficulty: html.find('#baseDifficulty').val(), difficultyModifier: html.find('#difficultyModifier').val(), easedOrHindered: html.find('#easedOrHindered').val()})
+      },
+      cancel: {
+        icon: '<i class="fas fa-times"></i>',
+        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+        callback: () => {}
+      }
+    },
+    default: "roll",
+    close: () => {}
+  });
+
+  if (!skipDialog) {
+    d.render(true);
+  } else {
+    rollDice({actorUuid: actorUuid, title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), baseDifficulty: difficulty, difficultyModifier: 0, easedOrHindered: "eased"});
+  }
+
+  async function rollDice(data) {
+    let actor = fromUuidSync(data.actorUuid);
+    let roll = await new Roll("1d20").evaluate({async: true});
+
+    // Calculate roll modifiers
+    data.difficultyModifier = (data.easedOrHindered == "hindered") ? parseInt(data.difficultyModifier * -1) : parseInt(data.difficultyModifier);
+
+    let modifiedBy = "";
+    if (data.difficultyModifier != 0) {
+      if (data.difficultyModifier > 1) {
+        modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: data.difficultyModifier});
+      } else if (data.difficultyModifier == 1) {
+        modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased");
+      } else if (data.difficultyModifier == -1) {
+        modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered");
+      } else if (data.difficultyModifier < -1) {
+        modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(data.difficultyModifier)});
+      }
+    }
+
+    let easedOrHinderedInfo = "";
+    let finalDifficulty = data.baseDifficulty - data.difficultyModifier;
+    let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + Math.max(0, finalDifficulty * 3) + ")" : "";
+    if (modifiedBy) {
+      easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
+    }
+
+    // Create difficulty info
+    let baseDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
+
+    // Create beatenDifficulty info
+    let beatenDifficulty = (roll.total < 0) ? Math.ceil(roll.total / 3) : Math.floor(roll.total / 3);
+
+    if (useEffectiveDifficulty(data.baseDifficulty)) {
+      let operator = (data.difficultyModifier < 0) ? "-" : "+";
+      let effectiveDifficulty = beatenDifficulty + data.difficultyModifier;
+      if (effectiveDifficulty < 0) effectiveDifficulty = 0;
+      var difficultyResult = effectiveDifficulty + " [" + beatenDifficulty + operator + Math.abs(data.difficultyModifier) + "]";
+    } else {
+      if (beatenDifficulty < 0) beatenDifficulty = 0;
+      var difficultyResult = beatenDifficulty + " (" + beatenDifficulty * 3 + ")";
+    }
+
+    let beatenDifficultyInfo = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + difficultyResult + "</span>";
+
+    // Create success info
+    let successInfo = "";
+    if (data.baseDifficulty != "none") {
+      let difficultyBeaten = difficulty;
+      successInfo = (difficultyBeaten >= finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
+    };
+
+    let flavor = title + baseDifficultyInfo + "<hr class='hr-chat'>" + easedOrHinderedInfo + beatenDifficultyInfo + successInfo;
+
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({actor: actor}),
+      flavor: flavor,
+      flags: {
+        "itemID": data.itemID,
+        "data": data
+      }
+    });
+  }
 }
 
 export async function diceRollMacro(dice, actor) {
@@ -506,16 +643,6 @@ export function toggleAlwaysShowDescriptionOnRoll() {
   (toggle) ? ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification")) : ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification"));
 }
 
-export function toggleAttacksOnSheet(token) {
-  let toggle = token.actor.system.settings.equipment.attacks ? false : true;
-  token.actor.update({"data.settings.equipment.attacks": toggle});
-}
-
-export function toggleArmorOnSheet(token) {
-  let toggle = token.actor.system.settings.equipment.armor ? false : true;
-  token.actor.update({"data.settings.equipment.armor": toggle});
-}
-
 export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
   // Check for PC
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
@@ -887,7 +1014,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     let difficultyResult = finalDifficulty + " (" + (finalDifficulty * 3) + ")";
 
-    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.FinalDifficulty", {difficulty: difficultyResult});
+    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", {difficulty: difficultyResult});
 
     chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
 

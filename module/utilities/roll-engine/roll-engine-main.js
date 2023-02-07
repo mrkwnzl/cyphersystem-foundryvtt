@@ -27,9 +27,9 @@ export async function rollEngineMain(data) {
     poolPointCost: 0
   }, data);
 
-  if (!data.actorUuid) data.actorUuid = game.user.character.uuid;
-
-  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+  // Find actor
+  if (!data.actorUuid) data.actorUuid = game.user.character?.uuid;
+  let actor = (data.actorUuid) ? fromUuidSync(data.actorUuid) : undefined;
 
   // Check for PC actor
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));

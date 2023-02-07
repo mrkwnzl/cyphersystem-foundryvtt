@@ -414,7 +414,7 @@
     "CYPHERSYSTEM.TargetIsInVeryDimLightImmediate": "La cible est éclairée très faiblement et se trouve à portée immédiate",
     "CYPHERSYSTEM.AttackIsOnLand": "L'attaque a lieu sur terre",
     "CYPHERSYSTEM.AttackerIsMoving": "L'attaquant se déplace sur une monture ou dans un véhicule",
-    "CYPHERSYSTEM.FinalDifficulty": "Il s'agit d'une tâche de difficulté {difficulty}.",
+    "CYPHERSYSTEM.ThisIsADifficultyTask": "Il s'agit d'une tâche de difficulté {difficulty}.",
     "CYPHERSYSTEM.VagueDifficultyInitimidating": "Il s'agit d'une tâche difficile, qui demande probablement un certain effort.",
     "CYPHERSYSTEM.PCIsAttacker": "Le PJ attaque/est actif",
     "CYPHERSYSTEM.PCIsTarget": "Le PJ est passif/la cible",

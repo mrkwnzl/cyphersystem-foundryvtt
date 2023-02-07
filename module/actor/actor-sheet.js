@@ -44,6 +44,7 @@ export class CypherActorSheet extends ActorSheet {
 
     // --Notes and description
     data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
+    data.enrichedHTML.gmNotes = await TextEditor.enrichHTML(this.actor.system.gmNotes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
 
     data.enrichedHTML.itemDescription = {};
@@ -782,6 +783,7 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
+      console.log(targetActor);
       if (originItem.type == "artifact") {
         targetActor.update({"system.settings.equipment.artifacts.active": true});
       }
@@ -794,14 +796,23 @@ export class CypherActorSheet extends ActorSheet {
       else if (originItem.type == "material") {
         targetActor.update({"system.settings.equipment.materials.active": true});
       }
-      else if (originItem.type == "ammo") {
+      else if (originItem.type == "ammo" && targetActor.type == "pc") {
         targetActor.update({"system.settings.combat.ammo.active": true});
       }
-      else if (originItem.type == "power-shift") {
+      else if (originItem.type == "ammo" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.ammo.active": true});
+      }
+      else if (originItem.type == "power-shift" && targetActor.type == "pc") {
         targetActor.update({"system.settings.skills.powerShifts.active": true});
       }
-      else if (originItem.type == "lasting-damage") {
+      else if (originItem.type == "lasting-damage" && targetActor.type == "pc") {
         targetActor.update({"system.settings.combat.lastingDamage.active": true});
+      }
+      else if (originItem.type == "attack" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.attacks.active": true});
+      }
+      else if (originItem.type == "armor" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.armor.active": true});
       }
     }
 

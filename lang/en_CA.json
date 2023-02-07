@@ -484,7 +484,7 @@
     "CYPHERSYSTEM.Calculate": "Calculate",
     "CYPHERSYSTEM.CalculateAttackDifficulty": "Calculate Difficulty",
     "CYPHERSYSTEM.TaskDifficulty": "Task Difficulty",
-    "CYPHERSYSTEM.FinalDifficulty": "This is a difficulty {difficulty} task.",
+    "CYPHERSYSTEM.ThisIsADifficultyTask": "This is a difficulty {difficulty} task.",
     "CYPHERSYSTEM.VagueDifficultyRoutine": "This is a routine task.",
     "CYPHERSYSTEM.VagueDifficultyTypical": "This is a typical everyday task.",
     "CYPHERSYSTEM.VagueDifficultyDifficult": "This is a difficult, but doable task.",

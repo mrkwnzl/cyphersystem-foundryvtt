@@ -94,8 +94,9 @@
       "equipment": {
         "cypherLimit": 2
       },
-      "description": "",
       "notes": "",
+      "gmNotes": "",
+      "description": "",
       "settings": {
         "general": {
           "gameMode": "Cypher",

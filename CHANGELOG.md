@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- A new tab for GM notes has been added.
+- A new Simplified Stat Roll macro has been added. With that, you can make rolls for all actor types (instead of just PC actors, like the other stat roll macros), and it applies to either the controlled actor or selected token.
+
+### Changed
+- Non-PC actors now can also hold attack and armor items.
+- The steps eased/hindered in the chat output of the All-in-One roll dialog is now clearer. The base difficulty is always shown, and the final difficulty is shown if the base difficulty is eased or hindered.
+
+### Fixed
+- The quick roll macros now give the correct warning when you don’t control a PC actor.
+
+### Removed
+- Removed the secret setting macros to enable attacks and armor on non-PC actors.
+
 ## [2.3.0] - 2023-01-16
 ### Added
 - Ten new utility macros to announce the difficulty to the chat. If this is the last chat message in the chat, the announced difficulty is bein used for rolls and as the base difficulty in the All-in-One roll dialog.

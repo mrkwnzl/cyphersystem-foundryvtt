@@ -21,12 +21,12 @@
 
 /* Details & Summary */
 
-.sheet.journal-entry details {
+.sheet.journal-entry .csrd-details {
   border: 1px solid var(--color-border-light-tertiary);
   border-radius: 4px;
   padding: 0px 5px;
 }
 
-.sheet.journal-entry summary {
+.sheet.journal-entry .csrd-summary {
   margin: 5px 5px;
 }
