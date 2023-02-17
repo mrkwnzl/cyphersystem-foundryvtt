@@ -1022,8 +1022,6 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     chatMessageVagueText = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '</b><hr class="hr-chat">';
 
-    console.log(description1);
-
     if (!description1) description1 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyRoutine");
     if (!description2) description2 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyTypical");
     if (!description3) description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult");
