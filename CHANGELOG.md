@@ -10,11 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - A new Simplified Stat Roll macro has been added. With that, you can make rolls for all actor types (instead of just PC actors, like the other stat roll macros), and it applies to either the controlled actor or selected token.
 
 ### Changed
-- Non-PC actors now can also hold attack and armor items.
+- Non-PC actors can now also hold attack and armor items.
 - The steps eased/hindered in the chat output of the All-in-One roll dialog is now clearer. The base difficulty is always shown, and the final difficulty is shown if the base difficulty is eased or hindered.
 
 ### Fixed
 - The quick roll macros now give the correct warning when you don’t control a PC actor.
+- The vague description of roll difficulties when using the calculate difficulty button now works as intended.
 
 ### Removed
 - Removed the secret setting macros to enable attacks and armor on non-PC actors.
