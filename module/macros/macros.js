@@ -1022,12 +1022,14 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     chatMessageVagueText = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '</b><hr class="hr-chat">';
 
-    if (description1 == "") description1 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyRoutine");
-    if (description2 == "") description2 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyTypical");
-    if (description3 == "") description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult");
-    if (description4 == "") description4 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyInitimidating");
-    if (description5 == "") description5 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyHeroic");
-    if (description6 == "") description6 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyImpossible");
+    console.log(description1);
+
+    if (!description1) description1 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyRoutine");
+    if (!description2) description2 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyTypical");
+    if (!description3) description3 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyDifficult");
+    if (!description4) description4 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyInitimidating");
+    if (!description5) description5 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyHeroic");
+    if (!description6) description6 = game.i18n.localize("CYPHERSYSTEM.VagueDifficultyImpossible");
 
     if (finalDifficulty == 0) {
       chatMessageVagueText = chatMessageVagueText + description1;
