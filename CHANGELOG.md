@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - The quick roll macros now give the correct warning when you don’t control a PC actor.
 - The vague description of roll difficulties when using the calculate difficulty button now works as intended.
+- The resource bar defaults now work as expected. Use of Bar Brawl is still recommended, though.
 
 ### Removed
 - Removed the secret setting macros to enable attacks and armor on non-PC actors.
