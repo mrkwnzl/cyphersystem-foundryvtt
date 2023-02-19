@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - A new tab for GM notes has been added.
 - A new Simplified Stat Roll macro has been added. With that, you can make rolls for all actor types (instead of just PC actors, like the other stat roll macros), and it applies to either the controlled actor or selected token.
+- Crafting material can now be sorted by level.
 
 ### Changed
 - Non-PC actors can now also hold attack and armor items.
@@ -17,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The quick roll macros now give the correct warning when you don’t control a PC actor.
 - The vague description of roll difficulties when using the calculate difficulty button now works as intended.
 - The resource bar defaults now work as expected. Use of Bar Brawl is still recommended, though.
+- Crafting material without a level or with level 0 now correctly show “—” for the level on the sheet.
 
 ### Removed
 - Removed the secret setting macros to enable attacks and armor on non-PC actors.
