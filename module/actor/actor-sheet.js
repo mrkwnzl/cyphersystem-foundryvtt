@@ -17,7 +17,8 @@ import {
   byNameAscending,
   bySkillRating,
   byArchiveStatus,
-  byIdentifiedStatus
+  byIdentifiedStatus,
+  byItemLevel
 } from "../utilities/sorting.js";
 
 import {useRecoveries} from "../utilities/actor-utilities.js";
@@ -236,6 +237,13 @@ export class CypherActorSheet extends ActorSheet {
         skillsThree.sort(bySkillRating);
         skillsFour.sort(bySkillRating);
         teenSkills.sort(bySkillRating);
+      }
+    }
+
+    // Sort my material level
+    if (this.actor.type == "pc") {
+      if (actorData.system.settings.equipment.materials.sortByLevel) {
+        materials.sort(byItemLevel);
       }
     }
 

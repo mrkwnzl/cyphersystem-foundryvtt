@@ -188,6 +188,7 @@
           },
           "materials": {
             "active": false,
+            "sortyByLevel": false,
             "label": ""
           }
         }

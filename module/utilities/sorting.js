@@ -36,6 +36,20 @@ export function bySkillRating(itemA, itemB) {
   return 0;
 }
 
+// Sort items by level
+export function byItemLevel(itemA, itemB) {
+  let levelA = itemA.system.basic.level;
+  let levelB = itemB.system.basic.level;
+
+  if (levelA < levelB) {
+    return -1;
+  }
+  if (levelA > levelB) {
+    return 1;
+  }
+  return 0;
+}
+
 // Sort items by archive status
 export function byArchiveStatus(itemA, itemB) {
   let ratingA;
