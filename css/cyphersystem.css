@@ -889,6 +889,10 @@ select.bar-attribute {
   width: 13px;
 }
 
+.cyphersystem input:disabled {
+  border: 1px solid rgb(0, 0, 0, 0);
+}
+
 .cyphersystem select {
   height: 26px;
   margin-bottom: 2px;
