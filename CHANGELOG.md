@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Non-PC actors can now also hold attack and armor items.
 - The steps eased/hindered in the chat output of the All-in-One roll dialog is now clearer. The base difficulty is always shown, and the final difficulty is shown if the base difficulty is eased or hindered.
+- The additional sentence field is no longer editable when using the The Strange game mode.
 
 ### Fixed
 - The quick roll macros now give the correct warning when you don’t control a PC actor.
