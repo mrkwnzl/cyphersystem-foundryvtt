@@ -366,13 +366,13 @@ Hooks.on("createCombatant", function (combatant) {
     let actor = combatant.actor;
 
     if (actor.type == "npc") {
-      combatant.updateSource({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
+      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
     } else if (actor.type == "vehicle") {
-      combatant.updateSource({"initiative": (actor.system.basic.level * 3) - 0.5});
+      combatant.update({"initiative": (actor.system.basic.level * 3) - 0.5});
     }
   }
 });
@@ -384,7 +384,7 @@ Hooks.on("updateCombat", function () {
     if (combatant.type == "marker" && combatant.system.settings.general.isCounter == true) {
       let step = (!combatant.system.settings.general.counting) ? -1 : combatant.system.settings.general.counting;
       let newQuantity = combatant.system.pools.quantity.value + step;
-      combatant.updateSource({"system.pools.quantity.value": newQuantity});
+      combatant.update({"system.pools.quantity.value": newQuantity});
     }
   }
 });
