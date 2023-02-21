@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The vague description of roll difficulties when using the calculate difficulty button now works as intended.
 - The resource bar defaults now work as expected. Use of Bar Brawl is still recommended, though.
 - Crafting material without a level or with level 0 now correctly show “—” for the level on the sheet.
+- NPCs added to the combat tracker now correctly send their initiative value to connected clients and keep their initiative value when refreshing.
 
 ### Removed
 - Removed the secret setting macros to enable attacks and armor on non-PC actors.
