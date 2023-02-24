@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2023-02-24
+### Fixed
+- Fixed a bug where the difficulty of a roll wasn’t carried over to a reroll.
+- Rerolls no longer open the dialog sheet when holding alt or when the option to always show the dialog sheet is enabled.
+
+### Changed
+- The chat card for rerolls now reads “Reroll” below the title.
+
 ## [2.4.0] - 2023-02-24
 ### Added
 - A new tab for GM notes has been added.

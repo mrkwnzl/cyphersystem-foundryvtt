@@ -46,11 +46,11 @@ export async function rollEngineComputation(data) {
 
   // Pay pool points
   let payPoolPointsInfo = [];
-  if (!data.reroll) {
+  if (!data.reroll || data.pool == "Pool") {
     payPoolPointsInfo = await payPoolPoints(actor, data.costCalculated, data.pool, data.teen);
   } else if (data.reroll) {
     let edge = actor.system.pools[data.pool.toLowerCase()].edge;
-    payPoolPointsInfo = [true, data.costCalculated - edge, edge];
+    payPoolPointsInfo = [true, Math.max(0, data.costCalculated - edge), edge];
   }
   data.costTotal = payPoolPointsInfo[1];
   data.edge = payPoolPointsInfo[2];

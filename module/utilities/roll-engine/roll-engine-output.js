@@ -215,6 +215,9 @@ export async function rollEngineOutput(data) {
   // Create multi roll
   let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<br><span class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</span>" : "";
 
+  // Create reroll info
+  let rerollInfo = (data.reroll) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Reroll") : "";
+
   // Create beatenDifficulty
   let beatenDifficulty = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
 
@@ -234,8 +237,9 @@ export async function rollEngineOutput(data) {
 
   // Add reroll button
   let actorUuid = (actor) ? actor.uuid : "";
+  data.baseDifficulty = (data.baseDifficulty != "none") ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
-  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`;
+  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";
@@ -247,7 +251,7 @@ export async function rollEngineOutput(data) {
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = title + baseDifficultyInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + easedOrHinderedInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
+  let flavor = title + baseDifficultyInfo + rerollInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + easedOrHinderedInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
 
   if (data.skipRoll) {
     ChatMessage.create({

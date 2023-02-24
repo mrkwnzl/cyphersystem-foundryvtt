@@ -413,7 +413,6 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     delete data["skipDialog"];
     delete data["roll"];
     data.reroll = true;
-    console.log(data);
     rollEngineMain(data);
   });
 
