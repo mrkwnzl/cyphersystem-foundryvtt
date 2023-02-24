@@ -60,10 +60,10 @@ export class GMIRangeSheet extends FormApplication {
         await game.settings.set("cyphersystem", "globalGMIRange", Math.min((game.settings.get("cyphersystem", "globalGMIRange") + 1), 20));
       } else if (mode == "allActors") {
         actors = data.actors;
-        await updateActors()
+        await updateActors();
       } else if (mode) {
         actors.push(game.actors.get($(clickEvent.currentTarget).parents(".item")?.data("itemId")));
-        await updateActors()
+        await updateActors();
       }
       async function updateActors() {
         for (let actor of actors) {
@@ -82,10 +82,10 @@ export class GMIRangeSheet extends FormApplication {
         await game.settings.set("cyphersystem", "globalGMIRange", Math.max((game.settings.get("cyphersystem", "globalGMIRange") - 1), 1));
       } else if (mode == "allActors") {
         actors = data.actors;
-        await updateActors()
+        await updateActors();
       } else if (mode) {
         actors.push(game.actors.get($(clickEvent.currentTarget).parents(".item")?.data("itemId")));
-        await updateActors()
+        await updateActors();
       }
       async function updateActors() {
         for (let actor of actors) {
@@ -104,10 +104,10 @@ export class GMIRangeSheet extends FormApplication {
         await game.settings.set("cyphersystem", "globalGMIRange", 1);
       } else if (mode == "allActors") {
         actors = data.actors;
-        await updateActors()
+        await updateActors();
       } else if (mode) {
         actors.push(game.actors.get($(clickEvent.currentTarget).parents(".item")?.data("itemId")));
-        await updateActors()
+        await updateActors();
       }
       async function updateActors() {
         for (let actor of actors) {

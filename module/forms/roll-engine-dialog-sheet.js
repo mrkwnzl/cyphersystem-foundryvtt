@@ -294,7 +294,7 @@ function summaryTaskModified(data) {
 }
 
 function summaryTotalDamage(data) {
-  let sum = data.damage + (data.effortDamage * data.damagePerLOE)
+  let sum = data.damage + (data.effortDamage * data.damagePerLOE);
 
   let totalDamageString = "";
 

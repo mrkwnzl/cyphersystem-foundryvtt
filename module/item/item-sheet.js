@@ -59,9 +59,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.identify-item').click(clickEvent => {
       if (this.item.system.basic.identified) {
-        this.item.update({"system.basic.identified": false})
+        this.item.update({"system.basic.identified": false});
       } else {
-        this.item.update({"system.basic.identified": true})
+        this.item.update({"system.basic.identified": true});
       }
     });
 

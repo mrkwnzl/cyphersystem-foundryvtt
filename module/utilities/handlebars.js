@@ -30,5 +30,5 @@ export async function registerHandlebars() {
     if (type == "description") return sheetData.enrichedHTML.itemDescription[itemID];
     if (type == "level") return sheetData.enrichedHTML.itemLevel[itemID];
     if (type == "depletion") return sheetData.enrichedHTML.itemDepletion[itemID];
-  })
+  });
 }

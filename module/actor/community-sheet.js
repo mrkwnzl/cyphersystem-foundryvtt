@@ -43,7 +43,7 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
 
     // Reset Infrastructure
     html.find('.reset-infrastructure').click(clickEvent => {
-      this.actor.update({"system.pools.infrastructure.value": this.actor.system.pools.infrastructure.max})
+      this.actor.update({"system.pools.infrastructure.value": this.actor.system.pools.infrastructure.max});
     });
   }
 }

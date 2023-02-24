@@ -19,14 +19,34 @@
   width: 250px
 }
 
+.sheet.journal-entry .csrd-td-armor {
+  width: 70px
+}
+
+.sheet.journal-entry .csrd-td-hindrance {
+  width: 85px
+}
+
+.sheet.journal-entry .csrd-td-targeting-task {
+  width: 200px
+}
+
+.sheet.journal-entry .csrd-td-price {
+  width: 75px
+}
+
+.sheet.journal-entry .csrd-td-number-collisions {
+  width: 160px
+}
+
 /* Details & Summary */
 
-.sheet.journal-entry details {
+.sheet.journal-entry .csrd-details {
   border: 1px solid var(--color-border-light-tertiary);
   border-radius: 4px;
   padding: 0px 5px;
 }
 
-.sheet.journal-entry summary {
+.sheet.journal-entry .csrd-summary {
   margin: 5px 5px;
 }

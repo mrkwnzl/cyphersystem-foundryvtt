@@ -76,7 +76,7 @@
         <input name="system.basic.focus" type="text" value="{{actor.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" />
         {{#if actor.system.settings.general.additionalSentence.active}}
           &nbsp;
-          <input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" />
+          <input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" {{#if (eq actor.system.settings.general.gameMode 'Strange')}}disabled{{/if}} />
         {{/if}}
       {{/if}}
       {{#unless sheetSettings.isLimited}}

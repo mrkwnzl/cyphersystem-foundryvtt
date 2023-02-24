@@ -516,6 +516,14 @@
           <input class="auto-margin settings-input" name="system.settings.equipment.materials.label" type="text" value="{{actor.system.settings.equipment.materials.label}}" placeholder="{{localize 'CYPHERSYSTEM.IotumAndParts'}}" />
         </div>
       </li>
+      {{#if actor.system.settings.equipment.materials.active}}
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.equipment.materials.sortByLevel" {{checked actor.system.settings.equipment.materials.sortByLevel}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.SortMaterialsByLevel'}}
+          </div>
+        </li>
+      {{/if}}
     </ol>
   </div>
 

@@ -6,7 +6,7 @@
         {{~item.name}}
       </a>
     </h4>
-    <div class="item-quantity">{{#if (eq item.system.basic.level "")}}—{{else}}{{{item.system.basic.level}}}{{/if}}</div>
+    <div class="item-quantity">{{#if item.system.basic.level}}{{{item.system.basic.level}}}{{else}}—{{/if}}</div>
     <div class="item-quantity">
       <a class="item-control minus-one {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
         <i class="far fa-minus-square"></i>

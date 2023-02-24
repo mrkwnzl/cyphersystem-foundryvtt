@@ -68,7 +68,7 @@ export function itemMacroString(item) {
 
     // Do not change anything below
 
-    game.cyphersystem.itemRollMacro(actor, "${item}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel, teen, noRoll)`
+    game.cyphersystem.itemRollMacro(actor, "${item}", pool, skill, assets, effortTask, effortOther, modifier, poolPointCost, damage, effortDamage, damagePerLevel, teen, noRoll)`;
 
   return content.replace(/^ +/gm, '');
 }
@@ -106,7 +106,7 @@ export function spendEffortString() {
         <option value='Intellect'>${game.i18n.localize("CYPHERSYSTEM.Intellect")}</option>
     </select><br>
     <label style='display: inline-block; width: 98px; text-align: right'><b>${game.i18n.localize("CYPHERSYSTEM.LevelOfEffort")}: </b></label>
-    <input name='level' id='level' style='width: 98px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 /></div>`
+    <input name='level' id='level' style='width: 98px; margin-left: 5px; margin-bottom: 5px;text-align: center' type='text' value=1 /></div>`;
 
   return content;
 }
@@ -271,7 +271,7 @@ export function renameTagString(currentTag, newTag) {
     </div>
     <div align="center">
       <label style='display: inline-block; margin-bottom: 5px; font-size: smaller'>${game.i18n.localize("CYPHERSYSTEM.KeepEmptyToDelete")}</label>
-    </div>`
+    </div>`;
 
   return content;
 }

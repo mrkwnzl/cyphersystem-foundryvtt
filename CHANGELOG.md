@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2023-02-24
+### Added
+- A new tab for GM notes has been added.
+- A new Simplified Stat Roll macro has been added. With that, you can make rolls for all actor types (instead of just PC actors, like the other stat roll macros), and it applies to either the controlled actor or selected token.
+- Crafting material can now be sorted by level.
+
+### Changed
+- Non-PC actors can now also hold attack and armor items.
+- The steps eased/hindered in the chat output of the All-in-One roll dialog is now clearer. The base difficulty is always shown, and the final difficulty is shown if the base difficulty is eased or hindered.
+- The additional sentence field is no longer editable when using the The Strange game mode.
+
+### Fixed
+- The quick roll macros now give the correct warning when you don’t control a PC actor.
+- The vague description of roll difficulties when using the calculate difficulty button now works as intended.
+- The resource bar defaults now work as expected. Use of Bar Brawl is still recommended, though.
+- Crafting material without a level or with level 0 now correctly show “—” for the level on the sheet.
+- NPCs added to the combat tracker now correctly send their initiative value to connected clients and keep their initiative value when refreshing.
+
+### Removed
+- Removed the secret setting macros to enable attacks and armor on non-PC actors.
+
 ## [2.3.0] - 2023-01-16
 ### Added
 - Ten new utility macros to announce the difficulty to the chat. If this is the last chat message in the chat, the announced difficulty is bein used for rolls and as the base difficulty in the All-in-One roll dialog.

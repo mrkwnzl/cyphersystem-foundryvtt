@@ -2,24 +2,18 @@ import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
 } from "../actor-utilities.js";
+import {useEffectiveDifficulty} from "./roll-engine-main.js";
 
 export async function rollEngineOutput(data) {
-  let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+  let actor = fromUuidSync(data.actorUuid);
 
   // Title information
-  let poolRoll = {
-    "Might": game.i18n.localize("CYPHERSYSTEM.MightRoll"),
-    "Speed": game.i18n.localize("CYPHERSYSTEM.SpeedRoll"),
-    "Intellect": game.i18n.localize("CYPHERSYSTEM.IntellectRoll"),
-    "Pool": game.i18n.localize("CYPHERSYSTEM.StatRoll")
-  }
-  if (data.title == "") {
-    data.title = poolRoll[data.pool] || poolRoll["Pool"];
-  }
+  if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
   // Item information
   let itemDescription = "";
   let itemDescriptionInfo = "";
+  let title = data.title;
   if (actor.items.get(data.itemID)) {
     let item = actor.items.get(data.itemID);
 
@@ -31,10 +25,10 @@ export async function rollEngineOutput(data) {
 
     itemDescriptionInfo = style + `<hr class="hr-chat"><div style="min-height: 50px">` + itemDescription + `</div></div>`;
 
-    data.title = `<a class="chat-description">` + data.title + `</a>`;
+    title = `<b><a class="chat-description">` + data.title + `</a></b>`;
   }
 
-  // --- Modfier block
+  // --- Modifier block
 
   // Skill information
   let skillRating = {
@@ -42,7 +36,7 @@ export async function rollEngineOutput(data) {
     "0": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Practiced")}<br>`,
     "1": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Trained")}<br>`,
     "2": `${game.i18n.localize("CYPHERSYSTEM.SkillLevel")}: ${game.i18n.localize("CYPHERSYSTEM.Specialized")}<br>`
-  }
+  };
   let skillInfo = (skillRating[data.skillLevel] || skillRating[0]);
 
   // Asset information
@@ -56,7 +50,7 @@ export async function rollEngineOutput(data) {
   // effortOtherUses information
   let effortOtherUsesInfo = "";
   if (data.effortOtherUses == 1) {
-    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${data.effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`
+    effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${data.effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
   } else if (data.effortOtherUses >= 1) {
     effortOtherUsesInfo = `${game.i18n.localize("CYPHERSYSTEM.EffortForOther")}: ${data.effortOtherUses} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
   }
@@ -128,9 +122,9 @@ export async function rollEngineOutput(data) {
         `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
     },
     "XP": function () {
-      return `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`
+      return `${game.i18n.localize("CYPHERSYSTEM.Cost")}: ${data.poolPointCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`;
     }
-  }
+  };
 
   let costTotalInfo = {
     "Might": function () {
@@ -154,9 +148,9 @@ export async function rollEngineOutput(data) {
         `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.AnyPoolPoint")}`;
     },
     "XP": function () {
-      return `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.XP")}`
+      return `${game.i18n.localize("CYPHERSYSTEM.TotalCost")}: ${data.costTotal} ${game.i18n.localize("CYPHERSYSTEM.XP")}`;
     }
-  }
+  };
 
   let poolCostInfoString = (data.poolPointCost != 0) ? poolCostInfo[data.pool]() + "<br>" : "";
   let costTotalInfoString = (data.costCalculated != 0) ? costTotalInfo[data.pool]() : "";
@@ -199,24 +193,30 @@ export async function rollEngineOutput(data) {
   let modifiedBy = "";
   if (data.difficultyModifierTotal != 0) {
     if (data.difficultyModifierTotal > 1) {
-      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: data.difficultyModifierTotal}) + ".</span> "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: data.difficultyModifierTotal});
     } else if (data.difficultyModifierTotal == 1) {
-      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.Eased") + ".</span> "
+      modifiedBy = game.i18n.localize("CYPHERSYSTEM.Eased");
     } else if (data.difficultyModifierTotal == -1) {
-      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.Hindered") + ".</span> "
+      modifiedBy = game.i18n.localize("CYPHERSYSTEM.Hindered");
     } else if (data.difficultyModifierTotal < -1) {
-      modifiedBy = "<span class='roll-difficulty'>" + game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(data.difficultyModifierTotal)}) + ".</span> "
+      modifiedBy = game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(data.difficultyModifierTotal)});
     }
   }
 
+  let easedOrHinderedInfo = "";
+  let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")" : "";
+  if (modifiedBy) {
+    easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
+  }
+
   // Create difficulty info
-  let finalDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + data.finalDifficulty : "";
+  let baseDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
 
   // Create multi roll
   let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<br><span class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</span>" : "";
 
   // Create beatenDifficulty
-  let beatenDifficulty = modifiedBy + "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
+  let beatenDifficulty = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
 
   // Add initiative result
   let initiativeResult = data.roll.total + (data.difficultyModifierTotal * 3) + data.bonus;
@@ -225,9 +225,9 @@ export async function rollEngineOutput(data) {
   // Create success info
   let successInfo = "";
   if (data.baseDifficulty != "none") {
-    let difficultyBeaten = data.difficulty + data.difficultyModifierTotal;
+    let difficultyBeaten = data.difficulty;
     successInfo = (difficultyBeaten >= data.finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
-  }
+  };
 
   // Create info block
   let info = basicInfoBlock + damageInfoBlock + costInfoBlock;
@@ -235,34 +235,38 @@ export async function rollEngineOutput(data) {
   // Add reroll button
   let actorUuid = (actor) ? actor.uuid : "";
   let dataString = JSON.stringify(data);
-  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`
+  let reRollButton = `<a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";
   if (data.costTotal > 0 && data.roll.total == 20 && ["Might", "Speed", "Intellect"].includes(data.pool)) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i></a>`
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i></a>`;
   }
 
   // Put buttons together
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = "<b>" + data.title + "</b>" + finalDifficultyInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
-
-  // ---
+  let flavor = title + baseDifficultyInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + easedOrHinderedInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
 
   if (data.skipRoll) {
     ChatMessage.create({
-      content: "<b>" + data.title + "</b>" + itemDescriptionInfo + info,
+      content: title + itemDescriptionInfo + info,
       speaker: ChatMessage.getSpeaker({actor: actor}),
-      flags: {"itemID": data.itemID}
+      flags: {
+        "itemID": data.itemID,
+        "data": data
+      }
     });
   } else if (!data.skipRoll) {
     // Create chat message
     data.roll.toMessage({
       speaker: ChatMessage.getSpeaker({actor: actor}),
       flavor: flavor,
-      flags: {"itemID": data.itemID}
+      flags: {
+        "itemID": data.itemID,
+        "data": data
+      }
     });
 
     // Handle initiative

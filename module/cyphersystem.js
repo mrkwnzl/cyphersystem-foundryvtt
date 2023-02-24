@@ -35,8 +35,6 @@ import {
   quickStatChange,
   proposeIntrusion,
   changeSymbolForFractions,
-  toggleAttacksOnSheet,
-  toggleArmorOnSheet,
   translateToRecursion,
   toggleAlwaysShowDescriptionOnRoll,
   calculateAttackDifficulty,
@@ -46,7 +44,8 @@ import {
   disasterModeMacro,
   lockStaticStatsMacro,
   migrateDataMacro,
-  changeRecursionStats
+  changeRecursionStats,
+  selectedTokenRollMacro
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -118,8 +117,6 @@ Hooks.once("init", async function () {
     quickStatChange,
     proposeIntrusion,
     changeSymbolForFractions,
-    toggleAttacksOnSheet,
-    toggleArmorOnSheet,
     translateToRecursion,
     toggleAlwaysShowDescriptionOnRoll,
     calculateAttackDifficulty,
@@ -134,6 +131,7 @@ Hooks.once("init", async function () {
     rollEngineComputation,
     rollEngineForm,
     rollEngineOutput,
+    selectedTokenRollMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -146,7 +144,7 @@ Hooks.once("init", async function () {
 
     // Recursion Document Link Exceptions
     recursionDocumentLinkExceptions
-  }
+  };
 
   // Define custom Entity classes
   CONFIG.Actor.documentClass = CypherActor;
@@ -248,13 +246,13 @@ Hooks.once("ready", async function () {
 });
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
-  let tokenControls = hudButtons.find(val => {return val.name == "token"})
+  let tokenControls = hudButtons.find(val => {return val.name == "token";});
   if (tokenControls && game.user.isGM) {
     tokenControls.tools.push({
       name: "calculateDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
       icon: "fas fa-calculator",
-      onClick: () => {calculateAttackDifficulty()},
+      onClick: () => {calculateAttackDifficulty();},
       button: true
     });
   }
@@ -263,7 +261,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "proposeGMI",
       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
       icon: "fas fa-bolt",
-      onClick: () => {proposeIntrusion()},
+      onClick: () => {proposeIntrusion();},
       button: true
     });
   }
@@ -272,7 +270,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "gmiRange",
       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
       icon: "fas fa-exclamation-triangle",
-      onClick: () => {gmiRangeForm()},
+      onClick: () => {gmiRangeForm();},
       button: true
     });
   }
@@ -287,16 +285,16 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   } else if (actor.type == "npc") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "health"},
-      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.bar1": {"attribute": "pools.health"},
+      "prototypeToken.bar2": {"attribute": "basic.level"},
       "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
       "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
     });
   } else if (actor.type == "companion") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "health"},
-      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.bar1": {"attribute": "pools.health"},
+      "prototypeToken.bar2": {"attribute": "basic.level"},
       "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
       "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
@@ -304,8 +302,8 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   } else if (actor.type == "marker") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "quantity"},
-      "prototypeToken.bar2": {"attribute": "level"},
+      "prototypeToken.bar1": {"attribute": "pools.quantity"},
+      "prototypeToken.bar2": {"attribute": "basic.  level"},
       "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
       "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
       "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
@@ -352,9 +350,9 @@ Hooks.on("preCreateToken", function (document, data) {
 
   // Support for Drag Ruler
   if (actor.type !== "marker" && actor.type !== "community") {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": true})
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": true});
   } else {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": false})
+    document.updateSource({"flags.cyphersystem.toggleDragRuler": false});
   }
 
   // Support for Bar Brawl
@@ -368,13 +366,13 @@ Hooks.on("createCombatant", function (combatant) {
     let actor = combatant.actor;
 
     if (actor.type == "npc") {
-      combatant.updateSource({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
-      combatant.updateSource({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
+      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
     } else if (actor.type == "vehicle") {
-      combatant.updateSource({"initiative": (actor.system.basic.level * 3) - 0.5});
+      combatant.update({"initiative": (actor.system.basic.level * 3) - 0.5});
     }
   }
 });
@@ -386,7 +384,7 @@ Hooks.on("updateCombat", function () {
     if (combatant.type == "marker" && combatant.system.settings.general.isCounter == true) {
       let step = (!combatant.system.settings.general.counting) ? -1 : combatant.system.settings.general.counting;
       let newQuantity = combatant.system.pools.quantity.value + step;
-      combatant.updateSource({"system.pools.quantity.value": newQuantity});
+      combatant.update({"system.pools.quantity.value": newQuantity});
     }
   }
 });
@@ -415,6 +413,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     delete data["skipDialog"];
     delete data["roll"];
     data.reroll = true;
+    console.log(data);
     rollEngineMain(data);
   });
 
@@ -423,7 +422,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find('.reroll-recovery').data('user');
     if (user !== game.user.id) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"));
     let dice = html.find('.reroll-recovery').data('dice');
-    let actorUuid = html.find('.reroll-recovery').data('actor-uuid')
+    let actorUuid = html.find('.reroll-recovery').data('actor-uuid');
     let actor = (actorUuid.includes("Token")) ? fromUuidSync(actorUuid).actor : fromUuidSync(actorUuid);
     recoveryRollMacro(actor, dice, false);
   });
@@ -473,7 +472,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
 
     // Create dialog content
     let content = `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
-    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`
+    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`;
 
     // Create dialog
     let d = new Dialog({
@@ -495,7 +494,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
       close: () => {}
     });
     if (list == "") {
-      applyXPFromIntrusion(actor, "", data.message._id, 1)
+      applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
       d.render(true);
     }
@@ -505,7 +504,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
     if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
-    applyXPFromIntrusion(actor, "", data.message._id, -1)
+    applyXPFromIntrusion(actor, "", data.message._id, -1);
   });
 });
 
@@ -517,7 +516,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         {id: "short", default: 0x008000, name: "short"},
         {id: "long", default: 0xFFA500, name: "long"},
         {id: "veryLong", default: 0xFF0000, name: "very long"}
-      ]
+      ];
     }
 
     getRanges(token) {
@@ -542,25 +541,25 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         {range: short, color: "short"},
         {range: long, color: "long"},
         {range: veryLong, color: "veryLong"}
-      ]
-      return ranges
+      ];
+      return ranges;
     }
 
     get defaultUnreachableColor() {
-      return 0x000000
+      return 0x000000;
     }
 
     usesRuler(token) {
       if (token.document.flags.cyphersystem.toggleDragRuler) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     }
   }
 
-  dragRuler.registerSystem("cyphersystem", CypherSystemSpeedProvider)
-})
+  dragRuler.registerSystem("cyphersystem", CypherSystemSpeedProvider);
+});
 
 Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
   if (game.modules.get("barbrawl")?.active && game.settings.get("cyphersystem", "barBrawlDefaults")) {

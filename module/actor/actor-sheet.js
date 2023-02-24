@@ -17,7 +17,8 @@ import {
   byNameAscending,
   bySkillRating,
   byArchiveStatus,
-  byIdentifiedStatus
+  byIdentifiedStatus,
+  byItemLevel
 } from "../utilities/sorting.js";
 
 import {useRecoveries} from "../utilities/actor-utilities.js";
@@ -44,6 +45,7 @@ export class CypherActorSheet extends ActorSheet {
 
     // --Notes and description
     data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
+    data.enrichedHTML.gmNotes = await TextEditor.enrichHTML(this.actor.system.gmNotes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
 
     data.enrichedHTML.itemDescription = {};
@@ -98,7 +100,7 @@ export class CypherActorSheet extends ActorSheet {
     const materials = [];
     const ammo = [];
     const recursions = [];
-    const tags = []
+    const tags = [];
 
     // Iterate through items, allocating to containers
     for (let item of data.items) {
@@ -235,6 +237,13 @@ export class CypherActorSheet extends ActorSheet {
         skillsThree.sort(bySkillRating);
         skillsFour.sort(bySkillRating);
         teenSkills.sort(bySkillRating);
+      }
+    }
+
+    // Sort my material level
+    if (this.actor.type == "pc") {
+      if (actorData.system.settings.equipment.materials.sortByLevel) {
+        materials.sort(byItemLevel);
       }
     }
 
@@ -405,7 +414,7 @@ export class CypherActorSheet extends ActorSheet {
           content: chatCardMarkItemIdentified(this.actor, item),
           whisper: ChatMessage.getWhisperRecipients("GM"),
           blind: true
-        })
+        });
       }
     });
 
@@ -416,7 +425,7 @@ export class CypherActorSheet extends ActorSheet {
         if (item.type == "tag" && item.system.exclusive && item.system.active) {
           changeTagStats(this.actor, 0, 0, 0, 0, 0, 0);
         } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0)
+          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0);
         }
         item.delete();
       } else {
@@ -472,14 +481,14 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".item-roll").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "");
     });
 
     // Item pay pool points buttons
     html.find(".item-pay").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "")
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "");
     });
 
     // Item cast spell button
@@ -585,7 +594,7 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".reset-health").click(clickEvent => {
       this.actor.update({
         "system.pools.health.value": this.actor.system.pools.health.max
-      })
+      });
     });
   }
 
@@ -734,7 +743,7 @@ export class CypherActorSheet extends ActorSheet {
                 label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
                 callback: () => {}
               }
-            }
+            };
           } else {
             return {
               move: {
@@ -752,13 +761,13 @@ export class CypherActorSheet extends ActorSheet {
                 label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
                 callback: () => {}
               }
-            }
+            };
           }
         }
 
         function moveItems(quantity) {
           quantity = parseInt(quantity);
-          if (quantity == null) {quantity = 0};
+          if (quantity == null) {quantity = 0;};
           if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
             moveDialog(quantity);
             return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
@@ -782,6 +791,7 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
+      console.log(targetActor);
       if (originItem.type == "artifact") {
         targetActor.update({"system.settings.equipment.artifacts.active": true});
       }
@@ -794,19 +804,28 @@ export class CypherActorSheet extends ActorSheet {
       else if (originItem.type == "material") {
         targetActor.update({"system.settings.equipment.materials.active": true});
       }
-      else if (originItem.type == "ammo") {
+      else if (originItem.type == "ammo" && targetActor.type == "pc") {
         targetActor.update({"system.settings.combat.ammo.active": true});
       }
-      else if (originItem.type == "power-shift") {
+      else if (originItem.type == "ammo" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.ammo.active": true});
+      }
+      else if (originItem.type == "power-shift" && targetActor.type == "pc") {
         targetActor.update({"system.settings.skills.powerShifts.active": true});
       }
-      else if (originItem.type == "lasting-damage") {
+      else if (originItem.type == "lasting-damage" && targetActor.type == "pc") {
         targetActor.update({"system.settings.combat.lastingDamage.active": true});
+      }
+      else if (originItem.type == "attack" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.attacks.active": true});
+      }
+      else if (originItem.type == "armor" && targetActor.type != "pc") {
+        targetActor.update({"system.settings.equipment.armor.active": true});
       }
     }
 
     async function archiveItem() {
-      originItem.update({"system.archived": true})
+      originItem.update({"system.archived": true});
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
       enableItemLists();
     }
@@ -850,7 +869,7 @@ export class CypherActorSheet extends ActorSheet {
       "recursion": game.i18n.localize("CYPHERSYSTEM.NewRecursion"),
       "tag": game.i18n.localize("CYPHERSYSTEM.NewTag"),
       "default": game.i18n.localize("CYPHERSYSTEM.NewDefault")
-    }
+    };
     const name = (types[type] || types["default"]);
 
     // Finally, create the item!

@@ -7,7 +7,7 @@ export function htmlEscape(string) {
     '"': '&quot;',
     "'": '&#x27;',
     '/': '&#x2F;'
-  }
+  };
 
   // Regex containing the keys listed immediately above.
   const htmlEscaper = /[&<>"'\/]/g;

@@ -3,7 +3,7 @@ export async function initiativeSettings() {
   CONFIG.Combat.initiative = {
     formula: "1d20 + @settings.initiative.initiativeBonus",
     decimals: 0
-  }
+  };
 
   Combatant.prototype._getInitiativeFormula = function () {
     let combatant = this.actor;
@@ -19,8 +19,8 @@ export async function initiativeSettings() {
       if (combatant.system.basic.level >= 1) {
         return String(combatant.system.basic.level * 3) + "- 0.5";
       } else {
-        return String(combatant.system.basic.level * 3)
+        return String(combatant.system.basic.level * 3);
       }
     }
-  }
+  };
 }

@@ -37,7 +37,7 @@ export function barBrawlData(type, actor) {
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
-    }
+    };
   } else if (type === "npc" || type === "companion") {
     data = {
       "flags.barbrawl.resourceBars": {
@@ -58,7 +58,7 @@ export function barBrawlData(type, actor) {
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
-    }
+    };
   } else if (type === "community") {
     data = {
       "flags.barbrawl.resourceBars": {
@@ -87,7 +87,7 @@ export function barBrawlData(type, actor) {
           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         }
       }
-    }
+    };
   } else if (type === "marker" && actor.name != "GMI Range") {
     data = {
       "flags.barbrawl.resourceBars": {
@@ -108,7 +108,7 @@ export function barBrawlData(type, actor) {
           visibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
         }
       }
-    }
+    };
   }
 
   return data;

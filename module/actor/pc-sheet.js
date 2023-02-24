@@ -249,10 +249,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.basic.pool == "Might" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.pools.might.value": this.actor.system.pools.might.max - lastingDamage})
+      this.actor.update({"system.pools.might.value": this.actor.system.pools.might.max - lastingDamage});
     });
 
     // Increase Speed
@@ -274,10 +274,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.basic.pool == "Speed" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.pools.speed.value": this.actor.system.pools.speed.max - lastingDamage})
+      this.actor.update({"system.pools.speed.value": this.actor.system.pools.speed.max - lastingDamage});
     });
 
     // Increase Intellect
@@ -299,10 +299,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.basic.pool == "Intellect" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.pools.intellect.value": this.actor.system.pools.intellect.max - lastingDamage})
+      this.actor.update({"system.pools.intellect.value": this.actor.system.pools.intellect.max - lastingDamage});
     });
 
     // Increase Additional
@@ -321,7 +321,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Additional Pool
     html.find('.reset-additionalPool').click(clickEvent => {
-      this.actor.update({"system.pools.additional.value": this.actor.system.pools.additional.max})
+      this.actor.update({"system.pools.additional.value": this.actor.system.pools.additional.max});
     });
 
     /**
@@ -346,10 +346,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Might" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.teen.pools.might.value": this.actor.system.teen.pools.might.max - lastingDamage})
+      this.actor.update({"system.teen.pools.might.value": this.actor.system.teen.pools.might.max - lastingDamage});
     });
 
     // Increase Teen Speed
@@ -371,10 +371,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Speed" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.teen.pools.speed.value": this.actor.system.teen.pools.speed.max - lastingDamage})
+      this.actor.update({"system.teen.pools.speed.value": this.actor.system.teen.pools.speed.max - lastingDamage});
     });
 
     // Increase Teen Intellect
@@ -396,10 +396,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let lastingDamage = 0;
       for (let item of this.actor.items) {
         if (item.type == "lasting-damage" && item.system.settings.general.unmaskedForm == "Teen" && item.system.basic.pool == "Intellect" && !item.system.archived) {
-          lastingDamage = lastingDamage + item.system.basic.damage
+          lastingDamage = lastingDamage + item.system.basic.damage;
         }
       }
-      this.actor.update({"system.teen.pools.intellect.value": this.actor.system.teen.pools.intellect.max - lastingDamage})
+      this.actor.update({"system.teen.pools.intellect.value": this.actor.system.teen.pools.intellect.max - lastingDamage});
     });
 
     // Increase Teen Additional
@@ -418,7 +418,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Reset Additional Teen Pool
     html.find('.reset-teen-additionalPool').click(clickEvent => {
-      this.actor.update({"system.teen.pools.additional.value": this.actor.system.teen.pools.additional.max})
+      this.actor.update({"system.teen.pools.additional.value": this.actor.system.teen.pools.additional.max});
     });
 
     /**
@@ -445,7 +445,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Recovery roll button
     html.find('.recovery-roll').click(clickEvent => {
-      recoveryRollMacro(this.actor, "", true)
+      recoveryRollMacro(this.actor, "", true);
     });
 
     // d6 roll button
@@ -493,7 +493,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "system.basic.advancement.edge": false,
         "system.basic.advancement.skill": false,
         "system.basic.advancement.other": false
-      })
+      });
     });
 
     // Reset Recovery Rolls
@@ -510,12 +510,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "system.combat.recoveries.tenMinutes2": false,
         "system.combat.recoveries.oneHour": false,
         "system.combat.recoveries.tenHours": false
-      })
+      });
     });
 
     // Disable multi roll
     html.find('.disable-multi-roll').click(clickEvent => {
-      disableMultiRoll(this.actor)
+      disableMultiRoll(this.actor);
     });
   }
 }
