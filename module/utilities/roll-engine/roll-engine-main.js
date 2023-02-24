@@ -39,14 +39,16 @@ export async function rollEngineMain(data) {
 
   // Set default for difficulty
   let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
-  data.baseDifficulty = (lastChatMessage?.flags?.difficulty) ? lastChatMessage.flags.difficulty : "none";
+  data.baseDifficulty = (lastChatMessage?.flags?.difficulty && !data.reroll) ? lastChatMessage.flags.difficulty : data.baseDifficulty;
 
   // Set defaults for functions
   if (data.teen === undefined) {
     data.teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   }
+
   data.skipDialog = (game.keyboard.isModifierActive('Alt')) ? !data.skipDialog : data.skipDialog;
   data.skipDialog = (actor.getFlag("cyphersystem", "multiRoll.active")) ? false : data.skipDialog;
+  data.skipDialog = (data.reroll) ? true : data.skipDialog;
 
   data.initiativeRoll = (actor.items.get(data.itemID)) ? actor.items.get(data.itemID).system.settings.general.initiative : false;
 
