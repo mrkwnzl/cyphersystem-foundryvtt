@@ -607,5 +607,6 @@
   "CYPHERSYSTEM.PathToImageFileBackground": "path/to/file – dimensionado para preencher a ficha e centralizado, 650 × 712 px",
   "CYPHERSYSTEM.PathToImageFileIcon": "path/to/file – dimensionado para mostrar imagem inteira",
   "CYPHERSYSTEM.MultiRollValueChanged": "Valor alterado devido a ação de teste múltiplo em progresso.",
-  "CYPHERSYSTEM.MultiRollInProgress": "Ação de teste múltiplo em progresso. Clique para canelar."
+  "CYPHERSYSTEM.MultiRollInProgress": "Ação de teste múltiplo em progresso. Clique para canelar.",
+  "CYPHERSYSTEM.SortMaterialsByLevel": "Organizar Materiais por Nível"
 }
