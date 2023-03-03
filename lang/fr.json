@@ -610,5 +610,6 @@
   "CYPHERSYSTEM.CSLogoCustom": "Personnalisé",
   "CYPHERSYSTEM.SheetDesign": "Design de la Feuille",
   "CYPHERSYSTEM.PathToImageFileBackground": "chemin/vers/fichier – centré et mis à l'échelle pour remplir la feuille, 650 × 712 px",
-  "CYPHERSYSTEM.PathToImageFileIcon": "chemin/vers/fichier – mis à l'échelle pour montrer l'image entière"
+  "CYPHERSYSTEM.PathToImageFileIcon": "chemin/vers/fichier – mis à l'échelle pour montrer l'image entière",
+  "CYPHERSYSTEM.SortMaterialsByLevel": "Trier les matériaux d'artisanat par niveau"
 }
