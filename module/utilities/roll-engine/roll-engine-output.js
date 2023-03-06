@@ -228,7 +228,7 @@ export async function rollEngineOutput(data) {
   // Create success info
   let successInfo = "";
   if (data.baseDifficulty != "none") {
-    let difficultyBeaten = data.difficulty;
+    let difficultyBeaten = (useEffectiveDifficulty(data.baseDifficulty)) ? data.difficulty + data.difficultyModifierTotal : data.difficulty;
     successInfo = (difficultyBeaten >= data.finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
   };
 
