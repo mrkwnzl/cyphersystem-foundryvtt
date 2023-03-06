@@ -610,5 +610,6 @@
   "CYPHERSYSTEM.PathToImageFileIcon": "Pfad/zur/Datei – skaliert, um das ganze Bild zu zeigen",
   "CYPHERSYSTEM.ItemNotFound": "Gegenstand nicht gefunden!",
   "CYPHERSYSTEM.SubtractGMI": "1 von SL-Eingriff-Reichweite abziehen",
-  "CYPHERSYSTEM.ActorNotFound": "Akteur nicht gefunden!"
+  "CYPHERSYSTEM.ActorNotFound": "Akteur nicht gefunden!",
+  "CYPHERSYSTEM.SortMaterialsByLevel": "Herstellungsmaterial nach Stufe sortieren"
 }
