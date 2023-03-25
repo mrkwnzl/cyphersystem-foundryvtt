@@ -74,10 +74,6 @@
           {{localize 'CYPHERSYSTEM.Who'}}
         </label>
         <input name="system.basic.focus" type="text" value="{{actor.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" />
-        {{#if actor.system.settings.general.additionalSentence.active}}
-          &nbsp;
-          <input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" {{#if (eq actor.system.settings.general.gameMode 'Strange')}}disabled{{/if}} />
-        {{/if}}
       {{/if}}
       {{#unless sheetSettings.isLimited}}
         <label class="label-basic-info {{#if sheetSettings.isObserver}}disabled{{/if}}">
@@ -86,7 +82,15 @@
         <input style="flex:0 0 30px" type="number" name="system.basic.xp" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.xp}}{{/if}}" />
       {{/unless}}
     </div>
-
+			{{#if actor.system.settings.general.additionalSentence.active}}
+				<div class="resource-content flexrow flex-center" style="margin-top: 6px">
+					{{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+						<div></div>
+					{{else}}
+						<input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" {{#if (eq actor.system.settings.general.gameMode 'Strange')}}disabled{{/if}} />
+					{{/if}}
+				</div>
+			{{/if}}
     <div class="resource-content flexrow flex-center" style="margin-top: 4px">
       <div class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="padding-left: 0px; display: flex; justify-content: center">
         {{#unless sheetSettings.isLimited}}
