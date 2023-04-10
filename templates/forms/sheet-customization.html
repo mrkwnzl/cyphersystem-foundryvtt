@@ -1,0 +1,123 @@
+<form class="flexcol" autocomplete="off">
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    <div>
+      <ol class="items-list">
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.BackgroundImage'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="backgroundImage">
+              {{#select backgroundImage}}
+                <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
+                <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
+                <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
+                <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
+                <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
+                <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
+                <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
+                <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
+                <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
+                <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
+                <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
+                <option value="custom">{{localize 'CYPHERSYSTEM.BGImageCustom'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        {{#if (eq backgroundImage "custom")}}
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              <input type="text" class="auto-margin" name="backgroundImagePath" value="{{backgroundImagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileBackground'}}" style="text-align: left">
+            </div>
+            <div class="item-quantity">
+              {{filePicker type="image" target="backgroundImagePath"}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BGImageOverlayOpacity'}}
+            </div>
+            {{rangePicker name="backgroundImageOverlayOpacity" value=backgroundImageOverlayOpacity min=0 max=1 step=0.05}}
+          </li>
+        {{/if}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.BackgroundIcon'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="backgroundIcon">
+              {{#select backgroundIcon}}
+                <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
+                <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
+                <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
+                <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
+                <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
+                <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
+                <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
+                <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
+                <option value="csrd-logo">{{localize 'CYPHERSYSTEM.BGIconCypherLogo'}}</option>
+                <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
+                <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
+                <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
+                <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
+                <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
+                <option value="custom">{{localize 'CYPHERSYSTEM.BGIconCustom'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        {{#if (eq backgroundIcon "custom")}}
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              <input type="text" class="auto-margin" name="backgroundIconPath" value="{{backgroundIconPath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileIcon'}}" style="text-align: left">
+            </div>
+            <div class="item-quantity">
+              {{filePicker type="image" target="backgroundIconPath"}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.BGIconOpacity'}}
+            </div>
+            {{rangePicker name="backgroundIconOpacity" value=backgroundIconOpacity min=0 max=1 step=0.05}}
+          </li>
+        {{/if}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.CypherLogo'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="logoImage">
+              {{#select logoImage}}
+                <option value="none">{{localize 'CYPHERSYSTEM.CSLogoNone'}}</option>
+                <option value="black">{{localize 'CYPHERSYSTEM.CSLogoBlack'}}</option>
+                <option value="white">{{localize 'CYPHERSYSTEM.CSLogoWhite'}}</option>
+                <option value="color">{{localize 'CYPHERSYSTEM.CSLogoColor'}}</option>
+                <option value="custom">{{localize 'CYPHERSYSTEM.CSLogoCustom'}}</option>
+              {{/select}}
+            </select>
+          </div>
+        </li>
+        {{#if (eq logoImage "custom")}}
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              <input type="text" class="auto-margin" name="logoImagePath" value="{{logoImagePath}}" placeholder="{{localize 'CYPHERSYSTEM.PathToImageFileLogo'}}" style="text-align: left">
+            </div>
+            <div class="item-quantity">
+              {{filePicker type="image" target="logoImagePath"}}
+            </div>
+          </li>
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              {{localize 'CYPHERSYSTEM.CSLogoOpacity'}}
+            </div>
+            {{rangePicker name="logoImageOpacity" value=logoImageOpacity min=0 max=1 step=0.05}}
+          </li>
+        {{/if}}
+      </ol>
+    </div>
+  </section>
+</form>

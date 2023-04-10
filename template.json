@@ -16,7 +16,7 @@
     ],
     "templates": {
       "version": {
-        "version": 2
+        "version": 3
       }
     },
     "pc": {
@@ -114,6 +114,7 @@
             "label": ""
           },
           "hideArchive": false,
+          "customSheetDesign": false,
           "background": {
             "image": "foundry",
             "imagePath": "",
@@ -238,6 +239,7 @@
               "label": "",
               "active": false
             },
+            "customSheetDesign": false,
             "background": {
               "image": "foundry",
               "imagePath": "",

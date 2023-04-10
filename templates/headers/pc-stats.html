@@ -233,9 +233,9 @@
           </div>
         </div>
       {{else}}
-        {{#unless (eq actor.system.settings.general.logo.image "none")}}
+        {{#unless (eq sheetSettings.logoImage "none")}}
           <div class="resource stat-block cypher-logo flex-group-center">
-            <img class="cypher-logo {{actor.system.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}" height="75px">
+            <img class="cypher-logo pc-logo {{actor.system.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}" height="75px">
           </div>
         {{/unless}}
       {{/if}}

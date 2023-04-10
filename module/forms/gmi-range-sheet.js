@@ -120,6 +120,7 @@ export class GMIRangeSheet extends FormApplication {
   }
 }
 
+// This is used to create a new GMI form, unless there is already one there
 export async function gmiRangeForm() {
   // Create gmiRangeForm
   let gmiRangeForm = Object.values(ui.windows).find((app) => app instanceof GMIRangeSheet) || new GMIRangeSheet();
@@ -133,6 +134,7 @@ export async function gmiRangeForm() {
   }
 }
 
+// This is used to check whether a GMI Range for is already there and re-render it when it is
 export async function renderGMIForm() {
   let gmiRangeForm = Object.values(ui.windows).find((app) => app instanceof GMIRangeSheet);
 

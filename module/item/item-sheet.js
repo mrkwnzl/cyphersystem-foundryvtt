@@ -3,6 +3,7 @@
 * @extends {ItemSheet}
 */
 
+import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
 import {renameTag} from "../macros/macro-helper.js";
 import {htmlEscape} from "../utilities/html-escape.js";
 
@@ -13,7 +14,6 @@ export class CypherItemSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
       width: 550,
-      height: 645,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]
@@ -46,6 +46,33 @@ export class CypherItemSheet extends ItemSheet {
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true, secrets: this.item.isOwner, relativeTo: this.item});
 
     data.actor = data.item.parent ? data.item.parent : "";
+
+    // Sheet customizations
+    // -- Get root css variables
+    let root = document.querySelector(':root');
+
+    // -- Sheet settings
+    data.sheetSettings.backgroundImageBaseSetting = "background-image";
+
+    data.sheetSettings.backgroundImage = getBackgroundImage();
+    data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
+    data.sheetSettings.backgroundImageOverlayOpacity = getBackgroundImageOverlayOpacity();
+    data.sheetSettings.backgroundIcon = getBackgroundIcon();
+    data.sheetSettings.getBackgroundIconOpacity = getBackgroundIconOpacity();
+
+    if (data.sheetSettings.backgroundImage == "custom") {
+      root.style.setProperty('--custom-background-image-path', `url(/${data.sheetSettings.backgroundImagePath})`);
+      root.style.setProperty('--custom-background-overlay-opacity', data.sheetSettings.backgroundImageOverlayOpacity);
+    }
+
+    if (data.sheetSettings.backgroundIcon == "custom") {
+      if (!data.sheetSettings.backgroundIconPath) {
+        data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+      }
+      root.style.setProperty('--custom-background-icon-opacity', data.sheetSettings.getBackgroundIconOpacity);
+    } else {
+      data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
+    }
 
     return data;
   }

@@ -113,6 +113,10 @@ async function migrationRoutineActor(actor) {
     if (!foundry.utils.isEmpty(updateDataActor)) {
       await actor.update(updateDataActor, {enforceTypes: false});
     }
+    const updateDataActorV2 = await migrationActorV2ToV3(actor);
+    if (!foundry.utils.isEmpty(updateDataActorV2)) {
+      await actor.update(updateDataActorV2, {enforceTypes: false});
+    }
   } catch (error) {
     error.message = `Failed Cypher system migration for Actor ${actor.name}: ${error.message}`;
     console.error(error);
@@ -712,6 +716,29 @@ async function migrationActorV1ToV2(actor) {
     };
     await actor.update(deleteData);
   }
+}
+
+async function migrationActorV2ToV3(actor) {
+  // Create updateData object
+  let updateData = foundry.utils.deepClone(actor.toObject());
+
+  // Migration for v2 data paths
+  if (actor.system.version == 2 && actor.type == "pc") {
+    if (actor.system.teen.settings.general.background.image != "foundry" ||
+      actor.system.teen.settings.general.background.icon != "none" ||
+      actor.system.teen.settings.general.logo.image != "black") {
+      updateData.system.teen.settings.general.customSheetDesign = true;
+    }
+    if (actor.system.settings.general.background.image != "foundry" ||
+      actor.system.settings.general.background.icon != "none" ||
+      actor.system.settings.general.logo.image != "black") {
+      updateData.system.settings.general.customSheetDesign = true;
+    }
+  }
+
+  // Update to version 2
+  updateData.system.version = 3;
+  return updateData;
 }
 
 async function migrationItemV1ToV2(item) {
