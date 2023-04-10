@@ -390,8 +390,8 @@ select.bar-attribute {
 .cyphersystem .background-image-rectangle.custom {
   background-color: white;
   position: absolute;
-  width: 640px;
-  height: 702px;
+  width: calc(100% - 10px);
+  height: calc(100% - 39px);
   top: 34px;
   left: 5px;
   opacity: var(--custom-background-overlay-opacity);
@@ -403,8 +403,8 @@ select.bar-attribute {
 
 .cyphersystem div.background-image-icon {
   position: absolute;
-  top: 476px;
-  left: 386px;
+  top: calc(100% - 264px);
+  left: calc(100% - 264px);
   z-index: 1;
   height: 256px;
   width: 256px;
@@ -1258,17 +1258,25 @@ select.settings-input {
 .cyphersystem div.cypher-logo {
   border: 1px solid rgb(0, 0, 0, 0);
   display: flex;
+  padding: 0;
 }
 
 .cyphersystem img.cypher-logo {
-  max-width: 140px;
-  max-height: 75px;
-  width: auto;
-  height: auto !important;
   border: none !important;
   vertical-align: middle;
   margin-right: 0px !important;
   opacity: 1;
+  object-fit: scale-down;
+}
+
+.cyphersystem img.pc-logo {
+  max-height: 75px;
+  max-width: 140px;
+}
+
+.cyphersystem img.npc-logo {
+  max-height: 57px;
+  max-width: 168px;
 }
 
 .cyphersystem img.cypher-logo.white {
@@ -1277,6 +1285,7 @@ select.settings-input {
 
 .cyphersystem img.cypher-logo.custom {
   opacity: var(--custom-logo-image-opacity);
+  height: 75px;
 }
 
 .cyphersystem .items-list button.file-picker {

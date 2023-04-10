@@ -34,9 +34,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const data = await super.getData();
     const actorData = data.actor;
 
-    // Get root css variables
-    let root = document.querySelector(':root');
-
     // Sheet settings
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.sheetSettings.multiRollActive = this.actor.getFlag("cyphersystem", "multiRoll.active");
@@ -48,67 +45,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
     const diceTraySettings = ["hidden", "left", "right"];
     data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
     data.sheetSettings.sheetWidth = (data.sheetSettings.diceTray == "right") ? this.actor.sheet.options.width : -32;
-
-    if (game.modules.get("cyphersheets")?.active) {
-      data.sheetSettings.backgroundImage = "foundry";
-      data.sheetSettings.backgroundIcon = "none";
-      data.sheetSettings.cyphersheetsModuleActive = true;
-      data.sheetSettings.backgroundImageBaseSetting = "";
-    } else {
-      backgroundData();
-    }
-
-    function backgroundData() {
-      // Sheet settings
-      data.sheetSettings.cyphersheetsModuleActive = false;
-      data.sheetSettings.backgroundImageBaseSetting = "background-image";
-
-      // Create image & icon
-      if (actorData.system.basic.unmaskedForm == "Teen") {
-        data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
-        data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
-        if (actorData.system.teen.settings.general.background.image == "custom") {
-          let rootStyle = document.querySelector(':root');
-          rootStyle.style.setProperty('--custom-background-image-path', `url(/${actorData.system.teen.settings.general.background.imagePath})`);
-          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.teen.settings.general.background.overlayOpacity);
-        }
-        if (actorData.system.teen.settings.general.background.icon == "custom") {
-          data.sheetSettings.backgroundIconPath = (actorData.system.teen.settings.general.background.iconPath) ? actorData.system.teen.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          root.style.setProperty('--custom-background-icon-opacity', actorData.system.teen.settings.general.background.iconOpacity);
-        } else {
-          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.teen.settings.general.background.icon + ".svg";
-        }
-      } else {
-        data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
-        data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
-        if (actorData.system.settings.general.background.image == "custom") {
-          root.style.setProperty('--custom-background-image-path', `url(/${actorData.system.settings.general.background.imagePath})`);
-          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.settings.general.background.overlayOpacity);
-        }
-        if (actorData.system.settings.general.background.icon == "custom") {
-          data.sheetSettings.backgroundIconPath = (actorData.system.settings.general.background.iconPath) ? actorData.system.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          root.style.setProperty('--custom-background-icon-opacity', actorData.system.settings.general.background.iconOpacity);
-        } else {
-          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.settings.general.background.icon + ".svg";
-        }
-      }
-    }
-
-    if (actorData.system.basic.unmaskedForm == "Teen") {
-      if (actorData.system.teen.settings.general.logo.image == "custom") {
-        data.sheetSettings.logoPath = actorData.system.teen.settings.general.logo.imagePath;
-        root.style.setProperty('--custom-logo-image-opacity', actorData.system.teen.settings.general.logo.imageOpacity);
-      } else {
-        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.teen.settings.general.logo.image + ".webp";
-      }
-    } else {
-      if (actorData.system.settings.general.logo.image == "custom") {
-        data.sheetSettings.logoPath = actorData.system.settings.general.logo.imagePath;
-        root.style.setProperty('--custom-logo-image-opacity', actorData.system.settings.general.logo.imageOpacity);
-      } else {
-        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.settings.general.logo.image + ".webp";
-      }
-    }
 
     data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 

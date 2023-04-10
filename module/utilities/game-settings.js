@@ -1,3 +1,5 @@
+import {SheetCustomization} from "../forms/sheet-customization.js";
+
 export async function registerGameSettings() {
   game.settings.register("cyphersystem", "effectiveDifficulty", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingRollMacro"),
@@ -107,6 +109,78 @@ export async function registerGameSettings() {
   });
 
   game.settings.register("cyphersystem", "globalGMIRange", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 1
+  });
+
+  // Sheet Customization Settings
+  game.settings.registerMenu("cyphersystem", "sheetCustomizationMenu", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingSheetCustomization"),
+    label: game.i18n.localize("CYPHERSYSTEM.SettingSheetCustomizationLabel"),
+    icon: "fa-solid fa-paintbrush-pencil",
+    type: SheetCustomization,
+    restricted: false
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundImage", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: "foundry"
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundImagePath", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundImageOverlayOpacity", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0.75
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundIcon", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: "none"
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundIconPath", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationBackgroundIconOpacity", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0.5
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationLogoImage", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: "black"
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationLogoImagePath", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
+
+  game.settings.register("cyphersystem", "sheetCustomizationLogoImageOpacity", {
     scope: "world",
     config: false,
     type: Number,

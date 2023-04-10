@@ -1,4 +1,11 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+
+  {{!-- Background Icon --}}
+  {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
+    <div class="background-image-icon">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+    </div>
+  {{/unless}}
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
@@ -75,7 +82,7 @@
   </nav>
 
   {{!-- Sheet Body --}}
-  <section class="sheet-body">
+  <section class="sheet-body marker">
 
     {{!-- Notes Tab --}}
     <div class="tab description" data-group="primary" data-tab="notes">
@@ -171,4 +178,8 @@
     </div>
 
   </section>
+
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+
 </form>

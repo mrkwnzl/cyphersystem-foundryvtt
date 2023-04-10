@@ -6,13 +6,11 @@
 import {
   chatCardMarkItemIdentified
 } from "../utilities/chat-cards.js";
-
 import {
   changeRecursionStats,
   itemRollMacro,
   recursionMacro,
 } from "../macros/macros.js";
-
 import {
   byNameAscending,
   bySkillRating,
@@ -20,9 +18,9 @@ import {
   byIdentifiedStatus,
   byItemLevel
 } from "../utilities/sorting.js";
-
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
+import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath, getLogoImage, getLogoImageOpacity, getLogoImagePath} from "../forms/sheet-customization.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -355,6 +353,110 @@ export class CypherActorSheet extends ActorSheet {
     itemLists.ammo = ammo;
     itemLists.recursions = recursions;
     itemLists.tags = tags;
+
+    // Sheet customizations
+    // Get root css variables
+    let root = document.querySelector(':root');
+
+    let teenCustomSheetDesign = (this.actor.type == "pc") ? actorData.system.teen.settings.general.customSheetDesign : false;
+    let customSheetDesign = (this.actor.type == "pc") ? actorData.system.settings.general.customSheetDesign : false;
+
+    if (game.modules.get("cyphersheets")?.active) {
+      data.sheetSettings.backgroundImage = "foundry";
+      data.sheetSettings.backgroundIcon = "none";
+      data.sheetSettings.cyphersheetsModuleActive = true;
+      data.sheetSettings.backgroundImageBaseSetting = "";
+    } else {
+      customBackgroundData();
+    }
+
+    function customBackgroundData() {
+      // Sheet settings
+      data.sheetSettings.cyphersheetsModuleActive = false;
+      data.sheetSettings.backgroundImageBaseSetting = "background-image";
+
+      // Create image & icon
+      if (actorData.system.basic.unmaskedForm == "Teen" && teenCustomSheetDesign) {
+        data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
+        if (actorData.system.teen.settings.general.background.image == "custom") {
+          root.style.setProperty('--custom-background-image-path', `url(/${actorData.system.teen.settings.general.background.imagePath})`);
+          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.teen.settings.general.background.overlayOpacity);
+        }
+        if (actorData.system.teen.settings.general.background.icon == "custom") {
+          data.sheetSettings.backgroundIconPath = (actorData.system.teen.settings.general.background.iconPath) ? actorData.system.teen.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          root.style.setProperty('--custom-background-icon-opacity', actorData.system.teen.settings.general.background.iconOpacity);
+        } else {
+          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.teen.settings.general.background.icon + ".svg";
+        }
+      } else if (customSheetDesign) {
+        data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
+        data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
+        if (actorData.system.settings.general.background.image == "custom") {
+          root.style.setProperty('--custom-background-image-path', `url(/${actorData.system.settings.general.background.imagePath})`);
+          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.settings.general.background.overlayOpacity);
+        }
+        if (actorData.system.settings.general.background.icon == "custom") {
+          data.sheetSettings.backgroundIconPath = (actorData.system.settings.general.background.iconPath) ? actorData.system.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          root.style.setProperty('--custom-background-icon-opacity', actorData.system.settings.general.background.iconOpacity);
+        } else {
+          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.settings.general.background.icon + ".svg";
+        }
+      } else {
+        data.sheetSettings.backgroundImage = getBackgroundImage();
+        data.sheetSettings.backgroundIcon = getBackgroundIcon();
+        data.sheetSettings.backgroundIconPath = getBackgroundIconPath();
+        if (data.sheetSettings.backgroundImage == "custom") {
+          root.style.setProperty('--custom-background-image-path', `url(/${getBackgroundImagePath()})`);
+          root.style.setProperty('--custom-background-overlay-opacity', getBackgroundImageOverlayOpacity());
+        }
+        if (data.sheetSettings.backgroundIcon == "custom") {
+          if (!data.sheetSettings.backgroundIconPath) {
+            data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          }
+          root.style.setProperty('--custom-background-icon-opacity', getBackgroundIconOpacity());
+        } else {
+          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + data.sheetSettings.backgroundIcon + ".svg";
+        }
+      }
+    }
+
+    if (actorData.system.basic.unmaskedForm == "Teen" && teenCustomSheetDesign) {
+      data.sheetSettings.logoImage = actorData.system.teen.settings.general.logo.image;
+      if (actorData.system.teen.settings.general.logo.image == "custom") {
+        if (!actorData.system.teen.settings.general.logo.imagePath) {
+          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+        } else {
+          data.sheetSettings.logoPath = actorData.system.teen.settings.general.logo.imagePath;
+        }
+        root.style.setProperty('--custom-logo-image-opacity', actorData.system.teen.settings.general.logo.imageOpacity);
+      } else {
+        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.teen.settings.general.logo.image + ".webp";
+      }
+    } else if (customSheetDesign) {
+      data.sheetSettings.logoImage = actorData.system.settings.general.logo.image;
+      if (actorData.system.settings.general.logo.image == "custom") {
+        if (!actorData.system.settings.general.logo.imagePath) {
+          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+        } else {
+          data.sheetSettings.logoPath = actorData.system.settings.general.logo.imagePath;
+        }
+        root.style.setProperty('--custom-logo-image-opacity', actorData.system.settings.general.logo.imageOpacity);
+      } else {
+        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.settings.general.logo.image + ".webp";
+      }
+    } else {
+      data.sheetSettings.logoImage = getLogoImage();
+      data.sheetSettings.logoPath = getLogoImagePath();
+      data.sheetSettings.getLogoImageOpacity = getLogoImageOpacity();
+      if (data.sheetSettings.logoImage == "custom") {
+        if (!data.sheetSettings.logoPath) {
+          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+        }
+      } else {
+        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + data.sheetSettings.logoImage + ".webp";
+      }
+    }
   }
 
   /**

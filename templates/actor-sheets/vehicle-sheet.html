@@ -1,4 +1,11 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+
+  {{!-- Background Icon --}}
+  {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
+    <div class="background-image-icon">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+    </div>
+  {{/unless}}
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
@@ -14,9 +21,7 @@
             </div>
           </div>
           <div class="resource-content flexrow flex-center">
-            <div class="resources grid grid-3col">
-              <div class="resource">
-              </div>
+            <div class="resources grid {{#if (eq sheetSettings.logoImage 'none')}}grid-2col{{else}}grid-3col{{/if}}">
               <div class="resource flex-group-center">
                 <label class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
                   {{localize 'CYPHERSYSTEM.Crew'}}
@@ -33,6 +38,11 @@
                   <input name="system.basic.weaponSystems" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.basic.weaponSystems}}{{/if}}" />
                 </div>
               </div>
+              {{#unless (eq sheetSettings.logoImage "none")}}
+                <div class="resource stat-block cypher-logo flex-group-center">
+                  <img class="cypher-logo npc-logo {{sheetSettings.logoImage}}" src="{{sheetSettings.logoPath}}">
+                </div>
+              {{/unless}}
             </div>
           </div>
         </div>
@@ -55,7 +65,7 @@
   </nav>
 
   {{!-- Sheet Body --}}
-  <section class="sheet-body">
+  <section class="sheet-body vehicle">
 
     {{!-- Notes Tab --}}
     <div class="tab description" data-group="primary" data-tab="notes">
@@ -130,4 +140,8 @@
     </div>
 
   </section>
+
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+
 </form>

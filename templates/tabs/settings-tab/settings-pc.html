@@ -77,12 +77,31 @@
           &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
         </div>
       </li>
-      <li class="item flexrow item-subheading">
-        <div class="item-name">
-          <i>{{localize 'CYPHERSYSTEM.SheetDesign'}}</i>
-        </div>
-      </li>
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.teen.settings.general.customSheetDesign" {{checked actor.system.teen.settings.general.customSheetDesign}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.CustomSheetDesign'}}
+          </div>
+        </li>
+      {{else}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.general.customSheetDesign" {{checked actor.system.settings.general.customSheetDesign}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.CustomSheetDesign'}}
+          </div>
+        </li>
+      {{/if}}
+    </ol>
+  </div>
+
+  {{#if (and (eq actor.system.basic.unmaskedForm "Teen") actor.system.teen.settings.general.customSheetDesign)}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.SheetDesign'}}</div>
+        </li>
         {{#unless sheetSettings.cyphersheetsModuleActive}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
@@ -199,7 +218,16 @@
             </li>
           {{/if}}
         {{/unless}}
-      {{else}}
+      </ol>
+    </div>
+  {{/if}}
+
+  {{#if (and (ne actor.system.basic.unmaskedForm "Teen") actor.system.settings.general.customSheetDesign)}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.SheetDesign'}}</div>
+        </li>
         {{#unless sheetSettings.cyphersheetsModuleActive}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
@@ -317,9 +345,9 @@
             </li>
           {{/if}}
         {{/unless}}
-      {{/if}}
-    </ol>
-  </div>
+      </ol>
+    </div>
+  {{/if}}
 
   <div class="flexrow">
     <ol class="items-list">
