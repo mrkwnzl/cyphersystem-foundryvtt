@@ -6,7 +6,7 @@
   "compatibility": {
     "minimum": "10",
     "verified": "10.291",
-    "maximum": "10"
+    "maximum": "11"
   },
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
@@ -15,7 +15,7 @@
     {
       "name": "Marko Wenzel",
       "discord": "mrkwnzl#7407",
-      "flags": { }
+      "flags": {}
     }
   ],
   "esmodules": [
@@ -33,7 +33,7 @@
       "path": "packs/roll-macros.db",
       "type": "Macro",
       "private": false,
-      "flags": { }
+      "flags": {}
     },
     {
       "name": "marker",
@@ -42,7 +42,7 @@
       "path": "packs/markers.db",
       "type": "Actor",
       "private": false,
-      "flags": { }
+      "flags": {}
     },
     {
       "name": "scenes",
@@ -51,7 +51,7 @@
       "path": "packs/scenes.db",
       "type": "Scene",
       "private": false,
-      "flags": { }
+      "flags": {}
     },
     {
       "name": "utility-macros",
@@ -60,7 +60,7 @@
       "path": "packs/utility-macros.db",
       "type": "Macro",
       "private": false,
-      "flags": { }
+      "flags": {}
     },
     {
       "name": "secret-settings",
@@ -69,7 +69,7 @@
       "path": "packs/secret-settings.db",
       "type": "Macro",
       "private": false,
-      "flags": { }
+      "flags": {}
     }
   ],
   "languages": [
@@ -77,31 +77,31 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "es",
       "name": "Español",
       "path": "lang/es.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt_BR.json",
-      "flags": { }
+      "flags": {}
     }
   ],
   "socket": true,
