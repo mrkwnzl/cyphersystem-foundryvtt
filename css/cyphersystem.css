@@ -819,6 +819,11 @@ select.bar-attribute {
   display: none;
 }
 
+.cyphersystem .items-list .description .secret.revealed {
+  display: block;
+  margin-right: 60px;
+}
+
 .cyphersystem .items-list .description ul {
   list-style-type: disc;
 }
