@@ -197,6 +197,7 @@
       "teen": {
         "basic": {
           "name": "",
+          "img": "icons/svg/mystery-man.svg",
           "descriptor": ""
         },
         "pools": {
