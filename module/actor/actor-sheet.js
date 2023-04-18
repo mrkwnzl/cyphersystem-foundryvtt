@@ -722,11 +722,9 @@ export class CypherActorSheet extends ActorSheet {
     let targetItem = null;
 
     // Check for duplicate character properties
-    if (typesCharacterProperties.includes(originItem.type)) {
-      for (let item of targetActor.items) {
-        if (originItem.type == item.type && originItem.name == item.name) {
-          targetItem = item;
-        }
+    for (let item of targetActor.items) {
+      if (originItem.type == item.type && originItem.name == item.name) {
+        targetItem = item;
       }
     }
 
@@ -744,7 +742,7 @@ export class CypherActorSheet extends ActorSheet {
         targetActor.createEmbeddedDocuments("Item", [originItemData]);
         enableItemLists();
       } else if (typesQuantityItems.includes(originItem.type)) {
-        if (!targetItem) {
+        if (!targetItem || game.keyboard.isModifierActive("Alt")) {
           targetActor.createEmbeddedDocuments("Item", [originItemData]);
           enableItemLists();
         } else {
@@ -893,7 +891,6 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
-      console.log(targetActor);
       if (originItem.type == "artifact") {
         targetActor.update({"system.settings.equipment.artifacts.active": true});
       }
