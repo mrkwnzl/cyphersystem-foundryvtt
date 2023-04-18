@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- The teen form can now have their own portrait.
+- You can now select to have zero one-action recovery rolls.
+- When alt-clicking to translate to a different recursion, the current focus and equipment is dragged to the new recursion.
+
 ### Changed
 - If you add the Secret style to a passage on the item sheet, this is no longer shown on the item description on the character sheet. This is useful for tags and recursions, for example, if you don’t want the mto show up there.
 - All editors have been changed to the new ProseMirro editor. While one important functionality is still missing, creating tables with a GUI, this editor is superior in all other aspects. You can now switch tabs while editing without losing your changes, you can save and close the editing mode without actually changing anything. For tables, you can enter them directly as HTML tables.
