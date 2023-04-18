@@ -649,7 +649,7 @@ export class CypherActorSheet extends ActorSheet {
           if (item.system.basic.type == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
           brackets = " (" + item.system.basic.pool + permanent + ")";
         } else {
-          if (item.system.basic.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
+          if (item.system.basic.level) brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
         }
         message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
         ChatMessage.create({
