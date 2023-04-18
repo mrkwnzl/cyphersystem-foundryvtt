@@ -302,9 +302,18 @@ select.bar-attribute {
   width: 0;
 }
 
-.editor-content {
-  padding: 0.3em;
+.cyphersystem .editor-content {
+  padding: 0.3em !important;
   line-height: 1.4;
+}
+
+.cyphersystem .prosemirror {
+  --color-control-bg: rgb(0, 0, 0, 0.1);
+  --color-hover-bg: rgb(0, 0, 0, 0.15);
+}
+
+.cyphersystem .prosemirror menu .pm-dropdown ul {
+  background: #DDD;
 }
 
 .cyphersystem .prosemirror menu {
