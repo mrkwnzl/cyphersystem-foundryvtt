@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - When sending item descriptions of ammo and equipment to the chat, they no longer show “(level null)” in the title when no level is set.
 - Fixed a bug where items with a quantity were always duplicated instead of added to the quantity.
+- Characters in compendiums can now update their stats when an exclusive tag is enabled.
 
 ## [2.5.0] - 2023-04-10
 ### Added
