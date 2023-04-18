@@ -307,6 +307,14 @@ select.bar-attribute {
   line-height: 1.4;
 }
 
+.cyphersystem .prosemirror menu {
+  border-radius: 0px;
+}
+
+.cyphersystem .prosemirror .editor-container {
+  margin: 0px;
+}
+
 .editor-content hr {
   margin: 0;
   border-bottom: 0;
@@ -796,6 +804,10 @@ select.bar-attribute {
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: small;
+}
+
+.cyphersystem .items-list .description .secret {
+  display: none;
 }
 
 .cyphersystem .items-list .description ul {
