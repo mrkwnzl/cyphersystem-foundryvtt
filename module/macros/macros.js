@@ -651,6 +651,8 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   let recursionName = recursion;
   recursion = "@" + recursion.toLowerCase();
 
+  focus = (game.keyboard.isModifierActive("Alt")) ? actor.system.basic.focus : focus;
+
   // Update Focus & Recursion
   await actor.update({
     "system.basic.focus": focus,
@@ -665,8 +667,14 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   if (!speedEdgeModifier) speedEdgeModifier = 0;
   if (!intellectEdgeModifier) intellectEdgeModifier = 0;
 
-  await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
-  await applyRecursion();
+  if (game.keyboard.isModifierActive("Alt")) {
+    await actor.update({
+      "flags.cyphersystem.recursion": recursion
+    });
+  } else {
+    await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
+    await applyRecursion();
+  }
 
   async function applyRecursion() {
     let updates = [];

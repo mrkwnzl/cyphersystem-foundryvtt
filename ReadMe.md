@@ -23,17 +23,24 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 - A pre-made scene of a tabletop. Play just like you do at a physical table!
 - The Cypher System for Foundry VTT is available in English, French, German, Portuguese (Brazil), and Spanish.
 
+## Content from the Cypher System Reference Document
+
+The [Cypher SRD Compendium](https://foundryvtt.com/packages/cyphersystem-compendium) contains all the content from the Cypher System Reference Document.
+
 ## Add-on Modules
+
+Install these modules only if you specifically need the functionality provided by these modules. I recommend playing a few times without them to see if there’s something missing for you.
+
+### Cypher-Specific Modules
 
 These modules have been written specifically to expand the functionality of the Cypher System.
 
-- [Cypher SRD Compendium](https://foundryvtt.com/packages/cyphersystem-compendium)
 - [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums)
 - [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
 - [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
 
-## Modules with Cypher System Integration
+### Modules with Cypher System Integration
 
 These modules come pre-configured with Cypher-specific functionality.
 

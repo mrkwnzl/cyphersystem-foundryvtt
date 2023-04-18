@@ -90,7 +90,7 @@ export function useRecoveries(actor, spell) {
   let additionalRecoveries = actor.system.settings.combat;
   let recoveryUsed = "";
 
-  if (!recoveries.oneAction) {
+  if (!recoveries.oneAction && additionalRecoveries.numberOneActionRecoveries >= 1) {
     actor.update({"system.combat.recoveries.oneAction": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneAction");
   } else if (!recoveries.oneAction2 && additionalRecoveries.numberOneActionRecoveries >= 2) {

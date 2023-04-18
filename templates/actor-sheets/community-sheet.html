@@ -113,12 +113,12 @@
 
     {{!-- Notes Tab --}}
     <div class="tab description" data-group="primary" data-tab="notes">
-      {{editor enrichedHTML.notes target="system.notes" button=true owner=owner editable=true}}
+      {{editor enrichedHTML.notes target="system.notes" button=true engine="prosemirror" owner=owner editable=true}}
     </div>
 
     {{!-- Description Tab --}}
     <div class="tab description" data-group="primary" data-tab="description">
-      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+      {{editor enrichedHTML.description target="system.description" button=true engine="prosemirror" owner=owner editable=true}}
     </div>
 
     {{!-- Equipment Tab --}}

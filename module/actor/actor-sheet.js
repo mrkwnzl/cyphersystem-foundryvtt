@@ -649,7 +649,7 @@ export class CypherActorSheet extends ActorSheet {
           if (item.system.basic.type == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
           brackets = " (" + item.system.basic.pool + permanent + ")";
         } else {
-          if (item.system.basic.level != "") brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
+          if (item.system.basic.level) brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
         }
         message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
         ChatMessage.create({
@@ -722,11 +722,9 @@ export class CypherActorSheet extends ActorSheet {
     let targetItem = null;
 
     // Check for duplicate character properties
-    if (typesCharacterProperties.includes(originItem.type)) {
-      for (let item of targetActor.items) {
-        if (originItem.type == item.type && originItem.name == item.name) {
-          targetItem = item;
-        }
+    for (let item of targetActor.items) {
+      if (originItem.type == item.type && originItem.name == item.name) {
+        targetItem = item;
       }
     }
 
@@ -744,7 +742,7 @@ export class CypherActorSheet extends ActorSheet {
         targetActor.createEmbeddedDocuments("Item", [originItemData]);
         enableItemLists();
       } else if (typesQuantityItems.includes(originItem.type)) {
-        if (!targetItem) {
+        if (!targetItem || game.keyboard.isModifierActive("Alt")) {
           targetActor.createEmbeddedDocuments("Item", [originItemData]);
           enableItemLists();
         } else {
@@ -893,7 +891,6 @@ export class CypherActorSheet extends ActorSheet {
     }
 
     async function enableItemLists() {
-      console.log(targetActor);
       if (originItem.type == "artifact") {
         targetActor.update({"system.settings.equipment.artifacts.active": true});
       }
