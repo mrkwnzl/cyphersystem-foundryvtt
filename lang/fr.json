@@ -614,6 +614,6 @@
   "CYPHERSYSTEM.SortMaterialsByLevel": "Trier les matériaux d'artisanat par niveau",
   "CYPHERSYSTEM.SettingSheetCustomization": "Personnalisation des feuilles",
   "CYPHERSYSTEM.SettingSheetCustomizationLabel": "Paramètres par défaut de la personnalisation des feuilles",
-  "CYPHERSYSTEM.CustomSheetDesign": "Conception de feuilles sur mesure",
+  "CYPHERSYSTEM.CustomSheetDesign": "Conception de feuilles personnalisée",
   "CYPHERSYSTEM.SettingSheetCustomizationHint": "Définir les valeurs par défaut pour toutes les feuilles d'acteur."
 }
