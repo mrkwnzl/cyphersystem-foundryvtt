@@ -307,6 +307,11 @@ select.bar-attribute {
   line-height: 1.4;
 }
 
+.cyphersystem .editor-content ul p,
+.cyphersystem .editor-content ol p {
+  margin: 0px;
+}
+
 .cyphersystem .prosemirror {
   --color-control-bg: rgb(0, 0, 0, 0.1);
   --color-hover-bg: rgb(0, 0, 0, 0.15);

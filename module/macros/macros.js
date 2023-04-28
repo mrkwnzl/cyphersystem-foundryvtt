@@ -587,6 +587,10 @@ export function proposeIntrusion(actor) {
   // Check if user is GM
   if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
 
+  if (!actor) {
+    actor = canvas.tokens.controlled[0]?.actor;
+  }
+
   // Check for actor
   if (!actor) {
     // Create list of PCs
