@@ -86,13 +86,11 @@ ol {
 
 #chat-log .roll-result {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
 #chat-log .roll-difficulty {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -103,7 +101,6 @@ ol {
 
 #chat-log .roll-initiative {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -281,8 +278,12 @@ form.cyphersystem {
 
 .flavor-text {
   line-height: 1.3;
-  margin-bottom: 3px;
+}
+
+#chat-log .roll-flavor {
+  line-height: 1.3;
   font-size: 14px;
+  color: var(--color-text-dark-primary)
 }
 
 ::-webkit-scrollbar-track {

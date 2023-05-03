@@ -251,7 +251,7 @@ export async function rollEngineOutput(data) {
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = title + baseDifficultyInfo + rerollInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + easedOrHinderedInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
+  let flavor = "<div class='roll-flavor'>" + title + baseDifficultyInfo + rerollInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + easedOrHinderedInfo + resultInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons + "</div>";
 
   if (data.skipRoll) {
     ChatMessage.create({
