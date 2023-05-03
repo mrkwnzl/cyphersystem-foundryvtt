@@ -197,7 +197,7 @@ export async function selectedTokenRollMacro(actor, title) {
       successInfo = (difficultyBeaten >= finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
     };
 
-    let flavor = title + baseDifficultyInfo + "<hr class='hr-chat'>" + easedOrHinderedInfo + beatenDifficultyInfo + successInfo;
+    let flavor = "<div class='roll-flavor'>" + title + baseDifficultyInfo + "<hr class='hr-chat'>" + easedOrHinderedInfo + beatenDifficultyInfo + successInfo + "</div>";
 
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({actor: actor}),
@@ -218,12 +218,12 @@ export async function diceRollMacro(dice, actor) {
   const roll = await new Roll(dice).evaluate({async: false});
 
   // Add reroll button
-  let reRollButton = `<div style="text-align: right"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></a></div>`;
+  let reRollButton = `<div class="chat-card-buttons"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-dice-d20"></a></div>`;
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker({actor: actor}),
-    flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton
+    flavor: "<div class='roll-flavor'><b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton + "</div>"
   });
 }
 

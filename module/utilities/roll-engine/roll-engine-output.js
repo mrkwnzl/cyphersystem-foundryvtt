@@ -239,7 +239,7 @@ export async function rollEngineOutput(data) {
   let actorUuid = (actor) ? actor.uuid : "";
   data.baseDifficulty = (data.baseDifficulty != "none") ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
-  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`;
+  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";
