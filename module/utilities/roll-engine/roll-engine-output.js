@@ -204,7 +204,7 @@ export async function rollEngineOutput(data) {
   }
 
   let easedOrHinderedInfo = "";
-  let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")" : "";
+  let taskDifficulty = (useEffectiveDifficulty(data.baseDifficulty) == false && data.finalDifficulty) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")" : "";
   if (modifiedBy) {
     easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
   }

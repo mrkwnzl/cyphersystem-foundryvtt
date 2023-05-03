@@ -266,7 +266,7 @@ function summaryFinalDifficulty(data) {
   let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
   let finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? data.baseDifficulty : Math.max(data.baseDifficulty - sum, 0);
   let targetNumber = finalDifficulty * 3;
-  let finalDifficultyString = (data.baseDifficulty != "none") ? game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + finalDifficulty + " (" + targetNumber + ")" + "." : "";
+  let finalDifficultyString = (data.baseDifficulty != "none") ? game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + targetNumber + ")" + "." : "";
 
   return finalDifficultyString;
 }
