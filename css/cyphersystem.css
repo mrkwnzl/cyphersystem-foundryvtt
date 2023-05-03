@@ -7,6 +7,14 @@
   --custom-logo-image-opacity: 1;
 }
 
+#logo {
+  margin: 12px 0 0 12px;
+}
+
+#controls {
+  padding: 12px 15px 0 15px;
+}
+
 #chat-controls {
   align-items: center;
 }
@@ -86,13 +94,11 @@ ol {
 
 #chat-log .roll-result {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
 #chat-log .roll-difficulty {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -103,7 +109,6 @@ ol {
 
 #chat-log .roll-initiative {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -279,10 +284,18 @@ form.cyphersystem {
   right: 10px;
 }
 
-.flavor-text {
+.chat-message .message-header .flavor-text {
   line-height: 1.3;
-  margin-bottom: 3px;
   font-size: 14px;
+  margin-bottom: 3px;
+  color: var(--color-text-dark-primary)
+}
+
+#chat-log .roll-flavor {
+  line-height: 1.3;
+  font-size: 14px;
+  margin-bottom: 3px;
+  color: var(--color-text-dark-primary)
 }
 
 ::-webkit-scrollbar-track {
