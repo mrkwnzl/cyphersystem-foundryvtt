@@ -7,6 +7,14 @@
   --custom-logo-image-opacity: 1;
 }
 
+#logo {
+  margin: 12px 0 0 12px;
+}
+
+#controls {
+  padding: 12px 15px 0 15px;
+}
+
 #chat-controls {
   align-items: center;
 }
