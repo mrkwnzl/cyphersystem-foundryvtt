@@ -276,13 +276,17 @@ form.cyphersystem {
   right: 10px;
 }
 
-.flavor-text {
+.chat-message .message-header .flavor-text {
   line-height: 1.3;
+  font-size: 14px;
+  margin-bottom: 3px;
+  color: var(--color-text-dark-primary)
 }
 
 #chat-log .roll-flavor {
   line-height: 1.3;
   font-size: 14px;
+  margin-bottom: 3px;
   color: var(--color-text-dark-primary)
 }
 
