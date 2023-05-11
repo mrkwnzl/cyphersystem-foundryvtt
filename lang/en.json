@@ -610,5 +610,19 @@
   "CYPHERSYSTEM.CancelButtonTooltip": "Cancel (alt-click to continue multi-roll action)",
   "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions.",
   "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
-  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel."
+  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel.",
+  "CYPHERSYSTEM.Effects": "FX",
+  "CYPHERSYSTEM.EffectsTemporary": "Temporary Effects",
+  "CYPHERSYSTEM.EffectsPermanent": "Permanent Effects",
+  "CYPHERSYSTEM.ActiveEffects": {
+    "Add": "Add Active Effect",
+    "Source": "Source",
+    "ResetDuration": "Reset Duration",
+    "AddGuided": "Open Wizard",
+    "AddUnguided": "Add Empty Effect"
+  },
+  "CYPHERSYSTEM.EffectEnable": "Enable Effect",
+  "CYPHERSYSTEM.EffectDisable": "Disable Effect",
+  "CYPHERSYSTEM.EffectEdit": "Edit Effect",
+  "CYPHERSYSTEM.EffectDelete": "Delete Effect"
 }

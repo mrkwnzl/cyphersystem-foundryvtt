@@ -1,0 +1,48 @@
+{{#*inline "effectPartial"}}
+  <li class="item effect {{#if effect.disabled}}disabled-effect{{/if}}" data-effect-id="{{effect.id}}" >
+    <img src="{{effect.icon}}" alt="{{effect.label}}" class="effect-icon" />
+    <span class="effect-label">{{effect.label}}</span>
+    {{#if effect.origin}}
+    <button type="button" class="effect-source effect-action" data-action="open-origin">
+      {{effect.origin}}
+    </button>
+    {{else}}
+    <span class="effect-source"></span>
+    {{/if}}
+    <span class="effect-controls">
+      <button type="button" class="effect-action" data-action="toggle" data-toggle="disabled" data-tooltip="{{#if effect.disabled}}CYPHERSYSTEM.EffectEnable{{else}}CYPHERSYSTEM.EffectDisable{{/if}}">
+        <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+      </button>
+      <button type="button" class="effect-action" data-action="edit" data-tooltip="CYPHERSYSTEM.EffectEdit">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button type="button" class="effect-action" data-action="delete" data-tooltip="CYPHERSYSTEM.EffectDelete">
+        <i class="fas fa-trash"></i>
+      </button>
+    </span>
+  </li>
+{{/inline}}
+
+<span class="effect-add">
+  <button type='menu' class='add-effect'>
+    <i class='fa-solid fa-plus'></i>{{localize 'CYPHERSYSTEM.ActiveEffects.Add'}}
+  </button>
+</span>
+<div class="effect-header">
+  <span class="effect-label">{{localize 'CYPHERSYSTEM.EffectsTemporary'}}</span>
+  <span class="effect-source">{{localize "CYPHERSYSTEM.ActiveEffects.Source"}}</span>
+  <span class="effect-controls">
+  </span>
+</div>
+<ul class="effects-list">
+  {{#each sheetEffects.temporary}}{{> effectPartial effect=this}}{{/each}}
+</ul>
+<div class="effect-header">
+  <span class="effect-label">{{localize 'CYPHERSYSTEM.EffectsPermanent'}}</span>
+  <span class="effect-source">{{localize "CYPHERSYSTEM.ActiveEffects.Source"}}</span>
+  <span class="effect-controls">
+  </span>
+</div>
+<ul class="effects-list">
+  {{#each sheetEffects.permanent}}{{> effectPartial effect=this}}{{/each}}
+</ul>

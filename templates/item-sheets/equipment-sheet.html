@@ -35,6 +35,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    <a class="item" data-tab="effects" style="flex: 0 0 45px;">{{localize 'CYPHERSYSTEM.Effects'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -45,6 +46,9 @@
       {{editor enrichedHTML.description target="system.description" button=true engine="prosemirror" owner=owner editable=true}}
     </div>
 
+    <section class='tab effects' data-group='primary' data-tab='effects'>
+      {{> systems/cyphersystem/templates/tabs/effects.html}}
+    </section>
   </section>
 
   {{!-- Background Image --}}

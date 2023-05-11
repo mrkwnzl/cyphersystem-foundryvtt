@@ -50,6 +50,7 @@
       {{/if}}
       <a class="item" data-tab="settings" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Settings'}}"><i class="fa-solid fa-gear"></i></a>
     {{/unless}}
+    <a class="item" data-tab="effects" style="flex: 0 0 45px;">{{localize 'CYPHERSYSTEM.Effects'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -150,6 +151,10 @@
 
     {{!-- Settings Tab --}}
     {{> systems/cyphersystem/templates/tabs/settings-tab/settings-pc.html}}
+
+    <section class='tab effects' data-group='primary' data-tab='effects'>
+      {{> systems/cyphersystem/templates/tabs/effects.html}}
+    </section>
 
   </section>
 

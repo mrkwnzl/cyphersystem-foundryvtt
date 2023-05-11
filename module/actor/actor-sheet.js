@@ -56,9 +56,35 @@ export class CypherActorSheet extends ActorSheet {
       data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true, relativeTo: item});
     }
 
+    data.sheetEffects = await this._getEffects();
+
     // Prepare items and return
     this.cyphersystem(data);
     return data;
+  }
+
+  async _getEffects() {
+    const temporary = new Array();
+    const permanent = new Array();
+    for (const effect of this.actor.effects) {
+        const val = {
+            id: effect.id,
+            label: effect.label,
+            icon: effect.icon,
+            disabled: effect.disabled,
+            //favorite: effect.getFlag('swade', 'favorite') ?? false,
+        };
+        if (effect.origin) {
+            val.origin = await effect._getSourceName();
+        }
+        if (effect.isTemporary) {
+            temporary.push(val);
+        }
+        else {
+            permanent.push(val);
+        }
+    }
+    return { temporary, permanent };
   }
 
   /**
@@ -613,6 +639,37 @@ export class CypherActorSheet extends ActorSheet {
     });
 
     /**
+     * Active Effects
+     */
+    html.find('.effect-action').on('click', (ev) => {
+      const a = ev.currentTarget;
+      const effectId = a.closest('li').dataset.effectId;
+      const effect = this.actor.effects.get(effectId, { strict: true });
+      const action = a.dataset.action;
+      switch (action) {
+        case 'edit':
+          return effect.sheet?.render(true);
+        case 'delete':
+          return effect.deleteDialog();
+        case 'toggle':
+          return effect.update({ disabled: !effect?.disabled });
+        case 'open-origin':
+          fromUuid(effect.data?.origin).then((item) => {
+            this.actor.items.get(item.id)?.sheet?.render(true);
+          });
+          break;
+        default:
+          console.warn(`The action ${action} is not currently supported`);
+          break;
+      }
+    });
+
+
+    html.find('.effect-add').on('click', (ev) => {
+      this._createActiveEffect()
+    })
+
+    /**
     * General sheet functions
     */
 
@@ -698,6 +755,17 @@ export class CypherActorSheet extends ActorSheet {
         "system.pools.health.value": this.actor.system.pools.health.max
       });
     });
+  }
+
+  async _createActiveEffect() {
+    const newEffect = await CONFIG.ActiveEffect.documentClass.create({
+        label: game.i18n.format('DOCUMENT.New', {
+            type: game.i18n.localize('DOCUMENT.ActiveEffect'),
+        }),
+        icon: "icons/svg/aura.svg",
+        transfer: true,
+    }, { parent: this.actor });
+    newEffect?.sheet?.render(true);
   }
 
   /**

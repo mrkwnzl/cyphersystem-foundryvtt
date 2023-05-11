@@ -52,6 +52,7 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/tabs/skills-tab/power-shifts.html",
     "systems/cyphersystem/templates/tabs/skills-tab/skills.html",
     "systems/cyphersystem/templates/tabs/tags-tab/recursions.html",
+    "systems/cyphersystem/templates/tabs/effects.html",
     "systems/cyphersystem/templates/tabs/tags-tab/tags.html"
   ];
   return loadTemplates(templatePaths);

@@ -1359,3 +1359,136 @@ select.settings-input {
   background: rgba(0, 0, 0, 0.05);
   height: 26px;
 }
+
+.cyphersystem .effects-list {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0
+}
+
+.cyphersystem .effects-list li {
+  border-bottom: 1px solid #293133;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+}
+
+.cyphersystem .effects-list .effect-icon {
+  border: none;
+  flex: 0 0 24px;
+  height: 24px;
+  margin-right: 2px
+}
+
+.cyphersystem .effects-list .effect-label {
+  flex: 1;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.cyphersystem .effects-list .effect-controls {
+  display: flex;
+  flex: 0 0 60px;
+  gap: .75ch;
+  justify-content: flex-end;
+  line-height: 1.4
+}
+
+.cyphersystem .effects-list .effect-controls a,
+.cyphersystem .effects-list .effect-controls button {
+  cursor: pointer
+}
+
+.cyphersystem .effects-list .fa-power-off {
+  color: #000
+}
+
+.cyphersystem .effects-list .disabled-effect .effect-label {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px
+}
+
+.cyphersystem .add-effect:focus,
+.cyphersystem .add-effect:hover {
+    color: #3b3b3b
+}
+
+.cyphersystem .effects.active .effect-header .effect-label {
+  font-weight: 700;
+  grid-column: 1/span 2;
+  padding-left: 5px;
+  text-align: left
+}
+
+.cyphersystem .effects.active .effect-header .effect-controls {
+  justify-content: space-around
+}
+
+.cyphersystem .add-effect {
+    color: var(--add-button-color)
+}
+
+.cyphersystem .effects.active .effect-add {
+  display: block;
+  margin-left: auto;
+  padding-left: 3rem;
+  width: -moz-fit-content;
+  width: fit-content
+}
+
+.cyphersystem .effects.active .effect,
+.cyphersystem .effects.active .effect-header {
+    align-items: center;
+    -moz-column-gap: 2px;
+    column-gap: 2px;
+    display: grid;
+    grid-template-columns: 40px 4fr 2fr 1fr;
+    padding: 2px 5px
+}
+
+.cyphersystem .effects.active .effect-header {
+  background-image: url(assets/header_bg.webp);
+  background-position: 0;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 5px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  text-align: center
+}
+
+
+.cyphersystem .effects.active .effect-header .effect-label {
+  font-weight: 700;
+  grid-column: 1/span 2;
+  padding-left: 5px;
+  text-align: left
+}
+
+.cyphersystem .effects.active .effect-header .effect-controls {
+  justify-content: space-around
+}
+
+.cyphersystem .effect button {
+  line-height: 1.4
+}
+
+.cyphersystem .effects.active .effect-label {
+  text-align: left
+}
+
+.cyphersystem .effects.active .effect-source {
+  font-size: var(--font-size-14);
+  text-align: center
+}
+
+.cyphersystem .effects.active .effect-controls {
+  display: flex;
+  gap: initial;
+  justify-content: flex-end;
+  text-align: center
+}
+
+.cyphersystem .effects.active .effect-controls>* {
+  padding: 0
+}
