@@ -1,6 +1,10 @@
 <div class="flexrow">
   <div class="profile-img-container">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+      <img class="profile-img" src="{{actor.system.teen.basic.img}}" data-edit="system.teen.basic.img" title="{{actor.system.teen.basic.name}}" />
+    {{else}}
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    {{/if}}
     {{#if sheetSettings.isExclusiveTagActive}}
       <div class="profile-img-overlay">
         <i class="fas fa-exclamation"></i><i class="fas fa-hashtag"></i>

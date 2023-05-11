@@ -47,8 +47,14 @@ export async function determineUpdateData(actor, taggingData) {
 }
 
 export async function changeTagStats(actor, statChanges) {
+  // If the character is an unlinked token
   if (actor?.actorLink == false) {
     actor = actor.actor;
+  }
+
+  // If the actor is in a compendium
+  if (actor?.pack) {
+    actor = await game.packs.get(actor.pack).getDocument(actor._id);
   }
 
   let pool = actor.system.pools;

@@ -93,28 +93,30 @@
       </div>
       <div class="resource-content flexrow flex-center" style="margin-top: auto; margin-bottom: auto;">
         <div class="recovery-rolls">
-          <input type="checkbox" name="system.combat.recoveries.oneAction" {{checked actor.system.combat.recoveries.oneAction}} />
-          {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 2)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction2" {{checked actor.system.combat.recoveries.oneAction2}} />
-            {{/if}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 3)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction3" {{checked actor.system.combat.recoveries.oneAction3}} />
-            {{/if}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 4)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction4" {{checked actor.system.combat.recoveries.oneAction4}} />
-            {{/if}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 5)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction5" {{checked actor.system.combat.recoveries.oneAction5}} />
-            {{/if}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 6)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction6" {{checked actor.system.combat.recoveries.oneAction6}} />
-            {{/if}}
-            {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 7)}}
-              <input type="checkbox" name="system.combat.recoveries.oneAction7" {{checked actor.system.combat.recoveries.oneAction7}} />
-            {{/if}}
-          {{/unless}}
-          &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 1)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction" {{checked actor.system.combat.recoveries.oneAction}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 2)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction2" {{checked actor.system.combat.recoveries.oneAction2}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 3)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction3" {{checked actor.system.combat.recoveries.oneAction3}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 4)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction4" {{checked actor.system.combat.recoveries.oneAction4}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 5)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction5" {{checked actor.system.combat.recoveries.oneAction5}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 6)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction6" {{checked actor.system.combat.recoveries.oneAction6}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 7)}}
+            <input type="checkbox" name="system.combat.recoveries.oneAction7" {{checked actor.system.combat.recoveries.oneAction7}} />
+          {{/if}}
+          {{#if (gte actor.system.settings.combat.numberOneActionRecoveries 1)}}
+            &nbsp;{{localize 'CYPHERSYSTEM.RecoveryAction'}}&nbsp;&nbsp;
+          {{/if}}
           {{#if (gte actor.system.settings.combat.numberTenMinuteRecoveries 1)}}
             <input type="checkbox" name="system.combat.recoveries.tenMinutes" {{checked actor.system.combat.recoveries.tenMinutes}} />
             {{#if (gte actor.system.settings.combat.numberTenMinuteRecoveries 2)}}

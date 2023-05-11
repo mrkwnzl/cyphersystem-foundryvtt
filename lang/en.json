@@ -519,7 +519,7 @@
   "CYPHERSYSTEM.OnRecursion": "on",
   "CYPHERSYSTEM.Recursion": "Recursion",
   "CYPHERSYSTEM.Recursions": "Recursions",
-  "CYPHERSYSTEM.TranslateToRecursion": "Translate to {recursion}",
+  "CYPHERSYSTEM.TranslateToRecursion": "Translate to {recursion} (alt-click to drag focus)",
   "CYPHERSYSTEM.FocusOnThisRecursion": "Focus on this recursion",
   "CYPHERSYSTEM.StatModifiers": "Stat Modifiers",
   "CYPHERSYSTEM.ExclusiveTag": "Exclusive Tag",

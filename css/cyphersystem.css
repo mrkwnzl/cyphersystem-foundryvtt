@@ -7,6 +7,14 @@
   --custom-logo-image-opacity: 1;
 }
 
+#logo {
+  margin: 12px 0 0 12px;
+}
+
+#controls {
+  padding: 12px 15px 0 15px;
+}
+
 #chat-controls {
   align-items: center;
 }
@@ -86,13 +94,11 @@ ol {
 
 #chat-log .roll-result {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
 #chat-log .roll-difficulty {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -103,7 +109,6 @@ ol {
 
 #chat-log .roll-initiative {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
@@ -279,10 +284,18 @@ form.cyphersystem {
   right: 10px;
 }
 
-.flavor-text {
+.chat-message .message-header .flavor-text {
   line-height: 1.3;
-  margin-bottom: 3px;
   font-size: 14px;
+  margin-bottom: 3px;
+  color: var(--color-text-dark-primary)
+}
+
+#chat-log .roll-flavor {
+  line-height: 1.3;
+  font-size: 14px;
+  margin-bottom: 3px;
+  color: var(--color-text-dark-primary)
 }
 
 ::-webkit-scrollbar-track {
@@ -302,9 +315,31 @@ select.bar-attribute {
   width: 0;
 }
 
-.editor-content {
-  padding: 0.3em;
+.cyphersystem .editor-content {
+  padding: 0.3em !important;
   line-height: 1.4;
+}
+
+.cyphersystem .editor-content ul p,
+.cyphersystem .editor-content ol p {
+  margin: 0px;
+}
+
+.cyphersystem .prosemirror {
+  --color-control-bg: rgb(0, 0, 0, 0.1);
+  --color-hover-bg: rgb(0, 0, 0, 0.15);
+}
+
+.cyphersystem .prosemirror menu .pm-dropdown ul {
+  background: #DDD;
+}
+
+.cyphersystem .prosemirror menu {
+  border-radius: 0px;
+}
+
+.cyphersystem .prosemirror .editor-container {
+  margin: 0px;
 }
 
 .editor-content hr {
@@ -796,6 +831,15 @@ select.bar-attribute {
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: small;
+}
+
+.cyphersystem .items-list .description .secret {
+  display: none;
+}
+
+.cyphersystem .items-list .description .secret.revealed {
+  display: block;
+  margin-right: 60px;
 }
 
 .cyphersystem .items-list .description ul {

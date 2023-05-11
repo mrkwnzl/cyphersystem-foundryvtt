@@ -197,7 +197,7 @@ export async function selectedTokenRollMacro(actor, title) {
       successInfo = (difficultyBeaten >= finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
     };
 
-    let flavor = title + baseDifficultyInfo + "<hr class='hr-chat'>" + easedOrHinderedInfo + beatenDifficultyInfo + successInfo;
+    let flavor = "<div class='roll-flavor'>" + title + baseDifficultyInfo + "<hr class='hr-chat'>" + easedOrHinderedInfo + beatenDifficultyInfo + successInfo + "</div>";
 
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({actor: actor}),
@@ -218,12 +218,12 @@ export async function diceRollMacro(dice, actor) {
   const roll = await new Roll(dice).evaluate({async: false});
 
   // Add reroll button
-  let reRollButton = `<div style="text-align: right"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-redo"></i> <i class="fas fa-dice-d20" style="width: 12px"></a></div>`;
+  let reRollButton = `<div class="chat-card-buttons"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-dice-d20"></a></div>`;
 
   // Send chat message
   roll.toMessage({
     speaker: ChatMessage.getSpeaker({actor: actor}),
-    flavor: "<b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton
+    flavor: "<div class='roll-flavor'><b>" + dice + " " + game.i18n.localize("CYPHERSYSTEM.Roll") + "</b>" + reRollButton + "</div>"
   });
 }
 
@@ -587,6 +587,10 @@ export function proposeIntrusion(actor) {
   // Check if user is GM
   if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
 
+  if (!actor) {
+    actor = canvas.tokens.controlled[0]?.actor;
+  }
+
   // Check for actor
   if (!actor) {
     // Create list of PCs
@@ -651,6 +655,8 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   let recursionName = recursion;
   recursion = "@" + recursion.toLowerCase();
 
+  focus = (game.keyboard.isModifierActive("Alt")) ? actor.system.basic.focus : focus;
+
   // Update Focus & Recursion
   await actor.update({
     "system.basic.focus": focus,
@@ -665,8 +671,14 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
   if (!speedEdgeModifier) speedEdgeModifier = 0;
   if (!intellectEdgeModifier) intellectEdgeModifier = 0;
 
-  await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
-  await applyRecursion();
+  if (game.keyboard.isModifierActive("Alt")) {
+    await actor.update({
+      "flags.cyphersystem.recursion": recursion
+    });
+  } else {
+    await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
+    await applyRecursion();
+  }
 
   async function applyRecursion() {
     let updates = [];
