@@ -14,12 +14,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - If you add the Secret style to a passage on the item sheet, this is no longer shown on the item description on the character sheet. This is useful for tags and recursions, for example, if you don’t want the mto show up there.
 - All editors have been changed to the new ProseMirro editor. While one important functionality is still missing, creating tables with a GUI, this editor is superior in all other aspects. You can now switch tabs while editing without losing your changes, you can save and close the editing mode without actually changing anything. For tables, you can enter them directly as HTML tables.
 - The Propose Intrusion button now skips the dialog when a PC token is selected and proposes the intursion to that actor.
-- The flavor text of rolls now has the same font size as all other chat messages.
+- There’s now a message in the chat when a difficulty has been announced to indicate that it’s being used for the next roll.
 
 ### Fixed
 - When sending item descriptions of ammo and equipment to the chat, they no longer show “(level null)” in the title when no level is set.
 - Fixed a bug where items with a quantity were always duplicated instead of added to the quantity.
 - Characters in compendiums can now update their stats when an exclusive tag is enabled.
+- Fixed a bug where the custom sheet styling of PC actors has been overwritten when a custom style has been set in the system settings.
 
 ## [2.5.0] - 2023-04-10
 ### Added
