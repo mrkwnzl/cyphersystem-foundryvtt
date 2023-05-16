@@ -380,12 +380,12 @@ export class CypherActorSheet extends ActorSheet {
         data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
         data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
         if (actorData.system.teen.settings.general.background.image == "custom") {
-          root.style.setProperty('--custom-background-image-path', `url(/${actorData.system.teen.settings.general.background.imagePath})`);
-          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.teen.settings.general.background.overlayOpacity);
+          data.sheetSettings.backgroundImagePath = "/" + actorData.system.teen.settings.general.background.imagePath;
+          data.sheetSettings.backgroundOverlayOpacity = actorData.system.teen.settings.general.background.overlayOpacity;
         }
         if (actorData.system.teen.settings.general.background.icon == "custom") {
           data.sheetSettings.backgroundIconPath = (actorData.system.teen.settings.general.background.iconPath) ? actorData.system.teen.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          root.style.setProperty('--custom-background-icon-opacity', actorData.system.teen.settings.general.background.iconOpacity);
+          data.sheetSettings.backgroundIconOpacity = actorData.system.teen.settings.general.background.iconOpacity;
         } else {
           data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.teen.settings.general.background.icon + ".svg";
         }
@@ -393,12 +393,12 @@ export class CypherActorSheet extends ActorSheet {
         data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
         data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
         if (actorData.system.settings.general.background.image == "custom") {
-          root.style.setProperty('--custom-background-image-path', `url(/${actorData.system.settings.general.background.imagePath})`);
-          root.style.setProperty('--custom-background-overlay-opacity', actorData.system.settings.general.background.overlayOpacity);
+          data.sheetSettings.backgroundImagePath = "/" + actorData.system.settings.general.background.imagePath;
+          data.sheetSettings.backgroundOverlayOpacity = actorData.system.settings.general.background.overlayOpacity;
         }
         if (actorData.system.settings.general.background.icon == "custom") {
           data.sheetSettings.backgroundIconPath = (actorData.system.settings.general.background.iconPath) ? actorData.system.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          root.style.setProperty('--custom-background-icon-opacity', actorData.system.settings.general.background.iconOpacity);
+          data.sheetSettings.backgroundIconOpacity = actorData.system.settings.general.background.iconOpacity;
         } else {
           data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.settings.general.background.icon + ".svg";
         }
@@ -407,20 +407,21 @@ export class CypherActorSheet extends ActorSheet {
         data.sheetSettings.backgroundIcon = getBackgroundIcon();
         data.sheetSettings.backgroundIconPath = getBackgroundIconPath();
         if (data.sheetSettings.backgroundImage == "custom") {
-          root.style.setProperty('--custom-background-image-path', `url(/${getBackgroundImagePath()})`);
-          root.style.setProperty('--custom-background-overlay-opacity', getBackgroundImageOverlayOpacity());
+          data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+          data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
         }
         if (data.sheetSettings.backgroundIcon == "custom") {
           if (!data.sheetSettings.backgroundIconPath) {
             data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
           }
-          root.style.setProperty('--custom-background-icon-opacity', getBackgroundIconOpacity());
+          data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
         } else {
           data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + data.sheetSettings.backgroundIcon + ".svg";
         }
       }
     }
 
+    // Create logo
     if (actorData.system.basic.unmaskedForm == "Teen" && teenCustomSheetDesign) {
       data.sheetSettings.logoImage = actorData.system.teen.settings.general.logo.image;
       if (actorData.system.teen.settings.general.logo.image == "custom") {
@@ -429,7 +430,7 @@ export class CypherActorSheet extends ActorSheet {
         } else {
           data.sheetSettings.logoPath = actorData.system.teen.settings.general.logo.imagePath;
         }
-        root.style.setProperty('--custom-logo-image-opacity', actorData.system.teen.settings.general.logo.imageOpacity);
+        data.sheetSettings.logoImageOpacity = actorData.system.teen.settings.general.logo.imageOpacity;
       } else {
         data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.teen.settings.general.logo.image + ".webp";
       }
@@ -441,14 +442,14 @@ export class CypherActorSheet extends ActorSheet {
         } else {
           data.sheetSettings.logoPath = actorData.system.settings.general.logo.imagePath;
         }
-        root.style.setProperty('--custom-logo-image-opacity', actorData.system.settings.general.logo.imageOpacity);
+        data.sheetSettings.logoImageOpacity = actorData.system.settings.general.logo.imageOpacity;
       } else {
         data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.settings.general.logo.image + ".webp";
       }
     } else {
       data.sheetSettings.logoImage = getLogoImage();
       data.sheetSettings.logoPath = getLogoImagePath();
-      data.sheetSettings.getLogoImageOpacity = getLogoImageOpacity();
+      data.sheetSettings.logoImageOpacity = getLogoImageOpacity();
       if (data.sheetSettings.logoImage == "custom") {
         if (!data.sheetSettings.logoPath) {
           data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";

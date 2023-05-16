@@ -56,20 +56,20 @@ export class CypherItemSheet extends ItemSheet {
 
     data.sheetSettings.backgroundImage = getBackgroundImage();
     data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
-    data.sheetSettings.backgroundImageOverlayOpacity = getBackgroundImageOverlayOpacity();
+    data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     data.sheetSettings.backgroundIcon = getBackgroundIcon();
-    data.sheetSettings.getBackgroundIconOpacity = getBackgroundIconOpacity();
+    data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
 
     if (data.sheetSettings.backgroundImage == "custom") {
-      root.style.setProperty('--custom-background-image-path', `url(/${data.sheetSettings.backgroundImagePath})`);
-      root.style.setProperty('--custom-background-overlay-opacity', data.sheetSettings.backgroundImageOverlayOpacity);
+      data.sheetSettings.backgroundImagePath = "/" + data.sheetSettings.backgroundImagePath;
+      data.sheetSettings.backgroundOverlayOpacity = data.sheetSettings.backgroundImageOverlayOpacity;
     }
 
     if (data.sheetSettings.backgroundIcon == "custom") {
       if (!data.sheetSettings.backgroundIconPath) {
         data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
       }
-      root.style.setProperty('--custom-background-icon-opacity', data.sheetSettings.getBackgroundIconOpacity);
+      data.sheetSettings.backgroundIconOpacity = data.sheetSettings.backgroundIconOpacity;
     } else {
       data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
     }

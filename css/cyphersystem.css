@@ -1,12 +1,5 @@
 /* Global */
 
-:root {
-  --custom-background-image-path: url();
-  --custom-background-overlay-opacity: 0.75;
-  --custom-background-icon-opacity: 0.5;
-  --custom-logo-image-opacity: 1;
-}
-
 #logo {
   margin: 12px 0 0 12px;
 }
@@ -35,12 +28,12 @@ ol {
   margin: 0 1px 0 1px;
 }
 
-#chat-log .message .message-content hr {
+/* #chat-log .message .message-content hr {
   margin-top: 3px;
   margin-bottom: 3px;
   border-bottom: 0;
   border-top: 1px solid rgba(187, 187, 187);
-}
+} */
 
 #chat-log .message .message-content ul,
 .flavor-text ul {
@@ -114,6 +107,20 @@ ol {
 
 #chat-log .multi-roll-active {
   color: blue;
+}
+
+ol#chat-log li .note-roll-dialog {
+  display: none;
+}
+
+ol#chat-log li:last-child .note-roll-dialog {
+  display: block;
+  color: blue;
+  text-align: left;
+}
+
+#chat-log .difficulty-result {
+  font-weight: bold;
 }
 
 .dialog-select {
@@ -354,7 +361,6 @@ select.bar-attribute {
 
 .chat-card-buttons {
   text-align: right;
-  margin-top: 6px;
 }
 
 .chat-card-item-description {
@@ -373,17 +379,17 @@ select.bar-attribute {
 }
 
 .cyphersystem .background-image.paper {
-  background-image: url(/systems/cyphersystem/icons/background/background-paper.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-paper.webp) !important;
   background-size: cover;
 }
 
 .cyphersystem .background-image.metal {
-  background-image: url(/systems/cyphersystem/icons/background/background-metal.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-metal.webp) !important;
   background-size: cover;
 }
 
 .cyphersystem .background-image.pride {
-  background-image: url(/systems/cyphersystem/icons/background/background-pride.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-pride.webp) !important;
   background-size: cover;
 }
 
@@ -412,16 +418,14 @@ select.bar-attribute {
 }
 
 .cyphersystem .background-image.cypher-blue {
-  background-image: linear-gradient(rgb(203, 203, 218), white);
+  background-image: linear-gradient(rgb(203, 203, 218), white) !important;
 }
 
 .cyphersystem .background-image.custom {
-  background-image: var(--custom-background-image-path);
   background-size: cover;
   background-position: center;
 }
 
-.cyphersystem .background-image-rectangle.plain,
 .cyphersystem .background-image-rectangle.custom {
   background-color: white;
   position: absolute;
@@ -429,7 +433,20 @@ select.bar-attribute {
   height: calc(100% - 39px);
   top: 34px;
   left: 5px;
-  opacity: var(--custom-background-overlay-opacity);
+  border-radius: 2px;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  z-index: 0;
+}
+
+.cyphersystem .background-image-rectangle.plain {
+  background-color: white;
+  position: absolute;
+  width: calc(100% - 10px);
+  height: calc(100% - 39px);
+  top: 34px;
+  left: 5px;
+  opacity: 0.75;
   border-radius: 2px;
   filter: blur(1px);
   -webkit-filter: blur(1px);
@@ -456,7 +473,6 @@ select.bar-attribute {
 .cyphersystem img.background-image-icon.custom {
   border: none;
   filter: none;
-  opacity: var(--custom-background-icon-opacity);
 }
 
 .cyphersystem div.background-image-icon-roll-form {
@@ -1328,7 +1344,6 @@ select.settings-input {
 }
 
 .cyphersystem img.cypher-logo.custom {
-  opacity: var(--custom-logo-image-opacity);
   height: 75px;
 }
 

@@ -1,4 +1,4 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Dice Tray --}}
   {{#unless (or sheetSettings.isLimited sheetSettings.isObserver)}}
@@ -13,7 +13,7 @@
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
@@ -154,6 +154,6 @@
   </section>
 
   {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
 </form>

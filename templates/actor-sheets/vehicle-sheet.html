@@ -1,4 +1,4 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
@@ -40,7 +40,7 @@
               </div>
               {{#unless (eq sheetSettings.logoImage "none")}}
                 <div class="resource stat-block cypher-logo flex-group-center">
-                  <img class="cypher-logo npc-logo {{sheetSettings.logoImage}}" src="{{sheetSettings.logoPath}}">
+                  <img class="cypher-logo npc-logo {{sheetSettings.logoImage}}" style="opacity: {{sheetSettings.logoImageOpacity}};" src="{{sheetSettings.logoPath}}">
                 </div>
               {{/unless}}
             </div>
@@ -142,6 +142,6 @@
   </section>
 
   {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
 </form>
