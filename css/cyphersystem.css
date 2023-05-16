@@ -455,7 +455,7 @@ select.bar-attribute {
 
 .cyphersystem div.background-image-icon {
   position: absolute;
-  top: calc(100% - 264px);
+  top: calc(100% - 265px);
   left: calc(100% - 264px);
   z-index: 1;
   height: 256px;

@@ -3,7 +3,7 @@
 * @extends {ItemSheet}
 */
 
-import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
+import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
 import {renameTag} from "../macros/macro-helper.js";
 import {htmlEscape} from "../utilities/html-escape.js";
 
@@ -58,18 +58,13 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
     data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     data.sheetSettings.backgroundIcon = getBackgroundIcon();
+    data.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
     data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
-
-    if (data.sheetSettings.backgroundImage == "custom") {
-      data.sheetSettings.backgroundImagePath = "/" + data.sheetSettings.backgroundImagePath;
-      data.sheetSettings.backgroundOverlayOpacity = data.sheetSettings.backgroundImageOverlayOpacity;
-    }
 
     if (data.sheetSettings.backgroundIcon == "custom") {
       if (!data.sheetSettings.backgroundIconPath) {
         data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
       }
-      data.sheetSettings.backgroundIconOpacity = data.sheetSettings.backgroundIconOpacity;
     } else {
       data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
     }

@@ -3,7 +3,7 @@
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
