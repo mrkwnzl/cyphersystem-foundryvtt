@@ -848,7 +848,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       pcRoleInfo = game.i18n.localize("CYPHERSYSTEM.PCIsTarget");
     }
 
-    basicInfo = "<b>" + game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '</b><hr class="hr-chat">' + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + difficulty + "<br>" + pcRoleInfo;
+    basicInfo = game.i18n.localize("CYPHERSYSTEM.TaskDifficulty") + '<hr class="hr-chat">' + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + difficulty + "<br>" + pcRoleInfo;
 
     if (cover == true) {
       modifier = modifier + 1;
@@ -1026,9 +1026,11 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     let difficultyResult = finalDifficulty + " (" + (finalDifficulty * 3) + ")";
 
-    resultInfo = "<hr class='hr-chat'>" + game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", {difficulty: difficultyResult});
+    resultInfo = "<hr class='hr-chat'><div class='difficulty-result'>" + game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", {difficulty: difficultyResult}) + "</div>";
 
-    chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo;
+    let noteForRollDialog = "<div class='note-roll-dialog'>" + game.i18n.localize("CYPHERSYSTEM.AppliesToNextRoll") + "</div>";
+
+    chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo + noteForRollDialog;
 
     let rng = Math.floor(Math.random() * 2);
 

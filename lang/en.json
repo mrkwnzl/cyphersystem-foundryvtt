@@ -464,6 +464,7 @@
   "CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to.",
   "CYPHERSYSTEM.RegainedPoints": "{actor} regained {cost} {poolPoints}.",
   "CYPHERSYSTEM.BaseDifficulty": "Base difficulty",
+  "CYPHERSYSTEM.AppliesToNextRoll": "Applies to the next roll!",
   "CYPHERSYSTEM.PCIsAttacker": "PC is active/attacker",
   "CYPHERSYSTEM.PCIsTarget": "PC is passive/target",
   "CYPHERSYSTEM.ShowDifficultyToEveryone": "Show difficulty to everyone",
