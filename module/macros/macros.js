@@ -703,7 +703,7 @@ export async function translateToRecursion(actor, recursion, focus, mightModifie
 }
 
 export async function changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
-  let pool = actor.system.pools;
+  let pool = actor._source.system.pools;
 
   let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
   let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");

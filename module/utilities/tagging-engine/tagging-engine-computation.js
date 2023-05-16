@@ -57,7 +57,7 @@ export async function changeTagStats(actor, statChanges) {
     actor = await game.packs.get(actor.pack).getDocument(actor._id);
   }
 
-  let pool = actor.system.pools;
+  let pool = actor._source.system.pools;
 
   let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
   let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
