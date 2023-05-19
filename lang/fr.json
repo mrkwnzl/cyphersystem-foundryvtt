@@ -475,7 +475,7 @@
   "CYPHERSYSTEM.Recursions": "Récursions",
   "CYPHERSYSTEM.Recursion": "Récursion",
   "CYPHERSYSTEM.ShowTagsInRecursionTab": "Onglet des balises de Récursion",
-  "CYPHERSYSTEM.TranslateToRecursion": "Translation vers {recursion}",
+  "CYPHERSYSTEM.TranslateToRecursion": "Traduire en {recursion} (alt-click pour déplacer le focus)",
   "CYPHERSYSTEM.FocusOnThisRecursion": "Focus dans cette récursion",
   "CYPHERSYSTEM.StatModifiers": "Modificateurs de statistiques",
   "CYPHERSYSTEM.ExclusiveTag": "Balises exclusives",
@@ -609,7 +609,11 @@
   "CYPHERSYSTEM.CSLogoColor": "Couleur",
   "CYPHERSYSTEM.CSLogoCustom": "Personnalisé",
   "CYPHERSYSTEM.SheetDesign": "Design de la Feuille",
-  "CYPHERSYSTEM.PathToImageFileBackground": "chemin/vers/fichier – centré et mis à l'échelle pour remplir la feuille, 650 × 712 px",
+  "CYPHERSYSTEM.PathToImageFileBackground": "chemin/vers/fichier - mis à l'échelle pour remplir la feuille et centré",
   "CYPHERSYSTEM.PathToImageFileIcon": "chemin/vers/fichier – mis à l'échelle pour montrer l'image entière",
-  "CYPHERSYSTEM.SortMaterialsByLevel": "Trier les matériaux d'artisanat par niveau"
+  "CYPHERSYSTEM.SortMaterialsByLevel": "Trier les matériaux d'artisanat par niveau",
+  "CYPHERSYSTEM.SettingSheetCustomization": "Personnalisation des feuilles",
+  "CYPHERSYSTEM.SettingSheetCustomizationLabel": "Paramètres par défaut de la personnalisation des feuilles",
+  "CYPHERSYSTEM.CustomSheetDesign": "Conception de feuilles personnalisée",
+  "CYPHERSYSTEM.SettingSheetCustomizationHint": "Définir les valeurs par défaut pour toutes les feuilles d'acteur."
 }

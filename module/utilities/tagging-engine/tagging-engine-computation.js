@@ -47,11 +47,17 @@ export async function determineUpdateData(actor, taggingData) {
 }
 
 export async function changeTagStats(actor, statChanges) {
+  // If the character is an unlinked token
   if (actor?.actorLink == false) {
     actor = actor.actor;
   }
 
-  let pool = actor.system.pools;
+  // If the actor is in a compendium
+  if (actor?.pack) {
+    actor = await game.packs.get(actor.pack).getDocument(actor._id);
+  }
+
+  let pool = actor._source.system.pools;
 
   let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
   let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");

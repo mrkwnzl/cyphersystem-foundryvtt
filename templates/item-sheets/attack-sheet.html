@@ -1,9 +1,9 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Icon --}}
   {{#unless (eq sheetSettings.backgroundIcon "none")}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
@@ -81,7 +81,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+      {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
     </div>
 
     {{!-- Settings Tab --}}
@@ -90,6 +90,6 @@
   </section>
 
   {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
 </form>

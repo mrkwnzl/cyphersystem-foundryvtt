@@ -464,6 +464,7 @@
   "CYPHERSYSTEM.NoPCsNoIntrusion": "There are no PCs who you could propose an intrusion to.",
   "CYPHERSYSTEM.RegainedPoints": "{actor} regained {cost} {poolPoints}.",
   "CYPHERSYSTEM.BaseDifficulty": "Base difficulty",
+  "CYPHERSYSTEM.AppliesToNextRoll": "Applies to the next roll!",
   "CYPHERSYSTEM.PCIsAttacker": "PC is active/attacker",
   "CYPHERSYSTEM.PCIsTarget": "PC is passive/target",
   "CYPHERSYSTEM.ShowDifficultyToEveryone": "Show difficulty to everyone",
@@ -519,7 +520,7 @@
   "CYPHERSYSTEM.OnRecursion": "on",
   "CYPHERSYSTEM.Recursion": "Recursion",
   "CYPHERSYSTEM.Recursions": "Recursions",
-  "CYPHERSYSTEM.TranslateToRecursion": "Translate to {recursion}",
+  "CYPHERSYSTEM.TranslateToRecursion": "Translate to {recursion} (alt-click to drag focus)",
   "CYPHERSYSTEM.FocusOnThisRecursion": "Focus on this recursion",
   "CYPHERSYSTEM.StatModifiers": "Stat Modifiers",
   "CYPHERSYSTEM.ExclusiveTag": "Exclusive Tag",
@@ -610,5 +611,7 @@
   "CYPHERSYSTEM.CancelButtonTooltip": "Cancel (alt-click to continue multi-roll action)",
   "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions.",
   "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
-  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel."
+  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel.",
+  "CYPHERSYSTEM.SheetEditor": "Sheet Editor",
+  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets."
 }

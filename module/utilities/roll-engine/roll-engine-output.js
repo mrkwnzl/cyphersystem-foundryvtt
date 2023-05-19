@@ -204,7 +204,7 @@ export async function rollEngineOutput(data) {
   }
 
   let easedOrHinderedInfo = "";
-  let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")" : "";
+  let taskDifficulty = (useEffectiveDifficulty(data.baseDifficulty) == false && data.finalDifficulty) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")" : "";
   if (modifiedBy) {
     easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
   }
@@ -239,7 +239,7 @@ export async function rollEngineOutput(data) {
   let actorUuid = (actor) ? actor.uuid : "";
   data.baseDifficulty = (data.baseDifficulty != "none") ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
-  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20" style="width: 12px"></i></a>`;
+  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";
@@ -251,7 +251,7 @@ export async function rollEngineOutput(data) {
   let chatButtons = `<div class="chat-card-buttons" data-actor-uuid="${actorUuid}">` + regainPointsButton + reRollButton + `</div>`;
 
   // Put it all together into the chat flavor
-  let flavor = title + baseDifficultyInfo + rerollInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + resultInfo + easedOrHinderedInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons;
+  let flavor = "<div class='roll-flavor'>" + title + baseDifficultyInfo + rerollInfo + multiRollInfo + itemDescriptionInfo + info + "<hr class='hr-chat'>" + easedOrHinderedInfo + resultInfo + beatenDifficulty + initiativeInfo + successInfo + effect + gmiEffect + chatButtons + "</div>";
 
   if (data.skipRoll) {
     ChatMessage.create({

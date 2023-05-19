@@ -3,7 +3,7 @@
 * @extends {ItemSheet}
 */
 
-import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
+import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
 import {renameTag} from "../macros/macro-helper.js";
 import {htmlEscape} from "../utilities/html-escape.js";
 
@@ -40,6 +40,7 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
     data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
     data.sheetSettings.identified = this.item.system.basic?.identified;
+    data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
 
     // Enriched HTML
     data.enrichedHTML = {};
@@ -56,20 +57,15 @@ export class CypherItemSheet extends ItemSheet {
 
     data.sheetSettings.backgroundImage = getBackgroundImage();
     data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
-    data.sheetSettings.backgroundImageOverlayOpacity = getBackgroundImageOverlayOpacity();
+    data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     data.sheetSettings.backgroundIcon = getBackgroundIcon();
-    data.sheetSettings.getBackgroundIconOpacity = getBackgroundIconOpacity();
-
-    if (data.sheetSettings.backgroundImage == "custom") {
-      root.style.setProperty('--custom-background-image-path', `url(/${data.sheetSettings.backgroundImagePath})`);
-      root.style.setProperty('--custom-background-overlay-opacity', data.sheetSettings.backgroundImageOverlayOpacity);
-    }
+    data.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
+    data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
 
     if (data.sheetSettings.backgroundIcon == "custom") {
       if (!data.sheetSettings.backgroundIconPath) {
         data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
       }
-      root.style.setProperty('--custom-background-icon-opacity', data.sheetSettings.getBackgroundIconOpacity);
     } else {
       data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
     }

@@ -186,4 +186,17 @@ export async function registerGameSettings() {
     type: Number,
     default: 1
   });
+
+  game.settings.register("cyphersystem", "sheetEditor", {
+    name: game.i18n.localize("CYPHERSYSTEM.SheetEditor"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SheetEditorHint"),
+    scope: "world",
+    type: Number,
+    default: 0,
+    choices: {
+      0: "ProseMirror",
+      1: "TinyMCE"
+    },
+    config: true
+  });
 }

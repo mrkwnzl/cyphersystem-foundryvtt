@@ -98,6 +98,7 @@ Hooks.once("init", async function () {
     CypherActorSheetCompanion,
     CypherActorSheetVehicle,
     CypherActorSheetMarker,
+    CypherItemSheet,
 
     // Macros
     quickRollMacro,
