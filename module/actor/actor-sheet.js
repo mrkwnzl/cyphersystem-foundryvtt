@@ -37,6 +37,7 @@ export class CypherActorSheet extends ActorSheet {
     data.sheetSettings.isLimited = (this.actor.permission == 1) ? true : false;
     data.sheetSettings.isObserver = (this.actor.permission == 2) ? true : false;
     data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
+    data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
 
     // Enriched HTML
     data.enrichedHTML = {};

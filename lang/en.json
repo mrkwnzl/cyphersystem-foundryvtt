@@ -611,5 +611,7 @@
   "CYPHERSYSTEM.CancelButtonTooltip": "Cancel (alt-click to continue multi-roll action)",
   "CYPHERSYSTEM.TeensCantMultiRoll": "Teen forms cannot use multi roll actions.",
   "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
-  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel."
+  "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel.",
+  "CYPHERSYSTEM.SheetEditor": "Sheet Editor",
+  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets."
 }
