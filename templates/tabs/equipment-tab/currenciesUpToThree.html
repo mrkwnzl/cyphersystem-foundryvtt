@@ -4,13 +4,11 @@
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 3)}}
       <div class="resource-content flexrow flex-center">
         <label class="resource-label-normal" style="text-align:right">
-          <b>
             {{#if (eq actor.system.settings.equipment.currency.labelCategory3 "")}}
               {{localize 'CYPHERSYSTEM.Gold'}}
             {{else}}
               {{actor.system.settings.equipment.currency.labelCategory3}}
             {{/if}}
-          </b>
         </label>
       </div>
       <div class="resource-content flexrow flex-center flex-between">
@@ -24,13 +22,11 @@
     {{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}
       <div class="resource-content flexrow flex-center" style="text-align:right">
         <label class="resource-label-normal">
-          <b>
             {{#if (eq actor.system.settings.equipment.currency.labelCategory2 "")}}
               {{localize 'CYPHERSYSTEM.Silver'}}
             {{else}}
               {{actor.system.settings.equipment.currency.labelCategory2}}
             {{/if}}
-          </b>
         </label>
       </div>
       <div class="resource-content flexrow flex-center flex-between">
@@ -43,12 +39,10 @@
 
     <div class="resource-content flexrow flex-center">
       <label class="resource-label-normal" style="text-align:right">
-        <b>
           {{#if (eq actor.system.settings.equipment.currency.labelCategory1 "")}}
             {{#if (eq actor.system.settings.equipment.currency.numberCategories "1")}}{{localize 'CYPHERSYSTEM.Shins'}}{{/if}}
             {{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}
           {{else}}{{actor.system.settings.equipment.currency.labelCategory1}}{{/if}}
-        </b>
       </label>
     </div>
     <div class="resource-content flexrow flex-center flex-between">

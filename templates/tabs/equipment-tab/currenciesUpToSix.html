@@ -26,13 +26,11 @@
       <div class="resource flex-center">
         {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
-            <b>
-              {{#if (eq actor.system.settings.equipment.currency.labelCategory5 "")}}
-                {{localize 'CYPHERSYSTEM.Mithral'}}
-              {{else}}
-                {{actor.system.settings.equipment.currency.labelCategory5}}
-              {{/if}}
-            </b>
+            {{#if (eq actor.system.settings.equipment.currency.labelCategory5 "")}}
+              {{localize 'CYPHERSYSTEM.Mithral'}}
+            {{else}}
+              {{actor.system.settings.equipment.currency.labelCategory5}}
+            {{/if}}
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
@@ -47,13 +45,11 @@
       <div class="resource flex-center">
         {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
-            <b>
-              {{#if (eq actor.system.settings.equipment.currency.labelCategory4 "")}}
-                {{localize 'CYPHERSYSTEM.Platinum'}}
-              {{else}}
-                {{actor.system.settings.equipment.currency.labelCategory4}}
-              {{/if}}
-            </b>
+            {{#if (eq actor.system.settings.equipment.currency.labelCategory4 "")}}
+              {{localize 'CYPHERSYSTEM.Platinum'}}
+            {{else}}
+              {{actor.system.settings.equipment.currency.labelCategory4}}
+            {{/if}}
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
@@ -68,13 +64,11 @@
       <div class="resource flex-center">
         {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
-            <b>
-              {{#if (eq actor.system.settings.equipment.currency.labelCategory3 "")}}
-                {{localize 'CYPHERSYSTEM.Gold'}}
-              {{else}}
-                {{actor.system.settings.equipment.currency.labelCategory3}}
-              {{/if}}
-            </b>
+            {{#if (eq actor.system.settings.equipment.currency.labelCategory3 "")}}
+              {{localize 'CYPHERSYSTEM.Gold'}}
+            {{else}}
+              {{actor.system.settings.equipment.currency.labelCategory3}}
+            {{/if}}
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
@@ -89,13 +83,11 @@
       <div class="resource flex-center">
         {{#unless actor.system.settings.equipment.currency.hideLabels}}
           <label class="resource-label-normal">
-            <b>
-              {{#if (eq actor.system.settings.equipment.currency.labelCategory2 "")}}
-                {{localize 'CYPHERSYSTEM.Silver'}}
-              {{else}}
-                {{actor.system.settings.equipment.currency.labelCategory2}}
-              {{/if}}
-            </b>
+            {{#if (eq actor.system.settings.equipment.currency.labelCategory2 "")}}
+              {{localize 'CYPHERSYSTEM.Silver'}}
+            {{else}}
+              {{actor.system.settings.equipment.currency.labelCategory2}}
+            {{/if}}
           </label>
         {{/unless}}
         <div class="resource-content flexrow flex-center flex-between">
@@ -109,18 +101,16 @@
     <div class="resource flex-center">
       {{#unless actor.system.settings.equipment.currency.hideLabels}}
         <label class="resource-label-normal">
-          <b>
-            {{#if (eq actor.system.settings.equipment.currency.labelCategory1 "")}}
-              {{#if (eq actor.system.settings.equipment.currency.numberCategories "1")}}
-                {{localize 'CYPHERSYSTEM.Shins'}}
-              {{/if}}
-              {{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}
-                {{localize 'CYPHERSYSTEM.Copper'}}
-              {{/if}}
-            {{else}}
-              {{actor.system.settings.equipment.currency.labelCategory1}}
+          {{#if (eq actor.system.settings.equipment.currency.labelCategory1 "")}}
+            {{#if (eq actor.system.settings.equipment.currency.numberCategories "1")}}
+              {{localize 'CYPHERSYSTEM.Shins'}}
             {{/if}}
-          </b>
+            {{#if (gte actor.system.settings.equipment.currency.numberCategories 2)}}
+              {{localize 'CYPHERSYSTEM.Copper'}}
+            {{/if}}
+          {{else}}
+            {{actor.system.settings.equipment.currency.labelCategory1}}
+          {{/if}}
         </label>
       {{/unless}}
       <div class="resource-content flexrow flex-center flex-between">
