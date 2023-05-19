@@ -1303,7 +1303,6 @@ select.settings-input {
 .cyphersystem div.cypher-logo {
   border: 1px solid rgb(0, 0, 0, 0);
   display: flex;
-  padding: 0;
 }
 
 .cyphersystem img.cypher-logo {
