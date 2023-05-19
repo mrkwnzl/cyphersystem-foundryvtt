@@ -47,6 +47,7 @@ These modules come pre-configured with Cypher-specific functionality.
 - [Bar Brawl](https://foundryvtt.com/packages/barbrawl)
 - [Drag Ruler](https://foundryvtt.com/packages/drag-ruler)
 - [Health Estimate](https://foundryvtt.com/packages/healthEstimate)
+- [Item Piles](https://foundryvtt.com/packages/item-piles)
 - [Party Overwiew](https://foundryvtt.com/packages/party-overview)
 - [Token Action HUD Cyphersystem](https://foundryvtt.com/packages/token-action-hud-cyphersystem) for [Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)
 
