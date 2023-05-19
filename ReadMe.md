@@ -14,7 +14,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Highlights
 
-- Support for Numenera, The Strange, and any Cypher System game (including Unmasked, Predation, and Gods of the Fall).
+- Support for any Cypher System game (including Unmasked, Predation, and Gods of the Fall), Numenera, and The Strange.
 - An Unmasked mode in which you can switch between your Teen Form and Mask Form.
 - An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
@@ -34,7 +34,7 @@ Install these modules only if you specifically need the functionality provided b
 ### Cypher-Specific Modules
 
 These modules have been written specifically to expand the functionality of the Cypher System.
-
+- [Active Effects for the Cypher System](https://foundryvtt.com/packages/cyphersystem-activeeffects)
 - [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums)
 - [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
 - [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
@@ -46,7 +46,9 @@ These modules come pre-configured with Cypher-specific functionality.
 
 - [Bar Brawl](https://foundryvtt.com/packages/barbrawl)
 - [Drag Ruler](https://foundryvtt.com/packages/drag-ruler)
+- [Health Estimate](https://foundryvtt.com/packages/healthEstimate)
 - [Party Overwiew](https://foundryvtt.com/packages/party-overview)
+- [Token Action HUD Cyphersystem](https://foundryvtt.com/packages/token-action-hud-cyphersystem) for [Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)
 
 ## Support, Community, and Contributing
 
