@@ -1,10 +1,11 @@
 /* Global */
 
-:root {
-  --custom-background-image-path: url();
-  --custom-background-overlay-opacity: 0.75;
-  --custom-background-icon-opacity: 0.5;
-  --custom-logo-image-opacity: 1;
+#logo {
+  margin: 12px 0 0 12px;
+}
+
+#controls {
+  padding: 12px 15px 0 15px;
 }
 
 #chat-controls {
@@ -25,13 +26,6 @@ ol {
 #chat-log .message .message-content .pdfoundry-link {
   font-size: smaller;
   margin: 0 1px 0 1px;
-}
-
-#chat-log .message .message-content hr {
-  margin-top: 3px;
-  margin-bottom: 3px;
-  border-bottom: 0;
-  border-top: 1px solid rgba(187, 187, 187);
 }
 
 #chat-log .message .message-content ul,
@@ -86,14 +80,13 @@ ol {
 
 #chat-log .roll-result {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
 #chat-log .roll-difficulty {
   font-size: 1em;
-  color: black;
   font-weight: bold;
+  color: var(--color-text-dark-primary)
 }
 
 #chat-log .roll-effect {
@@ -103,12 +96,25 @@ ol {
 
 #chat-log .roll-initiative {
   font-size: 1em;
-  color: black;
   font-weight: bold;
 }
 
 #chat-log .multi-roll-active {
   color: blue;
+}
+
+ol#chat-log li .note-roll-dialog {
+  display: none;
+}
+
+ol#chat-log li:last-child .note-roll-dialog {
+  display: block;
+  color: blue;
+  text-align: left;
+}
+
+#chat-log .difficulty-result {
+  font-weight: bold;
 }
 
 .dialog-select {
@@ -279,10 +285,9 @@ form.cyphersystem {
   right: 10px;
 }
 
-.flavor-text {
+#chat-log .roll-flavor {
   line-height: 1.3;
   margin-bottom: 3px;
-  font-size: 14px;
 }
 
 ::-webkit-scrollbar-track {
@@ -302,9 +307,31 @@ select.bar-attribute {
   width: 0;
 }
 
-.editor-content {
-  padding: 0.3em;
+.cyphersystem .editor-content {
+  padding: 0.3em !important;
   line-height: 1.4;
+}
+
+.cyphersystem .editor-content ul p,
+.cyphersystem .editor-content ol p {
+  margin: 0px;
+}
+
+.cyphersystem .prosemirror {
+  --color-control-bg: rgb(0, 0, 0, 0.1);
+  --color-hover-bg: rgb(0, 0, 0, 0.15);
+}
+
+.cyphersystem .prosemirror menu .pm-dropdown ul {
+  background: #DDD;
+}
+
+.cyphersystem .prosemirror menu {
+  border-radius: 0px;
+}
+
+.cyphersystem .prosemirror .editor-container {
+  margin: 0px;
 }
 
 .editor-content hr {
@@ -319,7 +346,6 @@ select.bar-attribute {
 
 .chat-card-buttons {
   text-align: right;
-  margin-top: 6px;
 }
 
 .chat-card-item-description {
@@ -338,17 +364,17 @@ select.bar-attribute {
 }
 
 .cyphersystem .background-image.paper {
-  background-image: url(/systems/cyphersystem/icons/background/background-paper.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-paper.webp) !important;
   background-size: cover;
 }
 
 .cyphersystem .background-image.metal {
-  background-image: url(/systems/cyphersystem/icons/background/background-metal.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-metal.webp) !important;
   background-size: cover;
 }
 
 .cyphersystem .background-image.pride {
-  background-image: url(/systems/cyphersystem/icons/background/background-pride.webp);
+  background-image: url(/systems/cyphersystem/icons/background/background-pride.webp) !important;
   background-size: cover;
 }
 
@@ -377,16 +403,14 @@ select.bar-attribute {
 }
 
 .cyphersystem .background-image.cypher-blue {
-  background-image: linear-gradient(rgb(203, 203, 218), white);
+  background-image: linear-gradient(rgb(203, 203, 218), white) !important;
 }
 
 .cyphersystem .background-image.custom {
-  background-image: var(--custom-background-image-path);
   background-size: cover;
   background-position: center;
 }
 
-.cyphersystem .background-image-rectangle.plain,
 .cyphersystem .background-image-rectangle.custom {
   background-color: white;
   position: absolute;
@@ -394,7 +418,20 @@ select.bar-attribute {
   height: calc(100% - 39px);
   top: 34px;
   left: 5px;
-  opacity: var(--custom-background-overlay-opacity);
+  border-radius: 2px;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  z-index: 0;
+}
+
+.cyphersystem .background-image-rectangle.plain {
+  background-color: white;
+  position: absolute;
+  width: calc(100% - 10px);
+  height: calc(100% - 39px);
+  top: 34px;
+  left: 5px;
+  opacity: 0.75;
   border-radius: 2px;
   filter: blur(1px);
   -webkit-filter: blur(1px);
@@ -403,7 +440,7 @@ select.bar-attribute {
 
 .cyphersystem div.background-image-icon {
   position: absolute;
-  top: calc(100% - 264px);
+  top: calc(100% - 265px);
   left: calc(100% - 264px);
   z-index: 1;
   height: 256px;
@@ -421,7 +458,6 @@ select.bar-attribute {
 .cyphersystem img.background-image-icon.custom {
   border: none;
   filter: none;
-  opacity: var(--custom-background-icon-opacity);
 }
 
 .cyphersystem div.background-image-icon-roll-form {
@@ -796,6 +832,15 @@ select.bar-attribute {
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: small;
+}
+
+.cyphersystem .items-list .description .secret {
+  display: none;
+}
+
+.cyphersystem .items-list .description .secret.revealed {
+  display: block;
+  margin-right: 60px;
 }
 
 .cyphersystem .items-list .description ul {
@@ -1258,7 +1303,6 @@ select.settings-input {
 .cyphersystem div.cypher-logo {
   border: 1px solid rgb(0, 0, 0, 0);
   display: flex;
-  padding: 0;
 }
 
 .cyphersystem img.cypher-logo {
@@ -1284,7 +1328,6 @@ select.settings-input {
 }
 
 .cyphersystem img.cypher-logo.custom {
-  opacity: var(--custom-logo-image-opacity);
   height: 75px;
 }
 
@@ -1314,4 +1357,50 @@ select.settings-input {
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.05);
   height: 26px;
+}
+
+/* Sidebar style */
+
+:root {
+  --cs-label-note: "Note";
+  --cs-box-border-color: #333;
+}
+
+:root:lang(en) {
+  --cs-label-note: "Note";
+}
+
+.cypher-note {
+  border: 1px solid var(--cs-box-border-color);
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px #000;
+  padding: 3px 6px;
+  width: calc(100% - 1em);
+  box-sizing: border-box;
+  display: flow-root;
+  margin: 1rem 0rem;
+}
+
+section.cypher-note>p {
+  margin-top: 0px;
+}
+
+.cypher-note::before {
+  border: var(--cs-box-border-color) 1px solid;
+  position: relative;
+  top: -0.7em;
+  margin-left: 0.3em;
+  padding: 0em 0.5em 0em 0.5em;
+  display: inline;
+}
+
+.cypher-note::before {
+  content: var(--cs-label-note);
+  background-color: #ceceb0;
+}
+
+.cypher-note {
+  font-style: italic;
+  background-color: #d7d7c0;
+  background-image: linear-gradient(#d7d7c0, #FFF);
 }

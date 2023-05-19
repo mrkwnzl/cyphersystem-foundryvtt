@@ -1,6 +1,10 @@
 <div class="flexrow">
   <div class="profile-img-container">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+      <img class="profile-img" src="{{actor.system.teen.basic.img}}" data-edit="system.teen.basic.img" title="{{actor.system.teen.basic.name}}" />
+    {{else}}
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    {{/if}}
     {{#if sheetSettings.isExclusiveTagActive}}
       <div class="profile-img-overlay">
         <i class="fas fa-exclamation"></i><i class="fas fa-hashtag"></i>
@@ -73,7 +77,7 @@
         <label class="{{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 55px;">
           {{localize 'CYPHERSYSTEM.Who'}}
         </label>
-        <input name="system.basic.focus" type="text" value="{{actor.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" />
+        <input name="system.basic.focus" type="text" value="{{actor.system.basic.focus}}" placeholder="{{localize 'CYPHERSYSTEM.Focus'}}" {{#if (eq actor.system.settings.general.gameMode 'Strange')}}disabled{{/if}} />
         {{#if actor.system.settings.general.additionalSentence.active}}
           &nbsp;
           <input name="system.basic.additionalSentence" type="text" value="{{actor.system.basic.additionalSentence}}" placeholder="{{#if (eq actor.system.settings.general.additionalSentence.label '')}}{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}{{else}}{{actor.system.settings.general.additionalSentence.label}}{{/if}}" {{#if (eq actor.system.settings.general.gameMode 'Strange')}}disabled{{/if}} />

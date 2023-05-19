@@ -1,9 +1,9 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" src="{{sheetSettings.backgroundIconPath}}">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
@@ -40,7 +40,7 @@
               </div>
               {{#unless (eq sheetSettings.logoImage "none")}}
                 <div class="resource stat-block cypher-logo flex-group-center">
-                  <img class="cypher-logo npc-logo {{sheetSettings.logoImage}}" src="{{sheetSettings.logoPath}}">
+                  <img class="cypher-logo npc-logo {{sheetSettings.logoImage}}" style="opacity: {{sheetSettings.logoImageOpacity}};" src="{{sheetSettings.logoPath}}">
                 </div>
               {{/unless}}
             </div>
@@ -69,12 +69,12 @@
 
     {{!-- Notes Tab --}}
     <div class="tab description" data-group="primary" data-tab="notes">
-      {{editor enrichedHTML.notes target="system.notes" button=true owner=owner editable=true}}
+      {{editor enrichedHTML.notes target="system.notes" button=true engine=sheetSettings.editor owner=owner editable=true}}
     </div>
 
     {{!-- Description Tab --}}
     <div class="tab description" data-group="primary" data-tab="description">
-      {{editor enrichedHTML.description target="system.description" button=true owner=owner editable=true}}
+      {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
     </div>
 
     {{!-- Owned Items Tab --}}
@@ -142,6 +142,6 @@
   </section>
 
   {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"></div>
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
 </form>

@@ -470,7 +470,7 @@
   "CYPHERSYSTEM.TargetIsInMist": "Ziel ist in Nebel gehüllt",
   "CYPHERSYSTEM.Recursion": "Rekursion",
   "CYPHERSYSTEM.Recursions": "Rekursionen",
-  "CYPHERSYSTEM.TranslateToRecursion": "Nach {recursion} übersetzen",
+  "CYPHERSYSTEM.TranslateToRecursion": "Nach {recursion} übersetzen (Alt-Klick, um den Fokus mitzunehmen)",
   "CYPHERSYSTEM.FocusOnThisRecursion": "Fokus in dieser Rekursion",
   "CYPHERSYSTEM.SettingBarBrawlDefaultsHint": "Wenn diese Einstellung aktiv ist, überschreiben die Cypher System Einstellungen für Bar Brawl die Benutzereinstellungen für neu erstellte Tokens und die Ressourcenbalken können nicht mehr konfiguriert werden. Wenn diese Einstellung deaktiviert ist, muss Bar Brawl selbst konfiguriert werden. In beiden Fällen behalt bereits existierende Tokens ihre Einstellungen.",
   "CYPHERSYSTEM.AttackerIsUnderwaterStabbing": "Angreifer ist mit einer Stich- oder Fernkampfwaffe unter Wasser",
@@ -606,10 +606,14 @@
   "CYPHERSYSTEM.NameOfUnidentifiedArtifact": "Name des unidentifizierten Artefakts",
   "CYPHERSYSTEM.FinalDifficulty": "Finale Schwierigkeit",
   "CYPHERSYSTEM.BGImageOverlayOpacity": "Opazität des Overlays",
-  "CYPHERSYSTEM.PathToImageFileBackground": "Pfad/zur/Datei – skaliert, um den Bogen zu füllen, und zentriert, 650 × 712 px",
+  "CYPHERSYSTEM.PathToImageFileBackground": "Pfad/zur/Datei – skaliert, um den Bogen zu füllen, und zentriert",
   "CYPHERSYSTEM.PathToImageFileIcon": "Pfad/zur/Datei – skaliert, um das ganze Bild zu zeigen",
   "CYPHERSYSTEM.ItemNotFound": "Gegenstand nicht gefunden!",
   "CYPHERSYSTEM.SubtractGMI": "1 von SL-Eingriff-Reichweite abziehen",
   "CYPHERSYSTEM.ActorNotFound": "Akteur nicht gefunden!",
-  "CYPHERSYSTEM.SortMaterialsByLevel": "Herstellungsmaterial nach Stufe sortieren"
+  "CYPHERSYSTEM.SortMaterialsByLevel": "Herstellungsmaterial nach Stufe sortieren",
+  "CYPHERSYSTEM.CustomSheetDesign": "Eigenes Bogendesign",
+  "CYPHERSYSTEM.SettingSheetCustomization": "Charakterbogenanpassung",
+  "CYPHERSYSTEM.SettingSheetCustomizationLabel": "Charakterbogenanpassungsstandards",
+  "CYPHERSYSTEM.SettingSheetCustomizationHint": "Stelle die Standards für alle Charakterbögen fest."
 }

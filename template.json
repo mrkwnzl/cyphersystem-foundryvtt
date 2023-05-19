@@ -197,6 +197,7 @@
       "teen": {
         "basic": {
           "name": "",
+          "img": "icons/svg/mystery-man.svg",
           "descriptor": ""
         },
         "pools": {
@@ -274,7 +275,7 @@
         "armor": 0
       },
       "description": "",
-      "notes": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
+      "notes": "<p>[Description]</p><p><strong>Motive:</strong>&nbsp;</p><p><strong>Environment:</strong>&nbsp;</p><p><strong>Health:</strong>&nbsp;</p><p><strong>Damage Inflicted:</strong>&nbsp;</p><p><strong>Movement:</strong>&nbsp;</p><p><strong>Modifications:</strong>&nbsp;</p><p><strong>Combat:</strong>&nbsp;</p><p><strong>Interaction:</strong>&nbsp;</p><p><strong>Use:</strong>&nbsp;</p><p><strong>Loot:</strong>&nbsp;</p><p><strong>GM Intrusion:</strong>&nbsp;</p>",
       "settings": {
         "general": {
           "initiativeBonus": 0,
@@ -1052,31 +1053,23 @@
             "bonus": 0
           }
         }
+      },
+      "linkedItems": {
+        "settings": {
+          "linkedItems": {
+            "ability": "",
+            "attack": "",
+            "skill": ""
+          }
+        }
       }
     },
     "ability": {
       "templates": [
         "version",
         "core",
-        "rollButton"
-      ],
-      "basic": {
-        "cost": 0,
-        "pool": "Pool"
-      },
-      "settings": {
-        "general": {
-          "sorting": "Ability",
-          "spellTier": "low",
-          "unmaskedForm": "Mask"
-        }
-      }
-    },
-    "teen Ability": {
-      "templates": [
-        "version",
-        "core",
-        "rollButton"
+        "rollButton",
+        "linkedItems"
       ],
       "basic": {
         "cost": 0,
@@ -1118,24 +1111,6 @@
       },
       "active": true
     },
-    "teen Armor": {
-      "templates": [
-        "version",
-        "core"
-      ],
-      "basic": {
-        "type": "light armor",
-        "rating": 0,
-        "cost": 0,
-        "notes": ""
-      },
-      "settings": {
-        "general": {
-          "unmaskedForm": "Mask"
-        }
-      },
-      "active": true
-    },
     "artifact": {
       "templates": [
         "version",
@@ -1157,28 +1132,8 @@
       "templates": [
         "version",
         "core",
-        "rollButton"
-      ],
-      "basic": {
-        "type": "light weapon",
-        "damage": 0,
-        "modifier": "eased",
-        "steps": 0,
-        "range": "",
-        "notes": "",
-        "skillRating": "Practiced"
-      },
-      "settings": {
-        "general": {
-          "unmaskedForm": "Mask"
-        }
-      }
-    },
-    "teen Attack": {
-      "templates": [
-        "version",
-        "core",
-        "rollButton"
+        "rollButton",
+        "linkedItems"
       ],
       "basic": {
         "type": "light weapon",
@@ -1238,40 +1193,6 @@
         }
       }
     },
-    "lasting Damage": {
-      "templates": [
-        "version",
-        "core"
-      ],
-      "basic": {
-        "damage": 0,
-        "effect": "",
-        "pool": "Might",
-        "type": "Lasting"
-      },
-      "settings": {
-        "general": {
-          "unmaskedForm": "Mask"
-        }
-      }
-    },
-    "teen lasting Damage": {
-      "templates": [
-        "version",
-        "core"
-      ],
-      "basic": {
-        "damage": 0,
-        "effect": "",
-        "pool": "Might",
-        "type": "Lasting"
-      },
-      "settings": {
-        "general": {
-          "unmaskedForm": "Mask"
-        }
-      }
-    },
     "material": {
       "templates": [
         "version",
@@ -1292,15 +1213,6 @@
       }
     },
     "power-shift": {
-      "templates": [
-        "version",
-        "core"
-      ],
-      "basic": {
-        "shifts": 1
-      }
-    },
-    "power Shift": {
       "templates": [
         "version",
         "core"
@@ -1338,24 +1250,8 @@
       "templates": [
         "version",
         "core",
-        "rollButton"
-      ],
-      "basic": {
-        "rating": "Trained"
-      },
-      "settings": {
-        "general": {
-          "sorting": "Skill",
-          "initiative": false,
-          "unmaskedForm": "Mask"
-        }
-      }
-    },
-    "teen Skill": {
-      "templates": [
-        "version",
-        "core",
-        "rollButton"
+        "rollButton",
+        "linkedItems"
       ],
       "basic": {
         "rating": "Trained"
@@ -1391,6 +1287,123 @@
       },
       "active": false,
       "exclusive": false
+    },
+    "teen Ability": {
+      "templates": [
+        "version",
+        "core",
+        "rollButton"
+      ],
+      "basic": {
+        "cost": 0,
+        "pool": "Pool"
+      },
+      "settings": {
+        "general": {
+          "sorting": "Ability",
+          "spellTier": "low",
+          "unmaskedForm": "Mask"
+        }
+      }
+    },
+    "teen Armor": {
+      "templates": [
+        "version",
+        "core"
+      ],
+      "basic": {
+        "type": "light armor",
+        "rating": 0,
+        "cost": 0,
+        "notes": ""
+      },
+      "settings": {
+        "general": {
+          "unmaskedForm": "Mask"
+        }
+      },
+      "active": true
+    },
+    "teen Attack": {
+      "templates": [
+        "version",
+        "core",
+        "rollButton"
+      ],
+      "basic": {
+        "type": "light weapon",
+        "damage": 0,
+        "modifier": "eased",
+        "steps": 0,
+        "range": "",
+        "notes": "",
+        "skillRating": "Practiced"
+      },
+      "settings": {
+        "general": {
+          "unmaskedForm": "Mask"
+        }
+      }
+    },
+    "teen lasting Damage": {
+      "templates": [
+        "version",
+        "core"
+      ],
+      "basic": {
+        "damage": 0,
+        "effect": "",
+        "pool": "Might",
+        "type": "Lasting"
+      },
+      "settings": {
+        "general": {
+          "unmaskedForm": "Mask"
+        }
+      }
+    },
+    "teen Skill": {
+      "templates": [
+        "version",
+        "core",
+        "rollButton"
+      ],
+      "basic": {
+        "rating": "Trained"
+      },
+      "settings": {
+        "general": {
+          "sorting": "Skill",
+          "initiative": false,
+          "unmaskedForm": "Mask"
+        }
+      }
+    },
+    "lasting Damage": {
+      "templates": [
+        "version",
+        "core"
+      ],
+      "basic": {
+        "damage": 0,
+        "effect": "",
+        "pool": "Might",
+        "type": "Lasting"
+      },
+      "settings": {
+        "general": {
+          "unmaskedForm": "Mask"
+        }
+      }
+    },
+    "power Shift": {
+      "templates": [
+        "version",
+        "core"
+      ],
+      "basic": {
+        "shifts": 1
+      }
     }
   }
 }

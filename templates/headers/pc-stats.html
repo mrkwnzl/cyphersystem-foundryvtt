@@ -189,7 +189,7 @@
       {{else}}
         {{#unless (eq actor.system.teen.settings.general.logo.image "none")}}
           <div class="resource stat-block cypher-logo flex-group-center">
-            <img class="cypher-logo {{actor.system.teen.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}">
+            <img class="cypher-logo {{actor.system.teen.settings.general.logo.image}}" style="opacity: {{sheetSettings.logoImageOpacity}};" src="{{sheetSettings.logoPath}}">
           </div>
         {{/unless}}
       {{/if}}
@@ -235,7 +235,7 @@
       {{else}}
         {{#unless (eq sheetSettings.logoImage "none")}}
           <div class="resource stat-block cypher-logo flex-group-center">
-            <img class="cypher-logo pc-logo {{actor.system.settings.general.logo.image}}" src="{{sheetSettings.logoPath}}" height="75px">
+            <img class="cypher-logo pc-logo {{actor.system.settings.general.logo.image}}" style="opacity: {{sheetSettings.logoImageOpacity}};" src="{{sheetSettings.logoPath}}" height="75px">
           </div>
         {{/unless}}
       {{/if}}
