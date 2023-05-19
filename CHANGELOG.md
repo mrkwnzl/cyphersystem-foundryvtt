@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - If you add the Secret style to a passage on the item sheet, this is no longer shown on the item description on the character sheet. This is useful for tags and recursions, for example, if you don’t want the mto show up there.
-- All editors have been changed to the new ProseMirro editor. While one important functionality is still missing, creating tables with a GUI, this editor is superior in all other aspects. You can now switch tabs while editing without losing your changes, you can save and close the editing mode without actually changing anything. For tables, you can enter them directly as HTML tables.
+- All editors have been changed to the new ProseMirror editor by default. You can change it to the TinyMCE editor in the system settings.
 - The Propose Intrusion button now skips the dialog when a PC token is selected and proposes the intursion to that actor.
 - There’s now a message in the chat when a difficulty has been announced to indicate that it’s being used for the next roll.
 
