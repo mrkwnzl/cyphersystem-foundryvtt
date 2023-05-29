@@ -2,15 +2,15 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "compatibility": {
     "minimum": "10",
     "verified": "10.291",
-    "maximum": "10"
+    "maximum": "11"
   },
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.6.0/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.6.1/release.zip",
   "authors": [
     {
       "name": "Marko Wenzel",
@@ -32,8 +32,11 @@
       "system": "cyphersystem",
       "path": "packs/roll-macros.db",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "marker",
@@ -41,8 +44,11 @@
       "system": "cyphersystem",
       "path": "packs/markers.db",
       "type": "Actor",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "scenes",
@@ -50,8 +56,11 @@
       "system": "cyphersystem",
       "path": "packs/scenes.db",
       "type": "Scene",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "utility-macros",
@@ -59,8 +68,11 @@
       "system": "cyphersystem",
       "path": "packs/utility-macros.db",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "secret-settings",
@@ -68,8 +80,11 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings.db",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "languages": [
