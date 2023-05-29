@@ -11,11 +11,10 @@
               <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
               <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
               <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
-              <option value="Dead">{{localize 'CYPHERSYSTEM.Dead'}}</option>
             {{/select}}
           </select>
         </div>
-        <div class="centered-content" style="min-height: 38px; line-height: 1.4">
+        <div class="centered-content" style="min-height: 40px; line-height: 1.4">
           {{#if (eq actor.system.teen.combat.damage.damageTrack "Hale")}}
             {{localize 'CYPHERSYSTEM.HaleEffect'}}
           {{/if}}
@@ -55,7 +54,7 @@
             {{/select}}
           </select>
         </div>
-        <div class="centered-content" style="min-height: 38px; line-height: 1.4">
+        <div class="centered-content" style="min-height: 40px; line-height: 1.4">
           {{#if (eq actor.system.combat.damageTrack.state "Hale")}}
             {{localize 'CYPHERSYSTEM.HaleEffect'}}
           {{/if}}
