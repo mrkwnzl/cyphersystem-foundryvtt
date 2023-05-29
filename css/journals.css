@@ -6,11 +6,13 @@
 
 /* Tables */
 
-.sheet.journal-entry .csrd-table {
+.sheet.journal-entry .csrd-table,
+.cyphersystem .csrd-table {
   width: 100%;
 }
 
-.sheet.journal-entry .csrd-table td {
+.sheet.journal-entry .csrd-table td,
+.cyphersystem .csrd-table td {
   padding-left: 6px;
   padding-right: 6px;
 }
