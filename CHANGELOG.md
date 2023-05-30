@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [2.6.2] - 2023-05-30
 ## Fixed
-- The system is no longer locked.
+- The system is no longer locked. **Note:** This has slipped in the last update and locked your system for updates. You need to manually remove the update lock from the setup screen. Sorry about that.
 - PC actors in compendia aren’t locked in an infinite loop of updated attack items anymore.
 
 ## [2.6.1] - 2023-05-29
