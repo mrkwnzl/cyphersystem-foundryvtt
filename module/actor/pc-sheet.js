@@ -71,8 +71,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
         if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", {amount: Math.abs(totalModifier)});
 
         // Assign and return
-        i.system.totalModified = totalModified;
-        this.actor.updateEmbeddedDocuments("Item", [i]);
+        if (i.system.totalModified != totalModified) {
+          i.system.totalModified = totalModified;
+          this.actor.updateEmbeddedDocuments("Item", [i]);
+        }
       }
     }
 
