@@ -17,6 +17,11 @@
   padding-right: 6px;
 }
 
+.sheet.journal-entry .csrd-table td>p,
+.cyphersystem .csrd-table td>p {
+  margin: 0;
+}
+
 .sheet.journal-entry .csrd-td-equipment {
   width: 250px
 }
