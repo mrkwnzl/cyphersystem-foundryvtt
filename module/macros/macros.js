@@ -1126,8 +1126,9 @@ export function disasterModeMacro(token, mode, genre) {
   }
 
   async function changeGMIRange(token, level, genre) {
+    console.log(token);
     genre = (!genre || genre == "modern") ? "" : genre + "-";
-    await token.actor.update({"system.level": level});
+    await token.actor.update({"system.basic.level": level});
     await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});
   }
 }
