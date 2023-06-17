@@ -343,11 +343,11 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   if (item.type == "ability" && item.system.spell) {
     itemType = game.i18n.localize("CYPHERSYSTEM.Spell") + ": ";
   } else if ((item.type == "ability") && !item.system.spell) {
-    itemType = game.i18n.localize("ITEM.TypeAbility") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.ability") + ": ";
   } else if (item.type == "attack") {
-    itemType = game.i18n.localize("ITEM.TypeAttack") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.attack") + ": ";
   } else if (item.type == "skill") {
-    itemType = game.i18n.localize("ITEM.TypeSkill") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.skill") + ": ";
   }
 
   // Parse data to All-in-One Dialog
