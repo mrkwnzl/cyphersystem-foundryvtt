@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2023-06-17
+### Changed
+- The compendiums are now sorted into folders.
+- The Cypher system is now only compatible with Foundry V11 or higher.
+
+### Fixed
+- Removed unnecessary hr in roll chat output.
+
 ## [2.6.2] - 2023-05-30
 ### Fixed
 - The system is no longer locked. **Note:** This has slipped in the last update and locked your system for updates. You need to manually remove the update lock from the setup screen. Sorry about that.
