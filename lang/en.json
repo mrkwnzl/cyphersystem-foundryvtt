@@ -4,7 +4,6 @@
   "TYPES.Actor.companion": "Companion",
   "TYPES.Actor.community": "Community",
   "TYPES.Actor.vehicle": "Vehicle",
-  "TYPES.Actor.token": "Marker",
   "TYPES.Actor.marker": "Marker",
   "TYPES.Item.ability": "Ability",
   "TYPES.Item.ammo": "Ammo",
