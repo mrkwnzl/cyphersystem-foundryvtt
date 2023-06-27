@@ -410,7 +410,7 @@
   "CYPHERSYSTEM.OnlyGMCanIdentify": "Only the GM can confirm the identification.",
   "CYPHERSYSTEM.OnlyGMCanCopyCharacterProperties": "Only the GM can duplicate character properties.",
   "CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs": "Character properties cannot be moved to this actor type.",
-  "CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion": "This item type cannot be movoed to companions.",
+  "CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion": "This item type cannot be moved to companions.",
   "CYPHERSYSTEM.WarnSentUnidentifiedToChat": "Descriptions of unidentified items cannot be sent to the chat.",
   "CYPHERSYSTEM.AlreadyHasThisItem": "{actor} already has this item.",
   "CYPHERSYSTEM.CannotMoveNotOwnedItem": "You can’t move items you don’t have.",
