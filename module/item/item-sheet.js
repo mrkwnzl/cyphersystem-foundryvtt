@@ -56,8 +56,10 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.backgroundImageBaseSetting = "background-image";
 
     data.sheetSettings.backgroundImage = getBackgroundImage();
-    data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
-    data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    if (data.sheetSettings.backgroundImage == "custom") {
+      data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+      data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    }
     data.sheetSettings.backgroundIcon = getBackgroundIcon();
     data.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
     data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
