@@ -421,10 +421,8 @@ li.folder.collapsed>.folder-header h3 {
 
 .cyphersystem .background-image-rectangle {
   z-index: 0;
-}
-
-.cyphersystem .background-image-rectangle.custom {
   background-color: white;
+  opacity: 0;
   position: absolute;
   width: calc(100% - 10px);
   height: calc(100% - 39px);
@@ -436,16 +434,7 @@ li.folder.collapsed>.folder-header h3 {
 }
 
 .cyphersystem .background-image-rectangle.plain {
-  background-color: white;
-  position: absolute;
-  width: calc(100% - 10px);
-  height: calc(100% - 39px);
-  top: 34px;
-  left: 5px;
   opacity: 0.75;
-  border-radius: 2px;
-  filter: blur(1px);
-  -webkit-filter: blur(1px);
 }
 
 .cyphersystem div.background-image-icon {
