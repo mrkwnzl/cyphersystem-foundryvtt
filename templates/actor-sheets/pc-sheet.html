@@ -10,6 +10,9 @@
     </div>
   {{/unless}}
 
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
+
   {{!-- Background Icon --}}
   {{#unless (or sheetSettings.cyphersheetsModuleActive (eq sheetSettings.backgroundIcon "none"))}}
     <div class="background-image-icon">
@@ -152,8 +155,4 @@
     {{> systems/cyphersystem/templates/tabs/settings-tab/settings-pc.html}}
 
   </section>
-
-  {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
-
 </form>

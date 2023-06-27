@@ -1,5 +1,5 @@
 <div class="flexrow">
-  <ol class="items-list">
+  <ol class="items-list" id="Skill">
     <li class="item flexrow item-header">
       <div class="item-name">
         {{#if (eq actor.system.settings.skills.labelCategory1 "")}}
@@ -26,7 +26,7 @@
 {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
   {{#if sheetSettings.showSkillsTwo}}
     <div class="flexrow">
-      <ol class="items-list">
+      <ol class="items-list" id="SkillTwo">
         <li class="item flexrow item-header">
           <div class="item-name">
             {{#if (eq actor.system.settings.skills.labelCategory2 "")}}
@@ -46,7 +46,7 @@
 
   {{#if sheetSettings.showSkillsThree}}
     <div class="flexrow">
-      <ol class="items-list">
+      <ol class="items-list" id="SkillThree">
         <li class="item flexrow item-header">
           <div class="item-name">
             {{#if (eq actor.system.settings.skills.labelCategory3 "")}}
@@ -66,7 +66,7 @@
 
   {{#if sheetSettings.showSkillsFour}}
     <div class="flexrow">
-      <ol class="items-list">
+      <ol class="items-list" id="SkillFour">
         <li class="item flexrow item-header">
           <div class="item-name">
             {{#if (eq actor.system.settings.skills.labelCategory4 "")}}

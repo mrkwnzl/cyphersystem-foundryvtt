@@ -114,6 +114,7 @@
             "label": ""
           },
           "hideArchive": false,
+          "hideEmptyCategories": false,
           "customSheetDesign": false,
           "background": {
             "image": "foundry",
@@ -158,6 +159,10 @@
           "labelSpells": ""
         },
         "equipment": {
+          "labelCategory1": "",
+          "labelCategory2": "",
+          "labelCategory3": "",
+          "labelCategory4": "",
           "currency": {
             "active": false,
             "hideLabels": false,
@@ -1174,6 +1179,11 @@
       "basic": {
         "level": "",
         "quantity": 1
+      },
+      "settings": {
+        "general": {
+          "sorting": "Equipment"
+        }
       }
     },
     "lasting-damage": {

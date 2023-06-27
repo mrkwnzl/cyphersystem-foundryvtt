@@ -307,6 +307,14 @@ select.bar-attribute {
   width: 0;
 }
 
+/* Remove when fixed in core */
+
+li.folder>.folder-header,
+li.folder.collapsed>.folder-header,
+li.folder.collapsed>.folder-header h3 {
+  text-shadow: 0 0 3px black;
+}
+
 .cyphersystem .editor-content {
   padding: 0.3em !important;
   line-height: 1.4;
@@ -411,6 +419,10 @@ select.bar-attribute {
   background-position: center;
 }
 
+.cyphersystem .background-image-rectangle {
+  z-index: 0;
+}
+
 .cyphersystem .background-image-rectangle.custom {
   background-color: white;
   position: absolute;
@@ -421,7 +433,6 @@ select.bar-attribute {
   border-radius: 2px;
   filter: blur(1px);
   -webkit-filter: blur(1px);
-  z-index: 0;
 }
 
 .cyphersystem .background-image-rectangle.plain {
@@ -435,14 +446,13 @@ select.bar-attribute {
   border-radius: 2px;
   filter: blur(1px);
   -webkit-filter: blur(1px);
-  z-index: 0;
 }
 
 .cyphersystem div.background-image-icon {
   position: absolute;
   top: calc(100% - 265px);
   left: calc(100% - 264px);
-  z-index: 1;
+  z-index: 0;
   height: 256px;
   width: 256px;
   display: flex;
@@ -583,7 +593,7 @@ select.bar-attribute {
 .cyphersystem .sheet-body,
 .cyphersystem .sheet-header,
 .cyphersystem .sheet-tabs {
-  z-index: 1;
+  z-index: 0;
 }
 
 .cyphersystem.gmi-form {

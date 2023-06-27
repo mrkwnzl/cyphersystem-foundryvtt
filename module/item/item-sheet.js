@@ -13,7 +13,7 @@ export class CypherItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
-      width: 550,
+      width: 575,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]

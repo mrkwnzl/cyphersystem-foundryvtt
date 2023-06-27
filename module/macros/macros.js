@@ -406,8 +406,8 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
 
   // Send chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", {name: actor.name, recoveryUsed: recoveryUsed}) + "</b>" + reRollButton,
+    speaker: ChatMessage.getSpeaker({actor: actor}),
+    flavor: game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", {name: actor.name, recoveryUsed: recoveryUsed}) + reRollButton,
     flags: {"itemID": "recovery-roll"}
   });
 }

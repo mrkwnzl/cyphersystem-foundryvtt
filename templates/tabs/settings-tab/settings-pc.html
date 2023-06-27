@@ -77,6 +77,12 @@
           &nbsp;{{localize 'CYPHERSYSTEM.HideArchive'}}
         </div>
       </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.general.hideEmptyCategories" {{checked actor.system.settings.general.hideEmptyCategories}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.HideEmptyCategories'}}
+        </div>
+      </li>
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
 
         <li class="item flexrow item-settings">
@@ -461,7 +467,7 @@
             <input class="auto-margin" name="system.settings.abilities.labelCategory2" type="text" value="{{actor.system.settings.abilities.labelCategory2}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryTwo'}}">
             <input class="auto-margin" name="system.settings.abilities.labelCategory3" type="text" value="{{actor.system.settings.abilities.labelCategory3}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryThree'}}">
             <input class="auto-margin" name="system.settings.abilities.labelCategory4" type="text" value="{{actor.system.settings.abilities.labelCategory4}}" placeholder="{{localize 'CYPHERSYSTEM.AbilityCategoryFour'}}">
-            <input class="auto-margin" name="system.settings.abilities.nameSpells" type="text" value="{{actor.system.settings.abilities.nameSpells}}" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}">
+            <input class="auto-margin" name="system.settings.abilities.labelSpells" type="text" value="{{actor.system.settings.abilities.labelSpells}}" placeholder="{{localize 'CYPHERSYSTEM.Spells'}}">
           </div>
         </li>
       </ol>
@@ -472,6 +478,19 @@
     <ol class="items-list">
       <li class="item flexrow item-header">
         <div class="item-name">{{localize 'CYPHERSYSTEM.EquipmentTab'}}</div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.EquipmentCategories'}}
+        </div>
+      </li>
+      <li class="item flexrow item-settings" style="border-top-style: dashed">
+        <div class="grid grid-4col" style="margin: 0px">
+          <input class="auto-margin" name="system.settings.equipment.labelCategory1" type="text" value="{{actor.system.settings.equipment.labelCategory1}}" placeholder="{{localize 'CYPHERSYSTEM.Equipment'}}">
+          <input class="auto-margin" name="system.settings.equipment.labelCategory2" type="text" value="{{actor.system.settings.equipment.labelCategory2}}" placeholder="{{localize 'CYPHERSYSTEM.EquipmentCategoryTwo'}}">
+          <input class="auto-margin" name="system.settings.equipment.labelCategory3" type="text" value="{{actor.system.settings.equipment.labelCategory3}}" placeholder="{{localize 'CYPHERSYSTEM.EquipmentCategoryThree'}}">
+          <input class="auto-margin" name="system.settings.equipment.labelCategory4" type="text" value="{{actor.system.settings.equipment.labelCategory4}}" placeholder="{{localize 'CYPHERSYSTEM.EquipmentCategoryFour'}}">
+        </div>
       </li>
       <li class="item flexrow item-settings">
         <div class="settings-list">
