@@ -17,18 +17,18 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 
   // Set title
   let itemTypeStrings = {
-    "skill": game.i18n.localize("ITEM.TypeSkill"),
+    "skill": game.i18n.localize("TYPES.Item.skill"),
     "power-shift": game.i18n.localize("ITEM.TypePower Shift"),
-    "attack": game.i18n.localize("ITEM.TypeAttack"),
-    "ability": game.i18n.localize("ITEM.TypeAbility"),
-    "cypher": game.i18n.localize("ITEM.TypeCypher"),
-    "artifact": game.i18n.localize("ITEM.TypeArtifact"),
-    "ammo": game.i18n.localize("ITEM.TypeAmmo"),
-    "armor": game.i18n.localize("ITEM.TypeArmor"),
-    "equipment": game.i18n.localize("ITEM.TypeEquipment"),
+    "attack": game.i18n.localize("TYPES.Item.attack"),
+    "ability": game.i18n.localize("TYPES.Item.ability"),
+    "cypher": game.i18n.localize("TYPES.Item.cypher"),
+    "artifact": game.i18n.localize("TYPES.Item.artifact"),
+    "ammo": game.i18n.localize("TYPES.Item.ammo"),
+    "armor": game.i18n.localize("TYPES.Item.armor"),
+    "equipment": game.i18n.localize("TYPES.Item.equipment"),
     "lasting-damage": game.i18n.localize("ITEM.TypeLasting Damage"),
-    "material": game.i18n.localize("ITEM.TypeMaterial"),
-    "oddity": game.i18n.localize("ITEM.TypeOddity")
+    "material": game.i18n.localize("TYPES.Item.material"),
+    "oddity": game.i18n.localize("TYPES.Item.oddity")
   };
   let itemType = (itemTypeStrings[item.type] || "");
 

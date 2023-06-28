@@ -4,8 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2023-06-17
+### Added
+- Items of the equipment type can now be sorted into up to four categories, just like skills and abilities.
+- Items that can be sorted into categories (skills, abilities, equipment) can now be sorted with drag & drop.
+
+### Changed
+- The compendia are now sorted into folders.
+- The Cypher system is now only compatible with Foundry V11 or higher.
+- Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See [Link](Link) for details.
+- If no armor type is selected, the “n/a” note is now omitted on the character sheet.
+
+### Fixed
+- Removed unnecessary hr in roll chat output.
+- Item sorting in world items has been removed. Sorting happens on the character sheet.
+- Folder headers in compendia have a subtle text shadow to make them more readable.
+- Recovery rolls now display the correct name in the chat, even if another token is selected.
+- Trying to pay with recovery rolls for spells if no recovery rolls are left now doesn’t show the wrong chat message anymore.
+
 ## [2.6.2] - 2023-05-30
-## Fixed
+### Fixed
 - The system is no longer locked. **Note:** This has slipped in the last update and locked your system for updates. You need to manually remove the update lock from the setup screen. Sorry about that.
 - PC actors in compendia aren’t locked in an infinite loop of updated attack items anymore.
 

@@ -343,11 +343,11 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   if (item.type == "ability" && item.system.spell) {
     itemType = game.i18n.localize("CYPHERSYSTEM.Spell") + ": ";
   } else if ((item.type == "ability") && !item.system.spell) {
-    itemType = game.i18n.localize("ITEM.TypeAbility") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.ability") + ": ";
   } else if (item.type == "attack") {
-    itemType = game.i18n.localize("ITEM.TypeAttack") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.attack") + ": ";
   } else if (item.type == "skill") {
-    itemType = game.i18n.localize("ITEM.TypeSkill") + ": ";
+    itemType = game.i18n.localize("TYPES.Item.skill") + ": ";
   }
 
   // Parse data to All-in-One Dialog
@@ -406,8 +406,8 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
 
   // Send chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker(),
-    flavor: "<b>" + game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", {name: actor.name, recoveryUsed: recoveryUsed}) + "</b>" + reRollButton,
+    speaker: ChatMessage.getSpeaker({actor: actor}),
+    flavor: game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", {name: actor.name, recoveryUsed: recoveryUsed}) + reRollButton,
     flags: {"itemID": "recovery-roll"}
   });
 }
@@ -1126,8 +1126,9 @@ export function disasterModeMacro(token, mode, genre) {
   }
 
   async function changeGMIRange(token, level, genre) {
+    console.log(token);
     genre = (!genre || genre == "modern") ? "" : genre + "-";
-    await token.actor.update({"system.level": level});
+    await token.actor.update({"system.basic.level": level});
     await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});
   }
 }

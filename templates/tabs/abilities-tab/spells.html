@@ -1,13 +1,13 @@
 {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
   {{#if sheetSettings.showSpells}}
     <div class="flexrow">
-      <ol class="items-list">
+      <ol class="items-list" id="Spell">
         <li class="item flexrow item-header">
           <div class="item-name">
-            {{#if (eq actor.system.settings.abilities.nameSpells "")}}
+            {{#if (eq actor.system.settings.abilities.labelSpells "")}}
               {{localize 'CYPHERSYSTEM.Spells'}}
             {{else}}
-              {{actor.system.settings.abilities.nameSpells}}
+              {{actor.system.settings.abilities.labelSpells}}
             {{/if}}
           </div>
           <div class="item-cypher-limit">

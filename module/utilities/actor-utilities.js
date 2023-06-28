@@ -120,13 +120,13 @@ export function useRecoveries(actor, spell) {
   } else if (!recoveries.oneHour) {
     actor.update({"system.combat.recoveries.oneHour": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryOneHour");
-  } else if (!recoveries.tenHours && spell == false) {
+  } else if (!recoveries.tenHours && !spell) {
     actor.update({"system.combat.recoveries.tenHours": true});
     recoveryUsed = game.i18n.localize("CYPHERSYSTEM.RecoveryTenHours");
   } else {
-    return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", {name: actor.name}));
+    ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NoRecoveriesLeft", {name: actor.name}));
+    return;
   }
-
   return recoveryUsed;
 }
 

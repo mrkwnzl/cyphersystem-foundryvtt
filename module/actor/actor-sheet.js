@@ -35,7 +35,7 @@ export class CypherActorSheet extends ActorSheet {
     data.sheetSettings = {};
     data.sheetSettings.isGM = game.user.isGM;
     data.sheetSettings.isLimited = (this.actor.permission == 1) ? true : false;
-    data.sheetSettings.isObserver = (this.actor.permission == 2) ? true : false;
+    data.sheetSettings.isObserver = (this.actor.permission == 2 || this.actor.compendium?.locked) ? true : false;
     data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
 
@@ -75,6 +75,9 @@ export class CypherActorSheet extends ActorSheet {
 
     // Initialize containers
     const equipment = [];
+    const equipmentTwo = [];
+    const equipmentThree = [];
+    const equipmentFour = [];
     const abilities = [];
     const spells = [];
     const abilitiesTwo = [];
@@ -120,13 +123,22 @@ export class CypherActorSheet extends ActorSheet {
       }
 
       // Append to containers
-      if (item.type === "equipment" && !hidden) {
+      if (item.type === "equipment" && !hidden && (item.system.settings.general.sorting == "Equipment" || this.actor.type != "pc")) {
         equipment.push(item);
+      }
+      else if (item.type === "equipment" && !hidden && item.system.settings.general.sorting == "EquipmentTwo") {
+        equipmentTwo.push(item);
+      }
+      else if (item.type === "equipment" && !hidden && item.system.settings.general.sorting == "EquipmentThree") {
+        equipmentThree.push(item);
+      }
+      else if (item.type === "equipment" && !hidden && item.system.settings.general.sorting == "EquipmentFour") {
+        equipmentFour.push(item);
       }
       else if (item.type === "ammo" && !hidden) {
         ammo.push(item);
       }
-      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Ability") {
+      else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && (item.system.settings.general.sorting == "Ability" || this.actor.type != "pc")) {
         abilities.push(item);
       }
       else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Spell") {
@@ -141,7 +153,7 @@ export class CypherActorSheet extends ActorSheet {
       else if (item.type === "ability" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "AbilityFour") {
         abilitiesFour.push(item);
       }
-      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "Skill") {
+      else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && (item.system.settings.general.sorting == "Skill" || this.actor.type != "pc")) {
         skills.push(item);
       }
       else if (item.type === "skill" && item.system.settings.general.unmaskedForm == "Mask" && !hidden && item.system.settings.general.sorting == "SkillTwo") {
@@ -202,6 +214,9 @@ export class CypherActorSheet extends ActorSheet {
 
     // Sort by name
     equipment.sort(byNameAscending);
+    equipmentTwo.sort(byNameAscending);
+    equipmentThree.sort(byNameAscending);
+    equipmentFour.sort(byNameAscending);
     abilities.sort(byNameAscending);
     abilitiesTwo.sort(byNameAscending);
     abilitiesThree.sort(byNameAscending);
@@ -252,6 +267,9 @@ export class CypherActorSheet extends ActorSheet {
 
     // Sort by archive status
     equipment.sort(byArchiveStatus);
+    equipmentTwo.sort(byArchiveStatus);
+    equipmentThree.sort(byArchiveStatus);
+    equipmentFour.sort(byArchiveStatus);
     abilities.sort(byArchiveStatus);
     abilitiesTwo.sort(byArchiveStatus);
     abilitiesThree.sort(byArchiveStatus);
@@ -278,57 +296,84 @@ export class CypherActorSheet extends ActorSheet {
     recursions.sort(byArchiveStatus);
     tags.sort(byArchiveStatus);
 
-    // Check for spells
-    if (spells.length > 0) {
-      data.sheetSettings.showSpells = true;
-    } else {
-      data.sheetSettings.showSpells = false;
-    }
+    // Show item categories on PCs
+    if (this.actor.type == "pc") {
+      // Check for equipment category 2
+      if (equipmentTwo.length > 0 || (this.actor.system.settings.equipment.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showEquipmentTwo = true;
+      } else {
+        data.sheetSettings.showEquipmentTwo = false;
+      }
 
-    // Check for ability category 2
-    if (abilitiesTwo.length > 0) {
-      data.sheetSettings.showAbilitiesTwo = true;
-    } else {
-      data.sheetSettings.showAbilitiesTwo = false;
-    }
+      // Check for equipment category 3
+      if (equipmentThree.length > 0 || (this.actor.system.settings.equipment.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showEquipmentThree = true;
+      } else {
+        data.sheetSettings.showEquipmentThree = false;
+      }
 
-    // Check for ability category 3
-    if (abilitiesThree.length > 0) {
-      data.sheetSettings.showAbilitiesThree = true;
-    } else {
-      data.sheetSettings.showAbilitiesThree = false;
-    }
+      // Check for equipment category 4
+      if (equipmentFour.length > 0 || (this.actor.system.settings.equipment.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showEquipmentFour = true;
+      } else {
+        data.sheetSettings.showEquipmentFour = false;
+      }
 
-    // Check for ability category 4
-    if (abilitiesFour.length > 0) {
-      data.sheetSettings.showAbilitiesFour = true;
-    } else {
-      data.sheetSettings.showAbilitiesFour = false;
-    }
+      // Check for spells
+      if (spells.length > 0 || (this.actor.system.settings.abilities.labelSpells && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showSpells = true;
+      } else {
+        data.sheetSettings.showSpells = false;
+      }
 
-    // Check for skill category 2
-    if (skillsTwo.length > 0) {
-      data.sheetSettings.showSkillsTwo = true;
-    } else {
-      data.sheetSettings.showSkillsTwo = false;
-    }
+      // Check for ability category 2
+      if (abilitiesTwo.length > 0 || (this.actor.system.settings.abilities.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showAbilitiesTwo = true;
+      } else {
+        data.sheetSettings.showAbilitiesTwo = false;
+      }
 
-    // Check for skill category 3
-    if (skillsThree.length > 0) {
-      data.sheetSettings.showSkillsThree = true;
-    } else {
-      data.sheetSettings.showSkillsThree = false;
-    }
+      // Check for ability category 3
+      if (abilitiesThree.length > 0 || (this.actor.system.settings.abilities.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showAbilitiesThree = true;
+      } else {
+        data.sheetSettings.showAbilitiesThree = false;
+      }
 
-    // Check for skill category 4
-    if (skillsFour.length > 0) {
-      data.sheetSettings.showSkillsFour = true;
-    } else {
-      data.sheetSettings.showSkillsFour = false;
+      // Check for ability category 4
+      if (abilitiesFour.length > 0 || (this.actor.system.settings.abilities.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showAbilitiesFour = true;
+      } else {
+        data.sheetSettings.showAbilitiesFour = false;
+      }
+
+      // Check for skill category 2
+      if (skillsTwo.length > 0 || (this.actor.system.settings.skills.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showSkillsTwo = true;
+      } else {
+        data.sheetSettings.showSkillsTwo = false;
+      }
+
+      // Check for skill category 3
+      if (skillsThree.length > 0 || (this.actor.system.settings.skills.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showSkillsThree = true;
+      } else {
+        data.sheetSettings.showSkillsThree = false;
+      }
+
+      // Check for skill category 4
+      if (skillsFour.length > 0 || (this.actor.system.settings.skills.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showSkillsFour = true;
+      } else {
+        data.sheetSettings.showSkillsFour = false;
+      }
     }
 
     // Assign and return
     itemLists.equipment = equipment;
+    itemLists.equipmentTwo = equipmentTwo;
+    itemLists.equipmentThree = equipmentThree;
+    itemLists.equipmentFour = equipmentFour;
     itemLists.abilities = abilities;
     itemLists.abilitiesTwo = abilitiesTwo;
     itemLists.abilitiesThree = abilitiesThree;
@@ -600,8 +645,7 @@ export class CypherActorSheet extends ActorSheet {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
 
       let recoveryUsed = useRecoveries(this.actor, true);
-
-      if (recoveryUsed == undefined) return;
+      if (!recoveryUsed) return;
 
       ChatMessage.create({
         speaker: ChatMessage.getSpeaker({actor: this.actor}),
@@ -723,6 +767,9 @@ export class CypherActorSheet extends ActorSheet {
     const targetActor = this.actor;
     let targetItem = null;
 
+    // Sort item into category
+    originItemData.system.settings.general.sorting = await sortItemsIntoCategories(event, originItemData);
+
     // Check for duplicate character properties
     for (let item of targetActor.items) {
       if (originItem.type == item.type && originItem.name == item.name) {
@@ -734,160 +781,150 @@ export class CypherActorSheet extends ActorSheet {
     const originActorID = (originActor) ? originActor.id : "";
     const targetActorID = (targetActor) ? targetActor.id : "";
 
+    // Sort already existing items
+    if (originActorID == targetActorID) {
+      targetActor.updateEmbeddedDocuments("Item", [originItemData]);
+    };
+
     // Return statements
     if (!targetActor.isOwner) return;
     if (originActorID == targetActorID) return;
 
-    // The GM copies any item
-    if (game.keyboard.isModifierActive("Alt") && game.user.isGM) {
-      if (typesCharacterProperties.includes(originItem.type) || typesUniqueItems.includes(originItem.type)) {
+    // Handle character properties
+    if (typesCharacterProperties.includes(originItem.type)) {
+      if (!["pc", "companion"].includes(targetActor.type)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs"));
+      if (!["companion"].includes(targetActor.type) && !["skill", "ability"].includes(originItem.type) && item.system.settings.general.unmaskedForm == "Teen") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion"));
+      if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanCopyCharacterProperties"));
+      targetActor.createEmbeddedDocuments("Item", [originItemData]);
+      enableItemLists();
+    }
+
+    // Handle unique items
+    if (typesUniqueItems.includes(originItem.type)) {
+      if (originActor) {
+        let d = new Dialog({
+          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
+          content: "",
+          buttons: {
+            move: {
+              icon: "<i class='fas fa-archive'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
+              callback: (html) => archiveItem()
+            },
+            moveAll: {
+              icon: "<i class='fas fa-trash'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
+              callback: (html) => deleteItem()
+            },
+            cancel: {
+              icon: "<i class='fas fa-times'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+              callback: () => {}
+            }
+          },
+          default: "move",
+          close: () => {}
+        });
+        d.render(true);
+      } else {
+        // Handle cypher & artifact identification from world items
+        if (["cypher", "artifact"].includes(originItem.type)) {
+          let identifiedStatus;
+          if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
+            identifiedStatus = originItemData.system.basic.identified;
+          } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
+            identifiedStatus = true;
+          } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
+            identifiedStatus = false;
+          }
+          originItemData.system.basic.identified = identifiedStatus;
+        }
+
+        // Create item
         targetActor.createEmbeddedDocuments("Item", [originItemData]);
         enableItemLists();
-      } else if (typesQuantityItems.includes(originItem.type)) {
-        if (!targetItem || game.keyboard.isModifierActive("Alt")) {
+      }
+    }
+
+    // Handle items with quantity
+    if (typesQuantityItems.includes(originItem.type)) {
+      let maxQuantity = originItem.system.basic.quantity;
+      if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
+      moveDialog();
+
+      function moveDialog() {
+        let d = new Dialog({
+          title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
+          content: createContent(),
+          buttons: createButtons(),
+          default: "move",
+          close: () => {}
+        });
+        d.render(true);
+      }
+
+      function createContent() {
+        let maxQuantityText = "";
+        if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
+        let content = `<div align="center"><label style="display: inline-block; width: 98px; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name="quantity" id="quantity" style="width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value="1" />` + maxQuantityText + `</div>`;
+        return content;
+      }
+
+      function createButtons() {
+        if (maxQuantity == null) {
+          return {
+            move: {
+              icon: "<i class='fas fa-share-square'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Move"),
+              callback: (html) => moveItems(html.find("#quantity").val(), originItem)
+            },
+            cancel: {
+              icon: "<i class='fas fa-times'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+              callback: () => {}
+            }
+          };
+        } else {
+          return {
+            move: {
+              icon: "<i class='fas fa-share-square'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Move"),
+              callback: (html) => moveItems(html.find("#quantity").val(), originItem)
+            },
+            moveAll: {
+              icon: "<i class='fas fa-share-square'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
+              callback: (html) => moveItems(maxQuantity, originItem)
+            },
+            cancel: {
+              icon: "<i class='fas fa-times'></i>",
+              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+              callback: () => {}
+            }
+          };
+        }
+      }
+
+      function moveItems(quantity) {
+        quantity = parseInt(quantity);
+        if (quantity == null) {quantity = 0;};
+        if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
+          moveDialog(quantity);
+          return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
+        }
+        if (originActor) {
+          let oldQuantity = parseInt(originItem.system.basic.quantity) - quantity;
+          originItem.update({"system.basic.quantity": oldQuantity});
+          enableItemLists();
+        }
+        if (!targetItem) {
+          originItemData.system.basic.quantity = quantity;
           targetActor.createEmbeddedDocuments("Item", [originItemData]);
           enableItemLists();
         } else {
-          let newQuantity = parseInt(targetItem.system.basic.quantity) + parseInt(originItem.system.basic.quantity);
+          let newQuantity = parseInt(targetItem.system.basic.quantity) + quantity;
           targetItem.update({"system.basic.quantity": newQuantity});
           enableItemLists();
-        }
-      }
-    } else {
-      // Handle character properties
-      if (typesCharacterProperties.includes(originItem.type)) {
-        if (originActor || targetItem || !["pc", "companion"].includes(targetActor.type)) return;
-        targetActor.createEmbeddedDocuments("Item", [originItemData]);
-        enableItemLists();
-      }
-
-      // Handle unique items
-      if (typesUniqueItems.includes(originItem.type)) {
-        if (originActor) {
-          let d = new Dialog({
-            title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
-            content: "",
-            buttons: {
-              move: {
-                icon: "<i class='fas fa-archive'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-                callback: (html) => archiveItem()
-              },
-              moveAll: {
-                icon: "<i class='fas fa-trash'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-                callback: (html) => deleteItem()
-              },
-              cancel: {
-                icon: "<i class='fas fa-times'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-                callback: () => {}
-              }
-            },
-            default: "move",
-            close: () => {}
-          });
-          d.render(true);
-        } else {
-          // Handle cypher & artifact identification from world items
-          if (["cypher", "artifact"].includes(originItem.type)) {
-            let identifiedStatus;
-            if (game.settings.get("cyphersystem", "cypherIdentification") == 0) {
-              identifiedStatus = originItemData.system.basic.identified;
-            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 1) {
-              identifiedStatus = true;
-            } else if (game.settings.get("cyphersystem", "cypherIdentification") == 2) {
-              identifiedStatus = false;
-            }
-            originItemData.system.basic.identified = identifiedStatus;
-          }
-
-          // Create item
-          targetActor.createEmbeddedDocuments("Item", [originItemData]);
-          enableItemLists();
-        }
-      }
-
-      // Handle items with quantity
-      if (typesQuantityItems.includes(originItem.type)) {
-        let maxQuantity = originItem.system.basic.quantity;
-        if (maxQuantity <= 0 && maxQuantity != null) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CannotMoveNotOwnedItem"));
-        moveDialog();
-
-        function moveDialog() {
-          let d = new Dialog({
-            title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
-            content: createContent(),
-            buttons: createButtons(),
-            default: "move",
-            close: () => {}
-          });
-          d.render(true);
-        }
-
-        function createContent() {
-          let maxQuantityText = "";
-          if (maxQuantity != null) maxQuantityText = `&nbsp;&nbsp;${game.i18n.localize("CYPHERSYSTEM.Of")} ${maxQuantity}`;
-          let content = `<div align="center"><label style="display: inline-block; width: 98px; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.Quantity")}/${game.i18n.localize("CYPHERSYSTEM.Units")}: </b></label><input name="quantity" id="quantity" style="width: 75px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value="1" />` + maxQuantityText + `</div>`;
-          return content;
-        }
-
-        function createButtons() {
-          if (maxQuantity == null) {
-            return {
-              move: {
-                icon: "<i class='fas fa-share-square'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Move"),
-                callback: (html) => moveItems(html.find("#quantity").val(), originItem)
-              },
-              cancel: {
-                icon: "<i class='fas fa-times'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-                callback: () => {}
-              }
-            };
-          } else {
-            return {
-              move: {
-                icon: "<i class='fas fa-share-square'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Move"),
-                callback: (html) => moveItems(html.find("#quantity").val(), originItem)
-              },
-              moveAll: {
-                icon: "<i class='fas fa-share-square'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
-                callback: (html) => moveItems(maxQuantity, originItem)
-              },
-              cancel: {
-                icon: "<i class='fas fa-times'></i>",
-                label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-                callback: () => {}
-              }
-            };
-          }
-        }
-
-        function moveItems(quantity) {
-          quantity = parseInt(quantity);
-          if (quantity == null) {quantity = 0;};
-          if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
-            moveDialog(quantity);
-            return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
-          }
-          if (originActor) {
-            let oldQuantity = parseInt(originItem.system.basic.quantity) - quantity;
-            originItem.update({"system.basic.quantity": oldQuantity});
-            enableItemLists();
-          }
-          if (!targetItem) {
-            originItemData.system.basic.quantity = quantity;
-            targetActor.createEmbeddedDocuments("Item", [originItemData]);
-            enableItemLists();
-          } else {
-            let newQuantity = parseInt(targetItem.system.basic.quantity) + quantity;
-            targetItem.update({"system.basic.quantity": newQuantity});
-            enableItemLists();
-          }
         }
       }
     }
@@ -935,6 +972,37 @@ export class CypherActorSheet extends ActorSheet {
       originItem.delete();
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
       enableItemLists();
+    }
+
+    async function sortItemsIntoCategories(event, item) {
+      let skillArray = ["Skill", "SkillTwo", "SkillThree", "SkillFour"];
+      let abilityArray = ["Ability", "AbilityTwo", "AbilityThree", "AbilityFour", "Spell"];
+      let equipmentArray = ["Equipment", "EquipmentTwo", "EquipmentThree", "EquipmentFour"];
+      let viableIDs = [];
+
+      if (item.type == "skill") {
+        viableIDs = skillArray;
+      } else if (item.type == "ability") {
+        viableIDs = abilityArray;
+      } else if (item.type == "equipment") {
+        viableIDs = equipmentArray;
+      }
+
+      let target = event.target;
+      let targetID = "";
+
+      while (target.parentElement) {
+        target = target.parentElement;
+        if (viableIDs.includes(target.id)) {
+          targetID = target.id;
+        }
+      }
+
+      if (targetID) {
+        return targetID;
+      } else {
+        return item.system.settings.general.sorting;
+      }
     }
   }
 

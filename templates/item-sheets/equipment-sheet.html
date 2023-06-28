@@ -1,4 +1,7 @@
 <form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
+  
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
   {{!-- Background Icon --}}
   {{#unless (eq sheetSettings.backgroundIcon "none")}}
@@ -35,6 +38,9 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{#if actor}}
+      <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-solid fa-gear"></i></a>
+    {{/if}}
   </nav>
 
   {{!-- Sheet Body --}}
@@ -45,9 +51,8 @@
       {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
     </div>
 
+    {{!-- Settings Tab --}}
+    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-item.html}}
+
   </section>
-
-  {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
-
 </form>

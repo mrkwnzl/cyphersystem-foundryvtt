@@ -13,7 +13,7 @@ export class CypherItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
-      width: 550,
+      width: 575,
       resizable: false,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]
@@ -56,8 +56,10 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.backgroundImageBaseSetting = "background-image";
 
     data.sheetSettings.backgroundImage = getBackgroundImage();
-    data.sheetSettings.backgroundImagePath = getBackgroundImagePath();
-    data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    if (data.sheetSettings.backgroundImage == "custom") {
+      data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+      data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    }
     data.sheetSettings.backgroundIcon = getBackgroundIcon();
     data.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
     data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();

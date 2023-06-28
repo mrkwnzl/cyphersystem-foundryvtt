@@ -2,15 +2,15 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "compatibility": {
-    "minimum": "10",
-    "verified": "10.291",
+    "minimum": "11",
+    "verified": "11.302",
     "maximum": "11"
   },
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.6.2/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v2.7.0/release.zip",
   "authors": [
     {
       "name": "Marko Wenzel",
@@ -30,7 +30,7 @@
       "name": "macros",
       "label": "Roll Macros",
       "system": "cyphersystem",
-      "path": "packs/roll-macros.db",
+      "path": "packs/roll-macros",
       "type": "Macro",
       "flags": {},
       "ownership": {
@@ -42,7 +42,7 @@
       "name": "marker",
       "label": "Markers",
       "system": "cyphersystem",
-      "path": "packs/markers.db",
+      "path": "packs/markers",
       "type": "Actor",
       "flags": {},
       "ownership": {
@@ -54,7 +54,7 @@
       "name": "scenes",
       "label": "Scenes",
       "system": "cyphersystem",
-      "path": "packs/scenes.db",
+      "path": "packs/scenes",
       "type": "Scene",
       "flags": {},
       "ownership": {
@@ -66,7 +66,7 @@
       "name": "utility-macros",
       "label": "Utility Macros",
       "system": "cyphersystem",
-      "path": "packs/utility-macros.db",
+      "path": "packs/utility-macros",
       "type": "Macro",
       "flags": {},
       "ownership": {
@@ -78,13 +78,26 @@
       "name": "secret-settings",
       "label": "Secret Settings",
       "system": "cyphersystem",
-      "path": "packs/secret-settings.db",
+      "path": "packs/secret-settings",
       "type": "Macro",
       "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Cypher System",
+      "sorting": "m",
+      "packs": [
+        "macros",
+        "marker",
+        "scenes",
+        "utility-macros",
+        "secret-settings"
+      ]
     }
   ],
   "languages": [

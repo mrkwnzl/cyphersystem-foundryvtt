@@ -1,5 +1,8 @@
 <form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
+  {{!-- Background Image --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
+
   {{!-- Background Icon --}}
   {{#unless (eq sheetSettings.backgroundIcon "none")}}
     <div class="background-image-icon">
@@ -59,8 +62,4 @@
     {{> systems/cyphersystem/templates/tabs/settings-tab/settings-cyphers-and-artifacts.html}}
 
   </section>
-
-  {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
-
 </form>
