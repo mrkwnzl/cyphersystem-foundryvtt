@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.0] - 2023-06-17
+## [2.7.0] - 2023-06-28
 ### Added
 - Items of the equipment type can now be sorted into up to four categories, just like skills and abilities.
 - Items that can be sorted into categories (skills, abilities, equipment) can now be sorted with drag & drop.
@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - The compendia are now sorted into folders.
 - The Cypher system is now only compatible with Foundry V11 or higher.
-- Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See [Link](Link) for details.
+- Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See ([the wiki](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Moving-Items-Between-Actors) for details.
 - If no armor type is selected, the “n/a” note is now omitted on the character sheet.
 
 ### Fixed
