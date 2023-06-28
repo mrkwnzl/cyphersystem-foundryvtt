@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The compendia are now sorted into folders.
 - The Cypher system is now only compatible with Foundry V11 or higher.
 - Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See [Link](Link) for details.
+- If no armor type is selected, the “n/a” note is now omitted on the character sheet.
 
 ### Fixed
 - Removed unnecessary hr in roll chat output.
