@@ -542,6 +542,8 @@ export class CypherActorSheet extends ActorSheet {
     // Add Inventory Item
     html.find(".item-create").click(clickEvent => {
       const itemCreatedPromise = this._onItemCreate(clickEvent);
+      console.log(this);
+      console.log(clickEvent);
       itemCreatedPromise.then(itemData => {
         this.actor.items.get(itemData.id).sheet.render(true);
       });

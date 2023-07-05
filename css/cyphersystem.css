@@ -1403,3 +1403,10 @@ section.cypher-note>p {
   background-color: #d7d7c0;
   background-image: linear-gradient(#d7d7c0, #FFF);
 }
+
+.cyphersystem .copy-ability-button {
+  margin: 0px;
+  line-height: 22px;
+  border: 1px solid var(--color-border-light-tertiary);
+  background: rgba(0, 0, 0, 0.05);
+}

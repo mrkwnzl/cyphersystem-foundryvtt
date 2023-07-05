@@ -107,5 +107,63 @@ export class CypherItemSheet extends ItemSheet {
 
       renameTag(actor, currentTag, newTag);
     });
+
+    html.find('.copy-as-skill').click(async clickEvent => {
+      let actor = this.item.actor;
+      let item = this.item;
+      if (!actor) return;
+
+      let itemData = {
+        name: item.name,
+        type: "skill",
+        "system.settings.rollButton": item.system.settings.rollButton,
+        "system.description": item.system.description,
+        "system.basic.rating": item.system.settings.rollButton.skill,
+        "system.settings.rollButton.pool": item.system.basic.pool,
+        "system.settings.rollButton.additionalCost": item.system.basic.cost
+      };
+
+      await actor.createEmbeddedDocuments("Item", [itemData]);
+
+      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsSkill", {item: item.name}));
+    });
+
+    html.find('.copy-as-attack').click(async clickEvent => {
+      let actor = this.item.actor;
+      let item = this.item;
+      if (!actor) return;
+
+      let itemData = {
+        name: item.name,
+        type: "attack",
+        "system.settings.rollButton": item.system.settings.rollButton,
+        "system.description": item.system.description,
+        "system.basic.type": "special ability",
+        "system.basic.damage": item.system.settings.rollButton.damage,
+        "system.basic.modifier": item.system.settings.rollButton.stepModifier,
+        "system.basic.steps": item.system.settings.rollButton.additionalSteps,
+        "system.basic.skillRating": item.system.settings.rollButton.skill
+      };
+
+      await actor.createEmbeddedDocuments("Item", [itemData]);
+
+      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsAttack", {item: item.name}));
+    });
+
+    html.find('.copy-as-equipment').click(async clickEvent => {
+      let actor = this.item.actor;
+      let item = this.item;
+      if (!actor) return;
+
+      let itemData = {
+        name: item.name,
+        type: "equipment",
+        "system.description": item.system.description
+      };
+
+      await actor.createEmbeddedDocuments("Item", [itemData]);
+
+      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsEquipment", {item: item.name}));
+    });
   }
 }

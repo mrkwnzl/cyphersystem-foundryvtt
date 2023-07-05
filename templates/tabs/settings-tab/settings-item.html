@@ -393,4 +393,30 @@
       </ol>
     </div>
   {{/unless}}
+  {{#if (and actor (eq item.type "ability"))}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.CopyAs'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <button type="button" class="copy-ability-button copy-as-skill">{{localize 'TYPES.Item.skill'}}</button>
+          &nbsp;
+          <button type="button" class="copy-ability-button copy-as-attack">{{localize 'TYPES.Item.attack'}}</button>
+        </li>
+      </ol>
+    </div>
+  {{/if}}
+  {{#if (and actor (or (eq item.type "attack") (eq item.type "armor")))}}
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-name">{{localize 'CYPHERSYSTEM.CopyAs'}}</div>
+        </li>
+        <li class="item flexrow item-settings">
+          <button type="button" class="copy-ability-button copy-as-equipment">{{localize 'TYPES.Item.equipment'}}</button>
+        </li>
+      </ol>
+    </div>
+  {{/if}}
 </div>
