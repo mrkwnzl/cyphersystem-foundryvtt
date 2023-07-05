@@ -40,7 +40,7 @@
   "CYPHERSYSTEM.Additional": "zusätzlich",
   "CYPHERSYSTEM.Name": "Name",
   "CYPHERSYSTEM.Is": "ist",
-  "CYPHERSYSTEM.IsA": "ist ein*e",
+  "CYPHERSYSTEM.IsA": "ist ein:e",
   "CYPHERSYSTEM.Descriptor": "Deskriptor",
   "CYPHERSYSTEM.Type": "Archetyp",
   "CYPHERSYSTEM.Who": "und",
