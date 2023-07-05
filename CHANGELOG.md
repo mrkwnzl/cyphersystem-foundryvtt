@@ -5,8 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
+- Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
+
+### Changed
+- Abilities now ignore the setting to use the All-in-One Dialog as the default.
+
 ### Fixed
 - The pre-made scenes now show their thumbnail correctly.
+- Abilities that are paid with XP now work correctly.
 
 ## [2.7.0] - 2023-06-28
 ### Added
