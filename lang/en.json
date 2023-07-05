@@ -621,5 +621,6 @@
   "CYPHERSYSTEM.CopyAs": "Copy as…",
   "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} has been copied as a skill.",
   "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} has been copied as an attack.",
-  "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} has been copied as equipment."
+  "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} has been copied as equipment.",
+  "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} has been copied as armor."
 }

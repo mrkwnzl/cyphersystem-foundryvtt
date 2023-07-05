@@ -165,5 +165,22 @@ export class CypherItemSheet extends ItemSheet {
 
       return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsEquipment", {item: item.name}));
     });
+
+    html.find('.copy-as-armor').click(async clickEvent => {
+      let actor = this.item.actor;
+      let item = this.item;
+      if (!actor) return;
+
+      let itemData = {
+        name: item.name,
+        type: "armor",
+        "system.description": item.system.description,
+        "system.basic.type": "special ability"
+      };
+
+      await actor.createEmbeddedDocuments("Item", [itemData]);
+
+      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", {item: item.name}));
+    });
   }
 }

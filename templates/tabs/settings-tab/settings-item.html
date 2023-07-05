@@ -202,7 +202,7 @@
       </ol>
     </div>
   {{/if}}
-  {{#unless (eq item.type "equipment")}}
+  {{#unless (or (eq item.type "equipment") (eq item.type "armor"))}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
@@ -403,6 +403,8 @@
           <button type="button" class="copy-ability-button copy-as-skill">{{localize 'TYPES.Item.skill'}}</button>
           &nbsp;
           <button type="button" class="copy-ability-button copy-as-attack">{{localize 'TYPES.Item.attack'}}</button>
+          &nbsp;
+          <button type="button" class="copy-ability-button copy-as-armor">{{localize 'TYPES.Item.armor'}}</button>
         </li>
       </ol>
     </div>
