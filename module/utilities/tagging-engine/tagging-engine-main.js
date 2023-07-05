@@ -31,4 +31,10 @@ export async function taggingEngineMain(actor, taggingData) {
 
   // Update actor items
   await actor.updateEmbeddedDocuments("Item", await determineUpdateData(actor, taggingData));
+
+  // Create Hooks for toggling Tags
+  Hooks.call("enableTag", actor, taggingData.item);
+  if (taggingData.disableItem) {
+    Hooks.call("disableTag", actor, taggingData.disableItem);
+  }
 }

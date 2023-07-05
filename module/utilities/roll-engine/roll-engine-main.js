@@ -31,8 +31,17 @@ export async function rollEngineMain(data) {
   if (!data.actorUuid) data.actorUuid = game.user.character?.uuid;
   let actor = (data.actorUuid) ? fromUuidSync(data.actorUuid) : undefined;
 
+  // Find item
+  let item = (actor && data.itemID) ? actor.items.get(data.itemID) : undefined;
+
   // Check for PC actor
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Skip dialog?
+  if (item?.type == "ability") data.skipDialog = true;
+  if (game.keyboard.isModifierActive('Alt')) data.skipDialog = !data.skipDialog;
+  if (actor.getFlag("cyphersystem", "multiRoll.active")) data.skipDialog = false;
+  if (data.reroll) data.skipDialog = true;
 
   // Check whether pool == XP
   if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
@@ -46,11 +55,7 @@ export async function rollEngineMain(data) {
     data.teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   }
 
-  data.skipDialog = (game.keyboard.isModifierActive('Alt')) ? !data.skipDialog : data.skipDialog;
-  data.skipDialog = (actor.getFlag("cyphersystem", "multiRoll.active")) ? false : data.skipDialog;
-  data.skipDialog = (data.reroll) ? true : data.skipDialog;
-
-  data.initiativeRoll = (actor.items.get(data.itemID)) ? actor.items.get(data.itemID).system.settings.general.initiative : false;
+  data.initiativeRoll = (item) ? item.system.settings.general.initiative : false;
 
   // Set GMI Range
   if (data.gmiRange === undefined) {
