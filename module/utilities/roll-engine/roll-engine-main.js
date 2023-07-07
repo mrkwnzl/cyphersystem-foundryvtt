@@ -38,7 +38,6 @@ export async function rollEngineMain(data) {
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Skip dialog?
-  if (item?.type == "ability") data.skipDialog = true;
   if (game.keyboard.isModifierActive('Alt')) data.skipDialog = !data.skipDialog;
   if (actor.getFlag("cyphersystem", "multiRoll.active")) data.skipDialog = false;
   if (data.reroll) data.skipDialog = true;
