@@ -9,12 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
 - Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
 
-### Changed
-- Abilities now ignore the setting to use the All-in-One Dialog as the default.
-
 ### Fixed
 - The pre-made scenes now show their thumbnail correctly.
-- Abilities that are paid with XP now work correctly.
+- Abilities that are paid with XP now show the message that the AiO dialog cannot be used correctly.
+- The setting to use a skill for initiative rolls appears again when the skill in question is in the sidebar.
 
 ## [2.7.0] - 2023-06-28
 ### Added
