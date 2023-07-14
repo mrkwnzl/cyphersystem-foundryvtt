@@ -96,8 +96,10 @@ export class RollEngineDialogSheet extends FormApplication {
 
     let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
 
+    console.log(formData);
+
     // Basic data
-    data.baseDifficulty = formData.baseDifficulty;
+    data.baseDifficulty = parseInt(formData.baseDifficulty);
     data.pool = formData.pool;
     data.skillLevel = parseInt(formData.skillLevel);
     data.assets = (formData.assets) ? parseInt(formData.assets) : 0;
@@ -264,7 +266,7 @@ export async function disableMultiRoll(actor) {
 function summaryFinalDifficulty(data) {
   let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
   let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
-  let finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? data.baseDifficulty : Math.max(data.baseDifficulty - sum, 0);
+  let finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? parseInt(data.baseDifficulty) : Math.max(parseInt(data.baseDifficulty) - sum, 0);
   let targetNumber = finalDifficulty * 3;
   let finalDifficultyString = (data.baseDifficulty != "none") ? game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + targetNumber + ")" + "." : "";
 

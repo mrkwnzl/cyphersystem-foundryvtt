@@ -1058,23 +1058,13 @@
             "bonus": 0
           }
         }
-      },
-      "linkedItems": {
-        "settings": {
-          "linkedItems": {
-            "ability": "",
-            "attack": "",
-            "skill": ""
-          }
-        }
       }
     },
     "ability": {
       "templates": [
         "version",
         "core",
-        "rollButton",
-        "linkedItems"
+        "rollButton"
       ],
       "basic": {
         "cost": 0,
@@ -1137,8 +1127,7 @@
       "templates": [
         "version",
         "core",
-        "rollButton",
-        "linkedItems"
+        "rollButton"
       ],
       "basic": {
         "type": "light weapon",
@@ -1260,8 +1249,7 @@
       "templates": [
         "version",
         "core",
-        "rollButton",
-        "linkedItems"
+        "rollButton"
       ],
       "basic": {
         "rating": "Trained"

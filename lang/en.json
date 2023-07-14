@@ -88,6 +88,8 @@
   "CYPHERSYSTEM.MajorEffectRoll": "Major Effect",
   "CYPHERSYSTEM.DamageOrMajorEffectRoll": "Major Effect or +4 Damage",
   "CYPHERSYSTEM.Difficulty": "Difficulty",
+  "CYPHERSYSTEM.KeepDifficulty": "Persistent difficulty",
+  "CYPHERSYSTEM.OnlyNextRoll": "Apply to next roll only",
   "CYPHERSYSTEM.DifficultyModifier": "Difficulty modifier",
   "CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
   "CYPHERSYSTEM.Success": "Success!",
@@ -617,5 +619,10 @@
   "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
   "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel.",
   "CYPHERSYSTEM.SheetEditor": "Sheet Editor",
-  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets."
+  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets.",
+  "CYPHERSYSTEM.CopyAs": "Copy as…",
+  "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} has been copied as a skill.",
+  "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} has been copied as an attack.",
+  "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} has been copied as equipment.",
+  "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} has been copied as armor."
 }

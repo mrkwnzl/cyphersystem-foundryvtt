@@ -101,6 +101,22 @@ export async function registerGameSettings() {
     default: ""
   });
 
+  // Roll Difficulty
+  game.settings.register("cyphersystem", "persistentRollDifficulty", {
+    scope: "world",
+    type: Number,
+    default: 0,
+    config: false
+  });
+
+  game.settings.register("cyphersystem", "rollDifficulty", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: -1
+  });
+
+  // GMI Range
   game.settings.register("cyphersystem", "useGlobalGMIRange", {
     scope: "world",
     type: Boolean,

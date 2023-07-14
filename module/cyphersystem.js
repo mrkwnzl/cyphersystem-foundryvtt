@@ -75,6 +75,7 @@ import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
 import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
 import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
 import {changeTagStats} from "./utilities/tagging-engine/tagging-engine-computation.js";
+import {renderRollDifficultyForm} from "./forms/roll-difficulty-sheet.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -248,6 +249,15 @@ Hooks.once("ready", async function () {
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
   let tokenControls = hudButtons.find(val => {return val.name == "token";});
+  if (tokenControls) {
+    tokenControls.tools.push({
+      name: "rollDifficulty",
+      title: game.i18n.localize("CYPHERSYSTEM.Difficulty"),
+      icon: "fa-solid fa-crosshairs-simple",
+      onClick: () => {renderRollDifficultyForm(true);},
+      button: true
+    });
+  }
   if (tokenControls && game.user.isGM) {
     tokenControls.tools.push({
       name: "calculateDifficulty",
@@ -257,21 +267,21 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       button: true
     });
   }
-  if (tokenControls && game.user.isGM) {
-    tokenControls.tools.push({
-      name: "proposeGMI",
-      title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
-      icon: "fas fa-bolt",
-      onClick: () => {proposeIntrusion();},
-      button: true
-    });
-  }
   if (tokenControls) {
     tokenControls.tools.push({
       name: "gmiRange",
       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
       icon: "fas fa-exclamation-triangle",
       onClick: () => {gmiRangeForm();},
+      button: true
+    });
+  }
+  if (tokenControls && game.user.isGM) {
+    tokenControls.tools.push({
+      name: "proposeGMI",
+      title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
+      icon: "fas fa-bolt",
+      onClick: () => {proposeIntrusion();},
       button: true
     });
   }

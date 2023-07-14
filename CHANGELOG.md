@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.0] - 2023-06-17
+## [3.8.0] - 2023-07-14
+### Added
+- Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
+- Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
+- New Difficulty Controls, which can be found in the Token Controls. With that, you can set a difficulty for the next roll or set a persistent difficulty which stays active until it’s being changed again. This also integrates with the Calculate/Announce Difficulty macro, which will set the difficulty and whether it’s for a single roll or persistent in the Difficulty Controls. 
+  If the GM keeps the difficulty a secret (by not selecting “Show difficulty to everyone”), it won’t show up in the Difficulty Controls (wouldn’t be a secret, then). It will be set to ”None” in that case.
+
+### Changed
+- When a difficulty is set in the Difficulty Controls, the base difficulty in the All-in-One Roll dialog is taken from there and cannot be changed in the dialog.
+
+### Fixed
+- The pre-made scenes now show their thumbnail correctly.
+- Abilities that are paid with XP now show the message that the AiO dialog cannot be used correctly.
+- The setting to use a skill for initiative rolls appears again when the skill in question is in the sidebar.
+- Players can drag & drop abilities from the sidebar and from journals onto the sheet again.
+- When the GM updates the GMI Range, open GMI Range windows that players have open don’t go into focus anymore.
+
+## [2.7.0] - 2023-06-28
 ### Added
 - Items of the equipment type can now be sorted into up to four categories, just like skills and abilities.
 - Items that can be sorted into categories (skills, abilities, equipment) can now be sorted with drag & drop.
@@ -12,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - The compendia are now sorted into folders.
 - The Cypher system is now only compatible with Foundry V11 or higher.
-- Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See [Link](Link) for details.
+- Dragging & dropping items between actors and from the sidebar has been slightly revised to accommodate sorting items into categories. See ([the wiki](https://github.com/mrkwnzl/cyphersystem-foundryvtt/wiki/Moving-Items-Between-Actors) for details.
 - If no armor type is selected, the “n/a” note is now omitted on the character sheet.
 
 ### Fixed

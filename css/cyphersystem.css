@@ -103,11 +103,8 @@ ol {
   color: blue;
 }
 
-ol#chat-log li .note-roll-dialog {
-  display: none;
-}
 
-ol#chat-log li:last-child .note-roll-dialog {
+ol#chat-log .note-roll-dialog {
   display: block;
   color: blue;
   text-align: left;
@@ -1013,6 +1010,7 @@ li.folder.collapsed>.folder-header h3 {
 .cyphersystem .disabled {
   pointer-events: none;
   color: #4b4a44;
+  border: none;
 }
 
 .cyphersystem .item-angle {
@@ -1402,4 +1400,11 @@ section.cypher-note>p {
   font-style: italic;
   background-color: #d7d7c0;
   background-image: linear-gradient(#d7d7c0, #FFF);
+}
+
+.cyphersystem .copy-ability-button {
+  margin: 0px;
+  line-height: 22px;
+  border: 1px solid var(--color-border-light-tertiary);
+  background: rgba(0, 0, 0, 0.05);
 }
