@@ -15,7 +15,7 @@ export class GMIRangeSheet extends FormApplication {
       submitOnClose: false,
       width: 300,
       height: "auto",
-      top: 71,
+      top: 210,
       left: 110,
       resizable: false
     });
@@ -127,11 +127,6 @@ export async function gmiRangeForm() {
 
   // Render sheet
   gmiRangeForm.render(true);
-  try {
-    gmiRangeForm.bringToTop();
-  } catch {
-    // Do nothing.
-  }
 }
 
 // This is used to check whether a GMI Range for is already there and re-render it when it is
@@ -139,6 +134,6 @@ export async function renderGMIForm() {
   let gmiRangeForm = Object.values(ui.windows).find((app) => app instanceof GMIRangeSheet);
 
   if (gmiRangeForm) {
-    gmiRangeForm.render(true);
+    gmiRangeForm.render(true, {focus: false});
   }
 }

@@ -1,0 +1,61 @@
+<form class="flexcol" autocomplete="off">
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body gmi-body">
+    <div>
+      <ol class="items-list">
+        <li class="item flexrow item-header gmi-header" data-item-id="{{actor._id}}">
+          <label>
+            {{#if persistentRollDifficulty}}
+              {{localize "CYPHERSYSTEM.KeepDifficulty"}}
+            {{else}}
+              {{localize "CYPHERSYSTEM.OnlyNextRoll"}}
+            {{/if}}
+          </label>&nbsp;
+          <div class="item-controls">
+            {{#if isGM}}
+              {{#if persistentRollDifficulty}}
+                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-on"></i></a>
+              {{else}}
+                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-off"></i></a>
+              {{/if}}
+            {{/if}}
+          </div>
+        </li>
+        <li class="item flexrow gmi-item" data-item-id="global">
+          <div class="gmi-img-container">
+            <img class="profile-img-gmi" src="systems/cyphersystem/icons/macros/roll-difficulty.svg" data-edit="img" title="{{localize 'CYPHERSYSTEM.Difficulty'}}" />
+          </div>
+          <div class="flexrow">
+            <div class="gmi-actor-name flexcol">
+              <h4 class="gmi-h4">{{localize "CYPHERSYSTEM.Difficulty"}}</h4>
+              {{#if isGM}}
+                <div class="gmi-controls">
+                  <a class="item-control decrease-roll-difficulty" title="{{localize 'CYPHERSYSTEM.SubtractDifficulty'}}">
+                    <i class="far fa-minus-square stat"></i>
+                  </a>
+                  <a class="item-control increase-roll-difficulty" title="{{localize 'CYPHERSYSTEM.AddDifficulty'}}">
+                    <i class="far fa-plus-square stat"></i>
+                  </a>
+                  &nbsp;
+                  <a class="item-control reset-roll-difficulty" title="{{localize 'CYPHERSYSTEM.ResetDifficulty'}}">
+                    <i class="fas fa-sync-alt stat"></i>
+                  </a>
+                </div>
+              {{/if}}
+            </div>
+            <div class="gmi-range-value-container">
+              <h4 class="gmi-range-value">
+                {{#if (eq rollDifficulty -1)}}
+                  {{localize 'CYPHERSYSTEM.None'}}
+                {{else}}
+                  {{rollDifficulty}} ({{targetNumber}})
+                {{/if}}
+              </h4>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+</form>

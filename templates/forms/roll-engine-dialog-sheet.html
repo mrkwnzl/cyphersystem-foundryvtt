@@ -10,27 +10,31 @@
       <div class="roll-engine-left-column" align="center">
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.BasicModifiers"}}</b></label><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.BaseDifficulty"}}:</label>
-        <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select">
-          {{#select this.baseDifficulty}}
-            <option value="none">{{localize "CYPHERSYSTEM.None"}}</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-          {{/select}}
-        </select><br>
+        {{#if (eq this.baseDifficulty "none")}}
+          <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select">
+            {{#select this.baseDifficulty}}
+              <option value="none">{{localize "CYPHERSYSTEM.None"}}</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            {{/select}}
+          </select><br>
+        {{else}}
+          <input name="baseDifficulty" id="baseDifficulty" type="number" value="{{this.baseDifficulty}}" class="roll-engine-input disabled" /><br>
+        {{/if}}
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Pool"}}:</label>
         <select name="pool" id="pool" class="dialog-select roll-engine-select">
           {{#select this.pool}}

@@ -796,7 +796,7 @@ export class CypherActorSheet extends ActorSheet {
     if (typesCharacterProperties.includes(originItem.type)) {
       if (!["pc", "companion"].includes(targetActor.type)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs"));
       if (!["companion"].includes(targetActor.type) && !["skill", "ability"].includes(originItem.type) && item.system.settings.general.unmaskedForm == "Teen") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion"));
-      if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanCopyCharacterProperties"));
+      if (!game.user.isGM && originActor) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanCopyCharacterProperties"));
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
       enableItemLists();
     }

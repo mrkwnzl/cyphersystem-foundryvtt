@@ -1,3 +1,4 @@
+import {renderRollDifficultyForm, updateRollDifficultyForm} from "../../forms/roll-difficulty-sheet.js";
 import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
@@ -278,5 +279,10 @@ export async function rollEngineOutput(data) {
       await addCharacterToCombatTracker(actor);
       await setInitiativeForCharacter(actor, initiativeResult);
     }
+  }
+
+  if (game.settings.get("cyphersystem", "persistentRollDifficulty") == 0) {
+    await game.settings.set("cyphersystem", "rollDifficulty", -1);
+    await updateRollDifficultyForm();
   }
 }

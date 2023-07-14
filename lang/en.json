@@ -88,6 +88,8 @@
   "CYPHERSYSTEM.MajorEffectRoll": "Major Effect",
   "CYPHERSYSTEM.DamageOrMajorEffectRoll": "Major Effect or +4 Damage",
   "CYPHERSYSTEM.Difficulty": "Difficulty",
+  "CYPHERSYSTEM.KeepDifficulty": "Persistent difficulty",
+  "CYPHERSYSTEM.OnlyNextRoll": "Apply to next roll only",
   "CYPHERSYSTEM.DifficultyModifier": "Difficulty modifier",
   "CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
   "CYPHERSYSTEM.Success": "Success!",

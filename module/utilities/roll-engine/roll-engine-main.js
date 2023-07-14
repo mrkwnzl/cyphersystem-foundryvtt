@@ -46,8 +46,10 @@ export async function rollEngineMain(data) {
   if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
 
   // Set default for difficulty
-  let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
-  data.baseDifficulty = (lastChatMessage?.flags?.difficulty && !data.reroll) ? lastChatMessage.flags.difficulty : data.baseDifficulty;
+  // let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
+  // data.baseDifficulty = (lastChatMessage?.flags?.difficulty && !data.reroll) ? lastChatMessage.flags.difficulty : data.baseDifficulty;
+
+  data.baseDifficulty = (game.settings.get("cyphersystem", "rollDifficulty") === -1) ? "none" : game.settings.get("cyphersystem", "rollDifficulty");
 
   // Set defaults for functions
   if (data.teen === undefined) {

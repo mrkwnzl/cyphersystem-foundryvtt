@@ -20,6 +20,7 @@ import {
   useEffectiveDifficulty
 } from "../utilities/roll-engine/roll-engine-main.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
+import {updateRollDifficultyForm} from "../forms/roll-difficulty-sheet.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -782,12 +783,20 @@ export function renameTagMacro(actor, currentTag, newTag) {
   }
 }
 
-export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog) {
+export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog, persistentRollDifficulty) {
+
+  if (persistentRollDifficulty === undefined) {
+    persistentRollDifficulty = game.settings.get("cyphersystem", "persistentRollDifficulty");
+  }
+
+  if (difficulty === undefined) {
+    difficulty = game.settings.get("cyphersystem", "rollDifficulty");
+  }
 
   // Create All-in-One dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
-    content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName),
+    content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, persistentRollDifficulty),
     buttons: {
       calculate: {
         icon: '<i class="fas fa-calculator"></i>',
@@ -796,7 +805,41 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
           additionalOneValue = (html.find('#additionalOne').val() != "") ? html.find('#additionalOne').val() : html.find('#additionalOne').attr('placeholder');
           additionalTwoValue = (html.find('#additionalTwo').val() != "") ? html.find('#additionalTwo').val() : html.find('#additionalTwo').attr('placeholder');
           additionalThreeValue = (html.find('#additionalThree').val() != "") ? html.find('#additionalThree').val() : html.find('#additionalThree').attr('placeholder');
-          calculate(html.find('#difficulty').val(), html.find('#pcRole').val(), html.find('#chatMessage').val(), html.find('#cover').prop('checked'), html.find('#positionProne').val(), html.find('#positionHighGround').prop('checked'), html.find('#surprise').val(), html.find('#range').val(), html.find('#illumination').val(), html.find('#mist').prop('checked'), html.find('#hiding').prop('checked'), html.find('#invisible').prop('checked'), html.find('#water').val(), html.find('#targetMoving').prop('checked'), html.find('#attackerMoving').prop('checked'), html.find('#attackerJostled').prop('checked'), html.find('#gravity').prop('checked'), additionalOneValue, html.find('#additionalOneName').val(), additionalTwoValue, html.find('#additionalTwoName').val(), additionalThreeValue, html.find('#additionalThreeName').val(), html.find('#stepModifierOne').val(), html.find('#stepModifierTwo').val(), html.find('#stepModifierThree').val(), description1, description2, description3, description4, description5, description6);
+          calculate(
+            html.find('#difficulty').val(),
+            html.find('#pcRole').val(),
+            html.find('#chatMessage').val(),
+            html.find('#cover').prop('checked'),
+            html.find('#positionProne').val(),
+            html.find('#positionHighGround').prop('checked'),
+            html.find('#surprise').val(),
+            html.find('#range').val(),
+            html.find('#illumination').val(),
+            html.find('#mist').prop('checked'),
+            html.find('#hiding').prop('checked'),
+            html.find('#invisible').prop('checked'),
+            html.find('#water').val(),
+            html.find('#targetMoving').prop('checked'),
+            html.find('#attackerMoving').prop('checked'),
+            html.find('#attackerJostled').prop('checked'),
+            html.find('#gravity').prop('checked'),
+            additionalOneValue,
+            html.find('#additionalOneName').val(),
+            additionalTwoValue,
+            html.find('#additionalTwoName').val(),
+            additionalThreeValue,
+            html.find('#additionalThreeName').val(),
+            html.find('#stepModifierOne').val(),
+            html.find('#stepModifierTwo').val(),
+            html.find('#stepModifierThree').val(),
+            description1,
+            description2,
+            description3,
+            description4,
+            description5,
+            description6,
+            html.find('#persistentRollDifficulty').val(),
+          );
         }
       },
       cancel: {
@@ -819,10 +862,10 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     let stepModifierOne = (additionalOneValue >= 0) ? 1 : -1;
     let stepModifierTwo = (additionalTwoValue >= 0) ? 1 : -1;
     let stepModifierThree = (additionalThreeValue >= 0) ? 1 : -1;
-    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6);
+    calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, Math.abs(additionalOneValue), additionalOneName, Math.abs(additionalTwoValue), additionalTwoName, Math.abs(additionalThreeValue), additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6, persistentRollDifficulty);
   }
 
-  function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6) {
+  async function calculate(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, stepModifierOne, stepModifierTwo, stepModifierThree, description1, description2, description3, description4, description5, description6, persistentRollDifficulty) {
     let modifier = 0;
     let basicInfo = "";
     let pcRoleInfo = "";
@@ -841,6 +884,8 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     let chatMessageVagueText = "";
     let signEased = (pcRole == 0) ? "-" : "+";
     let signHindered = (pcRole == 0) ? "+" : "-";
+
+    await game.settings.set("cyphersystem", "persistentRollDifficulty", persistentRollDifficulty);
 
     if (pcRole == 0) {
       pcRoleInfo = game.i18n.localize("CYPHERSYSTEM.PCIsAttacker");
@@ -1028,7 +1073,11 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
 
     resultInfo = "<hr class='hr-chat'><div class='difficulty-result'>" + game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", {difficulty: difficultyResult}) + "</div>";
 
-    let noteForRollDialog = "<div class='note-roll-dialog'>" + game.i18n.localize("CYPHERSYSTEM.AppliesToNextRoll") + "</div>";
+    let noteForRollDialog = "";
+
+    if (game.settings.get("cyphersystem", "persistentRollDifficulty") === 0) {
+      noteForRollDialog = "<div class='note-roll-dialog'>" + game.i18n.localize("CYPHERSYSTEM.AppliesToNextRoll") + "</div>";
+    }
 
     chatMessageText = basicInfo + coverInfo + positionInfo + surpriseInfo + rangeInfo + illuminationInfo + visibilityInfo + waterInfo + movementInfo + gravityInfo + additionalInfo + resultInfo + noteForRollDialog;
 
@@ -1070,11 +1119,13 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
         content: chatMessageText,
         flags: {"difficulty": finalDifficulty}
       });
+      await game.settings.set("cyphersystem", "rollDifficulty", finalDifficulty);
     } else if (chatMessage == 1) {
       ChatMessage.create({
         content: chatMessageText,
         whisper: ChatMessage.getWhisperRecipients("GM")
       });
+      await game.settings.set("cyphersystem", "rollDifficulty", -1);
     } else if (chatMessage == 2) {
       ChatMessage.create({
         content: chatMessageText,
@@ -1083,7 +1134,10 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
       ChatMessage.create({
         content: chatMessageVagueText
       });
+      await game.settings.set("cyphersystem", "rollDifficulty", -1);
     }
+
+    updateRollDifficultyForm();
   }
 }
 
