@@ -621,5 +621,12 @@
   "CYPHERSYSTEM.EquipmentCategories": "Ausrüstungskategorien",
   "CYPHERSYSTEM.HideEmptyCategories": "Verstecke leere Kategorien",
   "CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs": "Charaktereigenschaften können nicht auf diesem Akteurtypen bewegt werden.",
-  "CYPHERSYSTEM.Keep": "Behalten"
+  "CYPHERSYSTEM.Keep": "Behalten",
+  "CYPHERSYSTEM.OnlyNextRoll": "Nur auf den nächsten Wurf anwenden",
+  "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} wurde als Angriff kopiert.",
+  "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} wurde als Ausrüstung kopiert.",
+  "CYPHERSYSTEM.KeepDifficulty": "Persistenter Schwierigkeitsgrad",
+  "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} wurde als Fertigkeit kopiert.",
+  "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} wurde als Rüstung kopiert.",
+  "CYPHERSYSTEM.CopyAs": "Kopieren als…"
 }
