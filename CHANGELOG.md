@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
 - Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
 - New Difficulty Controls, which can be found in the Token Controls. With that, you can set a difficulty for the next roll or set a persistent difficulty which stays active until it’s being changed again. This also integrates with the Calculate/Announce Difficulty macro, which will set the difficulty and whether it’s for a single roll or persistent in the Difficulty Controls. 
-  If the GM keeps the difficulty a secret (by not selecting “Show difficulty to everyone”), it won’t show up in the Difficulty Controls (wouldn’t be a secret, then). It will be set to ”None” in that case.
+    If the GM keeps the difficulty a secret (by not selecting “Show difficulty to everyone”), it won’t show up in the Difficulty Controls (wouldn’t be a secret, then). It will be set to ”None” in that case.
 
 ### Changed
 - When a difficulty is set in the Difficulty Controls, the base difficulty in the All-in-One Roll dialog is taken from there and cannot be changed in the dialog.
