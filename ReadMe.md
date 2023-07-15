@@ -31,13 +31,15 @@ The [Cypher SRD Compendium](https://foundryvtt.com/packages/cyphersystem-compend
 
 Install these modules only if you specifically need the functionality provided by these modules. I recommend playing a few times without them to see if there’s something missing for you.
 
+The only modules I recommend if you are using tokens and maps are [Bar Brawl](https://foundryvtt.com/packages/barbrawl) and [Drag Ruler](https://foundryvtt.com/packages/drag-ruler). But even those are by no means essential.
+
 ### Cypher-Specific Modules
 
 These modules have been written specifically to expand the functionality of the Cypher System.
 - [Active Effects for the Cypher System](https://foundryvtt.com/packages/cyphersystem-activeeffects)
-- [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums)
+- [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums) (**Note:** The CSRD Compendium gives you everything you need. The Creation Pack is used to rigidly automate the character creation process, not to make that process easier. In fact, this module complicates using the system.)
 - [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
-- [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets)
+- [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets) (**Note:** These are pre-made custom sheets you cannot customize. The base system allows you to customize the sheets with your own backgrounds & logos, but this functionality will be overwritten when using this module.)
 - [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
 
 ### Modules with Cypher System Integration
