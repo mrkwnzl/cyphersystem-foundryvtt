@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.8.1] - 2023-07-16
 ### Fixed
 - Attacks on NPCs don’t show an extra comma anymore in their notes.
 - The Base Difficulty no longer locks after selecting a difficulty in the All-in-One dialog.
+- Fixed dragging & dropping items onto actors.
 
 ## [2.8.0] - 2023-07-14
 ### Added
