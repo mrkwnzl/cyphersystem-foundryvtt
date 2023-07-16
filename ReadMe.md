@@ -27,6 +27,8 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 The [Cypher SRD Compendium](https://foundryvtt.com/packages/cyphersystem-compendium) contains all the content from the Cypher System Reference Document.
 
+The [Cypher System Community Content](https://foundryvtt.com/packages/cyphersystem-community-module) module adds fan-made material you can use in your game. It also includes example PCs which showcase how to use different features of the system, which is a great way to learn it.
+
 ## Add-on Modules
 
 Install these modules only if you specifically need the functionality provided by these modules. I recommend playing a few times without them to see if there’s something missing for you.
