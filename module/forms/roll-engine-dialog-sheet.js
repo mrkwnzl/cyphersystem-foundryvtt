@@ -30,6 +30,8 @@ export class RollEngineDialogSheet extends FormApplication {
 
     if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
+    data.useGlobalDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
+
     data.effortValue = actor.system.basic.effort;
 
     data.mightValue = (data.teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
@@ -95,8 +97,6 @@ export class RollEngineDialogSheet extends FormApplication {
     let data = this.object;
 
     let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
-
-    console.log(formData);
 
     // Basic data
     data.baseDifficulty = parseInt(formData.baseDifficulty);
