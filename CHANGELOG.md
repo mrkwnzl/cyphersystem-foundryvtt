@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Fixed
 - Attacks on NPCs don’t show an extra comma anymore in their notes.
+- The Base Difficulty no longer locks after selecting a difficulty in the All-in-One dialog.
 
 ## [2.8.0] - 2023-07-14
 ### Added
