@@ -10,7 +10,7 @@
       <div class="roll-engine-left-column" align="center">
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.BasicModifiers"}}</b></label><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.BaseDifficulty"}}:</label>
-        {{#if (eq this.baseDifficulty "none")}}
+        {{#if (eq this.useGlobalDifficulty -1)}}
           <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select">
             {{#select this.baseDifficulty}}
               <option value="none">{{localize "CYPHERSYSTEM.None"}}</option>

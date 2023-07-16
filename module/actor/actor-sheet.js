@@ -542,8 +542,6 @@ export class CypherActorSheet extends ActorSheet {
     // Add Inventory Item
     html.find(".item-create").click(clickEvent => {
       const itemCreatedPromise = this._onItemCreate(clickEvent);
-      console.log(this);
-      console.log(clickEvent);
       itemCreatedPromise.then(itemData => {
         this.actor.items.get(itemData.id).sheet.render(true);
       });
@@ -770,7 +768,9 @@ export class CypherActorSheet extends ActorSheet {
     let targetItem = null;
 
     // Sort item into category
-    originItemData.system.settings.general.sorting = await sortItemsIntoCategories(event, originItemData);
+    if (["skill", "ability", "equipment"].includes(originItemData.type)) {
+      originItemData.system.settings.general.sorting = await sortItemsIntoCategories(event, originItemData);
+    }
 
     // Check for duplicate character properties
     for (let item of targetActor.items) {
@@ -794,9 +794,16 @@ export class CypherActorSheet extends ActorSheet {
 
     // Handle character properties
     if (typesCharacterProperties.includes(originItem.type)) {
+      // Only PCs and Companions can carry character properties
       if (!["pc", "companion"].includes(targetActor.type)) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs"));
-      if (!["companion"].includes(targetActor.type) && !["skill", "ability"].includes(originItem.type) && item.system.settings.general.unmaskedForm == "Teen") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion"));
+
+      // Companions can only carry skills and abilities, and not ones for teens
+      if (["companion"].includes(targetActor.type) && (!["skill", "ability"].includes(originItem.type) || originItem.system.settings.general.unmaskedForm == "Teen")) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion"));
+
+      // Create Item
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
+
+      // Enable the appropriate list
       enableItemLists();
     }
 

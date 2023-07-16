@@ -5,31 +5,7 @@
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~item.name}}
       </a>
-      {{#if (or (ne item.system.basic.notes "") (ne item.system.basic.type "n/a"))}}
-        {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-      {{/if}}
-      {{#if (eq item.system.basic.type "artifact") ~}}
-        {{localize 'CYPHERSYSTEM.Artifact' ~}}
-      {{else if (eq item.system.basic.type "special ability") ~}}
-        {{localize 'CYPHERSYSTEM.SpecialAbility' ~}}
-      {{else if (eq item.system.basic.type "light armor") ~}}
-        {{localize 'CYPHERSYSTEM.LightArmor' ~}}
-      {{else if (eq item.system.basic.type "medium armor") ~}}
-        {{localize 'CYPHERSYSTEM.MediumArmor' ~}}
-      {{else if (eq item.system.basic.type "heavy armor") ~}}
-        {{localize 'CYPHERSYSTEM.HeavyArmor' ~}}
-      {{else if (eq item.system.basic.type "artifact") ~}}
-        {{localize 'CYPHERSYSTEM.Artifact' ~}}
-      {{/if ~}}
-      {{~#unless (eq item.system.basic.notes "") ~}}
-        {{~#if (ne item.system.basic.type "n/a")}}
-          {{~ localize 'CYPHERSYSTEM.Comma'}}
-        {{/if}}
-        {{~ item.system.basic.notes}}
-      {{~/unless ~}}
-      {{~#if (or (ne item.system.basic.notes "") (ne item.system.basic.type "n/a"))}}
-        {{~localize 'CYPHERSYSTEM.CloseParenthesis'}}
-      {{~/if}}
+      {{createArmorNotes item}}
     </h4>
     <div class="item-quantity">{{item.system.basic.rating}}/{{item.system.basic.cost}}</div>
     <div class="item-controls">

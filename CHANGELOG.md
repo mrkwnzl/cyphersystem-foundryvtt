@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.8.0] - 2023-07-14
+## [2.8.1] - 2023-07-16
+### Fixed
+- Attacks on NPCs don’t show an extra comma anymore in their notes.
+- The Base Difficulty no longer locks after selecting a difficulty in the All-in-One dialog.
+- Fixed dragging & dropping items onto actors.
+
+## [2.8.0] - 2023-07-14
 ### Added
 - Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
 - Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
 - New Difficulty Controls, which can be found in the Token Controls. With that, you can set a difficulty for the next roll or set a persistent difficulty which stays active until it’s being changed again. This also integrates with the Calculate/Announce Difficulty macro, which will set the difficulty and whether it’s for a single roll or persistent in the Difficulty Controls. 
+    
   If the GM keeps the difficulty a secret (by not selecting “Show difficulty to everyone”), it won’t show up in the Difficulty Controls (wouldn’t be a secret, then). It will be set to ”None” in that case.
 
 ### Changed
