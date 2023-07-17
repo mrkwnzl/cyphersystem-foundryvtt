@@ -45,7 +45,6 @@ export class RollDifficultySheet extends FormApplication {
     html.find('.toggle-persistent-roll-difficulty').click(async clickEvent => {
       let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
       html.find("ol#chat-log .note-roll-dialog").last().addClass("hidden");
-      console.log(html);
       await game.settings.set("cyphersystem", "persistentRollDifficulty", !game.settings.get("cyphersystem", "persistentRollDifficulty"));
       game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
       this.render(true);

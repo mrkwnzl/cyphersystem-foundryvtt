@@ -12,7 +12,7 @@ export async function rollEngineMain(data) {
     reroll: false,
     gmiRange: undefined,
     title: "",
-    baseDifficulty: "none",
+    baseDifficulty: undefined,
     pool: "Pool",
     skillLevel: 0,
     assets: 0,
@@ -45,11 +45,9 @@ export async function rollEngineMain(data) {
   // Check whether pool == XP
   if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
 
-  // Set default for difficulty
-  // let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
-  // data.baseDifficulty = (lastChatMessage?.flags?.difficulty && !data.reroll) ? lastChatMessage.flags.difficulty : data.baseDifficulty;
-
-  data.baseDifficulty = (game.settings.get("cyphersystem", "rollDifficulty") === -1) ? "none" : game.settings.get("cyphersystem", "rollDifficulty");
+  if (!data.baseDifficulty) {
+    data.baseDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
+  }
 
   // Set defaults for functions
   if (data.teen === undefined) {
@@ -88,7 +86,7 @@ export function useEffectiveDifficulty(difficulty) {
   } else if (setting === 1) {
     return true;
   } else if (setting === 2) {
-    if (difficulty === "none") {
+    if (difficulty === -1) {
       return true;
     } else {
       return false;
