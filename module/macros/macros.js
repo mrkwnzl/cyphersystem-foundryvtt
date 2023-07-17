@@ -88,7 +88,7 @@ export async function selectedTokenRollMacro(actor, title) {
 
   // Set default for difficulty
   let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
-  let difficulty = (lastChatMessage?.flags?.difficulty) ? lastChatMessage.flags.difficulty : "none";
+  let difficulty = (lastChatMessage?.flags?.difficulty) ? lastChatMessage.flags.difficulty : "-1";
 
   let skipDialog = (game.keyboard.isModifierActive('Alt')) ? game.settings.get("cyphersystem", "itemMacrosUseAllInOne") : !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
 
@@ -98,7 +98,7 @@ export async function selectedTokenRollMacro(actor, title) {
     <div align="center">
       <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}:</label>
       <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select" style='height: 26px; width: 170px; margin-left: 5px; margin-bottom: 5px; text-align-last: center'>
-        <option value="none" ${(difficulty == "none" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
+        <option value="-1" ${(difficulty == "-1" ? "selected" : "")}>${game.i18n.localize("CYPHERSYSTEM.None")}</option>
         <option value="0" ${(difficulty == 0 ? "selected" : "")}>0</option>
         <option value="1" ${(difficulty == 1 ? "selected" : "")}>1</option>
         <option value="2" ${(difficulty == 2 ? "selected" : "")}>2</option>
@@ -174,7 +174,7 @@ export async function selectedTokenRollMacro(actor, title) {
     }
 
     // Create difficulty info
-    let baseDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
+    let baseDifficultyInfo = (data.baseDifficulty >= 0) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
 
     // Create beatenDifficulty info
     let beatenDifficulty = (roll.total < 0) ? Math.ceil(roll.total / 3) : Math.floor(roll.total / 3);
@@ -193,7 +193,7 @@ export async function selectedTokenRollMacro(actor, title) {
 
     // Create success info
     let successInfo = "";
-    if (data.baseDifficulty != "none") {
+    if (data.baseDifficulty >= 0) {
       let difficultyBeaten = difficulty;
       successInfo = (difficultyBeaten >= finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
     };
@@ -1180,7 +1180,6 @@ export function disasterModeMacro(token, mode, genre) {
   }
 
   async function changeGMIRange(token, level, genre) {
-    console.log(token);
     genre = (!genre || genre == "modern") ? "" : genre + "-";
     await token.actor.update({"system.basic.level": level});
     await token.document.update({"img": "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"});

@@ -211,7 +211,7 @@ export async function rollEngineOutput(data) {
   }
 
   // Create difficulty info
-  let baseDifficultyInfo = (data.baseDifficulty != "none") ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
+  let baseDifficultyInfo = (data.baseDifficulty >= 0) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") + ": " + data.baseDifficulty + " (" + Math.max(0, data.baseDifficulty * 3) + ")" : "";
 
   // Create multi roll
   let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<br><span class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</span>" : "";
@@ -228,7 +228,7 @@ export async function rollEngineOutput(data) {
 
   // Create success info
   let successInfo = "";
-  if (data.baseDifficulty != "none") {
+  if (data.baseDifficulty >= 0) {
     let difficultyBeaten = (useEffectiveDifficulty(data.baseDifficulty)) ? data.difficulty + data.difficultyModifierTotal : data.difficulty;
     successInfo = (difficultyBeaten >= data.finalDifficulty) ? "<br><span class='roll-effect effect1920'>" + game.i18n.localize("CYPHERSYSTEM.Success") + "</span>" : "<br><span class='roll-effect intrusion'>" + game.i18n.localize("CYPHERSYSTEM.Failure") + "</span>";
   };
@@ -238,7 +238,7 @@ export async function rollEngineOutput(data) {
 
   // Add reroll button
   let actorUuid = (actor) ? actor.uuid : "";
-  data.baseDifficulty = (data.baseDifficulty != "none") ? parseInt(data.baseDifficulty) : data.baseDifficulty;
+  data.baseDifficulty = (data.baseDifficulty >= 0) ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
   let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20"></i></a>`;
 
