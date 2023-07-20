@@ -78,7 +78,7 @@ export async function registerHandlebars() {
 
     // Add attack type
     if (item.system.basic.type == "light armor") {
-      outputArray.push(game.i18n.localize("CYPHERSYSTEM.LighArmor"));
+      outputArray.push(game.i18n.localize("CYPHERSYSTEM.LightArmor"));
     } else if (item.system.basic.type == "medium armor") {
       outputArray.push(game.i18n.localize("CYPHERSYSTEM.MediumArmor"));
     } else if (item.system.basic.type == "heavy armor") {
