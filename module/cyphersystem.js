@@ -288,36 +288,25 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
 });
 
 Hooks.on("preCreateActor", async function (actor) {
-  if (["pc", "community", "vehicle"].includes(actor.type)) {
+  if (["pc", "community"].includes(actor.type)) {
     actor.updateSource({
-      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "prototypeToken.actorLink": true
     });
   } else if (actor.type == "npc") {
     actor.updateSource({
       "prototypeToken.bar1": {"attribute": "pools.health"},
-      "prototypeToken.bar2": {"attribute": "basic.level"},
-      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+      "prototypeToken.bar2": {"attribute": "basic.level"}
     });
   } else if (actor.type == "companion") {
     actor.updateSource({
       "prototypeToken.bar1": {"attribute": "pools.health"},
       "prototypeToken.bar2": {"attribute": "basic.level"},
-      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER,
-      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "prototypeToken.actorLink": true
     });
   } else if (actor.type == "marker") {
     actor.updateSource({
       "prototypeToken.bar1": {"attribute": "pools.quantity"},
-      "prototypeToken.bar2": {"attribute": "basic.  level"},
-      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.HOVER,
-      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
-      "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL
+      "prototypeToken.bar2": {"attribute": "basic.level"}
     });
   }
 });
