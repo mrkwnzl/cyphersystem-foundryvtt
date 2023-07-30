@@ -279,7 +279,7 @@
   "CYPHERSYSTEM.CountQuantityOnInitiative": "Count Quantity on Initiative",
   "CYPHERSYSTEM.Initiative": "Initiative",
   "CYPHERSYSTEM.NoTokensOnScene": "{name} has no tokens on the active scene.",
-  "CYPHERSYSTEM.NoCombatActive": "No combat is currently active.",
+  "CYPHERSYSTEM.NoCombatActive": "Initiative can only be rolled after the GM created an encounter.",
   "CYPHERSYSTEM.UseAsInitiativeRoll": "Use Roll Results as Initiative Roll",
   "CYPHERSYSTEM.AdditionalSentenceField": "Additional Sentence Field",
   "CYPHERSYSTEM.AdditionalPoolSetting": "Additional Pool",
