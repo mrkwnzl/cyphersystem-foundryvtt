@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.4] - 2023-07-30
+### Changed
+- Prototype tokens of newly created actors no longer have a pre-defined display name and disposition. This allows you to set your own token defaults in the system settings. Already existing actors as well as actors form compendiums keep their prototype token settings.
+- Updated languages.
+- The notification if players try to roll initiative before an encounter has ben created has been clarified.
+
 ## [2.8.3] - 2023-07-20
 ### Fixed
 - Fixed a translation string for light armor.
