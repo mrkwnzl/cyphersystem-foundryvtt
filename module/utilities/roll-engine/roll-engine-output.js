@@ -282,7 +282,7 @@ export async function rollEngineOutput(data) {
   }
 
   if (game.settings.get("cyphersystem", "persistentRollDifficulty") == 0) {
-    await game.settings.set("cyphersystem", "rollDifficulty", -1);
+    game.socket.emit("system.cyphersystem", {operation: "resetDifficulty"});
     await updateRollDifficultyForm();
   }
 }

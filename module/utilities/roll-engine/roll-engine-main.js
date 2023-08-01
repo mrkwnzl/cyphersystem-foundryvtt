@@ -93,3 +93,9 @@ export function useEffectiveDifficulty(difficulty) {
     }
   }
 }
+
+export async function resetDifficulty() {
+  if (game.user.isGM) {
+    await game.settings.set("cyphersystem", "rollDifficulty", -1);
+  }
+}
