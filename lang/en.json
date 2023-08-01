@@ -624,5 +624,8 @@
   "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} has been copied as a skill.",
   "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} has been copied as an attack.",
   "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} has been copied as equipment.",
-  "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} has been copied as armor."
+  "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} has been copied as armor.",
+  "CYPHERSYSTEM.SubtractDifficulty": "Subtract 1 from difficulty.",
+  "CYPHERSYSTEM.AddDifficulty": "Add 1 to difficulty.",
+  "CYPHERSYSTEM.ResetDifficulty": "Reset difficulty."
 }
