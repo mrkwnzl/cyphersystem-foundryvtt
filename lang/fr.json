@@ -399,7 +399,7 @@
   "CYPHERSYSTEM.HighTier": "niveau supérieur",
   "CYPHERSYSTEM.Initiative": "Initiative",
   "CYPHERSYSTEM.NoTokensOnScene": "{name} ne possède pas de token actif sur la scène.",
-  "CYPHERSYSTEM.NoCombatActive": "Aucun combat n'est en cours.",
+  "CYPHERSYSTEM.NoCombatActive": "L'initiative ne peut être lancée qu'après que le MJ a créé une rencontre.",
   "CYPHERSYSTEM.UseAsInitiativeRoll": "Utiliser les résultats du jet comme jet d'initiative",
   "CYPHERSYSTEM.SheetClassCompanion": "Feuille Compagnon par défaut",
   "CYPHERSYSTEM.TargetIsAwareButNotLocation": "La cible est consciente, mais incertaine de la localisation de l'attaquant",
@@ -626,5 +626,7 @@
   "CYPHERSYSTEM.OnlyGMCanCopyCharacterProperties": "Seul le MJ peut dupliquer les propriétés de personnage.",
   "CYPHERSYSTEM.CharacterPropertiesCanOnlySharedAcrossPCs": "Les propriétés des personnages ne peuvent être déplacées vers ce type d'acteur.",
   "CYPHERSYSTEM.Keep": "Conserver",
-  "CYPHERSYSTEM.Duplicate": "Dupliquer"
+  "CYPHERSYSTEM.Duplicate": "Dupliquer",
+  "CYPHERSYSTEM.KeepDifficulty": "Difficulté persistante",
+  "CYPHERSYSTEM.OnlyNextRoll": "Appliquer uniquement au prochain jet"
 }
