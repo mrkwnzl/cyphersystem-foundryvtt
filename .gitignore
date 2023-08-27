@@ -2,4 +2,6 @@
 __MACOSX
 cyphersystem.lock
 .VSCodeCounter
+
+# Packs are being ignored while developing. Remove to update packs.
 packs
