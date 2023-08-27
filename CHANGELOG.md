@@ -11,7 +11,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Level 4 headings in journals are now bold and underlined to differentiate them from normal text.
 - The character portrait has no longer a box around it and the aspect ratio of the image is being respected.
-- Removed the custom css styles for folder headers. Those have been improved in core Foundry.
 
 ### Fixed
 - Error message about missing permission for to reset the difficulty has been fixed.

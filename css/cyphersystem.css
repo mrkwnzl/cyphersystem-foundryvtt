@@ -304,6 +304,16 @@ select.bar-attribute {
   width: 0;
 }
 
+/* Remove when fixed in core V12 */
+
+li.folder>.folder-header,
+li.folder.collapsed>.folder-header,
+li.folder.collapsed>.folder-header h3 {
+  text-shadow: 0 0 3px black;
+}
+
+/* until here */
+
 .cyphersystem .editor-content {
   padding: 0.3em !important;
   line-height: 1.4;
