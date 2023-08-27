@@ -110,8 +110,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.copy-as-skill').click(async clickEvent => {
       let actor = this.item.actor;
-      let item = this.item;
       if (!actor) return;
+      let item = this.item;
+      if (!["ability"].includes(item.type)) return;
 
       let itemData = {
         name: item.name,
@@ -130,8 +131,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.copy-as-attack').click(async clickEvent => {
       let actor = this.item.actor;
-      let item = this.item;
       if (!actor) return;
+      let item = this.item;
+      if (!["ability"].includes(item.type)) return;
 
       let itemData = {
         name: item.name,
@@ -142,7 +144,9 @@ export class CypherItemSheet extends ItemSheet {
         "system.basic.damage": item.system.settings.rollButton.damage,
         "system.basic.modifier": item.system.settings.rollButton.stepModifier,
         "system.basic.steps": item.system.settings.rollButton.additionalSteps,
-        "system.basic.skillRating": item.system.settings.rollButton.skill
+        "system.basic.skillRating": item.system.settings.rollButton.skill,
+        "system.settings.rollButton.pool": item.system.basic.pool,
+        "system.settings.rollButton.additionalCost": item.system.basic.cost
       };
 
       await actor.createEmbeddedDocuments("Item", [itemData]);
@@ -152,8 +156,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.copy-as-equipment').click(async clickEvent => {
       let actor = this.item.actor;
-      let item = this.item;
       if (!actor) return;
+      let item = this.item;
+      if (!["attack", "armor"].includes(item.type)) return;
 
       let itemData = {
         name: item.name,
@@ -168,8 +173,9 @@ export class CypherItemSheet extends ItemSheet {
 
     html.find('.copy-as-armor').click(async clickEvent => {
       let actor = this.item.actor;
-      let item = this.item;
       if (!actor) return;
+      let item = this.item;
+      if (!["attack", "armor"].includes(item.type)) return;
 
       let itemData = {
         name: item.name,

@@ -281,8 +281,12 @@ export async function rollEngineOutput(data) {
     }
   }
 
+  // Reset difficulty
   if (game.settings.get("cyphersystem", "persistentRollDifficulty") == 0) {
     game.socket.emit("system.cyphersystem", {operation: "resetDifficulty"});
     await updateRollDifficultyForm();
   }
+
+  // statRoll hook
+  Hooks.call("rollEngine", actor, data);
 }

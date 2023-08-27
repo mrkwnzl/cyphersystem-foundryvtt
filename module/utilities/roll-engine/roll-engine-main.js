@@ -4,7 +4,7 @@ import {rollEngineForm} from "./roll-engine-form.js";
 export async function rollEngineMain(data) {
   data = Object.assign({
     actorUuid: undefined,
-    itemID: "",
+    itemID: undefined,
     teen: undefined,
     skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
     skipRoll: false,

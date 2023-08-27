@@ -304,14 +304,6 @@ select.bar-attribute {
   width: 0;
 }
 
-/* Remove when fixed in core */
-
-li.folder>.folder-header,
-li.folder.collapsed>.folder-header,
-li.folder.collapsed>.folder-header h3 {
-  text-shadow: 0 0 3px black;
-}
-
 .cyphersystem .editor-content {
   padding: 0.3em !important;
   line-height: 1.4;
@@ -322,20 +314,20 @@ li.folder.collapsed>.folder-header h3 {
   margin: 0px;
 }
 
-.cyphersystem .prosemirror {
+.cyphersystem .ProseMirror {
   --color-control-bg: rgb(0, 0, 0, 0.1);
   --color-hover-bg: rgb(0, 0, 0, 0.15);
 }
 
-.cyphersystem .prosemirror menu .pm-dropdown ul {
+.cyphersystem .ProseMirror menu .pm-dropdown ul {
   background: #DDD;
 }
 
-.cyphersystem .prosemirror menu {
+.cyphersystem .ProseMirror menu {
   border-radius: 0px;
 }
 
-.cyphersystem .prosemirror .editor-container {
+.cyphersystem .ProseMirror .editor-container {
   margin: 0px;
 }
 
@@ -343,6 +335,12 @@ li.folder.collapsed>.folder-header h3 {
   margin: 0;
   border-bottom: 0;
   border-top: 1px solid #999;
+}
+
+.editor-content h4 {
+  font-size: 1em;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-underline-header);
 }
 
 .chat-hidden {
@@ -509,9 +507,9 @@ li.folder.collapsed>.folder-header h3 {
   height: 115px;
   width: 115px;
   margin-right: 5px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #7a7971;
+  border: 1px solid rgb(0, 0, 0, 0);
   border-radius: 3px;
+  object-fit: scale-down;
 }
 
 .cyphersystem .profile-img-gmi {
@@ -1156,8 +1154,7 @@ select.settings-input {
   position: absolute;
   top: 94px;
   left: 92px;
-  opacity: 85%;
-  text-shadow: 0px 0px 5px #000;
+  text-shadow: 0px 0px 2px #000;
   font-size: medium;
   color: white;
 }
