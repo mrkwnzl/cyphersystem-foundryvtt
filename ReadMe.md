@@ -114,9 +114,9 @@ Unless explicitely mentioned below, all graphics under `icons/` are taken from [
 
 The following graphics are taken from various sources, or have been created specifically for this system.
 
-- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): Grungy paper texture v.5
+- bashcorpo ([https://www.deviantart.com](https://www.deviantart.com/bashcorpo)): Grungy paper texture v.5, CC BY 3.0
 - Marko Wenzel: divider-horizontal.png, divider-vertical.png, grid.png, npcs.png
 - smaug18#2066: xp-marker.png
-- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): Wooden Table Texture
-- wojtar-stock ([https://www.deviantart.com/wojtar-stock](https://www.deviantart.com/wojtar-stock)): metal texture 12
-- zoestock ([https://www.deviantart.com/zoestock](https://www.deviantart.com/zoestock)): slightly wrinkled paper
+- The-Auteur-Stock ([https://www.deviantart.com](https://www.deviantart.com/the-auteur-stock)): Wooden Table Texture, CC BY 3.0
+- wojtar-stock ([https://www.deviantart.com/wojtar-stock](https://www.deviantart.com/wojtar-stock)): metal texture 12, non-commercial use allowed
+- zoestock ([https://www.deviantart.com/zoestock](https://www.deviantart.com/zoestock)): slightly wrinkled paper, no usage restrictions

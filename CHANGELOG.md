@@ -4,10 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2023-08-31
+### Added
+- The roll engine now has a hook with the actor and roll data, which can be called using `Hooks.on("rollEngine", actor, data);`.
+
+### Changed
+- Level 4 headings in journals are now bold and underlined to differentiate them from normal text.
+- The character portrait has no longer a box around it and the aspect ratio of the image is being respected.
+
+### Fixed
+- Error message about missing permission for to reset the difficulty has been fixed.
+- Added missing tooltips in difficulty panel.
+- When copying abilities as attacks, the Pool and Pool point cost are being carried over as they should.
+
 ## [2.8.4] - 2023-07-30
 ### Changed
 - Prototype tokens of newly created actors no longer have a pre-defined display name and disposition. This allows you to set your own token defaults in the system settings. Already existing actors as well as actors form compendiums keep their prototype token settings.
-- Updated languages.
+- Updated translations.
 - The notification if players try to roll initiative before an encounter has ben created has been clarified.
 
 ## [2.8.3] - 2023-07-20
@@ -17,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.8.2] - 2023-07-17
 ### Changed
 - Updated translations.
-  
+
 ### Fixed
 - The All-in-One Roll dialog should work again as expected. Hopefully.
 
@@ -31,8 +44,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Abilities now have buttons in their setting sheet to quickly copy them as skills or attacks.
 - Attacks and armor now have buttons in their setting sheet to quickly copy them as equipment.
-- New Difficulty Controls, which can be found in the Token Controls. With that, you can set a difficulty for the next roll or set a persistent difficulty which stays active until it’s being changed again. This also integrates with the Calculate/Announce Difficulty macro, which will set the difficulty and whether it’s for a single roll or persistent in the Difficulty Controls. 
-    
+- New Difficulty Controls, which can be found in the Token Controls. With that, you can set a difficulty for the next roll or set a persistent difficulty which stays active until it’s being changed again. This also integrates with the Calculate/Announce Difficulty macro, which will set the difficulty and whether it’s for a single roll or persistent in the Difficulty Controls.
+
   If the GM keeps the difficulty a secret (by not selecting “Show difficulty to everyone”), it won’t show up in the Difficulty Controls (wouldn’t be a secret, then). It will be set to ”None” in that case.
 
 ### Changed
@@ -154,7 +167,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.2.0] - 2023-01-08
 ### Added
 - New customization options. There’s a new Compatible with Cypher System logo on the right hand side of the stat pools. This new logo, the  background image, and background icon can now be customized with your own images. The opacity of the logo and icon as well as a white overlay for the background image can freely be set, so that you can ensure readability with all images.
-  
+
   **Note:** The default player permissions don’t allow players to open the file picker and select their own images, and for good reason. If you want your players to do that themselves, make them to trusted players or set the permissions accordingly in the User Management.
 - The additional Pool now has an option to enable an Edge value for it.
 
@@ -253,7 +266,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - New secret setting macro: This macro will lock some stats of the selected/controlled actor: Tier, Effort, advancements, max pool, recovery roll formula, and Cypher limit. A small lock icon on the PC’s image indicates this.
 
 ### Changed
-- Some refactoring of system functions. Most notably, the All-in-One roll macros has been reworked into the Roll Engine, which will allow for easier customization and bug fixing. 
+- Some refactoring of system functions. Most notably, the All-in-One roll macros has been reworked into the Roll Engine, which will allow for easier customization and bug fixing.
 - The All-in-One dialog has been changed from a dialog to a custom form, which allows for more interaction. The dialog now gives you a preview of the easements/hindrances, the total damage, and total cost. In addition, there’s a preview of the PC’s stat Pools after the roll. **Note:** As always when I touch the all-in-one roll, I likely broke something, which is part of the reason for this refactoring. Please let me know if something does not work as expected.
 - When using a roll/pay button on a character sheet, the speaker in the chat  message is always the character it comes from, not the selected token.
 
@@ -434,7 +447,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.27.0] - 2022-01-05
 ### Added
-- Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then: 
+- Skills can now be configured so that the roll results are used as the initiative result. It basically does these things, then:
   1. Add all tokens of the actor to the combat tracker (only if a combat is active and only if the actor has a token on the scene).
   2. Make a skill roll, including the regular cost.
   3. Change the initiative value of the tokens to the roll result plus 3 for each easement and minus 3 for each hindrance.

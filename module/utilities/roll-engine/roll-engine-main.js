@@ -4,7 +4,7 @@ import {rollEngineForm} from "./roll-engine-form.js";
 export async function rollEngineMain(data) {
   data = Object.assign({
     actorUuid: undefined,
-    itemID: "",
+    itemID: undefined,
     teen: undefined,
     skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
     skipRoll: false,
@@ -91,5 +91,11 @@ export function useEffectiveDifficulty(difficulty) {
     } else {
       return false;
     }
+  }
+}
+
+export async function resetDifficulty() {
+  if (game.user.isGM) {
+    await game.settings.set("cyphersystem", "rollDifficulty", -1);
   }
 }

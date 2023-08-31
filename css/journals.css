@@ -4,6 +4,17 @@
   line-height: 1.4;
 }
 
+.sheet.journal-entry h4 {
+  font-size: 1em;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-underline-header);
+}
+
+.sheet.journal-entry .journal-entry-page ul p,
+.sheet.journal-entry .journal-entry-page ol p {
+  margin: 0px;
+}
+
 /* Tables */
 
 .sheet.journal-entry .csrd-table,
