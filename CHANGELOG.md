@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- CSS Updates to make the Cypher System logo in the character sheets bigger.
+
 ## [2.9.0] - 2023-08-31
 ### Added
 - The roll engine now has a hook with the actor and roll data, which can be called using `Hooks.on("rollEngine", actor, data);`.

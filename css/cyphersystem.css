@@ -1305,8 +1305,10 @@ select.settings-input {
 }
 
 .cyphersystem div.cypher-logo {
-  border: 1px solid rgb(0, 0, 0, 0);
+  border: none;
   display: flex;
+  padding: 0;
+  min-width: 154.75px;
 }
 
 .cyphersystem img.cypher-logo {
@@ -1317,22 +1319,17 @@ select.settings-input {
   object-fit: scale-down;
 }
 
-.cyphersystem img.pc-logo {
-  max-height: 75px;
-  max-width: 140px;
+.cyphersystem .sheet-header img.pc-logo {
+  height: auto;
+  max-height: 87px;
 }
 
-.cyphersystem img.npc-logo {
-  max-height: 57px;
-  max-width: 168px;
+.cyphersystem .sheet-header img.npc-logo {
+  max-height: 59px;
 }
 
 .cyphersystem img.cypher-logo.white {
   filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
-}
-
-.cyphersystem img.cypher-logo.custom {
-  height: 75px;
 }
 
 .cyphersystem .items-list button.file-picker {
