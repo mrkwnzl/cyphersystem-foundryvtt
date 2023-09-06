@@ -628,5 +628,8 @@
   "CYPHERSYSTEM.KeepDifficulty": "Persistenter Schwierigkeitsgrad",
   "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} wurde als Fertigkeit kopiert.",
   "CYPHERSYSTEM.ItemCreatedAsArmor": "{item} wurde als Rüstung kopiert.",
-  "CYPHERSYSTEM.CopyAs": "Kopieren als…"
+  "CYPHERSYSTEM.CopyAs": "Kopieren als…",
+  "CYPHERSYSTEM.DifficultyControlPanel": "Schwierigkeitsgradkontrollen",
+  "CYPHERSYSTEM.ApplyToNPCInitiative": "NSC-Initiative basiert auf Schwierigkeitsgrad",
+  "CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative": "Der Schwierigkeitsgrad wird für die Berechnung der NSC-Initiative benutzt"
 }
