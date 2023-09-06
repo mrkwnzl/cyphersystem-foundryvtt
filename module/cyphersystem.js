@@ -365,14 +365,22 @@ Hooks.on("createCombatant", function (combatant) {
   if (game.user.isGM) {
     let actor = combatant.actor;
 
+    if (game.settings.get("cyphersystem", "difficultyNPCInitiative") && game.settings.get("cyphersystem", "rollDifficulty") >= 0) {
+      var NPCInitiative = game.settings.get("cyphersystem", "rollDifficulty");
+    } else {
+      var NPCInitiative = (actor.type == "community")
+        ? actor.system.basic.rank
+        : actor.system.basic.level;
+    }
+
     if (actor.type == "npc") {
-      combatant.update({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.level / 1000)});
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
-      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.rank / 1000)});
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
       combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
     } else if (actor.type == "vehicle") {
-      combatant.update({"initiative": (actor.system.basic.level * 3) - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) - 0.5 + (actor.system.basic.level / 1000)});
     }
   }
 });

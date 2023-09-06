@@ -116,6 +116,13 @@ export async function registerGameSettings() {
     default: -1
   });
 
+  game.settings.register("cyphersystem", "difficultyNPCInitiative", {
+    scope: "world",
+    type: Number,
+    default: 0,
+    config: false
+  });
+
   // GMI Range
   game.settings.register("cyphersystem", "useGlobalGMIRange", {
     scope: "world",

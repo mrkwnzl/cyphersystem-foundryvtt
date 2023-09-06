@@ -15,7 +15,7 @@ export class GMIRangeSheet extends FormApplication {
       submitOnClose: false,
       width: 300,
       height: "auto",
-      top: 210,
+      top: 235,
       left: 110,
       resizable: false
     });

@@ -6,18 +6,28 @@
       <ol class="items-list">
         <li class="item flexrow item-header gmi-header" data-item-id="{{actor._id}}">
           <label>
-            {{#if persistentRollDifficulty}}
-              {{localize "CYPHERSYSTEM.KeepDifficulty"}}
-            {{else}}
-              {{localize "CYPHERSYSTEM.OnlyNextRoll"}}
-            {{/if}}
+            {{localize "CYPHERSYSTEM.KeepDifficulty"}}
           </label>&nbsp;
           <div class="item-controls">
             {{#if isGM}}
               {{#if persistentRollDifficulty}}
-                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-on"></i></a>
+                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i></a>
               {{else}}
-                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-off"></i></a>
+                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.OnlyNextRoll'}}"></i></a>
+              {{/if}}
+            {{/if}}
+          </div>
+        </li>
+        <li class="item flexrow item-header gmi-header" style="border-top: none;" data-item-id="{{actor._id}}">
+          <label>
+            {{localize "CYPHERSYSTEM.ApplyToNPCInitiative"}}
+          </label>&nbsp;
+          <div class="item-controls">
+            {{#if isGM}}
+              {{#if difficultyNPCInitiative}}
+                <a class="toggle-difficulty-npc-initiative"><i class="fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative'}}"></i></a>
+              {{else}}
+                <a class="toggle-difficulty-npc-initiative"><i class="fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.NPCsUseTheirLevelForInitiative'}}"></i></a>
               {{/if}}
             {{/if}}
           </div>
