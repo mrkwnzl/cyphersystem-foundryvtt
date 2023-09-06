@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Changed
-- CSS Updates to make the Cypher System logo in the character sheets bigger.
+- The Cypher logo (and custom logos) now use more of the space they have available, making them effectively a little bigger on the sheet.
+- The dark tabletop scene now has a new table texture.
+
+### Fixed
+- The initial cost in the All-in-One Roll Dialog is now calculated correctly.
 
 ## [2.9.0] - 2023-08-31
 ### Added

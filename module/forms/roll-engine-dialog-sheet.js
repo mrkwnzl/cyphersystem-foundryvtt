@@ -46,19 +46,6 @@ export class RollEngineDialogSheet extends FormApplication {
     data.intellectMax = (data.teen) ? actor.system.teen.pools.intellect.max : actor.system.pools.intellect.max;
     data.intellectEdge = (data.teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
 
-    // Summary
-    data.summaryFinalDifficulty = summaryFinalDifficulty(data);
-    data.summaryTaskModified = summaryTaskModified(data);
-    data.summaryTotalDamage = summaryTotalDamage(data);
-    data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
-    data.summaryTotalCost = data.summaryTotalCostArray[0];
-    data.summaryTotalCostString = data.summaryTotalCostArray[1];
-    data.summaryTitle = data.title + ".";
-    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
-    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
-    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
-    data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
-
     // Derived data
     data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
     data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
@@ -89,6 +76,19 @@ export class RollEngineDialogSheet extends FormApplication {
     data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
 
+    // Summary
+    data.summaryFinalDifficulty = summaryFinalDifficulty(data);
+    data.summaryTaskModified = summaryTaskModified(data);
+    data.summaryTotalDamage = summaryTotalDamage(data);
+    data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
+    data.summaryTotalCost = data.summaryTotalCostArray[0];
+    data.summaryTotalCostString = data.summaryTotalCostArray[1];
+    data.summaryTitle = data.title + ".";
+    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
+    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
+    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
+    data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
+
     // Return data
     return data;
   }
@@ -112,17 +112,6 @@ export class RollEngineDialogSheet extends FormApplication {
     data.difficultyModifier = (formData.difficultyModifier) ? formData.difficultyModifier : 0;
     data.bonus = (formData.bonus) ? formData.bonus : 0;
     data.poolPointCost = (formData.poolPointCost) ? formData.poolPointCost : 0;
-
-    // Summary
-    data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
-    data.summaryTaskModified = summaryTaskModified(formData);
-    data.summaryTotalDamage = summaryTotalDamage(formData);
-    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
-    data.summaryTotalCost = data.summaryTotalCostArray[0];
-    data.summaryTotalCostString = data.summaryTotalCostArray[1];
-    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
-    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
-    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
 
     // Derived data
     data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
@@ -153,6 +142,17 @@ export class RollEngineDialogSheet extends FormApplication {
     data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+
+    // Summary
+    data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
+    data.summaryTaskModified = summaryTaskModified(formData);
+    data.summaryTotalDamage = summaryTotalDamage(formData);
+    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
+    data.summaryTotalCost = data.summaryTotalCostArray[0];
+    data.summaryTotalCostString = data.summaryTotalCostArray[1];
+    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
+    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
+    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
 
     // Render sheet
     this.render();
