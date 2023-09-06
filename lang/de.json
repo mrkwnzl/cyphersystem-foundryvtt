@@ -400,7 +400,7 @@
   "CYPHERSYSTEM.LowTier": "niedriger Rang",
   "CYPHERSYSTEM.MidTier": "mittlerer Rang",
   "CYPHERSYSTEM.HighTier": "hoher Rang",
-  "CYPHERSYSTEM.NoCombatActive": "Zur Zeit ist kein Kampf aktiv.",
+  "CYPHERSYSTEM.NoCombatActive": "Initiative kann nur gewürfelt werden, nachdem die SL einen Kampf gestartet hat.",
   "CYPHERSYSTEM.UseAsInitiativeRoll": "Benutze Würfelergebnis als Initiativewurf",
   "CYPHERSYSTEM.BaseDifficulty": "Basisschwierigkeit",
   "CYPHERSYSTEM.PCIsAttacker": "SC ist aktiv/Angreifer",
@@ -631,5 +631,9 @@
   "CYPHERSYSTEM.CopyAs": "Kopieren als…",
   "CYPHERSYSTEM.DifficultyControlPanel": "Schwierigkeitsgradkontrollen",
   "CYPHERSYSTEM.ApplyToNPCInitiative": "NSC-Initiative basiert auf Schwierigkeitsgrad",
-  "CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative": "Der Schwierigkeitsgrad wird für die Berechnung der NSC-Initiative benutzt"
+  "CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative": "Der Schwierigkeitsgrad wird für die Berechnung der NSC-Initiative benutzt",
+  "CYPHERSYSTEM.NPCsUseTheirLevelForInitiative": "NSCs benutzen ihre Stufe für Initiative",
+  "CYPHERSYSTEM.AddDifficulty": "Füge 1 zum Schwierigkeitsgrad hinzu.",
+  "CYPHERSYSTEM.ResetDifficulty": "Setze Schwierigkeitsgrad zurück.",
+  "CYPHERSYSTEM.SubtractDifficulty": "Ziehe 1 vom Schwierigkeitsgrad ab."
 }
