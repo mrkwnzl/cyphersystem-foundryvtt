@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Changed
 - The Cypher logo (and custom logos) now use more of the space they have available, making them effectively a little bigger on the sheet.
-- The dark tabletop scene now has a new table texture.
+- The dark tabletop scene now has a new table texture. Exisiting scenes are automatically using the new texture.
 
 ### Fixed
 - The initial cost in the All-in-One Roll Dialog is now calculated correctly.
+- The Count Quantity macro to use in conjunction with Marker tokens now works correctly again.
 
 ## [2.9.0] - 2023-08-31
 ### Added
