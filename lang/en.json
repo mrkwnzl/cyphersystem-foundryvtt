@@ -93,7 +93,7 @@
   "CYPHERSYSTEM.OnlyNextRoll": "Apply to next roll only",
   "CYPHERSYSTEM.ApplyToNPCInitiative": "Base NPC initiative on difficulty",
   "CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative": "Difficulty is used as base for NPC initiative",
-  "CYPHERSYSTEM.NPCsUseTheirLevelForInitiative": "NPCs use thei level for initiative",
+  "CYPHERSYSTEM.NPCsUseTheirLevelForInitiative": "NPCs use their level for initiative",
   "CYPHERSYSTEM.DifficultyModifier": "Difficulty modifier",
   "CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
   "CYPHERSYSTEM.Success": "Success!",
