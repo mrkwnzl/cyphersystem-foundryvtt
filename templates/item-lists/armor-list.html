@@ -9,7 +9,7 @@
     </h4>
     <div class="item-quantity">{{item.system.basic.rating}}/{{item.system.basic.cost}}</div>
     <div class="item-controls">
-      {{#if (eq ../type "pc")}}
+      {{#if (eq ../actor.type "pc")}}
         <a class="item-control armor-active {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
           <i class="fas fa-check {{#unless item.system.active}}archived{{/unless}}" aria-hidden="true"></i>
         </a>
