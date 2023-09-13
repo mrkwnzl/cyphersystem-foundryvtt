@@ -252,7 +252,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
   if (tokenControls) {
     tokenControls.tools.push({
       name: "rollDifficulty",
-      title: game.i18n.localize("CYPHERSYSTEM.Difficulty"),
+      title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
       icon: "fa-solid fa-crosshairs-simple",
       onClick: () => {renderRollDifficultyForm(true);},
       button: true

@@ -455,5 +455,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
     html.find('.disable-multi-roll').click(clickEvent => {
       disableMultiRoll(this.actor);
     });
+
+    // Toggle Temporary Power Shift
+    html.find('.power-shift-temporary').click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let newValue = (item.system.basic.temporary) ? false : true;
+      item.update({"system.basic.temporary": newValue});
+    });
   }
 }

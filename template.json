@@ -1217,7 +1217,8 @@
         "core"
       ],
       "basic": {
-        "shifts": 1
+        "shifts": 1,
+        "temporary": false
       }
     },
     "recursion": {
