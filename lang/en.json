@@ -632,5 +632,5 @@
   "CYPHERSYSTEM.SubtractDifficulty": "Subtract 1 from difficulty.",
   "CYPHERSYSTEM.AddDifficulty": "Add 1 to difficulty.",
   "CYPHERSYSTEM.ResetDifficulty": "Reset difficulty.",
-  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Toggle temporary power shift"
+  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Toggle Temporary Power Shift"
 }
