@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - The difficulty control panel now has an option to use the difficulty as the base value for NPC (and for non-player communities and vehicles) initiative instead of their level. This way, all lower level NPCs would still act at the same time as the highest level NPCs, if the difficulty is set to the level of the highest level NPC, as per the rules. Within the NPC group, they are still sorted by level (see changes below).
+- Power shifts now have a toggle to display a temporary power shifts (for example, for temporary blood shifts from Stay Alive!). Note that this is, as are all power shifts, mainly a cosmetic setting. It doesn’t ease any roll automatically. That needs to be accounted for manually.
 
 ### Changed
 - The Cypher logo (and custom logos) now use more of the space they have available, making them effectively a little bigger on the sheet.
@@ -16,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - The initial cost in the All-in-One Roll Dialog is now calculated correctly.
 - The Count Quantity macro to use in conjunction with Marker tokens now works correctly again.
+- The button to toggle active armor works again.
 
 ## [2.9.0] - 2023-08-31
 ### Added
