@@ -88,6 +88,7 @@ export async function renderRollDifficultyForm() {
 
 // This is used to check whether a GMI Range for is already there and re-render it when it is
 export async function updateRollDifficultyForm() {
+  console.log("DIFFICULTY SHEET");
   let rollDifficultyForm = Object.values(ui.windows).find((app) => app instanceof RollDifficultySheet);
 
   if (rollDifficultyForm) {

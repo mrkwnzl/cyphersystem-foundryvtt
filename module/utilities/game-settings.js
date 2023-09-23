@@ -47,6 +47,15 @@ export async function registerGameSettings() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "showRollDetails", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetails"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetailsHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
   game.settings.register("cyphersystem", "cypherIdentification", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentification"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationHint"),

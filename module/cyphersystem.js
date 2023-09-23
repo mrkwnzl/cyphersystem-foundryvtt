@@ -466,6 +466,42 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     }
   });
 
+  // Event Listener for difficulty details in chat
+  html.find('.roll-result-difficulty').click(clickEvent => {
+    const description = html.find('.roll-result-difficulty-details');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
+  // Event Listener for damage details in chat
+  html.find('.roll-result-damage').click(clickEvent => {
+    const description = html.find('.roll-result-damage-details');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
+  // Event Listener for damage details in chat
+  html.find('.roll-result-cost').click(clickEvent => {
+    const description = html.find('.roll-result-cost-details');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
