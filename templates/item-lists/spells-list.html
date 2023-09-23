@@ -43,8 +43,12 @@
         <a class="item-control cast-spell {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CastSpell'}}">
           <i class="fas fa-book-dead"></i>
         </a>
-        <a class="item-control item-pay {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.PayItem'}}">
-          <i class="fas fa-coins"></i>
+        <a class="item-control item-pay {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemPayPoints'}}{{else}}{{localize 'CYPHERSYSTEM.PayItem'}}{{/if}}">
+          {{#if ../sheetSettings.useAllInOne}}
+            <i class="fas fa-dice-d20"></i>
+          {{else}}
+            <i class="fas fa-coins"></i>
+          {{/if}}
         </a>
       {{/if}}
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">

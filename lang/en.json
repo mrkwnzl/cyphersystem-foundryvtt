@@ -349,6 +349,8 @@
   "CYPHERSYSTEM.CreateItem": "Create Item",
   "CYPHERSYSTEM.EditItem": "Open Item Sheet",
   "CYPHERSYSTEM.RollItem": "Roll Item (alt-click for All-in-One dialog)",
+  "CYPHERSYSTEM.RollItemSkip": "Roll Item (alt-click to skip All-in-One dialog)",
+  "CYPHERSYSTEM.RollItemPayPoints": "Roll Item (alt-click to pay Pool points)",
   "CYPHERSYSTEM.PayItem": "Pay Pool Points (alt-click for All-in-One dialog)",
   "CYPHERSYSTEM.CastSpell": "Use Recovery Roll to Cast Spell",
   "CYPHERSYSTEM.ShowDescription": "Show Description (alt-click to send description to chat)",

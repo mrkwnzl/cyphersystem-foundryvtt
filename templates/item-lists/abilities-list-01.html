@@ -37,9 +37,14 @@
       {{/unless}}
     </h4>
     <div class="item-controls">
+      {{log ../sheetSettings}}
       {{#if ../sheetSettings.rollButtons}}
-        <a class="item-control item-pay {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.PayItem'}}">
-          <i class="fas fa-coins"></i>
+        <a class="item-control item-pay {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemPayPoints'}}{{else}}{{localize 'CYPHERSYSTEM.PayItem'}}{{/if}}">
+          {{#if ../sheetSettings.useAllInOne}}
+            <i class="fas fa-dice-d20"></i>
+          {{else}}
+            <i class="fas fa-coins"></i>
+          {{/if}}
         </a>
       {{/if}}
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
