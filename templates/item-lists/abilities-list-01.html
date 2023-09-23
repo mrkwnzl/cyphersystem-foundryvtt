@@ -37,7 +37,6 @@
       {{/unless}}
     </h4>
     <div class="item-controls">
-      {{log ../sheetSettings}}
       {{#if ../sheetSettings.rollButtons}}
         <a class="item-control item-pay {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemPayPoints'}}{{else}}{{localize 'CYPHERSYSTEM.PayItem'}}{{/if}}">
           {{#if ../sheetSettings.useAllInOne}}
