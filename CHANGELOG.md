@@ -12,7 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - The Cypher logo (and custom logos) now use more of the space they have available, making them effectively a little bigger on the sheet.
 - The dark tabletop scene now has a new table texture. Exisiting scenes are automatically using the new texture.
-- NPC (and non-player community and vehicle) initiative now has the level of the NPC as the tie breaker. The initiative value now goes to one-thousands. This is only relevant, if you use the difficulty control panel to set the base for the initiative instead of the level of the NPC (see additions above). For example, a level 4 NPC with an initiative base set to difficulty 5 will have an initiative value of 4.504. 4.5 is the base difficulty 5 minus 0.5 as the tie breaker against PCs, and 0.004 is added as a tie breaker against other NPCs. 
+- NPC (and non-player community and vehicle) initiative now has the level of the NPC as the tie breaker. The initiative value now goes to one-thousands. This is only relevant, if you use the difficulty control panel to set the base for the initiative instead of the level of the NPC (see additions above). For example, a level 4 NPC with an initiative base set to difficulty 5 will have an initiative value of 4.504. 4.5 is the base difficulty 5 minus 0.5 as the tie breaker against PCs, and 0.004 is added as a tie breaker against other NPCs.
+- The roll button for abilities now better reflects the All-in-One dialog settings.
 
 ### Fixed
 - The initial cost in the All-in-One Roll Dialog is now calculated correctly.
