@@ -12,7 +12,7 @@ export async function rollEngineOutput(data) {
   let showDetails = game.settings.get("cyphersystem", "showRollDetails");
 
   // Title and description
-  let title = (data.title) ? data.title + `<br>` : `<b>` + game.i18n.localize("CYPHERSYSTEM.StatRoll") + `</b>`;
+  let title = (data.title) ? `<b>` + data.title + `</b><br>` : `<b>` + game.i18n.localize("CYPHERSYSTEM.StatRoll") + `</b>`;
   let itemDescription = "";
   let itemDescriptionInfo = "";
   if (actor.items.get(data.itemID)) {
@@ -289,7 +289,7 @@ export async function rollEngineOutput(data) {
   };
 
   // Create info block
-  let info = difficultyBlock + damageInfoBlock + costInfoBlock;
+  let info = difficultyBlock + costInfoBlock + damageInfoBlock;
 
   // Add reroll button
   let actorUuid = (actor) ? actor.uuid : "";
