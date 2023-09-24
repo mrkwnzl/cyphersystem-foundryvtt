@@ -628,5 +628,8 @@
   "CYPHERSYSTEM.Keep": "Conserver",
   "CYPHERSYSTEM.Duplicate": "Dupliquer",
   "CYPHERSYSTEM.KeepDifficulty": "Difficulté persistante",
-  "CYPHERSYSTEM.OnlyNextRoll": "Appliquer uniquement au prochain jet"
+  "CYPHERSYSTEM.OnlyNextRoll": "Appliquer uniquement au prochain jet",
+  "CYPHERSYSTEM.SubtractDifficulty": "Soustraire 1 à la difficulté.",
+  "CYPHERSYSTEM.AddDifficulty": "Ajouter 1 à la difficulté.",
+  "CYPHERSYSTEM.ResetDifficulty": "Réinitialiser la difficulté."
 }
