@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.1] - 2023-09-24
+### Fixed
+- Hotfix for broken download link.
+
 ## [2.10.0] - 2023-09-24
 ### Added
 - The difficulty control panel now has an option to use the difficulty as the base value for NPC (and for non-player communities and vehicles) initiative instead of their level. This way, all lower level NPCs would still act at the same time as the highest level NPCs, if the difficulty is set to the level of the highest level NPC, as per the rules. Within the NPC group, they are still sorted by level (see changes below).
