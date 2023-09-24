@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2023-09-24
+### Added
+- The difficulty control panel now has an option to use the difficulty as the base value for NPC (and for non-player communities and vehicles) initiative instead of their level. This way, all lower level NPCs would still act at the same time as the highest level NPCs, if the difficulty is set to the level of the highest level NPC, as per the rules. Within the NPC group, they are still sorted by level (see changes below).
+- Power shifts now have a toggle to display a temporary power shifts (for example, for temporary blood shifts from Stay Alive!). Note that this is, as all power shifts are, mainly a cosmetic setting. It doesn’t ease any rolls automatically. That needs to be accounted for manually.
+- A new game setting to always show the roll result details (see below) by default.
+
+### Changed
+- The Cypher logo (and custom logos) now use more of the space they have available, making them effectively a little bigger on the sheet.
+- The dark tabletop scene now has a new table texture. Exisiting scenes are automatically using the new texture.
+- NPC (and non-player community and vehicle) initiative now has the level of the NPC as the tie breaker. The initiative value now goes to one-thousands. This is only relevant, if you use the difficulty control panel to set the base for the initiative instead of the level of the NPC (see additions above). For example, a level 4 NPC with an initiative base set to difficulty 5 will have an initiative value of 4.504. 4.5 is the base difficulty 5 minus 0.5 as the tie breaker against PCs, and 0.004 is added as a tie breaker against other NPCs.
+- The roll button for abilities now better reflects the All-in-One dialog settings.
+- The chat output for the All-in-One rolls (including quick rolls) has been revamped so that the most important information is shown and understandable at a quick glance. With a click on each title, you get all the details.
+
+### Fixed
+- The initial cost in the All-in-One Roll Dialog is now calculated correctly.
+- The Count Quantity macro to use in conjunction with Marker tokens now works correctly again.
+- The button to toggle active armor works again.
+
 ## [2.9.0] - 2023-08-31
 ### Added
 - The roll engine now has a hook with the actor and roll data, which can be called using `Hooks.on("rollEngine", actor, data);`.

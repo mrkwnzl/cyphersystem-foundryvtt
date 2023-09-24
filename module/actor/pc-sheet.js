@@ -36,6 +36,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     // Sheet settings
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
     data.sheetSettings.multiRollActive = this.actor.getFlag("cyphersystem", "multiRoll.active");
     data.sheetSettings.multiRollEffort = (this.actor.getFlag("cyphersystem", "multiRoll.active") === true && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0) ? "multi-roll-active" : "";
     data.sheetSettings.multiRollMightEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") === true && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
@@ -454,6 +455,13 @@ export class CypherActorSheetPC extends CypherActorSheet {
     // Disable multi roll
     html.find('.disable-multi-roll').click(clickEvent => {
       disableMultiRoll(this.actor);
+    });
+
+    // Toggle Temporary Power Shift
+    html.find('.power-shift-temporary').click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let newValue = (item.system.basic.temporary) ? false : true;
+      item.update({"system.basic.temporary": newValue});
     });
   }
 }

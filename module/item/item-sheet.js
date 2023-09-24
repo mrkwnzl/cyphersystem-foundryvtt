@@ -38,6 +38,7 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.isGM = game.user.isGM;
     data.sheetSettings.isObserver = !this.options.editable;
     data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
     data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
     data.sheetSettings.identified = this.item.system.basic?.identified;
     data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";

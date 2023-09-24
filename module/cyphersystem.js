@@ -252,7 +252,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
   if (tokenControls) {
     tokenControls.tools.push({
       name: "rollDifficulty",
-      title: game.i18n.localize("CYPHERSYSTEM.Difficulty"),
+      title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
       icon: "fa-solid fa-crosshairs-simple",
       onClick: () => {renderRollDifficultyForm(true);},
       button: true
@@ -365,14 +365,22 @@ Hooks.on("createCombatant", function (combatant) {
   if (game.user.isGM) {
     let actor = combatant.actor;
 
+    if (game.settings.get("cyphersystem", "difficultyNPCInitiative") && game.settings.get("cyphersystem", "rollDifficulty") >= 0) {
+      var NPCInitiative = game.settings.get("cyphersystem", "rollDifficulty");
+    } else {
+      var NPCInitiative = (actor.type == "community")
+        ? actor.system.basic.rank
+        : actor.system.basic.level;
+    }
+
     if (actor.type == "npc") {
-      combatant.update({"initiative": (actor.system.basic.level * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.level / 1000)});
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
-      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.rank / 1000)});
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
       combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
     } else if (actor.type == "vehicle") {
-      combatant.update({"initiative": (actor.system.basic.level * 3) - 0.5});
+      combatant.update({"initiative": (NPCInitiative * 3) - 0.5 + (actor.system.basic.level / 1000)});
     }
   }
 });
@@ -449,6 +457,42 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for description in chat
   html.find('.chat-description').click(clickEvent => {
     const description = html.find('.chat-card-item-description');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
+  // Event Listener for difficulty details in chat
+  html.find('.roll-result-difficulty').click(clickEvent => {
+    const description = html.find('.roll-result-difficulty-details');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
+  // Event Listener for damage details in chat
+  html.find('.roll-result-damage').click(clickEvent => {
+    const description = html.find('.roll-result-damage-details');
+    if (description.hasClass("expanded")) {
+      description.slideUp();
+      description.toggleClass("expanded");
+    } else {
+      description.slideDown();
+      description.toggleClass("expanded");
+    }
+  });
+
+  // Event Listener for damage details in chat
+  html.find('.roll-result-cost').click(clickEvent => {
+    const description = html.find('.roll-result-cost-details');
     if (description.hasClass("expanded")) {
       description.slideUp();
       description.toggleClass("expanded");

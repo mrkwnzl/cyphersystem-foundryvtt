@@ -7,10 +7,13 @@
       </a>
     </h4>
     <div class="item-quantity">
-      {{item.system.basic.shifts}}
+      {{item.system.basic.shifts}}{{#if item.system.basic.temporary}} + 1{{/if}}
     </div>
     <div class="item-controls">
-      <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
+      <a class="item-control power-shift-temporary {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ToggleTemporaryPowerShift'}}">
+        <i class="fa-solid fa-hourglass" style="{{#unless item.system.basic.temporary}}color: grey{{/unless}}"></i>
+      </a>
+      <a class=" item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
         <i class="fas fa-file-alt"></i>
       </a>
       <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">

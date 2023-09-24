@@ -9,7 +9,7 @@ export class RollDifficultySheet extends FormApplication {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "gmi-form"],
       template: "systems/cyphersystem/templates/forms/roll-difficulty-sheet.html",
-      title: game.i18n.localize("CYPHERSYSTEM.Difficulty"),
+      title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
       closeOnSubmit: false,
       submitOnChange: true,
       submitOnClose: false,
@@ -28,6 +28,7 @@ export class RollDifficultySheet extends FormApplication {
     data.rollDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
     data.targetNumber = parseInt(data.rollDifficulty) * 3;
     data.persistentRollDifficulty = game.settings.get("cyphersystem", "persistentRollDifficulty");
+    data.difficultyNPCInitiative = game.settings.get("cyphersystem", "difficultyNPCInitiative");
     data.isGM = game.user.isGM;
 
     // Return data
@@ -46,6 +47,12 @@ export class RollDifficultySheet extends FormApplication {
       let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
       html.find("ol#chat-log .note-roll-dialog").last().addClass("hidden");
       await game.settings.set("cyphersystem", "persistentRollDifficulty", !game.settings.get("cyphersystem", "persistentRollDifficulty"));
+      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
+      this.render(true);
+    });
+
+    html.find('.toggle-difficulty-npc-initiative').click(async clickEvent => {
+      await game.settings.set("cyphersystem", "difficultyNPCInitiative", !game.settings.get("cyphersystem", "difficultyNPCInitiative"));
       game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
       this.render(true);
     });
@@ -81,6 +88,7 @@ export async function renderRollDifficultyForm() {
 
 // This is used to check whether a GMI Range for is already there and re-render it when it is
 export async function updateRollDifficultyForm() {
+  console.log("DIFFICULTY SHEET");
   let rollDifficultyForm = Object.values(ui.windows).find((app) => app instanceof RollDifficultySheet);
 
   if (rollDifficultyForm) {

@@ -34,6 +34,7 @@ export class RollEngineDialogSheet extends FormApplication {
 
     data.effortValue = actor.system.basic.effort;
 
+    // Base stats
     data.mightValue = (data.teen) ? actor.system.teen.pools.might.value : actor.system.pools.might.value;
     data.mightMax = (data.teen) ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
     data.mightEdge = (data.teen) ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
@@ -45,6 +46,21 @@ export class RollEngineDialogSheet extends FormApplication {
     data.intellectValue = (data.teen) ? actor.system.teen.pools.intellect.value : actor.system.pools.intellect.value;
     data.intellectMax = (data.teen) ? actor.system.teen.pools.intellect.max : actor.system.pools.intellect.max;
     data.intellectEdge = (data.teen) ? actor.system.teen.pools.intellect.edge : actor.system.pools.intellect.edge;
+
+    // Effort
+    data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
+
+    // Damage Track
+    data.impairedString = "";
+    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) {
+      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
+    } else if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) {
+      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
+    }
+
+    // Armor
+    data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
+    data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
     // Summary
     data.summaryFinalDifficulty = summaryFinalDifficulty(data);
@@ -59,28 +75,17 @@ export class RollEngineDialogSheet extends FormApplication {
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
     data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
 
-    // Derived data
-    data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
-    data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
-
-    data.mightValue = (data.pool == "Might") ? data.mightValue - data.summaryTotalCost : data.mightValue;
-    data.speedValue = (data.pool == "Speed") ? data.speedValue - data.summaryTotalCost : data.speedValue;
-    data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
-
-    data.impairedString = "";
-    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) {
-      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
-    } else if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) {
-      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
-    }
-
-    data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
-    data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
-
+    // Summary results
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
     data.exceedMight = (data.pool == "Might" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
     data.exceedSpeed = (data.pool == "Speed" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
     data.exceedIntellect = (data.pool == "Intellect" && data.summaryNotEnoughPointsString) ? "exceeded" : "";
+    data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
+
+    // Summary stats
+    data.mightValue = (data.pool == "Might") ? data.mightValue - data.summaryTotalCost : data.mightValue;
+    data.speedValue = (data.pool == "Speed") ? data.speedValue - data.summaryTotalCost : data.speedValue;
+    data.intellectValue = (data.pool == "Intellect") ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
 
     // MultiRoll data
     data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
@@ -113,17 +118,6 @@ export class RollEngineDialogSheet extends FormApplication {
     data.bonus = (formData.bonus) ? formData.bonus : 0;
     data.poolPointCost = (formData.poolPointCost) ? formData.poolPointCost : 0;
 
-    // Summary
-    data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
-    data.summaryTaskModified = summaryTaskModified(formData);
-    data.summaryTotalDamage = summaryTotalDamage(formData);
-    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
-    data.summaryTotalCost = data.summaryTotalCostArray[0];
-    data.summaryTotalCostString = data.summaryTotalCostArray[1];
-    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
-    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
-    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
-
     // Derived data
     data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
     data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) ? "disabled" : "";
@@ -153,6 +147,17 @@ export class RollEngineDialogSheet extends FormApplication {
     data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+
+    // Summary
+    data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
+    data.summaryTaskModified = summaryTaskModified(formData);
+    data.summaryTotalDamage = summaryTotalDamage(formData);
+    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
+    data.summaryTotalCost = data.summaryTotalCostArray[0];
+    data.summaryTotalCostString = data.summaryTotalCostArray[1];
+    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
+    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
+    data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
 
     // Render sheet
     this.render();
