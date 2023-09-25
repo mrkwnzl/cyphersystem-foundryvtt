@@ -61,7 +61,7 @@
   "CYPHERSYSTEM.SettingShowRollDetails": "Show Roll Details",
   "CYPHERSYSTEM.SettingShowRollDetailsHint": "Enable this setting to show all roll details by default.",
   "CYPHERSYSTEM.SettingShowWelcome": "Show Welcome Message",
-  "CYPHERSYSTEM.SettingShowWelcomeHint": "Show the welcome message at every launch of this world.",
+  "CYPHERSYSTEM.SettingShowWelcomeHint": "Show the welcome message at the next launch of this world.",
   "CYPHERSYSTEM.SettingRollButtons": "Roll Buttons on Character Sheets",
   "CYPHERSYSTEM.SettingRollButtonsHint": "This enables roll buttons on all character sheets.",
   "CYPHERSYSTEM.SettingDiceTray": "Dice Tray",
