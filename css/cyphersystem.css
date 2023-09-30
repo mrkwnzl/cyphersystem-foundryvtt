@@ -550,6 +550,7 @@ li.folder.collapsed>.folder-header h3 {
   flex: 0 0 100px;
   height: 115px;
   width: 115px;
+  min-width: 115px;
   margin-right: 5px;
   border: 1px solid rgb(0, 0, 0, 0);
   border-radius: 3px;
