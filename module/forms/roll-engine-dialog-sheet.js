@@ -5,6 +5,7 @@
 
 import {rollEngineComputation} from "../utilities/roll-engine/roll-engine-computation.js";
 import {useEffectiveDifficulty} from "../utilities/roll-engine/roll-engine-main.js";
+import {getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "./sheet-customization.js";
 
 export class RollEngineDialogSheet extends FormApplication {
   /** @override */
@@ -93,6 +94,14 @@ export class RollEngineDialogSheet extends FormApplication {
     data.multiRollMightEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollSpeedEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
     data.multiRollIntellectEdge = (actor.getFlag("cyphersystem", "multiRoll.active") === true && actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
+
+    data.sheetSettings = {};
+    data.sheetSettings.backgroundImageBaseSetting = "background-image";
+    data.sheetSettings.backgroundImage = getBackgroundImage();
+    if (data.sheetSettings.backgroundImage == "custom") {
+      data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+      data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    }
 
     // Return data
     return data;

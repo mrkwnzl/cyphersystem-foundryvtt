@@ -14,7 +14,8 @@ export class CypherItemSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
       width: 575,
-      resizable: false,
+      height: 675,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]
     });
@@ -32,6 +33,34 @@ export class CypherItemSheet extends ItemSheet {
   /** @override */
   async getData() {
     const data = await super.getData();
+
+    // Fallback for empty input fields
+    if (["skill", "ability", "attack"].includes(this.item.type)) {
+      if (!this.item.system.basic?.cost) {
+        this.item.update({"system.basic.cost": 0});
+      }
+      if (!this.item.system.basic?.damage) {
+        this.item.update({"system.basic.damage": 0});
+      }
+      if (!this.item.system.basic?.steps) {
+        this.item.update({"system.basic.steps": 0});
+      }
+      if (!this.item.system.settings?.rollButton?.additionalCost) {
+        this.item.update({"system.settings.rollButton.additionalCost": 0});
+      }
+      if (!this.item.system.settings?.rollButton?.bonus) {
+        this.item.update({"system.settings.rollButton.bonus": 0});
+      }
+      if (!this.item.system.settings?.rollButton?.additionalSteps) {
+        this.item.update({"system.settings.rollButton.additionalSteps": 0});
+      }
+      if (!this.item.system.settings?.rollButton?.damage) {
+        this.item.update({"system.settings.rollButton.damage": 0});
+      }
+      if (!this.item.system.settings?.rollButton?.damagePerLOE) {
+        this.item.update({"system.settings.rollButton.damagePerLOE": 0});
+      }
+    }
 
     // Sheet settings
     data.sheetSettings = {};
@@ -82,6 +111,12 @@ export class CypherItemSheet extends ItemSheet {
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
+
+    // html.find("input[name='system.basic.cost']").change(changeEvent => {
+    //   if ($(changeEvent.currentTarget.value) == "") {
+    //     $(changeEvent.currentTarget.value) = 0;
+    //   }
+    // });
 
     html.find('.identify-item').click(clickEvent => {
       if (this.item.system.basic.identified) {

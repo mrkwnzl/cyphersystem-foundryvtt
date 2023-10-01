@@ -57,6 +57,23 @@ export async function rollEngineMain(data) {
 
   data.initiativeRoll = (item) ? item.system.settings.general.initiative : false;
 
+  // Fallback for empty data
+  if (!data.poolPointCost) {
+    data.poolPointCost = 0;
+  }
+  if (!data.bonus) {
+    data.bonus = 0;
+  }
+  if (!data.difficultyModifier) {
+    data.difficultyModifier = 0;
+  }
+  if (!data.damage) {
+    data.damage = 0;
+  }
+  if (!data.damagePerLOE) {
+    data.damagePerLOE = 0;
+  }
+
   // Set GMI Range
   if (data.gmiRange === undefined) {
     if (game.settings.get("cyphersystem", "useGlobalGMIRange")) {

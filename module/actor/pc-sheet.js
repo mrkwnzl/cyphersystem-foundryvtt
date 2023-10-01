@@ -14,14 +14,19 @@ import {disableMultiRoll} from "../forms/roll-engine-dialog-sheet.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
+  // Reposition dice tray
+  _onResize(event) {
+    super._onResize(event);
+  };
+
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "actor", "pc"],
       template: "systems/cyphersystem/templates/actor-sheets/pc-sheet.html",
       width: 650,
-      height: false,
-      resizable: false,
+      height: 750,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".combat", ".items", ".abilities", ".settings", ".tags", ".editor-content"]
     });
@@ -45,7 +50,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
     data.sheetSettings.isExclusiveTagActive = isExclusiveTagActive(this.actor);
     const diceTraySettings = ["hidden", "left", "right"];
     data.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
-    data.sheetSettings.sheetWidth = (data.sheetSettings.diceTray == "right") ? this.actor.sheet.options.width : -32;
 
     data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 

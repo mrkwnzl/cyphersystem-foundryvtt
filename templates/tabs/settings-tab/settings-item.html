@@ -317,7 +317,7 @@
                 {{localize 'CYPHERSYSTEM.Damage'}}
               </div>
               <div class="item-quantity">
-                <input class="auto-margin setting-input" name="system.settings.rollButton.damage" type="number" value="{{item.system.settings.rollButton.damage}}" placeholder="{{localize 'CYPHERSYSTEM.Damage'}}" />
+                <input class="auto-margin setting-input" name="system.settings.rollButton.damage" type="number" value="{{item.system.settings.rollButton.damage}}" placeholder="0" />
               </div>
             </li>
           {{/unless}}
@@ -344,7 +344,7 @@
               {{localize 'CYPHERSYSTEM.DamageLevelEffort'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin setting-input" name="system.settings.rollButton.damagePerLOE" type="number" value="{{item.system.settings.rollButton.damagePerLOE}}" placeholder="{{localize 'CYPHERSYSTEM.DamageLevelEffort'}}" />
+              <input class="auto-margin setting-input" name="system.settings.rollButton.damagePerLOE" type="number" value="{{item.system.settings.rollButton.damagePerLOE}}" placeholder="0" />
             </div>
           </li>
         </ol>
@@ -369,7 +369,7 @@
               {{/select}}
             </select>
             &nbsp;
-            <input class="auto-margin setting-input" name="system.settings.rollButton.additionalSteps" type="number" value="{{item.system.settings.rollButton.additionalSteps}}" placeholder="{{localize 'CYPHERSYSTEM.Difficulty'}}" style="max-width: 30px" />
+            <input class="auto-margin setting-input" name="system.settings.rollButton.additionalSteps" type="number" value="{{item.system.settings.rollButton.additionalSteps}}" placeholder="0" style="max-width: 30px" />
           </li>
         {{/unless}}
         <li class="item flexrow item-settings">
@@ -377,7 +377,7 @@
             {{localize 'CYPHERSYSTEM.Bonus'}}
           </div>
           <div class="item-quantity">
-            <input class="auto-margin setting-input" name="system.settings.rollButton.bonus" type="number" value="{{item.system.settings.rollButton.bonus}}" placeholder="{{localize 'CYPHERSYSTEM.Bonus'}}" />
+            <input class="auto-margin setting-input" name="system.settings.rollButton.bonus" type="number" value="{{item.system.settings.rollButton.bonus}}" placeholder="0" />
           </div>
         </li>
         {{#unless (eq item.type "ability")}}
@@ -386,7 +386,7 @@
               {{localize 'CYPHERSYSTEM.PoolCost'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin setting-input" name="system.settings.rollButton.additionalCost" type="number" value="{{item.system.settings.rollButton.additionalCost}}" placeholder="{{localize 'CYPHERSYSTEM.PoolCost'}}" />
+              <input class="auto-margin setting-input" name="system.settings.rollButton.additionalCost" type="number" value="{{item.system.settings.rollButton.additionalCost}}" placeholder="0" />
             </div>
           </li>
         {{/unless}}

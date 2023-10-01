@@ -12,8 +12,8 @@ export class CypherActorSheetVehicle extends CypherActorSheet {
       classes: ["cyphersystem", "sheet", "actor", "vehicle"],
       template: "systems/cyphersystem/templates/actor-sheets/vehicle-sheet.html",
       width: 650,
-      height: false,
-      resizable: false,
+      height: 700,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings", ".editor-content"]
     });

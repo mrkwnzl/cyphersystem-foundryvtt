@@ -12,8 +12,8 @@ export class CypherActorSheetMarker extends CypherActorSheet {
       classes: ["cyphersystem", "sheet", "actor", "token"],
       template: "systems/cyphersystem/templates/actor-sheets/marker-sheet.html",
       width: 650,
-      height: false,
-      resizable: false,
+      height: 700,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".items", ".settings", ".editor-content"]
     });

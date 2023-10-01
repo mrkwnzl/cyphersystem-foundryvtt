@@ -1,4 +1,7 @@
-<form class="flexcol" autocomplete="off">
+<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}}" autocomplete="off">
+
+  {{!-- Transparent Overlay --}}
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
   <div class="background-image-icon-roll-form">
     <img class="background-image-icon-roll-form" src="systems/cyphersystem/icons/macros/d20.svg" width="192" height="192">
