@@ -12,8 +12,8 @@ export class CypherActorSheetNPC extends CypherActorSheet {
       classes: ["cyphersystem", "sheet", "actor", "npc"],
       template: "systems/cyphersystem/templates/actor-sheets/npc-sheet.html",
       width: 650,
-      height: false,
-      resizable: false,
+      height: 700,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items", ".editor-content"]
     });

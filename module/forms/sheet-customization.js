@@ -70,7 +70,7 @@ export class SheetCustomization extends FormApplication {
 
 async function rerenderAllActorWindows() {
   for (let window of Object.values(ui.windows)) {
-    if (window instanceof CypherActorSheet || window instanceof CypherItemSheet) {
+    if (window instanceof CypherActorSheet || window instanceof CypherItemSheet || window instanceof FormApplication) {
       window.render(false);
     }
   }

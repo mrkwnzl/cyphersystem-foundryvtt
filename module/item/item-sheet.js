@@ -14,7 +14,8 @@ export class CypherItemSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
       width: 575,
-      resizable: false,
+      height: 675,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       scrollY: [".sheet-body", ".tab"]
     });

@@ -12,8 +12,8 @@ export class CypherActorSheetCommunity extends CypherActorSheet {
       classes: ["cyphersystem", "sheet", "actor", "community"],
       template: "systems/cyphersystem/templates/actor-sheets/community-sheet.html",
       width: 650,
-      height: false,
-      resizable: false,
+      height: 700,
+      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".combat", ".items", ".abilities", ".settings", ".editor-content"]
     });

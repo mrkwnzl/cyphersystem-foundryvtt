@@ -324,6 +324,21 @@ li.folder.collapsed>.folder-header h3 {
 
 /* until here */
 
+.cyphersystem.sheet.pc,
+.cyphersystem.sheet.npc,
+.cyphersystem.sheet.companion,
+.cyphersystem.sheet.community,
+.cyphersystem.sheet.token,
+.cyphersystem.sheet.vehicle {
+  min-width: 650px;
+  min-height: 550px;
+}
+
+.cyphersystem.sheet.item {
+  min-width: 575px;
+  min-height: 550px;
+}
+
 .cyphersystem .editor-content {
   padding: 0.3em !important;
   line-height: 1.4;
@@ -337,6 +352,10 @@ li.folder.collapsed>.folder-header h3 {
 .cyphersystem .ProseMirror {
   --color-control-bg: rgb(0, 0, 0, 0.1);
   --color-hover-bg: rgb(0, 0, 0, 0.15);
+}
+
+.cyphersystem .prosemirror .editor-container {
+  margin: 0;
 }
 
 .cyphersystem .ProseMirror menu .pm-dropdown ul {
@@ -408,6 +427,7 @@ li.folder.collapsed>.folder-header h3 {
 .cyphersystem .background-image {
   margin: -8px;
   padding: 8px;
+  height: 100%;
 }
 
 .cyphersystem .background-image.paper {
@@ -451,6 +471,7 @@ li.folder.collapsed>.folder-header h3 {
 
 .cyphersystem .background-image.cypher-blue {
   background-image: linear-gradient(rgb(203, 203, 218), white) !important;
+  background-size: cover;
 }
 
 .cyphersystem .background-image.custom {
@@ -625,6 +646,11 @@ li.folder.collapsed>.folder-header h3 {
   z-index: 0;
 }
 
+.cyphersystem .sheet-body {
+  height: 100%;
+  overflow-y: auto;
+}
+
 .cyphersystem.gmi-form {
   border: 1px solid var(--color-border-dark-1);
   backdrop-filter: blur(5px);
@@ -683,18 +709,18 @@ li.folder.collapsed>.folder-header h3 {
 .cyphersystem .sheet-body .tab {
   border: 1px solid #999;
   border-top: none;
-  height: 456px;
+  height: 100%;
   overflow-y: auto;
 }
 
 .cyphersystem .sheet-body .editor {
-  height: 456px;
+  height: 100%;
   margin-top: 0px
 }
 
 .cyphersystem .sheet-body.limited .tab,
 .cyphersystem .sheet-body.limited .editor {
-  height: 549px;
+  height: 100%;
 }
 
 .cyphersystem .resource-label {
@@ -741,7 +767,6 @@ li.folder.collapsed>.folder-header h3 {
   list-style: none;
   margin: 7px 0;
   padding: 0 5px;
-  overflow-y: auto;
 }
 
 .cyphersystem .items-list.gmi-list {
@@ -1244,11 +1269,13 @@ select.settings-input {
 .cyphersystem .dice-tray.right {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  left: 100%;
 }
 
 .cyphersystem .dice-tray.left {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
+  left: -32px;
 }
 
 .cyphersystem .dice-tray-hidden {
