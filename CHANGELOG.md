@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.10.2] - 2023-10-01
 ### Changed
 - The welcome message is shown only once. Enabling the setting now only shows the welcome message the next time the world is loaded by the GM, and is then automatically disabled again.
+- Actor and item sheets can finally be resized. Note that there’s a minimum height of 575 px and width of 650 px in order to keep the formatting intact. Note also that using the TinyMCE editor results in undesired behavior when resizing the sheets while editing.
+- The All-in-One Roll dialog is now styled using the system’s sheet customization settings. 
+
+### Fixed
+- Empty cost fields for abilities will no longer result in NaN errors in the chat output of die rolls.
+- Most numerical fields in item sheets are now being auto-populated with the value “0” if they are submitted empty.
 
 ## [2.10.1] - 2023-09-24
 ### Fixed
