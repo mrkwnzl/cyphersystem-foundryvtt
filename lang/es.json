@@ -629,7 +629,7 @@
   "CYPHERSYSTEM.ItemCreatedAsArmor": "Se ha copiado {item} como armadura.",
   "CYPHERSYSTEM.HideEmptyCategories": "Ocultar Categorías Vacías",
   "CYPHERSYSTEM.Keep": "Consevar",
-  "CYPHERSYSTEM.SheetEditorHint": "Selecciona qué editor usarás en las fichas de actor y objeto. Ten en cuenta que usar TinyMCE puede tener un resultado no deseado al redimensionar la ventana mientras se edita.",
+  "CYPHERSYSTEM.SheetEditorHint": "Selecciona qué editor usarás en las fichas de actor y objeto.",
   "CYPHERSYSTEM.ItemCreatedAsAttack": "Se ha copiado {item} como un ataque.",
   "CYPHERSYSTEM.ItemCreatedAsEquipment": "Se ha copiado {item} como equipo.",
   "CYPHERSYSTEM.AppliesToNextRoll": "¡Se aplica a la siguiente tirada!",
