@@ -611,7 +611,7 @@
   "CYPHERSYSTEM.SettingSheetCustomizationHint": "Définir les valeurs par défaut pour toutes les feuilles d'acteur.",
   "CYPHERSYSTEM.AppliesToNextRoll": "S'applique au jet de dès suivant !",
   "CYPHERSYSTEM.SheetEditor": "Éditeur de feuilles",
-  "CYPHERSYSTEM.SheetEditorHint": "Sélectionnez l'éditeur utilisé pour les fiches d'acteur et d'objet. Notez que l'utilisation de TinyMCE peut entraîner un comportement indésirable lors du redimensionnement d'une fenêtre en mode édition.",
+  "CYPHERSYSTEM.SheetEditorHint": "Sélectionnez l'éditeur utilisé pour les fiches d'acteur et d'objet.",
   "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} a été copié en tant qu'attaque.",
   "CYPHERSYSTEM.ItemCreatedAsEquipment": "{item} a été copié en tant qu'équipement.",
   "CYPHERSYSTEM.EquipmentCategories": "Catégories d'équipement",
