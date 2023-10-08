@@ -325,6 +325,14 @@ li.folder.collapsed>.folder-header h3 {
 
 /* until here */
 
+.sheet.actor .editor.tinymce div[role="application"] {
+  height: 100%;
+}
+
+.sheet.item .editor.tinymce div[role="application"] {
+  height: 100%;
+}
+
 .cyphersystem.sheet.pc,
 .cyphersystem.sheet.npc,
 .cyphersystem.sheet.companion,

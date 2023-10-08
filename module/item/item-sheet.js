@@ -225,4 +225,15 @@ export class CypherItemSheet extends ItemSheet {
       return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", {item: item.name}));
     });
   }
+
+  /**
+  * Support for TinyMCE dynamic size
+  */
+
+  async activateEditor(name, options = {}, initialContent = "") {
+    options.fitToSize = true;
+    const editor = await super.activateEditor(name, options, initialContent);
+    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
+    return editor;
+  }
 }

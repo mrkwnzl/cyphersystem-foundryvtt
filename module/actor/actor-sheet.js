@@ -1052,4 +1052,15 @@ export class CypherActorSheet extends ActorSheet {
     // Finally, create the item!
     return Item.create({type: type, data, name: name}, {parent: this.actor});
   }
+
+  /**
+   * Support for TinyMCE dynamic size
+   */
+
+  async activateEditor(name, options = {}, initialContent = "") {
+    options.fitToSize = true;
+    const editor = await super.activateEditor(name, options, initialContent);
+    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
+    return editor;
+  }
 }

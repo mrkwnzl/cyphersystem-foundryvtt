@@ -168,7 +168,9 @@ export async function selectedTokenRollMacro(actor, title) {
 
     let easedOrHinderedInfo = "";
     let finalDifficulty = data.baseDifficulty - data.difficultyModifier;
-    let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + Math.max(0, finalDifficulty * 3) + ")" : "";
+    let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ?
+      "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + Math.max(0, finalDifficulty * 3) + ")" :
+      "";
     if (modifiedBy) {
       easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
     }

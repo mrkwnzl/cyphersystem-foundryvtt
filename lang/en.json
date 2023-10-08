@@ -634,7 +634,7 @@
   "CYPHERSYSTEM.MultiRollValueChanged": "Value changed due to multi roll action in progress.",
   "CYPHERSYSTEM.MultiRollInProgress": "Multi roll action in progress. Click to cancel.",
   "CYPHERSYSTEM.SheetEditor": "Sheet Editor",
-  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets. Note that using TinyMCE might result in undesired behavior when resizing a window while in editing mode.",
+  "CYPHERSYSTEM.SheetEditorHint": "Select which editor is used on actor and item sheets.",
   "CYPHERSYSTEM.CopyAs": "Copy as…",
   "CYPHERSYSTEM.ItemCreatedAsSkill": "{item} has been copied as a skill.",
   "CYPHERSYSTEM.ItemCreatedAsAttack": "{item} has been copied as an attack.",
