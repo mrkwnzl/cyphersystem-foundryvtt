@@ -131,11 +131,12 @@ export function useRecoveries(actor, spell) {
 }
 
 export function isExclusiveTagActive(actor) {
-  let countExclusiveTags = 0;
+  let exclusiveTagName = "";
   for (let item of actor.items) {
-    if (item.type == "tag" && item.system.exclusive && item.system.active) countExclusiveTags++;
+    if (item.type == "tag" && item.system.exclusive && item.system.active) exclusiveTagName = item.name;
+    if (exclusiveTagName) break;
   }
-  return (countExclusiveTags > 0) ? true : false;
+  return exclusiveTagName;;
 }
 
 export function deleteChatMessage(data) {

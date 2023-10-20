@@ -1238,6 +1238,10 @@ select.settings-input {
   color: white;
 }
 
+.cyphersystem .profile-img-overlay-exclusive-tag:hover {
+  text-shadow: 0px 0px 2px #000;
+}
+
 .cyphersystem .profile-img-overlay-lock {
   position: absolute;
   top: 102px;
