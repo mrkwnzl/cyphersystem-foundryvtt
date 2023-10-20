@@ -833,7 +833,7 @@ export class CypherActorSheet extends ActorSheet {
           default: "move",
           close: () => {}
         });
-        d.render(true);
+        d.render(true, {width: "auto"});
       } else {
         // Handle cypher & artifact identification from world items
         if (["cypher", "artifact"].includes(originItem.type)) {
@@ -868,7 +868,7 @@ export class CypherActorSheet extends ActorSheet {
           default: "move",
           close: () => {}
         });
-        d.render(true);
+        d.render(true, {width: "auto"});
       }
 
       function createContent() {

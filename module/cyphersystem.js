@@ -510,7 +510,18 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     // Create list of PCs
     let list = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "pc" && actor._id != html.find('.accept-intrusion').data('actor') && actor.hasPlayerOwner) list = list + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc" && actor._id != html.find('.accept-intrusion').data('actor') && actor.hasPlayerOwner) {
+        let owners = "";
+        for (let user of game.users.contents) {
+          if (!user.isGM) {
+            let ownerID = user._id;
+            if (actor.ownership[ownerID] == 3) {
+              owners = (owners == "") ? user.name : owners + ", " + user.name;
+            }
+          }
+        }
+        list = list + `<option value=${actor._id}>${actor.name} (${owners})</option>`;
+      }
     }
 
     // Create dialog content
@@ -539,7 +550,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (list == "") {
       applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
-      d.render(true);
+      d.render(true, {width: "auto"});
     }
   });
 
