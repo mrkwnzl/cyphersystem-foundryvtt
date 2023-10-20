@@ -625,7 +625,7 @@
   "CYPHERSYSTEM.EquipmentCategoryThree": "Equipamento 3",
   "CYPHERSYSTEM.EquipmentCategoryFour": "Equipamento 4",
   "CYPHERSYSTEM.SheetEditor": "Editor de Ficha",
-  "CYPHERSYSTEM.SheetEditorHint": "Selecionar qual editor é usado nas fichas de ator e item. Note que usando o TinyMCE pode causar comportalmento indesejado quando ajustar tamanho da janela enquanto estiver no modo de edição.",
+  "CYPHERSYSTEM.SheetEditorHint": "Selecionar qual editor é usado nas fichas de ator e item.",
   "CYPHERSYSTEM.RollItemSkip": "Rolar Item (alt-click para pular a janela Tudo-em-Um)",
   "CYPHERSYSTEM.RollItemPayPoints": "Rolar Item (alt-click para pagar pontos de Reserva)",
   "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Alternar Power Shift Temporário",

@@ -610,7 +610,7 @@
   "CYPHERSYSTEM.SettingSheetCustomizationLabel": "Charakterbogenanpassungsstandards",
   "CYPHERSYSTEM.SettingSheetCustomizationHint": "Stelle die Standards für alle Charakterbögen fest.",
   "CYPHERSYSTEM.AppliesToNextRoll": "Wird auf den nächsten Wurf angewandt!",
-  "CYPHERSYSTEM.SheetEditorHint": "Wähle aus, welcher Editor für Charakter- und Itembögen benutzt wird. Beachte, dass TinyMCE zu ungewolltem Verhalten führen kann, wenn man die Größe eines Fensters ändert während man gerade im Bearbeiten-Modus ist.",
+  "CYPHERSYSTEM.SheetEditorHint": "Wähle aus, welcher Editor für Charakter- und Itembögen benutzt wird.",
   "CYPHERSYSTEM.SheetEditor": "Bogeneditor",
   "CYPHERSYSTEM.EquipmentCategoryTwo": "Ausrüstung 2",
   "CYPHERSYSTEM.EquipmentCategoryThree": "Ausrüstung 3",
