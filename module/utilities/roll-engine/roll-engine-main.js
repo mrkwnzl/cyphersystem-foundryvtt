@@ -104,7 +104,7 @@ export function useEffectiveDifficulty(difficulty) {
   } else if (setting === 1) {
     return true;
   } else if (setting === 2) {
-    if (difficulty === -1) {
+    if (difficulty == -1) {
       return true;
     } else {
       return false;

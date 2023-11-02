@@ -168,7 +168,9 @@ export async function selectedTokenRollMacro(actor, title) {
 
     let easedOrHinderedInfo = "";
     let finalDifficulty = data.baseDifficulty - data.difficultyModifier;
-    let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ? "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + Math.max(0, finalDifficulty * 3) + ")" : "";
+    let taskDifficulty = (!useEffectiveDifficulty(data.baseDifficulty)) ?
+      "<br>" + game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + Math.max(0, finalDifficulty * 3) + ")" :
+      "";
     if (modifiedBy) {
       easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
     }
@@ -584,12 +586,21 @@ export function quickStatChange(token, stat, modifier) {
   }
 }
 
-export function proposeIntrusion(actor) {
+export async function proposeIntrusion(actor) {
   // Check if user is GM
   if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
 
-  if (!actor) {
-    actor = canvas.tokens.controlled[0]?.actor;
+  // Check for selected token
+  if (!actor && canvas.tokens.controlled[0].actor) {
+    let token = canvas.tokens.controlled[0].actor;
+    if (token?.type == "pc" && token?.hasPlayerOwner) {
+      actor = token;
+    } else if (token?.type == "companion") {
+      let ownedBy = game.actors?.getName(token.system.basic.ownedBy);
+      if (ownedBy?.hasPlayerOwner) {
+        actor = ownedBy;
+      }
+    }
   }
 
   // Check for actor
@@ -597,7 +608,21 @@ export function proposeIntrusion(actor) {
     // Create list of PCs
     let selectOptions = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "pc" && actor.hasPlayerOwner) selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc" && actor.hasPlayerOwner) {
+        let owners = "";
+        for (let user of game.users.contents) {
+          if (!user.isGM) {
+            let ownerID = user._id;
+            if (actor.ownership[ownerID] == 3 || actor.ownership["default"] == 3) {
+              owners = (owners == "") ? user.name : owners + ", " + user.name;
+            }
+          }
+        }
+        if (owners) {
+          owners = " (" + owners + ")";
+        }
+        selectOptions = selectOptions + `<option value=${actor._id}>${actor.name}${owners}</option>`;
+      }
     }
 
     if (selectOptions == "") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoPCsNoIntrusion"));
@@ -621,7 +646,7 @@ export function proposeIntrusion(actor) {
       default: "apply",
       close: () => {}
     });
-    d.render(true);
+    d.render(true, {width: "auto"});
   } else {
     if (actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
     askForIntrusion(actor._id);

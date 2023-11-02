@@ -327,19 +327,42 @@ Hooks.on("preCreateItem", function (item) {
   }
 });
 
-Hooks.on("updateItem", async function (item) {
+Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
+  if (item.actor && item.type == "tag" && changes?.system?.settings?.statModifiers && item.system.active) {
+    let statModifiers = item.system.settings.statModifiers;
+    let changedStatModifiers = changes.system?.settings?.statModifiers;
+
+    let mightModifier = (changedStatModifiers?.might?.value - statModifiers.might.value) || 0;
+    let mightEdgeModifier = (changedStatModifiers?.might?.edge - statModifiers.might.edge) || 0;
+    let speedModifier = (changedStatModifiers?.speed?.value - statModifiers.speed.value) || 0;
+    let speedEdgeModifier = (changedStatModifiers?.speed?.edge - statModifiers.speed.edge) || 0;
+    let intellectModifier = (changedStatModifiers?.intellect?.value - statModifiers.intellect.value) || 0;
+    let intellectEdgeModifier = (changedStatModifiers?.intellect?.edge - statModifiers.intellect.edge) || 0;
+
+    await changeTagStats(fromUuidSync(item.actor.uuid), {
+      mightModifier: mightModifier,
+      mightEdgeModifier: mightEdgeModifier,
+      speedModifier: speedModifier,
+      speedEdgeModifier: speedEdgeModifier,
+      intellectModifier: intellectModifier,
+      intellectEdgeModifier: intellectEdgeModifier,
+      itemActive: !item.system.active
+    });
+  } 
+});
+
+Hooks.on("updateItem", async function (item, changes, options, userId) {
   if (item.actor) {
-    if (item.type == "tag" && item.system.exclusive && item.system.active) {
-      await changeTagStats(fromUuidSync(item.actor.uuid), {
-        mightModifier: item.system.settings.statModifiers.might.value,
-        mightEdgeModifier: item.system.settings.statModifiers.might.edge,
-        speedModifier: item.system.settings.statModifiers.speed.value,
-        speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
-        intellectModifier: item.system.settings.statModifiers.intellect.value,
-        intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge
-      });
-    } else if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-      await changeRecursionStats(fromUuidSync(item.actor.uuid), "@" + item.name.toLowerCase(), item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.intellect.edge);
+    if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
+      await changeRecursionStats(
+        fromUuidSync(item.actor.uuid),
+        "@" + item.name.toLowerCase(),
+        item.system.settings.statModifiers.might.value,
+        item.system.settings.statModifiers.might.edge,
+        item.system.settings.statModifiers.speed.value,
+        item.system.settings.statModifiers.speed.edge,
+        item.system.settings.statModifiers.intellect.value,
+        item.system.settings.statModifiers.intellect.edge);
     }
   }
 });
@@ -510,7 +533,18 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     // Create list of PCs
     let list = "";
     for (let actor of game.actors.contents) {
-      if (actor.type === "pc" && actor._id != html.find('.accept-intrusion').data('actor') && actor.hasPlayerOwner) list = list + `<option value=${actor._id}>${actor.name}</option>`;
+      if (actor.type === "pc" && actor._id != html.find('.accept-intrusion').data('actor') && actor.hasPlayerOwner) {
+        let owners = "";
+        for (let user of game.users.contents) {
+          if (!user.isGM) {
+            let ownerID = user._id;
+            if (actor.ownership[ownerID] == 3) {
+              owners = (owners == "") ? user.name : owners + ", " + user.name;
+            }
+          }
+        }
+        list = list + `<option value=${actor._id}>${actor.name} (${owners})</option>`;
+      }
     }
 
     // Create dialog content
@@ -539,7 +573,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (list == "") {
       applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
-      d.render(true);
+      d.render(true, {width: "auto"});
     }
   });
 

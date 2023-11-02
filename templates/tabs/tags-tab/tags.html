@@ -1,11 +1,11 @@
 <div class="flexrow">
-  <ol class="items-list">
+  <ol class="items-list" id="Tag">
     <li class="item flexrow item-header">
       <div class="item-name">
-        {{#if (eq actor.system.settings.general.tags.label "")}}
-          {{localize 'CYPHERSYSTEM.Tags'}}
+        {{#if actor.system.settings.general.tags.labelCategory1}}
+          {{actor.system.settings.general.tags.labelCategory1}}
         {{else}}
-          {{actor.system.settings.general.tags.label}}
+          {{localize 'CYPHERSYSTEM.Tags'}}
         {{/if}}
       </div>
       <div class="item-controls">
@@ -14,6 +14,57 @@
         </a>
       </div>
     </li>
-    {{> systems/cyphersystem/templates/item-lists/tags-list.html}}
+    {{> systems/cyphersystem/templates/item-lists/tags-list-01.html}}
   </ol>
 </div>
+
+{{#if sheetSettings.showTagsTwo}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagTwo">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if (eq actor.system.settings.general.tags.labelCategory2 "")}}
+            {{localize 'CYPHERSYSTEM.TagCategoryTwo'}}
+          {{else}}
+            {{actor.system.settings.general.tags.labelCategory2}}
+          {{/if}}
+        </div>
+      </li>
+      {{> systems/cyphersystem/templates/item-lists/tags-list-02.html}}
+    </ol>
+  </div>
+{{/if}}
+
+{{#if sheetSettings.showTagsThree}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagThree">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if (eq actor.system.settings.general.tags.labelCategory3 "")}}
+            {{localize 'CYPHERSYSTEM.TagCategoryThree'}}
+          {{else}}
+            {{actor.system.settings.general.tags.labelCategory3}}
+          {{/if}}
+        </div>
+      </li>
+      {{> systems/cyphersystem/templates/item-lists/tags-list-03.html}}
+    </ol>
+  </div>
+{{/if}}
+
+{{#if sheetSettings.showTagsFour}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagFour">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if (eq actor.system.settings.general.tags.labelCategory4 "")}}
+            {{localize 'CYPHERSYSTEM.TagCategoryFour'}}
+          {{else}}
+            {{actor.system.settings.general.tags.labelCategory4}}
+          {{/if}}
+        </div>
+      </li>
+      {{> systems/cyphersystem/templates/item-lists/tags-list-04.html}}
+    </ol>
+  </div>
+{{/if}}

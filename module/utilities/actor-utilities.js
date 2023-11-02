@@ -131,11 +131,12 @@ export function useRecoveries(actor, spell) {
 }
 
 export function isExclusiveTagActive(actor) {
-  let countExclusiveTags = 0;
+  let exclusiveTagName = "";
   for (let item of actor.items) {
-    if (item.type == "tag" && item.system.exclusive && item.system.active) countExclusiveTags++;
+    if (item.type == "tag" && item.system.exclusive && item.system.active) exclusiveTagName = item.name;
+    if (exclusiveTagName) break;
   }
-  return (countExclusiveTags > 0) ? true : false;
+  return exclusiveTagName;;
 }
 
 export function deleteChatMessage(data) {
@@ -147,12 +148,20 @@ export function applyXPFromIntrusion(actor, selectedActorId, messageId, modifier
   actor.update({"system.basic.xp": actor.system.basic.xp + modifier});
 
   // Emit a socket event
-  if (!game.user.isGM && selectedActorId) {
-    game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
-    game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
-  } else if (selectedActorId) {
-    giveAdditionalXP({selectedActorId: selectedActorId, modifier: modifier});
-    deleteChatMessage({messageId: messageId});
+  if (selectedActorId) {
+    if (!game.user.isGM) {
+      game.socket.emit('system.cyphersystem', {operation: 'giveAdditionalXP', selectedActorId: selectedActorId, modifier: modifier});
+      game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+    } else {
+      giveAdditionalXP({selectedActorId: selectedActorId, modifier: modifier});
+      deleteChatMessage({messageId: messageId});
+    }
+  } else if (!selectedActorId) {
+    if (!game.user.isGM) {
+      game.socket.emit('system.cyphersystem', {operation: 'deleteChatMessage', messageId: messageId});
+    } else {
+      deleteChatMessage({messageId: messageId});
+    }
   }
 
   let content = (modifier == 1) ? chatCardIntrusionAccepted(actor, selectedActorId) : chatCardIntrusionRefused(actor, selectedActorId);

@@ -111,7 +111,10 @@
           },
           "tags": {
             "active": false,
-            "label": ""
+            "labelCategory1": "",
+            "labelCategory2": "",
+            "labelCategory3": "",
+            "labelCategory4": ""
           },
           "hideArchive": false,
           "hideEmptyCategories": false,
@@ -1269,6 +1272,9 @@
         "core"
       ],
       "settings": {
+        "general": {
+          "sorting": "Tag"
+        },
         "statModifiers": {
           "might": {
             "value": 0,

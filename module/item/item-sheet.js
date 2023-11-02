@@ -35,30 +35,32 @@ export class CypherItemSheet extends ItemSheet {
     const data = await super.getData();
 
     // Fallback for empty input fields
-    if (["skill", "ability", "attack"].includes(this.item.type)) {
-      if (!this.item.system.basic?.cost) {
-        this.item.update({"system.basic.cost": 0});
-      }
-      if (!this.item.system.basic?.damage) {
-        this.item.update({"system.basic.damage": 0});
-      }
-      if (!this.item.system.basic?.steps) {
-        this.item.update({"system.basic.steps": 0});
-      }
-      if (!this.item.system.settings?.rollButton?.additionalCost) {
-        this.item.update({"system.settings.rollButton.additionalCost": 0});
-      }
-      if (!this.item.system.settings?.rollButton?.bonus) {
-        this.item.update({"system.settings.rollButton.bonus": 0});
-      }
-      if (!this.item.system.settings?.rollButton?.additionalSteps) {
-        this.item.update({"system.settings.rollButton.additionalSteps": 0});
-      }
-      if (!this.item.system.settings?.rollButton?.damage) {
-        this.item.update({"system.settings.rollButton.damage": 0});
-      }
-      if (!this.item.system.settings?.rollButton?.damagePerLOE) {
-        this.item.update({"system.settings.rollButton.damagePerLOE": 0});
+    if (data.isEditable) {
+      if (["skill", "ability", "attack"].includes(this.item.type)) {
+        if (!this.item.system.basic?.cost) {
+          this.item.update({"system.basic.cost": 0});
+        }
+        if (!this.item.system.basic?.damage) {
+          this.item.update({"system.basic.damage": 0});
+        }
+        if (!this.item.system.basic?.steps) {
+          this.item.update({"system.basic.steps": 0});
+        }
+        if (!this.item.system.settings?.rollButton?.additionalCost) {
+          this.item.update({"system.settings.rollButton.additionalCost": 0});
+        }
+        if (!this.item.system.settings?.rollButton?.bonus) {
+          this.item.update({"system.settings.rollButton.bonus": 0});
+        }
+        if (!this.item.system.settings?.rollButton?.additionalSteps) {
+          this.item.update({"system.settings.rollButton.additionalSteps": 0});
+        }
+        if (!this.item.system.settings?.rollButton?.damage) {
+          this.item.update({"system.settings.rollButton.damage": 0});
+        }
+        if (!this.item.system.settings?.rollButton?.damagePerLOE) {
+          this.item.update({"system.settings.rollButton.damagePerLOE": 0});
+        }
       }
     }
 
@@ -224,5 +226,16 @@ export class CypherItemSheet extends ItemSheet {
 
       return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", {item: item.name}));
     });
+  }
+
+  /**
+  * Support for TinyMCE dynamic size
+  */
+
+  async activateEditor(name, options = {}, initialContent = "") {
+    options.fitToSize = true;
+    const editor = await super.activateEditor(name, options, initialContent);
+    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
+    return editor;
   }
 }
