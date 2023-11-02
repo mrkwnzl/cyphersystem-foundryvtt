@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.10.4] - 2023-10-20
+## [2.11.0] - 2023-11-02
+### Added
+- It’s now possible to change stats with normal tags.
+- Tags can now be sorted into four categories.
+
 ### Changed
 - The propose Intrusion dialog now also shows the players who own the actors in question. Selecting a companion token now targets the owner of the companion (not the owner of the actor!) with the GMI. If the selected token doesn’t have a viable target, the dialog with all viable targets opens up instead of just throwing an error.
 - The icon for exclusive tags in the character portrait now has a tooltip for the currently active exclusive tag.
@@ -12,7 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - The Simplified Stat Roll macro now works as expected again.
 - TinyMCE now changes its size dynamically when resizing the window. (Thanks for @farling)
-- Items in compendia aren’t throwing error anymore.
+- Items in compendia aren’t throwing an error anymore.
+- Active exclusive tags can be deleted.
 
 ## [2.10.3] - 2023-10-03
 ### Changed
