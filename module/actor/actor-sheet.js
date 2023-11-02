@@ -21,6 +21,7 @@ import {
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
 import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath, getLogoImage, getLogoImageOpacity, getLogoImagePath} from "../forms/sheet-customization.js";
+import {changeTagStats} from "../utilities/tagging-engine/tagging-engine-computation.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -103,6 +104,9 @@ export class CypherActorSheet extends ActorSheet {
     const ammo = [];
     const recursions = [];
     const tags = [];
+    const tagsTwo = [];
+    const tagsThree = [];
+    const tagsFour = [];
 
     // Iterate through items, allocating to containers
     for (let item of data.items) {
@@ -207,8 +211,17 @@ export class CypherActorSheet extends ActorSheet {
       else if (item.type === "recursion" && !hidden) {
         recursions.push(item);
       }
-      else if (item.type === "tag" && !hidden) {
+      else if (item.type === "tag" && !hidden && item.system.settings.general.sorting == "Tag") {
         tags.push(item);
+      }
+      else if (item.type === "tag" && !hidden && item.system.settings.general.sorting == "TagTwo") {
+        tagsTwo.push(item);
+      }
+      else if (item.type === "tag" && !hidden && item.system.settings.general.sorting == "TagThree") {
+        tagsThree.push(item);
+      }
+      else if (item.type === "tag" && !hidden && item.system.settings.general.sorting == "TagFour") {
+        tagsFour.push(item);
       }
     }
 
@@ -242,6 +255,9 @@ export class CypherActorSheet extends ActorSheet {
     ammo.sort(byNameAscending);
     recursions.sort(byNameAscending);
     tags.sort(byNameAscending);
+    tagsTwo.sort(byNameAscending);
+    tagsThree.sort(byNameAscending);
+    tagsFour.sort(byNameAscending);
 
     // Sort by skill rating
     if (this.actor.type == "pc" || this.actor.type == "companion") {
@@ -295,6 +311,9 @@ export class CypherActorSheet extends ActorSheet {
     ammo.sort(byArchiveStatus);
     recursions.sort(byArchiveStatus);
     tags.sort(byArchiveStatus);
+    tagsTwo.sort(byArchiveStatus);
+    tagsThree.sort(byArchiveStatus);
+    tagsFour.sort(byArchiveStatus);
 
     // Show item categories on PCs
     if (this.actor.type == "pc") {
@@ -367,6 +386,27 @@ export class CypherActorSheet extends ActorSheet {
       } else {
         data.sheetSettings.showSkillsFour = false;
       }
+
+      // Check for tags category 2
+      if (tagsTwo.length > 0 || (this.actor.system.settings.tags?.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showTagsTwo = true;
+      } else {
+        data.sheetSettings.showTagsTwo = false;
+      }
+
+      // Check for tags category 3
+      if (tagsThree.length > 0 || (this.actor.system.settings.tags?.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showTagsThree = true;
+      } else {
+        data.sheetSettings.showTagsThree = false;
+      }
+
+      // Check for tags category 4
+      if (tagsFour.length > 0 || (this.actor.system.settings.tags?.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
+        data.sheetSettings.showTagsFour = true;
+      } else {
+        data.sheetSettings.showTagsFour = false;
+      }
     }
 
     // Assign and return
@@ -399,6 +439,9 @@ export class CypherActorSheet extends ActorSheet {
     itemLists.ammo = ammo;
     itemLists.recursions = recursions;
     itemLists.tags = tags;
+    itemLists.tagsTwo = tagsTwo;
+    itemLists.tagsThree = tagsThree;
+    itemLists.tagsFour = tagsFour;
 
     // Sheet customizations
     // Get root css variables
@@ -571,8 +614,16 @@ export class CypherActorSheet extends ActorSheet {
     html.find(".item-delete").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       if (game.keyboard.isModifierActive("Alt")) {
-        if (item.type == "tag" && item.system.exclusive && item.system.active) {
-          changeTagStats(this.actor, 0, 0, 0, 0, 0, 0);
+        if (item.type == "tag" && item.system.active) {
+          changeTagStats(this.actor, {
+            mightModifier: item.system.settings.statModifiers.might.value,
+            mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+            speedModifier: item.system.settings.statModifiers.speed.value,
+            speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+            intellectModifier: item.system.settings.statModifiers.intellect.value,
+            intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+            itemActive: item.system.active
+          });
         } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
           changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0);
         }
@@ -592,7 +643,18 @@ export class CypherActorSheet extends ActorSheet {
     // (Un)Archive tag
     html.find(".item-tag").click(async clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      await taggingEngineMain(this.actor, {item: item});
+      await taggingEngineMain(this.actor, {
+        item: item,
+        statChanges: {
+          mightModifier: item.system.settings.statModifiers.might.value,
+          mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+          speedModifier: item.system.settings.statModifiers.speed.value,
+          speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+          intellectModifier: item.system.settings.statModifiers.intellect.value,
+          intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+          itemActive: item.system.active
+        }
+      });
     });
 
     // Add to Quantity
@@ -768,7 +830,7 @@ export class CypherActorSheet extends ActorSheet {
     let targetItem = null;
 
     // Sort item into category
-    if (["skill", "ability", "equipment"].includes(originItemData.type)) {
+    if (["skill", "ability", "equipment", "tag"].includes(originItemData.type)) {
       originItemData.system.settings.general.sorting = await sortItemsIntoCategories(event, originItemData);
     }
 
@@ -799,6 +861,11 @@ export class CypherActorSheet extends ActorSheet {
 
       // Companions can only carry skills and abilities, and not ones for teens
       if (["companion"].includes(targetActor.type) && (!["skill", "ability"].includes(originItem.type) || originItem.system.settings.general.unmaskedForm == "Teen")) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ItemTypeCannotBeMovedToCompanion"));
+
+      // Tags and recursions are inactive when copied from another source
+      if (["recursion", "tag"].includes(originItem.type)) {
+        originItemData.system.active = false;
+      }
 
       // Create Item
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
@@ -968,6 +1035,9 @@ export class CypherActorSheet extends ActorSheet {
       else if (originItem.type == "armor" && targetActor.type != "pc") {
         targetActor.update({"system.settings.equipment.armor.active": true});
       }
+      else if (originItem.type == "tag" && targetActor.type == "pc") {
+        targetActor.update({"system.settings.general.tags.active": true});
+      }
     }
 
     async function archiveItem() {
@@ -986,6 +1056,7 @@ export class CypherActorSheet extends ActorSheet {
       let skillArray = ["Skill", "SkillTwo", "SkillThree", "SkillFour"];
       let abilityArray = ["Ability", "AbilityTwo", "AbilityThree", "AbilityFour", "Spell"];
       let equipmentArray = ["Equipment", "EquipmentTwo", "EquipmentThree", "EquipmentFour"];
+      let tagArray = ["Tag", "TagTwo", "TagThree", "TagFour"];
       let viableIDs = [];
 
       if (item.type == "skill") {
@@ -994,6 +1065,8 @@ export class CypherActorSheet extends ActorSheet {
         viableIDs = abilityArray;
       } else if (item.type == "equipment") {
         viableIDs = equipmentArray;
+      } else if (item.type == "tag") {
+        viableIDs = tagArray;
       }
 
       let target = event.target;
@@ -1003,6 +1076,7 @@ export class CypherActorSheet extends ActorSheet {
         target = target.parentElement;
         if (viableIDs.includes(target.id)) {
           targetID = target.id;
+          break;
         }
       }
 

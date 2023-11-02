@@ -10,7 +10,8 @@ export async function taggingEngineMain(actor, taggingData) {
       speedModifier: 0,
       speedEdgeModifier: 0,
       intellectModifier: 0,
-      intellectEdgeModifier: 0
+      intellectEdgeModifier: 0,
+      itemActive: false
     }
   }, taggingData);
 
@@ -24,7 +25,21 @@ export async function taggingEngineMain(actor, taggingData) {
         taggingData.disableItem = item;
       }
     }
-    if (!game.keyboard.isModifierActive("Alt")) {
+  }
+
+  // Update stats
+  if (!game.keyboard.isModifierActive("Alt")) {
+    if (taggingData.disableItem) {
+      let disableItem = taggingData.disableItem.system.settings.statModifiers;
+      await changeTagStats(actor, {
+        mightModifier: taggingData.statChanges.mightModifier - disableItem.might.value,
+        mightEdgeModifier: taggingData.statChanges.mightEdgeModifier - disableItem.might.edge,
+        speedModifier: taggingData.statChanges.speedModifier - disableItem.speed.value,
+        speedEdgeModifier: taggingData.statChanges.speedEdgeModifier - disableItem.speed.edge,
+        intellectModifier: taggingData.statChanges.intellectModifier - disableItem.intellect.value,
+        intellectEdgeModifier: taggingData.statChanges.intellectEdgeModifier - disableItem.intellect.edge
+      });
+    } else {
       await changeTagStats(actor, taggingData.statChanges);
     }
   }

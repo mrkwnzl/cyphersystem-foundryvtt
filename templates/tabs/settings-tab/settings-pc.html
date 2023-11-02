@@ -67,10 +67,22 @@
           <input type="checkbox" name="system.settings.general.tags.active" {{checked actor.system.settings.general.tags.active}}>
           &nbsp;{{#if (eq actor.system.settings.general.gameMode "Strange")}}{{localize 'CYPHERSYSTEM.ShowTagsInRecursionTab'}}{{else}}{{localize 'CYPHERSYSTEM.ShowTagsTab'}}{{/if}}
         </div>
-        <div class="item-quantity">
-          <input class="auto-margin settings-input" name="system.settings.general.tags.label" type="text" value="{{actor.system.settings.general.tags.label}}" placeholder="{{localize 'CYPHERSYSTEM.Tags'}}" />
-        </div>
       </li>
+      {{#if actor.system.settings.general.tags.active}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.TagCategories'}}
+          </div>
+        </li>
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="grid grid-4col" style="margin: 0px">
+            <input class="auto-margin" name="system.settings.general.tags.labelCategory1" type="text" value="{{actor.system.settings.general.tags.labelCategory1}}" placeholder="{{localize 'CYPHERSYSTEM.Tags'}}">
+            <input class="auto-margin" name="system.settings.general.tags.labelCategory2" type="text" value="{{actor.system.settings.general.tags.labelCategory2}}" placeholder="{{localize 'CYPHERSYSTEM.TagCategoryTwo'}}">
+            <input class="auto-margin" name="system.settings.general.tags.labelCategory3" type="text" value="{{actor.system.settings.general.tags.labelCategory3}}" placeholder="{{localize 'CYPHERSYSTEM.TagCategoryThree'}}">
+            <input class="auto-margin" name="system.settings.general.tags.labelCategory4" type="text" value="{{actor.system.settings.general.tags.labelCategory4}}" placeholder="{{localize 'CYPHERSYSTEM.TagCategoryFour'}}">
+          </div>
+        </li>
+      {{/if}}
       <li class="item flexrow item-settings">
         <div class="settings-list">
           <input type="checkbox" name="system.settings.general.hideArchive" {{checked actor.system.settings.general.hideArchive}}>

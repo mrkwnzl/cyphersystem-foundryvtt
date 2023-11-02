@@ -58,29 +58,17 @@ export async function changeTagStats(actor, statChanges) {
   }
 
   let pool = actor._source.system.pools;
-
-  let oldMightModifier = (!actor.getFlag("cyphersystem", "tagMightModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightModifier");
-  let oldSpeedModifier = (!actor.getFlag("cyphersystem", "tagSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedModifier");
-  let oldIntellectModifier = (!actor.getFlag("cyphersystem", "tagIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectModifier");
-  let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "tagMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagMightEdgeModifier");
-  let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "tagSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagSpeedEdgeModifier");
-  let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "tagIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "tagIntellectEdgeModifier");
+  let multiplier = (statChanges.itemActive) ? -1 : 1;
 
   await actor.update({
-    "system.pools.might.value": pool.might.value + statChanges.mightModifier - oldMightModifier,
-    "system.pools.might.max": pool.might.max + statChanges.mightModifier - oldMightModifier,
-    "system.pools.speed.value": pool.speed.value + statChanges.speedModifier - oldSpeedModifier,
-    "system.pools.speed.max": pool.speed.max + statChanges.speedModifier - oldSpeedModifier,
-    "system.pools.intellect.value": pool.intellect.value + statChanges.intellectModifier - oldIntellectModifier,
-    "system.pools.intellect.max": pool.intellect.max + statChanges.intellectModifier - oldIntellectModifier,
-    "system.pools.might.edge": pool.might.edge + statChanges.mightEdgeModifier - oldMightEdgeModifier,
-    "system.pools.speed.edge": pool.speed.edge + statChanges.speedEdgeModifier - oldSpeedEdgeModifier,
-    "system.pools.intellect.edge": pool.intellect.edge + statChanges.intellectEdgeModifier - oldIntellectEdgeModifier,
-    "flags.cyphersystem.tagMightModifier": statChanges.mightModifier,
-    "flags.cyphersystem.tagSpeedModifier": statChanges.speedModifier,
-    "flags.cyphersystem.tagIntellectModifier": statChanges.intellectModifier,
-    "flags.cyphersystem.tagMightEdgeModifier": statChanges.mightEdgeModifier,
-    "flags.cyphersystem.tagSpeedEdgeModifier": statChanges.speedEdgeModifier,
-    "flags.cyphersystem.tagIntellectEdgeModifier": statChanges.intellectEdgeModifier
+    "system.pools.might.value": pool.might.value + (statChanges.mightModifier * multiplier),
+    "system.pools.might.max": pool.might.max + (statChanges.mightModifier * multiplier),
+    "system.pools.speed.value": pool.speed.value + (statChanges.speedModifier * multiplier),
+    "system.pools.speed.max": pool.speed.max + (statChanges.speedModifier * multiplier),
+    "system.pools.intellect.value": pool.intellect.value + (statChanges.intellectModifier * multiplier),
+    "system.pools.intellect.max": pool.intellect.max + (statChanges.intellectModifier * multiplier),
+    "system.pools.might.edge": pool.might.edge + (statChanges.mightEdgeModifier * multiplier),
+    "system.pools.speed.edge": pool.speed.edge + (statChanges.speedEdgeModifier * multiplier),
+    "system.pools.intellect.edge": pool.intellect.edge + (statChanges.intellectEdgeModifier * multiplier),
   });
 }
