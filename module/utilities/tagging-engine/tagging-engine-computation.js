@@ -36,9 +36,9 @@ export async function determineUpdateData(actor, taggingData) {
     const regDisableTag = new RegExp("(\\s|^|&nbsp;|<.+?>)" + disableTag + "(\\s|$|&nbsp;|<.+?>)", "gi");
 
     // Check of tags & recursions in items
-    if ((regTag.test(name) || regTag.test(description)) && item.system.settings.general.unmaskedForm == "Mask") {
+    if ((regTag.test(name) || regTag.test(description)) && item.system.settings?.general?.unmaskedForm == "Mask") {
       updates.push({_id: item.id, "system.archived": !archiveStatus});
-    } else if (taggingData.disableItem && (regDisableTag.test(name) || regDisableTag.test(description)) && item.system.settings.general.unmaskedForm == "Mask") {
+    } else if (taggingData.disableItem && (regDisableTag.test(name) || regDisableTag.test(description)) && item.system.settings?.general?.unmaskedForm == "Mask") {
       updates.push({_id: item.id, "system.archived": archiveStatus});
     }
   }
