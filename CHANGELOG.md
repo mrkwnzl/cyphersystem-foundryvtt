@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[Unreleased]
+## Fixed
+- When using Unmasked mode and tags, the tags only work on the mask items and stats.
+
 ## [2.11.1] - 2023-11-02
 ### Fixed
 - The dropdown to sort tags via the settings tab is now populated correctly.
