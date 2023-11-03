@@ -23,7 +23,7 @@
   </ol>
 </div>
 
-{{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
+{{#if (eq actor.system.basic.unmaskedForm "Mask")}}
   {{#if sheetSettings.showSkillsTwo}}
     <div class="flexrow">
       <ol class="items-list" id="SkillTwo">
@@ -83,4 +83,4 @@
       </ol>
     </div>
   {{/if}}
-{{/unless}}
+{{/if}}

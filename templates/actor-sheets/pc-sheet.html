@@ -48,7 +48,7 @@
     {{#unless sheetSettings.isLimited}}
       {{#if (eq actor.system.settings.general.gameMode "Strange")}}
         <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-solid fa-at"></i></a>
-      {{else if actor.system.settings.general.tags.active}}
+      {{else if (and actor.system.settings.general.tags.active (eq actor.system.basic.unmaskedForm "Mask"))}}
         <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-solid fa-hashtag"></i></a>
       {{/if}}
       <a class="item" data-tab="settings" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Settings'}}"><i class="fa-solid fa-gear"></i></a>
