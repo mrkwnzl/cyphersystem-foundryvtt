@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 [Unreleased]
 ## Fixed
 - When using Unmasked mode and tags, the tags only work on the mask items and stats.
+- Empty tag categories are shown correclty, unless the setting to hide empty categories is set.
 
 ## [2.11.1] - 2023-11-02
 ### Fixed

@@ -388,21 +388,21 @@ export class CypherActorSheet extends ActorSheet {
       }
 
       // Check for tags category 2
-      if (tagsTwo.length > 0 || (this.actor.system.settings.tags?.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
+      if (tagsTwo.length > 0 || (this.actor.system.settings.general.tags?.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
         data.sheetSettings.showTagsTwo = true;
       } else {
         data.sheetSettings.showTagsTwo = false;
       }
 
       // Check for tags category 3
-      if (tagsThree.length > 0 || (this.actor.system.settings.tags?.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
+      if (tagsThree.length > 0 || (this.actor.system.settings.general.tags?.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
         data.sheetSettings.showTagsThree = true;
       } else {
         data.sheetSettings.showTagsThree = false;
       }
 
       // Check for tags category 4
-      if (tagsFour.length > 0 || (this.actor.system.settings.tags?.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
+      if (tagsFour.length > 0 || (this.actor.system.settings.general.tags?.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
         data.sheetSettings.showTagsFour = true;
       } else {
         data.sheetSettings.showTagsFour = false;
