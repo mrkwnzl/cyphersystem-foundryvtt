@@ -1247,7 +1247,8 @@
             "edge": 0
           }
         }
-      }
+      },
+      "active": false
     },
     "skill": {
       "templates": [

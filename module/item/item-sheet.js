@@ -4,8 +4,8 @@
 */
 
 import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
-import {renameTag} from "../macros/macro-helper.js";
-import {htmlEscape} from "../utilities/html-escape.js";
+import {byNameAscending} from "../utilities/sorting.js";
+import {archiveItems} from "../utilities/tagging-engine/tagging-engine-computation.js";
 
 export class CypherItemSheet extends ItemSheet {
 
@@ -73,12 +73,78 @@ export class CypherItemSheet extends ItemSheet {
     data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
     data.sheetSettings.identified = this.item.system.basic?.identified;
     data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
+    data.sheetSettings.isMaskForm = (this.item.system?.settings?.general?.unmaskedForm == "Teen") ? false : true;
 
     // Enriched HTML
     data.enrichedHTML = {};
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true, secrets: this.item.isOwner, relativeTo: this.item});
 
     data.actor = data.item.parent ? data.item.parent : "";
+
+    // Tag & recursion lists
+    data.itemLists = {};
+    if (data.actor) {
+      const tags = [];
+      const tagsTwo = [];
+      const tagsThree = [];
+      const tagsFour = [];
+      const recursions = [];
+      const tagsOnItem = this.item.flags.cyphersystem?.tags || [];
+      const recursionsOnItem = this.item.flags.cyphersystem?.recursions || [];
+
+      for (let item of data.actor.items) {
+        if (item.type === "tag" && item.system.settings.general.sorting == "Tag") {
+          tags.push(item);
+        }
+        else if (item.type === "tag" && item.system.settings.general.sorting == "TagTwo") {
+          tagsTwo.push(item);
+        }
+        else if (item.type === "tag" && item.system.settings.general.sorting == "TagThree") {
+          tagsThree.push(item);
+        }
+        else if (item.type === "tag" && item.system.settings.general.sorting == "TagFour") {
+          tagsFour.push(item);
+        }
+        else if (item.type === "recursion") {
+          recursions.push(item);
+        }
+      }
+
+      recursions.sort(byNameAscending);
+      tags.sort(byNameAscending);
+      tagsTwo.sort(byNameAscending);
+      tagsThree.sort(byNameAscending);
+      tagsFour.sort(byNameAscending);
+
+      data.itemLists.recursions = recursions;
+      data.itemLists.recursionsOnItem = recursionsOnItem;
+      data.itemLists.tags = tags;
+      data.itemLists.tagsTwo = tagsTwo;
+      data.itemLists.tagsThree = tagsThree;
+      data.itemLists.tagsFour = tagsFour;
+      data.itemLists.tagsOnItem = tagsOnItem;
+
+      // Check for tags category 2
+      if (tagsTwo.length > 0) {
+        data.sheetSettings.showTagsTwo = true;
+      } else {
+        data.sheetSettings.showTagsTwo = false;
+      }
+
+      // Check for tags category 3
+      if (tagsThree.length > 0) {
+        data.sheetSettings.showTagsThree = true;
+      } else {
+        data.sheetSettings.showTagsThree = false;
+      }
+
+      // Check for tags category 4
+      if (tagsFour.length > 0) {
+        data.sheetSettings.showTagsFour = true;
+      } else {
+        data.sheetSettings.showTagsFour = false;
+      }
+    }
 
     // Sheet customizations
     // -- Get root css variables
@@ -126,24 +192,6 @@ export class CypherItemSheet extends ItemSheet {
       } else {
         this.item.update({"system.basic.identified": true});
       }
-    });
-
-    html.find('.input-tag').change(changeEvent => {
-      if (!this.item.actor?.id) return;
-      let currentTag = "#" + htmlEscape(this.item.name.trim());
-      let newTag = "#" + htmlEscape(changeEvent.target.value.trim());
-      let actor = game.actors.get(this.item.actor.id);
-
-      renameTag(actor, currentTag, newTag);
-    });
-
-    html.find('.input-recursion').change(changeEvent => {
-      if (!this.item.actor?.id) return;
-      let currentTag = "@" + htmlEscape(this.item.name.trim());
-      let newTag = "@" + htmlEscape(changeEvent.target.value.trim());
-      let actor = game.actors.get(this.item.actor.id);
-
-      renameTag(actor, currentTag, newTag);
     });
 
     html.find('.copy-as-skill').click(async clickEvent => {
@@ -225,6 +273,61 @@ export class CypherItemSheet extends ItemSheet {
       await actor.createEmbeddedDocuments("Item", [itemData]);
 
       return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", {item: item.name}));
+    });
+
+    html.find('.tag-items').click(async clickEvent => {
+      let item = this.item;
+      let tag = this.item.actor.items.get($(clickEvent.currentTarget).data("item-id"));
+
+      if (tag.type == "tag") {
+        let array = (Array.isArray(item.flags.cyphersystem?.tags)) ? item.flags.cyphersystem?.tags : [];
+        await addOrRemoveFromArray(array);
+        var tagFound = await archiveItem(array);
+        await item.update({
+          "flags.cyphersystem.tags": array,
+          "system.archived": !tagFound
+        });
+      } else if (tag.type == "recursion") {
+        let array = (Array.isArray(item.flags.cyphersystem?.recursions)) ? item.flags.cyphersystem?.recursions : [];
+        await addOrRemoveFromArray(array);
+        var tagFound = await archiveItem(array);
+        await item.update({
+          "flags.cyphersystem.recursions": array,
+          "system.archived": !tagFound
+        });
+      }
+      this.render(true);
+
+      async function addOrRemoveFromArray(array) {
+        if (array.includes(tag._id)) {
+          let index = array.indexOf(tag._id);
+          array.splice(index, 1);
+        } else {
+          array.push(tag._id);
+        }
+      }
+
+      async function archiveItem(array) {
+        // Do nothing if it’s the last tag
+        if (array.length == 0) return !item.system.archived;
+
+        // If it should always be unarchived
+        // if (array.length == 0) return true;
+
+        // Collect all active tags of the actor
+        let activeTags = [];
+        for (let tag of item.actor.items) {
+          if (["tag", "recursion"].includes(tag.type) && tag.system.active) {
+            activeTags.push(tag._id);
+          }
+        }
+
+        // Check if any of the enabled tags on the item is an active tag on the actor
+        var tagFound = activeTags.some(id => array.includes(id));
+
+        // Return whether a tag has been found
+        return tagFound;
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-import {changeTagStats, determineUpdateData} from "./tagging-engine-computation.js";
+import {applyRecursion, changeTagStats, archiveItems} from "./tagging-engine-computation.js";
 
 export async function taggingEngineMain(actor, taggingData) {
   taggingData = Object.assign({
@@ -18,13 +18,24 @@ export async function taggingEngineMain(actor, taggingData) {
   // Check for PC
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
-  // Functions for exclusive
-  if (taggingData.item.system.exclusive) {
+  // Functions for exclusive & Recursions
+  if (taggingData.item.type == "tag" && taggingData.item.system?.exclusive) {
     for (let item of actor.items) {
       if (item.type == "tag" && item.system.exclusive && item.system.active && item._id != taggingData.item._id) {
         taggingData.disableItem = item;
       }
     }
+  } else if (taggingData.item.type == "recursion") {
+    for (let item of actor.items) {
+      if (item.type == "recursion" && item.system.active && item._id != taggingData.item._id) {
+        taggingData.disableItem = item;
+      }
+    }
+  }
+
+  // Apply recursion
+  if (taggingData.item.type == "recursion") {
+    applyRecursion(actor, taggingData.item);
   }
 
   // Update stats
@@ -39,13 +50,13 @@ export async function taggingEngineMain(actor, taggingData) {
         intellectModifier: taggingData.statChanges.intellectModifier - disableItem.intellect.value,
         intellectEdgeModifier: taggingData.statChanges.intellectEdgeModifier - disableItem.intellect.edge
       });
-    } else {
+    } else if (taggingData.item.type != "recursion" || !taggingData.item.system.active) {
       await changeTagStats(actor, taggingData.statChanges);
     }
   }
 
   // Update actor items
-  await actor.updateEmbeddedDocuments("Item", await determineUpdateData(actor, taggingData));
+  await actor.updateEmbeddedDocuments("Item", await archiveItems(actor, taggingData));
 
   // Create Hooks for toggling Tags
   Hooks.call("enableTag", actor, taggingData.item);

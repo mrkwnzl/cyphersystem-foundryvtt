@@ -12,11 +12,7 @@
         {{~/if ~}}
       </a>
       {{#if (and item.system.basic.depletion item.system.basic.identified) ~}}
-        {{localize 'CYPHERSYSTEM.OpenParenthesis' ~}}
-        {{localize 'CYPHERSYSTEM.depletion' ~}}
-        {{localize 'CYPHERSYSTEM.Colon'}}
-        {{{enrichedHTMLItems ../this "depletion" item._id}}}
-        {{~localize 'CYPHERSYSTEM.CloseParenthesis'}}
+        ({{localize 'CYPHERSYSTEM.depletion' ~}}: {{{enrichedHTMLItems ../this "depletion" item._id}}}&hairsp;)
       {{/if}}
     </h4>
     <div class="item-quantity">
@@ -54,6 +50,8 @@
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
         {{#if item.system.basic.identified}}
           {{{enrichedHTMLItems ../this "description" item._id}}}
+
+          {{{activeTags ../this item.flags.cyphersystem.tags item.flags.cyphersystem.recursions}}}
         {{else}}
           <p>{{localize 'CYPHERSYSTEM.???'}}</p>
         {{/if}}

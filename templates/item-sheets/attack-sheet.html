@@ -76,6 +76,11 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
+    {{#if (eq actor.system.settings.general.gameMode "Strange")}}
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-solid fa-at"></i></a>
+    {{else if (and actor.system.settings.general.tags.active sheetSettings.isMaskForm)}}
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-solid fa-hashtag"></i></a>
+    {{/if}}
     <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-solid fa-gear"></i></a>
   </nav>
 
@@ -85,6 +90,19 @@
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
       {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
+    </div>
+
+    {{!-- Tags and Recursions Tab --}}
+    <div class="tab tags" data-group="primary" data-tab="tags">
+      {{!-- Recursions --}}
+      {{#if (eq actor.system.settings.general.gameMode "Strange")}}
+        {{> systems/cyphersystem/templates/tabs/tags-tab/recursions-items.html}}
+      {{/if}}
+
+      {{!-- Tags --}}
+      {{#if actor.system.settings.general.tags.active}}
+        {{> systems/cyphersystem/templates/tabs/tags-tab/tags-items.html}}
+      {{/if}}
     </div>
 
     {{!-- Settings Tab --}}

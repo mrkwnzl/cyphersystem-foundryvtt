@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0] - 2023-12-06
+### Changed
+- The tagging/recursion system has been completely reworked. Instead of writing the tags into the item’s descriptions, there’s a tags/recursion tab on each item where you can select with which tags the item should be tagged.
+  **Note:** There is a migration routine in place that converts existing tags and recursions into the new system, but only if the PC has the appropriate tags and recursions as items. The migration routine only works once, so make sure to have the needed tag and recursion items before you update. After the tags have been removed, empty paragraphs and empty secret formatting will be removed from the item’s description. **In any case, make a backup before updating!**
+  **Also note:** If you have actors using tags in a compendium, run `game.cyphersystem.dataMigrationPacks("pack-name")` in the console to update your compendiums.
+- Items with multiple tags are being archived only if all these tags are inactive. The items stay unarchived as long as at least one of these tags is active.
+
+### Removed
+- The macros regarding tags have been removed, as they no longer serve a purpose.
+
+### Fixed
+- When using Unmasked mode and tags, the tags only work on the mask items and stats.
+- Empty tag categories are shown correctly, unless the setting to hide empty categories is set (they are shown correctly then as well, but that means that they aren’t shown).
+
 ## [2.11.1] - 2023-11-02
 ### Fixed
 - The dropdown to sort tags via the settings tab is now populated correctly.

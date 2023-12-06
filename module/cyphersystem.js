@@ -1,22 +1,51 @@
 // Import actors & items
-import {CypherActor} from "./actor/actor.js";
-import {CypherItem} from "./item/item.js";
+import {
+  CypherActor
+} from "./actor/actor.js";
+import {
+  CypherItem
+} from "./item/item.js";
 
 // Import actor & item sheets
-import {CypherItemSheet} from "./item/item-sheet.js";
-import {CypherActorSheet} from "./actor/actor-sheet.js";
-import {CypherActorSheetPC} from "./actor/pc-sheet.js";
-import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
-import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
-import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
-import {CypherActorSheetMarker} from "./actor/marker-sheet.js";
-import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
+import {
+  CypherItemSheet
+} from "./item/item-sheet.js";
+import {
+  CypherActorSheet
+} from "./actor/actor-sheet.js";
+import {
+  CypherActorSheetPC
+} from "./actor/pc-sheet.js";
+import {
+  CypherActorSheetNPC
+} from "./actor/npc-sheet.js";
+import {
+  CypherActorSheetCommunity
+} from "./actor/community-sheet.js";
+import {
+  CypherActorSheetCompanion
+} from "./actor/companion-sheet.js";
+import {
+  CypherActorSheetMarker
+} from "./actor/marker-sheet.js";
+import {
+  CypherActorSheetVehicle
+} from "./actor/vehicle-sheet.js";
 
 // Import utility functions
-import {preloadTemplates} from "./utilities/template-paths.js";
-import {applyXPFromIntrusion, regainPoolPoints} from "./utilities/actor-utilities.js";
-import {sendWelcomeMessage} from "./utilities/welcome-message.js";
-import {createCyphersystemMacro} from "./utilities/create-macros.js";
+import {
+  preloadTemplates
+} from "./utilities/template-paths.js";
+import {
+  applyXPFromIntrusion,
+  regainPoolPoints
+} from "./utilities/actor-utilities.js";
+import {
+  sendWelcomeMessage
+} from "./utilities/welcome-message.js";
+import {
+  createCyphersystemMacro
+} from "./utilities/create-macros.js";
 
 // Import macros
 import {
@@ -35,21 +64,21 @@ import {
   quickStatChange,
   proposeIntrusion,
   changeSymbolForFractions,
-  translateToRecursion,
   toggleAlwaysShowDescriptionOnRoll,
   calculateAttackDifficulty,
   recursionMacro,
   tagMacro,
-  renameTagMacro,
   disasterModeMacro,
   lockStaticStatsMacro,
   migrateDataMacro,
-  changeRecursionStats,
   selectedTokenRollMacro
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
-  hinderedRollEffectiveMacro
+  hinderedRollEffectiveMacro,
+  renameTagMacro,
+  translateToRecursion,
+  archiveStatusByTag
 } from "./macros/macro-helper.js";
 import {
   chatCardMarkItemIdentified,
@@ -60,22 +89,47 @@ import {
   chatCardWelcomeMessage,
   chatCardRegainPoints
 } from "./utilities/chat-cards.js";
-import {barBrawlOverwrite} from "./utilities/token-utilities.js";
-import {registerGameSettings} from "./utilities/game-settings.js";
-import {registerHandlebars} from "./utilities/handlebars.js";
-import {gameSockets} from "./utilities/game-sockets.js";
-import {initiativeSettings} from "./utilities/initiative-settings.js";
+import {
+  barBrawlOverwrite
+} from "./utilities/token-utilities.js";
+import {
+  registerGameSettings
+} from "./utilities/game-settings.js";
+import {
+  registerHandlebars
+} from "./utilities/handlebars.js";
+import {
+  gameSockets
+} from "./utilities/game-sockets.js";
+import {
+  initiativeSettings
+} from "./utilities/initiative-settings.js";
 import {
   dataMigration,
   dataMigrationPacks
 } from "./utilities/migration.js";
-import {rollEngineMain} from "./utilities/roll-engine/roll-engine-main.js";
-import {rollEngineComputation} from "./utilities/roll-engine/roll-engine-computation.js";
-import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
-import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
-import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
-import {changeTagStats} from "./utilities/tagging-engine/tagging-engine-computation.js";
-import {renderRollDifficultyForm} from "./forms/roll-difficulty-sheet.js";
+import {
+  rollEngineMain
+} from "./utilities/roll-engine/roll-engine-main.js";
+import {
+  rollEngineComputation
+} from "./utilities/roll-engine/roll-engine-computation.js";
+import {
+  rollEngineForm
+} from "./utilities/roll-engine/roll-engine-form.js";
+import {
+  rollEngineOutput
+} from "./utilities/roll-engine/roll-engine-output.js";
+import {
+  gmiRangeForm,
+  renderGMIForm
+} from "./forms/gmi-range-sheet.js";
+import {
+  changeTagStats
+} from "./utilities/tagging-engine/tagging-engine-computation.js";
+import {
+  renderRollDifficultyForm
+} from "./forms/roll-difficulty-sheet.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -105,8 +159,6 @@ Hooks.once("init", async function () {
     quickRollMacro,
     easedRollMacro,
     hinderedRollMacro,
-    easedRollEffectiveMacro,
-    hinderedRollEffectiveMacro,
     diceRollMacro,
     recoveryRollMacro,
     spendEffortMacro,
@@ -119,12 +171,10 @@ Hooks.once("init", async function () {
     quickStatChange,
     proposeIntrusion,
     changeSymbolForFractions,
-    translateToRecursion,
     toggleAlwaysShowDescriptionOnRoll,
     calculateAttackDifficulty,
     recursionMacro,
     tagMacro,
-    renameTagMacro,
     disasterModeMacro,
     lockStaticStatsMacro,
     migrateDataMacro,
@@ -134,6 +184,13 @@ Hooks.once("init", async function () {
     rollEngineForm,
     rollEngineOutput,
     selectedTokenRollMacro,
+
+    // Deprecated macros
+    easedRollEffectiveMacro,
+    hinderedRollEffectiveMacro,
+    archiveStatusByTag,
+    translateToRecursion,
+    renameTagMacro,
 
     // Chat cards
     chatCardMarkItemIdentified,
@@ -240,7 +297,10 @@ Hooks.once("ready", async function () {
 
   // Send warning for people with CSRD Compendium v3.2.0
   if (game.modules.get("cyphersystem-compendium")?.version == "v3.2.0") {
-    ui.notifications.error("There has been a bug in the update process for the Cypher SRD Compendium. Please uninstall and reinstall the module in the Foundry setup to get the newest version. Sorry for the inconvenience! –Marko", {permanent: true, console: true});
+    ui.notifications.error("There has been a bug in the update process for the Cypher SRD Compendium. Please uninstall and reinstall the module in the Foundry setup to get the newest version. Sorry for the inconvenience! –Marko", {
+      permanent: true,
+      console: true
+    });
   }
 
   // Send welcome message
@@ -248,13 +308,17 @@ Hooks.once("ready", async function () {
 });
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
-  let tokenControls = hudButtons.find(val => {return val.name == "token";});
+  let tokenControls = hudButtons.find(val => {
+    return val.name == "token";
+  });
   if (tokenControls) {
     tokenControls.tools.push({
       name: "rollDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
       icon: "fa-solid fa-crosshairs-simple",
-      onClick: () => {renderRollDifficultyForm(true);},
+      onClick: () => {
+        renderRollDifficultyForm(true);
+      },
       button: true
     });
   }
@@ -263,7 +327,9 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "calculateDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
       icon: "fas fa-calculator",
-      onClick: () => {calculateAttackDifficulty();},
+      onClick: () => {
+        calculateAttackDifficulty();
+      },
       button: true
     });
   }
@@ -272,7 +338,9 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "gmiRange",
       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
       icon: "fas fa-exclamation-triangle",
-      onClick: () => {gmiRangeForm();},
+      onClick: () => {
+        gmiRangeForm();
+      },
       button: true
     });
   }
@@ -281,7 +349,9 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       name: "proposeGMI",
       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
       icon: "fas fa-bolt",
-      onClick: () => {proposeIntrusion();},
+      onClick: () => {
+        proposeIntrusion();
+      },
       button: true
     });
   }
@@ -294,41 +364,69 @@ Hooks.on("preCreateActor", async function (actor) {
     });
   } else if (actor.type == "npc") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "pools.health"},
-      "prototypeToken.bar2": {"attribute": "basic.level"}
+      "prototypeToken.bar1": {
+        "attribute": "pools.health"
+      },
+      "prototypeToken.bar2": {
+        "attribute": "basic.level"
+      }
     });
   } else if (actor.type == "companion") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "pools.health"},
-      "prototypeToken.bar2": {"attribute": "basic.level"},
+      "prototypeToken.bar1": {
+        "attribute": "pools.health"
+      },
+      "prototypeToken.bar2": {
+        "attribute": "basic.level"
+      },
       "prototypeToken.actorLink": true
     });
   } else if (actor.type == "marker") {
     actor.updateSource({
-      "prototypeToken.bar1": {"attribute": "pools.quantity"},
-      "prototypeToken.bar2": {"attribute": "basic.level"}
+      "prototypeToken.bar1": {
+        "attribute": "pools.quantity"
+      },
+      "prototypeToken.bar2": {
+        "attribute": "basic.level"
+      }
     });
   }
 });
 
 Hooks.on("updateActor", async function (actor, data, options, userId) {
   if (actor.type == "pc" && data.ownership) {
-    game.socket.emit("system.cyphersystem", {operation: "renderGMIForm"});
+    game.socket.emit("system.cyphersystem", {
+      operation: "renderGMIForm"
+    });
     renderGMIForm();
   }
 });
 
-Hooks.on("preCreateItem", function (item) {
+Hooks.on("preCreateItem", function (item, data, options, id) {
   if (item.img == "icons/svg/item-bag.svg") {
-    item.updateSource({"img": `systems/cyphersystem/icons/items/${item.type}.svg`});
-  }
+    item.updateSource({
+      "img": `systems/cyphersystem/icons/items/${item.type}.svg`
+    });
+  };
   if (item.parent?.system.basic.unmaskedForm == "Teen" && ["ability", "armor", "attack", "lasting-damage", "skill"].includes(item.type)) {
-    item.updateSource({"system.settings.general.unmaskedForm": "Teen"});
-  }
+    item.updateSource({
+      "system.settings.general.unmaskedForm": "Teen"
+    });
+  };
+  if (item.flags.cyphersystem?.tags) {
+    item.updateSource({
+      "flags.cyphersystem.tags": []
+    });
+  };
+  if (item.flags.cyphersystem?.recursions) {
+    item.updateSource({
+      "flags.cyphersystem.recursions": []
+    });
+  };
 });
 
 Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
-  if (item.actor && item.type == "tag" && changes?.system?.settings?.statModifiers && item.system.active) {
+  if (item.actor && ["tag", "recursion"].includes(item.type) && changes?.system?.settings?.statModifiers && item.system.active) {
     let statModifiers = item.system.settings.statModifiers;
     let changedStatModifiers = changes.system?.settings?.statModifiers;
 
@@ -348,24 +446,10 @@ Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
       intellectEdgeModifier: intellectEdgeModifier,
       itemActive: !item.system.active
     });
-  } 
-});
-
-Hooks.on("updateItem", async function (item, changes, options, userId) {
-  if (item.actor) {
-    if (item.type == "recursion" && fromUuidSync(item.actor.uuid).flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-      await changeRecursionStats(
-        fromUuidSync(item.actor.uuid),
-        "@" + item.name.toLowerCase(),
-        item.system.settings.statModifiers.might.value,
-        item.system.settings.statModifiers.might.edge,
-        item.system.settings.statModifiers.speed.value,
-        item.system.settings.statModifiers.speed.edge,
-        item.system.settings.statModifiers.intellect.value,
-        item.system.settings.statModifiers.intellect.edge);
-    }
   }
 });
+
+Hooks.on("updateItem", async function (item, changes, options, userId) {});
 
 Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;
@@ -373,9 +457,13 @@ Hooks.on("preCreateToken", function (document, data) {
 
   // Support for Drag Ruler
   if (actor.type !== "marker" && actor.type !== "community") {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": true});
+    document.updateSource({
+      "flags.cyphersystem.toggleDragRuler": true
+    });
   } else {
-    document.updateSource({"flags.cyphersystem.toggleDragRuler": false});
+    document.updateSource({
+      "flags.cyphersystem.toggleDragRuler": false
+    });
   }
 
   // Support for Bar Brawl
@@ -391,19 +479,27 @@ Hooks.on("createCombatant", function (combatant) {
     if (game.settings.get("cyphersystem", "difficultyNPCInitiative") && game.settings.get("cyphersystem", "rollDifficulty") >= 0) {
       var NPCInitiative = game.settings.get("cyphersystem", "rollDifficulty");
     } else {
-      var NPCInitiative = (actor.type == "community")
-        ? actor.system.basic.rank
-        : actor.system.basic.level;
+      var NPCInitiative = (actor.type == "community") ?
+        actor.system.basic.rank :
+        actor.system.basic.level;
     }
 
     if (actor.type == "npc") {
-      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.level / 1000)});
+      combatant.update({
+        "initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.level / 1000)
+      });
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
-      combatant.update({"initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.rank / 1000)});
+      combatant.update({
+        "initiative": (NPCInitiative * 3) + actor.system.settings.general.initiativeBonus - 0.5 + (actor.system.basic.rank / 1000)
+      });
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
-      combatant.update({"initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus});
+      combatant.update({
+        "initiative": (actor.system.basic.rank * 3) + actor.system.settings.general.initiativeBonus
+      });
     } else if (actor.type == "vehicle") {
-      combatant.update({"initiative": (NPCInitiative * 3) - 0.5 + (actor.system.basic.level / 1000)});
+      combatant.update({
+        "initiative": (NPCInitiative * 3) - 0.5 + (actor.system.basic.level / 1000)
+      });
     }
   }
 });
@@ -415,7 +511,9 @@ Hooks.on("updateCombat", function () {
     if (combatant.type == "marker" && combatant.system.settings.general.isCounter == true) {
       let step = (!combatant.system.settings.general.counting) ? -1 : combatant.system.settings.general.counting;
       let newQuantity = combatant.system.pools.quantity.value + step;
-      combatant.update({"system.pools.quantity.value": newQuantity});
+      combatant.update({
+        "system.pools.quantity.value": newQuantity
+      });
     }
   }
 });
@@ -432,8 +530,13 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"));
     let actor = game.actors.get(html.find('.confirm').data('actor'));
     let item = actor.items.get(html.find('.confirm').data('item'));
-    item.update({"system.basic.identified": true});
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {item: item.name, actor: actor.name}));
+    item.update({
+      "system.basic.identified": true
+    });
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {
+      item: item.name,
+      actor: actor.name
+    }));
   });
 
   // Event Listener for rerolls of stat rolls
@@ -528,7 +631,9 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   // Event Listener for accepting intrusions
   html.find('.accept-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.accept-intrusion').data('actor'));
-    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
+    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {
+      actor: actor.name
+    }));
 
     // Create list of PCs
     let list = "";
@@ -549,7 +654,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
 
     // Create dialog content
     let content = `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXPTo")}: </b></label>
-    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">`+ list + `</select></div>`;
+    <select name="selectPC" id="selectPC" style="width: auto; margin-left: 5px; margin-bottom: 5px; text-align-last: center">` + list + `</select></div>`;
 
     // Create dialog
     let d = new Dialog({
@@ -573,14 +678,18 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (list == "") {
       applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
-      d.render(true, {width: "auto"});
+      d.render(true, {
+        width: "auto"
+      });
     }
   });
 
   // Event Listener for refusing intrusions
   html.find('.refuse-intrusion').click(clickEvent => {
     let actor = game.actors.get(html.find('.refuse-intrusion').data('actor'));
-    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {actor: actor.name}));
+    if (!actor.isOwner) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {
+      actor: actor.name
+    }));
     applyXPFromIntrusion(actor, "", data.message._id, -1);
   });
 });
@@ -588,11 +697,26 @@ Hooks.on("renderChatMessage", function (message, html, data) {
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class CypherSystemSpeedProvider extends SpeedProvider {
     get colors() {
-      return [
-        {id: "immediate", default: 0x0000FF, name: "immediate"},
-        {id: "short", default: 0x008000, name: "short"},
-        {id: "long", default: 0xFFA500, name: "long"},
-        {id: "veryLong", default: 0xFF0000, name: "very long"}
+      return [{
+        id: "immediate",
+        default: 0x0000FF,
+        name: "immediate"
+      },
+      {
+        id: "short",
+        default: 0x008000,
+        name: "short"
+      },
+      {
+        id: "long",
+        default: 0xFFA500,
+        name: "long"
+      },
+      {
+        id: "veryLong",
+        default: 0xFF0000,
+        name: "very long"
+      }
       ];
     }
 
@@ -613,11 +737,22 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         veryLong = 500;
       }
 
-      const ranges = [
-        {range: immediate, color: "immediate"},
-        {range: short, color: "short"},
-        {range: long, color: "long"},
-        {range: veryLong, color: "veryLong"}
+      const ranges = [{
+        range: immediate,
+        color: "immediate"
+      },
+      {
+        range: short,
+        color: "short"
+      },
+      {
+        range: long,
+        color: "long"
+      },
+      {
+        range: veryLong,
+        color: "veryLong"
+      }
       ];
       return ranges;
     }

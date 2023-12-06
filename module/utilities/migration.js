@@ -108,6 +108,10 @@ async function migrationRoutineActor(actor) {
       if (!foundry.utils.isEmpty(updateDataItem)) {
         await item.update(updateDataItem, {enforceTypes: false});
       }
+      const updateDataItemV2 = await migrationItemV2ToV3(item);
+      if (!foundry.utils.isEmpty(updateDataItemV2)) {
+        await item.update(updateDataItemV2, {enforceTypes: false});
+      }
     }
     const updateDataActor = await migrationActorV1ToV2(actor);
     if (!foundry.utils.isEmpty(updateDataActor)) {
@@ -116,6 +120,10 @@ async function migrationRoutineActor(actor) {
     const updateDataActorV2 = await migrationActorV2ToV3(actor);
     if (!foundry.utils.isEmpty(updateDataActorV2)) {
       await actor.update(updateDataActorV2, {enforceTypes: false});
+    }
+    const updateDataActorV3 = await migrationActorV3ToV4(actor);
+    if (!foundry.utils.isEmpty(updateDataActorV3)) {
+      await actor.update(updateDataActorV3, {enforceTypes: false});
     }
   } catch (error) {
     error.message = `Failed Cypher system migration for Actor ${actor.name}: ${error.message}`;
@@ -129,8 +137,12 @@ async function migrationRoutineItem(item) {
     if (!foundry.utils.isEmpty(updateDataItem)) {
       await item.update(updateDataItem, {enforceTypes: false});
     }
+    const updateDataItemV2 = await migrationItemV2ToV3(item);
+    if (!foundry.utils.isEmpty(updateDataItemV2)) {
+      await item.update(updateDataItemV2, {enforceTypes: false});
+    }
   } catch (error) {
-    error.message = `Failed Cypher system migration for Actor ${actor.name}: ${error.message}`;
+    error.message = `Failed Cypher system migration for Actor ${item.name}: ${error.message}`;
     console.error(error);
   }
 }
@@ -741,6 +753,37 @@ async function migrationActorV2ToV3(actor) {
   return updateData;
 }
 
+async function migrationActorV3ToV4(actor) {
+  // Create updateData object
+  let updateData = foundry.utils.deepClone(actor.toObject());
+
+  if (actor.system.version == 3) {
+    if (actor.type == "pc") {
+      await deleteTagFlags();
+    }
+
+    // Update to version 4
+    updateData.system.version = 4;
+    return updateData;
+  }
+
+  async function deleteTagFlags() {
+    actor.unsetFlag("cyphersystem", "tagMightModifier");
+    actor.unsetFlag("cyphersystem", "tagMightEdgeModifier");
+    actor.unsetFlag("cyphersystem", "tagSpeedModifier");
+    actor.unsetFlag("cyphersystem", "tagSpeedEdgeModifier");
+    actor.unsetFlag("cyphersystem", "tagIntellectModifier");
+    actor.unsetFlag("cyphersystem", "tagIntellectEdgeModifier");
+    actor.unsetFlag("cyphersystem", "recursionMightModifier");
+    actor.unsetFlag("cyphersystem", "recursionMightEdgeModifier");
+    actor.unsetFlag("cyphersystem", "recursionSpeedModifier");
+    actor.unsetFlag("cyphersystem", "recursionSpeedEdgeModifier");
+    actor.unsetFlag("cyphersystem", "recursionIntellectModifier");
+    actor.unsetFlag("cyphersystem", "recursionIntellectEdgeModifier");
+    actor.unsetFlag("cyphersystem", "recursion");
+  }
+};
+
 async function migrationItemV1ToV2(item) {
   // Migration to new item types
   await migrationItemTypes();
@@ -1124,5 +1167,75 @@ async function migrationItemV1ToV2(item) {
       "system.-=isInitiative": null
     };
     await item.update(deleteData);
+  }
+}
+
+async function migrationItemV2ToV3(item) {
+  // Create updateData object
+  let updateData = foundry.utils.deepClone(item.toObject());
+
+  let name = updateData.name;
+  let description = updateData.system.description;
+
+  if (item.system.version == 2) {
+    if (!["tag", "recursion"].includes(item.type)) {
+      if (!item.actor) return;
+      await migrateTags();
+      await migrateRecursions();
+    }
+
+    description = description.replaceAll(/<p>\s*<\/p>/g, "");
+    description = description.replaceAll(/<section class="secret.*" id=".*">\s*<\/section>/g, "");
+
+    // Update to version 3
+    updateData.system.version = 3;
+    updateData.name = name;
+    updateData.system.description = description;
+    return updateData;
+  }
+
+  async function migrateTags() {
+    const tagArray = (Array.isArray(item.flags?.cyphersystem?.tags)) ? item.flags.cyphersystem.tags : [];
+
+    for (let tag of item.actor.items) {
+      if (tag.type == "tag") {
+        const tagName = "#" + tag.name;
+
+        // Check of tags
+        if ((name.includes(tagName) || description.includes(tagName)) && item.system.settings?.general?.unmaskedForm != "Teen") {
+          tagArray.push(tag._id);
+          name = name.replace(tagName, "");
+          if (name == "") name = tag.name;
+          description = description.replace(tagName, "");
+        }
+      }
+    }
+
+    await item.setFlag("cyphersystem", "tags", tagArray);
+  }
+
+  async function migrateRecursions() {
+    const recursionArray = (Array.isArray(item.flags?.cyphersystem?.recursions)) ? item.flags.cyphersystem.recursions : [];
+
+    for (let recursion of item.actor.items) {
+      if (recursion.type == "recursion") {
+        const recursionName = "@" + recursion.name;
+
+        // Check if recursions
+        if ((name.includes(recursionName) || description.includes(recursionName)) && item.system.settings?.general?.unmaskedForm != "Teen") {
+          recursionArray.push(recursion._id);
+          name = name.replace(recursionName, "");
+          if (name == "") name = recursion.name;
+          description = description.replace(recursionName, "");
+        }
+
+        // Check if active
+        if (item.actor.flags?.cyphersystem?.recursion == recursionName.toLowerCase()) {
+          await recursion.update({"system.active": true});
+        }
+      }
+    }
+
+    await item.setFlag("cyphersystem", "recursions", recursionArray);
   }
 }
