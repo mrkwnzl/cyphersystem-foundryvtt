@@ -7,7 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.12.0] - 2023-12-06
 ### Changed
 - The tagging/recursion system has been completely reworked. Instead of writing the tags into the item’s descriptions, there’s a tags/recursion tab on each item where you can select with which tags the item should be tagged.
+  
   **Note:** There is a migration routine in place that converts existing tags and recursions into the new system, but only if the PC has the appropriate tags and recursions as items. The migration routine only works once, so make sure to have the needed tag and recursion items before you update. After the tags have been removed, empty paragraphs and empty secret formatting will be removed from the item’s description. **In any case, make a backup before updating!**
+  
   **Also note:** If you have actors using tags in a compendium, run `game.cyphersystem.dataMigrationPacks("pack-name")` in the console to update your compendiums.
 - Items with multiple tags are being archived only if all these tags are inactive. The items stay unarchived as long as at least one of these tags is active.
 
