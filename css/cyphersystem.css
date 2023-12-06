@@ -34,7 +34,7 @@ ol {
 }
 
 #chat-log .message .flavor-text p:first-of-type,
-.flavor-text p>p {
+.flavor-text p > p {
   margin: 0 0 0.5em 0;
 }
 
@@ -306,10 +306,14 @@ a.entity-link,
 a.content-link,
 a.inline-roll,
 a.pdfoundry-link,
-a.rollForLevel {
+a.rollForLevel,
+a.tag-items {
   font-size: smaller;
-  margin: 0 1px 0 1px;
 }
+
+/* :is(a.entity-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.content-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.inline-roll:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.rollForLevel:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.tag-items:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items))) {
+  margin: 0 2px 0 0;
+} */
 
 select.bar-attribute {
   width: 0;
@@ -317,9 +321,9 @@ select.bar-attribute {
 
 /* Remove when fixed in core V12 */
 
-li.folder>.folder-header,
-li.folder.collapsed>.folder-header,
-li.folder.collapsed>.folder-header h3 {
+li.folder > .folder-header,
+li.folder.collapsed > .folder-header,
+li.folder.collapsed > .folder-header h3 {
   text-shadow: 0 0 3px black;
 }
 
@@ -804,12 +808,12 @@ li.folder.collapsed>.folder-header h3 {
   padding-left: 0;
 }
 
-.cyphersystem .tabs .item~.item {
+.cyphersystem .tabs .item ~ .item {
   border-left: none;
   padding: 0px 6px;
 }
 
-.cyphersystem .items-list .item~.item {
+.cyphersystem .items-list .item ~ .item {
   border-top: 1px solid #BBB;
 }
 
@@ -1084,10 +1088,29 @@ li.folder.collapsed>.folder-header h3 {
   color: #7a7971;
 }
 
+.cyphersystem .tag-list {
+  border-top: 1px solid #BBB;
+  border-bottom: 1px solid #BBB;
+  padding: 2px 3px 3px 3px;
+  line-height: 1.4;
+}
+
+.cyphersystem .tag-items {
+  background: #DDD;
+  padding: 1px 4px;
+  border: 1px solid #4b4a44;
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.cyphersystem .tag-items i {
+  color: #7a7971;
+}
+
 .cyphersystem .disabled {
   pointer-events: none;
   color: #4b4a44;
-  border: none;
 }
 
 .cyphersystem .item-angle {
@@ -1133,7 +1156,7 @@ li.folder.collapsed>.folder-header h3 {
   margin-top: 5px;
 }
 
-.cyphersystem .stat-block+.stat-block {
+.cyphersystem .stat-block + .stat-block {
   margin-left: 5px
 }
 
@@ -1183,6 +1206,11 @@ li.folder.collapsed>.folder-header h3 {
 
 .cyphersystem .archived-image {
   opacity: 60%;
+}
+
+.cyphersystem .tag-inactive {
+  color: dimgrey;
+  border: 1px dashed;
 }
 
 .cyphersystem .Inability {
@@ -1396,7 +1424,7 @@ select.settings-input {
 
 .cyphersystem .sheet-header img.pc-logo {
   height: auto;
-  max-height: 87px;
+  max-height: 85px;
 }
 
 .cyphersystem .sheet-header img.npc-logo {
@@ -1426,7 +1454,7 @@ select.settings-input {
   width: 75px;
 }
 
-.cyphersystem input[type="range"]+.range-value {
+.cyphersystem input[type="range"] + .range-value {
   min-width: 147.75px;
   max-width: 147.75px;
   border-color: var(--color-border-light-tertiary);
@@ -1457,7 +1485,7 @@ select.settings-input {
   margin: 1rem 0rem;
 }
 
-section.cypher-note>p {
+section.cypher-note > p {
   margin-top: 0px;
 }
 

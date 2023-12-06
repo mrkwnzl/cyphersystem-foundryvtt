@@ -42,6 +42,7 @@
       <div class="description desc-{{item._id}}">
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
         {{{enrichedHTMLItems ../this "description" item._id}}}
+        {{{activeTags ../this item.flags.cyphersystem.tags item.flags.cyphersystem.recursions}}}
       </div>
     </li>
   {{/if}}

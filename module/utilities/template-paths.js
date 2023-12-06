@@ -25,6 +25,7 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/item-lists/oddities-list.html",
     "systems/cyphersystem/templates/item-lists/power-shifts-list.html",
     "systems/cyphersystem/templates/item-lists/recursions-list.html",
+    "systems/cyphersystem/templates/item-lists/recursions-items-list.html",
     "systems/cyphersystem/templates/item-lists/skills-list-01.html",
     "systems/cyphersystem/templates/item-lists/skills-list-02.html",
     "systems/cyphersystem/templates/item-lists/skills-list-03.html",
@@ -35,6 +36,10 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/item-lists/tags-list-02.html",
     "systems/cyphersystem/templates/item-lists/tags-list-03.html",
     "systems/cyphersystem/templates/item-lists/tags-list-04.html",
+    "systems/cyphersystem/templates/item-lists/tags-items-list-01.html",
+    "systems/cyphersystem/templates/item-lists/tags-items-list-02.html",
+    "systems/cyphersystem/templates/item-lists/tags-items-list-03.html",
+    "systems/cyphersystem/templates/item-lists/tags-items-list-04.html",
     "systems/cyphersystem/templates/tabs/abilities-tab/abilities.html",
     "systems/cyphersystem/templates/tabs/abilities-tab/spells.html",
     "systems/cyphersystem/templates/tabs/combat-tab/ammo.html",
@@ -58,7 +63,9 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/tabs/skills-tab/power-shifts.html",
     "systems/cyphersystem/templates/tabs/skills-tab/skills.html",
     "systems/cyphersystem/templates/tabs/tags-tab/recursions.html",
-    "systems/cyphersystem/templates/tabs/tags-tab/tags.html"
+    "systems/cyphersystem/templates/tabs/tags-tab/tags.html",
+    "systems/cyphersystem/templates/tabs/tags-tab/recursions-items.html",
+    "systems/cyphersystem/templates/tabs/tags-tab/tags-items.html"
   ];
   return loadTemplates(templatePaths);
 }

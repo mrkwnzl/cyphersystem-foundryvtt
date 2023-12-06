@@ -4,7 +4,8 @@ import {
 import {
   spendEffortString,
   calculateAttackDifficultyString,
-  renameTagString
+  renameTagString,
+  itemMacroString
 } from "./macro-strings.js";
 import {
   chatCardProposeIntrusion,
@@ -673,139 +674,38 @@ export function toggleAlwaysShowDescriptionOnRoll() {
   (toggle) ? ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification")) : ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification"));
 }
 
-export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
-  // Check for PC
-  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  // Define recursion name & workarble recursion variable
-  let recursionName = recursion;
-  recursion = "@" + recursion.toLowerCase();
-
-  focus = (game.keyboard.isModifierActive("Alt")) ? actor.system.basic.focus : focus;
-
-  // Update Focus & Recursion
-  await actor.update({
-    "system.basic.focus": focus,
-    "system.basic.additionalSentence": game.i18n.localize("CYPHERSYSTEM.OnRecursion") + " " + recursionName,
-    "system.settings.general.additionalSentence.active": true
-  });
-
-  if (!mightModifier) mightModifier = 0;
-  if (!speedModifier) speedModifier = 0;
-  if (!intellectModifier) intellectModifier = 0;
-  if (!mightEdgeModifier) mightEdgeModifier = 0;
-  if (!speedEdgeModifier) speedEdgeModifier = 0;
-  if (!intellectEdgeModifier) intellectEdgeModifier = 0;
-
-  if (game.keyboard.isModifierActive("Alt")) {
-    await actor.update({
-      "flags.cyphersystem.recursion": recursion
-    });
-  } else {
-    await changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier);
-    await applyRecursion();
-  }
-
-  async function applyRecursion() {
-    let updates = [];
-    let regExceptions = new RegExp(game.cyphersystem.recursionDocumentLinkExceptions.join("|"), "gi");
-    let regRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)" + recursion + "(\\s|$||&nbsp;<.+?>)", "gi");
-    let regOtherRecursion = new RegExp("(\\s|^|&nbsp;|<.+?>)@([a-z]|[0-9])", "gi");
-    for (let item of actor.items) {
-      let name = (!item.name) ? "" : item.name.toLowerCase().replace(regExceptions, "");
-      let description = (!item.system.description) ? "" : item.system.description.toLowerCase().replace(regExceptions, "");
-      if (regRecursion.test(name) || regRecursion.test(description)) {
-        updates.push({_id: item.id, "system.archived": false});
-      } else if (regOtherRecursion.test(name) || regOtherRecursion.test(description)) {
-        updates.push({_id: item.id, "system.archived": true});
-      }
-    }
-
-    await actor.updateEmbeddedDocuments("Item", updates);
-
-    // Notify about translation
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.PCTranslatedToRecursion", {actor: actor.name, recursion: recursionName}));
-  }
-}
-
-export async function changeRecursionStats(actor, recursion, mightModifier, mightEdgeModifier, speedModifier, speedEdgeModifier, intellectModifier, intellectEdgeModifier) {
-  let pool = actor._source.system.pools;
-
-  let oldMightModifier = (!actor.getFlag("cyphersystem", "recursionMightModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightModifier");
-  let oldSpeedModifier = (!actor.getFlag("cyphersystem", "recursionSpeedModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedModifier");
-  let oldIntellectModifier = (!actor.getFlag("cyphersystem", "recursionIntellectModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectModifier");
-  let oldMightEdgeModifier = (!actor.getFlag("cyphersystem", "recursionMightEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionMightEdgeModifier");
-  let oldSpeedEdgeModifier = (!actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionSpeedEdgeModifier");
-  let oldIntellectEdgeModifier = (!actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier")) ? 0 : actor.getFlag("cyphersystem", "recursionIntellectEdgeModifier");
-
-  await actor.update({
-    "system.pools.might.value": pool.might.value + mightModifier - oldMightModifier,
-    "system.pools.might.max": pool.might.max + mightModifier - oldMightModifier,
-    "system.pools.speed.value": pool.speed.value + speedModifier - oldSpeedModifier,
-    "system.pools.speed.max": pool.speed.max + speedModifier - oldSpeedModifier,
-    "system.pools.intellect.value": pool.intellect.value + intellectModifier - oldIntellectModifier,
-    "system.pools.intellect.max": pool.intellect.max + intellectModifier - oldIntellectModifier,
-    "system.pools.might.edge": pool.might.edge + mightEdgeModifier - oldMightEdgeModifier,
-    "system.pools.speed.edge": pool.speed.edge + speedEdgeModifier - oldSpeedEdgeModifier,
-    "system.pools.intellect.edge": pool.intellect.edge + intellectEdgeModifier - oldIntellectEdgeModifier,
-    "flags.cyphersystem.recursion": recursion,
-    "flags.cyphersystem.recursionMightModifier": mightModifier,
-    "flags.cyphersystem.recursionSpeedModifier": speedModifier,
-    "flags.cyphersystem.recursionIntellectModifier": intellectModifier,
-    "flags.cyphersystem.recursionMightEdgeModifier": mightEdgeModifier,
-    "flags.cyphersystem.recursionSpeedEdgeModifier": speedEdgeModifier,
-    "flags.cyphersystem.recursionIntellectEdgeModifier": intellectEdgeModifier
-  });
-}
-
 export async function recursionMacro(actor, item) {
   if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"));
   if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"));
-  await translateToRecursion(actor, item.name, item.system.basic.focus, item.system.settings.statModifiers.might.value, item.system.settings.statModifiers.speed.value, item.system.settings.statModifiers.intellect.value, item.system.settings.statModifiers.might.edge, item.system.settings.statModifiers.speed.edge, item.system.settings.statModifiers.intellect.edge, item.id);
+  await taggingEngineMain(actor, {
+    item: item,
+    statChanges: {
+      mightModifier: item.system.settings.statModifiers.might.value,
+      mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+      speedModifier: item.system.settings.statModifiers.speed.value,
+      speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+      intellectModifier: item.system.settings.statModifiers.intellect.value,
+      intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+      itemActive: item.system.active
+    }
+  });
 }
 
 export async function tagMacro(actor, item) {
   if (!actor) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ActorNotFound"));
   if (!item) return ui.notifications.error(game.i18n.localize("CYPHERSYSTEM.ItemNotFound"));
-  await taggingEngineMain(actor, {item: item});
-}
-
-export function renameTagMacro(actor, currentTag, newTag) {
-  // Check for PC actor
-  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
-
-  // Create dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.RenameTag"),
-    content: renameTagString(currentTag, newTag),
-    buttons: {
-      roll: {
-        icon: '<i class="fas fa-check"></i>',
-        label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-        callback: (html) => applyMacro(actor, html.find('#currentTag').val(), html.find('#newTag').val())
-      },
-      cancel: {
-        icon: '<i class="fas fa-times"></i>',
-        label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
-      }
-    },
-    default: "roll",
-    close: () => {}
+  await taggingEngineMain(actor, {
+    item: item,
+    statChanges: {
+      mightModifier: item.system.settings.statModifiers.might.value,
+      mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+      speedModifier: item.system.settings.statModifiers.speed.value,
+      speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+      intellectModifier: item.system.settings.statModifiers.intellect.value,
+      intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+      itemActive: item.system.active
+    }
   });
-  d.render(true);
-
-  function applyMacro(actor, currentTag, newTag) {
-    if (currentTag == "") {
-      renameTagMacro(actor, currentTag, newTag);
-      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.SpecifyCurrentTag"));
-    }
-    if (!(currentTag.startsWith("#") || currentTag.startsWith("@")) || !(newTag.startsWith("#") || newTag.startsWith("@") || newTag == "")) {
-      renameTagMacro(actor, currentTag, newTag);
-      return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.TagsStartWith#"));
-    }
-    renameTag(actor, currentTag, newTag);
-  }
 }
 
 export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, description1, description2, description3, description4, description5, description6, skipDialog, persistentRollDifficulty) {

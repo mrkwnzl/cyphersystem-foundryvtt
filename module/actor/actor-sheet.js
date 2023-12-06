@@ -7,9 +7,7 @@ import {
   chatCardMarkItemIdentified
 } from "../utilities/chat-cards.js";
 import {
-  changeRecursionStats,
-  itemRollMacro,
-  recursionMacro,
+  itemRollMacro
 } from "../macros/macros.js";
 import {
   byNameAscending,
@@ -20,8 +18,21 @@ import {
 } from "../utilities/sorting.js";
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
-import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath, getLogoImage, getLogoImageOpacity, getLogoImagePath} from "../forms/sheet-customization.js";
-import {changeTagStats} from "../utilities/tagging-engine/tagging-engine-computation.js";
+import {
+  getBackgroundIcon,
+  getBackgroundIconOpacity,
+  getBackgroundIconPath,
+  getBackgroundImage,
+  getBackgroundImageOverlayOpacity,
+  getBackgroundImagePath,
+  getLogoImage,
+  getLogoImageOpacity,
+  getLogoImagePath
+} from "../forms/sheet-customization.js";
+import {
+  changeTagStats,
+  removeTagFromItem
+} from "../utilities/tagging-engine/tagging-engine-computation.js";
 
 export class CypherActorSheet extends ActorSheet {
 
@@ -611,38 +622,33 @@ export class CypherActorSheet extends ActorSheet {
     });
 
     // Delete Inventory Item
-    html.find(".item-delete").click(clickEvent => {
+    html.find(".item-delete").click(async clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       if (game.keyboard.isModifierActive("Alt")) {
-        if (item.type == "tag" && item.system.active) {
-          changeTagStats(this.actor, {
-            mightModifier: item.system.settings.statModifiers.might.value,
-            mightEdgeModifier: item.system.settings.statModifiers.might.edge,
-            speedModifier: item.system.settings.statModifiers.speed.value,
-            speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
-            intellectModifier: item.system.settings.statModifiers.intellect.value,
-            intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
-            itemActive: item.system.active
-          });
-        } else if (item.type == "recursion" && this.actor.flags.cyphersystem.recursion == "@" + item.name.toLowerCase()) {
-          changeRecursionStats(this.actor, "", 0, 0, 0, 0, 0, 0);
+        if (["tag", "recursion"].includes(item.type)) {
+          if (item.system.active) {
+            await changeTagStats(this.actor, {
+              mightModifier: item.system.settings.statModifiers.might.value,
+              mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+              speedModifier: item.system.settings.statModifiers.speed.value,
+              speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+              intellectModifier: item.system.settings.statModifiers.intellect.value,
+              intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+              itemActive: item.system.active
+            });
+          }
+          await removeTagFromItem(this.actor, item._id);
         }
-        item.delete();
+        await item.delete();
       } else {
         let archived = (item.system.archived) ? false : true;
-        item.update({"system.archived": archived});
+        await item.update({"system.archived": archived});
       }
     });
 
-    // Translate to recursion
-    html.find(".item-recursion").click(async clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      await recursionMacro(this.actor, item);
-    });
-
     // (Un)Archive tag
-    html.find(".item-tag").click(async clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+    html.find(".toggle-tag").click(async clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).data("item-id"));
       await taggingEngineMain(this.actor, {
         item: item,
         statChanges: {

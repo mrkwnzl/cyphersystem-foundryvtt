@@ -1,0 +1,6 @@
+{{#each itemLists.recursions as |item id|}}
+  <a class="tag-items {{tagOnItem ../itemLists.recursionsOnItem item._id}}" data-item-id="{{item._id}}" title="{{#if item.system.active}}{{localize 'CYPHERSYSTEM.AddRecursionToItem'}}{{else}}{{localize 'CYPHERSYSTEM.RemoveRecursionFromItem'}}{{/if}}">
+    <i class="fas fa-at"></i>
+    {{item.name}}
+  </a>&hairsp;
+{{/each}}

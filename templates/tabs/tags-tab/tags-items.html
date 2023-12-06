@@ -1,0 +1,73 @@
+<div class="flexrow">
+  <ol class="items-list" id="Tag">
+    <li class="item flexrow item-header">
+      <div class="item-name">
+        {{#if actor.system.settings.general.tags.labelCategory1}}
+          {{actor.system.settings.general.tags.labelCategory1}}
+        {{else}}
+          {{localize 'CYPHERSYSTEM.Tags'}}
+        {{/if}}
+      </div>
+    </li>
+    <li class="tag-list">
+      {{> systems/cyphersystem/templates/item-lists/tags-items-list-01.html}}
+    </li>
+  </ol>
+</div>
+
+{{#if sheetSettings.showTagsTwo}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagTwo">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if actor.system.settings.general.tags.labelCategory2}}
+            {{actor.system.settings.general.tags.labelCategory2}}
+          {{else}}
+            {{localize 'CYPHERSYSTEM.TagCategoryTwo'}}
+          {{/if}}
+        </div>
+      </li>
+      <li class="tag-list">
+        {{> systems/cyphersystem/templates/item-lists/tags-items-list-02.html}}
+      </li>
+    </ol>
+  </div>
+{{/if}}
+
+{{#if sheetSettings.showTagsThree}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagThree">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if actor.system.settings.general.tags.labelCategory3}}
+            {{actor.system.settings.general.tags.labelCategory3}}
+          {{else}}
+            {{localize 'CYPHERSYSTEM.TagCategoryThree'}}
+          {{/if}}
+        </div>
+      </li>
+      <li class="tag-list">
+        {{> systems/cyphersystem/templates/item-lists/tags-items-list-03.html}}
+      </li>
+    </ol>
+  </div>
+{{/if}}
+
+{{#if sheetSettings.showTagsFour}}
+  <div class="flexrow">
+    <ol class="items-list" id="TagFour">
+      <li class="item flexrow item-header">
+        <div class="item-name">
+          {{#if actor.system.settings.general.tags.labelCategory4}}
+            {{actor.system.settings.general.tags.labelCategory4}}
+          {{else}}
+            {{localize 'CYPHERSYSTEM.TagCategoryFour'}}
+          {{/if}}
+        </div>
+      </li>
+      <li class="tag-list">
+        {{> systems/cyphersystem/templates/item-lists/tags-items-list-04.html}}
+      </li>
+    </ol>
+  </div>
+{{/if}}

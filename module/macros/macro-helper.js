@@ -189,23 +189,7 @@ export function itemRollMacroQuick(actor, itemID, teen) {
 }
 
 export async function renameTag(actor, currentTag, newTag) {
-  let updates = [];
-  for (let item of actor.items) {
-    let name = (!item.name) ? "" : item.name;
-    let description = (!item.system.description) ? "" : item.system.description;
-    if ((item.type == "tag" || item.type == "recursion") && newTag != "") {
-      if (name.includes(currentTag.replace(/[#@]/g, ''))) {
-        name = name.replace(currentTag.replace(/[#@]/g, ''), newTag.replace(/[#@]/g, ''));
-        updates.push({_id: item.id, "name": name});
-      }
-    }
-    if (name.includes(currentTag) || description.includes(currentTag)) {
-      name = name.replace(currentTag, newTag);
-      description = description.replace(currentTag, newTag);
-      updates.push({_id: item.id, "name": name, "system.description": description});
-    }
-  }
-  await actor.updateEmbeddedDocuments("Item", updates);
+
 }
 
 export async function toggleTagArchiveStatus(actor, tag, archiveStatus) {
@@ -234,12 +218,26 @@ export async function toggleTagArchiveStatus(actor, tag, archiveStatus) {
 /* -------------------------------------------- */
 
 export function easedRollEffectiveMacro() {
-  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.EasedRollEffectiveMacro"));
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ThisMacroHasBeenDeprecated"));
 }
 
 export function hinderedRollEffectiveMacro() {
-  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.HinderedRollEffectiveMacro"));
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ThisMacroHasBeenDeprecated"));
 }
+
+export function archiveStatusByTag() {
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ThisMacroHasBeenDeprecated"));
+}
+
+export function renameTagMacro(actor, currentTag, newTag) {
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ThisMacroHasBeenDeprecated"));
+}
+
+export async function translateToRecursion(actor, recursion, focus, mightModifier, speedModifier, intellectModifier, mightEdgeModifier, speedEdgeModifier, intellectEdgeModifier) {
+  ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.ThisMacroHasBeenDeprecated"));
+}
+
+
 
 /* -------------------------------------------- */
 /*  Dont really want to delete it, yet          */
