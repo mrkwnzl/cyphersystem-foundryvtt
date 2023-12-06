@@ -647,5 +647,9 @@
   "CYPHERSYSTEM.SettingShowRollDetails": "Zeige Wurfdetails",
   "CYPHERSYSTEM.SettingShowRollDetailsHint": "Aktiviere diese Einstellung, um alle Wurfdetails standardmäßig anzuzeigen.",
   "CYPHERSYSTEM.EffectDamagePoints": "Spezialwurf: {baseDamage} Punkte",
-  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Temoprären Power Shift umschalten"
+  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Temoprären Power Shift umschalten",
+  "CYPHERSYSTEM.TagCategoryTwo": "Tags 2",
+  "CYPHERSYSTEM.TagCategoryThree": "Tags 3",
+  "CYPHERSYSTEM.TagCategoryFour": "Tags 4",
+  "CYPHERSYSTEM.TagCategories": "Tag-Kategorien"
 }

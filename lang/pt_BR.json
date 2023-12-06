@@ -644,5 +644,9 @@
   "CYPHERSYSTEM.SettingShowRollDetails": "Mostrar Detalhes da Jogada",
   "CYPHERSYSTEM.AddDifficulty": "Adicionar 1 na dificuldade.",
   "CYPHERSYSTEM.SubtractDifficulty": "Subtrair 1 da dificuldade.",
-  "CYPHERSYSTEM.ResetDifficulty": "Reiniciar dificuldade."
+  "CYPHERSYSTEM.ResetDifficulty": "Reiniciar dificuldade.",
+  "CYPHERSYSTEM.TagCategoryTwo": "Tags 2",
+  "CYPHERSYSTEM.TagCategoryThree": "Tags 3",
+  "CYPHERSYSTEM.TagCategoryFour": "Tags 4",
+  "CYPHERSYSTEM.TagCategories": "Categorias de Tag"
 }
