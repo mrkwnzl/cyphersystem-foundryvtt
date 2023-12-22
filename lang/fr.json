@@ -647,5 +647,9 @@
   "CYPHERSYSTEM.ApplyToNPCInitiative": "Fonder l'initiative des PNJ sur la difficulté",
   "CYPHERSYSTEM.DifficultyControlPanel": "Panneau de Contrôle de la Difficulté",
   "CYPHERSYSTEM.NPCsUseTheirLevelForInitiative": "Les PNJ utilisent leur niveau pour l'initiative",
-  "CYPHERSYSTEM.SettingShowRollDetailsHint": "Activez ce paramètre pour afficher par défaut tous les détails des lancers."
+  "CYPHERSYSTEM.SettingShowRollDetailsHint": "Activez ce paramètre pour afficher par défaut tous les détails des lancers.",
+  "CYPHERSYSTEM.TagCategoryTwo": "Tags 2",
+  "CYPHERSYSTEM.TagCategoryThree": "Tags 3",
+  "CYPHERSYSTEM.TagCategoryFour": "Tags 4",
+  "CYPHERSYSTEM.TagCategories": "Catégories des Tags"
 }
