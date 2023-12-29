@@ -261,7 +261,7 @@ export class CypherItemSheet extends ItemSheet {
       let actor = this.item.actor;
       if (!actor) return;
       let item = this.item;
-      if (!["attack", "armor"].includes(item.type)) return;
+      if (!["ability"].includes(item.type)) return;
 
       let itemData = {
         name: item.name,
