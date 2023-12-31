@@ -9,7 +9,7 @@
     </h4>
     <div class="item-quantity">{{item.system.basic.damage}}</div>
     <div class="item-controls">
-      {{#if ../sheetSettings.rollButtons}}
+      {{#if (eq ../sheetSettings.rollButtons 1)}}
         <a class="item-control item-roll {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemSkip'}}{{else}}{{localize 'CYPHERSYSTEM.RollItem'}}{{/if}}">
           <i class="fas fa-dice-d20"></i>
         </a>

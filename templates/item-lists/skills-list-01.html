@@ -18,7 +18,7 @@
 			{{/if}}
 		</div>
 		<div class="item-controls">
-			{{#if ../sheetSettings.rollButtons}}
+			{{#if (eq ../sheetSettings.rollButtons 1)}}
 				<a class="item-control item-roll {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemSkip'}}{{else}}{{localize 'CYPHERSYSTEM.RollItem'}}{{/if}}">
 					{{#if item.system.settings.general.initiative}}
 						<i class="fas fa-swords" style="text-align: center"></i>

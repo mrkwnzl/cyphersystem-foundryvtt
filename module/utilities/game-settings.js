@@ -19,8 +19,13 @@ export async function registerGameSettings() {
     name: game.i18n.localize("CYPHERSYSTEM.SettingRollButtons"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
-    type: Boolean,
-    default: true,
+    type: Number,
+    default: 0,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsDisabled"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsEnabled"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsOnlyStats")
+    },
     config: true
   });
 

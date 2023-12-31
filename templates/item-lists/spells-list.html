@@ -38,8 +38,8 @@
           {{#if (eq system.settings.general.spellTier "high")}}{{localize 'CYPHERSYSTEM.HighTier'}}{{/if~}}
             {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
     </h4>
-    <div class="item-controls{{#if ../sheetSettings.rollButtons}}-spells{{/if}}">
-      {{#if ../sheetSettings.rollButtons}}
+    <div class="item-controls{{#if (eq ../sheetSettings.rollButtons 1)}}-spells{{/if}}">
+      {{#if (eq ../sheetSettings.rollButtons 1)}}
         <a class="item-control cast-spell {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CastSpell'}}">
           <i class="fas fa-book-dead"></i>
         </a>
