@@ -28,8 +28,8 @@
   padding-right: 6px;
 }
 
-.sheet.journal-entry .csrd-table td>p,
-.cyphersystem .csrd-table td>p {
+.sheet.journal-entry .csrd-table td > p,
+.cyphersystem .csrd-table td > p {
   margin: 0;
 }
 
@@ -51,6 +51,10 @@
 
 .sheet.journal-entry .csrd-td-price {
   width: 75px
+}
+
+.sheet.journal-entry .csrd-td-price-category {
+  width: 100px
 }
 
 .sheet.journal-entry .csrd-td-number-collisions {
