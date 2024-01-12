@@ -653,5 +653,11 @@
   "CYPHERSYSTEM.TagCategoryFour": "Tags 4",
   "CYPHERSYSTEM.TagCategories": "Tag-Kategorien",
   "CYPHERSYSTEM.SettingRollButtonsDisabled": "Deaktiviert",
-  "CYPHERSYSTEM.SettingRollButtonsEnabled": "Aktiviert"
+  "CYPHERSYSTEM.SettingRollButtonsEnabled": "Aktiviert",
+  "CYPHERSYSTEM.SettingRollButtonsOnlyStats": "Für Attribute und Erholungswürfe aktiviert",
+  "CYPHERSYSTEM.AddTagToItem": "Tag zu Item hinzufügen",
+  "CYPHERSYSTEM.RemoveTagFromItem": "Tag von Item entfernen",
+  "CYPHERSYSTEM.AddRecursionToItem": "Rekursion zu Item hinzufügen",
+  "CYPHERSYSTEM.RemoveRecursionFromItem": "Rekursion von Item entfernen",
+  "CYPHERSYSTEM.ThisMacroHasBeenDeprecated": "Dieses Makro ist veraltet."
 }
