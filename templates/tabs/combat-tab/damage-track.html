@@ -129,7 +129,7 @@
           &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}
         </div>
         <div class="item-controls">
-          {{#if (eq sheetSettings.rollButtons 1)}}
+          {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control recovery-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}">
               <i class="fas fa-dice-d20"></i>
             </a>
