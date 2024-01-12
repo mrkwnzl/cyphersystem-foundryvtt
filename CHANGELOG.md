@@ -4,15 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.13.0] - 2024-01-12
 ### Added
-- A new setting to show the roll buttons only on stats (Might, Speed, Intellect), but nowhere else on the sheet. This can be used when you don’t want to use the All-in-One roll dialog to adjust the difficulty by hand (and in your head). GMs can still set a difficulty beforehand (and the AiO roll dialog can still be used), but this discourages the use of roll automations. As such, this setting works best with the Use All-in-One Dialog as Default setting disabled.
+- A new setting to show the roll buttons only on stats (Might, Speed, Intellect), but nowhere else on the sheet. This can be used when you don’t want to use the All-in-One roll dialog to adjust the difficulty by hand (but in your head instead). GMs can still set a difficulty beforehand (and the AiO roll dialog can still be used), but this discourages the use of roll automations. As such, this setting works best with the Use All-in-One Dialog as Default setting disabled.
+- There’s now a compatibilty warning when the Cypher System Custom Sheets module is enabled.
 
 ### Changed
 - Updated translations.
 
 ### Fixed
 - Abilties can be copied as armor again.
+- Fixed word break in tables in journals and descriptions.
 
 ## [2.12.0] - 2023-12-06
 ### Changed
