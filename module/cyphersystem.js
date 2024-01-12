@@ -303,6 +303,18 @@ Hooks.once("ready", async function () {
     });
   }
 
+  // Send warning for people with cyphersheets module version 0.3.3 or lower
+  let cypherSheetsVersion = game.modules.get("cyphersheets")?.version;
+  if (cypherSheetsVersion && game.modules.get("cyphersheets")?.active) {
+    let versionParts = cypherSheetsVersion.substring(1).split('.').map(Number);
+    if (versionParts[0] < 0 || (versionParts[0] === 0 && versionParts[1] <= 3) || (versionParts[0] === 0 && versionParts[1] === 3 && versionParts[2] <= 3)) {
+      ui.notifications.error("The Cypher System Custom Sheets module hasn’t been updated in a while and isn’t compatible with the current version of the Cypher System. Please disable the Custom Sheets module. You can customize PC sheets in the settings tab and all other sheets in the system settings. –Marko", {
+        permanent: true,
+        console: true
+      });
+    }
+  }
+
   // Send welcome message
   if (game.settings.get("cyphersystem", "welcomeMessage")) sendWelcomeMessage();
 });
