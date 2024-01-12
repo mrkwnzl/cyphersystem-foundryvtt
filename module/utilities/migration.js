@@ -51,6 +51,9 @@ export async function dataMigration() {
     }
   }
 
+  // Migrate settings
+  await migrationRoutineSettings();
+
   // Set last migrated version
   await game.settings.set("cyphersystem", "systemMigrationVersion", game.system.version);
 
@@ -150,6 +153,9 @@ async function migrationRoutineItem(item) {
 async function migrationRoutineSettings() {
   if (game.settings.get("cyphersystem", "effectiveDifficulty") === true) {
     game.settings.set("cyphersystem", "effectiveDifficulty", 1);
+  }
+  if (game.settings.get("cyphersystem", "rollButtons") === false) {
+    game.settings.set("cyphersystem", "rollButtons", 0);
   }
 }
 

@@ -6,6 +6,8 @@
 ![Discord](https://img.shields.io/discord/836885417197436958?color=%23738AD6&label=discord&style=flat-square)
 <a href="https://www.buymeacoffee.com/mrkwnzl" target="_blank">![Support](https://img.shields.io/badge/support-Buy%20Me%20a%20Coffee-blue?style=flat-square)</a>
 
+<img align="right" src="https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/icons/background/compatible-cypher-system-color.webp" width="150px">
+
 This is a game system for the Cypher System family of games (Cypher System, Numenera, The Strange, Predation, Unmasked, Gods of the Fall, Vurt, Shotguns & Sorcery) by [Monte Cook Games](https://www.montecookgames.com) and others.
 
 At its core, this system is just a rather simple digital character sheet. Included are dice macros for the usual rolls in Cypher games. Macros allow for customization of the macro bar and even customization of the macros themselves to use the Cypher system exactly like you need. This allows players and GMs to use any rules interpretation and house rule they could use at a physical table. If you can do it at the table, you can do it with this system! In addition, a pre-made tabletop scene and some tokens that can be used as markers are included in the system, so that your game is ready in a few minutes.

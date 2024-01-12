@@ -8,7 +8,7 @@
           {{localize 'CYPHERSYSTEM.Might'}}
         </label>
         <div class="stat-roll-button">
-          {{#if sheetSettings.rollButtons}}
+          {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control might-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}">
               <i class="fas fa-dice-d20"></i>
             </a>
@@ -59,7 +59,7 @@
           {{localize 'CYPHERSYSTEM.Speed'}}
         </label>
         <div class="stat-roll-button">
-          {{#if sheetSettings.rollButtons}}
+          {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control speed-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}">
               <i class="fas fa-dice-d20"></i>
             </a>
@@ -110,7 +110,7 @@
           {{localize 'CYPHERSYSTEM.Intellect'}}
         </label>
         <div class="stat-roll-button">
-          {{#if sheetSettings.rollButtons}}
+          {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control intellect-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}">
               <i class="fas fa-dice-d20"></i>
             </a>

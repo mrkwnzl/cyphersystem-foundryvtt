@@ -355,6 +355,7 @@ li.folder.collapsed > .folder-header h3 {
 .cyphersystem .editor-content {
   padding: 0.3em !important;
   line-height: 1.4;
+  word-break: normal;
 }
 
 .cyphersystem .editor-content ul p,
