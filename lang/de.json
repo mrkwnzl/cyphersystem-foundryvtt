@@ -651,5 +651,7 @@
   "CYPHERSYSTEM.TagCategoryTwo": "Tags 2",
   "CYPHERSYSTEM.TagCategoryThree": "Tags 3",
   "CYPHERSYSTEM.TagCategoryFour": "Tags 4",
-  "CYPHERSYSTEM.TagCategories": "Tag-Kategorien"
+  "CYPHERSYSTEM.TagCategories": "Tag-Kategorien",
+  "CYPHERSYSTEM.SettingRollButtonsDisabled": "Deaktiviert",
+  "CYPHERSYSTEM.SettingRollButtonsEnabled": "Aktiviert"
 }
