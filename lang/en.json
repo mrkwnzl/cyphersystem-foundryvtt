@@ -655,5 +655,9 @@
   "CYPHERSYSTEM.SubtractDifficulty": "Subtract 1 from difficulty.",
   "CYPHERSYSTEM.AddDifficulty": "Add 1 to difficulty.",
   "CYPHERSYSTEM.ResetDifficulty": "Reset difficulty.",
-  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Toggle Temporary Power Shift"
+  "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Toggle Temporary Power Shift",
+  "CYPHERSYSTEM.Scripting": "Scripting",
+  "CYPHERSYSTEM.ExecuteMacro": "Execute macro on roll",
+  "CYPHERSYSTEM.MacroID": "Macro ID",
+  "CYPHERSYSTEM.MacroNotFound": "Macro not found. Cannot roll."
 }

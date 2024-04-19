@@ -697,15 +697,17 @@ export class CypherActorSheet extends ActorSheet {
     // Item roll buttons
     html.find(".item-roll").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      const macroID = item.system.settings.rollButton.macroID;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "");
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroID);
     });
 
     // Item pay pool points buttons
     html.find(".item-pay").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      const macroID = item.system.settings.rollButton.macroID;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "");
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroID);
     });
 
     // Item cast spell button

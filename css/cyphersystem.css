@@ -1,3 +1,9 @@
+/* Definitions */
+
+:root {
+  --cypher-font: 'Signika', sans-serif;
+}
+
 /* Global */
 
 #logo {
@@ -436,6 +442,7 @@ li.folder.collapsed > .folder-header h3 {
 
 .cyphersystem .window-content {
   overflow: hidden;
+  font-family: var(--cypher-font);
 }
 
 .cyphersystem .background-image {
@@ -1020,7 +1027,7 @@ li.folder.collapsed > .folder-header h3 {
   height: 26px;
   margin-bottom: 2px;
   margin-top: 2px;
-  font-family: "Signika", sans-serif;
+  font-family: var(--cypher-font);
   font-size: 14px;
   text-align-last: center;
   padding: 1px 3px;
@@ -1304,6 +1311,7 @@ select.settings-input {
   text-align: center;
   color: var(--color-text-light-highlight);
   font-size: 22px;
+  font-family: 'Signika', sans-serif;
   /* backdrop-filter: blur(5px); */
 }
 
@@ -1408,6 +1416,10 @@ select.settings-input {
   width: 32%;
 }
 
+.cyphersystem .dialog-button {
+  font-family: var(--cypher-font);
+}
+
 .cyphersystem div.cypher-logo {
   border: none;
   display: flex;
@@ -1439,7 +1451,7 @@ select.settings-input {
 .cyphersystem .items-list button.file-picker {
   height: 26px;
   margin: 0px 0px 0px 5px;
-  font-family: "Signika", sans-serif;
+  font-family: var(--cypher-font);
   font-size: 14px;
   text-align-last: center;
   border: 1px solid var(--color-border-light-tertiary);
@@ -1515,4 +1527,5 @@ section.cypher-note > p {
   line-height: 22px;
   border: 1px solid var(--color-border-light-tertiary);
   background: rgba(0, 0, 0, 0.05);
+  font-family: var(--cypher-font);
 }

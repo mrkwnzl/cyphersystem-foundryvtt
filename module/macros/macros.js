@@ -260,7 +260,7 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   });
 }
 
-export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus) {
+export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus, macroID) {
   // Find actor based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
 
@@ -341,6 +341,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   if (!damagePerLOE) damagePerLOE = item.system.settings.rollButton.damagePerLOE;
   if (!teen) teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
   if (!bonus) bonus = item.system.settings.rollButton.bonus;
+  if (!macroID) macroID = item.system.settings.rollButton.macroID;
 
   // Create item type
   let itemType = "";
@@ -358,6 +359,7 @@ export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, eff
   rollEngineMain({
     actorUuid: actor.uuid,
     itemID: itemID,
+    macroID: macroID,
     teen: teen,
     skipRoll: noRoll,
     initiative: initiativeRoll,

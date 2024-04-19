@@ -20,7 +20,7 @@ export async function registerGameSettings() {
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsHint"),
     scope: "world",
     type: Number,
-    default: 0,
+    default: 1,
     choices: {
       0: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsDisabled"),
       1: game.i18n.localize("CYPHERSYSTEM.SettingRollButtonsEnabled"),

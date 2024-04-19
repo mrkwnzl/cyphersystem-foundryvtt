@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Added
+- Items with roll buttons now can execute macros when rolling. Specify a macro ID in the item settings and it will be executed when a roll is made. `rollData` provides all the data of the roll for use in the macro.
+
+### Fixed
+- The roll buttons are enabled by default again.
+
 ## [2.13.1] - 2024-01-12
 ### Fixed
 - The Recovery Roll button is now included in the option to show the roll buttons only for stats.

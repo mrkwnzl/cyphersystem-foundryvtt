@@ -276,6 +276,10 @@ Hooks.on("canvasReady", function (canvas) {
       }
     }
   }
+
+  // if (game.user.isGM) {
+  //   document.documentElement.style.setProperty('--cypher-font', 'Comic Sans MS, sans-serif');
+  // }
 });
 
 Hooks.once("ready", async function () {

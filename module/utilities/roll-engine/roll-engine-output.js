@@ -1,4 +1,3 @@
-import {updateRollDifficultyForm} from "../../forms/roll-difficulty-sheet.js";
 import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
@@ -350,4 +349,10 @@ export async function rollEngineOutput(data) {
 
   // statRoll hook
   Hooks.call("rollEngine", actor, data);
+
+  // Execute macro
+  if (data.macroID) {
+    let macro = game.macros.get(data.macroID);
+    macro.execute({"rollData": data});
+  }
 }
