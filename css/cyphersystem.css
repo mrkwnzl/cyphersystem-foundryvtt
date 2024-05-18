@@ -128,6 +128,10 @@ ol#chat-log .note-roll-dialog {
   font-weight: bold;
 }
 
+.chat-message .message-header .message-metadata {
+  white-space: nowrap;
+}
+
 .dialog-select {
   height: 26px;
   margin-bottom: 2px;

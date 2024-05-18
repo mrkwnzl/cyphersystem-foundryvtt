@@ -74,6 +74,18 @@
       }
     },
     {
+      "name": "scripting-macros",
+      "label": "Scripting Macros",
+      "system": "cyphersystem",
+      "path": "packs/scripting-macros",
+      "type": "Macro",
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
       "name": "secret-settings",
       "label": "Secret Settings",
       "system": "cyphersystem",
@@ -95,6 +107,7 @@
         "marker",
         "scenes",
         "utility-macros",
+        "scripting-macros",
         "secret-settings"
       ],
       "folders": []

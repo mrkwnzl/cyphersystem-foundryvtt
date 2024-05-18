@@ -651,6 +651,7 @@ export class CypherActorSheet extends ActorSheet {
       const item = this.actor.items.get($(clickEvent.currentTarget).data("item-id"));
       await taggingEngineMain(this.actor, {
         item: item,
+        macroUuid: item.system.settings.macroUuid,
         statChanges: {
           mightModifier: item.system.settings.statModifiers.might.value,
           mightEdgeModifier: item.system.settings.statModifiers.might.edge,
@@ -697,17 +698,17 @@ export class CypherActorSheet extends ActorSheet {
     // Item roll buttons
     html.find(".item-roll").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      const macroID = item.system.settings.rollButton.macroID;
+      const macroUuid = item.system.settings.rollButton.macroUuid;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroID);
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroUuid);
     });
 
     // Item pay pool points buttons
     html.find(".item-pay").click(clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      const macroID = item.system.settings.rollButton.macroID;
+      const macroUuid = item.system.settings.rollButton.macroUuid;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroID);
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroUuid);
     });
 
     // Item cast spell button

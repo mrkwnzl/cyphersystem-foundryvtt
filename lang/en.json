@@ -658,6 +658,21 @@
   "CYPHERSYSTEM.ToggleTemporaryPowerShift": "Toggle Temporary Power Shift",
   "CYPHERSYSTEM.Scripting": "Scripting",
   "CYPHERSYSTEM.ExecuteMacro": "Execute macro on roll",
-  "CYPHERSYSTEM.MacroID": "Macro ID",
-  "CYPHERSYSTEM.MacroNotFound": "Macro not found. Cannot roll."
+  "CYPHERSYSTEM.ExecuteMacroTag": "Execute macro when tag is enabled",
+  "CYPHERSYSTEM.ExecuteMacroRecursion": "Execute macro when recursion is enabled",
+  "CYPHERSYSTEM.macroUuid": "Macro UUID",
+  "CYPHERSYSTEM.MacroNotFound": "Macro not found. Cannot roll.",
+  "CYPHERSYSTEM.MacroUsed": "Macro: {macro}.",
+  "CYPHERSYSTEM.NoAmmo": "Ammo depleted.",
+  "CYPHERSYSTEM.NotAmmo": "The specified item type is not ammo.",
+  "CYPHERSYSTEM.AmmoLeft": "{name} left: {quantity}",
+  "CYPHERSYSTEM.TheCostIsAlreadyPaid": "The Pool point cost is already paid.",
+  "CYPHERSYSTEM.CantUseAnotherPCsPool": "You can’t use another PC’s Pool points.",
+  "CYPHERSYSTEM.FourthPoolNotActive": "The fourth Pool is not active.",
+  "CYPHERSYSTEM.FourthPoolNoEdge": "The fourth Pool does not have an Edge value.",
+  "CYPHERSYSTEM.CostTotalFourthPoolPoint": "Cost: {totalCost} {label} point",
+  "CYPHERSYSTEM.CostTotalFourthPoolPoints": "Cost: {totalCost} {label} points",
+  "CYPHERSYSTEM.FourthPoolBaseCostPoint": "Base cost: {baseCost} point",
+  "CYPHERSYSTEM.FourthPoolBaseCostPoints": "Base cost: {baseCost} points",
+  "CYPHERSYSTEM.XPLeft": "XP left: {quantity}"
 }

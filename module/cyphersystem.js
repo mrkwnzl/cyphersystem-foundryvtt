@@ -130,6 +130,13 @@ import {
 import {
   renderRollDifficultyForm
 } from "./forms/roll-difficulty-sheet.js";
+import {
+  changePortraitAndToken,
+  executeSeriesOfMacros,
+  payCostWithAdditionalPool,
+  payXP,
+  useAmmo
+} from "./macros/macros-scripting.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -184,6 +191,13 @@ Hooks.once("init", async function () {
     rollEngineForm,
     rollEngineOutput,
     selectedTokenRollMacro,
+
+    // Scripting macros
+    useAmmo,
+    payCostWithAdditionalPool,
+    payXP,
+    executeSeriesOfMacros,
+    changePortraitAndToken,
 
     // Deprecated macros
     easedRollEffectiveMacro,

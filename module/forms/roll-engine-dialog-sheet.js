@@ -27,7 +27,7 @@ export class RollEngineDialogSheet extends FormApplication {
     // Basic data
     const data = super.getData().object;
 
-    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+    let actor = fromUuidSync(data.actorUuid);
 
     if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
@@ -75,6 +75,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.summaryNotEnoughPointsString = summaryCheckPoints(data);
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
     data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {gmiRange: data.gmiRange});
+    data.summaryMacro = summaryMacro(data);
 
     // Summary results
     data.exceedEffort = (data.summaryTooMuchEffort) ? "exceeded" : "";
@@ -110,7 +111,7 @@ export class RollEngineDialogSheet extends FormApplication {
   _updateObject(event, formData) {
     let data = this.object;
 
-    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+    let actor = fromUuidSync(data.actorUuid);
 
     // Basic data
     data.baseDifficulty = parseInt(formData.baseDifficulty);
@@ -167,6 +168,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
     data.summaryNotEnoughPointsString = summaryCheckPoints(data);
     data.summaryAllocatePoints = (data.pool == "Pool") ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
+    data.summaryMacro = summaryMacro(data);
 
     // Render sheet
     this.render();
@@ -179,7 +181,7 @@ export class RollEngineDialogSheet extends FormApplication {
     super.activateListeners(html);
 
     let data = this.object;
-    let actor = (data.actorUuid.includes("Token")) ? fromUuidSync(data.actorUuid).actor : fromUuidSync(data.actorUuid);
+    let actor = fromUuidSync(data.actorUuid);
 
     html.find('.roll-engine-roll').click(async clickEvent => {
       data.skipRoll = false;
@@ -385,4 +387,15 @@ function summaryCheckPoints(data) {
   }
 
   return summaryNotEnoughPointsString;
+}
+
+function summaryMacro(data) {
+  let summaryMacroString = "";
+
+  if (data.macroUuid) {
+    let macro = fromUuidSync(data.macroUuid);
+    summaryMacroString = game.i18n.format("CYPHERSYSTEM.MacroUsed", {macro: macro.name});
+  }
+
+  return summaryMacroString;
 }

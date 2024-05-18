@@ -104,4 +104,23 @@
       </li>
     </ol>
   </div>
+  <div class="flexrow">
+    <ol class="items-list">
+      <li class="item flexrow item-header">
+        <div class="item-name">{{localize 'CYPHERSYSTEM.Scripting'}}</div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{#if (eq item.system.settins.general.sorting "Tag")}}
+            {{localize 'CYPHERSYSTEM.ExecuteMacroTag'}}
+          {{else}}
+            {{localize 'CYPHERSYSTEM.ExecuteMacroRecursion'}}
+          {{/if}}
+        </div>
+        <div class="item-quantity">
+          <input class="auto-margin setting-input" name="system.settings.macroUuid" type="text" value="{{item.system.settings.macroUuid}}" placeholder="{{localize 'CYPHERSYSTEM.macroUuid'}}" />
+        </div>
+      </li>
+    </ol>
+  </div>
 </div>

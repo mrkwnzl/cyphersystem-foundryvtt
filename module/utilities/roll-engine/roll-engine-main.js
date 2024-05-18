@@ -6,7 +6,7 @@ export async function rollEngineMain(data) {
   data = Object.assign({
     actorUuid: undefined,
     itemID: undefined,
-    macroID: undefined,
+    macroUuid: undefined,
     teen: undefined,
     skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
     skipRoll: false,
@@ -91,8 +91,8 @@ export async function rollEngineMain(data) {
   if (data.skillLevel == "Inability") data.skillLevel = -1;
 
   // Check for macro
-  if (data.macroID) {
-    let macro = game.macros.get(data.macroID);
+  if (data.macroUuid) {
+    let macro = fromUuidSync(data.macroUuid);
     if (!macro) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroNotFound"));
   }
 
