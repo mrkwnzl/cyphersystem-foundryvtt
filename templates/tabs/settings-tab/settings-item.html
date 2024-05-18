@@ -392,6 +392,23 @@
         {{/unless}}
       </ol>
     </div>
+    <div class="flexrow">
+      <ol class="items-list">
+        <li class="item flexrow">
+          <div class="item-name">
+            <i>{{localize 'CYPHERSYSTEM.Scripting'}}</i>
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.ExecuteMacro'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin setting-input" name="system.settings.rollButton.macroUuid" type="text" value="{{item.system.settings.rollButton.macroUuid}}" placeholder="{{localize 'CYPHERSYSTEM.macroUuid'}}" />
+          </div>
+        </li>
+      </ol>
+    </div>
   {{/unless}}
   {{#if (and actor (eq item.type "ability"))}}
     <div class="flexrow">

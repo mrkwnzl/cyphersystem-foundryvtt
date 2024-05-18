@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Added
+- Items with roll buttons now can execute macros when rolling. Specify a macro uuid (right-click the ID button in the header of the item sheet) in the item settings and it will be executed when a roll is made. `rollData` provides all the data of the roll for use in the macro.
+- Tags and recursions can also execeute macros when they are enabled. It works the same as for rolls, but the data is provided as `taggingData` to the macros.
+- Added some macros for use with scripting rolls.
+
+### Fixed
+- The roll buttons are enabled by default again.
+- Unlinked tokens can now use the roll dialog again.
+- The horizontal lines in the chat when an ability without cost is send to the chat has been removed.
+
 ## [2.13.1] - 2024-01-12
 ### Fixed
 - The Recovery Roll button is now included in the option to show the roll buttons only for stats.

@@ -1058,7 +1058,8 @@
             "damage": 0,
             "damagePerLOE": 3,
             "teen": "",
-            "bonus": 0
+            "bonus": 0,
+            "macroUuid": ""
           }
         }
       }
@@ -1289,7 +1290,8 @@
             "value": 0,
             "edge": 0
           }
-        }
+        },
+        "macroUuid": ""
       },
       "active": false,
       "exclusive": false

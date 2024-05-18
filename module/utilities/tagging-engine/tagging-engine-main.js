@@ -3,6 +3,8 @@ import {applyRecursion, changeTagStats, archiveItems} from "./tagging-engine-com
 export async function taggingEngineMain(actor, taggingData) {
   taggingData = Object.assign({
     item: undefined,
+    actorUuid: actor.uuid,
+    macroUuid: undefined,
     disableItem: undefined,
     statChanges: {
       mightModifier: 0,
@@ -12,11 +14,17 @@ export async function taggingEngineMain(actor, taggingData) {
       intellectModifier: 0,
       intellectEdgeModifier: 0,
       itemActive: false
-    }
+    },
   }, taggingData);
 
   // Check for PC
   if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Check for macro
+  if (taggingData.macroUuid) {
+    let macro = fromUuidSync(taggingData.macroUuid);
+    if (!macro) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroNotFound"));
+  }
 
   // Functions for exclusive & Recursions
   if (taggingData.item.type == "tag" && taggingData.item.system?.exclusive) {
@@ -62,5 +70,11 @@ export async function taggingEngineMain(actor, taggingData) {
   Hooks.call("enableTag", actor, taggingData.item);
   if (taggingData.disableItem) {
     Hooks.call("disableTag", actor, taggingData.disableItem);
+  }
+
+  // Execute macro
+  if (taggingData.macroUuid) {
+    let macro = await fromUuid(taggingData.macroUuid);
+    macro.execute({"taggingData": taggingData});
   }
 }

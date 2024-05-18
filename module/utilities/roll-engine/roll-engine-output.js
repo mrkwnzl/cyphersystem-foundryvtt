@@ -1,4 +1,3 @@
-import {updateRollDifficultyForm} from "../../forms/roll-difficulty-sheet.js";
 import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
@@ -314,7 +313,7 @@ export async function rollEngineOutput(data) {
 
   if (data.skipRoll) {
     ChatMessage.create({
-      content: "<div class='roll-flavor'><div class='roll-result-box'>" + title + itemDescriptionInfo + "</div><hr class='roll-result-hr'>" + info + "</div>",
+      content: "<div class='roll-flavor'><div class='roll-result-box'>" + title + itemDescriptionInfo + "</div>" + infoHR + info + "</div>",
       speaker: ChatMessage.getSpeaker({actor: actor}),
       flags: {
         "itemID": data.itemID,
@@ -323,7 +322,7 @@ export async function rollEngineOutput(data) {
     });
   } else if (!data.skipRoll) {
     // Create chat message
-    data.roll.toMessage({
+    var rollMessage = await data.roll.toMessage({
       speaker: ChatMessage.getSpeaker({actor: actor}),
       flavor: flavor,
       flags: {
@@ -350,4 +349,13 @@ export async function rollEngineOutput(data) {
 
   // statRoll hook
   Hooks.call("rollEngine", actor, data);
+
+  // Execute macro
+  if (data.macroUuid) {
+    let macro = await fromUuid(data.macroUuid);
+    if (rollMessage) {
+      await game.dice3d?.waitFor3DAnimationByMessageID(rollMessage.id);
+    }
+    macro.execute({"rollData": data});
+  }
 }
