@@ -73,7 +73,7 @@ export async function taggingEngineMain(actor, taggingData) {
   }
 
   // Execute macro
-  if (taggingData.macroUuid) {
+  if (taggingData.macroUuid && taggingData.item.system.active) {
     let macro = await fromUuid(taggingData.macroUuid);
     macro.execute({"taggingData": taggingData});
   }
