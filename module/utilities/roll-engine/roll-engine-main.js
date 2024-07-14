@@ -7,6 +7,7 @@ export async function rollEngineMain(data) {
     actorUuid: undefined,
     itemID: undefined,
     macroUuid: undefined,
+    macroExecuteAsGM: undefined,
     teen: undefined,
     skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
     skipRoll: false,
@@ -94,6 +95,11 @@ export async function rollEngineMain(data) {
   if (data.macroUuid) {
     let macro = fromUuidSync(data.macroUuid);
     if (!macro) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroNotFound"));
+  }
+
+  // Check for macro GM permission
+  if (data.macroUuid && data.macroExecuteAsGM === undefined) {
+    data.macroExecuteAsGM = item.system.settings.rollButton.macroExecuteAsGM || false;
   }
 
   // Go to the next step after checking whether dialog should be skipped

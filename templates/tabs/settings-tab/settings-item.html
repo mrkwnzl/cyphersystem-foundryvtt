@@ -407,6 +407,12 @@
             <input class="auto-margin setting-input" name="system.settings.rollButton.macroUuid" type="text" value="{{item.system.settings.rollButton.macroUuid}}" placeholder="{{localize 'CYPHERSYSTEM.macroUuid'}}" />
           </div>
         </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.rollButton.macroExecuteAsGM" {{checked item.system.settings.rollButton.macroExecuteAsGM}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.ExecuteMacroAsGM'}}
+          </div>
+        </li>
       </ol>
     </div>
   {{/unless}}

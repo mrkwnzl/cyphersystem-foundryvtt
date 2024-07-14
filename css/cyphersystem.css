@@ -886,6 +886,21 @@ li.folder.collapsed > .folder-header h3 {
   line-height: 1.4;
 }
 
+.cyphersystem .item-favorite,
+.cyphersystem .item-favorite.alt {
+  text-indent: 0px;
+  font-size: smaller;
+}
+
+.cyphersystem .item-favorite.alt {
+  visibility: hidden;
+}
+
+/* .cyphersystem .item:hover .item-favorite .fa-regular.fa-star {
+  visibility: visible;
+  opacity: 1;
+} */
+
 .cyphersystem .items-list .item-quantity {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 80px;

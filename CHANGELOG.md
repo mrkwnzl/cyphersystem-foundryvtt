@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.14.1] - 2024-05-20
+## [2.15.0]
+### Added
+- Items can no be favorited by holding alt and clicking the appearing star icon. Favorited items are always at the top of the list. Items at the top of the list show the star button unless they are hidden in the character settings.
+- Scripting macros executing when rolling can now be executed with GM permissions.
+
 ### Fixed
-- Scripting macro for tags and recursions now only fire when the tag/recursion is enabled, not when it’s disabled.
+- Armor data and attack modifiers are now calculated in the right place, improving performance of actor sheet updates.
+- Scripting macros for tags and recursions now only fire when the tag/recursion is enabled, not when it’s disabled.
 
 ## [2.14.0] - 2024-05-18
 ### Added

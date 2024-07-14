@@ -53,65 +53,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 
-    for (let i of data.items) {
-      if (i.type == 'attack') {
-
-        let skillRating = 0;
-        // parseInt to correct old error
-        let modifiedBy = parseInt(i.system.basic.steps);
-        let totalModifier = 0;
-        let totalModified = "";
-
-        if (i.system.basic.skillRating == "Inability") skillRating = -1;
-        if (i.system.basic.skillRating == "Trained") skillRating = 1;
-        if (i.system.basic.skillRating == "Specialized") skillRating = 2;
-
-        if (i.system.basic.modifier == "hindered") modifiedBy = modifiedBy * -1;
-
-        totalModifier = skillRating + modifiedBy;
-
-        if (totalModifier == 1) totalModified = game.i18n.localize("CYPHERSYSTEM.eased");
-        if (totalModifier >= 2) totalModified = game.i18n.format("CYPHERSYSTEM.easedBySteps", {amount: totalModifier});
-        if (totalModifier == -1) totalModified = game.i18n.localize("CYPHERSYSTEM.hindered");
-        if (totalModifier <= -2) totalModified = game.i18n.format("CYPHERSYSTEM.hinderedBySteps", {amount: Math.abs(totalModifier)});
-
-        // Assign and return
-        if (i.system.totalModified != totalModified) {
-          i.system.totalModified = totalModified;
-          this.actor.updateEmbeddedDocuments("Item", [i]);
-        }
-      }
-    }
-
-    // Update armor
-    let armorTotal = 0;
-    let speedCostTotal = 0;
-    let teenArmorTotal = 0;
-    let teenSpeedCostTotal = 0;
-
-    for (let piece of data.itemLists.armor) {
-      if (piece.system.active === true && piece.system.archived === false) {
-        armorTotal = armorTotal + piece.system.basic.rating;
-        speedCostTotal = speedCostTotal + piece.system.basic.cost;
-      }
-    }
-
-    for (let piece of data.itemLists.teenArmor) {
-      if (piece.system.active === true && piece.system.archived === false) {
-        teenArmorTotal = teenArmorTotal + piece.system.basic.rating;
-        teenSpeedCostTotal = teenSpeedCostTotal + piece.system.basic.cost;
-      }
-    }
-
-    if (this.actor.system.combat.armor.ratingTotal != armorTotal || this.actor.system.combat.armor.costTotal != speedCostTotal || this.actor.system.teen.combat.armor.armorValueTotal != teenArmorTotal || this.actor.system.teen.combat.armor.speedCostTotal != teenSpeedCostTotal) {
-      this.actor.update({
-        "system.combat.armor.ratingTotal": armorTotal,
-        "system.combat.armor.costTotal": speedCostTotal,
-        "system.teen.combat.armor.armorValueTotal": teenArmorTotal,
-        "system.teen.combat.armor.speedCostTotal": teenSpeedCostTotal
-      });
-    }
-
     return data;
   }
 
@@ -466,6 +407,13 @@ export class CypherActorSheetPC extends CypherActorSheet {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       let newValue = (item.system.basic.temporary) ? false : true;
       item.update({"system.basic.temporary": newValue});
+    });
+
+    // Toggle Favorite
+    html.find('.item-favorite').click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+      let newValue = (item.system.favorite) ? false : true;
+      item.update({"system.favorite": newValue});
     });
   }
 }

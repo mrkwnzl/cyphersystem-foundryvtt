@@ -97,8 +97,13 @@
           &nbsp;{{localize 'CYPHERSYSTEM.HideEmptyCategories'}}
         </div>
       </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.general.hideFavoriteButton" {{checked actor.system.settings.general.hideFavoriteButton}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.HideFavoriteButton'}}
+        </div>
+      </li>
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
-
         <li class="item flexrow item-settings">
           <div class="settings-list">
             <input type="checkbox" name="system.teen.settings.general.customSheetDesign" {{checked actor.system.teen.settings.general.customSheetDesign}}>

@@ -1,3 +1,4 @@
+import {executeMacroAsGM} from "../../macros/macros-scripting.js";
 import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
@@ -352,10 +353,30 @@ export async function rollEngineOutput(data) {
 
   // Execute macro
   if (data.macroUuid) {
+    // Check for macro
     let macro = await fromUuid(data.macroUuid);
+    if (!macro) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroNotFound"));
+
+    // Wait for Dice So Nice animation
     if (rollMessage) {
       await game.dice3d?.waitFor3DAnimationByMessageID(rollMessage.id);
     }
-    macro.execute({"rollData": data});
+
+    // Get and pass targets
+    let targetArray = Array.from(game.user.targets);
+    let targetIDs = [];
+
+    for (let target in targetArray) {
+      targetIDs.push(targetArray[target].id);
+    }
+
+    data.targetIDs = targetIDs;
+
+    // Execute macro
+    if (data.macroExecuteAsGM && !game.user.isGM) {
+      await game.socket.emit('system.cyphersystem', {operation: 'executeMacroAsGM', macroUuid: data.macroUuid, rollData: data});
+    } else {
+      await macro.execute({"rollData": data});
+    }
   }
 }

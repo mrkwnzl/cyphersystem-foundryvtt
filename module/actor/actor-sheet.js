@@ -14,7 +14,8 @@ import {
   bySkillRating,
   byArchiveStatus,
   byIdentifiedStatus,
-  byItemLevel
+  byItemLevel,
+  byFavoriteStatus
 } from "../utilities/sorting.js";
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
@@ -291,6 +292,40 @@ export class CypherActorSheet extends ActorSheet {
     // Sort by identified status
     cyphers.sort(byIdentifiedStatus);
     artifacts.sort(byIdentifiedStatus);
+
+    // Sort by favorite status
+    equipment.sort(byFavoriteStatus);
+    equipmentTwo.sort(byFavoriteStatus);
+    equipmentThree.sort(byFavoriteStatus);
+    equipmentFour.sort(byFavoriteStatus);
+    abilities.sort(byFavoriteStatus);
+    abilitiesTwo.sort(byFavoriteStatus);
+    abilitiesThree.sort(byFavoriteStatus);
+    abilitiesFour.sort(byFavoriteStatus);
+    spells.sort(byFavoriteStatus);
+    skills.sort(byFavoriteStatus);
+    skillsTwo.sort(byFavoriteStatus);
+    skillsThree.sort(byFavoriteStatus);
+    skillsFour.sort(byFavoriteStatus);
+    attacks.sort(byFavoriteStatus);
+    armor.sort(byFavoriteStatus);
+    lastingDamage.sort(byFavoriteStatus);
+    powerShifts.sort(byFavoriteStatus);
+    cyphers.sort(byFavoriteStatus);
+    artifacts.sort(byFavoriteStatus);
+    oddities.sort(byFavoriteStatus);
+    teenSkills.sort(byFavoriteStatus);
+    teenAbilities.sort(byFavoriteStatus);
+    teenAttacks.sort(byFavoriteStatus);
+    teenArmor.sort(byFavoriteStatus);
+    teenLastingDamage.sort(byFavoriteStatus);
+    materials.sort(byFavoriteStatus);
+    ammo.sort(byFavoriteStatus);
+    recursions.sort(byFavoriteStatus);
+    tags.sort(byFavoriteStatus);
+    tagsTwo.sort(byFavoriteStatus);
+    tagsThree.sort(byFavoriteStatus);
+    tagsFour.sort(byFavoriteStatus);
 
     // Sort by archive status
     equipment.sort(byArchiveStatus);
@@ -732,6 +767,29 @@ export class CypherActorSheet extends ActorSheet {
     /**
     * General sheet functions
     */
+
+    // Toggle item visibility
+    $(document).ready(function () {
+      const itemFavorite = html.find('.item-favorite.alt');
+
+      if (game.keyboard.isModifierActive("Alt")) {
+        itemFavorite.css('visibility', 'visible');
+      }
+
+      $(document).keydown(function (event) {
+        if (event.altKey) {
+          itemFavorite.css('visibility', 'visible');
+          itemFavorite.removeAttr('display');
+        }
+      });
+
+      $(document).keyup(function (event) {
+        if (!event.altKey) {
+          itemFavorite.css('visibility', 'hidden');
+          itemFavorite.attr('display', 'none');
+        }
+      });
+    });
 
     // Send item description to chat
     html.find(".item-description").click(clickEvent => {

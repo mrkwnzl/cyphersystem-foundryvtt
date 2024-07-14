@@ -55,8 +55,6 @@ export async function payCostWithAdditionalPool(cost, useEdge, rollData) {
   let totalCost = Math.max(0, baseCost - edge);
   let newValue = fourthPool.value - totalCost;
 
-  console.log(totalCost);
-
   // Subtract from actor
   if (newValue < 0) return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.NotEnoughPoint", {pool: fourthPoolLabel}));
   await actor.update({"system.pools.additional.value": newValue});
@@ -127,4 +125,14 @@ export async function changePortraitAndToken(imagePath, data) {
     "img": imagePath,
     "prototypeToken.texture.src": imagePath
   });
+}
+
+export async function executeMacroAsGM(macroUuid, rollData) {
+  if (game.user.isGM) {
+    // Get macro
+    let macro = await fromUuid(macroUuid);
+
+    // Execute macro
+    await macro.execute({"rollData": rollData});
+  }
 }

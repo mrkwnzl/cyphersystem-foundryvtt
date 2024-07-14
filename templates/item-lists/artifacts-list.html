@@ -14,6 +14,19 @@
       {{#if (and item.system.basic.depletion item.system.basic.identified) ~}}
         ({{localize 'CYPHERSYSTEM.depletion' ~}}: {{{enrichedHTMLItems ../this "depletion" item._id}}}&hairsp;)
       {{/if}}
+      {{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
+        <a class="item-favorite {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+          <i class="fa-solid fa-star"></i>
+        </a>
+      {{else}}
+        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+          {{#if item.system.favorite}}
+            <i class="fa-solid fa-star"></i>
+          {{else}}
+            <i class="fa-regular fa-star"></i>
+          {{/if}}
+        </a>
+      {{/if}}
     </h4>
     <div class="item-quantity">
       {{#if item.system.basic.identified}}
