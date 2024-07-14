@@ -678,5 +678,9 @@
   "CYPHERSYSTEM.XPLeft": "EP übrig: {quantity}",
   "CYPHERSYSTEM.Scripting": "Skripte",
   "CYPHERSYSTEM.ExecuteMacro": "Führe Makro bei Wurf aus",
-  "CYPHERSYSTEM.MacroNotFound": "Makro nicht gefunden. Kann nicht würfeln."
+  "CYPHERSYSTEM.MacroNotFound": "Makro nicht gefunden. Kann nicht würfeln.",
+  "CYPHERSYSTEM.ExecuteMacroAsGM": "Macro mit SL-Erlaubnissen ausführen",
+  "CYPHERSYSTEM.Favorite": "Favorit",
+  "CYPHERSYSTEM.ItemFavorite": "Item oben anpinnen",
+  "CYPHERSYSTEM.HideFavoriteButton": "Favorit-Button verstecken"
 }
