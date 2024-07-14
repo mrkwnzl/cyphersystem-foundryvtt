@@ -71,7 +71,8 @@ import {
   disasterModeMacro,
   lockStaticStatsMacro,
   migrateDataMacro,
-  selectedTokenRollMacro
+  selectedTokenRollMacro,
+  allInOneRollDialogV2
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -171,6 +172,7 @@ Hooks.once("init", async function () {
     spendEffortMacro,
     itemRollMacro,
     allInOneRollDialog,
+    allInOneRollDialogV2,
     toggleDragRuler,
     resetDragRulerDefaults,
     resetBarBrawlDefaults,
@@ -453,6 +455,12 @@ Hooks.on("preCreateItem", function (item, data, options, id) {
       "flags.cyphersystem.recursions": []
     });
   };
+  if (item.system?.archived || item.system?.favorite) {
+    item.updateSource({
+      "system.archived": false,
+      "system.favorite": false
+    });
+  }
 });
 
 Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
@@ -479,7 +487,9 @@ Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
   }
 });
 
-Hooks.on("updateItem", async function (item, changes, options, userId) {});
+Hooks.on("updateItem", async function (item, changes, options, userId) {
+
+});
 
 Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;

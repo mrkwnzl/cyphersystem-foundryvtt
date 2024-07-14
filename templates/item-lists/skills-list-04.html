@@ -5,6 +5,19 @@
 				<i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
 				{{~item.name}}
 			</a>
+			{{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
+				<a class="item-favorite {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+					<i class="fa-solid fa-star"></i>
+				</a>
+			{{else}}
+				<a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+					{{#if item.system.favorite}}
+						<i class="fa-solid fa-star"></i>
+					{{else}}
+						<i class="fa-regular fa-star"></i>
+					{{/if}}
+				</a>
+			{{/if}}
 		</h4>
 		<div class="item-quantity {{#if item.system.archived}}archived{{else}}{{item.system.basic.rating}}{{/if}}">
 			{{#if (eq item.system.basic.rating 'Inability')}}

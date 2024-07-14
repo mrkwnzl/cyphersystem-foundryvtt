@@ -660,6 +660,7 @@
   "CYPHERSYSTEM.ExecuteMacro": "Execute macro on roll",
   "CYPHERSYSTEM.ExecuteMacroTag": "Execute macro when tag is enabled",
   "CYPHERSYSTEM.ExecuteMacroRecursion": "Execute macro when recursion is enabled",
+  "CYPHERSYSTEM.ExecuteMacroAsGM": "Execute macro with GM permissions",
   "CYPHERSYSTEM.macroUuid": "Macro UUID",
   "CYPHERSYSTEM.MacroNotFound": "Macro not found. Cannot roll.",
   "CYPHERSYSTEM.MacroUsed": "Macro: {macro}.",
@@ -674,5 +675,8 @@
   "CYPHERSYSTEM.CostTotalFourthPoolPoints": "Cost: {totalCost} {label} points",
   "CYPHERSYSTEM.FourthPoolBaseCostPoint": "Base cost: {baseCost} point",
   "CYPHERSYSTEM.FourthPoolBaseCostPoints": "Base cost: {baseCost} points",
-  "CYPHERSYSTEM.XPLeft": "XP left: {quantity}"
+  "CYPHERSYSTEM.XPLeft": "XP left: {quantity}",
+  "CYPHERSYSTEM.Favorite": "Favorite",
+  "CYPHERSYSTEM.ItemFavorite": "Pin Item at the Top",
+  "CYPHERSYSTEM.HideFavoriteButton": "Hide Favorite Button"
 }

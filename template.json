@@ -118,6 +118,7 @@
           },
           "hideArchive": false,
           "hideEmptyCategories": false,
+          "hideFavoriteButton": false,
           "customSheetDesign": false,
           "background": {
             "image": "foundry",
@@ -1041,7 +1042,8 @@
       },
       "core": {
         "description": "",
-        "archived": false
+        "archived": false,
+        "favorite": false
       },
       "rollButton": {
         "settings": {
@@ -1059,7 +1061,8 @@
             "damagePerLOE": 3,
             "teen": "",
             "bonus": 0,
-            "macroUuid": ""
+            "macroUuid": "",
+            "macroExecuteAsGM": false
           }
         }
       }

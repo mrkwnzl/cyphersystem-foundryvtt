@@ -92,3 +92,23 @@ export function byIdentifiedStatus(itemA, itemB) {
   }
   return 0;
 }
+
+// Sort item by favorite
+export function byFavoriteStatus(itemA, itemB) {
+  let ratingA;
+  let ratingB;
+
+  if (!itemA.system.favorite) {ratingA = 2;}
+  else if (itemA.system.favorite === true) {ratingA = 1;}
+
+  if (!itemB.system.favorite) {ratingB = 2;}
+  else if (itemB.system.favorite === true) {ratingB = 1;}
+
+  if (ratingA < ratingB) {
+    return -1;
+  }
+  if (ratingA > ratingB) {
+    return 1;
+  }
+  return 0;
+}

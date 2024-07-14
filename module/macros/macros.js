@@ -255,6 +255,23 @@ export async function allInOneRollDialog(actor, pool, skill, assets, effort1, ef
   });
 }
 
+export async function allInOneRollDialogV2(rollObject) {
+  // Find actor & item
+  let actor = fromUuidSync(rollObject.actorUuid);
+  let itemID = rollObject.itemID;
+
+  if (!actor) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  let initiativeRoll = (actor.items.get(itemID)) ? actor.items.get(itemID).system.settings.general.initiative : false;
+
+  rollObject = Object.assign({
+    initiativeRoll: initiativeRoll,
+  }, rollObject);
+
+  // Apply to roll eninge
+  rollEngineMain(rollObject);
+}
+
 export async function itemRollMacro(actor, itemID, pool, skillLevel, assets, effort1, effort2, additionalSteps, additionalCost, damage, effort3, damagePerLOE, teen, stepModifier, noRoll, bonus, macroUuid) {
   // Find actor based on item ID
   const owner = game.actors.find(actor => actor.items.get(itemID));
