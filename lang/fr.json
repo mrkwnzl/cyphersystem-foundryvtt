@@ -40,7 +40,7 @@
   "CYPHERSYSTEM.Additional": "extra",
   "CYPHERSYSTEM.Name": "Nom",
   "CYPHERSYSTEM.Is": "est",
-  "CYPHERSYSTEM.IsA": "est un",
+  "CYPHERSYSTEM.IsA": "est un",
   "CYPHERSYSTEM.Descriptor": "Descripteur",
   "CYPHERSYSTEM.Type": "Type",
   "CYPHERSYSTEM.Who": "qui",
@@ -676,5 +676,11 @@
   "CYPHERSYSTEM.CostTotalFourthPoolPoints": "Coût : {totalCost} {label} points",
   "CYPHERSYSTEM.SettingRollButtonsOnlyStats": "Activé sur les lancers de statistiques et de récupération",
   "CYPHERSYSTEM.ThisMacroHasBeenDeprecated": "Cette macro a été supprimée.",
-  "CYPHERSYSTEM.AddTagToItem": "Ajouter une balise à l'élément"
+  "CYPHERSYSTEM.AddTagToItem": "Ajouter une balise à l'élément",
+  "CYPHERSYSTEM.FourthPoolBaseCostPoint": "Coût de base : {baseCost} point",
+  "CYPHERSYSTEM.FourthPoolBaseCostPoints": "Coût de base : {baseCost} points",
+  "CYPHERSYSTEM.XPLeft": "XP restant : {quantity}",
+  "CYPHERSYSTEM.Favorite": "Favoris",
+  "CYPHERSYSTEM.ItemFavorite": "Épingler l'objet",
+  "CYPHERSYSTEM.HideFavoriteButton": "Masquer le bouton Favoris"
 }
