@@ -1,6 +1,6 @@
 export async function dataMigration() {
   // Check for newer version
-  if (!isNewerVersion(game.system.version, game.settings.get("cyphersystem", "systemMigrationVersion"))) return;
+  if (!foundry.utils.isNewerVersion(game.system.version, game.settings.get("cyphersystem", "systemMigrationVersion"))) return;
 
   // Warn about migration
   ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.MigrationInProgress", {version: game.system.version}));
@@ -61,7 +61,11 @@ export async function dataMigration() {
   await ui.notifications.info(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}), {permanent: true, console: true});
 }
 
+// Migrate packs for Foundry V10 data paths
 export async function dataMigrationPacks(packageName) {
+  // Disable macro in v3.0.0
+  return ui.notifications.warn("This macro is no longer supported.");
+
   if (!game.modules.get(packageName)?.active) return ui.notifications.error("Package " + packageName + " not found in active modules!");
 
   // Warn about migration
@@ -107,19 +111,21 @@ export async function dataMigrationPacks(packageName) {
 async function migrationRoutineActor(actor) {
   try {
     for (let item of actor.items) {
-      const updateDataItem = await migrationItemV1ToV2(item);
-      if (!foundry.utils.isEmpty(updateDataItem)) {
-        await item.update(updateDataItem, {enforceTypes: false});
-      }
+      // Remove migration of V10 data paths
+      // const updateDataItem = await migrationItemV1ToV2(item);
+      // if (!foundry.utils.isEmpty(updateDataItem)) {
+      //   await item.update(updateDataItem, {enforceTypes: false});
+      // }
       const updateDataItemV2 = await migrationItemV2ToV3(item);
       if (!foundry.utils.isEmpty(updateDataItemV2)) {
         await item.update(updateDataItemV2, {enforceTypes: false});
       }
     }
-    const updateDataActor = await migrationActorV1ToV2(actor);
-    if (!foundry.utils.isEmpty(updateDataActor)) {
-      await actor.update(updateDataActor, {enforceTypes: false});
-    }
+    // Remove migration of V10 data paths
+    // const updateDataActor = await migrationActorV1ToV2(actor);
+    // if (!foundry.utils.isEmpty(updateDataActor)) {
+    //   await actor.update(updateDataActor, {enforceTypes: false});
+    // }
     const updateDataActorV2 = await migrationActorV2ToV3(actor);
     if (!foundry.utils.isEmpty(updateDataActorV2)) {
       await actor.update(updateDataActorV2, {enforceTypes: false});

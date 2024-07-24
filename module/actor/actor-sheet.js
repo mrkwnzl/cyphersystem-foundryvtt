@@ -718,7 +718,7 @@ export class CypherActorSheet extends ActorSheet {
     // Roll for level
     html.find(".rollForLevel").click(async clickEvent => {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let roll = await new Roll(item.system.basic.level).evaluate({async: true});
+      let roll = await new Roll(item.system.basic.level).evaluate();
       roll.toMessage({
         speaker: ChatMessage.getSpeaker(),
         flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", {item: item.name})

@@ -53,6 +53,91 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     data.sheetSettings.disabledStaticStats = (this.actor.getFlag("cyphersystem", "disabledStaticStats") || this.actor.getFlag("cyphersystem", "multiRoll.active")) ? "disabled" : "";
 
+    // Select options
+    data.unmaskedFormChoices = {
+      "Mask": "CYPHERSYSTEM.Mask",
+      "Teen": "CYPHERSYSTEM.Teen"
+    };
+
+    data.damageTrackChoices = {
+      "Hale": "CYPHERSYSTEM.Hale",
+      "Impaired": "CYPHERSYSTEM.Impaired",
+      "Debilitated": "CYPHERSYSTEM.Debilitated"
+    };
+
+    data.gameModeChoices = {
+      "Cypher": "CYPHERSYSTEM.Cypher",
+      "Unmasked": "CYPHERSYSTEM.Unmasked",
+      "Strange": "CYPHERSYSTEM.Strange"
+    };
+
+    data.sheetCustomizationChoices = {
+      "backgroundImage": {
+        "foundry": "CYPHERSYSTEM.BGImageFoundry",
+        "cypher-blue": "CYPHERSYSTEM.BGImageCypherBlue",
+        "plain metal": "CYPHERSYSTEM.BGImageMetal",
+        "paper": "CYPHERSYSTEM.BGImagePaper",
+        "plain pride": "CYPHERSYSTEM.BGImagePride",
+        "plain blue": "CYPHERSYSTEM.BGImagePlainBlue",
+        "plain green": "CYPHERSYSTEM.BGImagePlainGreen",
+        "plain grey": "CYPHERSYSTEM.BGImagePlainGrey",
+        "plain purple": "CYPHERSYSTEM.BGImagePlainPurple",
+        "plain red": "CYPHERSYSTEM.BGImagePlainRed",
+        "plain yellow": "CYPHERSYSTEM.BGImagePlainYellow",
+        "custom": "CYPHERSYSTEM.BGImageCustom"
+      },
+      "backgroundIcon": {
+        "none": "CYPHERSYSTEM.BGIconNone",
+        "bat": "CYPHERSYSTEM.BGIconBat",
+        "bat-mask": "CYPHERSYSTEM.BGIconBatMask",
+        "battered-axe": "CYPHERSYSTEM.BGIconBatteredAxe",
+        "battle-gear": "CYPHERSYSTEM.BGIconBattleGear",
+        "bear": "CYPHERSYSTEM.BGIconBear",
+        "bow-arrow": "CYPHERSYSTEM.BGIconBowArrow",
+        "circuitry": "CYPHERSYSTEM.BGIconCircuitry",
+        "csrd-logo": "CYPHERSYSTEM.BGIconCypherLogo",
+        "holy-symbol": "CYPHERSYSTEM.BGIconHolySymbol",
+        "hood": "CYPHERSYSTEM.BGIconHood",
+        "orb-wand": "CYPHERSYSTEM.BGIconOrbWand",
+        "wizard-staff": "CYPHERSYSTEM.BGIconWizardStaff",
+        "wolf": "CYPHERSYSTEM.BGIconWolf",
+        "custom": "CYPHERSYSTEM.BGIconCustom"
+      },
+      "logoImage": {
+        "none": "CYPHERSYSTEM.CSLogoNone",
+        "black": "CYPHERSYSTEM.CSLogoBlack",
+        "white": "CYPHERSYSTEM.CSLogoWhite",
+        "color": "CYPHERSYSTEM.CSLogoColor",
+        "custom": "CYPHERSYSTEM.CSLogoCustom"
+      }
+    };
+
+    data.recoveryRollsChoices = {
+      "numberOneActionRecoveries": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7
+      },
+      "numberTenMinuteRecoveries": {
+        "0": 0,
+        "1": 1,
+        "2": 2
+      }
+    };
+
+    data.currencyChoices = {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+    };
+
     return data;
   }
 

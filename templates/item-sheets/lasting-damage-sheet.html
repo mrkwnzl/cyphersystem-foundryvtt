@@ -31,11 +31,7 @@
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
                 <select name="system.basic.pool">
-                  {{#select item.system.basic.pool}}
-                    <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
-                    <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
-                    <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
-                  {{/select}}
+                  {{selectOptions poolChoices.basic selected=item.system.basic.pool localize=true}}
                 </select>
               </div>
             </div>
@@ -43,10 +39,7 @@
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.DamageType'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
                 <select name="system.basic.type" style="text-overflow: ellipsis; width: 100%">
-                  {{#select item.system.basic.type}}
-                    <option value="Lasting">{{localize 'CYPHERSYSTEM.lastingDamage'}}</option>
-                    <option value="Permanent">{{localize 'CYPHERSYSTEM.permanent'}}</option>
-                  {{/select}}
+                  {{selectOptions lastingDamageTypeChoices selected=item.system.basic.type localize=true}}
                 </select>
               </div>
             </div>

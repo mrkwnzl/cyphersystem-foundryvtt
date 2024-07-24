@@ -10,20 +10,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin settings-input" name="backgroundImage">
-              {{#select backgroundImage}}
-                <option value="foundry">{{localize 'CYPHERSYSTEM.BGImageFoundry'}}</option>
-                <option value="cypher-blue">{{localize 'CYPHERSYSTEM.BGImageCypherBlue'}}</option>
-                <option value="plain metal">{{localize 'CYPHERSYSTEM.BGImageMetal'}}</option>
-                <option value="paper">{{localize 'CYPHERSYSTEM.BGImagePaper'}}</option>
-                <option value="plain pride">{{localize 'CYPHERSYSTEM.BGImagePride'}}</option>
-                <option value="plain blue">{{localize 'CYPHERSYSTEM.BGImagePlainBlue'}}</option>
-                <option value="plain green">{{localize 'CYPHERSYSTEM.BGImagePlainGreen'}}</option>
-                <option value="plain grey">{{localize 'CYPHERSYSTEM.BGImagePlainGrey'}}</option>
-                <option value="plain purple">{{localize 'CYPHERSYSTEM.BGImagePlainPurple'}}</option>
-                <option value="plain red">{{localize 'CYPHERSYSTEM.BGImagePlainRed'}}</option>
-                <option value="plain yellow">{{localize 'CYPHERSYSTEM.BGImagePlainYellow'}}</option>
-                <option value="custom">{{localize 'CYPHERSYSTEM.BGImageCustom'}}</option>
-              {{/select}}
+              {{selectOptions sheetCustomizationChoices.backgroundImage selected=backgroundImage localize=true}}
             </select>
           </div>
         </li>
@@ -49,23 +36,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin settings-input" name="backgroundIcon">
-              {{#select backgroundIcon}}
-                <option value="none">{{localize 'CYPHERSYSTEM.BGIconNone'}}</option>
-                <option value="bat">{{localize 'CYPHERSYSTEM.BGIconBat'}}</option>
-                <option value="bat-mask">{{localize 'CYPHERSYSTEM.BGIconBatMask'}}</option>
-                <option value="battered-axe">{{localize 'CYPHERSYSTEM.BGIconBatteredAxe'}}</option>
-                <option value="battle-gear">{{localize 'CYPHERSYSTEM.BGIconBattleGear'}}</option>
-                <option value="bear">{{localize 'CYPHERSYSTEM.BGIconBear'}}</option>
-                <option value="bow-arrow">{{localize 'CYPHERSYSTEM.BGIconBowArrow'}}</option>
-                <option value="circuitry">{{localize 'CYPHERSYSTEM.BGIconCircuitry'}}</option>
-                <option value="csrd-logo">{{localize 'CYPHERSYSTEM.BGIconCypherLogo'}}</option>
-                <option value="holy-symbol">{{localize 'CYPHERSYSTEM.BGIconHolySymbol'}}</option>
-                <option value="hood">{{localize 'CYPHERSYSTEM.BGIconHood'}}</option>
-                <option value="orb-wand">{{localize 'CYPHERSYSTEM.BGIconOrbWand'}}</option>
-                <option value="wizard-staff">{{localize 'CYPHERSYSTEM.BGIconWizardStaff'}}</option>
-                <option value="wolf">{{localize 'CYPHERSYSTEM.BGIconWolf'}}</option>
-                <option value="custom">{{localize 'CYPHERSYSTEM.BGIconCustom'}}</option>
-              {{/select}}
+              {{selectOptions sheetCustomizationChoices.backgroundIcon selected=backgroundIcon localize=true}}
             </select>
           </div>
         </li>
@@ -91,13 +62,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin settings-input" name="logoImage">
-              {{#select logoImage}}
-                <option value="none">{{localize 'CYPHERSYSTEM.CSLogoNone'}}</option>
-                <option value="black">{{localize 'CYPHERSYSTEM.CSLogoBlack'}}</option>
-                <option value="white">{{localize 'CYPHERSYSTEM.CSLogoWhite'}}</option>
-                <option value="color">{{localize 'CYPHERSYSTEM.CSLogoColor'}}</option>
-                <option value="custom">{{localize 'CYPHERSYSTEM.CSLogoCustom'}}</option>
-              {{/select}}
+              {{selectOptions sheetCustomizationChoices.logoImage selected=logoImage localize=true}}
             </select>
           </div>
         </li>

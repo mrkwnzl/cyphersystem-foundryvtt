@@ -15,78 +15,30 @@
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.BaseDifficulty"}}:</label>
         {{#if (eq this.useGlobalDifficulty -1)}}
           <select name="baseDifficulty" id="baseDifficulty" class="dialog-select roll-engine-select">
-            {{#select this.baseDifficulty}}
-              <option value="-1">{{localize "CYPHERSYSTEM.None"}}</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-            {{/select}}
+            {{selectOptions baseDifficultyChoices selected=this.baseDifficulty valueAttr="key" labelAttr="label"}}
           </select><br>
         {{else}}
           <input name="baseDifficulty" id="baseDifficulty" type="number" value="{{this.baseDifficulty}}" class="roll-engine-input disabled" /><br>
         {{/if}}
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Pool"}}:</label>
         <select name="pool" id="pool" class="dialog-select roll-engine-select">
-          {{#select this.pool}}
-            <option value="Might">{{localize "CYPHERSYSTEM.Might"}}</option>
-            <option value="Speed">{{localize "CYPHERSYSTEM.Speed"}}</option>
-            <option value="Intellect">{{localize "CYPHERSYSTEM.Intellect"}}</option>
-            <option value="Pool">{{localize "CYPHERSYSTEM.AnyPool"}}</option>
-          {{/select}}
+          {{selectOptions poolChoices.withAnyPool selected=this.pool localize=true}}
         </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.SkillLevel"}}:</label>
         <select name="skillLevel" id="skillLevel" class="dialog-select roll-engine-select">
-          {{#select this.skillLevel}}
-            <option value="-1">{{localize "CYPHERSYSTEM.Inability"}}</option>
-            <option value="0">{{localize "CYPHERSYSTEM.Practiced"}}</option>
-            <option value="1">{{localize "CYPHERSYSTEM.Trained"}}</option>
-            <option value="2"> {{localize "CYPHERSYSTEM.Specialized"}}</option>
-          {{/select}}
+          {{selectOptions skillRatingChoices selected=this.skillLevel valueAttr="key" labelAttr="label" localize=true}}
         </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Assets"}}:</label>
         <select name="assets" id="assets" class="dialog-select roll-engine-select">
-          {{#select this.assets}}
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          {{/select}}
+          {{selectOptions numberAssetChoices selected=this.assets}}
         </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortForTask"}}:</label>
         <select name="effortToEase" id="effortToEase" class="dialog-select roll-engine-select">
-          {{#select this.effortToEase}}
-            <option value="0">{{localize "CYPHERSYSTEM.None"}}</option>
-            <option value="1">1 {{localize "CYPHERSYSTEM.level"}}</option>
-            <option value="2">2 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="3">3 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="4">4 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="5">5 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="6">6 {{localize "CYPHERSYSTEM.levels"}}</option>
-          {{/select}}
+          {{selectOptions effortLevelChoices selected=this.effortToEase}}
         </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortForOther"}}:</label>
         <select name="effortOtherUses" id="effortOtherUses" class="dialog-select roll-engine-select">
-          {{#select this.effortOtherUses}}
-            <option value="0">{{localize "CYPHERSYSTEM.None"}}</option>
-            <option value="1">1 {{localize "CYPHERSYSTEM.level"}}</option>
-            <option value="2">2 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="3">3 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="4">4 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="5">5 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="6">6 {{localize "CYPHERSYSTEM.levels"}}</option>
-          {{/select}}
+          {{selectOptions effortLevelChoices selected=this.effortOtherUses}}
         </select><br>
         <hr class="hr-roll-engine">
 
@@ -95,15 +47,7 @@
         <input name="damage" id="damage" type="number" value="{{this.damage}}" class="roll-engine-input" /><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortForDamage"}}:</label>
         <select name="effortDamage" id="effortDamage" class="dialog-select roll-engine-select">
-          {{#select this.effortDamage}}
-            <option value="0">{{localize "CYPHERSYSTEM.None"}}</option>
-            <option value="1">1 {{localize "CYPHERSYSTEM.level"}}</option>
-            <option value="2">2 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="3">3 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="4">4 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="5">5 {{localize "CYPHERSYSTEM.levels"}}</option>
-            <option value="6">6 {{localize "CYPHERSYSTEM.levels"}}</option>
-          {{/select}}
+          {{selectOptions effortLevelChoices selected=this.effortDamage}}
         </select> <br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DamageLevelEffort"}}:</label>
         <input name="damagePerLOE" id="damagePerLOE" type="number" value="{{this.damagePerLOE}}" class="roll-engine-input" /><br>
@@ -112,10 +56,7 @@
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.AdditionalModifiers"}}</b></label><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DifficultyModifier"}}:</label>
         <select class="roll-engine-select-eased-hindered" name="easedOrHindered" id="easedOrHindered" class="dialog-select">
-          {{#select this.easedOrHindered}}
-            <option value="eased">{{localize "CYPHERSYSTEM.easedBy"}}</option>
-            <option value="hindered">{{localize "CYPHERSYSTEM.hinderedBy"}}</option>
-          {{/select}}
+          {{selectOptions stepModifierChoices selected=this.easedOrHindered localize=true}}
         </select>
         <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="{{this.difficultyModifier}}" /><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Bonus"}}:</label>

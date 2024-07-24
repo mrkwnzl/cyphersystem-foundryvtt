@@ -40,6 +40,47 @@ export class SheetCustomization extends FormApplication {
     data.logoImagePath = getLogoImagePath();
     data.logoImageOpacity = getLogoImageOpacity();
 
+    data.sheetCustomizationChoices = {
+      "backgroundImage": {
+        "foundry": "CYPHERSYSTEM.BGImageFoundry",
+        "cypher-blue": "CYPHERSYSTEM.BGImageCypherBlue",
+        "plain metal": "CYPHERSYSTEM.BGImageMetal",
+        "paper": "CYPHERSYSTEM.BGImagePaper",
+        "plain pride": "CYPHERSYSTEM.BGImagePride",
+        "plain blue": "CYPHERSYSTEM.BGImagePlainBlue",
+        "plain green": "CYPHERSYSTEM.BGImagePlainGreen",
+        "plain grey": "CYPHERSYSTEM.BGImagePlainGrey",
+        "plain purple": "CYPHERSYSTEM.BGImagePlainPurple",
+        "plain red": "CYPHERSYSTEM.BGImagePlainRed",
+        "plain yellow": "CYPHERSYSTEM.BGImagePlainYellow",
+        "custom": "CYPHERSYSTEM.BGImageCustom"
+      },
+      "backgroundIcon": {
+        "none": "CYPHERSYSTEM.BGIconNone",
+        "bat": "CYPHERSYSTEM.BGIconBat",
+        "bat-mask": "CYPHERSYSTEM.BGIconBatMask",
+        "battered-axe": "CYPHERSYSTEM.BGIconBatteredAxe",
+        "battle-gear": "CYPHERSYSTEM.BGIconBattleGear",
+        "bear": "CYPHERSYSTEM.BGIconBear",
+        "bow-arrow": "CYPHERSYSTEM.BGIconBowArrow",
+        "circuitry": "CYPHERSYSTEM.BGIconCircuitry",
+        "csrd-logo": "CYPHERSYSTEM.BGIconCypherLogo",
+        "holy-symbol": "CYPHERSYSTEM.BGIconHolySymbol",
+        "hood": "CYPHERSYSTEM.BGIconHood",
+        "orb-wand": "CYPHERSYSTEM.BGIconOrbWand",
+        "wizard-staff": "CYPHERSYSTEM.BGIconWizardStaff",
+        "wolf": "CYPHERSYSTEM.BGIconWolf",
+        "custom": "CYPHERSYSTEM.BGIconCustom"
+      },
+      "logoImage": {
+        "none": "CYPHERSYSTEM.CSLogoNone",
+        "black": "CYPHERSYSTEM.CSLogoBlack",
+        "white": "CYPHERSYSTEM.CSLogoWhite",
+        "color": "CYPHERSYSTEM.CSLogoColor",
+        "custom": "CYPHERSYSTEM.CSLogoCustom"
+      }
+    };
+
     // Return data
     return data;
   }

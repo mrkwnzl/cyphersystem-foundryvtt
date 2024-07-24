@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2024-07-24
+### Added
+- You can now embed the item description in every document type, so that `@Embed[Uuid caption=false cite=false prependCite=true prependCiteLabel=""]` in any text field results in a clickable button to the item, which is followed by the item’s description. Set `prependCite` to false (or leave it out) to omit the clickable button and only the description will appear. Set `prependCiteLabel` to any string (within the quotation marks) to change the label. If you leave `prependCiteLabel` empty or omit it, the item name is being used for the label. Thanks to @farling for providing the base of the code.
+
+### Changed
+- Updated for Foundry V12.
+
+### Fixed
+- The Quick Stat Roll, Eased Roll, and Hindered Roll macros now give you a warning about a missing controlled PC actor *before* the roll dialog shows up, instead of after the dialog.
+- Spells now only show the favorite button when alt is pressed, as intended.
+
+### Removed
+- This update breaks migration of older versions. In order to upgrade to a newer major version, update to the latest version of each major version (v1.33.3, v2.15.0), and open each world you want to migrate before updating to the next major version. When you are already on any v2 of the Cypher system, it should be possible to upgrade to v3.0.0, but it’s still recommended to update the Cypher system to v2.15.0 first, open all your worlds to migrate everything to the latest version, and then upgrade to v3.0.0. In any case, make a backup!
+  
+  This is the manifest URL for v2.15.0: https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.15.0/system.json
+
 ## [2.15.0] - 2024-07-14
 ### Added
 - Items can no be favorited by holding alt and clicking the appearing star icon. Favorited items are always at the top of the list. Items at the top of the list show the star button unless they are hidden in the character settings.

@@ -7,7 +7,7 @@ export async function rollEngineComputation(data) {
   let actor = fromUuidSync(data.actorUuid);
 
   // Roll dice
-  data.roll = await new Roll("1d20").evaluate({async: true});
+  data.roll = await new Roll("1d20").evaluate();
 
   // Check for effort
   data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;

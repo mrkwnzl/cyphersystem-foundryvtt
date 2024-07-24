@@ -23,10 +23,20 @@ import {updateRollDifficultyForm} from "../forms/roll-difficulty-sheet.js";
 /* -------------------------------------------- */
 
 export function quickRollMacro(title) {
+  // Find actor
+  let actor = game.user.character?.uuid || undefined;
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Open dialog
   rollEngineMain({title: title});
 }
 
 export function easedRollMacro() {
+  // Find actor
+  let actor = game.user.character?.uuid || undefined;
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Open dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.EasedStatRoll"),
     content: `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}: </b></label>
@@ -50,6 +60,11 @@ export function easedRollMacro() {
 }
 
 export function hinderedRollMacro() {
+  // Find actor
+  let actor = game.user.character?.uuid || undefined;
+  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+
+  // Open dialog
   let d = new Dialog({
     title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll"),
     content: `
@@ -144,7 +159,7 @@ export async function selectedTokenRollMacro(actor, title) {
 
   async function rollDice(data) {
     let actor = fromUuidSync(data.actorUuid);
-    let roll = await new Roll("1d20").evaluate({async: true});
+    let roll = await new Roll("1d20").evaluate();
 
     // Calculate roll modifiers
     data.difficultyModifier = (data.easedOrHindered == "hindered") ? parseInt(data.difficultyModifier * -1) : parseInt(data.difficultyModifier);
@@ -214,7 +229,7 @@ export async function diceRollMacro(dice, actor) {
   if (dice.charAt(0) == "d") dice = "1" + dice;
 
   // Roll dice
-  const roll = await new Roll(dice).evaluate({async: false});
+  const roll = await new Roll(dice).evaluate();
 
   // Add reroll button
   let reRollButton = `<div class="chat-card-buttons"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-dice-d20"></a></div>`;
@@ -417,7 +432,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   if (recoveryUsed == undefined) return;
 
   // Roll recovery roll
-  let roll = await new Roll(dice).evaluate({async: true});
+  let roll = await new Roll(dice).evaluate();
 
   // Add reroll button
   let reRollButton = `<div style="text-align: right"><a class="reroll-recovery" data-dice="${dice}" data-user="${game.user.id}" data-actor-uuid="${actor.uuid}"><i class="fas fa-dice-d20"></i></a></div>`;
@@ -460,8 +475,8 @@ export function spendEffortMacro(actor) {
     // -- Determine impaired & debilitated status
     let impairedStatus = false;
     if (actor.system.basic.unmaskedForm == "Teen") {
-      if (actor.system.teen.combat.damage.damageTrack == "Impaired" && actor.system.teen.combat.damage.applyImpaired) impairedStatus = true;
-      if (actor.system.teen.combat.damage.damageTrack == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) impairedStatus = true;
+      if (actor.system.teen.combat.damageTrack.state == "Impaired" && actor.system.teen.combat.damage.applyImpaired) impairedStatus = true;
+      if (actor.system.teen.combat.damageTrack.state == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) impairedStatus = true;
     } else if (actor.system.basic.unmaskedForm == "Mask") {
       if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) impairedStatus = true;
       if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) impairedStatus = true;
@@ -606,7 +621,7 @@ export async function proposeIntrusion(actor) {
   if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
 
   // Check for selected token
-  if (!actor && canvas.tokens.controlled[0].actor) {
+  if (!actor && canvas.tokens.controlled[0]?.actor) {
     let token = canvas.tokens.controlled[0].actor;
     if (token?.type == "pc" && token?.hasPlayerOwner) {
       actor = token;

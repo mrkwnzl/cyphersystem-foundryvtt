@@ -6,39 +6,32 @@
     <li class="item flexrow non-draggable">
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
         <div class="item-damage">
-          <select name="system.teen.combat.damage.damageTrack" style="min-width: 95px">
-            {{#select actor.system.teen.combat.damage.damageTrack}}
-              <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
-              <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
-              <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
-            {{/select}}
+          <select class="damage-track-select" name="system.teen.combat.damageTrack.state">
+            {{selectOptions damageTrackChoices selected=actor.system.teen.combat.damageTrack.state localize=true}}
           </select>
         </div>
         <div class="centered-content" style="min-height: 40px; line-height: 1.4">
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Hale")}}
+          {{#if (eq actor.system.teen.combat.damageTrack.state "Hale")}}
             {{localize 'CYPHERSYSTEM.HaleEffect'}}
           {{/if}}
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Impaired")}}
+          {{#if (eq actor.system.teen.combat.damageTrack.state "Impaired")}}
             {{localize 'CYPHERSYSTEM.ImpairedEffect1'}}
             <br>
             {{localize 'CYPHERSYSTEM.ImpairedEffect2'}}
           {{/if}}
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Debilitated")}}
+          {{#if (eq actor.system.teen.combat.damageTrack.state "Debilitated")}}
             {{localize 'CYPHERSYSTEM.DebilitatedEffect1'}}
             <br>
             {{localize 'CYPHERSYSTEM.DebilitatedEffect2'}}
           {{/if}}
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Dead")}}
-            {{localize 'CYPHERSYSTEM.DeadEffect'}}
-          {{/if}}
         </div>
         <div class="damage-track-apply centered-content">
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Impaired")}}
+          {{#if (eq actor.system.teen.combat.damageTrack.state "Impaired")}}
             <a class="item-control apply-impaired-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
               <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyImpaired}}grey{{/unless}}"></i>
             </a>
           {{/if}}
-          {{#if (eq actor.system.teen.combat.damage.damageTrack "Debilitated")}}
+          {{#if (eq actor.system.teen.combat.damageTrack.state "Debilitated")}}
             <a class="item-control apply-debilitated-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
               <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyDebilitated}}grey{{/unless}}"></i>
             </a>
@@ -47,11 +40,7 @@
       {{else}}
         <div class="item-damage">
           <select class="damage-track-select" name="system.combat.damageTrack.state">
-            {{#select actor.system.combat.damageTrack.state}}
-              <option value="Hale">{{localize 'CYPHERSYSTEM.Hale'}}</option>
-              <option value="Impaired">{{localize 'CYPHERSYSTEM.Impaired'}}</option>
-              <option value="Debilitated">{{localize 'CYPHERSYSTEM.Debilitated'}}</option>
-            {{/select}}
+            {{selectOptions damageTrackChoices selected=actor.system.combat.damageTrack.state localize=true}}
           </select>
         </div>
         <div class="centered-content" style="min-height: 40px; line-height: 1.4">
