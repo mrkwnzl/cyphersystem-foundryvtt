@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - Updated for Foundry V12.
+- Updated translations.
 
 ### Fixed
 - The Quick Stat Roll, Eased Roll, and Hindered Roll macros now give you a warning about a missing controlled PC actor *before* the roll dialog shows up, instead of after the dialog.
