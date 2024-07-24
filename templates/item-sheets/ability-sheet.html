@@ -29,13 +29,7 @@
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Pool'}}</label>
               <div class="resource-content flexrow flex-center flex-between">
                 <select name="system.basic.pool">
-                  {{#select item.system.basic.pool}}
-                    <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
-                    <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
-                    <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
-                    <option value="Pool">{{localize 'CYPHERSYSTEM.AnyPool'}}</option>
-                    <option value="XP">{{localize 'CYPHERSYSTEM.XP'}}</option>
-                  {{/select}}
+                  {{selectOptions poolChoices.withAnyPoolAndXP selected=item.system.basic.pool localize=true}}
                 </select>
               </div>
             </div>

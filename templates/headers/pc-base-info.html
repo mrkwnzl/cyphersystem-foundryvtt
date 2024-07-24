@@ -32,10 +32,7 @@
         &nbsp;
         <div class="item-quantity" style="flex: 0 0 80px;">
           <select name="system.basic.unmaskedForm" style="width: 80px;">
-            {{#select actor.system.basic.unmaskedForm}}
-              <option value="Mask">{{localize 'CYPHERSYSTEM.Mask'}}</option>
-              <option value="Teen">{{localize 'CYPHERSYSTEM.Teen'}}</option>
-            {{/select}}
+            {{selectOptions unmaskedFormChoices selected=actor.system.basic.unmaskedForm localize=true}}
           </select>
         </div>
       {{/if}}

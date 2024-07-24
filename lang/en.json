@@ -19,6 +19,9 @@
   "TYPES.Item.skill": "Skill",
   "TYPES.Item.recursion": "Recursion",
   "TYPES.Item.tag": "Tag",
+  "CYPHERSYSTEM.Cypher": "Cypher",
+  "CYPHERSYSTEM.Strange": "The Strange",
+  "CYPHERSYSTEM.Unmasked": "Unmasked",
   "CYPHERSYSTEM.ActorNotFound": "Actor not found!",
   "CYPHERSYSTEM.ItemNotFound": "Item not found!",
   "CYPHERSYSTEM.SheetClassPC": "Default PC Sheet",
@@ -678,5 +681,7 @@
   "CYPHERSYSTEM.XPLeft": "XP left: {quantity}",
   "CYPHERSYSTEM.Favorite": "Favorite",
   "CYPHERSYSTEM.ItemFavorite": "Pin Item at the Top",
-  "CYPHERSYSTEM.HideFavoriteButton": "Hide Favorite Button"
+  "CYPHERSYSTEM.HideFavoriteButton": "Hide Favorite Button",
+  "CYPHERSYSTEM.Embed.prependCite": "<p>{prependCite}{description}</p>",
+  "CYPHERSYSTEM.Embed.general": "<p>{description}</p>"
 }

@@ -310,11 +310,6 @@ Hooks.once("ready", async function () {
   // Migrate actor data
   await dataMigration();
 
-  // Overwrite document types after migration - remove in future version, when item migration is done
-  game.documentTypes.Item = ["ability", "ammo", "armor", "artifact", "attack", "cypher", "equipment", "lasting-damage", "material", "oddity", "power-shift", "recursion", "skill", "tag"];
-
-  game.documentTypes.Actor = ["pc", "npc", "companion", "community", "vehicle", "marker"];
-
   // Send warning for people with CSRD Compendium v3.2.0
   if (game.modules.get("cyphersystem-compendium")?.version == "v3.2.0") {
     ui.notifications.error("There has been a bug in the update process for the Cypher SRD Compendium. Please uninstall and reinstall the module in the Foundry setup to get the newest version. Sorry for the inconvenience! –Marko", {

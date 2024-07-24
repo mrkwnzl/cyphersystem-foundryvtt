@@ -12,37 +12,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.sorting" style="width: 135px">
-                {{#select item.system.settings.general.sorting}}
-                  <option value="Ability">
-                    {{#if actor.system.settings.abilities.labelCategory1}}
-                      {{actor.system.settings.abilities.labelCategory1}}
-                    {{else}}
-                      {{localize 'CYPHERSYSTEM.Abilities'}}
-                    {{/if}}
-                  </option>
-                  {{#if actor.system.settings.abilities.labelCategory2}}
-                    <option value="AbilityTwo">
-                      {{actor.system.settings.abilities.labelCategory2}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.abilities.labelCategory3}}
-                    <option value="AbilityThree">
-                      {{actor.system.settings.abilities.labelCategory3}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.abilities.labelCategory4}}
-                    <option value="AbilityFour">
-                      {{actor.system.settings.abilities.labelCategory4}}
-                    </option>
-                  {{/if}}
-                  <option value="Spell">
-                    {{#if actor.system.settings.abilities.nameSpells}}
-                      {{actor.system.settings.abilities.nameSpells}}
-                    {{else}}
-                      {{localize 'CYPHERSYSTEM.Spells'}}
-                    {{/if}}
-                  </option>
-                {{/select}}
+                {{selectOptions abilityCategoryChoices selected=item.system.settings.general.sorting}}
               </select>
             </div>
           </li>
@@ -54,17 +24,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.spellTier" style="width: 135px">
-                {{#select item.system.settings.general.spellTier}}
-                  <option value="low">
-                    {{localize 'CYPHERSYSTEM.LowTier'}}
-                  </option>
-                  <option value="mid">
-                    {{localize 'CYPHERSYSTEM.MidTier'}}
-                  </option>
-                  <option value="high">
-                    {{localize 'CYPHERSYSTEM.HighTier'}}
-                  </option>
-                {{/select}}
+                {{selectOptions spellTierChoices selected=item.system.settings.general.spellTier localize=true}}
               </select>
             </div>
           </li>
@@ -76,14 +36,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.unmaskedForm" style="width: 135px">
-                {{#select item.system.settings.general.unmaskedForm}}
-                  <option value="Mask">
-                    {{localize 'CYPHERSYSTEM.Mask'}}
-                  </option>
-                  <option value="Teen">
-                    {{localize 'CYPHERSYSTEM.Teen'}}
-                  </option>
-                {{/select}}
+                {{selectOptions unmaskedFormChoices selected=item.system.settings.general.unmaskedForm localize=true}}
               </select>
             </div>
           </li>
@@ -104,30 +57,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.sorting" style="width: 135px">
-                {{#select item.system.settings.general.sorting}}
-                  <option value="Skill">
-                    {{#if actor.system.settings.skills.labelCategory1}}
-                      {{actor.system.settings.skills.labelCategory1}}
-                    {{else}}
-                      {{localize 'CYPHERSYSTEM.Skills'}}
-                    {{/if}}
-                  </option>
-                  {{#if actor.system.settings.skills.labelCategory2}}
-                    <option value="SkillTwo">
-                      {{actor.system.settings.skills.labelCategory2}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.skills.labelCategory3}}
-                    <option value="SkillThree">
-                      {{actor.system.settings.skills.labelCategory3}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.skills.labelCategory4}}
-                    <option value="SkillFour">
-                      {{actor.system.settings.skills.labelCategory4}}
-                    </option>
-                  {{/if}}
-                {{/select}}
+                {{selectOptions skillCategoryChoices selected=item.system.settings.general.sorting}}
               </select>
             </div>
           </li>
@@ -145,14 +75,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.unmaskedForm" style="width: 135px">
-                {{#select item.system.settings.general.unmaskedForm}}
-                  <option value="Mask">
-                    {{localize 'CYPHERSYSTEM.Mask'}}
-                  </option>
-                  <option value="Teen">
-                    {{localize 'CYPHERSYSTEM.Teen'}}
-                  </option>
-                {{/select}}
+                {{selectOptions unmaskedFormChoices selected=item.system.settings.general.unmaskedForm localize=true}}
               </select>
             </div>
           </li>
@@ -172,30 +95,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin setting-input" name="system.settings.general.sorting" style="width: 135px">
-              {{#select item.system.settings.general.sorting}}
-                <option value="Equipment">
-                  {{#if actor.system.settings.equipment.labelCategory1}}
-                    {{actor.system.settings.equipment.labelCategory1}}
-                  {{else}}
-                    {{localize 'CYPHERSYSTEM.Equipment'}}
-                  {{/if}}
-                </option>
-                {{#if actor.system.settings.equipment.labelCategory2}}
-                  <option value="EquipmentTwo">
-                    {{actor.system.settings.equipment.labelCategory2}}
-                  </option>
-                {{/if}}
-                {{#if actor.system.settings.equipment.labelCategory3}}
-                  <option value="EquipmentThree">
-                    {{actor.system.settings.equipment.labelCategory3}}
-                  </option>
-                {{/if}}
-                {{#if actor.system.settings.equipment.labelCategory4}}
-                  <option value="EquipmentFour">
-                    {{actor.system.settings.equipment.labelCategory4}}
-                  </option>
-                {{/if}}
-              {{/select}}
+              {{selectOptions equipmentCategoryChoices selected=item.system.settings.general.sorting}}
             </select>
           </div>
         </li>
@@ -224,12 +124,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.rollButton.pool" style="width: 135px">
-                {{#select item.system.settings.rollButton.pool}}
-                  <option value="Might">{{localize 'CYPHERSYSTEM.Might'}}</option>
-                  <option value="Speed">{{localize 'CYPHERSYSTEM.Speed'}}</option>
-                  <option value="Intellect">{{localize 'CYPHERSYSTEM.Intellect'}}</option>
-                  <option value="Pool">{{localize 'CYPHERSYSTEM.AnyPool'}}</option>
-                {{/select}}
+                {{selectOptions poolChoices.withAnyPool selected=item.system.settings.rollButton.pool localize=true}}
               </select>
             </div>
           </li>
@@ -241,12 +136,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.rollButton.skill" style="width: 135px">
-                {{#select item.system.settings.rollButton.skill}}
-                  <option value="Specialized">{{localize 'CYPHERSYSTEM.Specialized'}}</option>
-                  <option value="Trained">{{localize 'CYPHERSYSTEM.Trained'}}</option>
-                  <option value="Practiced">{{localize 'CYPHERSYSTEM.Practiced'}}</option>
-                  <option value="Inability">{{localize 'CYPHERSYSTEM.Inability'}}</option>
-                {{/select}}
+                {{selectOptions skillRatingChoices selected=item.system.settings.rollButton.skill localize=true}}
               </select>
             </div>
           </li>
@@ -257,11 +147,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin setting-input" name="system.settings.rollButton.assets" style="width: 135px">
-              {{#select item.system.settings.rollButton.assets}}
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              {{/select}}
+              {{selectOptions numberAssetChoices selected=item.system.settings.rollButton.assets}}
             </select>
           </div>
         </li>
@@ -271,15 +157,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin setting-input" name="system.settings.rollButton.effort1" style="width: 135px">
-              {{#select item.system.settings.rollButton.effort1}}
-                <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
-                <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
-                <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
-              {{/select}}
+              {{selectOptions effortLevelChoices selected=item.system.settings.rollButton.effort1}}
             </select>
           </div>
         </li>
@@ -289,15 +167,7 @@
           </div>
           <div class="item-quantity">
             <select class="auto-margin setting-input" name="system.settings.rollButton.effort2" style="width: 135px">
-              {{#select item.system.settings.rollButton.effort2}}
-                <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
-                <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
-                <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
-              {{/select}}
+              {{selectOptions effortLevelChoices selected=item.system.settings.rollButton.effort2}}
             </select>
           </div>
         </li>
@@ -327,15 +197,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.rollButton.effort3" style="width: 135px">
-                {{#select item.system.settings.rollButton.effort3}}
-                  <option value="0">{{localize 'CYPHERSYSTEM.None'}}</option>
-                  <option value="1">1 {{localize 'CYPHERSYSTEM.level'}}</option>
-                  <option value="2">2 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                  <option value="3">3 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                  <option value="4">4 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                  <option value="5">5 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                  <option value="6">6 {{localize 'CYPHERSYSTEM.levels'}}</option>
-                {{/select}}
+                {{selectOptions effortLevelChoices selected=item.system.settings.rollButton.effort3}}
               </select>
             </div>
           </li>
@@ -363,10 +225,7 @@
               {{localize 'CYPHERSYSTEM.Difficulty'}}
             </label>
             <select class="auto-margin setting-input" name="system.settings.rollButton.stepModifier" style="max-width:102px">
-              {{#select item.system.settings.rollButton.stepModifier}}
-                <option value="eased">{{localize 'CYPHERSYSTEM.easedBy'}}</option>
-                <option value="hindered">{{localize 'CYPHERSYSTEM.hinderedBy'}}</option>
-              {{/select}}
+              {{selectOptions stepModifierChoices selected=item.system.settings.rollButton.stepModifier localize=true}}
             </select>
             &nbsp;
             <input class="auto-margin setting-input" name="system.settings.rollButton.additionalSteps" type="number" value="{{item.system.settings.rollButton.additionalSteps}}" placeholder="0" style="max-width: 30px" />

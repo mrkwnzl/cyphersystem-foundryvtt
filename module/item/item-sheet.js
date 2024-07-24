@@ -79,7 +79,7 @@ export class CypherItemSheet extends ItemSheet {
     data.enrichedHTML = {};
     data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true, secrets: this.item.isOwner, relativeTo: this.item});
 
-    data.actor = data.item.parent ? data.item.parent : "";
+    data.actor = data.item.parent ? data.item.parent : null;
 
     // Tag & recursion lists
     data.itemLists = {};
@@ -169,6 +169,142 @@ export class CypherItemSheet extends ItemSheet {
     } else {
       data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
     }
+
+    // Select choices
+    data.poolChoices = {
+      "basic": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect"
+      },
+      "withAnyPool": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "Pool": "CYPHERSYSTEM.AnyPool"
+      },
+      "withXP": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "XP": "CYPHERSYSTEM.XP"
+      },
+      "withAnyPoolAndXP": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "Pool": "CYPHERSYSTEM.AnyPool",
+        "XP": "CYPHERSYSTEM.XP"
+      }
+    };
+
+    data.armorTypeChoices = {
+      "light armor": "CYPHERSYSTEM.LightArmor",
+      "medium armor": "CYPHERSYSTEM.MediumArmor",
+      "heavy armor": "CYPHERSYSTEM.HeavyArmor",
+      "artifact": "CYPHERSYSTEM.Artifact",
+      "special ability": "CYPHERSYSTEM.SpecialAbility",
+      "n/a": "CYPHERSYSTEM.n/a"
+    };
+
+    data.skillRatingChoices = {
+      "Specialized": "CYPHERSYSTEM.Specialized",
+      "Trained": "CYPHERSYSTEM.Trained",
+      "Practiced": "CYPHERSYSTEM.Practiced",
+      "Inability": "CYPHERSYSTEM.Inability"
+    };
+
+    data.attackTypeChoices = {
+      "light weapon": "CYPHERSYSTEM.LightWeapon",
+      "medium weapon": "CYPHERSYSTEM.MediumWeapon",
+      "heavy weapon": "CYPHERSYSTEM.HeavyWeapon",
+      "artifact": "CYPHERSYSTEM.Artifact",
+      "special ability": "CYPHERSYSTEM.SpecialAbility",
+      "n/a": "CYPHERSYSTEM.n/a"
+    };
+
+    data.stepModifierChoices = {
+      "eased": "CYPHERSYSTEM.easedBy",
+      "hindered": "CYPHERSYSTEM.hinderedBy"
+    };
+
+    data.lastingDamageTypeChoices = {
+      "Lasting": "CYPHERSYSTEM.lastingDamage",
+      "Permanent": "CYPHERSYSTEM.permanent"
+    };
+
+    data.spellTierChoices = {
+      "low": "CYPHERSYSTEM.LowTier",
+      "mid": "CYPHERSYSTEM.MidTier",
+      "high": "CYPHERSYSTEM.HighTier"
+    };
+
+    data.unmaskedFormChoices = {
+      "Mask": "CYPHERSYSTEM.Mask",
+      "Teen": "CYPHERSYSTEM.Teen"
+    };
+
+    data.numberAssetChoices = {
+      "0": 0,
+      "1": 1,
+      "2": 2
+    };
+
+    data.effortLevelChoices = {
+      "0": game.i18n.localize("CYPHERSYSTEM.None"),
+      "1": "1 " + game.i18n.localize("CYPHERSYSTEM.level"),
+      "2": "2 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "3": "3 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "4": "4 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "5": "5 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "6": "6 " + game.i18n.localize("CYPHERSYSTEM.levels")
+    };
+
+    // Select options for ability categories
+    let labelAbilityCategory1 = data.actor?.system.settings.abilities.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Abilities");
+    let labelAbilityCategory2 = data.actor?.system.settings.abilities.labelCategory2 || "";
+    let labelAbilityCategory3 = data.actor?.system.settings.abilities.labelCategory3 || "";
+    let labelAbilityCategory4 = data.actor?.system.settings.abilities.labelCategory4 || "";
+    let labelSpells = data.actor?.system.settings.abilities.labelSpells || game.i18n.localize("CYPHERSYSTEM.Spells");
+
+    data.abilityCategoryChoices = {"Ability": labelAbilityCategory1};
+    if (labelAbilityCategory2) data.abilityCategoryChoices["AbilityTwo"] = labelAbilityCategory2;
+    if (labelAbilityCategory3) data.abilityCategoryChoices["AbilityThree"] = labelAbilityCategory3;
+    if (labelAbilityCategory4) data.abilityCategoryChoices["AbilityFour"] = labelAbilityCategory4;
+    data.abilityCategoryChoices["Spell"] = labelSpells;
+
+    // Select options for skill categories
+    let labelSkillCategory1 = data.actor?.system.settings.skills.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Skills");
+    let labelSkillCategory2 = data.actor?.system.settings.skills.labelCategory2 || "";
+    let labelSkillCategory3 = data.actor?.system.settings.skills.labelCategory3 || "";
+    let labelSkillCategory4 = data.actor?.system.settings.skills.labelCategory4 || "";
+
+    data.skillCategoryChoices = {"Skill": labelSkillCategory1};
+    if (labelSkillCategory2) data.skillCategoryChoices["SkillTwo"] = labelSkillCategory2;
+    if (labelSkillCategory3) data.skillCategoryChoices["SkillThree"] = labelSkillCategory3;
+    if (labelSkillCategory4) data.skillCategoryChoices["SkillFour"] = labelSkillCategory4;
+
+    // Select options for equipment categories
+    let labelEquipmentCategory1 = data.actor?.system.settings.equipment.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Equipment");
+    let labelEquipmentCategory2 = data.actor?.system.settings.equipment.labelCategory2 || "";
+    let labelEquipmentCategory3 = data.actor?.system.settings.equipment.labelCategory3 || "";
+    let labelEquipmentCategory4 = data.actor?.system.settings.equipment.labelCategory4 || "";
+
+    data.equipmentCategoryChoices = {"Equipment": labelEquipmentCategory1};
+    if (labelEquipmentCategory2) data.equipmentCategoryChoices["EquipmentTwo"] = labelEquipmentCategory2;
+    if (labelEquipmentCategory3) data.equipmentCategoryChoices["EquipmentThree"] = labelEquipmentCategory3;
+    if (labelEquipmentCategory4) data.equipmentCategoryChoices["EquipmentFour"] = labelEquipmentCategory4;
+
+    // Select options for tag categories
+    let labelTagsCategory1 = data.actor?.system.settings.general.tags.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Tags");
+    let labelTagsCategory2 = data.actor?.system.settings.general.tags.labelCategory2 || "";
+    let labelTagsCategory3 = data.actor?.system.settings.general.tags.labelCategory3 || "";
+    let labelTagsCategory4 = data.actor?.system.settings.general.tags.labelCategory4 || "";
+
+    data.tagsCategoryChoices = {"Tag": labelTagsCategory1};
+    if (labelTagsCategory2) data.tagsCategoryChoices["TagTwo"] = labelTagsCategory2;
+    if (labelTagsCategory3) data.tagsCategoryChoices["TagThree"] = labelTagsCategory3;
+    if (labelTagsCategory4) data.tagsCategoryChoices["TagFour"] = labelTagsCategory4;
 
     return data;
   }

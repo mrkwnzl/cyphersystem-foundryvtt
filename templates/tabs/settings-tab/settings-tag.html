@@ -12,30 +12,7 @@
             </div>
             <div class="item-quantity">
               <select class="auto-margin setting-input" name="system.settings.general.sorting" style="width: 135px">
-                {{#select item.system.settings.general.sorting}}
-                  <option value="Tag">
-                    {{#if actor.system.settings.general.tags.labelCategory1}}
-                      {{actor.system.settings.general.tags.labelCategory1}}
-                    {{else}}
-                      {{localize 'CYPHERSYSTEM.Tags'}}
-                    {{/if}}
-                  </option>
-                  {{#if actor.system.settings.general.tags.labelCategory2}}
-                    <option value="TagTwo">
-                      {{actor.system.settings.general.tags.labelCategory2}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.general.tags.labelCategory3}}
-                    <option value="TagThree">
-                      {{actor.system.settings.general.tags.labelCategory3}}
-                    </option>
-                  {{/if}}
-                  {{#if actor.system.settings.general.tags.labelCategory4}}
-                    <option value="TagFour">
-                      {{actor.system.settings.general.tags.labelCategory4}}
-                    </option>
-                  {{/if}}
-                {{/select}}
+                {{selectOptions tagsCategoryChoices selected=item.system.settings.general.sorting}}
               </select>
             </div>
           </li>

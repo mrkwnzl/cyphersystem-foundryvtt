@@ -104,6 +104,82 @@ export class RollEngineDialogSheet extends FormApplication {
       data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     }
 
+    // Select choices
+    data.baseDifficultyChoices = [
+      {key: "-1", label: game.i18n.localize("CYPHERSYSTEM.None")},
+      {key: "0", label: "0"},
+      {key: "1", label: "1"},
+      {key: "2", label: "2"},
+      {key: "3", label: "3"},
+      {key: "4", label: "4"},
+      {key: "5", label: "5"},
+      {key: "6", label: "6"},
+      {key: "7", label: "7"},
+      {key: "8", label: "8"},
+      {key: "9", label: "9"},
+      {key: "10", label: "10"},
+      {key: "11", label: "11"},
+      {key: "12", label: "12"},
+      {key: "13", label: "13"},
+      {key: "14", label: "14"},
+      {key: "15", label: "15"}
+    ];
+
+    data.poolChoices = {
+      "basic": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect"
+      },
+      "withAnyPool": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "Pool": "CYPHERSYSTEM.AnyPool"
+      },
+      "withXP": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "XP": "CYPHERSYSTEM.XP"
+      },
+      "withAnyPoolAndXP": {
+        "Might": "CYPHERSYSTEM.Might",
+        "Speed": "CYPHERSYSTEM.Speed",
+        "Intellect": "CYPHERSYSTEM.Intellect",
+        "Pool": "CYPHERSYSTEM.AnyPool",
+        "XP": "CYPHERSYSTEM.XP"
+      }
+    };
+
+    data.skillRatingChoices = [
+      {key: "-1", label: "CYPHERSYSTEM.Inability"},
+      {key: "0", label: "CYPHERSYSTEM.Practiced"},
+      {key: "1", label: "CYPHERSYSTEM.Trained"},
+      {key: "2", label: "CYPHERSYSTEM.Specialized"}
+    ];
+
+    data.numberAssetChoices = {
+      "0": 0,
+      "1": 1,
+      "2": 2
+    };
+
+    data.effortLevelChoices = {
+      "0": game.i18n.localize("CYPHERSYSTEM.None"),
+      "1": "1 " + game.i18n.localize("CYPHERSYSTEM.level"),
+      "2": "2 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "3": "3 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "4": "4 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "5": "5 " + game.i18n.localize("CYPHERSYSTEM.levels"),
+      "6": "6 " + game.i18n.localize("CYPHERSYSTEM.levels")
+    };
+
+    data.stepModifierChoices = {
+      "eased": "CYPHERSYSTEM.easedBy",
+      "hindered": "CYPHERSYSTEM.hinderedBy"
+    };
+
     // Return data
     return data;
   }
