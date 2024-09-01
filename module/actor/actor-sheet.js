@@ -15,7 +15,8 @@ import {
   byArchiveStatus,
   byIdentifiedStatus,
   byItemLevel,
-  byFavoriteStatus
+  byFavoriteStatus,
+  byCypherType
 } from "../utilities/sorting.js";
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
@@ -63,11 +64,51 @@ export class CypherActorSheet extends ActorSheet {
     data.enrichedHTML.itemDescription = {};
     data.enrichedHTML.itemLevel = {};
     data.enrichedHTML.itemDepletion = {};
+    data.cypherType = {};
 
     for (let item of this.actor.items) {
       data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: item});
       data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.basic?.level, {async: true, relativeTo: item});
       data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true, relativeTo: item});
+
+      // Determine cypher type
+      if (item.type == "cypher") {
+        let color = "rgb(0, 0, 0)";
+        let title = "";
+
+        if (item.system.basic.type[1] == 1) {
+          color = "color: rgb(146, 16, 18)";
+        } else if (item.system.basic.type[0] == 1) {
+          color = "color: rgb(214, 118, 40)";
+        } else if (item.system.basic.type[0] == 2) {
+          color = "color: rgb(44, 63, 101)";
+        }
+
+        if (item.system.basic.type[0] == 0 && item.system.basic.type[1] == 0) {
+          title = game.i18n.localize("CYPHERSYSTEM.NoTypeCypher");
+        } else if (item.system.basic.type[0] == 1 && item.system.basic.type[1] == 0) {
+          title = game.i18n.localize("CYPHERSYSTEM.SubtleCypher");
+        } else if (item.system.basic.type[0] == 2 && item.system.basic.type[1] == 0) {
+          title = game.i18n.localize("CYPHERSYSTEM.ManifestCypher");
+        } else if (item.system.basic.type[0] == 0 && item.system.basic.type[1] == 1) {
+          title = game.i18n.localize("CYPHERSYSTEM.NoTypeFantasticCypher");
+        } else if (item.system.basic.type[0] == 1 && item.system.basic.type[1] == 1) {
+          title = game.i18n.localize("CYPHERSYSTEM.SubtleFantasticCypher");
+        } else if (item.system.basic.type[0] == 2 && item.system.basic.type[1] == 1) {
+          title = game.i18n.localize("CYPHERSYSTEM.ManifestFantasticCypher");
+        }
+
+        if (item.system.basic.type[0] == 0) {
+          // No type
+          data.cypherType[item.id] = `<i class="fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
+        } else if (item.system.basic.type[0] == 1) {
+          // Subtle cypher
+          data.cypherType[item.id] = `<i class="fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
+        } else if (item.system.basic.type[0] == 2) {
+          // Manifest cypher
+          data.cypherType[item.id] = `<i class="fa-solid fa-circle" style="${color}" title="${title}"></i>`;
+        }
+      }
     }
 
     // Prepare items and return
@@ -286,6 +327,13 @@ export class CypherActorSheet extends ActorSheet {
     if (this.actor.type == "pc") {
       if (actorData.system.settings.equipment.materials.sortByLevel) {
         materials.sort(byItemLevel);
+      }
+    }
+
+    // Sort by tyoe
+    if (this.actor.type == "pc") {
+      if (actorData.system.settings.equipment.cyphers.sortByType) {
+        cyphers.sort(byCypherType);
       }
     }
 
@@ -697,6 +745,28 @@ export class CypherActorSheet extends ActorSheet {
           itemActive: item.system.active
         }
       });
+    });
+
+    // Toggle cypher type
+    html.find(".toggle-cypher-type").click(clickEvent => {
+      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
+
+      // Get state
+      let typeArray = item.system.basic.type;
+      let type = typeArray[0];
+      let fantastic = typeArray[1];
+
+      // New state
+      if (game.keyboard.isModifierActive("Alt")) {
+        fantastic = (fantastic === 1) ? 0 : 1;
+      } else {
+        type = (type === 2) ? 0 : type + 1;
+      }
+
+      // Update
+      typeArray[0] = type;
+      typeArray[1] = fantastic;
+      item.update({"system.basic.type": typeArray});
     });
 
     // Add to Quantity

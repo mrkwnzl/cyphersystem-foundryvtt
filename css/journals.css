@@ -26,6 +26,7 @@
 .cyphersystem .csrd-table td {
   padding-left: 6px;
   padding-right: 6px;
+  vertical-align: top;
 }
 
 .sheet.journal-entry .csrd-table td > p,

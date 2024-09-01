@@ -463,6 +463,14 @@
           <input class="auto-margin settings-input" name="system.settings.equipment.cyphers.label" type="text" value="{{actor.system.settings.equipment.cyphers.label}}" placeholder="{{localize 'CYPHERSYSTEM.Cyphers'}}" />
         </div>
       </li>
+      {{#if actor.system.settings.equipment.cyphers.active}}
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.equipment.cyphers.sortByType" {{checked actor.system.settings.equipment.cyphers.sortByType}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.SortCyphersByType'}}
+          </div>
+        </li>
+      {{/if}}
       <li class="item flexrow item-settings">
         <div class="settings-list">
           <input type="checkbox" name="system.settings.equipment.artifacts.active" {{checked actor.system.settings.equipment.artifacts.active}}>

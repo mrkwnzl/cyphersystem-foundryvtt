@@ -56,8 +56,8 @@ export async function rollEngineComputation(data) {
   data.edge = payPoolPointsInfo[2];
 
   // Calculate roll modifiers
-  if (data.easedOrHindered == "hindered") data.difficultyModifier = data.difficultyModifier * -1;
-  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + data.difficultyModifier;
+  let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
+  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
 
   // Calculate rollTotal
   data.rollTotal = data.roll.total + data.bonus;

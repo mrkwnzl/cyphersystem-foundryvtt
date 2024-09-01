@@ -75,16 +75,24 @@ export async function rollEngineOutput(data) {
 
   // Additional step(s) information
   let difficultyInfo = "";
-  if (data.easedOrHindered != "hindered") {
+  if (data.easedOrHindered == "eased") {
     if (data.difficultyModifier > 1) {
       difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: data.difficultyModifier})}<br>`;
     } else if (data.difficultyModifier == 1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
-    }
-  } else {
-    if (data.difficultyModifier < -1) {
+    } else if (data.difficultyModifier < -1) {
       difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: Math.abs(data.difficultyModifier)})}<br>`;
     } else if (data.difficultyModifier == -1) {
+      difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
+    }
+  } else if (data.easedOrHindered == "hindered") {
+    if (data.difficultyModifier < -1) {
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.EasedByExtraSteps", {amount: data.difficultyModifier})}<br>`;
+    } else if (data.difficultyModifier == -1) {
+      difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.EasedByExtraStep")}<br>`;
+    } else if (data.difficultyModifier > 1) {
+      difficultyInfo = `${game.i18n.format("CYPHERSYSTEM.HinderedByExtraSteps", {amount: Math.abs(data.difficultyModifier)})}<br>`;
+    } else if (data.difficultyModifier == 1) {
       difficultyInfo = `${game.i18n.localize("CYPHERSYSTEM.HinderedByExtraStep")}<br>`;
     }
   }

@@ -14,7 +14,7 @@
     {
       "name": "Marko Wenzel",
       "discord": "mrkwnzl",
-      "flags": {}
+      "flags": { }
     }
   ],
   "esmodules": [
@@ -22,8 +22,19 @@
   ],
   "styles": [
     "css/cyphersystem.css",
-    "css/journals.css"
+    "css/journals.css",
+    "css/tables.css"
   ],
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "json",
+        "js",
+        "html"
+      ]
+    }
+  },
   "packs": [
     {
       "name": "macros",
@@ -31,7 +42,7 @@
       "system": "cyphersystem",
       "path": "packs/roll-macros",
       "type": "Macro",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -43,7 +54,7 @@
       "system": "cyphersystem",
       "path": "packs/markers",
       "type": "Actor",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -55,7 +66,7 @@
       "system": "cyphersystem",
       "path": "packs/scenes",
       "type": "Scene",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -67,7 +78,7 @@
       "system": "cyphersystem",
       "path": "packs/utility-macros",
       "type": "Macro",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -79,7 +90,7 @@
       "system": "cyphersystem",
       "path": "packs/scripting-macros",
       "type": "Macro",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -91,7 +102,7 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings",
       "type": "Macro",
-      "flags": {},
+      "flags": { },
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -110,7 +121,7 @@
         "scripting-macros",
         "secret-settings"
       ],
-      "folders": []
+      "folders": [ ]
     }
   ],
   "languages": [
@@ -118,31 +129,31 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json",
-      "flags": {}
+      "flags": { }
     },
     {
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json",
-      "flags": {}
+      "flags": { }
     },
     {
       "lang": "es",
       "name": "Español",
       "path": "lang/es.json",
-      "flags": {}
+      "flags": { }
     },
     {
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json",
-      "flags": {}
+      "flags": { }
     },
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt_BR.json",
-      "flags": {}
+      "flags": { }
     }
   ],
   "socket": true,

@@ -1,0 +1,28 @@
+.cyphersystem .roll-table td:first-child,
+.cyphersystem.roll-table td:first-child {
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: top;
+  width: 75px
+}
+
+.cyphersystem.roll-table th {
+  text-align: left;
+}
+
+.cyphersystem.roll-table th:first-child {
+  text-align: center;
+}
+
+.cyphersystem.roll-table td:first-child {
+  padding-left: 0 !important;
+}
+
+.cyphersystem .roll-table td {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.cyphersystem .roll-table td > p {
+  margin: 0;
+}

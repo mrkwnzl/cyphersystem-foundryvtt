@@ -1,5 +1,5 @@
 <div class="tab settings" data-group="primary" data-tab="settings">
-  {{#if (eq item.type "ability")}}
+  {{#if (and (eq item.type "ability") (eq actor.type "pc"))}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
@@ -83,7 +83,7 @@
       </ol>
     </div>
   {{/if}}
-  {{#if (and (eq item.type "equipment") actor)}}
+  {{#if (and (eq item.type "equipment") (eq actor.type "pc"))}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">

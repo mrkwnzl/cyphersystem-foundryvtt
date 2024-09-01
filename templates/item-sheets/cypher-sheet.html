@@ -18,20 +18,23 @@
           <div class="resource-content flexrow flex-center">
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
             &nbsp;
-            <div class="item-quantity" style="flex: 0 0 80px;">
+            <div class="item-quantity" style="flex: 0 0 80px; margin-right: 5px;">
               <input name="system.basic.level" type="text" value="{{item.system.basic.level}}" placeholder="{{localize 'CYPHERSYSTEM.Level'}}" title="{{localize 'CYPHERSYSTEM.Level'}}" />
             </div>
             {{#if sheetSettings.isGM}}
               {{#if sheetSettings.identified}}
-                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 30px;">
+                <a class="item identify-item {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 20px;">
                   <i class="far fa-eye"></i>
                 </a>
               {{else}}
-                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 30px;">
+                <a class="item identify-item {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 20px;">
                   <i class="far fa-eye-slash"></i>
                 </a>
               {{/if}}
             {{/if}}
+            <a class="item-control toggle-cypher-type {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 20px;">
+              {{{cypherType this item._id}}}
+            </a>
           </div>
         </div>
       </div>

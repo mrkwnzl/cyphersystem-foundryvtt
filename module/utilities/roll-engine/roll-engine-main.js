@@ -23,7 +23,7 @@ export async function rollEngineMain(data) {
     effortOtherUses: 0,
     damage: 0,
     effortDamage: 0,
-    damagePerLOE: 0,
+    damagePerLOE: 3,
     difficultyModifier: 0,
     easedOrHindered: "eased",
     bonus: 0,

@@ -34,6 +34,10 @@ export async function registerHandlebars() {
     if (type == "depletion") return sheetData.enrichedHTML.itemDepletion[itemID];
   });
 
+  Handlebars.registerHelper("cypherType", function (sheetData, itemID) {
+    return sheetData.cypherType[itemID];
+  });
+
   Handlebars.registerHelper("createAttackNotes", function (item) {
     const outputArray = [];
     let output = "";

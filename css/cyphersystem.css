@@ -321,6 +321,11 @@ a.tag-items {
   font-size: smaller;
 }
 
+.sheet.journal-entry {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
 /* :is(a.entity-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.content-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.inline-roll:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.rollForLevel:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.tag-items:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items))) {
   margin: 0 2px 0 0;
 } */
@@ -328,16 +333,6 @@ a.tag-items {
 select.bar-attribute {
   width: 0;
 }
-
-/* Remove when fixed in core V12 */
-
-li.folder > .folder-header,
-li.folder.collapsed > .folder-header,
-li.folder.collapsed > .folder-header h3 {
-  text-shadow: 0 0 3px black;
-}
-
-/* until here */
 
 .sheet.actor .editor.tinymce div[role="application"] {
   height: 100%;
@@ -879,9 +874,9 @@ li.folder.collapsed > .folder-header h3 {
 }
 
 .cyphersystem .items-list .item-controls {
-  -webkit-box-flex: 0 0 4em;
-  -ms-flex: 0 0 4em;
-  flex: 0 0 4em;
+  -webkit-box-flex: 0 0 5em;
+  -ms-flex: 0 0 5em;
+  flex: 0 0 5em;
   text-align: right;
   line-height: 1.4;
 }
