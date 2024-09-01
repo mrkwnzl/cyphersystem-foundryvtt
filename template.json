@@ -180,7 +180,8 @@
           },
           "cyphers": {
             "active": true,
-            "label": ""
+            "label": "",
+            "sortByType": false
           },
           "artifacts": {
             "active": false,
@@ -666,6 +667,7 @@
       ],
       "basic": {
         "level": "",
+        "type": [ 0, 0 ],
         "identified": true
       },
       "settings": {

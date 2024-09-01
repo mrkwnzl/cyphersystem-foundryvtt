@@ -73,6 +73,28 @@ export function byArchiveStatus(itemA, itemB) {
   return 0;
 }
 
+// Sort cyphers by type
+export function byCypherType(itemA, itemB) {
+  let ratingA;
+  let ratingB;
+
+  if (itemA.system.basic.type[0] === 0) {ratingA = 3;}
+  else if (itemA.system.basic.type[0] === 1) {ratingA = 1;}
+  else if (itemA.system.basic.type[0] === 2) {ratingA = 2;}
+
+  if (itemB.system.basic.type[0] === 0) {ratingB = 3;}
+  else if (itemB.system.basic.type[0] === 1) {ratingB = 1;}
+  else if (itemB.system.basic.type[0] === 2) {ratingB = 2;}
+
+  if (ratingA < ratingB) {
+    return -1;
+  }
+  if (ratingA > ratingB) {
+    return 1;
+  }
+  return 0;
+}
+
 // Sort items by indentified status
 export function byIdentifiedStatus(itemA, itemB) {
   let ratingA;

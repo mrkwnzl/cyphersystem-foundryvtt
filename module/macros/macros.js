@@ -686,9 +686,17 @@ export async function proposeIntrusion(actor) {
   function askForIntrusion(actorId) {
     let actor = game.actors.get(actorId);
 
+    game.socket.emit("system.cyphersystem", {operation: "notifyAboutGMI", actorId: actorId});
+
     ChatMessage.create({
       content: chatCardAskForIntrusion(actor, actorId)
     });
+  }
+}
+
+export function notifyAboutGMI(actorId) {
+  if (game.user.character.id === actorId) {
+    ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.GMProposesIntrusion"));
   }
 }
 

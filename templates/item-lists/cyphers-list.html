@@ -46,6 +46,9 @@
         </a>
       {{/unless}}
       {{#if (or item.system.basic.identified ../sheetSettings.isGM)}}
+        <a class="item-control toggle-cypher-type {{#if ../sheetSettings.isObserver}}disabled{{/if}}">
+          {{{cypherType ../this item._id}}}
+        </a>
         <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
           <i class="fas fa-file-alt"></i>
         </a>

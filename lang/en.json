@@ -312,6 +312,7 @@
   "CYPHERSYSTEM.AbilitiesTab": "Abilities Tab",
   "CYPHERSYSTEM.SortSkillsByRating": "Sort Skills by Rating",
   "CYPHERSYSTEM.SortMaterialsByLevel": "Sort Crafting Material by Level",
+  "CYPHERSYSTEM.SortCyphersByType": "Sort Cyphers by Type",
   "CYPHERSYSTEM.SkillsAndAbilitiesTab": "Skills & Abilities Tab",
   "CYPHERSYSTEM.CombatTab": "Combat Tab",
   "CYPHERSYSTEM.AdditionalRecoveryRolls": "Number of One-Action Recovery Rolls",
@@ -486,6 +487,7 @@
   "CYPHERSYSTEM.ProposeIntrusion": "Propose Intrusion",
   "CYPHERSYSTEM.ProposeIntrusionTo": "Propose an intrusion to",
   "CYPHERSYSTEM.ProposingIntrusion": "The GM is proposing an intrusion to {actor}.",
+  "CYPHERSYSTEM.GMProposesIntrusion": "The GM proposes an intrusion to you.",
   "CYPHERSYSTEM.IntrusionGMWarning": "Only the GM can propose an intrusion.",
   "CYPHERSYSTEM.IntrusionWrongPlayer": "Only the player controlling {actor} can accept or refuse an intrusion.",
   "CYPHERSYSTEM.GiveAdditionalXP": "Give the additional XP",
@@ -683,5 +685,11 @@
   "CYPHERSYSTEM.ItemFavorite": "Pin Item at the Top",
   "CYPHERSYSTEM.HideFavoriteButton": "Hide Favorite Button",
   "CYPHERSYSTEM.Embed.prependCite": "<p>{prependCite}{description}</p>",
-  "CYPHERSYSTEM.Embed.general": "<p>{description}</p>"
+  "CYPHERSYSTEM.Embed.general": "<p>{description}</p>",
+  "CYPHERSYSTEM.NoTypeCypher": "No type/special cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)",
+  "CYPHERSYSTEM.NoTypeFantasticCypher": "No type/special fantastic cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)",
+  "CYPHERSYSTEM.SubtleCypher": "Subtle cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)",
+  "CYPHERSYSTEM.SubtleFantasticCypher": "Subtle fantastic cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)",
+  "CYPHERSYSTEM.ManifestCypher": "Manifest cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)",
+  "CYPHERSYSTEM.ManifestFantasticCypher": "Manifest fantastic cypher (toggle subtle/manifest cypher, alt-click to toggle fantastic cypher)"
 }

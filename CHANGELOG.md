@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2024-09-01
+### Added
+- You can now designate cyphers to be subtle (orange half-filled circle) or manifest (blue full circle) (or omit any type [black empty circle]), and as fantastic in addition to that (red circle). Cyphers can be sorted accordingly.
+- When proposing a GMI, the player who it’s being proposed to gets a UI info about the proposal.
+
+### Fixed
+- Fixed a bug where hindrances became easements on re-rolls.
+- The buttons for identification status and type of cyphers in a locked compendium are nor disabled.
+- Items on actors other than PCs can now be edited again.
+
 ## [3.0.0] - 2024-07-24
 ### Added
 - You can now embed the item description in every document type, so that `@Embed[Uuid caption=false cite=false prependCite=true prependCiteLabel=""]` in any text field results in a clickable button to the item, which is followed by the item’s description. Set `prependCite` to false (or leave it out) to omit the clickable button and only the description will appear. Set `prependCiteLabel` to any string (within the quotation marks) to change the label. If you leave `prependCiteLabel` empty or omit it, the item name is being used for the label. Thanks to @farling for providing the base of the code.
