@@ -10,7 +10,7 @@ export function gameSockets() {
     if (data.operation === "deleteChatMessage") deleteChatMessage(data);
     if (data.operation === "giveAdditionalXP") giveAdditionalXP(data);
     if (data.operation === "renderGMIForm") renderGMIForm();
-    if (data.operation === "notifyAboutGMI") notifyAboutGMI(data.actorId);
+    if (data.operation === "notifyAboutGMI") notifyAboutGMI(data.actorId, data.notification);
     if (data.operation === "updateRollDifficultyForm") updateRollDifficultyForm();
     if (data.operation === "resetDifficulty") resetDifficulty();
     if (data.operation === "executeMacroAsGM") executeMacroAsGM(data.macroUuid, data.rollData);

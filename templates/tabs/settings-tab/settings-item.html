@@ -44,13 +44,15 @@
       </ol>
     </div>
   {{/if}}
+
+  {{!-- Skill --}}
   {{#if (eq item.type "skill")}}
     <div class="flexrow">
       <ol class="items-list">
         <li class="item flexrow item-header">
           <div class="item-name">{{localize 'CYPHERSYSTEM.GeneralSettings'}}</div>
         </li>
-        {{#if (and actor (eq item.system.settings.general.unmaskedForm "Mask"))}}
+        {{#if (and actor (eq item.system.settings.general.unmaskedForm "Mask") (eq actor.type "pc"))}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.SortUnder'}}
@@ -68,7 +70,7 @@
             &nbsp;{{localize 'CYPHERSYSTEM.UseAsInitiativeRoll'}}
           </div>
         </li>
-        {{#if (eq actor.system.settings.general.gameMode "Unmasked")}}
+        {{#if (and (eq actor.system.settings.general.gameMode "Unmasked") (eq actor.type "pc"))}}
           <li class="item flexrow item-settings">
             <div class="settings-list">
               {{localize 'CYPHERSYSTEM.UnmaskedForm'}}
@@ -83,6 +85,8 @@
       </ol>
     </div>
   {{/if}}
+
+  {{!-- Equipment --}}
   {{#if (and (eq item.type "equipment") (eq actor.type "pc"))}}
     <div class="flexrow">
       <ol class="items-list">
@@ -102,6 +106,8 @@
       </ol>
     </div>
   {{/if}}
+
+  {{!-- Not Equipment or Armor --}}
   {{#unless (or (eq item.type "equipment") (eq item.type "armor"))}}
     <div class="flexrow">
       <ol class="items-list">
@@ -275,6 +281,8 @@
       </ol>
     </div>
   {{/unless}}
+
+  {{!-- Abilities --}}
   {{#if (and actor (eq item.type "ability"))}}
     <div class="flexrow">
       <ol class="items-list">
@@ -291,6 +299,8 @@
       </ol>
     </div>
   {{/if}}
+
+  {{!-- Attacks and Armor --}}
   {{#if (and actor (or (eq item.type "attack") (eq item.type "armor")))}}
     <div class="flexrow">
       <ol class="items-list">

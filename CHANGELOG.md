@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - 2024-09-15
+### Fixed
+- Skills of Companion actors can now be edited again.
+  
+### Changed
+- The Propse Intrusion has been updated so that a custom notification for the receiving player can be set.
+
 ## [3.1.0] - 2024-09-01
 ### Added
 - You can now designate cyphers to be subtle (orange half-filled circle) or manifest (blue full circle) (or omit any type [black empty circle]), and as fantastic in addition to that (red circle). Cyphers can be sorted accordingly.

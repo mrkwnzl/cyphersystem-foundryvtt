@@ -616,9 +616,13 @@ export function quickStatChange(token, stat, modifier) {
   }
 }
 
-export async function proposeIntrusion(actor) {
+export async function proposeIntrusion(actor, notification) {
   // Check if user is GM
   if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.IntrusionGMWarning"));
+
+  if (!notification) {
+    notification = game.i18n.localize("CYPHERSYSTEM.GMProposesIntrusion");
+  }
 
   // Check for selected token
   if (!actor && canvas.tokens.controlled[0]?.actor) {
@@ -686,7 +690,7 @@ export async function proposeIntrusion(actor) {
   function askForIntrusion(actorId) {
     let actor = game.actors.get(actorId);
 
-    game.socket.emit("system.cyphersystem", {operation: "notifyAboutGMI", actorId: actorId});
+    game.socket.emit("system.cyphersystem", {operation: "notifyAboutGMI", actorId: actorId, notification: notification});
 
     ChatMessage.create({
       content: chatCardAskForIntrusion(actor, actorId)
@@ -694,9 +698,9 @@ export async function proposeIntrusion(actor) {
   }
 }
 
-export function notifyAboutGMI(actorId) {
+export function notifyAboutGMI(actorId, notification) {
   if (game.user.character.id === actorId) {
-    ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.GMProposesIntrusion"));
+    ui.notifications.info(notification);
   }
 }
 
