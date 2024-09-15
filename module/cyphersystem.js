@@ -377,7 +377,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
       icon: "fas fa-bolt",
       onClick: () => {
-        proposeIntrusion();
+        proposeIntrusion("", "");
       },
       button: true
     });
