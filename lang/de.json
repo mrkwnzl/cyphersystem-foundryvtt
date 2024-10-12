@@ -682,5 +682,10 @@
   "CYPHERSYSTEM.ExecuteMacroAsGM": "Macro mit SL-Erlaubnissen ausführen",
   "CYPHERSYSTEM.Favorite": "Favorit",
   "CYPHERSYSTEM.ItemFavorite": "Item oben anpinnen",
-  "CYPHERSYSTEM.HideFavoriteButton": "Favorit-Button verstecken"
+  "CYPHERSYSTEM.HideFavoriteButton": "Favorit-Button verstecken",
+  "CYPHERSYSTEM.Cypher": "Cypher",
+  "CYPHERSYSTEM.Strange": "The Strange",
+  "CYPHERSYSTEM.Unmasked": "Unmasekd",
+  "CYPHERSYSTEM.Point": "Punkt",
+  "CYPHERSYSTEM.Points": "Punkte"
 }
