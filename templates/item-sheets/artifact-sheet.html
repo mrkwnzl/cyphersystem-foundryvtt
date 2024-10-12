@@ -23,9 +23,9 @@
             </div>
             {{#if sheetSettings.isGM}}
               {{#if sheetSettings.identified}}
-                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye"></i></a>
+                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkUnidentified'}}" style="flex: 0 0 30px;"><i class="fa-item far fa-eye"></i></a>
               {{else}}
-                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 30px;"><i class="far fa-eye-slash"></i></a>
+                <a class="item identify-item" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" style="flex: 0 0 30px;"><i class="fa-item far fa-eye-slash"></i></a>
               {{/if}}
             {{/if}}
           </div>
@@ -48,11 +48,11 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#if (eq actor.system.settings.general.gameMode "Strange")}}
-      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-solid fa-at"></i></a>
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-item fa-solid fa-at"></i></a>
     {{else if (and actor.system.settings.general.tags.active sheetSettings.isMaskForm)}}
-      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-solid fa-hashtag"></i></a>
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-item fa-solid fa-hashtag"></i></a>
     {{/if}}
-    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-solid fa-gear"></i></a>
+    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-item fa-solid fa-gear"></i></a>
   </nav>
 
   {{!-- Sheet Body --}}

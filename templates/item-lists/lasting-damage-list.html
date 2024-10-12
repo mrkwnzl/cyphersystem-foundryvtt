@@ -20,33 +20,37 @@
       {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
       {{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
         <a class="item-favorite {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
-          <i class="fa-solid fa-star"></i>
+          <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
         <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
-            <i class="fa-solid fa-star"></i>
+            <i class="fa-item fa-solid fa-star"></i>
           {{else}}
-            <i class="fa-regular fa-star"></i>
+            <i class="fa-item fa-regular fa-star"></i>
           {{/if}}
         </a>
       {{/if}}
     </h4>
     <div class="item-quantity">
       <a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
-        <i class="far fa-minus-square"></i>
+        <i class="fa-item quantity fa-regular fa-minus-square"></i>
       </a>
       <p class="number">&nbsp;{{item.system.basic.damage}}&nbsp;</p>
       <a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
-        <i class="far fa-plus-square"></i>
+        <i class="fa-item quantity fa-regular fa-plus-square"></i>
       </a>
     </div>
     <div class="item-controls">
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
-        <i class="fas fa-file-alt"></i>
+        <i class="fa-solid fa-pen-to-square"></i>
       </a>
       <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
-        <i class="fas fa-{{#if item.system.archived}}undo{{else}}archive{{/if}}"></i>
+        {{#if item.system.archived}}
+          <i class="fa-item archived fa-solid fa-arrow-rotate-left"></i>
+        {{else}}
+          <i class="fa-item unarchived fa-solid fa-archive"></i>
+        {{/if}}
       </a>
     </div>
   </li>

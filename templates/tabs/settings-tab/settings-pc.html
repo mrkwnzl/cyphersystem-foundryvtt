@@ -349,6 +349,35 @@
       {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
         <li class="item flexrow item-settings">
           <div class="settings-list">
+            <input type="checkbox" name="system.settings.combat.stress.active" {{checked actor.system.settings.combat.stress.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.Stress'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.settings.combat.stress.label" type="text" value="{{actor.system.settings.combat.stress.label}}" placeholder="{{localize 'CYPHERSYSTEM.Stress'}}" />
+          </div>
+        </li>
+        {{#if actor.system.settings.combat.stress.active}}
+          <li class="item flexrow item-settings" style="border-top-style: dashed">
+            <div class="settings-list">
+              <input type="checkbox" name="system.settings.combat.stress.supernaturalStressActive" {{checked actor.system.settings.combat.stress.supernaturalStressActive}}>
+              &nbsp;{{localize 'CYPHERSYSTEM.SupernaturalStressLabel'}}
+            </div>
+            <div class="item-quantity">
+              <input class="auto-margin settings-input" name="system.settings.combat.stress.supernaturalStressLabel" type="text" value="{{actor.system.settings.combat.stress.supernaturalStressLabel}}" placeholder="{{localize 'CYPHERSYSTEM.SupernaturalStress'}}" />
+            </div>
+          </li>
+        {{/if}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.settings.combat.additionalStepDamageTrack.active" {{checked actor.system.settings.combat.additionalStepDamageTrack.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalStepDamageTrackSetting'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.settings.combat.additionalStepDamageTrack.label" type="text" value="{{actor.system.settings.combat.additionalStepDamageTrack.label}}" placeholder="{{localize 'CYPHERSYSTEM.Hurt'}}" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
             {{localize 'CYPHERSYSTEM.AdditionalRecoveryRolls'}}
           </div>
           <div class="item-quantity">
@@ -378,6 +407,12 @@
         <div class="settings-list">
           <input type="checkbox" name="system.settings.combat.ammo.active" {{checked actor.system.settings.combat.ammo.active}}>
           &nbsp;{{localize 'CYPHERSYSTEM.AmmoList'}}
+        </div>
+      </li>
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          <input type="checkbox" name="system.settings.combat.armor.active" {{checked actor.system.settings.combat.armor.active}}>
+          &nbsp;{{localize 'CYPHERSYSTEM.ArmorList'}}
         </div>
       </li>
     </ol>

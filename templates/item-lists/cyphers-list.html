@@ -13,14 +13,14 @@
       </a>
       {{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
         <a class="item-favorite {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
-          <i class="fa-solid fa-star"></i>
+          <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
         <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
-            <i class="fa-solid fa-star"></i>
+            <i class="fa-item fa-solid fa-star"></i>
           {{else}}
-            <i class="fa-regular fa-star"></i>
+            <i class="fa-item fa-regular fa-star"></i>
           {{/if}}
         </a>
       {{/if}}
@@ -29,7 +29,7 @@
       {{#if item.system.basic.identified}}
         {{#if item.system.rollForLevel}}
           <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
-            <i class="fas fa-question"></i>
+            <i class="fa-item fas fa-question"></i>
             {{item.system.basic.level}}
           </a>
         {{else}}
@@ -42,7 +42,7 @@
     <div class="item-controls">
       {{#unless item.system.basic.identified}}
         <a class="item-control identify-item {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
-          <i class="far fa-eye-slash"></i>
+          <i class="fa-item far fa-eye-slash"></i>
         </a>
       {{/unless}}
       {{#if (or item.system.basic.identified ../sheetSettings.isGM)}}
@@ -50,11 +50,15 @@
           {{{cypherType ../this item._id}}}
         </a>
         <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
-          <i class="fas fa-file-alt"></i>
+          <i class="fa-solid fa-pen-to-square"></i>
         </a>
       {{/if}}
       <a class="item-control item-delete {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}">
-        <i class="fas fa-{{#if item.system.archived}}undo{{else}}archive{{/if}}"></i>
+        {{#if item.system.archived}}
+          <i class="fa-item archived fa-solid fa-arrow-rotate-left"></i>
+        {{else}}
+          <i class="fa-item unarchived fa-solid fa-archive"></i>
+        {{/if}}
       </a>
     </div>
   </li>

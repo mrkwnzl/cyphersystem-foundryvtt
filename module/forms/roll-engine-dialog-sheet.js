@@ -59,6 +59,12 @@ export class RollEngineDialogSheet extends FormApplication {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
     }
 
+    // Stress
+    data.stressModifier = 0;
+    if (actor.system.settings.combat.stress.active && !data.teen) {
+      data.stressModifier = actor.system.combat.stress.levels;
+    }
+
     // Armor
     data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
@@ -66,6 +72,7 @@ export class RollEngineDialogSheet extends FormApplication {
     // Summary
     data.summaryFinalDifficulty = summaryFinalDifficulty(data);
     data.summaryTaskModified = summaryTaskModified(data);
+    data.summaryStressLevels = summaryStressLevels(data);
     data.summaryTotalDamage = summaryTotalDamage(data);
     data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
     data.summaryTotalCost = data.summaryTotalCostArray[0];
@@ -219,6 +226,12 @@ export class RollEngineDialogSheet extends FormApplication {
       data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
     }
 
+    // Stress
+    data.stressModifier = 0;
+    if (actor.system.settings.combat.stress.active && !data.teen) {
+      data.stressModifier = actor.system.combat.stress.levels;
+    }
+
     data.armorCost = (!data.teen) ? actor.system.combat.armor.costTotal : actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor = (data.pool == "Speed" && data.armorCost > 0) ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {armorCost: data.armorCost}) : "";
 
@@ -237,6 +250,7 @@ export class RollEngineDialogSheet extends FormApplication {
     // Summary
     data.summaryFinalDifficulty = summaryFinalDifficulty(formData);
     data.summaryTaskModified = summaryTaskModified(formData);
+    data.summaryStressLevels = summaryStressLevels(data);
     data.summaryTotalDamage = summaryTotalDamage(formData);
     data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
     data.summaryTotalCost = data.summaryTotalCostArray[0];
@@ -357,7 +371,7 @@ export async function disableMultiRoll(actor) {
 
 function summaryFinalDifficulty(data) {
   let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
-  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
+  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
   let finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? parseInt(data.baseDifficulty) : Math.max(parseInt(data.baseDifficulty) - sum, 0);
   let targetNumber = finalDifficulty * 3;
   let finalDifficultyString = (data.baseDifficulty >= 0) ? game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") + ": " + finalDifficulty + " (" + targetNumber + ")" + "." : "";
@@ -365,10 +379,22 @@ function summaryFinalDifficulty(data) {
   return finalDifficultyString;
 }
 
+function summaryStressLevels(data) {
+  let stressLevelString = "";
+
+  if (data.stressModifier == 1) {
+    stressLevelString = game.i18n.localize("CYPHERSYSTEM.Stress") + ": " + game.i18n.localize("CYPHERSYSTEM.TaskHinderedByStep");
+  } else if (data.stressModifier >= 2) {
+    stressLevelString = game.i18n.localize("CYPHERSYSTEM.Stress") + ": " + game.i18n.format("CYPHERSYSTEM.TaskHinderedBySteps", {amount: data.stressModifier});
+  }
+
+  return stressLevelString;
+}
+
 function summaryTaskModified(data) {
   let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
 
-  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
+  let sum = data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
 
   let taskModifiedString = "";
 

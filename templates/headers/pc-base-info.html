@@ -7,17 +7,17 @@
     {{/if}}
     {{#if sheetSettings.isExclusiveTagActive}}
       <div class="profile-img-overlay">
-        <a class="profile-img-overlay-exclusive-tag" title="{{localize 'CYPHERSYSTEM.ExclusiveTag'}}: {{sheetSettings.isExclusiveTagActive}}"><i class="fas fa-exclamation"></i><i class="fas fa-hashtag"></i></a>
+        <a class="profile-img-overlay-exclusive-tag" title="{{localize 'CYPHERSYSTEM.ExclusiveTag'}}: {{sheetSettings.isExclusiveTagActive}}"><i class="fa-item fas fa-exclamation"></i><i class="fa-item fas fa-hashtag"></i></a>
       </div>
     {{/if}}
     {{#if sheetSettings.disabledStaticStats}}
       <div class="profile-img-overlay-lock">
-        <i class="fas fa-lock"></i>
+        <i class="fa-item fas fa-lock"></i>
       </div>
     {{/if}}
     {{#if sheetSettings.multiRollActive}}
       <div class="profile-img-overlay-multi-roll">
-        <a class="disable-multi-roll" title="{{localize 'CYPHERSYSTEM.MultiRollInProgress'}}"><i class="fas fa-dice"></i></a>
+        <a class="disable-multi-roll" title="{{localize 'CYPHERSYSTEM.MultiRollInProgress'}}"><i class="fa-item fas fa-dice"></i></a>
       </div>
     {{/if}}
   </div>
@@ -106,7 +106,7 @@
       {{#unless sheetSettings.isLimited}}
         <div style="max-width: 20px">
           <a class="item-control reset-advancement {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}">
-            <i class="fas fa-sync-alt"></i>
+            <i class="fa-item fas fa-sync-alt"></i>
           </a>
         </div>
       {{/unless}}

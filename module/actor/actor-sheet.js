@@ -50,6 +50,7 @@ export class CypherActorSheet extends ActorSheet {
     data.sheetSettings.isGM = game.user.isGM;
     data.sheetSettings.isLimited = (this.actor.permission == 1) ? true : false;
     data.sheetSettings.isObserver = (this.actor.permission == 2 || this.actor.compendium?.locked) ? true : false;
+    data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
     data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
 
@@ -100,13 +101,13 @@ export class CypherActorSheet extends ActorSheet {
 
         if (item.system.basic.type[0] == 0) {
           // No type
-          data.cypherType[item.id] = `<i class="fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
+          data.cypherType[item.id] = `<i class="fa-item cypher no-type fa-regular fa-circle" style="${color}" title="${title}"></i>`;
         } else if (item.system.basic.type[0] == 1) {
           // Subtle cypher
-          data.cypherType[item.id] = `<i class="fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
+          data.cypherType[item.id] = `<i class="fa-item cypher subtle fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
         } else if (item.system.basic.type[0] == 2) {
           // Manifest cypher
-          data.cypherType[item.id] = `<i class="fa-solid fa-circle" style="${color}" title="${title}"></i>`;
+          data.cypherType[item.id] = `<i class="fa-item cypher manifest fa-solid fa-circle" style="${color}" title="${title}"></i>`;
         }
       }
     }
@@ -841,22 +842,108 @@ export class CypherActorSheet extends ActorSheet {
     // Toggle item visibility
     $(document).ready(function () {
       const itemFavorite = html.find('.item-favorite.alt');
+      const itemArchived = html.find('.fa-item.archived');
+      const itemUnarchived = html.find('.fa-item.unarchived');
+      const itemCypherNoType = html.find('.fa-item.cypher.no-type');
+      const itemCyherSubtle = html.find('.fa-item.cypher.subtle');
+      const itemCypherManifest = html.find('.fa-item.cypher.manifest');
+      const itemInitiative = html.find('.fa-item.initiative');
+      const itemPayPoolPoints = html.find('.fa-item.pay-pool-points');
+      const statRoll = html.find('.fa-item.stat-roll');
+      const itemAIOInitiative = html.find('.fa-item.aio-initiative');
+      const itemAIOStatRoll = html.find('.fa-item.aio-stat-roll');
+      const itemAIOPayPoolPoints = html.find('.fa-item.aio-pay-pool-points');
+      const recoveryRoll = html.find('.fa-recovery');
+      const quantity = html.find('.fa-item.quantity');
 
       if (game.keyboard.isModifierActive("Alt")) {
+        // Copy from keydown function to keep icons after clicking
+
+        // Favorite star
         itemFavorite.css('visibility', 'visible');
+
+        // Archive icons
+        itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
+        itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
+
+        // Cypher icons
+        itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
+        itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
+        itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
+
+        // Roll buttons
+        itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
+        itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
+        statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
+        itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
+        itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
+        itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
+
+        // Recovery roll icon
+        recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
+
+        // Quantity
+        quantity.removeClass('fa-regular').addClass('fa-solid');
       }
 
       $(document).keydown(function (event) {
         if (event.altKey) {
+          // Favorite star
           itemFavorite.css('visibility', 'visible');
-          itemFavorite.removeAttr('display');
+
+          // Archive icons
+          itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
+          itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
+
+          // Cypher icons
+          itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
+          itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
+          itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
+
+          // Roll buttons
+          itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
+          itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
+          statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
+          itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
+          itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
+          itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
+
+          // Recovery roll icon
+          recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
+
+          // Quantity
+          quantity.removeClass('fa-regular').addClass('fa-solid');
         }
       });
 
       $(document).keyup(function (event) {
         if (!event.altKey) {
+          // Favorite star
           itemFavorite.css('visibility', 'hidden');
-          itemFavorite.attr('display', 'none');
+          // itemFavorite.attr('display', 'none');
+
+          // Archive icons
+          itemArchived.removeClass('fa-trash-xmark').addClass('fa-arrow-rotate-left');
+          itemUnarchived.removeClass('fa-trash-xmark').addClass('fa-archive');
+
+          // Cypher icons
+          itemCypherNoType.removeClass('fa-solid fa-fire-flame-curved').addClass('fa-regular fa-circle');
+          itemCyherSubtle.removeClass('fa-fire-flame-curved').addClass('fa-circle-half-stroke');
+          itemCypherManifest.removeClass('fa-fire-flame-curved').addClass('fa-circle');
+
+          // Roll buttons
+          itemInitiative.removeClass('fa-ballot').addClass('fa-swords');
+          itemPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
+          statRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
+          itemAIOInitiative.removeClass('fa-swords').addClass('fa-ballot');
+          itemAIOStatRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
+          itemAIOPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
+
+          // Recovery roll icon
+          recoveryRoll.removeClass('fa-regular').addClass('fa-solid');
+
+          // Quantity
+          quantity.removeClass('fa-solid').addClass('fa-regular');
         }
       });
     });
@@ -878,7 +965,7 @@ export class CypherActorSheet extends ActorSheet {
         } else if (item.type == "power-shift") {
           brackets = " (" + item.system.basic.shifts + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
         } else if (item.type == "ability") {
-          points = (item.system.basic.cost == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.Point") : " " + game.i18n.localize("CYPHERSYSTEM.Points");
+          points = (item.system.basic.cost == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.point") : " " + game.i18n.localize("CYPHERSYSTEM.points");
           if (item.system.basic.cost != 0 && item.system.basic.cost != 0) brackets = " (" + item.system.basic.cost + " " + item.system.basic.pool + points + ")";
         } else if (item.type == "attack") {
           points = (item.system.basic.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
@@ -1019,17 +1106,17 @@ export class CypherActorSheet extends ActorSheet {
           content: "",
           buttons: {
             move: {
-              icon: "<i class='fas fa-archive'></i>",
+              icon: "<i class='fa-item fas fa-archive'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Archive"),
               callback: (html) => archiveItem()
             },
             moveAll: {
-              icon: "<i class='fas fa-trash'></i>",
+              icon: "<i class='fa-item fas fa-trash-xmark'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Delete"),
               callback: (html) => deleteItem()
             },
             cancel: {
-              icon: "<i class='fas fa-times'></i>",
+              icon: "<i class='fa-item fas fa-times'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => {}
             }
@@ -1086,12 +1173,12 @@ export class CypherActorSheet extends ActorSheet {
         if (maxQuantity == null) {
           return {
             move: {
-              icon: "<i class='fas fa-share-square'></i>",
+              icon: "<i class='fa-item fas fa-share-square'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
               callback: (html) => moveItems(html.find("#quantity").val(), originItem)
             },
             cancel: {
-              icon: "<i class='fas fa-times'></i>",
+              icon: "<i class='fa-item fas fa-times'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => {}
             }
@@ -1099,17 +1186,17 @@ export class CypherActorSheet extends ActorSheet {
         } else {
           return {
             move: {
-              icon: "<i class='fas fa-share-square'></i>",
+              icon: "<i class='fa-item fas fa-share-square'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
               callback: (html) => moveItems(html.find("#quantity").val(), originItem)
             },
             moveAll: {
-              icon: "<i class='fas fa-share-square'></i>",
+              icon: "<i class='fa-item fas fa-share-square'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
               callback: (html) => moveItems(maxQuantity, originItem)
             },
             cancel: {
-              icon: "<i class='fas fa-times'></i>",
+              icon: "<i class='fa-item fas fa-times'></i>",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => {}
             }

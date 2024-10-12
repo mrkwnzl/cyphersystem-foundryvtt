@@ -111,13 +111,13 @@ export class CypherItemSheet extends ItemSheet {
 
       if (this.item.system.basic.type[0] == 0) {
         // No type
-        data.cypherType[this.item.id] = `<i class="fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
+        data.cypherType[this.item.id] = `<i class="fa-item fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
       } else if (this.item.system.basic.type[0] == 1) {
         // Subtle cypher
-        data.cypherType[this.item.id] = `<i class="fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
+        data.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
       } else if (this.item.system.basic.type[0] == 2) {
         // Manifest cypher
-        data.cypherType[this.item.id] = `<i class="fa-solid fa-circle" style="${color}" title="${title}"></i>`;
+        data.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle" style="${color}" title="${title}"></i>`;
       }
     }
 

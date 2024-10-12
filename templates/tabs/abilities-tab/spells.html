@@ -10,12 +10,12 @@
               {{actor.system.settings.abilities.labelSpells}}
             {{/if}}
           </div>
-          <div class="item-cypher-limit">
+          <div class="prepared-spell-label">
             <label for="actor.system.abilities.preparedSpells" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
               {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
             </label>
           </div>
-          <div class="item-cypher-limit">
+          <div class="prepared-spell-quantity">
             <input class="input-cypher-limit" type="number" name="system.abilities.preparedSpells" value="{{actor.system.abilities.preparedSpells}}" />
           </div>
         </li>

@@ -39,12 +39,12 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
     {{#if (eq actor.system.settings.general.gameMode "Strange")}}
-      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-solid fa-at"></i></a>
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Recursions'}}"><i class="fa-item fa-solid fa-at"></i></a>
     {{else if (and actor.system.settings.general.tags.active sheetSettings.isMaskForm)}}
-      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-solid fa-hashtag"></i></a>
+      <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-item fa-solid fa-hashtag"></i></a>
     {{/if}}
     {{#if (eq actor.type "pc")}}
-      <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-solid fa-gear"></i></a>
+      <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-item fa-solid fa-gear"></i></a>
     {{/if}}
   </nav>
 

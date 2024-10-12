@@ -10,7 +10,11 @@
         <div class="stat-roll-button">
           {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control might-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}">
-              <i class="fas fa-dice-d20"></i>
+              {{#if sheetSettings.useAllInOne}}
+                <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
+              {{else}}
+                <i class="fa-item stat-roll fa-solid fa-dice-d20"></i>
+              {{/if}}
             </a>
           {{/if}}
         </div>
@@ -30,13 +34,13 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls">
           <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}">
-            <i class="far fa-minus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}">
-            <i class="far fa-plus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}">
-            <i class="fas fa-sync-alt stat"></i>
+            <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
@@ -61,7 +65,11 @@
         <div class="stat-roll-button">
           {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control speed-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}">
-              <i class="fas fa-dice-d20"></i>
+              {{#if sheetSettings.useAllInOne}}
+                <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
+              {{else}}
+                <i class="fa-item stat-roll fa-solid fa-dice-d20"></i>
+              {{/if}}
             </a>
           {{/if}}
         </div>
@@ -81,13 +89,13 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls">
           <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}">
-            <i class="far fa-minus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}">
-            <i class="far fa-plus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}">
-            <i class="fas fa-sync-alt stat"></i>
+            <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
@@ -112,7 +120,11 @@
         <div class="stat-roll-button">
           {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control intellect-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}">
-              <i class="fas fa-dice-d20"></i>
+              {{#if sheetSettings.useAllInOne}}
+                <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
+              {{else}}
+                <i class="fa-item stat-roll fa-solid fa-dice-d20"></i>
+              {{/if}}
             </a>
           {{/if}}
         </div>
@@ -132,13 +144,13 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls">
           <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}">
-            <i class="far fa-minus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}">
-            <i class="far fa-plus-square stat"></i>
+            <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}">
-            <i class="fas fa-sync-alt stat"></i>
+            <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
@@ -175,13 +187,13 @@
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls">
               <a class="item-control decrease-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
-                <i class="far fa-minus-square stat"></i>
+                <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
               <a class="item-control increase-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
-                <i class="far fa-plus-square stat"></i>
+                <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
               <a class="item-control reset-teen-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
-                <i class="fas fa-sync-alt stat"></i>
+                <i class="fa-item fas fa-sync-alt stat"></i>
               </a>
             </div>
           </div>
@@ -213,13 +225,13 @@
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls">
               <a class="item-control decrease-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
-                <i class="far fa-minus-square stat"></i>
+                <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
               <a class="item-control increase-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
-                <i class="far fa-plus-square stat"></i>
+                <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
               <a class="item-control reset-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
-                <i class="fas fa-sync-alt stat"></i>
+                <i class="fa-item fas fa-sync-alt stat"></i>
               </a>
             </div>
             {{#if actor.system.settings.general.additionalPool.hasEdge}}

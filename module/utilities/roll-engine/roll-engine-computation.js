@@ -26,6 +26,13 @@ export async function rollEngineComputation(data) {
     data.impairedStatus = false;
   }
 
+  // Determine stressModifier
+  if (actor.system.settings.combat.stress.active && !data.teen) {
+    data.stressModifier = actor.system.combat.stress.levels;
+  } else {
+    data.stressModifier = 0;
+  }
+
   // Calculate damage
   data.damageEffort = data.damagePerLOE * data.effortDamage;
   data.totalDamage = data.damage + data.damageEffort;
@@ -57,7 +64,7 @@ export async function rollEngineComputation(data) {
 
   // Calculate roll modifiers
   let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
-  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + difficultyModifier;
+  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
 
   // Calculate rollTotal
   data.rollTotal = data.roll.total + data.bonus;
