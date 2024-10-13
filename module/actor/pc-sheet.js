@@ -59,7 +59,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
       "Teen": "CYPHERSYSTEM.Teen"
     };
 
-    if (this.actor.system.settings.combat.additionalStepDamageTrack.active && !this.actor.system.basic.unmaskedForm == "Teen") {
+    if (this.actor.system.settings.combat.additionalStepDamageTrack.active && this.actor.system.basic.unmaskedForm !== "Teen") {
       let hurtLabel = this.actor.system.settings.combat.additionalStepDamageTrack.label || game.i18n.localize("CYPHERSYSTEM.Hurt");
 
       data.damageTrackChoices = {

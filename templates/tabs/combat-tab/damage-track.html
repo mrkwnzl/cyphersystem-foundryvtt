@@ -12,7 +12,13 @@
     </li>
     {{#if (and (eq actor.system.basic.unmaskedForm "Mask") actor.system.settings.combat.stress.active)}}
       <li class="item flexrow non-draggable">
-        <h4 class="item-name">{{localize 'CYPHERSYSTEM.Stress'}}</h4>
+        <h4 class="item-name">
+          {{#if actor.system.settings.combat.stress.label}}
+            {{actor.system.settings.combat.stress.label}}
+          {{else}}
+            {{localize 'CYPHERSYSTEM.Stress'}}
+          {{/if}}
+        </h4>
         <div class="item-quantity">
           <a class="item-control minus-one-stress {{#if (eq actor.system.combat.stress.quantity 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity3'}}">
             <i class="fa-item quantity fa-regular fa-minus-square"></i>
@@ -40,8 +46,8 @@
       {{#if actor.system.settings.combat.stress.supernaturalStressActive}}
         <li class="item flexrow non-draggable" style="border-top-style: dashed">
           <h4 class="item-name">
-            {{#if actor.system.settings.combat.supernaturalStressLabel}}
-              {{actor.system.settings.combat.supernaturalStressLabel}}
+            {{#if actor.system.settings.combat.stress.supernaturalStressLabel}}
+              {{actor.system.settings.combat.stress.supernaturalStressLabel}}
             {{else}}
               {{localize 'CYPHERSYSTEM.SupernaturalStress'}}
             {{/if}}
