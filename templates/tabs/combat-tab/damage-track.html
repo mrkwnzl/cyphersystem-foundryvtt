@@ -1,8 +1,64 @@
 <div class="flexrow">
   <ol class="items-list">
     <li class="item flexrow item-header">
-      <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
+      {{#if (and (eq actor.system.basic.unmaskedForm "Mask") actor.system.settings.combat.stress.active)}}
+        <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
+        <div class="item-quantity">{{localize 'CYPHERSYSTEM.Points'}}</div>
+        <div class="item-quantity">{{localize 'CYPHERSYSTEM.Levels'}}</div>
+        <div class="item-controls"></div>
+      {{else}}
+        <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
+      {{/if}}
     </li>
+    {{#if (and (eq actor.system.basic.unmaskedForm "Mask") actor.system.settings.combat.stress.active)}}
+      <li class="item flexrow non-draggable">
+        <h4 class="item-name">{{localize 'CYPHERSYSTEM.Stress'}}</h4>
+        <div class="item-quantity">
+          <a class="item-control minus-one-stress {{#if (eq actor.system.combat.stress.quantity 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity3'}}">
+            <i class="fa-item quantity fa-regular fa-minus-square"></i>
+          </a>
+          <p class="number">&nbsp;{{actor.system.combat.stress.quantity}}&nbsp;</p>
+          <a class="item-control plus-one-stress" title="{{localize 'CYPHERSYSTEM.AddQuantity3'}}">
+            <i class="fa-item quantity fa-regular fa-plus-square"></i>
+          </a>
+        </div>
+        <div class="item-quantity">
+          <a class="item-control minus-one-stress-level {{#if (eq actor.system.combat.stress.levels 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
+            <i class="fa-item quantity-no-alt fa-regular fa-minus-square"></i>
+          </a>
+          <p class="number">&nbsp;{{actor.system.combat.stress.levels}}&nbsp;</p>
+          <a class="item-control plus-one-stress-level" title="{{localize 'CYPHERSYSTEM.AddQuantityNoAlt'}}">
+            <i class="fa-item quantity-no-alt fa-regular fa-plus-square"></i>
+          </a>
+        </div>
+        <div class="item-controls">
+          <a class="item-control reset-stress {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetStress'}}">
+            <i class="fa-item fas fa-sync-alt"></i>
+          </a>
+        </div>
+      </li>
+      {{#if actor.system.settings.combat.stress.supernaturalStressActive}}
+        <li class="item flexrow non-draggable" style="border-top-style: dashed">
+          <h4 class="item-name">
+            {{#if actor.system.settings.combat.supernaturalStressLabel}}
+              {{actor.system.settings.combat.supernaturalStressLabel}}
+            {{else}}
+              {{localize 'CYPHERSYSTEM.SupernaturalStress'}}
+            {{/if}}
+          </h4>
+          <div class="item-quantity">
+            <a class="item-control minus-one-supernatural-stress {{#if (eq actor.system.combat.stress.supernaturalLevels 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
+              <i class="fa-item quantity-no-alt fa-regular fa-minus-square"></i>
+            </a>
+            <p class="number">&nbsp;{{actor.system.combat.stress.supernaturalLevels}}&nbsp;</p>
+            <a class="item-control plus-one-supernatural-stress" title="{{localize 'CYPHERSYSTEM.AddQuantityNoAlt'}}">
+              <i class="fa-item quantity-no-alt fa-regular fa-plus-square"></i>
+            </a>
+          </div>
+          <div class="item-controls"></div>
+        </li>
+      {{/if}}
+    {{/if}}
     <li class="item flexrow non-draggable">
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
         <div class="item-damage">
@@ -28,12 +84,12 @@
         <div class="damage-track-apply centered-content">
           {{#if (eq actor.system.teen.combat.damageTrack.state "Impaired")}}
             <a class="item-control apply-impaired-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
-              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyImpaired}}grey{{/unless}}"></i>
+              <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyImpaired}}grey{{/unless}}"></i>
             </a>
           {{/if}}
           {{#if (eq actor.system.teen.combat.damageTrack.state "Debilitated")}}
             <a class="item-control apply-debilitated-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
-              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyDebilitated}}grey{{/unless}}"></i>
+              <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyDebilitated}}grey{{/unless}}"></i>
             </a>
           {{/if}}
         </div>
@@ -44,7 +100,7 @@
           </select>
         </div>
         <div class="centered-content" style="min-height: 40px; line-height: 1.4">
-          {{#if (eq actor.system.combat.damageTrack.state "Hale")}}
+          {{#if (or (eq actor.system.combat.damageTrack.state "Hale") (eq actor.system.combat.damageTrack.state "Hurt"))}}
             {{localize 'CYPHERSYSTEM.HaleEffect'}}
           {{/if}}
           {{#if (eq actor.system.combat.damageTrack.state "Impaired")}}
@@ -64,12 +120,12 @@
         <div class="damage-track-apply centered-content">
           {{#if (eq actor.system.combat.damageTrack.state "Impaired")}}
             <a class="item-control apply-impaired {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
-              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyImpaired}}grey{{/unless}}"></i>
+              <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyImpaired}}grey{{/unless}}"></i>
             </a>
           {{/if}}
           {{#if (eq actor.system.combat.damageTrack.state "Debilitated")}}
             <a class="item-control apply-debilitated {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
-              <i class="fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyDebilitated}}grey{{/unless}}"></i>
+              <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyDebilitated}}grey{{/unless}}"></i>
             </a>
           {{/if}}
         </div>
@@ -120,11 +176,11 @@
         <div class="item-controls">
           {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control recovery-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}">
-              <i class="fas fa-dice-d20"></i>
+              <i class="fa-recovery fa-solid fa-heart"></i>
             </a>
           {{/if}}
           <a class="item-control reset-recovery-rolls {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}">
-            <i class="fas fa-sync-alt"></i>
+            <i class="fa-item fas fa-sync-alt"></i>
           </a>
         </div>
       </div>

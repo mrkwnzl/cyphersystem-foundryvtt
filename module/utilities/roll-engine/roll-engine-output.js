@@ -49,7 +49,7 @@ export async function rollEngineOutput(data) {
   }
 
   // Final task difficulty
-  let taskDifficulty = "";
+  let taskDifficulty = game.i18n.localize("CYPHERSYSTEM.TaskUnmodifiedChat");
   if (data.baseDifficulty >= 0 && data.finalDifficulty >= 0) {
     taskDifficulty = game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")";
   } else if (modifiedBy) {
@@ -72,6 +72,15 @@ export async function rollEngineOutput(data) {
   let effortToEaseInfo = (data.effortToEase != 1) ?
     `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.effortToEase} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>` :
     `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.effortToEase} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+
+  // Stress information
+  let stressInfo = "";
+
+  if (actor.system.settings.combat.stress.active && data.stressModifier == 1) {
+    stressInfo = `${game.i18n.localize("CYPHERSYSTEM.Stress")}: ${data.stressModifier} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;
+  } else if (actor.system.settings.combat.stress.active && data.stressModifier >= 2) {
+    stressInfo = `${game.i18n.localize("CYPHERSYSTEM.Stress")}: ${data.stressModifier} ${game.i18n.localize("CYPHERSYSTEM.levels")}<br>`;
+  }
 
   // Additional step(s) information
   let difficultyInfo = "";
@@ -102,7 +111,7 @@ export async function rollEngineOutput(data) {
   let styleDifficultyDetailsExpanded = `<div class="roll-result-difficulty-details expanded">`;
   let styleDifficultyDetails = (showDetails) ? styleDifficultyDetailsExpanded : styleDifficultyDetailsHidden;
 
-  let difficultyDetailsInfo = styleDifficultyDetails + baseDifficultyInfo + skillInfo + assetsInfo + effortToEaseInfo + difficultyInfo + `</div>`;
+  let difficultyDetailsInfo = styleDifficultyDetails + baseDifficultyInfo + skillInfo + assetsInfo + effortToEaseInfo + stressInfo + difficultyInfo + `</div>`;
 
   // Create block
   let difficultyBlock = `<div class="roll-result-box"><b><a class="roll-result-difficulty">` + taskDifficulty + `</a></b><br>` + difficultyDetailsInfo + `</div>`;
@@ -138,9 +147,9 @@ export async function rollEngineOutput(data) {
   // Effort information
   let effortDamageInfo = "";
   if (data.effortDamage == 1) {
-    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.Point")}<br>`;
+    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.point")}<br>`;
   } else {
-    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.Points")}<br>`;
+    effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.points")}<br>`;
   }
 
   // Details style
@@ -162,23 +171,23 @@ export async function rollEngineOutput(data) {
   let poolCostInfo = {
     "Might": function () {
       return (data.poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Points")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Point")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.points")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.point")}`;
     },
     "Speed": function () {
       return (data.poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Points")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Point")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.points")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.point")}`;
     },
     "Intellect": function () {
       return (data.poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Points")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Point")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.points")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.point")}`;
     },
     "Pool": function () {
       return (data.poolPointCost != 1) ?
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Points")}` :
-        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.Point")}`;
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.points")}` :
+        `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost} ${game.i18n.localize("CYPHERSYSTEM.point")}`;
     },
     "XP": function () {
       return `${game.i18n.localize("CYPHERSYSTEM.BaseCost")}: ${data.poolPointCost}  ${game.i18n.localize("CYPHERSYSTEM.XP")}`;
@@ -214,8 +223,8 @@ export async function rollEngineOutput(data) {
   // Effort info
   let effortCost = data.costCalculated - data.poolPointCost;
   let effortInfo = (data.costCalculated == 1) ?
-    `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${effortCost} ${game.i18n.localize("CYPHERSYSTEM.Point")}<br>` :
-    `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${effortCost} ${game.i18n.localize("CYPHERSYSTEM.Points")}<br>`;
+    `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${effortCost} ${game.i18n.localize("CYPHERSYSTEM.point")}<br>` :
+    `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${effortCost} ${game.i18n.localize("CYPHERSYSTEM.points")}<br>`;
 
   // Edge info
   let edgeInfo = `${game.i18n.localize("CYPHERSYSTEM.Edge")}: ${data.edge}`;
@@ -303,12 +312,12 @@ export async function rollEngineOutput(data) {
   let actorUuid = (actor) ? actor.uuid : "";
   data.baseDifficulty = (data.baseDifficulty >= 0) ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
-  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fas fa-dice-d20"></i></a>`;
+  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fa-item fas fa-dice-d20"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";
   if (data.costTotal > 0 && data.roll.total == 20 && ["Might", "Speed", "Intellect"].includes(data.pool)) {
-    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fas fa-coins"></i></a>`;
+    regainPointsButton = `<a class='regain-points' title='${game.i18n.localize("CYPHERSYSTEM.RegainPoints")}' data-user='${game.user.id}' data-actor-uuid='${actorUuid}' data-cost='${data.costTotal}' data-pool='${data.pool}' data-teen='${data.teen}'><i class="fa-item fas fa-coins"></i></a>`;
   }
 
   // Put buttons together

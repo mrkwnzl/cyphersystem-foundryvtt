@@ -11,15 +11,15 @@
           <div class="item-controls">
             {{#if isGM}}
               {{#if persistentRollDifficulty}}
-                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i></a>
+                <a class="toggle-persistent-roll-difficulty"><i class="fa-item fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i></a>
               {{else}}
-                <a class="toggle-persistent-roll-difficulty"><i class="fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.OnlyNextRoll'}}"></i></a>
+                <a class="toggle-persistent-roll-difficulty"><i class="fa-item fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.OnlyNextRoll'}}"></i></a>
               {{/if}}
             {{else}}
               {{#if persistentRollDifficulty}}
-                <i class="fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i>
+                <i class="fa-item fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i>
               {{else}}
-                <i class="fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.OnlyNextRoll'}}"></i>
+                <i class="fa-item fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.OnlyNextRoll'}}"></i>
               {{/if}}
             {{/if}}
           </div>
@@ -31,9 +31,9 @@
             </label>&nbsp;
             <div class="item-controls">
               {{#if difficultyNPCInitiative}}
-                <a class="toggle-difficulty-npc-initiative"><i class="fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative'}}"></i></a>
+                <a class="toggle-difficulty-npc-initiative"><i class="fa-item fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative'}}"></i></a>
               {{else}}
-                <a class="toggle-difficulty-npc-initiative"><i class="fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.NPCsUseTheirLevelForInitiative'}}"></i></a>
+                <a class="toggle-difficulty-npc-initiative"><i class="fa-item fas fa-toggle-off" title="{{localize 'CYPHERSYSTEM.NPCsUseTheirLevelForInitiative'}}"></i></a>
               {{/if}}
             </div>
           </li>
@@ -48,14 +48,14 @@
               {{#if isGM}}
                 <div class="gmi-controls">
                   <a class="item-control decrease-roll-difficulty" title="{{localize 'CYPHERSYSTEM.SubtractDifficulty'}}">
-                    <i class="far fa-minus-square stat"></i>
+                    <i class="fa-item quantity fa-regular fa-minus-square"></i>
                   </a>
                   <a class="item-control increase-roll-difficulty" title="{{localize 'CYPHERSYSTEM.AddDifficulty'}}">
-                    <i class="far fa-plus-square stat"></i>
+                    <i class="fa-item quantity fa-regular fa-plus-square"></i>
                   </a>
                   &nbsp;
                   <a class="item-control reset-roll-difficulty" title="{{localize 'CYPHERSYSTEM.ResetDifficulty'}}">
-                    <i class="fas fa-sync-alt stat"></i>
+                    <i class="fa-item fas fa-sync-alt stat"></i>
                   </a>
                 </div>
               {{/if}}

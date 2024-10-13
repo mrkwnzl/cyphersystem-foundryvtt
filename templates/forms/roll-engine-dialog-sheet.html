@@ -84,6 +84,9 @@
           {{#if this.speedCostArmor}}
             <label class="roll-engine-label-summary">{{this.speedCostArmor}}</label>
           {{/if}}
+          {{#if (gt this.stressModifier 0)}}
+            <label class="roll-engine-label-summary">{{this.summaryStressLevels}}</label>
+          {{/if}}
           {{#if this.impairedString}}
             <label class="roll-engine-label-summary">{{this.impairedString}}</label>
           {{/if}}
@@ -116,13 +119,13 @@
           <hr class="hr-roll-engine">
 
           <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.RollButtonTooltip'}}" data-button="roll">
-            <i class="fas fa-dice-d20"></i> {{localize "CYPHERSYSTEM.Roll"}}
+            <i class="fa-item fas fa-dice-d20"></i> {{localize "CYPHERSYSTEM.Roll"}}
           </button>
           <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.PayButtonTooltip'}}" data-button="pay">
-            <i class="fas fa-coins"></i> {{localize "CYPHERSYSTEM.Pay"}}
+            <i class="fa-item fas fa-coins"></i> {{localize "CYPHERSYSTEM.Pay"}}
           </button>
           <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" title="{{localize 'CYPHERSYSTEM.CancelButtonTooltip'}}" data-button="cancel">
-            <i class="fas fa-times"></i> {{localize "CYPHERSYSTEM.Cancel"}}
+            <i class="fa-item fas fa-times"></i> {{localize "CYPHERSYSTEM.Cancel"}}
           </button>
 
         </div>

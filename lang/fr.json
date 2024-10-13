@@ -53,8 +53,8 @@
   "CYPHERSYSTEM.Owner": "Propriétaire",
   "CYPHERSYSTEM.InteractionLevel": "Niveau d’interaction",
   "CYPHERSYSTEM.CharacterInfo": "Infos du Personnage",
-  "CYPHERSYSTEM.Point": "point",
-  "CYPHERSYSTEM.Points": "points",
+  "CYPHERSYSTEM.point": "point",
+  "CYPHERSYSTEM.points": "points",
   "CYPHERSYSTEM.PointOfDamage": "point de dégât",
   "CYPHERSYSTEM.PointsOfDamage": "points de dégât",
   "CYPHERSYSTEM.Health": "Santé",
@@ -682,5 +682,7 @@
   "CYPHERSYSTEM.XPLeft": "XP restant : {quantity}",
   "CYPHERSYSTEM.Favorite": "Favoris",
   "CYPHERSYSTEM.ItemFavorite": "Épingler l'objet",
-  "CYPHERSYSTEM.HideFavoriteButton": "Masquer le bouton Favoris"
+  "CYPHERSYSTEM.HideFavoriteButton": "Masquer le bouton Favoris",
+  "CYPHERSYSTEM.Embed.prependCite": "<p>{prependCite}{description}</p>",
+  "CYPHERSYSTEM.Embed.general": "<p>{description}</p>"
 }

@@ -43,12 +43,12 @@ export function easedRollMacro() {
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: {
       roll: {
-        icon: '<i class="fas fa-dice-d20"></i>',
+        icon: '<i class="fa-item fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => rollEngineMain({title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), difficultyModifier: parseInt(html.find('input').val()), easedOrHindered: "eased"})
       },
       cancel: {
-        icon: '<i class="fas fa-times"></i>',
+        icon: '<i class="fa-item fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => {}
       }
@@ -75,12 +75,12 @@ export function hinderedRollMacro() {
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: {
       roll: {
-        icon: '<i class="fas fa-dice-d20"></i>',
+        icon: '<i class="fa-item fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => rollEngineMain({title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), difficultyModifier: parseInt(html.find('input').val()), easedOrHindered: "hindered"})
       },
       cancel: {
-        icon: '<i class="fas fa-times"></i>',
+        icon: '<i class="fa-item fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => {}
       }
@@ -137,12 +137,12 @@ export async function selectedTokenRollMacro(actor, title) {
     `,
     buttons: {
       roll: {
-        icon: '<i class="fas fa-dice-d20"></i>',
+        icon: '<i class="fa-item fas fa-dice-d20"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
         callback: (html) => rollDice({actorUuid: actorUuid, title: game.i18n.localize("CYPHERSYSTEM.StatRoll"), baseDifficulty: html.find('#baseDifficulty').val(), difficultyModifier: html.find('#difficultyModifier').val(), easedOrHindered: html.find('#easedOrHindered').val()})
       },
       cancel: {
-        icon: '<i class="fas fa-times"></i>',
+        icon: '<i class="fa-item fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => {}
       }
@@ -232,7 +232,7 @@ export async function diceRollMacro(dice, actor) {
   const roll = await new Roll(dice).evaluate();
 
   // Add reroll button
-  let reRollButton = `<div class="chat-card-buttons"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fas fa-dice-d20"></a></div>`;
+  let reRollButton = `<div class="chat-card-buttons"><a class="reroll-dice-roll" title="${game.i18n.localize("CYPHERSYSTEM.Reroll")}" data-dice="${dice}" data-user="${game.user.id}"><i class="fa-item fas fa-dice-d20"></a></div>`;
 
   // Send chat message
   roll.toMessage({
@@ -435,7 +435,7 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
   let roll = await new Roll(dice).evaluate();
 
   // Add reroll button
-  let reRollButton = `<div style="text-align: right"><a class="reroll-recovery" data-dice="${dice}" data-user="${game.user.id}" data-actor-uuid="${actor.uuid}"><i class="fas fa-dice-d20"></i></a></div>`;
+  let reRollButton = `<div style="text-align: right"><a class="reroll-recovery" data-dice="${dice}" data-user="${game.user.id}" data-actor-uuid="${actor.uuid}"><i class="fa-item fas fa-dice-d20"></i></a></div>`;
 
   // Send chat message
   roll.toMessage({
@@ -455,12 +455,12 @@ export function spendEffortMacro(actor) {
     content: spendEffortString(),
     buttons: {
       roll: {
-        icon: '<i class="fas fa-check"></i>',
+        icon: '<i class="fa-item fas fa-check"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Apply"),
         callback: (html) => applyToPool(html.find('select').val(), html.find('input').val())
       },
       cancel: {
-        icon: '<i class="fas fa-times"></i>',
+        icon: '<i class="fa-item fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => {}
       }
@@ -667,12 +667,12 @@ export async function proposeIntrusion(actor, notification) {
       content: chatCardProposeIntrusion(selectOptions),
       buttons: {
         apply: {
-          icon: '<i class="fas fa-check"></i>',
+          icon: '<i class="fa-item fas fa-check"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Apply"),
           callback: (html) => askForIntrusion(html.find('#selectPC').val())
         },
         cancel: {
-          icon: '<i class="fas fa-times"></i>',
+          icon: '<i class="fa-item fas fa-times"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
           callback: () => {}
         }
@@ -765,7 +765,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
     content: calculateAttackDifficultyString(difficulty, pcRole, chatMessage, cover, positionProne, positionHighGround, surprise, range, illumination, mist, hiding, invisible, water, targetMoving, attackerMoving, attackerJostled, gravity, additionalOneValue, additionalOneName, additionalTwoValue, additionalTwoName, additionalThreeValue, additionalThreeName, persistentRollDifficulty),
     buttons: {
       calculate: {
-        icon: '<i class="fas fa-calculator"></i>',
+        icon: '<i class="fa-item fas fa-calculator"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Calculate"),
         callback: (html) => {
           additionalOneValue = (html.find('#additionalOne').val() != "") ? html.find('#additionalOne').val() : html.find('#additionalOne').attr('placeholder');
@@ -809,7 +809,7 @@ export async function calculateAttackDifficulty(difficulty, pcRole, chatMessage,
         }
       },
       cancel: {
-        icon: '<i class="fas fa-times"></i>',
+        icon: '<i class="fa-item fas fa-times"></i>',
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
         callback: () => {}
       }

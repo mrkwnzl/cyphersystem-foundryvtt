@@ -33,13 +33,13 @@
                   {{#unless sheetSettings.isLimited}}
                     <div class="nonPC-stat-buttons">
                       <a class="item-control decrease-health {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}">
-                        <i class="far fa-minus-square stat"></i>
+                        <i class="fa-item quantity fa-regular fa-minus-square"></i>
                       </a>
                       <a class="item-control increase-health {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}">
-                        <i class="far fa-plus-square stat"></i>
+                        <i class="fa-item quantity fa-regular fa-plus-square"></i>
                       </a>
                       <a class="item-control reset-health {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}">
-                        <i class="fas fa-sync-alt stat"></i>
+                        <i class="fa-item fas fa-sync-alt stat"></i>
                       </a>
                     </div>
                   {{/unless}}
@@ -58,13 +58,13 @@
                   {{#unless sheetSettings.isLimited}}
                     <div class="nonPC-stat-buttons">
                       <a class="item-control decrease-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractInfrastructure'}}">
-                        <i class="far fa-minus-square stat"></i>
+                        <i class="fa-item quantity fa-regular fa-minus-square"></i>
                       </a>
                       <a class="item-control increase-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddInfrastructure'}}">
-                        <i class="far fa-plus-square stat"></i>
+                        <i class="fa-item quantity fa-regular fa-plus-square"></i>
                       </a>
                       <a class="item-control reset-infrastructure {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetInfrastructure'}}">
-                        <i class="fas fa-sync-alt stat"></i>
+                        <i class="fa-item fas fa-sync-alt stat"></i>
                       </a>
                     </div>
                   {{/unless}}
@@ -106,7 +106,7 @@
     {{#unless sheetSettings.isLimited}}
       <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Storage'}}</a>
       <a class="item" data-tab="settings" style="flex: 0 0 45px;">
-        <i class="fa-solid fa-gear"></i>
+        <i class="fa-item fa-solid fa-gear"></i>
       </a>
     {{/unless}}
   </nav>

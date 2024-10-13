@@ -77,6 +77,11 @@
           "applyImpaired": true,
           "applyDebilitated": true
         },
+        "stress": {
+          "quantity": 0,
+          "levels": 0,
+          "supernaturalLevels": 0
+        },
         "armor": {
           "ratingTotal": 0,
           "costTotal": 0
@@ -140,6 +145,16 @@
           }
         },
         "combat": {
+          "stress": {
+            "active": false,
+            "label": "",
+            "supernaturalStressActive": true,
+            "supernaturalStressLabel": ""
+          },
+          "additionalStepDamageTrack": {
+            "active": false,
+            "label": ""
+          },
           "numberOneActionRecoveries": 1,
           "numberTenMinuteRecoveries": 1,
           "lastingDamage": {
@@ -147,6 +162,9 @@
           },
           "ammo": {
             "active": false
+          },
+          "armor": {
+            "active": true
           }
         },
         "abilities": {

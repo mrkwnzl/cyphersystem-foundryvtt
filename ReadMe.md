@@ -16,7 +16,7 @@ Documentation: [Getting Started](https://github.com/mrkwnzl/cyphersystem-foundry
 
 ## Highlights
 
-- Support for any Cypher System game (including Unmasked, Predation, and Gods of the Fall), Numenera, and The Strange.
+- Support for any Cypher System game (including Unmasked, Predation, and Gods of the Fall), Numenera, The Strange, Old Gods of Appalachia, and The Magnus Archives.
 - An Unmasked mode in which you can switch between your Teen Form and Mask Form.
 - An optional additional text field for your character sentence. You can use it for the Domain in Gods of the Fall, or to note down the flavor of your Type.
 - Optional Power Shifts, including additional checkboxes for 1 Action Recovery Rolls. Handy for every superhero game, Gods of the Fall, or the Setting in Stay Alive!. The Power Shifts can be renamed to anything you like.
@@ -35,16 +35,14 @@ The [Cypher System Community Content](https://foundryvtt.com/packages/cyphersyst
 
 Install these modules only if you specifically need the functionality provided by these modules. I recommend playing a few times without them to see if there’s something missing for you.
 
-The only modules I recommend if you are using tokens and maps are [Bar Brawl](https://foundryvtt.com/packages/barbrawl) and [Drag Ruler](https://foundryvtt.com/packages/drag-ruler). But even those are by no means essential.
+The only modules I recommend, if you are using tokens and maps, are [Bar Brawl](https://foundryvtt.com/packages/barbrawl) and [Drag Ruler](https://foundryvtt.com/packages/drag-ruler). But even those are by no means essential.
 
 ### Cypher-Specific Modules
 
-These modules have been written specifically to expand the functionality of the Cypher System.
+These modules have been written specifically to expand the functionality of the Cypher System, *and* are up to date.
 - [Active Effects for the Cypher System](https://foundryvtt.com/packages/cyphersystem-activeeffects)
-- [Cypher System Character Creation Pack/Compendium](https://foundryvtt.com/packages/cypher-addons-compendiums) (**Note:** The CSRD Compendium gives you everything you need. The Creation Pack is used to rigidly automate the character creation process, not to make that process easier. In fact, this module complicates using the system.)
-- [Cypher System Combat Tracker](https://foundryvtt.com/packages/cyphercombat)
-- [Cypher System Custom Sheets](https://foundryvtt.com/packages/cyphersheets) (**Note:** These are pre-made custom sheets you cannot customize. The base system allows you to customize the sheets with your own backgrounds & logos, but this functionality will be overwritten when using this module.)
-- [Nice(TSY) Cypher System Add-ons](https://foundryvtt.com/packages/nice-cypher-add-ons)
+
+There are other modules, but they are all out of date and not currently maintained.
 
 ### Modules with Cypher System Integration
 
@@ -61,7 +59,7 @@ These modules come pre-configured with Cypher-specific functionality.
 
 The [Cypher FVTT Dev Discord](https://discord.gg/C5zGgtyhwa) is where the development of the system is coordinated and its future discussed, but anyone is welcome to join and share best practices, ask questions on how to use the system, and share self-created resources for your games.
 
-You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl#7407.
+You can also reach me on the [official Foundry Discord](https://discord.gg/foundryvtt) or via Discord DM: @mrkwnzl.
 
 You can ask questions, file bug reports, and request features on [GitHub](https://github.com/mrkwnzl/cyphersystem-foundryvtt/issues/new/choose). If you want to contribute code to the system directly, please refer to the [Contribution Guidelines](https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/CONTRIBUTING.md) before you do.
 

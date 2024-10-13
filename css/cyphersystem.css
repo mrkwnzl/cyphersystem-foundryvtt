@@ -2,6 +2,7 @@
 
 :root {
   --cypher-font: 'Signika', sans-serif;
+  --cypher-background: url(../ui/parchment.jpg) repeat;
 }
 
 /* Global */
@@ -770,6 +771,7 @@ select.bar-attribute {
   width: -webkit-fill-available;
   width: -moz-available;
   padding: 0px 6px;
+  height: 27px;
 }
 
 .cyphersystem .tabs .item.active {
@@ -781,6 +783,7 @@ select.bar-attribute {
   border-bottom: none;
   border-radius: 3px 3px 0 0;
   padding: 0px 6px;
+  height: 27px;
 }
 
 .cyphersystem .items-list {
@@ -881,6 +884,27 @@ select.bar-attribute {
   line-height: 1.4;
 }
 
+.cyphersystem .item-control.item-delete,
+.cyphersystem .item-control.toggle-cypher-type,
+.cyphersystem .item-control.item-roll,
+.cyphersystem .item-control.item-pay,
+.cyphersystem .item-control.might-roll,
+.cyphersystem .item-control.speed-roll,
+.cyphersystem .item-control.intellect-roll {
+  text-align: center;
+}
+
+.cyphersystem .fa-item.archived,
+.cyphersystem .fa-item.unarchived,
+.cyphersystem .fa-item.cypher,
+.cyphersystem .fa-item.initiative,
+.cyphersystem .fa-item.aio-initiative,
+.cyphersystem .fa-item.aio-stat-roll,
+.cyphersystem .fa-item.stat-roll,
+.cyphersystem .fa-item.aio-pay-pool-points {
+  width: 14px;
+}
+
 .cyphersystem .item-favorite,
 .cyphersystem .item-favorite.alt {
   text-indent: 0px;
@@ -897,15 +921,25 @@ select.bar-attribute {
 } */
 
 .cyphersystem .items-list .item-quantity {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 80px;
-  flex: 0 0 80px;
+  -webkit-box-flex: 0 0 6em;
+  -ms-flex: 0 0 6em;
+  flex: 0 0 6em;
   text-align: center;
   white-space: nowrap;
   line-height: 1.4;
 }
 
 .cyphersystem .items-list .item-cypher-limit {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.cyphersystem .items-list .item-cypher-limit-label,
+.cyphersystem .items-list .prepared-spell-quantity,
+.cyphersystem .items-list .prepared-spell-label {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
@@ -1196,8 +1230,13 @@ select.bar-attribute {
 
 .cyphersystem .fa-sync-alt.stat {
   font-size: 11px;
-  vertical-align: 0px;
+  vertical-align: -1px;
   margin-left: 0px;
+}
+
+.cyphersystem .fa-plus-square.stat,
+.cyphersystem .fa-minus-square.stat {
+  vertical-align: -2px;
 }
 
 .cyphersystem .nonPC-stat-buttons {

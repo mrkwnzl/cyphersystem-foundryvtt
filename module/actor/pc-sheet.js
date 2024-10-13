@@ -59,11 +59,22 @@ export class CypherActorSheetPC extends CypherActorSheet {
       "Teen": "CYPHERSYSTEM.Teen"
     };
 
-    data.damageTrackChoices = {
-      "Hale": "CYPHERSYSTEM.Hale",
-      "Impaired": "CYPHERSYSTEM.Impaired",
-      "Debilitated": "CYPHERSYSTEM.Debilitated"
-    };
+    if (this.actor.system.settings.combat.additionalStepDamageTrack.active && !this.actor.system.basic.unmaskedForm == "Teen") {
+      let hurtLabel = this.actor.system.settings.combat.additionalStepDamageTrack.label || game.i18n.localize("CYPHERSYSTEM.Hurt");
+
+      data.damageTrackChoices = {
+        "Hale": "CYPHERSYSTEM.Hale",
+        "Hurt": hurtLabel,
+        "Impaired": "CYPHERSYSTEM.Impaired",
+        "Debilitated": "CYPHERSYSTEM.Debilitated"
+      };
+    } else {
+      data.damageTrackChoices = {
+        "Hale": "CYPHERSYSTEM.Hale",
+        "Impaired": "CYPHERSYSTEM.Impaired",
+        "Debilitated": "CYPHERSYSTEM.Debilitated"
+      };
+    }
 
     data.gameModeChoices = {
       "Cypher": "CYPHERSYSTEM.Cypher",
@@ -166,6 +177,52 @@ export class CypherActorSheetPC extends CypherActorSheet {
       let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
       let newValue = item.system.basic.damage - amount;
       item.update({"system.basic.damage": newValue});
+    });
+
+    // Add to stress points
+    html.find('.plus-one-stress').click(clickEvent => {
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 3 : 1;
+      let newValue = this.actor.system.combat.stress.quantity + amount;
+      this.actor.update({"system.combat.stress.quantity": newValue});
+    });
+
+    // Subtract from stress points
+    html.find('.minus-one-stress').click(clickEvent => {
+      let amount = (game.keyboard.isModifierActive('Alt')) ? 3 : 1;
+      let newValue = Math.max(this.actor.system.combat.stress.quantity - amount, 0);
+      this.actor.update({"system.combat.stress.quantity": newValue});
+    });
+
+    // Add to stress levels
+    html.find('.plus-one-stress-level').click(clickEvent => {
+      let newValue = this.actor.system.combat.stress.levels + 1;
+      this.actor.update({"system.combat.stress.levels": newValue});
+    });
+
+    // Subtract from stress levels
+    html.find('.minus-one-stress-level').click(clickEvent => {
+      let newValue = Math.max(this.actor.system.combat.stress.levels - 1, 0);
+      this.actor.update({"system.combat.stress.levels": newValue});
+    });
+
+    // Add to supernatural stress
+    html.find('.plus-one-supernatural-stress').click(clickEvent => {
+      let newValue = this.actor.system.combat.stress.supernaturalLevels + 1;
+      this.actor.update({"system.combat.stress.supernaturalLevels": newValue});
+    });
+
+    // Subtract from supernatural stress
+    html.find('.minus-one-supernatural-stress').click(clickEvent => {
+      let newValue = Math.max(this.actor.system.combat.stress.supernaturalLevels - 1, 0);
+      this.actor.update({"system.combat.stress.supernaturalLevels": newValue});
+    });
+
+    // Reset stress
+    html.find('.reset-stress').click(clickEvent => {
+      this.actor.update({
+        "system.combat.stress.quantity": 0,
+        "system.combat.stress.levels": 0,
+      });
     });
 
     // Change Armor Active

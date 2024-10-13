@@ -697,12 +697,12 @@ Hooks.on("renderChatMessage", function (message, html, data) {
       content: content,
       buttons: {
         apply: {
-          icon: '<i class="fas fa-check"></i>',
+          icon: '<i class="fa-item fas fa-check"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Apply"),
           callback: (html) => applyXPFromIntrusion(actor, html.find('#selectPC').val(), data.message._id, 1)
         },
         cancel: {
-          icon: '<i class="fas fa-times"></i>',
+          icon: '<i class="fa-item fas fa-times"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
           callback: () => {}
         }
