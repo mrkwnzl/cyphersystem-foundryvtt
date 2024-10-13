@@ -679,5 +679,7 @@
   "CYPHERSYSTEM.ExecuteMacroAsGM": "Executar macro com persmissões do Mestre",
   "CYPHERSYSTEM.Favorite": "Favorito",
   "CYPHERSYSTEM.ItemFavorite": "Fixar Item no Topo",
-  "CYPHERSYSTEM.HideFavoriteButton": "Esconder Botão de Favorito"
+  "CYPHERSYSTEM.HideFavoriteButton": "Esconder Botão de Favorito",
+  "CYPHERSYSTEM.Embed.prependCite": "<p>{prependCite}{description}</p>",
+  "CYPHERSYSTEM.Embed.general": "<p>{description}</p>"
 }
