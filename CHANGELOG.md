@@ -4,16 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.2.0] - Unreleased
+## [3.2.0] - 2024-10-13
 ### Added
 - Compatibility with The Magnus Archive RPG, inluding:
-  - An optional stress tracker. Stress levels are hindrances on rolls.
+  - An optional stress tracker. Stress levels hindrance stat rolls.
   - The option to strack stress from supenatural sources.
   - An additional step on the damage track between hale and impared, that does nothing other than to exist.
 
 ### Changed
 - Icons on actor sheets change when holding to better communicate alt functions.
 - Some minor styling changes to account for the new stress rules.
+- The chat output of stat rolls now always shows the difficulty modifiers, even if the task is unmodified.
 
 ## [3.1.1] - 2024-09-15
 ### Fixed

@@ -636,6 +636,7 @@
   "CYPHERSYSTEM.TaskHinderedBySteps": "Task hindered by {amount} steps.",
   "CYPHERSYSTEM.TaskHinderedByStep": "Task hindered.",
   "CYPHERSYSTEM.TaskUnmodified": "Task is unmodified.",
+  "CYPHERSYSTEM.TaskUnmodifiedChat": "Task is unmodified",
   "CYPHERSYSTEM.AttackDealsPointDamage": "Attack deals {amount} point of damage.",
   "CYPHERSYSTEM.AttackDealsPointsDamage": "Attack deals {amount} points of damage.",
   "CYPHERSYSTEM.TaskCostsPoints": "Total cost: {amount} {pool} points.",

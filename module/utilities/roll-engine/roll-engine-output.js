@@ -49,7 +49,7 @@ export async function rollEngineOutput(data) {
   }
 
   // Final task difficulty
-  let taskDifficulty = "";
+  let taskDifficulty = game.i18n.localize("CYPHERSYSTEM.TaskUnmodifiedChat");
   if (data.baseDifficulty >= 0 && data.finalDifficulty >= 0) {
     taskDifficulty = game.i18n.localize("CYPHERSYSTEM.Difficulty") + ": " + data.finalDifficulty + " (" + Math.max(0, data.finalDifficulty * 3) + ")";
   } else if (modifiedBy) {
@@ -75,7 +75,6 @@ export async function rollEngineOutput(data) {
 
   // Stress information
   let stressInfo = "";
-  console.log(data.stressModifier);
 
   if (actor.system.settings.combat.stress.active && data.stressModifier == 1) {
     stressInfo = `${game.i18n.localize("CYPHERSYSTEM.Stress")}: ${data.stressModifier} ${game.i18n.localize("CYPHERSYSTEM.level")}<br>`;

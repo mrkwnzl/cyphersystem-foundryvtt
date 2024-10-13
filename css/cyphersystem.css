@@ -2,6 +2,7 @@
 
 :root {
   --cypher-font: 'Signika', sans-serif;
+  --cypher-background: url(../ui/parchment.jpg) repeat;
 }
 
 /* Global */
