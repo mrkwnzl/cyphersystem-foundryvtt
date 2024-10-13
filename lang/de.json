@@ -712,5 +712,6 @@
   "CYPHERSYSTEM.NoTypeCypher": "Kein Typ/spezieller Cypher (schalte zwischen subtilem/manifestem Cypher; Alt-Klick, um fantastischen Cypher zu schalten)",
   "CYPHERSYSTEM.ManifestCypher": "Manifester Cypher (schalte zwischen subtilem/manifestem Cypher; Alt-Klick, um fantastischen Cypher zu schalten)",
   "CYPHERSYSTEM.StressLevels": "Stressstufen",
-  "CYPHERSYSTEM.SupernaturalStressLabel": "Zusätzlicher Zähler"
+  "CYPHERSYSTEM.SupernaturalStressLabel": "Zusätzlicher Zähler",
+  "CYPHERSYSTEM.TaskUnmodifiedChat": "Aufgabenschwierigkeit ist unverändert"
 }
