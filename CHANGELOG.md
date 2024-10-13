@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - An additional step on the damage track between hale and impaired, that does nothing other than to exist.
   
 ### Changed
-- Icons on actor sheets change when holding to better communicate alt functions.
+- Icons on actor sheets change when holding alt to better communicate alt functions.
 - Some minor styling changes to account for the new stress rules.
 - The chat output of stat rolls now always shows the difficulty modifiers, even if the task is unmodified.
 
