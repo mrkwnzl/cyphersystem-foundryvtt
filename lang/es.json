@@ -712,5 +712,6 @@
   "CYPHERSYSTEM.StressLevelSummary": "Nivel de estrés: 1",
   "CYPHERSYSTEM.StressLevelsSummary": "Niveles de estrés: {amount}",
   "CYPHERSYSTEM.SupernaturalStress": "Niveles de estrés adquiridos de fuentes sobrenaturales",
-  "CYPHERSYSTEM.NoTypeFantasticCypher": "Dispositivo especial fantástico (alterna dispositivo sutil/manifiesto, alt-click para alternar dispositivo fantástico)"
+  "CYPHERSYSTEM.NoTypeFantasticCypher": "Dispositivo especial fantástico (alterna dispositivo sutil/manifiesto, alt-click para alternar dispositivo fantástico)",
+  "CYPHERSYSTEM.TaskUnmodifiedChat": "Tarea sin modificar"
 }
