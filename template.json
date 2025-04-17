@@ -108,6 +108,7 @@
             "label": "",
             "hasEdge": false
           },
+          "showPrice": false,
           "tags": {
             "active": false,
             "labelCategory1": "",
@@ -212,7 +213,8 @@
           "materials": {
             "active": false,
             "sortyByLevel": false,
-            "label": ""
+            "label": "",
+            "displayMode": "price"
           }
         }
       },
@@ -572,6 +574,14 @@
         "archived": false,
         "favorite": false
       },
+      "price": {
+        "price": {
+          "value": 0,
+          "currency": "",
+          "priceTag": "",
+          "category": "none"
+        }
+      },
       "rollButton": {
         "settings": {
           "rollButton": {
@@ -615,7 +625,8 @@
     "ammo": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": "",
@@ -625,7 +636,8 @@
     "armor": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "type": "light armor",
@@ -643,7 +655,8 @@
     "artifact": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": "",
@@ -661,7 +674,8 @@
       "templates": [
         "version",
         "core",
-        "rollButton"
+        "rollButton",
+        "price"
       ],
       "basic": {
         "type": "light weapon",
@@ -681,7 +695,8 @@
     "cypher": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": "",
@@ -698,7 +713,8 @@
     "equipment": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": "",
@@ -730,7 +746,8 @@
     "material": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": "",
@@ -740,7 +757,8 @@
     "oddity": {
       "templates": [
         "version",
-        "core"
+        "core",
+        "price"
       ],
       "basic": {
         "level": ""

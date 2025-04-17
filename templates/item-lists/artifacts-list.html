@@ -67,7 +67,7 @@
         <img class="description-image {{#if item.system.archived}}archived-image{{/if}}" src="{{item.img}}" width="50" height="50" />
         {{#if item.system.basic.identified}}
           {{{enrichedHTMLItems ../this "description" item._id}}}
-
+          {{{itemPrice ../this.actor item}}}
           {{{activeTags ../this item.flags.cyphersystem.tags item.flags.cyphersystem.recursions}}}
         {{else}}
           <p>{{localize 'CYPHERSYSTEM.???'}}</p>

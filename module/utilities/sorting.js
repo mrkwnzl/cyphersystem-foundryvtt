@@ -95,7 +95,7 @@ export function byCypherType(itemA, itemB) {
   return 0;
 }
 
-// Sort items by indentified status
+// Sort items by identified status
 export function byIdentifiedStatus(itemA, itemB) {
   let ratingA;
   let ratingB;
@@ -125,6 +125,34 @@ export function byFavoriteStatus(itemA, itemB) {
 
   if (!itemB.system.favorite) {ratingB = 2;}
   else if (itemB.system.favorite === true) {ratingB = 1;}
+
+  if (ratingA < ratingB) {
+    return -1;
+  }
+  if (ratingA > ratingB) {
+    return 1;
+  }
+  return 0;
+}
+
+// Sort item by price
+export function byPriceCategory(itemA, itemB) {
+  let ratingA;
+  let ratingB;
+
+  if (itemA.system.price.category === "none") {ratingA = 6;}
+  else if (itemA.system.price.category === "inexpensive") {ratingA = 1;}
+  else if (itemA.system.price.category === "moderate") {ratingA = 2;}
+  else if (itemA.system.price.category === "expensive") {ratingA = 3;}
+  else if (itemA.system.price.category === "very expensive") {ratingA = 4;}
+  else if (itemA.system.price.category === "exorbitant") {ratingA = 5;}
+
+  if (itemB.system.price.category === "none") {ratingB = 6;}
+  else if (itemB.system.price.category === "inexpensive") {ratingB = 1;}
+  else if (itemB.system.price.category === "moderate") {ratingB = 2;}
+  else if (itemB.system.price.category === "expensive") {ratingB = 3;}
+  else if (itemB.system.price.category === "very expensive") {ratingB = 4;}
+  else if (itemB.system.price.category === "exorbitant") {ratingB = 5;}
 
   if (ratingA < ratingB) {
     return -1;

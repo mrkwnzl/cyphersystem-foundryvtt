@@ -156,4 +156,65 @@ export async function registerHandlebars() {
 
     return recursionOutput + tagOutput;
   });
+
+  Handlebars.registerHelper("itemPrice", function (actor, item) {
+    if (actor.system.settings.general.showPrice === "none") return;
+
+    let priceString = "";
+    let priceStringCategory = "";
+
+    if (!item.system.price) {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.None");
+      priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: priceStringCategory}) + "</p>";
+
+      return priceString;
+    }
+
+    let priceTag = item.system.price.priceTag;
+
+    if (item.system.price.category == "none") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.None");
+    } else if (item.system.price.category == "inexpensive") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.PriceInexpensive");
+    } else if (item.system.price.category == "moderate") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.PriceModerate");
+    } else if (item.system.price.category == "expensive") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.PriceExpensive");
+    } else if (item.system.price.category == "very expensive") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.PriceVeryExpensive");
+    } else if (item.system.price.category == "exorbitant") {
+      priceStringCategory = game.i18n.localize("CYPHERSYSTEM.PriceExorbitant");
+    }
+
+    if (actor.system.settings.general.showPrice == "category") {
+      priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: priceStringCategory}) + "</p>";
+    } else if (actor.system.settings.general.showPrice == "priceTag") {
+      if (priceTag != "") {
+        priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: priceTag}) + "</p>";
+      } else {
+        priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: game.i18n.localize("CYPHERSYSTEM.None")}) + "</p>";
+      }
+    } else if (actor.system.settings.general.showPrice == "both") {
+      if (priceTag != "") {
+        priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: priceStringCategory + "/" + item.system.price.priceTag}) + "</p>";
+      } else {
+        priceString = "<p>" + game.i18n.format("CYPHERSYSTEM.PriceDescription", {price: priceStringCategory}) + "</p>";
+      }
+    }
+
+    return priceString;
+  });
+
+  Handlebars.registerHelper("translateItemPrice", function (price) {
+    let priceString = "";
+
+    if (price == "none") priceString = game.i18n.localize("CYPHERSYSTEM.None");
+    else if (price == "inexpensive") priceString = game.i18n.localize("CYPHERSYSTEM.PriceInexpensive");
+    else if (price == "moderate") priceString = game.i18n.localize("CYPHERSYSTEM.PriceModerate");
+    else if (price == "expensive") priceString = game.i18n.localize("CYPHERSYSTEM.PriceExpensive");
+    else if (price == "very expensive") priceString = game.i18n.localize("CYPHERSYSTEM.PriceVeryExpensive");
+    else if (price == "exorbitant") priceString = game.i18n.localize("CYPHERSYSTEM.PriceExorbitant");
+
+    return priceString;
+  });
 }

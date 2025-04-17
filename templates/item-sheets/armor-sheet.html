@@ -63,9 +63,8 @@
     {{else if (and actor.system.settings.general.tags.active sheetSettings.isMaskForm)}}
       <a class="item" data-tab="tags" style="flex: 0 0 45px;" title="{{localize 'CYPHERSYSTEM.Tags'}}"><i class="fa-item fa-solid fa-hashtag"></i></a>
     {{/if}}
-    {{#if actor}}
-      <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-item fa-solid fa-gear"></i></a>
-    {{/if}}
+    <a class="item" data-tab="settings" style="flex: 0 0 45px;"><i class="fa-item fa-solid fa-gear"></i></a>
+
   </nav>
 
   {{!-- Sheet Body --}}
@@ -90,7 +89,12 @@
     </div>
 
     {{!-- Settings Tab --}}
-    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-item.html}}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      {{#if actor}}
+        {{> systems/cyphersystem/templates/tabs/settings-tab/settings-item.html}}
+      {{/if}}
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-price.html}}
+    </div>
 
   </section>
 </form>

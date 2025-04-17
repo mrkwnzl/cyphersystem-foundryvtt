@@ -58,6 +58,16 @@
           </div>
         </li>
       {{/if}}
+      <li class="item flexrow item-settings">
+        <div class="settings-list">
+          {{localize 'CYPHERSYSTEM.ShowPrice'}}
+        </div>
+        <div class="item-quantity">
+          <select class="auto-margin settings-input" name="system.settings.general.showPrice">
+            {{selectOptions showPriceChoices selected=actor.system.settings.general.showPrice localize=true}}
+          </select>
+        </div>
+      </li>
       {{#if (eq actor.system.basic.unmaskedForm "Mask")}}
         <li class="item flexrow item-settings">
           <div class="settings-list">
@@ -536,8 +546,22 @@
       {{#if actor.system.settings.equipment.materials.active}}
         <li class="item flexrow item-settings" style="border-top-style: dashed">
           <div class="settings-list">
+            {{localize 'CYPHERSYSTEM.DisplayMode'}}
+          </div>
+          <div class="item-quantity">
+            <select class="auto-margin settings-input" name="system.settings.equipment.materials.displayMode">
+              {{selectOptions materialsDisplayModeChoices selected=actor.system.settings.equipment.materials.displayMode}}
+            </select>
+          </div>
+        </li>
+        <li class="item flexrow item-settings" style="border-top-style: dashed">
+          <div class="settings-list">
             <input type="checkbox" name="system.settings.equipment.materials.sortByLevel" {{checked actor.system.settings.equipment.materials.sortByLevel}}>
-            &nbsp;{{localize 'CYPHERSYSTEM.SortMaterialsByLevel'}}
+            &nbsp;{{#if (eq actor.system.settings.equipment.materials.displayMode "price")}}
+              {{localize 'CYPHERSYSTEM.SortMaterialsByPrice'}}
+            {{else}}
+              {{localize 'CYPHERSYSTEM.SortMaterialsByLevel'}}
+            {{/if}}
           </div>
         </li>
       {{/if}}

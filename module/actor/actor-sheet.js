@@ -16,7 +16,8 @@ import {
   byIdentifiedStatus,
   byItemLevel,
   byFavoriteStatus,
-  byCypherType
+  byCypherType,
+  byPriceCategory
 } from "../utilities/sorting.js";
 import {useRecoveries} from "../utilities/actor-utilities.js";
 import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
@@ -114,6 +115,20 @@ export class CypherActorSheet extends ActorSheet {
 
     // Prepare items and return
     this.cyphersystem(data);
+
+    // Select options
+    data.materialsDisplayModeChoices = {
+      "price": game.i18n.localize("CYPHERSYSTEM.Price"),
+      "level": game.i18n.localize("CYPHERSYSTEM.Level")
+    };
+
+    data.showPriceChoices = {
+      "none": game.i18n.localize("CYPHERSYSTEM.None"),
+      "category": game.i18n.localize("CYPHERSYSTEM.pricecategory"),
+      "priceTag": game.i18n.localize("CYPHERSYSTEM.pricetag"),
+      "both": game.i18n.localize("CYPHERSYSTEM.PriceBoth")
+    };
+
     return data;
   }
 
@@ -324,14 +339,21 @@ export class CypherActorSheet extends ActorSheet {
       }
     }
 
-    // Sort my material level
+    // Sort by material level
     if (this.actor.type == "pc") {
-      if (actorData.system.settings.equipment.materials.sortByLevel) {
+      if (actorData.system.settings.equipment.materials.sortByLevel && actorData.system.settings.equipment.materials.displayMode == "level") {
         materials.sort(byItemLevel);
       }
     }
 
-    // Sort by tyoe
+    // Sort by material price
+    if (this.actor.type == "pc") {
+      if (actorData.system.settings.equipment.materials.sortByLevel && actorData.system.settings.equipment.materials.displayMode == "price") {
+        materials.sort(byPriceCategory);
+      }
+    }
+
+    // Sort by type
     if (this.actor.type == "pc") {
       if (actorData.system.settings.equipment.cyphers.sortByType) {
         cyphers.sort(byCypherType);
