@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Actors now have the option to show the item price in the item description on the character sheet.
 - USER ACTION REQUIRED: Crafting material can now display the price instead of the level in the equipment tab. All characters now default to the price instead of the level because that is what Cypher uses. If you are playing Numenera, you need to change this in the settings tab of the character.
 
+### Changed
+- Updated translation files.
+
 ## [3.2.1] - 2024-10-13
 ### Fixed
 - The labels for stress are now applied correctly.
