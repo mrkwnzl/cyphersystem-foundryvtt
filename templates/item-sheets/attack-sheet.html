@@ -91,7 +91,10 @@
     </div>
 
     {{!-- Settings Tab --}}
-    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-item.html}}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-item.html}}
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-price.html}}
+    </div>
 
   </section>
 </form>

@@ -921,9 +921,9 @@ select.bar-attribute {
 } */
 
 .cyphersystem .items-list .item-quantity {
-  -webkit-box-flex: 0 0 6em;
-  -ms-flex: 0 0 6em;
-  flex: 0 0 6em;
+  -webkit-box-flex: 0 0 6.8em;
+  -ms-flex: 0 0 6.8em;
+  flex: 0 0 6.8em;
   text-align: center;
   white-space: nowrap;
   line-height: 1.4;

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2025-04-17
+### Added
+- Items for which it makes sense now have a setting for a price categories and/or a price tag (a freeform field in which you can note down the price of an item). Modules can also use `item.price.value` (for integers) and `item.price.currency` (for strings) as a way of interacting with prices as well, but these data points are independent of the price categories and price tags.
+- Actors now have the option to show the item price in the item description on the character sheet.
+- USER ACTION REQUIRED: Crafting material can now display the price instead of the level in the equipment tab. All characters now default to the price instead of the level because that is what Cypher uses. If you are playing Numenera, you need to change this in the settings tab of the character.
+
 ## [3.2.1] - 2024-10-13
 ### Fixed
 - The labels for stress are now applied correctly.

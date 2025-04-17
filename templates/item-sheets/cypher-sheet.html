@@ -74,7 +74,10 @@
     </div>
 
     {{!-- Settings Tab --}}
-    {{> systems/cyphersystem/templates/tabs/settings-tab/settings-cyphers-and-artifacts.html}}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-cyphers-and-artifacts.html}}
+      {{> systems/cyphersystem/templates/tabs/settings-tab/settings-price.html}}
+    </div>
 
   </section>
 </form>

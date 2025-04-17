@@ -146,7 +146,7 @@ export async function rollEngineOutput(data) {
 
   // Effort information
   let effortDamageInfo = "";
-  if (data.effortDamage == 1) {
+  if (data.damageEffort == 1) {
     effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.point")}<br>`;
   } else {
     effortDamageInfo = `${game.i18n.localize("CYPHERSYSTEM.Effort")}: ${data.damageEffort} ${game.i18n.localize("CYPHERSYSTEM.points")}<br>`;

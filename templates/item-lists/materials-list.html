@@ -19,7 +19,13 @@
         </a>
       {{/if}}
     </h4>
-    <div class="item-quantity">{{#if item.system.basic.level}}{{{item.system.basic.level}}}{{else}}—{{/if}}</div>
+    <div class="item-quantity">
+      {{#if (eq ../this.actor.system.settings.equipment.materials.displayMode "price")}}
+        {{{translateItemPrice item.system.price.category}}}
+      {{else}}
+        {{#if item.system.basic.level}}{{{item.system.basic.level}}}{{else}}—{{/if}}
+      {{/if}}
+    </div>
     <div class="item-quantity">
       <a class="item-control minus-one {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
         <i class="fa-item quantity fa-regular fa-minus-square"></i>

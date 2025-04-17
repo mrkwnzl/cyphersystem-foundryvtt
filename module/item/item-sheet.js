@@ -300,6 +300,15 @@ export class CypherItemSheet extends ItemSheet {
       "6": "6 " + game.i18n.localize("CYPHERSYSTEM.levels")
     };
 
+    data.priceCategoryChoices = {
+      "none": game.i18n.localize("CYPHERSYSTEM.None"),
+      "inexpensive": game.i18n.localize("CYPHERSYSTEM.PriceInexpensive"),
+      "moderate": game.i18n.localize("CYPHERSYSTEM.PriceModerate"),
+      "expensive": game.i18n.localize("CYPHERSYSTEM.PriceExpensive"),
+      "very expensive": game.i18n.localize("CYPHERSYSTEM.PriceVeryExpensive"),
+      "exorbitant": game.i18n.localize("CYPHERSYSTEM.PriceExorbitant")
+    };
+
     if (data.actor?.type == "pc") {
       // Select options for ability categories
       let labelAbilityCategory1 = data.actor?.system.settings.abilities.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Abilities");
