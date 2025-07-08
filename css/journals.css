@@ -15,6 +15,10 @@
   margin: 0px;
 }
 
+.sheet.journal-entry .journal-entry-page blockquote {
+  padding: 0 1rem;
+}
+
 /* Tables */
 
 .sheet.journal-entry .csrd-table,
@@ -35,31 +39,31 @@
 }
 
 .sheet.journal-entry .csrd-td-equipment {
-  width: 250px
+  width: 250px;
 }
 
 .sheet.journal-entry .csrd-td-armor {
-  width: 70px
+  width: 70px;
 }
 
 .sheet.journal-entry .csrd-td-hindrance {
-  width: 85px
+  width: 85px;
 }
 
 .sheet.journal-entry .csrd-td-targeting-task {
-  width: 200px
+  width: 200px;
 }
 
 .sheet.journal-entry .csrd-td-price {
-  width: 75px
+  width: 75px;
 }
 
 .sheet.journal-entry .csrd-td-price-category {
-  width: 100px
+  width: 100px;
 }
 
 .sheet.journal-entry .csrd-td-number-collisions {
-  width: 160px
+  width: 160px;
 }
 
 /* Details & Summary */
