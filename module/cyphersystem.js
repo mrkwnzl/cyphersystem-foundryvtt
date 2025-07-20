@@ -335,11 +335,9 @@ Hooks.once("ready", async function () {
 });
 
 Hooks.on("getSceneControlButtons", function (hudButtons) {
-  let tokenControls = hudButtons.find(val => {
-    return val.name == "token";
-  });
+  let tokenControls = hudButtons.tokens;
   if (tokenControls) {
-    tokenControls.tools.push({
+    tokenControls.tools["rollDifficulty"] = {
       name: "rollDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
       icon: "fa-solid fa-crosshairs-simple",
@@ -347,10 +345,10 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
         renderRollDifficultyForm(true);
       },
       button: true
-    });
+    };
   }
   if (tokenControls && game.user.isGM) {
-    tokenControls.tools.push({
+    tokenControls.tools["calculateDifficulty"] = {
       name: "calculateDifficulty",
       title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
       icon: "fas fa-calculator",
@@ -358,10 +356,10 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
         calculateAttackDifficulty();
       },
       button: true
-    });
+    };
   }
   if (tokenControls) {
-    tokenControls.tools.push({
+    tokenControls.tools["gmiRange"] = {
       name: "gmiRange",
       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
       icon: "fas fa-exclamation-triangle",
@@ -369,10 +367,10 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
         gmiRangeForm();
       },
       button: true
-    });
+    };
   }
   if (tokenControls && game.user.isGM) {
-    tokenControls.tools.push({
+    tokenControls.tools["proposeGMI"] = {
       name: "proposeGMI",
       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
       icon: "fas fa-bolt",
@@ -380,7 +378,7 @@ Hooks.on("getSceneControlButtons", function (hudButtons) {
         proposeIntrusion("", "");
       },
       button: true
-    });
+    };
   }
 });
 
