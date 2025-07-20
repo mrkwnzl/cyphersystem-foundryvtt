@@ -226,39 +226,39 @@ Hooks.once("init", async function () {
   CONFIG.Item.documentClass = CypherItem;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cypher", CypherActorSheetPC, {
+  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetPC, {
     types: ['pc'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassPC"
   });
-  Actors.registerSheet("cypher", CypherActorSheetNPC, {
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetNPC, {
     types: ['npc'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassNPC"
   });
-  Actors.registerSheet("cypher", CypherActorSheetMarker, {
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetMarker, {
     types: ['marker'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassToken"
   });
-  Actors.registerSheet("cypher", CypherActorSheetCommunity, {
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetCommunity, {
     types: ['community'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassCommunity"
   });
-  Actors.registerSheet("cypher", CypherActorSheetCompanion, {
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetCompanion, {
     types: ['companion'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassCompanion"
   });
-  Actors.registerSheet("cypher", CypherActorSheetVehicle, {
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheetVehicle, {
     types: ['vehicle'],
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassVehicle"
   });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cypher", CypherItemSheet, {
+  foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet("cypher", CypherItemSheet, {
     makeDefault: true,
     label: "CYPHERSYSTEM.SheetClassItem"
   });
