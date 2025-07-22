@@ -2,14 +2,14 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "compatibility": {
     "minimum": "13",
     "verified": "13.346"
   },
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v3.3.1/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v3.3.2/release.zip",
   "authors": [
     {
       "name": "Marko Wenzel",
@@ -18,7 +18,11 @@
     }
   ],
   "esmodules": ["module/cyphersystem.js"],
-  "styles": ["css/cyphersystem.css", "css/journals.css", "css/tables.css"],
+  "styles": [
+    { "src": "css/cyphersystem.css" },
+    { "src": "css/journals.css" },
+    { "src": "css/tables.css" }
+  ],
   "flags": {
     "hotReload": {
       "extensions": ["css", "json", "js", "html"]
@@ -110,7 +114,8 @@
         "scripting-macros",
         "secret-settings"
       ],
-      "folders": []
+      "folders": [],
+      "color": null
     }
   ],
   "languages": [

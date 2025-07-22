@@ -346,57 +346,6 @@ Hooks.on("getSceneControlButtons", (controls) => {
   }
 });
 
-// Replace with above when V13 is stable
-// Hooks.on("getSceneControlButtons", function (hudButtons) {
-//   let tokenControls = hudButtons.find(val => {
-//     return val.name == "token";
-//   });
-//   if (tokenControls) {
-//     tokenControls.tools.push({
-//       name: "rollDifficulty",
-//       title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
-//       icon: "fa-solid fa-crosshairs-simple",
-//       onClick: () => {
-//         renderRollDifficultyForm(true);
-//       },
-//       button: true
-//     });
-//   }
-//   if (tokenControls && game.user.isGM) {
-//     tokenControls.tools.push({
-//       name: "calculateDifficulty",
-//       title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
-//       icon: "fas fa-calculator",
-//       onClick: () => {
-//         calculateAttackDifficulty();
-//       },
-//       button: true
-//     });
-//   }
-//   if (tokenControls) {
-//     tokenControls.tools.push({
-//       name: "gmiRange",
-//       title: game.i18n.localize("CYPHERSYSTEM.GMIRange"),
-//       icon: "fas fa-exclamation-triangle",
-//       onClick: () => {
-//         gmiRangeForm();
-//       },
-//       button: true
-//     });
-//   }
-//   if (tokenControls && game.user.isGM) {
-//     tokenControls.tools.push({
-//       name: "proposeGMI",
-//       title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
-//       icon: "fas fa-bolt",
-//       onClick: () => {
-//         proposeIntrusion("", "");
-//       },
-//       button: true
-//     });
-//   }
-// });
-
 Hooks.on("preCreateActor", async function (actor) {
   if (["pc", "community"].includes(actor.type)) {
     actor.updateSource({
@@ -518,15 +467,8 @@ Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
-  // Support for Drag Ruler
-  if (actor.type !== "marker" && actor.type !== "community") {
-    document.updateSource({
-      "flags.cyphersystem.toggleDragRuler": true,
-    });
-  } else {
-    document.updateSource({
-      "flags.cyphersystem.toggleDragRuler": false,
-    });
+  // Support for Ruler
+  if (actor.type == "marker" || actor.type == "community") {
   }
 
   // Support for Bar Brawl

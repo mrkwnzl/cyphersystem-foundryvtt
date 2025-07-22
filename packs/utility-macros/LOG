@@ -1,15 +1,3 @@
-2025/07/08-12:39:13.985703 31436f000 Recovering log #1283
-2025/07/08-12:39:13.986099 31436f000 Delete type=0 #1283
-2025/07/08-12:39:13.986132 31436f000 Delete type=3 #1282
-2025/07/08-15:47:07.006098 31a4f9000 Level-0 table #1287: started
-2025/07/08-15:47:07.006659 31a4f9000 Level-0 table #1287: 36005 bytes OK
-2025/07/08-15:47:07.006881 31a4f9000 Delete type=0 #1285
-2025/07/08-15:47:07.007853 31a4f9000 Manual compaction at level-0 from '!folders!4UbhADT9HJqnF5SH' @ 72057594037927935 : 1 .. '!macros!zsIv77BoamIDFfk2' @ 0 : 0; will stop at (end)
-2025/07/08-15:47:07.008751 31a4f9000 Manual compaction at level-1 from '!folders!4UbhADT9HJqnF5SH' @ 72057594037927935 : 1 .. '!macros!zsIv77BoamIDFfk2' @ 0 : 0; will stop at '!macros!zsIv77BoamIDFfk2' @ 153 : 1
-2025/07/08-15:47:07.008762 31a4f9000 Compacting 1@1 + 1@2 files
-2025/07/08-15:47:07.009334 31a4f9000 Generated table #1288@1: 37 keys, 36252 bytes
-2025/07/08-15:47:07.009341 31a4f9000 Compacted 1@1 + 1@2 files => 36252 bytes
-2025/07/08-15:47:07.009389 31a4f9000 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/07/08-15:47:07.009413 31a4f9000 Delete type=2 #1287
-2025/07/08-15:47:07.009453 31a4f9000 Delete type=2 #1213
-2025/07/08-15:47:07.010035 31a4f9000 Manual compaction at level-1 from '!macros!zsIv77BoamIDFfk2' @ 153 : 1 .. '!macros!zsIv77BoamIDFfk2' @ 0 : 0; will stop at (end)
+2025/07/22-15:21:49.583914 30f5e2000 Recovering log #1296
+2025/07/22-15:21:49.584291 30f5e2000 Delete type=0 #1296
+2025/07/22-15:21:49.584322 30f5e2000 Delete type=3 #1295
