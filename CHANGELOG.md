@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.2] - unreleased
+## [3.3.2] - 2025-07-22
 ### Fixed
-- Compatibility with Foundry V13.
+- Compatibility with Foundry V13. It also requires Foundry V13+ going forward.
 
 ## [3.3.1] - 2025-04-17
 ### Added
