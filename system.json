@@ -2,37 +2,30 @@
   "id": "cyphersystem",
   "title": "Cypher System",
   "description": "A flexible implementation of the Cypher System for Foundry VTT.",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12.331"
+    "minimum": "13",
+    "verified": "13.346"
   },
   "url": "https://github.com/mrkwnzl/cyphersystem-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/main/system.json",
-  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v3.3.1/release.zip",
+  "download": "https://github.com/mrkwnzl/cyphersystem-foundryvtt/releases/download/v3.3.2/release.zip",
   "authors": [
     {
       "name": "Marko Wenzel",
       "discord": "mrkwnzl",
-      "flags": { }
+      "flags": {}
     }
   ],
-  "esmodules": [
-    "module/cyphersystem.js"
-  ],
+  "esmodules": ["module/cyphersystem.js"],
   "styles": [
-    "css/cyphersystem.css",
-    "css/journals.css",
-    "css/tables.css"
+    { "src": "css/cyphersystem.css" },
+    { "src": "css/journals.css" },
+    { "src": "css/tables.css" }
   ],
   "flags": {
     "hotReload": {
-      "extensions": [
-        "css",
-        "json",
-        "js",
-        "html"
-      ]
+      "extensions": ["css", "json", "js", "html"]
     }
   },
   "packs": [
@@ -42,7 +35,7 @@
       "system": "cyphersystem",
       "path": "packs/roll-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -54,7 +47,7 @@
       "system": "cyphersystem",
       "path": "packs/markers",
       "type": "Actor",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -66,7 +59,7 @@
       "system": "cyphersystem",
       "path": "packs/scenes",
       "type": "Scene",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -78,7 +71,7 @@
       "system": "cyphersystem",
       "path": "packs/utility-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -90,7 +83,7 @@
       "system": "cyphersystem",
       "path": "packs/scripting-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -102,7 +95,7 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -121,7 +114,8 @@
         "scripting-macros",
         "secret-settings"
       ],
-      "folders": [ ]
+      "folders": [],
+      "color": null
     }
   ],
   "languages": [
@@ -129,31 +123,31 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "es",
       "name": "Español",
       "path": "lang/es.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt_BR.json",
-      "flags": { }
+      "flags": {}
     }
   ],
   "socket": true,

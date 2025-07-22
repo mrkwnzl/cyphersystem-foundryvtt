@@ -1,8 +1,10 @@
 /* Definitions */
 
 :root {
-  --cypher-font: 'Signika', sans-serif;
+  --cypher-font: "Signika", sans-serif;
   --cypher-background: url(../ui/parchment.jpg) repeat;
+  --input-box-shadow: inset 0 0 6px var(--input-background-color);
+  --input-background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Global */
@@ -19,45 +21,45 @@
   align-items: center;
 }
 
-#chat-log .message-content {
+.chat-log .message-content {
   line-height: 1.4;
 }
 
-#chat-log .message .message-content ul,
+.chat-log .message .message-content ul,
 ol,
 .flavor-text ul,
 ol {
   margin: 0 0 0.2em 0;
 }
 
-#chat-log .message .message-content .pdfoundry-link {
+.chat-log .message .message-content .pdfoundry-link {
   font-size: smaller;
   margin: 0 1px 0 1px;
 }
 
-#chat-log .message .message-content ul,
+.chat-log .message .message-content ul,
 .flavor-text ul {
   list-style-type: disc;
 }
 
-#chat-log .message .flavor-text p:first-of-type,
+.chat-log .message .flavor-text p:first-of-type,
 .flavor-text p > p {
   margin: 0 0 0.5em 0;
 }
 
-#chat-log .message .flavor-text p:last-of-type {
+.chat-log .message .flavor-text p:last-of-type {
   margin: 0 0 0 0;
 }
 
-#chat-log .message .message-content blockquote,
+.chat-log .message .message-content blockquote,
 .flavor-text blockquote {
   margin: 0 0 0 10px;
   padding: 0 0 0 10px;
 }
 
-#chat-log .table-result a.entity-link,
-#chat-log .table-result a.content-link,
-#chat-log .table-result a.pdfoundry-link {
+.chat-log .table-result a.entity-link,
+.chat-log .table-result a.content-link,
+.chat-log .table-result a.pdfoundry-link {
   display: inline-block;
   max-width: 225px;
   white-space: nowrap;
@@ -66,66 +68,64 @@ ol {
   vertical-align: middle;
 }
 
-#chat-log .hr-chat {
+.chat-log .hr-chat {
   margin-top: 1px;
   margin-bottom: 2px;
   border-bottom: none;
   border-top: 1px solid #7a7971;
 }
 
-#chat-log .roll-result-hr {
-  margin-top: 3px;
-  margin-bottom: 3px;
+.chat-log .roll-result-hr {
+  margin: 0 3px;
   border-bottom: none;
   border-top: 3px double #7a7971;
   width: 95%;
 }
 
-#chat-log .intrusion {
+.chat-log .intrusion {
   color: red;
 }
 
-#chat-log .effect1718 {
+.chat-log .effect1718 {
   color: blue;
 }
 
-#chat-log .effect1920 {
+.chat-log .effect1920 {
   color: green;
 }
 
-#chat-log .roll-result {
+.chat-log .roll-result {
   font-size: 1em;
   font-weight: bold;
 }
 
-#chat-log .roll-difficulty {
+.chat-log .roll-difficulty {
   font-size: 1em;
   font-weight: bold;
-  color: var(--color-text-dark-primary)
+  color: var(--color-text-dark-primary);
 }
 
-#chat-log .roll-effect {
-  font-size: 1em;
-  font-weight: bold;
-}
-
-#chat-log .roll-initiative {
+.chat-log .roll-effect {
   font-size: 1em;
   font-weight: bold;
 }
 
-#chat-log .multi-roll-active {
+.chat-log .roll-initiative {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.chat-log .multi-roll-active {
   color: blue;
 }
 
-
-ol#chat-log .note-roll-dialog {
+ol.chat-log .note-roll-dialog {
   display: block;
   color: blue;
   text-align: left;
 }
 
-#chat-log .difficulty-result {
+.chat-log .difficulty-result {
   font-weight: bold;
 }
 
@@ -301,7 +301,7 @@ form.cyphersystem {
   right: 10px;
 }
 
-#chat-log .roll-flavor {
+.chat-log .roll-flavor {
   line-height: 1.3;
   margin-bottom: 3px;
   font-size: var(--font-size-12);
@@ -379,7 +379,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .ProseMirror menu .pm-dropdown ul {
-  background: #DDD;
+  background: #ddd;
 }
 
 .cyphersystem .ProseMirror menu {
@@ -631,11 +631,12 @@ select.bar-attribute {
 
 .cyphersystem .hr-roll-engine {
   border: none;
-  border-top: 1px solid #BBB;
+  border-top: 1px solid #bbb;
 }
 
 .cyphersystem .stat-pool {
   background: rgba(0, 0, 0, 0.05);
+  box-shadow: var(--input-box-shadow);
   border: 1px solid #7a7971;
   border-radius: 3px;
   margin-top: 2px;
@@ -736,7 +737,7 @@ select.bar-attribute {
 
 .cyphersystem .sheet-body .editor {
   height: 100%;
-  margin-top: 0px
+  margin-top: 0px;
 }
 
 .cyphersystem .sheet-body.limited .tab,
@@ -824,20 +825,20 @@ select.bar-attribute {
 }
 
 .cyphersystem .items-list .item ~ .item {
-  border-top: 1px solid #BBB;
+  border-top: 1px solid #bbb;
 }
 
 .cyphersystem .items-list .item:last-child {
-  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid #bbb;
 }
 
 .cyphersystem .settings .items-list .item-settings:last-child {
-  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid #bbb;
   height: 36px;
 }
 
 .cyphersystem .item-desc:last-child {
-  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid #bbb;
 }
 
 .cyphersystem .items-list .item .item-image {
@@ -1054,6 +1055,7 @@ select.bar-attribute {
   background: none;
   margin: -1px;
   padding: 0;
+  box-shadow: none;
 }
 
 .cyphersystem input[name="name"] {
@@ -1079,6 +1081,7 @@ select.bar-attribute {
   font-size: 14px;
   text-align-last: center;
   padding: 1px 3px;
+  box-shadow: var(--input-box-shadow);
 }
 
 .cyphersystem .damage-track-select {
@@ -1117,7 +1120,7 @@ select.bar-attribute {
 .cyphersystem .description-image {
   float: right;
   margin: 0 3px 0 5px;
-  background: rgba(0, 0, 0, 0.05)
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .description-image-chat {
@@ -1132,7 +1135,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .rollForLevel {
-  background: #DDD;
+  background: #ddd;
   padding: 1px 4px;
   border: 1px solid #4b4a44;
   border-radius: 2px;
@@ -1145,14 +1148,14 @@ select.bar-attribute {
 }
 
 .cyphersystem .tag-list {
-  border-top: 1px solid #BBB;
-  border-bottom: 1px solid #BBB;
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
   padding: 2px 3px 3px 3px;
   line-height: 1.4;
 }
 
 .cyphersystem .tag-items {
-  background: #DDD;
+  background: #ddd;
   padding: 1px 4px;
   border: 1px solid #4b4a44;
   border-radius: 2px;
@@ -1213,7 +1216,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .stat-block + .stat-block {
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 .cyphersystem .additional-block {
@@ -1239,6 +1242,10 @@ select.bar-attribute {
   vertical-align: -2px;
 }
 
+.cyphersystem .fa-ballot {
+  width: 14px;
+}
+
 .cyphersystem .nonPC-stat-buttons {
   flex: 0 0 50px;
   text-align: right;
@@ -1254,7 +1261,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .reset-stat {
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 .cyphersystem .archived {
@@ -1364,10 +1371,9 @@ select.settings-input {
   text-align: center;
   color: var(--color-text-light-highlight);
   font-size: 22px;
-  font-family: 'Signika', sans-serif;
+  font-family: "Signika", sans-serif;
   /* backdrop-filter: blur(5px); */
 }
-
 
 .cyphersystem .dice-tray.right {
   border-top-right-radius: 6px;
@@ -1388,7 +1394,7 @@ select.settings-input {
 /* Roll Engine */
 
 .cyphersystem .roll-engine-left-column {
-  border-right: 1px solid #BBB;
+  border-right: 1px solid #bbb;
   padding-right: 4px;
 }
 
@@ -1471,6 +1477,7 @@ select.settings-input {
 
 .cyphersystem .dialog-button {
   font-family: var(--cypher-font);
+  border: 1px solid var(--color-border-light-tertiary);
 }
 
 .cyphersystem div.cypher-logo {
@@ -1572,7 +1579,7 @@ section.cypher-note > p {
 .cypher-note {
   font-style: italic;
   background-color: #d7d7c0;
-  background-image: linear-gradient(#d7d7c0, #FFF);
+  background-image: linear-gradient(#d7d7c0, #fff);
 }
 
 .cyphersystem .copy-ability-button {
