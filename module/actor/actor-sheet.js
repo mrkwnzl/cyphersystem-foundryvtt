@@ -37,7 +37,7 @@ import {
   removeTagFromItem
 } from "../utilities/tagging-engine/tagging-engine-computation.js";
 
-export class CypherActorSheet extends ActorSheet {
+export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   async getData() {
