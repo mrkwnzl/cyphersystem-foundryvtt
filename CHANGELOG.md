@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.2] - 2025-07-22
+### Fixed
+- Compatibility with Foundry V13. It also requires Foundry V13+ going forward.
+
 ## [3.3.1] - 2025-04-17
 ### Added
 - Items for which it makes sense now have a setting for a price categories and/or a price tag (a freeform field in which you can note down the price of an item). Modules can also use `item.price.value` (for integers) and `item.price.currency` (for strings) as a way of interacting with prices as well, but these data points are independent of the price categories and price tags.
@@ -24,7 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - An optional stress tracker. Stress levels hindrance stat rolls.
   - The option to strack stress from supernatural sources.
   - An additional step on the damage track between hale and impaired, that does nothing other than to exist.
-  
+
 ### Changed
 - Icons on actor sheets change when holding alt to better communicate alt functions.
 - Some minor styling changes to account for the new stress rules.
@@ -33,7 +37,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [3.1.1] - 2024-09-15
 ### Fixed
 - Skills of Companion actors can now be edited again.
-  
+
 ### Changed
 - The Propse Intrusion macro has been updated so that a custom notification for the receiving player can be set.
 
@@ -61,7 +65,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Removed
 - This update breaks migration of older versions. In order to upgrade to a newer major version, update to the latest version of each major version (v1.33.3, v2.15.0), and open each world you want to migrate before updating to the next major version. When you are already on any v2 of the Cypher system, it should be possible to upgrade to v3.0.0, but it’s still recommended to update the Cypher system to v2.15.0 first, open all your worlds to migrate everything to the latest version, and then upgrade to v3.0.0. In any case, make a backup!
-  
+
   This is the manifest URL for v2.15.0: https://raw.githubusercontent.com/mrkwnzl/cyphersystem-foundryvtt/v2.15.0/system.json
 
 ## [2.15.0] - 2024-07-14
@@ -103,9 +107,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.12.0] - 2023-12-06
 ### Changed
 - The tagging/recursion system has been completely reworked. Instead of writing the tags into the item’s descriptions, there’s a tags/recursion tab on each item where you can select with which tags the item should be tagged.
-  
+
   **Note:** There is a migration routine in place that converts existing tags and recursions into the new system, but only if the PC has the appropriate tags and recursions as items. The migration routine only works once, so make sure to have the needed tag and recursion items before you update. After the tags have been removed, empty paragraphs and empty secret formatting will be removed from the item’s description. **In any case, make a backup before updating!**
-  
+
   **Also note:** If you have actors using tags in a compendium, run `game.cyphersystem.dataMigrationPacks("pack-name")` in the console to update your compendiums.
 - Items with multiple tags are being archived only if all these tags are inactive. The items stay unarchived as long as at least one of these tags is active.
 

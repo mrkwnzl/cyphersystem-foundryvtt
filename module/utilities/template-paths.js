@@ -68,5 +68,5 @@ export async function preloadTemplates() {
     "systems/cyphersystem/templates/tabs/tags-tab/tags-items.html",
     "systems/cyphersystem/templates/tabs/settings-tab/settings-price.html"
   ];
-  return loadTemplates(templatePaths);
+  return foundry.applications.handlebars.loadTemplates(templatePaths);
 }
