@@ -1,25 +1,25 @@
 // Import actors & items
-import { CypherActor } from "./actor/actor.js";
-import { CypherItem } from "./item/item.js";
+import {CypherActor} from "./actor/actor.js";
+import {CypherItem} from "./item/item.js";
 
 // Import actor & item sheets
-import { CypherItemSheet } from "./item/item-sheet.js";
-import { CypherActorSheet } from "./actor/actor-sheet.js";
-import { CypherActorSheetPC } from "./actor/pc-sheet.js";
-import { CypherActorSheetNPC } from "./actor/npc-sheet.js";
-import { CypherActorSheetCommunity } from "./actor/community-sheet.js";
-import { CypherActorSheetCompanion } from "./actor/companion-sheet.js";
-import { CypherActorSheetMarker } from "./actor/marker-sheet.js";
-import { CypherActorSheetVehicle } from "./actor/vehicle-sheet.js";
+import {CypherItemSheet} from "./item/item-sheet.js";
+import {CypherActorSheet} from "./actor/actor-sheet.js";
+import {CypherActorSheetPC} from "./actor/pc-sheet.js";
+import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
+import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
+import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
+import {CypherActorSheetMarker} from "./actor/marker-sheet.js";
+import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
 
 // Import utility functions
-import { preloadTemplates } from "./utilities/template-paths.js";
+import {preloadTemplates} from "./utilities/template-paths.js";
 import {
   applyXPFromIntrusion,
-  regainPoolPoints,
+  regainPoolPoints
 } from "./utilities/actor-utilities.js";
-import { sendWelcomeMessage } from "./utilities/welcome-message.js";
-import { createCyphersystemMacro } from "./utilities/create-macros.js";
+import {sendWelcomeMessage} from "./utilities/welcome-message.js";
+import {createCyphersystemMacro} from "./utilities/create-macros.js";
 
 // Import macros
 import {
@@ -46,14 +46,14 @@ import {
   lockStaticStatsMacro,
   migrateDataMacro,
   selectedTokenRollMacro,
-  allInOneRollDialogV2,
+  allInOneRollDialogV2
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
   hinderedRollEffectiveMacro,
   renameTagMacro,
   translateToRecursion,
-  archiveStatusByTag,
+  archiveStatusByTag
 } from "./macros/macro-helper.js";
 import {
   chatCardMarkItemIdentified,
@@ -62,27 +62,27 @@ import {
   chatCardIntrusionAccepted,
   chatCardIntrusionRefused,
   chatCardWelcomeMessage,
-  chatCardRegainPoints,
+  chatCardRegainPoints
 } from "./utilities/chat-cards.js";
-import { barBrawlOverwrite } from "./utilities/token-utilities.js";
-import { registerGameSettings } from "./utilities/game-settings.js";
-import { registerHandlebars } from "./utilities/handlebars.js";
-import { gameSockets } from "./utilities/game-sockets.js";
-import { initiativeSettings } from "./utilities/initiative-settings.js";
-import { dataMigration, dataMigrationPacks } from "./utilities/migration.js";
-import { rollEngineMain } from "./utilities/roll-engine/roll-engine-main.js";
-import { rollEngineComputation } from "./utilities/roll-engine/roll-engine-computation.js";
-import { rollEngineForm } from "./utilities/roll-engine/roll-engine-form.js";
-import { rollEngineOutput } from "./utilities/roll-engine/roll-engine-output.js";
-import { gmiRangeForm, renderGMIForm } from "./forms/gmi-range-sheet.js";
-import { changeTagStats } from "./utilities/tagging-engine/tagging-engine-computation.js";
-import { renderRollDifficultyForm } from "./forms/roll-difficulty-sheet.js";
+import {barBrawlOverwrite} from "./utilities/token-utilities.js";
+import {registerGameSettings} from "./utilities/game-settings.js";
+import {registerHandlebars} from "./utilities/handlebars.js";
+import {gameSockets} from "./utilities/game-sockets.js";
+import {initiativeSettings} from "./utilities/initiative-settings.js";
+import {dataMigration, dataMigrationPacks} from "./utilities/migration.js";
+import {rollEngineMain} from "./utilities/roll-engine/roll-engine-main.js";
+import {rollEngineComputation} from "./utilities/roll-engine/roll-engine-computation.js";
+import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
+import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
+import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
+import {changeTagStats} from "./utilities/tagging-engine/tagging-engine-computation.js";
+import {renderRollDifficultyForm} from "./forms/roll-difficulty-sheet.js";
 import {
   changePortraitAndToken,
   executeSeriesOfMacros,
   payCostWithAdditionalPool,
   payXP,
-  useAmmo,
+  useAmmo
 } from "./macros/macros-scripting.js";
 
 /* -------------------------------------------- */
@@ -106,7 +106,7 @@ Hooks.once("init", async function () {
     "@playlistsound",
     "@compendium",
     "@pdf",
-    "@uuid",
+    "@uuid"
   ];
 
   game.cyphersystem = {
@@ -177,7 +177,7 @@ Hooks.once("init", async function () {
     chatCardRegainPoints,
 
     // Recursion Document Link Exceptions
-    recursionDocumentLinkExceptions,
+    recursionDocumentLinkExceptions
   };
 
   // Define custom Entity classes
@@ -189,37 +189,37 @@ Hooks.once("init", async function () {
   Actors.registerSheet("cypher", CypherActorSheetPC, {
     types: ["pc"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassPC",
+    label: "CYPHERSYSTEM.SheetClassPC"
   });
   Actors.registerSheet("cypher", CypherActorSheetNPC, {
     types: ["npc"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassNPC",
+    label: "CYPHERSYSTEM.SheetClassNPC"
   });
   Actors.registerSheet("cypher", CypherActorSheetMarker, {
     types: ["marker"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassToken",
+    label: "CYPHERSYSTEM.SheetClassToken"
   });
   Actors.registerSheet("cypher", CypherActorSheetCommunity, {
     types: ["community"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassCommunity",
+    label: "CYPHERSYSTEM.SheetClassCommunity"
   });
   Actors.registerSheet("cypher", CypherActorSheetCompanion, {
     types: ["companion"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassCompanion",
+    label: "CYPHERSYSTEM.SheetClassCompanion"
   });
   Actors.registerSheet("cypher", CypherActorSheetVehicle, {
     types: ["vehicle"],
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassVehicle",
+    label: "CYPHERSYSTEM.SheetClassVehicle"
   });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cypher", CypherItemSheet, {
     makeDefault: true,
-    label: "CYPHERSYSTEM.SheetClassItem",
+    label: "CYPHERSYSTEM.SheetClassItem"
   });
 
   // Load initiative settings
@@ -275,8 +275,8 @@ Hooks.once("ready", async function () {
       "There has been a bug in the update process for the Cypher SRD Compendium. Please uninstall and reinstall the module in the Foundry setup to get the newest version. Sorry for the inconvenience! –Marko",
       {
         permanent: true,
-        console: true,
-      },
+        console: true
+      }
     );
   }
 
@@ -293,8 +293,8 @@ Hooks.once("ready", async function () {
         "The Cypher System Custom Sheets module hasn’t been updated in a while and isn’t compatible with the current version of the Cypher System. Please disable the Custom Sheets module. You can customize PC sheets in the settings tab and all other sheets in the system settings. –Marko",
         {
           permanent: true,
-          console: true,
-        },
+          console: true
+        }
       );
     }
   }
@@ -311,7 +311,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
     onChange: (event, active) => {
       renderRollDifficultyForm(true);
     },
-    button: true,
+    button: true
   };
   if (game.user.isGM) {
     controls.tokens.tools.calculateDifficulty = {
@@ -321,7 +321,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
       onChange: (event, active) => {
         calculateAttackDifficulty();
       },
-      button: true,
+      button: true
     };
   }
   controls.tokens.tools.gmiRange = {
@@ -331,7 +331,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
     onChange: (event, active) => {
       gmiRangeForm();
     },
-    button: true,
+    button: true
   };
   if (game.user.isGM) {
     controls.tokens.tools.proposeGMI = {
@@ -341,7 +341,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
       onChange: (event, active) => {
         proposeIntrusion("", "");
       },
-      button: true,
+      button: true
     };
   }
 });
@@ -349,35 +349,35 @@ Hooks.on("getSceneControlButtons", (controls) => {
 Hooks.on("preCreateActor", async function (actor) {
   if (["pc", "community"].includes(actor.type)) {
     actor.updateSource({
-      "prototypeToken.actorLink": true,
+      "prototypeToken.actorLink": true
     });
   } else if (actor.type == "npc") {
     actor.updateSource({
       "prototypeToken.bar1": {
-        attribute: "pools.health",
+        attribute: "pools.health"
       },
       "prototypeToken.bar2": {
-        attribute: "basic.level",
-      },
+        attribute: "basic.level"
+      }
     });
   } else if (actor.type == "companion") {
     actor.updateSource({
       "prototypeToken.bar1": {
-        attribute: "pools.health",
+        attribute: "pools.health"
       },
       "prototypeToken.bar2": {
-        attribute: "basic.level",
+        attribute: "basic.level"
       },
-      "prototypeToken.actorLink": true,
+      "prototypeToken.actorLink": true
     });
   } else if (actor.type == "marker") {
     actor.updateSource({
       "prototypeToken.bar1": {
-        attribute: "pools.quantity",
+        attribute: "pools.quantity"
       },
       "prototypeToken.bar2": {
-        attribute: "basic.level",
-      },
+        attribute: "basic.level"
+      }
     });
   }
 });
@@ -385,7 +385,7 @@ Hooks.on("preCreateActor", async function (actor) {
 Hooks.on("updateActor", async function (actor, data, options, userId) {
   if (actor.type == "pc" && data.ownership) {
     game.socket.emit("system.cyphersystem", {
-      operation: "renderGMIForm",
+      operation: "renderGMIForm"
     });
     renderGMIForm();
   }
@@ -394,33 +394,33 @@ Hooks.on("updateActor", async function (actor, data, options, userId) {
 Hooks.on("preCreateItem", function (item, data, options, id) {
   if (item.img == "icons/svg/item-bag.svg") {
     item.updateSource({
-      img: `systems/cyphersystem/icons/items/${item.type}.svg`,
+      img: `systems/cyphersystem/icons/items/${item.type}.svg`
     });
   }
   if (
     item.parent?.system.basic.unmaskedForm == "Teen" &&
     ["ability", "armor", "attack", "lasting-damage", "skill"].includes(
-      item.type,
+      item.type
     )
   ) {
     item.updateSource({
-      "system.settings.general.unmaskedForm": "Teen",
+      "system.settings.general.unmaskedForm": "Teen"
     });
   }
   if (item.flags.cyphersystem?.tags) {
     item.updateSource({
-      "flags.cyphersystem.tags": [],
+      "flags.cyphersystem.tags": []
     });
   }
   if (item.flags.cyphersystem?.recursions) {
     item.updateSource({
-      "flags.cyphersystem.recursions": [],
+      "flags.cyphersystem.recursions": []
     });
   }
   if (item.system?.archived || item.system?.favorite) {
     item.updateSource({
       "system.archived": false,
-      "system.favorite": false,
+      "system.favorite": false
     });
   }
 });
@@ -456,7 +456,7 @@ Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
       speedEdgeModifier: speedEdgeModifier,
       intellectModifier: intellectModifier,
       intellectEdgeModifier: intellectEdgeModifier,
-      itemActive: !item.system.active,
+      itemActive: !item.system.active
     });
   }
 });
@@ -502,7 +502,7 @@ Hooks.on("createCombatant", function (combatant) {
           NPCInitiative * 3 +
           actor.system.settings.general.initiativeBonus -
           0.5 +
-          actor.system.basic.level / 1000,
+          actor.system.basic.level / 1000
       });
     } else if (actor.type == "community" && !combatant.hasPlayerOwner) {
       combatant.update({
@@ -510,17 +510,17 @@ Hooks.on("createCombatant", function (combatant) {
           NPCInitiative * 3 +
           actor.system.settings.general.initiativeBonus -
           0.5 +
-          actor.system.basic.rank / 1000,
+          actor.system.basic.rank / 1000
       });
     } else if (actor.type == "community" && combatant.hasPlayerOwner) {
       combatant.update({
         initiative:
           actor.system.basic.rank * 3 +
-          actor.system.settings.general.initiativeBonus,
+          actor.system.settings.general.initiativeBonus
       });
     } else if (actor.type == "vehicle") {
       combatant.update({
-        initiative: NPCInitiative * 3 - 0.5 + actor.system.basic.level / 1000,
+        initiative: NPCInitiative * 3 - 0.5 + actor.system.basic.level / 1000
       });
     }
   }
@@ -539,7 +539,7 @@ Hooks.on("updateCombat", function () {
         : combatant.system.settings.general.counting;
       let newQuantity = combatant.system.pools.quantity.value + step;
       combatant.update({
-        "system.pools.quantity.value": newQuantity,
+        "system.pools.quantity.value": newQuantity
       });
     }
   }
@@ -557,18 +557,18 @@ Hooks.on("renderChatMessage", function (message, html, data) {
   html.find(".confirm").click((clickEvent) => {
     if (!game.user.isGM)
       return ui.notifications.warn(
-        game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify"),
+        game.i18n.localize("CYPHERSYSTEM.OnlyGMCanIdentify")
       );
     let actor = game.actors.get(html.find(".confirm").data("actor"));
     let item = actor.items.get(html.find(".confirm").data("item"));
     item.update({
-      "system.basic.identified": true,
+      "system.basic.identified": true
     });
     ui.notifications.info(
       game.i18n.format("CYPHERSYSTEM.ConfirmIdentification", {
         item: item.name,
-        actor: actor.name,
-      }),
+        actor: actor.name
+      })
     );
   });
 
@@ -577,7 +577,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find(".reroll-stat").data("user");
     if (user !== game.user.id)
       return ui.notifications.warn(
-        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"),
+        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser")
       );
     const data = html.find(".reroll-stat").data("data");
     delete data["skipDialog"];
@@ -591,7 +591,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find(".reroll-recovery").data("user");
     if (user !== game.user.id)
       return ui.notifications.warn(
-        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"),
+        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser")
       );
     let dice = html.find(".reroll-recovery").data("dice");
     let actorUuid = html.find(".reroll-recovery").data("actor-uuid");
@@ -606,7 +606,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find(".reroll-dice-roll").data("user");
     if (user !== game.user.id)
       return ui.notifications.warn(
-        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"),
+        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser")
       );
     let dice = html.find(".reroll-dice-roll").data("dice");
     diceRollMacro(dice);
@@ -617,7 +617,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     let user = html.find(".regain-points").data("user");
     if (user !== game.user.id)
       return ui.notifications.warn(
-        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser"),
+        game.i18n.localize("CYPHERSYSTEM.WarnRerollUser")
       );
     let actorUuid = html.find(".regain-points").data("actor-uuid");
     let actor = actorUuid.includes("Token")
@@ -683,8 +683,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (!actor.isOwner)
       return ui.notifications.warn(
         game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {
-          actor: actor.name,
-        }),
+          actor: actor.name
+        })
       );
 
     // Create list of PCs
@@ -730,23 +730,23 @@ Hooks.on("renderChatMessage", function (message, html, data) {
               actor,
               html.find("#selectPC").val(),
               data.message._id,
-              1,
-            ),
+              1
+            )
         },
         cancel: {
           icon: '<i class="fa-item fas fa-times"></i>',
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-          callback: () => {},
-        },
+          callback: () => {}
+        }
       },
       default: "apply",
-      close: () => {},
+      close: () => {}
     });
     if (list == "") {
       applyXPFromIntrusion(actor, "", data.message._id, 1);
     } else {
       d.render(true, {
-        width: "auto",
+        width: "auto"
       });
     }
   });
@@ -757,8 +757,8 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     if (!actor.isOwner)
       return ui.notifications.warn(
         game.i18n.format("CYPHERSYSTEM.IntrusionWrongPlayer", {
-          actor: actor.name,
-        }),
+          actor: actor.name
+        })
       );
     applyXPFromIntrusion(actor, "", data.message._id, -1);
   });
@@ -771,23 +771,23 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         {
           id: "immediate",
           default: 0x0000ff,
-          name: "immediate",
+          name: "immediate"
         },
         {
           id: "short",
           default: 0x008000,
-          name: "short",
+          name: "short"
         },
         {
           id: "long",
           default: 0xffa500,
-          name: "long",
+          name: "long"
         },
         {
           id: "veryLong",
           default: 0xff0000,
-          name: "very long",
-        },
+          name: "very long"
+        }
       ];
     }
 
@@ -819,20 +819,20 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       const ranges = [
         {
           range: immediate,
-          color: "immediate",
+          color: "immediate"
         },
         {
           range: short,
-          color: "short",
+          color: "short"
         },
         {
           range: long,
-          color: "long",
+          color: "long"
         },
         {
           range: veryLong,
-          color: "veryLong",
-        },
+          color: "veryLong"
+        }
       ];
       return ranges;
     }
