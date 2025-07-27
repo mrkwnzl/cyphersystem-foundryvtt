@@ -343,6 +343,14 @@ select.bar-attribute {
   height: 100%;
 }
 
+.minimized .window-header {
+  border-bottom: unset !important;
+}
+
+.window-header {
+  border-bottom: 1px solid black;
+}
+
 .cyphersystem.sheet.pc,
 .cyphersystem.sheet.npc,
 .cyphersystem.sheet.companion,
@@ -1234,6 +1242,12 @@ select.bar-attribute {
 .cyphersystem .fa-sync-alt.stat {
   font-size: 11px;
   vertical-align: -1px;
+  margin-left: 0px;
+}
+
+.cyphersystem .gmi-controls .fa-sync-alt.stat {
+  font-size: 11px;
+  vertical-align: 1px;
   margin-left: 0px;
 }
 

@@ -727,5 +727,11 @@
   "CYPHERSYSTEM.PriceExorbitant": "Exorbitant",
   "CYPHERSYSTEM.PriceBoth": "Category/tag",
   "CYPHERSYSTEM.PriceDescription": "<b>Price:</b> {price}",
-  "CYPHERSYSTEM.DisplayMode": "Display Mode"
+  "CYPHERSYSTEM.DisplayMode": "Display Mode",
+  "CYPHERSYSTEM.Immediate": "Immediate",
+  "CYPHERSYSTEM.Short": "Short",
+  "CYPHERSYSTEM.Long": "Long",
+  "CYPHERSYSTEM.VeryLong": "Very long",
+  "CYPHERSYSTEM.DistanceLabelCategory": "{category} ({distance} {unit})",
+  "CYPHERSYSTEM.DistanceLabel": "{distance} {unit}"
 }

@@ -43,6 +43,21 @@ export async function registerGameSettings() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "showRuler", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingShowRuler"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerHint"),
+    scope: "world",
+    type: Number,
+    default: 1,
+    requiresReload: true,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerNever"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerInCombat"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerAlways")
+    },
+    config: true
+  });
+
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
