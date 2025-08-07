@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [unreleased]
 ### Added
 - The token ruler now displays the range category in addition to the distance. The distance is rounded to 0.5 meters or 1 foot.
+- Setting to display the token ruler on gridless scenes either (1) only when setting waypoints, (2) when in combat, or (3) always.
+- Setting to disable the token ruler completely (including waypoints) based on actor type. It defaults to markers.
+- Setting to change the token movement.
 
 ### Fixed
 - The quick stat roll macros now work as expected again.

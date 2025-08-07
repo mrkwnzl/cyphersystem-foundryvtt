@@ -733,5 +733,14 @@
   "CYPHERSYSTEM.Long": "Long",
   "CYPHERSYSTEM.VeryLong": "Very long",
   "CYPHERSYSTEM.DistanceLabelCategory": "{category} ({distance} {unit})",
-  "CYPHERSYSTEM.DistanceLabel": "{distance} {unit}"
+  "CYPHERSYSTEM.DistanceLabel": "{distance} {unit}",
+  "CYPHERSYSTEM.SettingShowRulerGridless": "Show token ruler on gridless scenes",
+  "CYPHERSYSTEM.SettingShowRulerGridlessHint": "Configure the token ruler on gridless scenes. On scenes with a grid, the token ruler is always shown.",
+  "CYPHERSYSTEM.SettingShowRulerGridlessHide": "Only when setting waypoints",
+  "CYPHERSYSTEM.SettingShowRulerGridlessInCombat": "When in combat",
+  "CYPHERSYSTEM.SettingShowRulerGridlessAlways": "Always",
+  "CYPHERSYSTEM.SettingTokenSpeed": "Token movement speed",
+  "CYPHERSYSTEM.SettingTokenSpeedHint": "This changes the movement speed of tokens. Default: 1.",
+  "CYPHERSYSTEM.SettingsDisableRulerTypes": "Disable token ruler",
+  "CYPHERSYSTEM.SettingsDisableRulerTypesHint": "Disable the token ruler completely (even on scenes with a grid) based on actor types. This also disables waypoints for these tokens. Possible types: pc, npc, companion, community, vehicle, marker. Separate each type with a comma."
 }

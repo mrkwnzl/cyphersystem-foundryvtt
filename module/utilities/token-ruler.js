@@ -2,17 +2,22 @@ export class CypherSystemTokenRuler extends foundry.canvas.placeables.tokens.Tok
   static WAYPOINT_LABEL_TEMPLATE = "systems/cyphersystem/templates/token-ruler/tokenrulerlabel.hbs";
 
   _getWaypointLabelContext(waypoint, state) {
+    const isGridless = this.token.scene.grid.type == 0;
+    const rulerSetting = game.settings.get("cyphersystem", "showRulerGridless");
     const isPathfinding =
-      !(waypoint.index <= 1 && !waypoint.next) || game.keyboard.isModifierActive("Control");
+      game.user.getFlag("cyphersystem", "isPathfinding") ||
+      game.keyboard.isModifierActive("Control") ||
+      (waypoint.index >= 1 &&
+        (waypoint.previous?.previous || (waypoint.previous && waypoint.next))) ||
+      (waypoint.index >= 2 && !waypoint.next);
 
-    // Exclude Marker tokens
-    const excludedActorTypes = ["marker"];
-    if (excludedActorTypes.includes(this.token.actor.type) && !isPathfinding) return null;
+    // Only on grid
+    if (rulerSetting == 0 && isGridless && !isPathfinding) return null;
 
-    // Exclude tokens based on settings
-    const rulerSetting = game.settings.get("cyphersystem", "showRuler");
-    if (rulerSetting == 0 && !isPathfinding) return null; // Never show ruler
-    if (rulerSetting == 1 && !this.token.inCombat && !isPathfinding) return null; // Show ruler only in combat
+    // Grid & combat
+    if (rulerSetting == 1 && isGridless && !this.token.inCombat && !isPathfinding) {
+      return null;
+    }
 
     // Create ruler label
     const context = super._getWaypointLabelContext(waypoint, state);
@@ -39,21 +44,24 @@ export class CypherSystemTokenRuler extends foundry.canvas.placeables.tokens.Tok
   }
 
   _getWaypointStyle(waypoint) {
-    const hiddenWaypoint = {radius: 0};
+    const isGridless = this.token.scene.grid.type == 0;
+    const rulerSetting = game.settings.get("cyphersystem", "showRulerGridless");
     const isPathfinding =
+      game.user.getFlag("cyphersystem", "isPathfinding") ||
+      game.keyboard.isModifierActive("Control") ||
       waypoint.index >= 2 ||
       (waypoint.index == 0 && waypoint?.next?.next) ||
-      (waypoint.previous && waypoint.next) ||
-      game.keyboard.isModifierActive("Control");
+      (waypoint.previous && waypoint.next);
 
-    // Exclude Marker tokens
-    const excludedActorTypes = ["marker"];
-    if (excludedActorTypes.includes(this.token.actor.type) && !isPathfinding) return hiddenWaypoint;
+    // Only grid
+    if (rulerSetting == 0 && isGridless && !isPathfinding) {
+      return {radius: 0};
+    }
 
-    // Exclude tokens based on settings
-    const rulerSetting = game.settings.get("cyphersystem", "showRuler");
-    if (rulerSetting == 0 && !isPathfinding) return hiddenWaypoint; // Never show ruler
-    if (rulerSetting == 1 && !this.token.inCombat && !isPathfinding) return hiddenWaypoint; // Show ruler only in combat
+    // Grid & combat
+    if (rulerSetting == 1 && isGridless && !this.token.inCombat && !isPathfinding) {
+      return {radius: 0};
+    }
 
     let category = getCategory(
       this.token,
@@ -66,18 +74,20 @@ export class CypherSystemTokenRuler extends foundry.canvas.placeables.tokens.Tok
   }
 
   _getSegmentStyle(waypoint) {
-    const hiddenRuler = {width: 0};
+    const isGridless = this.token.scene.grid.type == 0;
+    const rulerSetting = game.settings.get("cyphersystem", "showRulerGridless");
     const isPathfinding =
-      !(waypoint.index <= 1 && !waypoint.next) || game.keyboard.isModifierActive("Control");
+      game.user.getFlag("cyphersystem", "isPathfinding") ||
+      game.keyboard.isModifierActive("Control") ||
+      !(waypoint.index <= 1 && !waypoint.next);
 
-    // Exclude Marker tokens
-    const excludedActorTypes = ["marker"];
-    if (excludedActorTypes.includes(this.token.actor.type) && !isPathfinding) return hiddenRuler;
+    // Only grid
+    if (rulerSetting == 0 && isGridless && !isPathfinding) return {width: 0};
 
-    // Exclude tokens based on settings
-    const rulerSetting = game.settings.get("cyphersystem", "showRuler");
-    if (rulerSetting == 0 && !isPathfinding) return hiddenRuler; // Never show ruler
-    if (rulerSetting == 1 && !this.token.inCombat && !isPathfinding) return hiddenRuler; // Show ruler only in combat
+    // Grid & combat
+    if (rulerSetting == 1 && isGridless && !this.token.inCombat && !isPathfinding) {
+      return {width: 0};
+    }
 
     let category = getCategory(
       this.token,
@@ -90,20 +100,7 @@ export class CypherSystemTokenRuler extends foundry.canvas.placeables.tokens.Tok
   }
 
   _getGridHighlightStyle(waypoint, offset) {
-    console.log(waypoint);
-    const hiddenHighlight = {alpha: 0};
-    const isPathfinding =
-      (waypoint.next && waypoint.previous) || game.keyboard.isModifierActive("Control");
-
-    // Exclude Marker tokens
-    const excludedActorTypes = ["marker"];
-    if (excludedActorTypes.includes(this.token.actor.type) && !isPathfinding)
-      return hiddenHighlight;
-
-    // Exclude tokens based on settings
-    const rulerSetting = game.settings.get("cyphersystem", "showRuler");
-    if (rulerSetting == 0 && !isPathfinding) return hiddenHighlight; // Never show ruler
-    if (rulerSetting == 1 && !this.token.inCombat && !isPathfinding) return hiddenHighlight; // Show ruler only in combat
+    let {alpha} = super._getGridHighlightStyle(waypoint);
 
     let category = getCategory(
       this.token,
@@ -111,7 +108,7 @@ export class CypherSystemTokenRuler extends foundry.canvas.placeables.tokens.Tok
       this.token.scene.grid.units
     );
 
-    return {color: category.color, alpha: 0.5};
+    return {color: category.color, alpha};
   }
 }
 
@@ -131,7 +128,7 @@ function getCategory(token, cost, unit) {
     short = 15;
     long = 30;
     veryLong = 150;
-  } else if (["ft", "feet", game.i18n.format("CYPHERSYSTEM.UnitDistanceFeet")].includes(unit)) {
+  } else if (["ft", game.i18n.format("CYPHERSYSTEM.UnitDistanceFeet")].includes(unit)) {
     rounding = 1;
     immediate = 10;
     short = 50;
@@ -164,17 +161,39 @@ function getCategory(token, cost, unit) {
 
 export class CypherSystemToken extends foundry.canvas.placeables.Token {
   _initializeRuler() {
-    console.log(this);
-
     const rulerClass = CypherSystemTokenRuler;
-    const excludedActorTypes = ["marker"];
-    const rulerSetting = game.settings.get("cyphersystem", "showRuler");
+    const excludedActorTypesString = game.settings.get("cyphersystem", "disableRulerTypes");
+    const excludedActorTypes = excludedActorTypesString.toLowerCase().split(/\s*,\s*/);
 
     if (!rulerClass) return null;
     if (excludedActorTypes.includes(this.actor.type)) return null;
-    if (rulerSetting == 0) return null;
-    if (rulerSetting == 1 && !this.inCombat) return null;
 
     return new rulerClass(this);
   }
+
+  async _addDragWaypoint(point, {snap = false} = {}) {
+    super._addDragWaypoint(point, {snap});
+    await game.user.setFlag("cyphersystem", "isPathfinding", true);
+  }
+
+  async _triggerDragLeftCancel() {
+    super._triggerDragLeftCancel();
+    await game.user.setFlag("cyphersystem", "isPathfinding", false);
+  }
+
+  // async _onDragClickRight(event) {
+  //   if (!this.ruler) await game.user.setFlag("cyphersystem", "isPathfinding", false);
+  //   super._onDragClickRight(event);
+  // }
+
+  // async _removeDragWaypoint() {
+  //   super._removeDragWaypoint();
+  //   if (!this.mouseInteractionManager.interactionData.contexts) return;
+
+  //   for (const context of Object.values(this.mouseInteractionManager.interactionData.contexts)) {
+  //     if (context.waypoints.length == 0) {
+  //       game.user.setFlag("cyphersystem", "isPathfinding", false);
+  //     }
+  //   }
+  // }
 }

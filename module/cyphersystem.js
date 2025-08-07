@@ -90,10 +90,6 @@ import {CypherSystemTokenRuler, CypherSystemToken} from "./utilities/token-ruler
 Hooks.once("init", async function () {
   console.log("Initializing Cypher System");
 
-  // CONFIG.debug.hooks = true;
-  CONFIG.Token.rulerClass = CypherSystemTokenRuler;
-  // CONFIG.Token.objectClass = CypherSystemToken;
-
   const recursionDocumentLinkExceptions = [
     "@macro",
     "@actor",
@@ -236,6 +232,17 @@ Hooks.once("init", async function () {
 
   // Load game sockets
   gameSockets();
+
+  // CONFIG.debug.hooks = true;
+
+  // Override token ruler class
+  CONFIG.Token.rulerClass = CypherSystemTokenRuler;
+  CONFIG.Token.objectClass = CypherSystemToken;
+
+  // Config token movement speed
+  let tokenSpeed = CONFIG.Token.movement.defaultSpeed;
+  let factor = game.settings.get("cyphersystem", "tokenSpeed");
+  CONFIG.Token.movement.defaultSpeed = tokenSpeed * factor;
 });
 
 Hooks.on("canvasReady", function (canvas) {
@@ -257,7 +264,7 @@ Hooks.once("ready", async function () {
   // Migrate actor data
   await dataMigration();
 
-  if (game.settings.get("cyphersystem", "showRuler") == 0) {
+  if (game.settings.get("cyphersystem", "showRulerGridless") == 0) {
     TokenDocument.prototype._shouldRecordMovementHistory = function () {
       return false;
     };
@@ -454,16 +461,20 @@ Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;
   let actor = game.actors.get(data.actorId);
 
-  // Support for Ruler
-  if (actor.type == "marker" || actor.type == "community") {
-  }
-
   // Support for Bar Brawl
   if (
     game.modules.get("barbrawl")?.active &&
     game.settings.get("cyphersystem", "barBrawlDefaults")
   ) {
     barBrawlOverwrite(document, actor);
+  }
+});
+
+Hooks.on("preMoveToken", function (document, movement, operation) {});
+
+Hooks.on("moveToken", async function (document, movement, operation, user) {
+  if (document.movement.state === "completed") {
+    await game.user.setFlag("cyphersystem", "isPathfinding", false);
   }
 });
 

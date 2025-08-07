@@ -13,7 +13,6 @@ import {updateRollDifficultyForm} from "../forms/roll-difficulty-sheet.js";
 export function quickRollMacro(title) {
   // Find actor
   let actor = fromUuidSync(game.user.character?.uuid) || undefined;
-  console.log(actor);
   if (!actor || actor.type != "pc")
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
