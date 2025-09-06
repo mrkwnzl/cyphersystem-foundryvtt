@@ -121,7 +121,7 @@
   "CYPHERSYSTEM.HinderedStatRoll": "Hindered Stat Roll",
   "CYPHERSYSTEM.AllInOneRoll": "All-in-One Roll",
   "CYPHERSYSTEM.LevelOfEffort": "Level of Effort",
-  "CYPHERSYSTEM.EffortAvailable": "Applied levels of Effort",
+  "CYPHERSYSTEM.EffortAvailable": "Effort Limit",
   "CYPHERSYSTEM.SpendEffort": "Spend Effort",
   "CYPHERSYSTEM.EffortForDamage": "Effort for extra damage",
   "CYPHERSYSTEM.EffortForTask": "Effort to ease task",
@@ -460,7 +460,7 @@
   "CYPHERSYSTEM.NotEnoughSpeed": "You don’t have enough Speed points.",
   "CYPHERSYSTEM.NotEnoughIntellect": "You don’t have enough Intellect points.",
   "CYPHERSYSTEM.NotEnoughXP": "You don’t have enough XP.",
-  "CYPHERSYSTEM.SpendTooMuchEffort": "Too many levels of Effort!",
+  "CYPHERSYSTEM.SpendTooMuchEffort": "Effort limit exceeded!",
   "CYPHERSYSTEM.NotEnoughPoint": "Not enough {pool} points!",
   "CYPHERSYSTEM.AllocatePointsYourself": "Manual allocation of point cost needed!",
   "CYPHERSYSTEM.MacroOnlyUsedBy": "This macro can only be used by {name}.",
@@ -742,5 +742,9 @@
   "CYPHERSYSTEM.SettingTokenSpeed": "Token movement speed",
   "CYPHERSYSTEM.SettingTokenSpeedHint": "This changes the movement speed of tokens. Default: 1.",
   "CYPHERSYSTEM.SettingsDisableRulerTypes": "Disable token ruler",
-  "CYPHERSYSTEM.SettingsDisableRulerTypesHint": "Disable the token ruler completely (even on scenes with a grid) based on actor types. This also disables waypoints for these tokens. Possible types: pc, npc, companion, community, vehicle, marker. Separate each type with a comma."
+  "CYPHERSYSTEM.SettingsDisableRulerTypesHint": "Disable the token ruler completely (even on scenes with a grid) based on actor types. This also disables waypoints for these tokens. Possible types: pc, npc, companion, community, vehicle, marker. Separate each type with a comma.",
+  "CYPHERSYSTEM.SettingUltimateDamage": "Ultimate Damage",
+  "CYPHERSYSTEM.SettingUltimateDamageHint": "Effort used for damage ignores the personal maximum Effort, but is still limited to six levels of Effort in total.",
+  "CYPHERSYSTEM.FreeLevelsOfEffort": "Free levels of Effort",
+  "CYPHERSYSTEM.UltimateDamageUsed": "Ultimate Damage."
 }

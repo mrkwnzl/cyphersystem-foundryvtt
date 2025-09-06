@@ -54,6 +54,10 @@
         <hr class="hr-roll-engine">
 
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.AdditionalModifiers"}}</b></label><br>
+        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.FreeLevelsOfEffort"}}:</label>
+        <select name="freeEffort" id="freeEffort" class="dialog-select roll-engine-select">
+          {{selectOptions effortLevelChoices selected=this.freeEffort}}
+        </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DifficultyModifier"}}:</label>
         <select class="roll-engine-select-eased-hindered" name="easedOrHindered" id="easedOrHindered" class="dialog-select">
           {{selectOptions stepModifierChoices selected=this.easedOrHindered localize=true}}
@@ -104,6 +108,9 @@
           {{/if}}
           {{#if this.summaryNotEnoughPointsString}}
             <label class="roll-engine-label-summary red">{{this.summaryNotEnoughPointsString}}</label>
+          {{/if}}
+          {{#if this.summaryUltimateDamage}}
+            <label class="roll-engine-label-summary">{{this.summaryUltimateDamage}}</label>
           {{/if}}
 
           <hr class="hr-roll-engine">

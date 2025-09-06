@@ -1,6 +1,7 @@
 import {SheetCustomization} from "../forms/sheet-customization.js";
 
 export async function registerGameSettings() {
+  // Roll settings
   game.settings.register("cyphersystem", "effectiveDifficulty", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingRollMacro"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingRollMacroHint"),
@@ -29,6 +30,24 @@ export async function registerGameSettings() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
+  game.settings.register("cyphersystem", "showRollDetails", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetails"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetailsHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
   game.settings.register("cyphersystem", "diceTray", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingDiceTray"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingDiceTrayHint"),
@@ -43,6 +62,31 @@ export async function registerGameSettings() {
     config: true
   });
 
+  // Game settings
+  game.settings.register("cyphersystem", "cypherIdentification", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentification"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationHint"),
+    scope: "world",
+    type: Number,
+    default: 0,
+    choices: {
+      0: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAsItem"),
+      1: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAlways"),
+      2: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationNever")
+    },
+    config: true
+  });
+
+  game.settings.register("cyphersystem", "ultimateDamage", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingUltimateDamage"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingUltimateDamageHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
+  // Token settings
   game.settings.register("cyphersystem", "showRulerGridless", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerGridless"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerGridlessHint"),
@@ -83,38 +127,7 @@ export async function registerGameSettings() {
     config: true
   });
 
-  game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
-    name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
-    hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
-    scope: "world",
-    type: Boolean,
-    default: false,
-    config: true
-  });
-
-  game.settings.register("cyphersystem", "showRollDetails", {
-    name: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetails"),
-    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowRollDetailsHint"),
-    scope: "world",
-    type: Boolean,
-    default: false,
-    config: true
-  });
-
-  game.settings.register("cyphersystem", "cypherIdentification", {
-    name: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentification"),
-    hint: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationHint"),
-    scope: "world",
-    type: Number,
-    default: 0,
-    choices: {
-      0: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAsItem"),
-      1: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationAlways"),
-      2: game.i18n.localize("CYPHERSYSTEM.SettingCypherIdentificationNever")
-    },
-    config: true
-  });
-
+  // General settings
   game.settings.register("cyphersystem", "welcomeMessage", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingShowWelcome"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingShowWelcomeHint"),
@@ -124,6 +137,7 @@ export async function registerGameSettings() {
     config: true
   });
 
+  // Module settings
   game.settings.register("cyphersystem", "barBrawlDefaults", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingBarBrawlDefaults"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingBarBrawlDefaultsHint"),
@@ -133,6 +147,7 @@ export async function registerGameSettings() {
     config: game.modules.has("barbrawl") ? game.modules.get("barbrawl").active : false
   });
 
+  // Secret settings
   game.settings.register("cyphersystem", "useSlashForFractions", {
     scope: "world",
     type: Boolean,

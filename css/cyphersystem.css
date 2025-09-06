@@ -1079,6 +1079,7 @@ select.bar-attribute {
 
 .cyphersystem input:disabled {
   border: 1px solid rgb(0, 0, 0, 0);
+  outline: none;
 }
 
 .cyphersystem select {

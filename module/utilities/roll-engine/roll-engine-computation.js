@@ -10,18 +10,42 @@ export async function rollEngineComputation(data) {
   data.roll = await new Roll("1d20").evaluate();
 
   // Check for effort
-  data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;
-  if (data.effortTotal > actor.system.basic.effort) {
+  data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
+  data.effortUltimateDamageTotal = data.effortToEase + data.effortOtherUses - data.freeEffort;
+  data.effortApplied = data.effortToEase + data.effortOtherUses + data.effortDamage;
+
+  if (data.effortApplied > 6) {
+    return ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
+  } else if (
+    data.ultimateDamage &&
+    data.effortUltimateDamageTotal > Math.min(actor.system.basic.effort, 6)
+  ) {
     return ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
   }
 
   // Determine impaired & debilitated status
   if (data.teen) {
-    if (actor.system.teen.combat.damage.damageTrack == "Impaired" && actor.system.teen.combat.damage.applyImpaired) data.impairedStatus = true;
-    if (actor.system.teen.combat.damage.damageTrack == "Debilitated" && actor.system.teen.combat.damage.applyDebilitated) data.impairedStatus = true;
+    if (
+      actor.system.teen.combat.damage.damageTrack == "Impaired" &&
+      actor.system.teen.combat.damage.applyImpaired
+    )
+      data.impairedStatus = true;
+    if (
+      actor.system.teen.combat.damage.damageTrack == "Debilitated" &&
+      actor.system.teen.combat.damage.applyDebilitated
+    )
+      data.impairedStatus = true;
   } else if (!data.teen) {
-    if (actor.system.combat.damageTrack.state == "Impaired" && actor.system.combat.damageTrack.applyImpaired) data.impairedStatus = true;
-    if (actor.system.combat.damageTrack.state == "Debilitated" && actor.system.combat.damageTrack.applyDebilitated) data.impairedStatus = true;
+    if (
+      actor.system.combat.damageTrack.state == "Impaired" &&
+      actor.system.combat.damageTrack.applyImpaired
+    )
+      data.impairedStatus = true;
+    if (
+      actor.system.combat.damageTrack.state == "Debilitated" &&
+      actor.system.combat.damageTrack.applyDebilitated
+    )
+      data.impairedStatus = true;
   } else {
     data.impairedStatus = false;
   }
@@ -47,9 +71,13 @@ export async function rollEngineComputation(data) {
   data.damageWithEffect = data.totalDamage + data.damageEffect;
 
   // Calculate total cost
-  data.impaired = (data.impairedStatus) ? data.effortTotal : 0;
-  data.armorCost = (data.pool == "Speed") ? data.effortTotal * actor.system.combat.armor.costTotal : 0;
-  data.costCalculated = (data.effortTotal > 0) ? (data.effortTotal * 2) + 1 + data.poolPointCost + data.armorCost + data.impaired : data.poolPointCost;
+  data.impaired = data.impairedStatus ? data.effortTotal : 0;
+  data.armorCost =
+    data.pool == "Speed" ? data.effortTotal * actor.system.combat.armor.costTotal : 0;
+  data.costCalculated =
+    data.effortTotal > 0
+      ? data.effortTotal * 2 + 1 + data.poolPointCost + data.armorCost + data.impaired
+      : data.poolPointCost;
 
   // Pay pool points
   let payPoolPointsInfo = [];
@@ -63,16 +91,25 @@ export async function rollEngineComputation(data) {
   data.edge = payPoolPointsInfo[2];
 
   // Calculate roll modifiers
-  let difficultyModifier = (data.easedOrHindered == "hindered") ? data.difficultyModifier * -1 : data.difficultyModifier;
-  data.difficultyModifierTotal = data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
+  let difficultyModifier =
+    data.easedOrHindered == "hindered" ? data.difficultyModifier * -1 : data.difficultyModifier;
+  data.difficultyModifierTotal =
+    data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
 
   // Calculate rollTotal
   data.rollTotal = data.roll.total + data.bonus;
 
   // Calculate difficulty
-  data.difficulty = (data.rollTotal < 0) ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);
-  data.difficultyResult = determineDifficultyResult(data.baseDifficulty, data.difficulty, data.difficultyModifierTotal);
-  data.finalDifficulty = (useEffectiveDifficulty(data.baseDifficulty)) ? data.baseDifficulty : Math.max(data.baseDifficulty - data.difficultyModifierTotal, 0);
+  data.difficulty =
+    data.rollTotal < 0 ? Math.ceil(data.rolltotal / 3) : Math.floor(data.rollTotal / 3);
+  data.difficultyResult = determineDifficultyResult(
+    data.baseDifficulty,
+    data.difficulty,
+    data.difficultyModifierTotal
+  );
+  data.finalDifficulty = useEffectiveDifficulty(data.baseDifficulty)
+    ? data.baseDifficulty
+    : Math.max(data.baseDifficulty - data.difficultyModifierTotal, 0);
 
   // Go to next step
   if (payPoolPointsInfo[0]) {
@@ -84,10 +121,12 @@ export async function rollEngineComputation(data) {
 
 function determineDifficultyResult(baseDifficulty, difficulty, difficultyModifierTotal) {
   if (useEffectiveDifficulty(baseDifficulty)) {
-    let operator = (difficultyModifierTotal < 0) ? "-" : "+";
+    let operator = difficultyModifierTotal < 0 ? "-" : "+";
     let effectiveDifficulty = difficulty + difficultyModifierTotal;
     if (effectiveDifficulty < 0) effectiveDifficulty = 0;
-    return effectiveDifficulty + " [" + difficulty + operator + Math.abs(difficultyModifierTotal) + "]";
+    return (
+      effectiveDifficulty + " [" + difficulty + operator + Math.abs(difficultyModifierTotal) + "]"
+    );
   } else {
     if (difficulty < 0) difficulty = 0;
     return difficulty + " (" + difficulty * 3 + ")";
