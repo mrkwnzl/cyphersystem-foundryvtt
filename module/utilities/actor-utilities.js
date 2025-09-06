@@ -31,26 +31,27 @@ export async function payPoolPoints(actor, costCalculated, pool, teen, edge) {
   if (costCalculated < 0) costCalculated = 0;
 
   // Check if enough points are avalable and update actor
+  let ruleBreakingRolls = game.settings.get("cyphersystem", "ruleBreakingRolls");
   if (pool == "Might") {
-    if (costCalculated > mightValue) {
+    if (costCalculated > mightValue && !ruleBreakingRolls) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughMight"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.might.value": mightValue - costCalculated}) : actor.update({"system.pools.might.value": mightValue - costCalculated});
   } else if (pool == "Speed") {
-    if (costCalculated > speedValue) {
+    if (costCalculated > speedValue && !ruleBreakingRolls) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughSpeed"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.speed.value": intellectValue - costCalculated}) : actor.update({"system.pools.speed.value": speedValue - costCalculated});
   } else if (pool == "Intellect") {
-    if (costCalculated > intellectValue) {
+    if (costCalculated > intellectValue && !ruleBreakingRolls) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughIntellect"));
       return false;
     }
     (teen) ? actor.update({"system.teen.pools.intellect.value": intellectValue - costCalculated}) : actor.update({"system.pools.intellect.value": intellectValue - costCalculated});
   } else if (pool == "XP") {
-    if (costCalculated > actor.system.basic.xp) {
+    if (costCalculated > actor.system.basic.xp && !ruleBreakingRolls) {
       ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.NotEnoughXP"));
       return false;
     }

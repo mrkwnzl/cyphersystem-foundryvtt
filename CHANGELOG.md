@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Setting to display the token ruler on gridless scenes either (1) only when setting waypoints, (2) when in combat, or (3) always.
 - Setting to disable the token ruler completely (including waypoints) based on actor type. It defaults to markers.
 - Setting to change the token movement.
+- The All-in-One Dialog now allows to set free levels of Effort.
+- Support for Ultimate Damage. It can be enabled from the system settings.
+
+### Changed
+- The All-in-One Dialog has been rearranged.
 
 ### Fixed
 - The quick stat roll macros now work as expected again.

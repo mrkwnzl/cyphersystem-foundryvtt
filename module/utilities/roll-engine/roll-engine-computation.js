@@ -1,3 +1,4 @@
+import {summaryCheckEffort} from "../../forms/roll-engine-dialog-sheet.js";
 import {payPoolPoints} from "../actor-utilities.js";
 import {rollEngineForm} from "./roll-engine-form.js";
 import {useEffectiveDifficulty} from "./roll-engine-main.js";
@@ -14,12 +15,7 @@ export async function rollEngineComputation(data) {
   data.effortUltimateDamageTotal = data.effortToEase + data.effortOtherUses - data.freeEffort;
   data.effortApplied = data.effortToEase + data.effortOtherUses + data.effortDamage;
 
-  if (data.effortApplied > 6) {
-    return ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
-  } else if (
-    data.ultimateDamage &&
-    data.effortUltimateDamageTotal > Math.min(actor.system.basic.effort, 6)
-  ) {
+  if (!game.settings.get("cyphersystem", "ruleBreakingRolls") && summaryCheckEffort(actor, data)) {
     return ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort"));
   }
 

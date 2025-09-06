@@ -73,6 +73,7 @@ ol {
   margin-bottom: 2px;
   border-bottom: none;
   border-top: 1px solid #7a7971;
+  background-image: none;
 }
 
 .chat-log .roll-result-hr {
@@ -80,6 +81,7 @@ ol {
   border-bottom: none;
   border-top: 3px double #7a7971;
   width: 95%;
+  background-image: none;
 }
 
 .chat-log .intrusion {
@@ -402,6 +404,7 @@ select.bar-attribute {
   margin: 0;
   border-bottom: 0;
   border-top: 1px solid #999;
+  background-image: none;
 }
 
 .editor-content h4 {
@@ -553,7 +556,7 @@ select.bar-attribute {
   top: 80px;
   left: 550px;
   opacity: 25%;
-  z-index: 1;
+  z-index: 0;
 }
 
 .cyphersystem img.background-image-icon-roll-form {
@@ -635,11 +638,13 @@ select.bar-attribute {
   margin-bottom: 5px;
   border-bottom: 0;
   border-top: 1px solid #999;
+  background-image: none;
 }
 
 .cyphersystem .hr-roll-engine {
   border: none;
   border-top: 1px solid #bbb;
+  background-image: none;
 }
 
 .cyphersystem .stat-pool {
@@ -817,6 +822,7 @@ select.bar-attribute {
   margin: 0;
   border-bottom: 0;
   border-top: 1px solid rgba(187, 187, 187);
+  background-image: none;
 }
 
 .cyphersystem .items-list .item {
@@ -1424,6 +1430,7 @@ select.settings-input {
   display: inline-block;
   width: 170px;
   text-align: right;
+  margin-right: 5px;
 }
 
 .cyphersystem .roll-engine-label-summary {
@@ -1459,29 +1466,27 @@ select.settings-input {
 .cyphersystem .roll-engine-select {
   height: 26px;
   width: 170px;
-  margin-left: 5px;
   margin-bottom: 5px;
   text-align-last: center;
 }
 
-.cyphersystem .roll-engine-select-eased-hindered {
+.cyphersystem .roll-engine-select-eased-hindered,
+.cyphersystem .roll-engine-select-pool-point-cost {
   height: 26px;
-  width: 110px;
-  margin-left: 5px;
+  width: 132px;
   margin-bottom: 5px;
   text-align-last: center;
 }
 
 .cyphersystem input.roll-engine-input {
   width: 170px;
-  margin-left: 5px;
   margin-bottom: 5px;
   text-align: center;
 }
 
-.cyphersystem input.roll-engine-input-eased-hindered {
-  width: 57px;
-  margin-left: 0px;
+.cyphersystem input.roll-engine-input-eased-hindered,
+.cyphersystem input.roll-engine-input-pool-point-cost {
+  width: 35px;
   margin-bottom: 5px;
   text-align: center;
 }

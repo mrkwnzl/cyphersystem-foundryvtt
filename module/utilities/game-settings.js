@@ -86,6 +86,15 @@ export async function registerGameSettings() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "ruleBreakingRolls", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingRuleBreakingRolls"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingRuleBreakingRollsHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
   // Token settings
   game.settings.register("cyphersystem", "showRulerGridless", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingShowRulerGridless"),

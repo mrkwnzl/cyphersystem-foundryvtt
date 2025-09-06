@@ -591,6 +591,7 @@
             "effort1": 0,
             "effort2": 0,
             "effort3": 0,
+            "freeEffort": 0,
             "stepModifier": "eased",
             "additionalSteps": 0,
             "additionalCost": 0,

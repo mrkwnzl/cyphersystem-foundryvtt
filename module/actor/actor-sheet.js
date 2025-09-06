@@ -828,7 +828,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       const macroUuid = item.system.settings.rollButton.macroUuid;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroUuid);
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroUuid, "");
     });
 
     // Item pay pool points buttons
@@ -836,7 +836,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
       const macroUuid = item.system.settings.rollButton.macroUuid;
 
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroUuid);
+      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroUuid, "");
     });
 
     // Item cast spell button

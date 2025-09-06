@@ -32,12 +32,13 @@ export class RollEngineDialogSheet extends FormApplication {
     const data = super.getData().object;
 
     let actor = fromUuidSync(data.actorUuid);
+    data.actor = actor;
 
     if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
     data.useGlobalDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
 
-    data.effortValue = Math.min(actor.system.basic.effort, 6);
+    data.effortValue = Math.min(actor.system.basic.effort + data.freeEffort, 6);
 
     // Base stats
     data.mightValue = data.teen
@@ -63,8 +64,7 @@ export class RollEngineDialogSheet extends FormApplication {
       : actor.system.pools.intellect.edge;
 
     // Effort
-    data.totalEffort =
-      data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
+    data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
     data.effortUltimateDamageTotal = data.effortToEase + data.effortOtherUses - data.freeEffort;
     data.effortApplied = data.effortToEase + data.effortOtherUses + data.effortDamage;
 
@@ -122,10 +122,10 @@ export class RollEngineDialogSheet extends FormApplication {
     data.exceedEffort = data.summaryTooMuchEffort ? "exceeded" : "";
     data.exceedMight = data.pool == "Might" && data.summaryNotEnoughPointsString ? "exceeded" : "";
     data.exceedSpeed = data.pool == "Speed" && data.summaryNotEnoughPointsString ? "exceeded" : "";
-    data.exceedIntellect =
-      data.pool == "Intellect" && data.summaryNotEnoughPointsString ? "exceeded" : "";
-    data.disabledButton =
-      data.summaryTooMuchEffort || data.summaryNotEnoughPointsString ? "disabled" : "";
+    data.exceedIntellect = data.pool == "Intellect" && data.summaryNotEnoughPointsString ? "exceeded" : "";
+
+    let ruleBreakingRolls = game.settings.get("cyphersystem", "ruleBreakingRolls");
+    data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) && !ruleBreakingRolls ? "disabled" : "";
 
     // Summary stats
     data.mightValue =
@@ -268,7 +268,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.poolPointCost = formData.poolPointCost ? formData.poolPointCost : 0;
 
     // Derived data
-    data.totalEffort = data.effortToEase + data.effortOtherUses + data.effortDamage;
+    data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage;
     data.disabledButton =
       data.summaryTooMuchEffort || data.summaryNotEnoughPointsString ? "disabled" : "";
 
@@ -423,7 +423,7 @@ async function enableMultiRoll(actor, data) {
   let speedCost = data.pool == "Speed" ? data.summaryTotalCostArray[2] : 0;
   let intellectCost = data.pool == "Intellect" ? data.summaryTotalCostArray[2] : 0;
 
-  let effortModifier = data.totalEffort * -1;
+  let effortModifier = data.effortTotal * -1;
   let mightEdgeModifier = Math.min(actor.system.pools.might.edge, mightCost) * -1;
   let speedEdgeModifier = Math.min(actor.system.pools.speed.edge, speedCost) * -1;
   let intellectEdgeModifier = Math.min(actor.system.pools.intellect.edge, intellectCost) * -1;
@@ -580,10 +580,10 @@ function summaryTotalCost(actor, data, teen) {
   }
 
   let effortCost =
-    1 + data.totalEffort * 2 + data.totalEffort * armorCost + data.totalEffort * impairedCost;
+    1 + data.effortTotal * 2 + data.effortTotal * armorCost + data.effortTotal * impairedCost;
 
   let costWithoutEdge =
-    data.totalEffort >= 1 ? data.poolPointCost + effortCost : data.poolPointCost;
+    data.effortTotal >= 1 ? data.poolPointCost + effortCost : data.poolPointCost;
 
   let totalCost = costWithoutEdge - edge;
   if (totalCost < 0) totalCost = 0;
@@ -604,15 +604,14 @@ function summaryTotalCost(actor, data, teen) {
   return [totalCost, totalCostString, costWithoutEdge];
 }
 
-function summaryCheckEffort(actor, data) {
+export function summaryCheckEffort(actor, data) {
   let tooMuchEffortString = "";
 
-  if (!data.ultimateDamage && data.effortApplied > Math.min(actor.system.basic.effort, 6)) {
+  if (data.effortApplied > 6) {
     tooMuchEffortString = game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort");
-  } else if (
-    data.ultimateDamage &&
-    data.effortUltimateDamageTotal > Math.min(actor.system.basic.effort, 6)
-  ) {
+  } else if (!data.ultimateDamage && data.effortTotal > actor.system.basic.effort) {
+    tooMuchEffortString = game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort");
+  } else if (data.ultimateDamage && data.effortUltimateDamageTotal > Math.min(actor.system.basic.effort, 6)) {
     tooMuchEffortString = game.i18n.localize("CYPHERSYSTEM.SpendTooMuchEffort");
   }
 

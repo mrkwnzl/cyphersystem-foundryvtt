@@ -102,7 +102,7 @@
   "CYPHERSYSTEM.ApplyToNPCInitiative": "Base NPC initiative on difficulty",
   "CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative": "Difficulty is used as base for NPC initiative",
   "CYPHERSYSTEM.NPCsUseTheirLevelForInitiative": "NPCs use their level for initiative",
-  "CYPHERSYSTEM.DifficultyModifier": "Difficulty modifier",
+  "CYPHERSYSTEM.DifficultyModifier": "Situational modifiers",
   "CYPHERSYSTEM.RollBeatDifficulty": "Beats difficulty",
   "CYPHERSYSTEM.Success": "Success!",
   "CYPHERSYSTEM.Failure": "Failure!",
@@ -141,9 +141,10 @@
   "CYPHERSYSTEM.Cost": "Cost",
   "CYPHERSYSTEM.BaseCost": "Base cost",
   "CYPHERSYSTEM.TotalCost": "Total cost",
-  "CYPHERSYSTEM.BasicModifiers": "Basic Modifiers",
-  "CYPHERSYSTEM.AttackModifiers": "Attack Modifiers",
-  "CYPHERSYSTEM.AdditionalModifiers": "Additional Modifiers",
+  "CYPHERSYSTEM.BasicModifiers": "Difficulty Settings",
+  "CYPHERSYSTEM.AttackModifiers": "Attack Settings",
+  "CYPHERSYSTEM.AdditionalModifiers": "Additional Settings",
+  "CYPHERSYSTEM.CostSettings": "Cost Settings",
   "CYPHERSYSTEM.RollButtonSettings": "Roll Button & Item Macro Defaults",
   "CYPHERSYSTEM.Additional": "additional",
   "CYPHERSYSTEM.Name": "Name",
@@ -746,5 +747,9 @@
   "CYPHERSYSTEM.SettingUltimateDamage": "Ultimate Damage",
   "CYPHERSYSTEM.SettingUltimateDamageHint": "Effort used for damage ignores the personal maximum Effort, but is still limited to six levels of Effort in total.",
   "CYPHERSYSTEM.FreeLevelsOfEffort": "Free levels of Effort",
-  "CYPHERSYSTEM.UltimateDamageUsed": "Ultimate Damage."
+  "CYPHERSYSTEM.FreeLevels": "Free levels",
+  "CYPHERSYSTEM.UltimateDamageUsed": "Ultimate Damage: Damage can exceed the Effort Limit (up to a maximum of 6).",
+  "CYPHERSYSTEM.SettingRuleBreakingRolls": "Allow Rule Breaking",
+  "CYPHERSYSTEM.SettingRuleBreakingRollsHint": "Rolls can be made and Pool costs can be paid even if it breaks the rules.",
+  "CYPHERSYSTEM.Default": "Default"
 }

@@ -204,12 +204,12 @@ export async function selectedTokenRollMacro(actor, title) {
     let finalDifficulty = data.baseDifficulty - data.difficultyModifier;
     let taskDifficulty = !useEffectiveDifficulty(data.baseDifficulty)
       ? "<br>" +
-        game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") +
-        ": " +
-        finalDifficulty +
-        " (" +
-        Math.max(0, finalDifficulty * 3) +
-        ")"
+      game.i18n.localize("CYPHERSYSTEM.FinalDifficulty") +
+      ": " +
+      finalDifficulty +
+      " (" +
+      Math.max(0, finalDifficulty * 3) +
+      ")"
       : "";
     if (modifiedBy) {
       easedOrHinderedInfo = modifiedBy + taskDifficulty + "<hr class='hr-chat'>";
@@ -219,12 +219,12 @@ export async function selectedTokenRollMacro(actor, title) {
     let baseDifficultyInfo =
       data.baseDifficulty >= 0
         ? "<br>" +
-          game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") +
-          ": " +
-          data.baseDifficulty +
-          " (" +
-          Math.max(0, data.baseDifficulty * 3) +
-          ")"
+        game.i18n.localize("CYPHERSYSTEM.BaseDifficulty") +
+        ": " +
+        data.baseDifficulty +
+        " (" +
+        Math.max(0, data.baseDifficulty * 3) +
+        ")"
         : "";
 
     // Create beatenDifficulty info
@@ -260,11 +260,11 @@ export async function selectedTokenRollMacro(actor, title) {
       successInfo =
         difficultyBeaten >= finalDifficulty
           ? "<br><span class='roll-effect effect1920'>" +
-            game.i18n.localize("CYPHERSYSTEM.Success") +
-            "</span>"
+          game.i18n.localize("CYPHERSYSTEM.Success") +
+          "</span>"
           : "<br><span class='roll-effect intrusion'>" +
-            game.i18n.localize("CYPHERSYSTEM.Failure") +
-            "</span>";
+          game.i18n.localize("CYPHERSYSTEM.Failure") +
+          "</span>";
     }
 
     let flavor =
@@ -373,12 +373,7 @@ export async function allInOneRollDialogV2(rollObject) {
     ? actor.items.get(itemID).system.settings.general.initiative
     : false;
 
-  rollObject = Object.assign(
-    {
-      initiativeRoll: initiativeRoll
-    },
-    rollObject
-  );
+  rollObject = Object.assign({initiativeRoll: initiativeRoll}, rollObject);
 
   // Apply to roll eninge
   rollEngineMain(rollObject);
@@ -401,7 +396,8 @@ export async function itemRollMacro(
   stepModifier,
   noRoll,
   bonus,
-  macroUuid
+  macroUuid,
+  freeEffort
 ) {
   // Find actor based on item ID
   const owner = game.actors.find((actor) => actor.items.get(itemID));
@@ -447,6 +443,7 @@ export async function itemRollMacro(
   if (!effort1) effort1 = item.system.settings.rollButton.effort1;
   if (!effort2) effort2 = item.system.settings.rollButton.effort2;
   if (!effort3) effort3 = item.system.settings.rollButton.effort3;
+  if (!freeEffort) freeEffort = item.system.settings.rollButton.freeEffort;
   if (!additionalCost) {
     if (item.type == "ability") {
       let checkPlus = item.system.basic.cost.slice(-1);
@@ -527,7 +524,8 @@ export async function itemRollMacro(
     difficultyModifier: parseInt(Math.abs(additionalSteps)),
     easedOrHindered: stepModifier,
     bonus: parseInt(bonus),
-    poolPointCost: parseInt(additionalCost)
+    poolPointCost: parseInt(additionalCost),
+    freeEffort: parseInt(freeEffort)
   });
 }
 
@@ -879,11 +877,11 @@ export function toggleAlwaysShowDescriptionOnRoll() {
   game.settings.set("cyphersystem", "alwaysShowDescriptionOnRoll", toggle);
   toggle
     ? ui.notifications.info(
-        game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification")
-      )
+      game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionEnabledNotification")
+    )
     : ui.notifications.info(
-        game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification")
-      );
+      game.i18n.localize("CYPHERSYSTEM.AlwaysShowDescriptionDisabledNotification")
+    );
 }
 
 export async function recursionMacro(actor, item) {
