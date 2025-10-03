@@ -10,7 +10,7 @@
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite show-on-hover {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -22,7 +22,7 @@
     <div class="item-quantity">
       {{item.system.basic.shifts}}{{#if item.system.basic.temporary}} + 1{{/if}}
     </div>
-    <div class="item-controls">
+    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
       <a class="item-control power-shift-temporary {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ToggleTemporaryPowerShift'}}">
         <i class="fa-item fa-solid fa-hourglass" style="{{#unless item.system.basic.temporary}}color: grey{{/unless}}"></i>
       </a>

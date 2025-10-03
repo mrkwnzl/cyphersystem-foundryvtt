@@ -19,7 +19,7 @@
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite show-on-hover {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -42,7 +42,7 @@
         {{localize 'CYPHERSYSTEM.?'}}
       {{/if}}
     </div>
-    <div class="item-controls">
+    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
       {{#unless item.system.basic.identified}}
         <a class="item-control identify-item {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}">
           <i class="fa-item far fa-eye-slash"></i>

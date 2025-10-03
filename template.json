@@ -99,6 +99,7 @@
       "settings": {
         "general": {
           "gameMode": "Cypher",
+          "rollTwoD20": false,
           "additionalSentence": {
             "active": false,
             "label": ""
@@ -260,6 +261,7 @@
         "description": "",
         "settings": {
           "general": {
+            "rollTwoD20": false,
             "additionalPool": {
               "label": "",
               "active": false
@@ -591,6 +593,7 @@
             "effort1": 0,
             "effort2": 0,
             "effort3": 0,
+            "freeEffort": 0,
             "stepModifier": "eased",
             "additionalSteps": 0,
             "additionalCost": 0,

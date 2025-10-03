@@ -3,50 +3,60 @@ import {rollEngineComputation} from "./roll-engine-computation.js";
 import {rollEngineForm} from "./roll-engine-form.js";
 
 export async function rollEngineMain(data) {
-  data = Object.assign({
-    actorUuid: undefined,
-    itemID: undefined,
-    macroUuid: undefined,
-    macroExecuteAsGM: undefined,
-    teen: undefined,
-    skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
-    skipRoll: false,
-    initiativeRoll: false,
-    reroll: false,
-    gmiRange: undefined,
-    title: "",
-    baseDifficulty: undefined,
-    pool: "Pool",
-    skillLevel: 0,
-    assets: 0,
-    effortToEase: 0,
-    effortOtherUses: 0,
-    damage: 0,
-    effortDamage: 0,
-    damagePerLOE: 3,
-    difficultyModifier: 0,
-    easedOrHindered: "eased",
-    bonus: 0,
-    poolPointCost: 0
-  }, data);
+  data = Object.assign(
+    {
+      actorUuid: undefined,
+      itemID: undefined,
+      macroUuid: undefined,
+      macroExecuteAsGM: undefined,
+      teen: undefined,
+      skipDialog: !game.settings.get("cyphersystem", "itemMacrosUseAllInOne"),
+      ultimateDamage: game.settings.get("cyphersystem", "ultimateDamage"),
+      skipRoll: false,
+      initiativeRoll: false,
+      reroll: false,
+      advantage: 0,
+      gmiRange: undefined,
+      title: "",
+      baseDifficulty: undefined,
+      pool: "Pool",
+      skillLevel: 0,
+      assets: 0,
+      effortToEase: 0,
+      effortOtherUses: 0,
+      damage: 0,
+      effortDamage: 0,
+      damagePerLOE: 3,
+      freeEffort: 0,
+      difficultyModifier: 0,
+      easedOrHindered: "eased",
+      bonus: 0,
+      poolPointCost: 0
+    },
+    data
+  );
 
   // Find actor
   if (!data.actorUuid) data.actorUuid = game.user.character?.uuid;
-  let actor = (data.actorUuid) ? fromUuidSync(data.actorUuid) : undefined;
+  let actor = data.actorUuid ? fromUuidSync(data.actorUuid) : undefined;
 
   // Find item
-  let item = (actor && data.itemID) ? actor.items.get(data.itemID) : undefined;
+  let item = actor && data.itemID ? actor.items.get(data.itemID) : undefined;
 
   // Check for PC actor
-  if (!actor || actor.type != "pc") return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
+  if (!actor || actor.type != "pc")
+    return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Skip dialog?
-  if (game.keyboard.isModifierActive('Alt')) data.skipDialog = !data.skipDialog;
+  if (game.keyboard.isModifierActive("Alt")) data.skipDialog = !data.skipDialog;
   if (actor.getFlag("cyphersystem", "multiRoll.active")) data.skipDialog = false;
   if (data.reroll) data.skipDialog = true;
 
   // Check whether pool == XP
-  if (data.pool == "XP" && !data.skipDialog) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP"));
+  if (data.pool == "XP" && !data.skipDialog)
+    return ui.notifications.warn(
+      game.i18n.localize("CYPHERSYSTEM.CantUseAIOMacroWithAbilitiesUsingXP")
+    );
 
   if (!data.baseDifficulty) {
     data.baseDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
@@ -54,10 +64,10 @@ export async function rollEngineMain(data) {
 
   // Set defaults for functions
   if (data.teen === undefined) {
-    data.teen = (actor.system.basic.unmaskedForm == "Teen") ? true : false;
+    data.teen = actor.system.basic.unmaskedForm == "Teen" ? true : false;
   }
 
-  data.initiativeRoll = (item) ? item.system.settings.general.initiative : false;
+  data.initiativeRoll = item ? item.system.settings.general.initiative : false;
 
   // Fallback for empty data
   if (!data.poolPointCost) {

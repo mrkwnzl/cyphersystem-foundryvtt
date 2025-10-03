@@ -11,7 +11,7 @@
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite show-on-hover {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -21,7 +21,7 @@
       {{/if}}
     </h4>
     <div class="item-quantity">{{item.system.basic.rating}}/{{item.system.basic.cost}}</div>
-    <div class="item-controls">
+    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
       {{#if (eq ../type "pc")}}
         <a class="item-control armor-active {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ArmorActive'}}">
           {{#if item.system.active}}

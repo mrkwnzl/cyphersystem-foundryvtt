@@ -8,7 +8,7 @@
           <label>
             {{localize "CYPHERSYSTEM.KeepDifficulty"}}
           </label>&nbsp;
-          <div class="item-controls">
+          <div class="item-controls {{{../sheetSettings.showOnHover}}}">
             {{#if isGM}}
               {{#if persistentRollDifficulty}}
                 <a class="toggle-persistent-roll-difficulty"><i class="fa-item fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.KeepDifficulty'}}"></i></a>
@@ -29,7 +29,7 @@
             <label>
               {{localize "CYPHERSYSTEM.ApplyToNPCInitiative"}}
             </label>&nbsp;
-            <div class="item-controls">
+            <div class="item-controls {{{../sheetSettings.showOnHover}}}">
               {{#if difficultyNPCInitiative}}
                 <a class="toggle-difficulty-npc-initiative"><i class="fa-item fas fa-toggle-on" title="{{localize 'CYPHERSYSTEM.DifficultyUsedAsBaseForNPCInitiative'}}"></i></a>
               {{else}}

@@ -7,6 +7,7 @@ import {resetDifficulty, useEffectiveDifficulty} from "./roll-engine-main.js";
 
 export async function rollEngineOutput(data) {
   let actor = fromUuidSync(data.actorUuid);
+  let teen = actor.system.basic.unmaskedForm == "Teen" ? true : false;
 
   // Get show details setting
   let showDetails = game.settings.get("cyphersystem", "showRollDetails");
@@ -247,8 +248,10 @@ export async function rollEngineOutput(data) {
   // --- Roll result block
 
   // Determine result with bonus/penalty
+  let advantageInfo = (data.advantage > 0) ? " + 3" : "";
   let operator = (data.bonus < 0) ? "-" : "+";
-  let resultInfo = (data.bonus != 0 && data.bonus != "") ? "<span class='roll-result'>" + game.i18n.localize("CYPHERSYSTEM.Result") + ": " + data.rollTotal + " [" + data.roll.total + operator + Math.abs(data.bonus) + "]" + "</span><br>" : "";
+  let bonusInfo = (data.bonus != 0 && data.bonus != "") ? " " + operator + " " + Math.abs(data.bonus) : "";
+  let resultInfo = (bonusInfo || advantageInfo) ? "<span class='roll-result'>" + game.i18n.localize("CYPHERSYSTEM.Result") + ": " + data.rollTotal + " [" + data.roll.total + bonusInfo + advantageInfo + "]" + "</span><br>" : "";
 
   // Determine special effect
   let effect = "";
@@ -289,7 +292,15 @@ export async function rollEngineOutput(data) {
   let multiRollInfo = (actor.getFlag("cyphersystem", "multiRoll.active")) ? "<div class='multi-roll-active'>" + game.i18n.localize("CYPHERSYSTEM.MultiRoll") + "</div>" : "";
 
   // Create reroll info
-  let rerollInfo = (data.reroll) ? "<div>" + game.i18n.localize("CYPHERSYSTEM.Reroll") + "</div>" : "";
+  let rerollInfo = "";
+
+  if (data.reroll) {
+    if (data.advantage) {
+      rerollInfo = "<div>" + game.i18n.localize("CYPHERSYSTEM.RerollWithAdvantage") + "</div>";
+    } else {
+      rerollInfo = "<div>" + game.i18n.localize("CYPHERSYSTEM.Reroll") + "</div>";
+    }
+  }
 
   // Create beatenDifficulty
   let beatenDifficulty = "<span class='roll-difficulty'>" + game.i18n.localize("CYPHERSYSTEM.RollBeatDifficulty") + " " + data.difficultyResult + "</span>";
@@ -312,7 +323,7 @@ export async function rollEngineOutput(data) {
   let actorUuid = (actor) ? actor.uuid : "";
   data.baseDifficulty = (data.baseDifficulty >= 0) ? parseInt(data.baseDifficulty) : data.baseDifficulty;
   let dataString = JSON.stringify(data);
-  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.Reroll")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fa-item fas fa-dice-d20"></i></a>`;
+  let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.RerollHint")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fa-item fas fa-dice-d20"></i></a>`;
 
   // Add regain points button
   let regainPointsButton = "";

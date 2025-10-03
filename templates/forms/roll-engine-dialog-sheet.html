@@ -20,10 +20,6 @@
         {{else}}
           <input name="baseDifficulty" id="baseDifficulty" type="number" value="{{this.baseDifficulty}}" class="roll-engine-input disabled" /><br>
         {{/if}}
-        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Pool"}}:</label>
-        <select name="pool" id="pool" class="dialog-select roll-engine-select">
-          {{selectOptions poolChoices.withAnyPool selected=this.pool localize=true}}
-        </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.SkillLevel"}}:</label>
         <select name="skillLevel" id="skillLevel" class="dialog-select roll-engine-select">
           {{selectOptions skillRatingChoices selected=this.skillLevel valueAttr="key" labelAttr="label" localize=true}}
@@ -36,9 +32,29 @@
         <select name="effortToEase" id="effortToEase" class="dialog-select roll-engine-select">
           {{selectOptions effortLevelChoices selected=this.effortToEase}}
         </select><br>
+        <hr class="hr-roll-engine" style="border-top: 1px dashed #bbb;">
+        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DifficultyModifier"}}:</label>
+        <select class="roll-engine-select-eased-hindered" name="easedOrHindered" id="easedOrHindered" class="dialog-select">
+          {{selectOptions stepModifierChoices selected=this.easedOrHindered localize=true}}
+        </select>
+        <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="{{this.difficultyModifier}}" /><br>
+        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Bonus"}}:</label>
+        <input name="bonus" id="bonus" type="number" value="{{this.bonus}}" class="roll-engine-input" /><br>
+        <hr class="hr-roll-engine">
+
+        <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.CostSettings"}}</b></label><br>
+        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.PoolCost"}}:</label>
+        <input name="poolPointCost" id="poolPointCost" type="number" value="{{this.poolPointCost}}" class="roll-engine-input-pool-point-cost" />
+        <select name="pool" id="pool" class="dialog-select roll-engine-select-pool-point-cost">
+          {{selectOptions poolChoices.withAnyPool selected=this.pool localize=true}}
+        </select><br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortForOther"}}:</label>
         <select name="effortOtherUses" id="effortOtherUses" class="dialog-select roll-engine-select">
           {{selectOptions effortLevelChoices selected=this.effortOtherUses}}
+        </select><br>
+        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.FreeLevelsOfEffort"}}:</label>
+        <select name="freeEffort" id="freeEffort" class="dialog-select roll-engine-select">
+          {{selectOptions effortLevelChoices selected=this.freeEffort}}
         </select><br>
         <hr class="hr-roll-engine">
 
@@ -51,19 +67,8 @@
         </select> <br>
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DamageLevelEffort"}}:</label>
         <input name="damagePerLOE" id="damagePerLOE" type="number" value="{{this.damagePerLOE}}" class="roll-engine-input" /><br>
-        <hr class="hr-roll-engine">
-
-        <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.AdditionalModifiers"}}</b></label><br>
-        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DifficultyModifier"}}:</label>
-        <select class="roll-engine-select-eased-hindered" name="easedOrHindered" id="easedOrHindered" class="dialog-select">
-          {{selectOptions stepModifierChoices selected=this.easedOrHindered localize=true}}
-        </select>
-        <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="{{this.difficultyModifier}}" /><br>
-        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Bonus"}}:</label>
-        <input name="bonus" id="bonus" type="number" value="{{this.bonus}}" class="roll-engine-input" /><br>
-        <label class="roll-engine-label">{{localize "CYPHERSYSTEM.PoolCost"}}:</label>
-        <input name="poolPointCost" id="poolPointCost" type="number" value="{{this.poolPointCost}}" class="roll-engine-input" /><br>
       </div>
+
 
       <div align="center">
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.Summary"}}</b></label><br>
@@ -96,6 +101,9 @@
           {{#if this.summaryMacro}}
             <label class="roll-engine-label-summary">{{this.summaryMacro}}</label>
           {{/if}}
+          {{#if this.summaryUltimateDamage}}
+            <label class="roll-engine-label-summary">{{this.summaryUltimateDamage}}</label>
+          {{/if}}
           {{#if this.multiRollActive}}
             <label class="roll-engine-label-summary blue">{{localize "CYPHERSYSTEM.MultiRoll"}}.</label>
           {{/if}}
@@ -108,8 +116,8 @@
 
           <hr class="hr-roll-engine">
           <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.CharacterPreview"}}</b></label><br>
-          <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortAvailable"}}:</label>
-          <input class="roll-engine-input {{this.multiRollEffort}} {{this.exceedEffort}}" name="effort" id="effort" type="text" value="{{this.totalEffort}}/{{this.effortValue}}" disabled /><br>
+          <label class="roll-engine-label">{{localize "CYPHERSYSTEM.EffortAvailable"}} ({{localize "CYPHERSYSTEM.Default"}}):</label>
+          <input class="roll-engine-input {{this.multiRollEffort}} {{this.exceedEffort}}" name="effort" id="effort" type="text" value="{{this.effortApplied}}/{{this.effortValue}} ({{this.actor.system.basic.effort}})" disabled /><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.MightPoolEdge"}}:</label>
           <input class="roll-engine-input {{this.multiRollMightEdge}} {{this.exceedMight}}" name="might" id="might" type="text" value="{{this.mightValue}}/{{this.mightMax}} ({{this.mightEdge}})" disabled /><br>
           <label class="roll-engine-label">{{localize "CYPHERSYSTEM.SpeedPoolEdge"}}:</label>
