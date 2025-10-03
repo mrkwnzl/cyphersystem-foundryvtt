@@ -7,8 +7,17 @@ import {rollEngineOutput} from "./roll-engine-output.js";
 export async function rollEngineComputation(data) {
   let actor = fromUuidSync(data.actorUuid);
 
+  // Determine whether roll formula
+  let teen = actor.system.basic.unmaskedForm == "Teen" ? true : false;
+  let rollFormula = "1d20";
+  if (teen && actor.system.teen.settings.general.rollTwoD20 && !data.reroll) {
+    rollFormula = "2d20kh1";
+  } else if (!teen && actor.system.settings.general.rollTwoD20 && !data.reroll) {
+    rollFormula = "2d20kh1";
+  }
+
   // Roll dice
-  data.roll = await new Roll("1d20").evaluate();
+  data.roll = await new Roll(rollFormula).evaluate();
 
   // Check for effort
   data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
@@ -93,7 +102,7 @@ export async function rollEngineComputation(data) {
     data.skillLevel + data.assets + data.effortToEase + difficultyModifier - data.stressModifier;
 
   // Calculate rollTotal
-  data.rollTotal = data.roll.total + data.bonus;
+  data.rollTotal = data.roll.total + data.bonus + data.advantage;
 
   // Calculate difficulty
   data.difficulty =

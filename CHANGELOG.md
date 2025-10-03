@@ -12,9 +12,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Setting to change the token movement speed.
 - The All-in-One Dialog now allows to set free levels of Effort.
 - Support for Ultimate Damage. It can be enabled from the system settings.
+- A system setting to only show the roll buttons and stat controls when hovering over items. This creates a cleaner look, at least a bit.
+- PC settings to roll 2d20 and keep the highest (e.g. with the Foolish descriptor). Rerolls only roll 1d20 as usual.
+- If you alt-click a reroll for a stat roll, it rerolls with advantage (+3 bonus, e.g. with the Lucky or Halfling descriptor).
 
 ### Changed
 - The All-in-One Dialog has been rearranged.
+- The default sheet design is now Cypher Blue.
+- The favorite button for items now appears on hover instead of when holding alt.
 
 ### Fixed
 - The quick stat roll macros now work as expected again.

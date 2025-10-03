@@ -899,6 +899,32 @@ select.bar-attribute {
   line-height: 1.4;
 }
 
+.cyphersystem li.item .item-controls.show-on-hover,
+.cyphersystem li.item .item-favorite.show-on-hover,
+.cyphersystem li.item .item-controls-spells.show-on-hover,
+.cyphersystem div.stat-block .stat-roll-button.show-on-hover,
+.cyphersystem div.stat-block .stat-controls.show-on-hover {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 150ms ease, visibility 150ms ease;
+}
+
+.cyphersystem li.item:hover .item-controls.show-on-hover,
+.cyphersystem li.item:focus-within .item-controls.show-on-hover,
+.cyphersystem li.item:hover .item-favorite.show-on-hover,
+.cyphersystem li.item:focus-within .item-favorite.show-on-hover,
+.cyphersystem li.item:hover .item-controls-spells.show-on-hover,
+.cyphersystem li.item:focus-within .item-controls-spells.show-on-hover,
+.cyphersystem div.stat-block:hover .stat-roll-button.show-on-hover,
+.cyphersystem div.stat-block:focus-within .stat-roll-button.show-on-hover,
+.cyphersystem div.stat-block:hover .stat-controls.show-on-hover,
+.cyphersystem div.stat-block:focus-within .stat-controls.show-on-hover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .cyphersystem .item-control.item-delete,
 .cyphersystem .item-control.toggle-cypher-type,
 .cyphersystem .item-control.item-roll,

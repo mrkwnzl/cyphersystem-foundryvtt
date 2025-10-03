@@ -569,6 +569,7 @@ Hooks.on("renderChatMessage", function (message, html, data) {
     delete data["skipDialog"];
     delete data["roll"];
     data.reroll = true;
+    data.advantage = (game.keyboard.isModifierActive("Alt")) ? 3 : 0;
     rollEngineMain(data);
   });
 

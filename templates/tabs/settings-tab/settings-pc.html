@@ -16,19 +16,12 @@
             </select>
           </div>
         </li>
-      {{/unless}}
-      {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
         <li class="item flexrow item-settings">
           <div class="settings-list">
-            <input type="checkbox" name="system.settings.general.additionalSentence.active" {{checked actor.system.settings.general.additionalSentence.active}}>
-            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalSentenceField'}}
-          </div>
-          <div class="item-quantity">
-            <input class="auto-margin settings-input" name="system.settings.general.additionalSentence.label" type="text" value="{{actor.system.settings.general.additionalSentence.label}}" placeholder="{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}" />
+            <input type="checkbox" name="system.settings.general.rollTwoD20" {{checked actor.system.settings.general.rollTwoD20}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.RollTwoD20'}}
           </div>
         </li>
-      {{/unless}}
-      {{#unless (eq actor.system.basic.unmaskedForm "Teen")}}
         <li class="item flexrow item-settings">
           <div class="settings-list">
             <input type="checkbox" name="system.settings.general.additionalPool.active" {{checked actor.system.settings.general.additionalPool.active}}>
@@ -48,6 +41,12 @@
         {{/if}}
       {{/unless}}
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
+            <input type="checkbox" name="system.teen.settings.general.rollTwoD20" {{checked actor.system.teen.settings.general.rollTwoD20}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.RollTwoD20'}}
+          </div>
+        </li>
         <li class="item flexrow item-settings">
           <div class="settings-list">
             <input type="checkbox" name="system.teen.settings.general.additionalPool.active" {{checked actor.system.teen.settings.general.additionalPool.active}}>

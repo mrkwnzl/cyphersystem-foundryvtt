@@ -10,7 +10,7 @@
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite show-on-hover {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -19,7 +19,7 @@
         </a>
       {{/if}}
     </h4>
-    <div class="item-controls">
+    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
       <a class="item-control toggle-tag {{#if ../sheetSettings.isObserver}}disabled{{/if}} {{#if item.system.active}}black{{else}}archived{{/if}}" title="{{#if item.system.active}}{{localize 'CYPHERSYSTEM.ArchiveItemsWithTag' tag=item.name}}{{else}}{{localize 'CYPHERSYSTEM.UnarchiveItemsWithTag' tag=item.name}}{{/if}}" data-item-id="{{item._id}}">
         {{#if item.system.exclusive}}<i class="fa-item fas fa-exclamation"></i>{{/if}}<i class="fa-item fas fa-hashtag"></i>
       </a>

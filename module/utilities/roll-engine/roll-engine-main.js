@@ -15,6 +15,7 @@ export async function rollEngineMain(data) {
       skipRoll: false,
       initiativeRoll: false,
       reroll: false,
+      advantage: 0,
       gmiRange: undefined,
       title: "",
       baseDifficulty: undefined,

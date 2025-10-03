@@ -420,6 +420,8 @@
   "CYPHERSYSTEM.Step": "step",
   "CYPHERSYSTEM.Steps": "steps",
   "CYPHERSYSTEM.Reroll": "Reroll",
+  "CYPHERSYSTEM.RerollHint": "Reroll (alt-click to reroll with advantage)",
+  "CYPHERSYSTEM.RerollWithAdvantage": "Reroll with advantage",
   "CYPHERSYSTEM.RegainPoints": "Regain spent points",
   "CYPHERSYSTEM.WarnRerollUser": "Only the original player can reroll results.",
   "CYPHERSYSTEM.Up": "Up",
@@ -751,5 +753,8 @@
   "CYPHERSYSTEM.UltimateDamageUsed": "Ultimate Damage: Damage can exceed the Effort Limit (up to a maximum of 6).",
   "CYPHERSYSTEM.SettingRuleBreakingRolls": "Allow Rule Breaking",
   "CYPHERSYSTEM.SettingRuleBreakingRollsHint": "Rolls can be made and Pool costs can be paid even if it breaks the rules.",
-  "CYPHERSYSTEM.Default": "Default"
+  "CYPHERSYSTEM.Default": "Default",
+  "CYPHERSYSTEM.SettingShowButtonsOnHover": "Show Roll Buttons on Hover",
+  "CYPHERSYSTEM.SettingShowButtonsOnHoverHint": "Show roll buttons only when hovering over an item.",
+  "CYPHERSYSTEM.RollTwoD20": "Stat Rolls Use 2d20 Keep Highest"
 }

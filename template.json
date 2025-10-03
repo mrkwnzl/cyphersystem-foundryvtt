@@ -99,6 +99,7 @@
       "settings": {
         "general": {
           "gameMode": "Cypher",
+          "rollTwoD20": false,
           "additionalSentence": {
             "active": false,
             "label": ""
@@ -260,6 +261,7 @@
         "description": "",
         "settings": {
           "general": {
+            "rollTwoD20": false,
             "additionalPool": {
               "label": "",
               "active": false

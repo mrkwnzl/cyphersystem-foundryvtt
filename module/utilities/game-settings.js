@@ -30,6 +30,15 @@ export async function registerGameSettings() {
     config: true
   });
 
+  game.settings.register("cyphersystem", "showButtonsOnHover", {
+    name: game.i18n.localize("CYPHERSYSTEM.SettingShowButtonsOnHover"),
+    hint: game.i18n.localize("CYPHERSYSTEM.SettingShowButtonsOnHoverHint"),
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: true
+  });
+
   game.settings.register("cyphersystem", "itemMacrosUseAllInOne", {
     name: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOne"),
     hint: game.i18n.localize("CYPHERSYSTEM.SettingMacroAllInOneHint"),
@@ -229,7 +238,7 @@ export async function registerGameSettings() {
     scope: "world",
     config: false,
     type: String,
-    default: "foundry"
+    default: "cypher-blue"
   });
 
   game.settings.register("cyphersystem", "sheetCustomizationBackgroundImagePath", {

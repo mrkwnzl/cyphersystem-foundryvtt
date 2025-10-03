@@ -23,7 +23,7 @@
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite alt {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite show-on-hover {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -41,7 +41,7 @@
         <i class="fa-item quantity fa-regular fa-plus-square"></i>
       </a>
     </div>
-    <div class="item-controls">
+    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
       <a class="item-control item-edit {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}">
         <i class="fa-solid fa-pen-to-square"></i>
       </a>

@@ -54,6 +54,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
     data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
     data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
+    data.sheetSettings.showOnHover = (game.settings.get("cyphersystem", "showButtonsOnHover")) ? "show-on-hover" : "";
 
     // Enriched HTML
     data.enrichedHTML = {};
