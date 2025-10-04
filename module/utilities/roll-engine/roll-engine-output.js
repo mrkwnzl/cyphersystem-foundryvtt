@@ -3,6 +3,7 @@ import {
   addCharacterToCombatTracker,
   setInitiativeForCharacter
 } from "../actor-utilities.js";
+import {htmlEscape} from "../html-escape.js";
 import {resetDifficulty, useEffectiveDifficulty} from "./roll-engine-main.js";
 
 export async function rollEngineOutput(data) {
@@ -322,7 +323,7 @@ export async function rollEngineOutput(data) {
   // Add reroll button
   let actorUuid = (actor) ? actor.uuid : "";
   data.baseDifficulty = (data.baseDifficulty >= 0) ? parseInt(data.baseDifficulty) : data.baseDifficulty;
-  let dataString = JSON.stringify(data);
+  let dataString = htmlEscape(JSON.stringify(data));
   let reRollButton = ` <a class='reroll-stat' title='${game.i18n.localize("CYPHERSYSTEM.RerollHint")}' data-user='${game.user.id}' data-data='${dataString}'><i class="fa-item fas fa-dice-d20"></i></a>`;
 
   // Add regain points button
