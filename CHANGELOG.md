@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [3.4.1] - 2025-10-04
+### Changed
+- Updated translations for German and Portuguese.
+
 ### Fixed
 - Fixed an issue where the reroll button wasn’t working when using non-typographical apostrophes (and other HTML-breaking characters) on any part of the actor or item.
 - Fixed the version numbering. v3.3.3 should have been 3.4.0.
