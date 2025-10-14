@@ -26,6 +26,7 @@
         "tier": 1,
         "effort": 1,
         "xp": 0,
+        "altXp": 0,
         "advancement": {
           "stats": false,
           "effort": false,

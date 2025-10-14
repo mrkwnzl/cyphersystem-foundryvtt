@@ -18,6 +18,15 @@
         </li>
         <li class="item flexrow item-settings">
           <div class="settings-list">
+            <input type="checkbox" name="system.settings.general.additionalSentence.active" {{checked actor.system.settings.general.additionalSentence.active}}>
+            &nbsp;{{localize 'CYPHERSYSTEM.AdditionalSentenceField'}}
+          </div>
+          <div class="item-quantity">
+            <input class="auto-margin settings-input" name="system.settings.general.additionalSentence.label" type="text" value="{{actor.system.settings.general.additionalSentence.label}}" placeholder="{{#if (eq actor.system.settings.general.gameMode 'Strange')}}{{localize 'CYPHERSYSTEM.Recursion'}}{{else}}{{localize 'CYPHERSYSTEM.AdditionalSentence'}}{{/if}}" />
+          </div>
+        </li>
+        <li class="item flexrow item-settings">
+          <div class="settings-list">
             <input type="checkbox" name="system.settings.general.rollTwoD20" {{checked actor.system.settings.general.rollTwoD20}}>
             &nbsp;{{localize 'CYPHERSYSTEM.RollTwoD20'}}
           </div>
