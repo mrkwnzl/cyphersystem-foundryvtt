@@ -166,6 +166,7 @@ export class CypherSystemToken extends foundry.canvas.placeables.Token {
     const excludedActorTypes = excludedActorTypesString.toLowerCase().split(/\s*,\s*/);
 
     if (!rulerClass) return null;
+    if (!this.actor) return null;
     if (excludedActorTypes.includes(this.actor.type)) return null;
 
     return new rulerClass(this);
