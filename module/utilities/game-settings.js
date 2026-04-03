@@ -188,6 +188,13 @@ export async function registerGameSettings() {
     default: ""
   });
 
+  game.settings.register("cyphersystem", "FirstLOECosts2Points", {
+    scope: "world",
+    type: Boolean,
+    default: false,
+    config: false
+  });
+
   // Roll Difficulty
   game.settings.register("cyphersystem", "persistentRollDifficulty", {
     scope: "world",

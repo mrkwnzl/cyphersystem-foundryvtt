@@ -76,12 +76,13 @@ export async function rollEngineComputation(data) {
   data.damageWithEffect = data.totalDamage + data.damageEffect;
 
   // Calculate total cost
+  let firstLOECosts2Points = game.settings.get("cyphersystem", "FirstLOECosts2Points") ? 0 : 1;
   data.impaired = data.impairedStatus ? data.effortTotal : 0;
   data.armorCost =
     data.pool == "Speed" ? data.effortTotal * actor.system.combat.armor.costTotal : 0;
   data.costCalculated =
     data.effortTotal > 0
-      ? data.effortTotal * 2 + 1 + data.poolPointCost + data.armorCost + data.impaired
+      ? data.effortTotal * 2 + firstLOECosts2Points + data.poolPointCost + data.armorCost + data.impaired
       : data.poolPointCost;
 
   // Pay pool points

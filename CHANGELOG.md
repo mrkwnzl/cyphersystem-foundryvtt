@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-04-03
+### Added
+- Secret Setting to change the cost of the first level of Effort to 2 Pool points.
+  
+### Changed
+- Now requires Foundry V14.
+
+### Fixed
+- Fixed a bug that showed the pool cost of embedded abilities even if that cost was 0.
+
 ## [3.4.3] - 2025-10-23
 ### Fixed
 - Fixed a bug preventing loading scenes if they have non-representing tokens placed.

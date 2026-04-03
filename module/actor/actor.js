@@ -9,7 +9,7 @@ export class CypherActor extends Actor {
     // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
-    super.prepareData();
+    super.prepareBaseData();
   }
 
   /** @override */
@@ -45,12 +45,13 @@ export class CypherActor extends Actor {
 
     for (let piece of actorData.items) {
       if (piece.type === "armor" && piece.system.active === true && piece.system.archived === false) {
+        const cost = Number(parseInt(piece.system.basic.cost ?? 0, 10)) || 0;
         if (piece.system.settings.general.unmaskedForm !== "Teen") {
           armorTotal = armorTotal + piece.system.basic.rating;
-          speedCostTotal = speedCostTotal + piece.system.basic.cost;
+          speedCostTotal = speedCostTotal + cost;
         } else {
           teenArmorTotal = teenArmorTotal + piece.system.basic.rating;
-          teenSpeedCostTotal = teenSpeedCostTotal + piece.system.basic.cost;
+          teenSpeedCostTotal = teenSpeedCostTotal + cost;
         }
       }
     }

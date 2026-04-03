@@ -579,8 +579,9 @@ function summaryTotalCost(actor, data, teen) {
     if (data.pool == "Intellect") edge = actor.system.teen.pools.intellect.edge;
   }
 
+  let firstLOECosts2Points = game.settings.get("cyphersystem", "FirstLOECosts2Points") ? 0 : 1;
   let effortCost =
-    1 + data.effortTotal * 2 + data.effortTotal * armorCost + data.effortTotal * impairedCost;
+    firstLOECosts2Points + data.effortTotal * 2 + data.effortTotal * armorCost + data.effortTotal * impairedCost;
 
   let costWithoutEdge =
     data.effortTotal >= 1 ? data.poolPointCost + effortCost : data.poolPointCost;

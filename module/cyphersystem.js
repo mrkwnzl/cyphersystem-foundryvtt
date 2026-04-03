@@ -43,7 +43,8 @@ import {
   lockStaticStatsMacro,
   migrateDataMacro,
   selectedTokenRollMacro,
-  allInOneRollDialogV2
+  allInOneRollDialogV2,
+  toggleCostOfFirstLOE
 } from "./macros/macros.js";
 import {
   easedRollEffectiveMacro,
@@ -148,6 +149,7 @@ Hooks.once("init", async function () {
     rollEngineForm,
     rollEngineOutput,
     selectedTokenRollMacro,
+    toggleCostOfFirstLOE,
 
     // Scripting macros
     useAmmo,
