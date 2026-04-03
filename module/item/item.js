@@ -70,7 +70,7 @@ export class CypherItem extends Item {
     let key;
 
     if (config.prependCite) {
-      let poolCost = (this.system.basic.cost && this.type === "ability") ? this.system.basic.cost : "";
+      let poolCost = (parseInt(this.system.basic.cost) && this.type === "ability") ? this.system.basic.cost : "";
       if (this.type === "ability" && this.system.basic.cost !== "0") {
 
         if (this.system.basic.cost) {

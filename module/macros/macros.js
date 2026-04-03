@@ -631,10 +631,11 @@ export function spendEffortMacro(actor) {
     let penalty = impairedStatus ? level : 0;
 
     // Determine point cost including penalty due to armor
+    let firstLOECosts2Points = game.settings.get("cyphersystem", "FirstLOECosts2Points") ? 0 : 1;
     let cost =
       pool == "Speed"
-        ? level * 2 + 1 + level * actor.system.combat.armor.costTotal + penalty
-        : level * 2 + 1 + penalty;
+        ? level * 2 + firstLOECosts2Points + level * actor.system.combat.armor.costTotal + penalty
+        : level * 2 + firstLOECosts2Points + penalty;
 
     // Pay pool points
     payPoolPoints(actor, cost, pool);
@@ -870,6 +871,16 @@ export function notifyAboutGMI(actorId, notification) {
 export function changeSymbolForFractions() {
   let slash = !game.settings.get("cyphersystem", "useSlashForFractions");
   game.settings.set("cyphersystem", "useSlashForFractions", slash);
+}
+
+export function toggleCostOfFirstLOE(){
+  if (game.settings.get("cyphersystem", "FirstLOECosts2Points")) {
+    game.settings.set("cyphersystem", "FirstLOECosts2Points", false);
+      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.FirstLOECosts2PointsFalse"));
+  } else {
+    game.settings.set("cyphersystem", "FirstLOECosts2Points", true);
+    ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.FirstLOECosts2PointsTrue"));
+  }
 }
 
 export function toggleAlwaysShowDescriptionOnRoll() {

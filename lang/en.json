@@ -756,5 +756,7 @@
   "CYPHERSYSTEM.Default": "Default",
   "CYPHERSYSTEM.SettingShowButtonsOnHover": "Show Roll Buttons on Hover",
   "CYPHERSYSTEM.SettingShowButtonsOnHoverHint": "Show roll buttons only when hovering over an item.",
-  "CYPHERSYSTEM.RollTwoD20": "Stat Rolls Use 2d20 Keep Highest"
+  "CYPHERSYSTEM.RollTwoD20": "Stat Rolls Use 2d20 Keep Highest",
+  "CYPHERSYSTEM.FirstLOECosts2PointsFalse": "First level of Effort costs 3 points",
+  "CYPHERSYSTEM.FirstLOECosts2PointsTrue": "First level of Effort costs 2 points"
 }
