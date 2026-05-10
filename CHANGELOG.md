@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.1] - 2026-05-10
+### Fixed
+- Added missing secret setting macro to change the cost of the first LOE to 2 pool points.
+- Fixed bug that prevented creating new items directly on the character sheet.
+
+### Removed
+- Removed the ability to select the editor on the sheet as TinyMCE is no longer supported.
+
 ## [3.5.0] - 2026-04-03
 ### Added
 - Secret Setting to change the cost of the first level of Effort to 2 Pool points.
