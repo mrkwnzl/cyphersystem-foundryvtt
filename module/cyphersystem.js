@@ -266,6 +266,9 @@ Hooks.once("ready", async function () {
   // Migrate actor data
   await dataMigration();
 
+  // Remove tinyMCE editor
+  game.settings.set("cyphersystem", "sheetEditor", 0);
+
   if (game.settings.get("cyphersystem", "showRulerGridless") == 0) {
     TokenDocument.prototype._shouldRecordMovementHistory = function () {
       return false;

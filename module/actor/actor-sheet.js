@@ -1348,7 +1348,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     const type = header.dataset.type;
 
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
 
     // Initialize a default name.
     const types = {

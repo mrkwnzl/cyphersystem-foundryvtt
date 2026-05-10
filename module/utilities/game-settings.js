@@ -314,6 +314,6 @@ export async function registerGameSettings() {
       0: "ProseMirror",
       1: "TinyMCE"
     },
-    config: true
+    config: false
   });
 }

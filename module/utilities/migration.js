@@ -163,6 +163,9 @@ async function migrationRoutineSettings() {
   if (game.settings.get("cyphersystem", "rollButtons") === false) {
     game.settings.set("cyphersystem", "rollButtons", 0);
   }
+  if (game.settings.get("cyphersystem", "sheetEditor") === 1) {
+    game.settings.set("cyphersystem", "sheetEditor", 0);
+  }
 }
 
 async function migrationActorV1ToV2(actor) {
