@@ -4,18 +4,12 @@
  */
 export class CypherActor extends Actor {
   /** @override */
-  prepareData() {
+  prepareBaseData() {
     // Prepare data for the actor. Calling the super version of this executes
     // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareBaseData();
-  }
-
-  /** @override */
-  prepareBaseData() {
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
   }
 
   prepareDerivedData() {
@@ -29,8 +23,8 @@ export class CypherActor extends Actor {
   }
 
   /**
- * Prepare Character type specific data
- */
+  * Prepare Character type specific data
+  */
   _preparePCData(actorData) {
     if (actorData.type !== 'pc') return;
 
@@ -60,6 +54,10 @@ export class CypherActor extends Actor {
     systemData.combat.armor.costTotal = speedCostTotal;
     systemData.teen.combat.armor.armorValueTotal = teenArmorTotal;
     systemData.teen.combat.armor.speedCostTotal = teenSpeedCostTotal;
+
+    console.log(systemData.combat.armor.ratingTotal);
+    console.log(armorTotal);
+
 
     // Calculate total modifier of attacks
     for (let i of actorData.items) {
