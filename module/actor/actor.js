@@ -55,10 +55,6 @@ export class CypherActor extends Actor {
     systemData.teen.combat.armor.armorValueTotal = teenArmorTotal;
     systemData.teen.combat.armor.speedCostTotal = teenSpeedCostTotal;
 
-    console.log(systemData.combat.armor.ratingTotal);
-    console.log(armorTotal);
-
-
     // Calculate total modifier of attacks
     for (let i of actorData.items) {
       if (i.type == 'attack') {
