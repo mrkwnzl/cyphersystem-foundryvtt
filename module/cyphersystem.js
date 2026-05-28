@@ -18,6 +18,9 @@ import {applyXPFromIntrusion, regainPoolPoints} from "./utilities/actor-utilitie
 import {sendWelcomeMessage} from "./utilities/welcome-message.js";
 import {createCyphersystemMacro} from "./utilities/create-macros.js";
 
+import {initActorModels} from './datamodels/actors/index.js';
+import {initItemModels} from './datamodels/items/index.js';
+
 // Import macros
 import {
   quickRollMacro,
@@ -181,6 +184,8 @@ Hooks.once("init", async function () {
   // Define custom Entity classes
   CONFIG.Actor.documentClass = CypherActor;
   CONFIG.Item.documentClass = CypherItem;
+  initActorModels();
+  initItemModels();
 
   // Register sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);

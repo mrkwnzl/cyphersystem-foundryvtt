@@ -14,18 +14,31 @@
     {
       "name": "Marko Wenzel",
       "discord": "mrkwnzl",
-      "flags": { }
+      "flags": {}
     }
   ],
-  "esmodules": [ "module/cyphersystem.js" ],
+  "esmodules": [
+    "module/cyphersystem.js"
+  ],
   "styles": [
-    { "src": "css/cyphersystem.css" },
-    { "src": "css/journals.css" },
-    { "src": "css/tables.css" }
+    {
+      "src": "css/cyphersystem.css"
+    },
+    {
+      "src": "css/journals.css"
+    },
+    {
+      "src": "css/tables.css"
+    }
   ],
   "flags": {
     "hotReload": {
-      "extensions": [ "css", "json", "js", "html" ]
+      "extensions": [
+        "css",
+        "json",
+        "js",
+        "html"
+      ]
     }
   },
   "packs": [
@@ -35,7 +48,7 @@
       "system": "cyphersystem",
       "path": "packs/roll-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -47,7 +60,7 @@
       "system": "cyphersystem",
       "path": "packs/markers",
       "type": "Actor",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -59,7 +72,7 @@
       "system": "cyphersystem",
       "path": "packs/scenes",
       "type": "Scene",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -71,7 +84,7 @@
       "system": "cyphersystem",
       "path": "packs/utility-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -83,7 +96,7 @@
       "system": "cyphersystem",
       "path": "packs/scripting-macros",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -95,7 +108,7 @@
       "system": "cyphersystem",
       "path": "packs/secret-settings",
       "type": "Macro",
-      "flags": { },
+      "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -114,7 +127,7 @@
         "scripting-macros",
         "secret-settings"
       ],
-      "folders": [ ],
+      "folders": [],
       "color": null
     }
   ],
@@ -123,33 +136,148 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "es",
       "name": "Español",
       "path": "lang/es.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json",
-      "flags": { }
+      "flags": {}
     },
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt_BR.json",
-      "flags": { }
+      "flags": {}
     }
   ],
+  "documentTypes": {
+    "Actor": {
+      "pc": {
+        "htmlFields": [
+          "description",
+          "notes",
+          "gmNotes",
+          "teen.notes",
+          "teen.description"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
+      },
+      "companion": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
+      },
+      "community": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
+      },
+      "marker": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
+      }
+    },
+    "Item": {
+      "ability": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "ammo": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "artifact": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "attack": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "cypher": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "equipment": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "lasting-damage": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "material": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "oddity": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "power-shift": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "recursion": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "skill": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "tag": {
+        "htmlFields": [
+          "description"
+        ]
+      }
+    }
+  },
   "socket": true,
   "grid": {
     "distance": 1.5,
