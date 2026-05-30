@@ -61,7 +61,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       toggleCypherType: this.#onToggleCypherType,
       rollForLevel: this.#onRollForLevel,
       itemRoll: this.#onItemRoll,
-      itemPay: this.#onItemPay,
+      itemRollPay: this.#onItemRollPay,
       castSpell: this.#onCastSpell,
       incField: this.#onIncField,
       decField: this.#onDecField,
@@ -889,7 +889,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
   }
 
   // Item pay pool points buttons
-  static async #onItemPay(event, target) {
+  static async #onItemRollPay(event, target) {
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
     const macroUuid = item.system.settings.rollButton.macroUuid;
 

@@ -1,12 +1,15 @@
-<div class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
+<div class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol"
+  style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Image --}}
-  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
+  <div class="background-image-rectangle {{sheetSettings.backgroundImage}}"
+    style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
 
   {{!-- Background Icon --}}
   {{#unless (eq sheetSettings.backgroundIcon "none")}}
     <div class="background-image-icon">
-      <img class="background-image-icon {{sheetSettings.backgroundIcon}}" style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
+      <img class="background-image-icon {{sheetSettings.backgroundIcon}}"
+        style="opacity: {{sheetSettings.backgroundIconOpacity}};" src="{{sheetSettings.backgroundIconPath}}">
     </div>
   {{/unless}}
 
@@ -39,19 +42,24 @@
                 </select>
               </div>
             </div>
-            <div class="resource flexrow flex-between flex-center">
+            <div class="resource flexcol flex-center">
               <label class="resource-label-normal">{{localize 'CYPHERSYSTEM.Modifier'}}</label>
-              <select name="system.basic.modifier">
-                {{selectOptions stepModifierChoices selected=item.system.basic.modifier localize=true}}
-              </select>
-              &nbsp;
-              <input class="data-modifiedBy" type="number" name="system.basic.steps" value="{{item.system.basic.steps}}" placeholder="0" />
+              <div class="flexrow">
+                <select name="system.basic.modifier" style="flex: 3">
+                  {{selectOptions stepModifierChoices selected=item.system.basic.modifier localize=true}}
+                </select>
+                &nbsp;
+                <input class="data-modifiedBy" type="number" name="system.basic.steps"
+                  value="{{item.system.basic.steps}}" placeholder="0" />
+              </div>
             </div>
           </div>
           <div class="flexrow flex-between">
-            <input type="text" name="system.basic.range" value="{{item.system.basic.range}}" placeholder="{{localize 'CYPHERSYSTEM.Range'}}" />
+            <input type="text" name="system.basic.range" value="{{item.system.basic.range}}"
+              placeholder="{{localize 'CYPHERSYSTEM.Range'}}" />
             &nbsp;
-            <input type="text" name="system.basic.notes" value="{{item.system.basic.notes}}" placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
+            <input type="text" name="system.basic.notes" value="{{item.system.basic.notes}}"
+              placeholder="{{localize 'CYPHERSYSTEM.Notes'}}" />
           </div>
         </div>
       </div>
@@ -65,8 +73,10 @@
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
-      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
+    <div class="tab {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}"
+      data-tab="{{tabs.description.id}}">
+      <prose-mirror toggled name="system.description"
+        value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
     </div>
 
     {{!-- Tags and Recursions Tab --}}

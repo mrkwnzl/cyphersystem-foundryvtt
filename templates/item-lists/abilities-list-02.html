@@ -51,7 +51,7 @@
     </h6>
     <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
       {{#if (eq @root.sheetSettings.rollButtons 1)}}
-        <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{#if @root.sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemPayPoints'}}{{else}}{{localize 'CYPHERSYSTEM.PayItem'}}{{/if}}" data-action="itemPay">
+        <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{#if @root.sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemPayPoints'}}{{else}}{{localize 'CYPHERSYSTEM.PayItem'}}{{/if}}" data-action="itemRollPay">
           {{#if @root.sheetSettings.useAllInOne}}
             <i class="fa-item aio-pay-pool-points fa-solid fa-ballot"></i>
           {{else}}
