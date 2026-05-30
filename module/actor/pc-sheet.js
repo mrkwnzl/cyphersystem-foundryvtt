@@ -30,14 +30,13 @@ export class CypherActorSheetPC extends CypherActorSheet {
       height: 750,
     },
     actions: {
-      plusOneStress: this.#onPlusOneStress,
-      minusOneStress: this.#onMinusOneStress,
-      plusOneStressLevel: this.#onPlusOneStressLevel,
-      minusOneStressLevel: this.#onMinusOneStressLevel,
-      plusOneSupernaturalStress: this.#onPlusOneSupernaturalStress,
-      minusOneSupernaturalStress: this.#onMinusOneSupernaturalStress,
+      incStress: this.#onIncStress,
+      decStress: this.#onDecStress,
+      incStressLevel: this.#onIncStressLevel,
+      decStressLevel: this.#onDecStressLevel,
+      incSupernaturalStress: this.#onIncSupernaturalStress,
+      decSupernaturalStress: this.#onDecSupernaturalStress,
       resetStress: this.#onResetStress,
-      toggleArmor: this.#onToggleArmor,
       resetPool: this.#onResetPool,
       rollPool: this.#onRollPool,
       recoveryRoll: this.#onRecoveryRoll,
@@ -225,61 +224,60 @@ export class CypherActorSheetPC extends CypherActorSheet {
   * Additional event listeners for PC sheets
   */
 
-  // if (!this.options.editable) return;
-
   /**
   * Combat tab functions
   */
   // Add to stress points
-  static async #onPlusOneStress(event, target) {
+  static async #onIncStress(event, target) {
+    if (!this.isEditable) return;
     let amount = (game.keyboard.isModifierActive('Alt')) ? 3 : 1;
     let newValue = this.actor.system.combat.stress.quantity + amount;
     this.actor.update({ "system.combat.stress.quantity": newValue });
   };
 
   // Subtract from stress points
-  static async #onMinusOneStress(event, target) {
+  static async #onDecStress(event, target) {
+    if (!this.isEditable) return;
     let amount = (game.keyboard.isModifierActive('Alt')) ? 3 : 1;
     let newValue = Math.max(this.actor.system.combat.stress.quantity - amount, 0);
     this.actor.update({ "system.combat.stress.quantity": newValue });
   };
 
   // Add to stress levels
-  static async #onPlusOneStressLevel(event, target) {
+  static async #onIncStressLevel(event, target) {
+    if (!this.isEditable) return;
     let newValue = this.actor.system.combat.stress.levels + 1;
     this.actor.update({ "system.combat.stress.levels": newValue });
   };
 
   // Subtract from stress levels
-  static async #onMinusOneStressLevel(event, target) {
+  static async #onDecStressLevel(event, target) {
+    if (!this.isEditable) return;
     let newValue = Math.max(this.actor.system.combat.stress.levels - 1, 0);
     this.actor.update({ "system.combat.stress.levels": newValue });
   };
 
   // Add to supernatural stress
-  static async #onPlusOneSupernaturalStress(event, target) {
+  static async #onIncSupernaturalStress(event, target) {
+    if (!this.isEditable) return;
     let newValue = this.actor.system.combat.stress.supernaturalLevels + 1;
     this.actor.update({ "system.combat.stress.supernaturalLevels": newValue });
   };
 
   // Subtract from supernatural stress
-  static async #onMinusOneSupernaturalStress(event, target) {
+  static async #onDecSupernaturalStress(event, target) {
+    if (!this.isEditable) return;
     let newValue = Math.max(this.actor.system.combat.stress.supernaturalLevels - 1, 0);
     this.actor.update({ "system.combat.stress.supernaturalLevels": newValue });
   };
 
   // Reset stress
   static async #onResetStress(event, target) {
+    if (!this.isEditable) return;
     return this.actor.update({
       "system.combat.stress.quantity": 0,
       "system.combat.stress.levels": 0,
     });
-  };
-
-  // Change Armor Active
-  static async #onToggleArmor(event, target) {
-    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    return item.update({ "system.active": !item.system.active });
   };
 
   /**
@@ -294,12 +292,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
     let lastingDamage = 0;
     for (let item of this.actor.items) {
-      if (item.type == "lasting-damage" && !item.system.archived && field.endsWith(item.system.basic.pool.toLowerCase) &&
+      if (item.type == "lasting-damage" && !item.system.archived && field.endsWith(item.system.basic.pool.toLowerCase()) &&
         (!isTeen || item.system.settings.general.unmaskedForm == "Teen")) {
         lastingDamage = lastingDamage + item.system.basic.damage;
       }
     }
-    this.actor.update({ [`${field}.value`]: foundry.utils.getProperty(this.actor, field).max - lastingDamage });
+    return this.actor.update({ [`${field}.value`]: foundry.utils.getProperty(this.actor, field).max - lastingDamage });
   };
 
   /**
@@ -326,6 +324,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   */
   // Increase XP
   static async #onIncreaseXp(event, target) {
+    if (!this.isEditable) return;
     let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
     let newValue = this.actor.system.basic.xp + amount;
     this.actor.update({ "system.basic.xp": newValue });
@@ -333,6 +332,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
   // Decrease XP
   static async #onDecreaseXp(event, target) {
+    if (!this.isEditable) return;
     let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
     let newValue = this.actor.system.basic.xp - amount;
     this.actor.update({ "system.basic.xp": newValue });
@@ -373,12 +373,14 @@ export class CypherActorSheetPC extends CypherActorSheet {
 
   // Toggle Temporary Power Shift
   static async #onPowerShiftTemporary(event, target) {
+    if (!this.isEditable) return;
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
     item.update({ "system.basic.temporary": !item.system.basic.temporary });
   };
 
   // Toggle Favorite
   static async #onItemFavorite(event, target) {
+    if (!this.isEditable) return;
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
     item.update({ "system.favorite": !item.system.favorite });
   };

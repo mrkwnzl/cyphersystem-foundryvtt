@@ -12,11 +12,11 @@
         {{~/if ~}}
       </a>
       {{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
-        <a class="item-favorite {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
+        <a class="item-favorite {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite show-on-hover {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
+        <a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
           {{#if item.system.favorite}}
             <i class="fa-item fa-solid fa-star"></i>
           {{else}}
@@ -28,7 +28,7 @@
     <div class="item-quantity">
       {{#if item.system.basic.identified}}
         {{#if item.system.rollForLevel}}
-          <a class="rollForLevel" title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}">
+          <a title="{{localize 'CYPHERSYSTEM.RollForLevelButton'}}" data-action="rollForLevel">
             <i class="fa-item fas fa-question"></i>
             {{item.system.basic.level}}
           </a>
@@ -39,21 +39,21 @@
         {{localize 'CYPHERSYSTEM.?'}}
       {{/if}}
     </div>
-    <div  class="item-controls flexrow {{{../sheetSettings.showOnHover}}}">
+    <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
       {{#unless item.system.basic.identified}}
-        <a class="item-control {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" data-action="identifyItem">
+        <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" data-action="identifyItem">
           <i class="fa-item far fa-eye-slash"></i>
         </a>
       {{/unless}}
-      {{#if (or item.system.basic.identified ../sheetSettings.isGM)}}
-        <a class="item-control {{disabled ../sheetSettings.isObserver}}" data-action="toggleCypherType">
+      {{#if (or item.system.basic.identified @root.sheetSettings.isGM)}}
+        <a class="item-control {{disabled @root.sheetSettings.isObserver}}" data-action="toggleCypherType">
           {{{cypherType ../this item._id}}}
         </a>
-        <a class=" item-control {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}" data-action="itemEdit">
+        <a class=" item-control {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}" data-action="itemEdit">
           <i class="fa-solid fa-pen-to-square"></i>
         </a>
       {{/if}}
-      <a class="item-control {{disabled ../sheetSettings.isObserver}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}" data-action="itemDelete">
+      <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}" data-action="itemDelete">
         {{#if item.system.archived}}
           <i class="fa-item archived fa-solid fa-arrow-rotate-left"></i>
         {{else}}

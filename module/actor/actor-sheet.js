@@ -59,8 +59,6 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       itemDelete: this.#onItemDelete,
       toggleTag: this.#onToggleTag,
       toggleCypherType: this.#onToggleCypherType,
-      plusOne: this.#onPlusOne,
-      minusOne: this.#onMinusOne,
       rollForLevel: this.#onRollForLevel,
       itemRoll: this.#onItemRoll,
       itemPay: this.#onItemPay,
@@ -867,22 +865,6 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     item.update({ "system.basic.type": typeArray });
   }
 
-  // Add to Quantity
-  static async #onPlusOne(event, target) {
-    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-    let newValue = item.system.basic.quantity + amount;
-    item.update({ "system.basic.quantity": newValue });
-  }
-
-  // Subtract from Quantity
-  static async #onMinusOne(event, target) {
-    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-    let newValue = item.system.basic.quantity - amount;
-    item.update({ "system.basic.quantity": newValue });
-  }
-
   // Roll for level
   static async #onRollForLevel(event, target) {
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
@@ -1425,16 +1407,5 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
 
     // Finally, create the item!
     return Item.create({ type: type, data, name: name }, { parent: this.actor });
-  }
-
-  /**
-   * Support for TinyMCE dynamic size
-   */
-
-  async activateEditor(name, options = {}, initialContent = "") {
-    options.fitToSize = true;
-    const editor = await super.activateEditor(name, options, initialContent);
-    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
-    return editor;
   }
 }

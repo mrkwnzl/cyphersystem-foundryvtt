@@ -161,7 +161,7 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
 
     // Enriched HTML
     context.enrichedHTML = {};
-    context.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, { async: true, secrets: this.item.isOwner, relativeTo: this.item });
+    context.enrichedHTML.description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.item.system.description, { async: true, secrets: this.item.isOwner, relativeTo: this.item });
 
 
     // Determine cypher type

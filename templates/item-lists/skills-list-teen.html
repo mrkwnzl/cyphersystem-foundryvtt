@@ -6,11 +6,11 @@
 				{{~item.name}}
 			</a>
 			{{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
-				<a class="item-favorite {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
+				<a class="item-favorite {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
 					<i class="fa-item fa-solid fa-star"></i>
 				</a>
 			{{else}}
-				<a class="item-favorite show-on-hover {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
+				<a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
 					{{#if item.system.favorite}}
 						<i class="fa-item fa-solid fa-star"></i>
 					{{else}}
@@ -30,10 +30,10 @@
 				{{localize 'CYPHERSYSTEM.Practiced'}}
 			{{/if}}
 		</div>
-		<div  class="item-controls flexrow {{{../sheetSettings.showOnHover}}}">
-			{{#if (eq ../sheetSettings.rollButtons 1)}}
-				<a class="item-control {{disabled ../isObserver}}" title="{{#if ../sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemSkip'}}{{else}}{{localize 'CYPHERSYSTEM.RollItem'}}{{/if}}" data-action="itemRoll">
-					{{#if ../sheetSettings.useAllInOne}}
+		<div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
+			{{#if (eq @root.sheetSettings.rollButtons 1)}}
+				<a class="item-control {{disabled ../isObserver}}" title="{{#if @root.sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemSkip'}}{{else}}{{localize 'CYPHERSYSTEM.RollItem'}}{{/if}}" data-action="itemRoll">
+					{{#if @root.sheetSettings.useAllInOne}}
 						{{#if item.system.settings.general.initiative}}
 							<i class="fa-item aio-initiative fa-solid fa-ballot"></i>
 						{{else}}
