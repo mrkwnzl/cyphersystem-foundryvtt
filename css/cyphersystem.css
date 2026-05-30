@@ -454,6 +454,7 @@ select.bar-attribute {
 .cyphersystem .window-content {
   overflow: hidden;
   font-family: var(--cypher-font);
+  padding: var(--spacer-8);
 }
 
 .cyphersystem .background-image {
@@ -673,6 +674,7 @@ select.bar-attribute {
   border-bottom: none;
   margin: 5px 0 0 0;
   padding: 0px;
+  column-gap: 0px;
 }
 
 .cyphersystem .sheet-body,
@@ -682,7 +684,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .sheet-body {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
 }
 
@@ -786,6 +788,9 @@ select.bar-attribute {
   width: -moz-available;
   padding: 0px 6px;
   height: 27px;
+  &.narrow {
+    flex: 0 0 45px;
+  }
 }
 
 .cyphersystem .tabs .item.active {

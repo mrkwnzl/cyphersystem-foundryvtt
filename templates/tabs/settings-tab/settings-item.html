@@ -65,7 +65,8 @@
       {{/if}}
       <li class="item flexrow item-settings">
         <div class="settings-list">
-          <input type="checkbox" name="system.settings.general.initiative" {{checked item.system.settings.general.initiative}}>
+          <input type="checkbox" name="system.settings.general.initiative" {{checked
+            item.system.settings.general.initiative}}>
           &nbsp;{{localize 'CYPHERSYSTEM.UseAsInitiativeRoll'}}
         </div>
       </li>
@@ -159,11 +160,13 @@
           <label class="settings-list">
             {{localize 'CYPHERSYSTEM.DifficultyModifier'}}
           </label>
-          <select class="auto-margin settings-input" name="system.settings.rollButton.stepModifier" style="max-width:102px">
+          <select class="auto-margin settings-input" name="system.settings.rollButton.stepModifier"
+            style="max-width:102px">
             {{selectOptions stepModifierChoices selected=item.system.settings.rollButton.stepModifier localize=true}}
           </select>
           &nbsp;
-          <input class="auto-margin settings-input" name="system.settings.rollButton.additionalSteps" type="number" value="{{item.system.settings.rollButton.additionalSteps}}" placeholder="0" style="max-width: 42.5px" />
+          <input class="auto-margin settings-input" name="system.settings.rollButton.additionalSteps" type="number"
+            value="{{item.system.settings.rollButton.additionalSteps}}" placeholder="0" style="max-width: 42.5px" />
         </li>
       {{/unless}}
       <li class="item flexrow item-settings">
@@ -171,7 +174,8 @@
           {{localize 'CYPHERSYSTEM.Bonus'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin settings-input" name="system.settings.rollButton.bonus" type="number" value="{{item.system.settings.rollButton.bonus}}" placeholder="0" />
+          <input class="auto-margin settings-input" name="system.settings.rollButton.bonus" type="number"
+            value="{{item.system.settings.rollButton.bonus}}" placeholder="0" />
         </div>
       </li>
     </ol>
@@ -199,7 +203,8 @@
             {{localize 'CYPHERSYSTEM.PoolCost'}}
           </div>
           <div class="item-quantity">
-            <input class="auto-margin settings-input" name="system.settings.rollButton.additionalCost" type="number" value="{{item.system.settings.rollButton.additionalCost}}" placeholder="0" />
+            <input class="auto-margin settings-input" name="system.settings.rollButton.additionalCost" type="number"
+              value="{{item.system.settings.rollButton.additionalCost}}" placeholder="0" />
           </div>
         </li>
       {{/unless}}
@@ -239,7 +244,8 @@
               {{localize 'CYPHERSYSTEM.Damage'}}
             </div>
             <div class="item-quantity">
-              <input class="auto-margin settings-input" name="system.settings.rollButton.damage" type="number" value="{{item.system.settings.rollButton.damage}}" placeholder="0" />
+              <input class="auto-margin settings-input" name="system.settings.rollButton.damage" type="number"
+                value="{{item.system.settings.rollButton.damage}}" placeholder="0" />
             </div>
           </li>
         {{/unless}}
@@ -258,7 +264,8 @@
             {{localize 'CYPHERSYSTEM.DamageLevelEffort'}}
           </div>
           <div class="item-quantity">
-            <input class="auto-margin settings-input" name="system.settings.rollButton.damagePerLOE" type="number" value="{{item.system.settings.rollButton.damagePerLOE}}" placeholder="0" />
+            <input class="auto-margin settings-input" name="system.settings.rollButton.damagePerLOE" type="number"
+              value="{{item.system.settings.rollButton.damagePerLOE}}" placeholder="0" />
           </div>
         </li>
       </ol>
@@ -276,12 +283,15 @@
           {{localize 'CYPHERSYSTEM.ExecuteMacro'}}
         </div>
         <div class="item-quantity">
-          <input class="auto-margin settings-input" name="system.settings.rollButton.macroUuid" type="text" value="{{item.system.settings.rollButton.macroUuid}}" placeholder="{{localize 'CYPHERSYSTEM.macroUuid'}}" />
+          <input class="auto-margin settings-input" name="system.settings.rollButton.macroUuid" type="text"
+            value="{{item.system.settings.rollButton.macroUuid}}"
+            placeholder="{{localize 'CYPHERSYSTEM.macroUuid'}}" />
         </div>
       </li>
       <li class="item flexrow item-settings">
         <div class="settings-list">
-          <input type="checkbox" name="system.settings.rollButton.macroExecuteAsGM" {{checked item.system.settings.rollButton.macroExecuteAsGM}}>
+          <input type="checkbox" name="system.settings.rollButton.macroExecuteAsGM" {{checked
+            item.system.settings.rollButton.macroExecuteAsGM}}>
           &nbsp;{{localize 'CYPHERSYSTEM.ExecuteMacroAsGM'}}
         </div>
       </li>
@@ -297,11 +307,11 @@
         <div class="item-name">{{localize 'CYPHERSYSTEM.CopyAs'}}</div>
       </li>
       <li class="item flexrow item-settings">
-        <button type="button" class="copy-ability-button copy-as-skill">{{localize 'TYPES.Item.skill'}}</button>
+        <button type="button" class="copy-ability-button" data-action="copyAsSkill">{{localize 'TYPES.Item.skill'}}</button>
         &nbsp;
-        <button type="button" class="copy-ability-button copy-as-attack">{{localize 'TYPES.Item.attack'}}</button>
+        <button type="button" class="copy-ability-button" data-action="copyAsAttack">{{localize 'TYPES.Item.attack'}}</button>
         &nbsp;
-        <button type="button" class="copy-ability-button copy-as-armor">{{localize 'TYPES.Item.armor'}}</button>
+        <button type="button" class="copy-ability-button" data-action="copyAsArmor">{{localize 'TYPES.Item.armor'}}</button>
       </li>
     </ol>
   </div>
@@ -315,7 +325,7 @@
         <div class="item-name">{{localize 'CYPHERSYSTEM.CopyAs'}}</div>
       </li>
       <li class="item flexrow item-settings">
-        <button type="button" class="copy-ability-button copy-as-equipment">{{localize 'TYPES.Item.equipment'}}</button>
+        <button type="button" class="copy-ability-button" data-action="copyAsEquipment">{{localize 'TYPES.Item.equipment'}}</button>
       </li>
     </ol>
   </div>

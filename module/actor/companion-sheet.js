@@ -2,20 +2,42 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {ActorSheet}
 */
-import {CypherActorSheet} from "./actor-sheet.js";
+import { CypherActorSheet } from "./actor-sheet.js";
 
 export class CypherActorSheetCompanion extends CypherActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "companion"],
-      template: "systems/cyphersystem/templates/actor-sheets/companion-sheet.html",
-      width: 650,
-      height: 700,
-      resizable: true,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
       scrollY: [".sheet-body", ".tab", ".skills", ".description", ".settings", ".items", ".editor-content"]
     });
+  }
+
+  static DEFAULT_OPTIONS = {
+    classes: ["companion"],
+  }
+
+  static PARTS = {
+    companion: { template: "systems/cyphersystem/templates/actor-sheets/companion-sheet.html", scrollable: [".scrollable"] }
+  }
+
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: 'skills', cssClass: "item", label: "CYPHERSYSTEM.SkillsAndAbilities" }, // not limited
+        { id: 'items', cssClass: "item", label: "CYPHERSYSTEM.Inventory" }, // not limited
+        { id: 'notes', cssClass: "item", label: "CYPHERSYSTEM.Notes" },
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'settings', cssClass: "item narrow", icon: "fa-item fa-solid fa-gear" } // not limited
+      ],
+      initial: 'skills'
+    },
+    limited: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+      ],
+      initial: 'description'
+    },
   }
 }

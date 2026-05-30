@@ -1,4 +1,4 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
+<div class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Image --}}
   <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
@@ -26,7 +26,7 @@
           <div class="resource-content flexrow flex-center">
             <div class="resources grid {{#if (eq sheetSettings.logoImage 'none')}}grid-2col{{else}}grid-3col{{/if}}">
               <div class="resource flex-group-center">
-                <label class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                <label class="resource-label-additional {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
                   {{localize 'CYPHERSYSTEM.Crew'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
@@ -34,7 +34,7 @@
                 </div>
               </div>
               <div class="resource flex-group-center">
-                <label class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                <label class="resource-label-additional {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
                   {{localize 'CYPHERSYSTEM.WeaponSystems'}}
                 </label>
                 <div class="resource-content flexrow flex-center flex-between">
@@ -54,34 +54,23 @@
   </header>
 
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{#unless sheetSettings.isLimited}}
-      <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
-    {{/unless}}
-    <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
-    {{#unless sheetSettings.isLimited}}
-      <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Storage'}}</a>
-      <a class="item" data-tab="settings" style="flex: 0 0 45px;">
-        <i class="fa-item fa-solid fa-gear"></i>
-      </a>
-    {{/unless}}
-  </nav>
+  {{> "templates/generic/tab-navigation.hbs"}}
 
   {{!-- Sheet Body --}}
   <section class="sheet-body vehicle">
 
     {{!-- Notes Tab --}}
-    <div class="tab description" data-group="primary" data-tab="notes">
-      {{editor enrichedHTML.notes target="system.notes" button=true engine=sheetSettings.editor owner=owner editable=true}}
+    <div class="tab notes {{tabs.notes.cssClass}}" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
+      <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}">{{{enrichedHTML.notes}}}</prose-mirror>
     </div>
 
     {{!-- Description Tab --}}
-    <div class="tab description" data-group="primary" data-tab="description">
-      {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
+    <div class="tab description {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
+      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
     </div>
 
     {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
+    <div class="tab items {{tabs.items.cssClass}}" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
@@ -116,7 +105,7 @@
     </div>
 
     {{!-- Settings Tab --}}
-    <div class="tab settings" data-group="primary" data-tab="settings">
+    <div class="tab settings {{tabs.settings.cssClass}}" data-group="{{tabs.settings.group}}" data-tab="{{tabs.settings.id}}">
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
@@ -143,4 +132,4 @@
     </div>
 
   </section>
-</form>
+</div>

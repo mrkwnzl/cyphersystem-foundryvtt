@@ -1,5 +1,6 @@
 export async function preloadTemplates() {
   const templatePaths = [
+    "templates/generic/tab-navigation.hbs",
     "systems/cyphersystem/templates/headers/pc-base-info.html",
     "systems/cyphersystem/templates/headers/pc-stats.html",
     "systems/cyphersystem/templates/item-lists/abilities-list-01.html",

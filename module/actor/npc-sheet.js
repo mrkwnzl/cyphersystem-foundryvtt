@@ -9,25 +9,41 @@ export class CypherActorSheetNPC extends CypherActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "npc"],
-      template: "systems/cyphersystem/templates/actor-sheets/npc-sheet.html",
-      width: 650,
-      height: 700,
-      resizable: true,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
       scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items", ".editor-content"]
     });
   }
 
-  /**
-  * Additional data preparations
-  */
-  async getData() {
-    const data = await super.getData();
+  static DEFAULT_OPTIONS = {
+    classes: ["npc"],
+  }
 
-    // Sheet settings
-    data.sheetSettings.rollButtons = false;
+  static PARTS = {
+    npc: { template: "systems/cyphersystem/templates/actor-sheets/npc-sheet.html", scrollable: [".scrollable"] }
+  }
 
-    return data;
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: 'notes', cssClass: "item", label: "CYPHERSYSTEM.Notes" },
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'items', cssClass: "item", label: "CYPHERSYSTEM.Inventory" }, // not limited
+        { id: 'settings', cssClass: "item narrow", icon: "fa-item fa-solid fa-gear" } // not limited
+      ],
+      initial: 'notes'
+    },
+    limited: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+      ],
+      initial: 'description'
+    }
+  }
+
+
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.sheetSettings.rollButtons = false;
+    return context;
   }
 }

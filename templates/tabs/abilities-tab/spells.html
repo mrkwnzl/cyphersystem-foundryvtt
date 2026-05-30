@@ -11,7 +11,7 @@
             {{/if}}
           </div>
           <div class="prepared-spell-label">
-            <label for="actor.system.abilities.preparedSpells" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+            <label for="actor.system.abilities.preparedSpells" class="resource-label {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
               {{localize 'CYPHERSYSTEM.Prepared'}}:&nbsp;
             </label>
           </div>

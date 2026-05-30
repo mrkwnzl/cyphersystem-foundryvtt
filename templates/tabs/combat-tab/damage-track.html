@@ -20,7 +20,7 @@
           {{/if}}
         </h4>
         <div class="item-quantity">
-          <a class="item-control minus-one-stress {{#if (eq actor.system.combat.stress.quantity 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity3'}}">
+          <a class="item-control minus-one-stress {{disabled (eq actor.system.combat.stress.quantity 0)}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity3'}}">
             <i class="fa-item quantity fa-regular fa-minus-square"></i>
           </a>
           <p class="number">&nbsp;{{actor.system.combat.stress.quantity}}&nbsp;</p>
@@ -29,7 +29,7 @@
           </a>
         </div>
         <div class="item-quantity">
-          <a class="item-control minus-one-stress-level {{#if (eq actor.system.combat.stress.levels 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
+          <a class="item-control minus-one-stress-level {{disabled (eq actor.system.combat.stress.levels 0)}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
             <i class="fa-item quantity-no-alt fa-regular fa-minus-square"></i>
           </a>
           <p class="number">&nbsp;{{actor.system.combat.stress.levels}}&nbsp;</p>
@@ -38,7 +38,7 @@
           </a>
         </div>
         <div class="item-controls">
-          <a class="item-control reset-stress {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetStress'}}">
+          <a class="item-control reset-stress {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ResetStress'}}">
             <i class="fa-item fas fa-sync-alt"></i>
           </a>
         </div>
@@ -53,7 +53,7 @@
             {{/if}}
           </h4>
           <div class="item-quantity">
-            <a class="item-control minus-one-supernatural-stress {{#if (eq actor.system.combat.stress.supernaturalLevels 0)}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
+            <a class="item-control minus-one-supernatural-stress {{disabled (eq actor.system.combat.stress.supernaturalLevels 0)}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantityNoAlt'}}">
               <i class="fa-item quantity-no-alt fa-regular fa-minus-square"></i>
             </a>
             <p class="number">&nbsp;{{actor.system.combat.stress.supernaturalLevels}}&nbsp;</p>
@@ -89,12 +89,12 @@
         </div>
         <div class="damage-track-apply centered-content">
           {{#if (eq actor.system.teen.combat.damageTrack.state "Impaired")}}
-            <a class="item-control apply-impaired-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+            <a class="item-control apply-impaired-teen {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}" data-action="toggleField" data-field="system.teen.combat.damage.applyImpaired">
               <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyImpaired}}grey{{/unless}}"></i>
             </a>
           {{/if}}
           {{#if (eq actor.system.teen.combat.damageTrack.state "Debilitated")}}
-            <a class="item-control apply-debilitated-teen {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+            <a class="item-control apply-debilitated-teen {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}" data-action="toggleField" data-field="system.teen.combat.damage.applyDebilitated">
               <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.teen.combat.damage.applyDebilitated}}grey{{/unless}}"></i>
             </a>
           {{/if}}
@@ -125,12 +125,12 @@
         </div>
         <div class="damage-track-apply centered-content">
           {{#if (eq actor.system.combat.damageTrack.state "Impaired")}}
-            <a class="item-control apply-impaired {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+            <a class="item-control apply-impaired {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}" data-action="toggleField" data-field="system.combat.damageTrack.applyImpaired">
               <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyImpaired}}grey{{/unless}}"></i>
             </a>
           {{/if}}
           {{#if (eq actor.system.combat.damageTrack.state "Debilitated")}}
-            <a class="item-control apply-debilitated {{#if ../sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}">
+            <a class="item-control apply-debilitated {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ApplyStatusToRoll'}}" data-action="toggleField" data-field="system.combat.damageTrack.applyDebilitated">
               <i class="fa-item fas fa-check" aria-hidden="true" style="color: {{#unless actor.system.combat.damageTrack.applyDebilitated}}grey{{/unless}}"></i>
             </a>
           {{/if}}
@@ -181,11 +181,11 @@
         </div>
         <div class="item-controls">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control recovery-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}">
+            <a class="item-control recovery-roll {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}" data-action="recoveryRoll">
               <i class="fa-recovery fa-solid fa-heart"></i>
             </a>
           {{/if}}
-          <a class="item-control reset-recovery-rolls {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}">
+          <a class="item-control reset-recovery-rolls {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ResetRecovery'}}" data-action="resetRecoveryRolls">
             <i class="fa-item fas fa-sync-alt"></i>
           </a>
         </div>

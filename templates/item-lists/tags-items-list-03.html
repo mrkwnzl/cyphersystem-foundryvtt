@@ -1,5 +1,5 @@
 {{#each itemLists.tagsThree as |item id|}}
-  <a class="tag-items {{tagOnItem ../itemLists.tagsOnItem item._id}}" data-item-id="{{item._id}}" title="{{#if item.system.active}}{{localize 'CYPHERSYSTEM.AddTagToItem'}}{{else}}{{localize 'CYPHERSYSTEM.RemoveTagFromItem'}}{{/if}}">
+  <a class="tag-items {{tagOnItem ../itemLists.tagsOnItem item._id}}" data-action="addTag" data-item-id="{{item._id}}" title="{{#if item.system.active}}{{localize 'CYPHERSYSTEM.AddTagToItem'}}{{else}}{{localize 'CYPHERSYSTEM.RemoveTagFromItem'}}{{/if}}">
     {{#if item.system.exclusive}}<i class="fa-item fas fa-exclamation"></i>{{/if}}<i class="fa-item fas fa-hashtag"></i>
     {{item.name}}
   </a>&hairsp;
