@@ -30,27 +30,25 @@ export class CypherActorSheetPC extends CypherActorSheet {
       height: 750,
     },
     actions: {
-      plusOneDamage: this.#onPlusOneDamage,
-      minusOneDamage: this.#onMinusOneDamage,
       plusOneStress: this.#onPlusOneStress,
       minusOneStress: this.#onMinusOneStress,
       plusOneStressLevel: this.#onPlusOneStressLevel,
       minusOneStressLevel: this.#onMinusOneStressLevel,
       plusOneSupernaturalStress: this.#onPlusOneSupernaturalStress,
-      minusOneSupernaturalStress: this.#minusOneSupernaturalStress,
-      resetStress: this.#resetStress,
-      armorActive: this.#armorActive,
+      minusOneSupernaturalStress: this.#onMinusOneSupernaturalStress,
+      resetStress: this.#onResetStress,
+      toggleArmor: this.#onToggleArmor,
       resetPool: this.#onResetPool,
-      rollPool: this.#rollPool,
-      recoveryRoll: this.#recoveryRoll,
-      rollDiceTray: this.#rollDiceTray,
-      increaseXp: this.#increaseXp,
-      decreaseXp: this.#decreaseXp,
-      resetAdvancement: this.#resetAdvancement,
-      resetRecoveryRolls: this.#resetRecoveryRolls,
-      disableMultiRoll: this.#disableMultiRoll,
-      powerShiftTemporary: this.#powerShiftTemporary,
-      itemFavorite: this.#itemFavorite,
+      rollPool: this.#onRollPool,
+      recoveryRoll: this.#onRecoveryRoll,
+      rollDiceTray: this.#onRollDiceTray,
+      increaseXp: this.#onIncreaseXp,
+      decreaseXp: this.#onDecreaseXp,
+      resetAdvancement: this.#onResetAdvancement,
+      resetRecoveryRolls: this.#onResetRecoveryRolls,
+      disableMultiRoll: this.#onDisableMultiRoll,
+      powerShiftTemporary: this.#onPowerShiftTemporary,
+      itemFavorite: this.#onItemFavorite,
     }
   }
 
@@ -232,22 +230,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
   /**
   * Combat tab functions
   */
-  // Add to Lasting Damage
-  static async #onPlusOneDamage(event, target) {
-    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-    let newValue = item.system.basic.damage + amount;
-    item.update({ "system.basic.damage": newValue });
-  };
-
-  // Subtract from Lasting Damage
-  static async #onMinusOneDamage(event, target) {
-    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
-    let newValue = item.system.basic.damage - amount;
-    item.update({ "system.basic.damage": newValue });
-  };
-
   // Add to stress points
   static async #onPlusOneStress(event, target) {
     let amount = (game.keyboard.isModifierActive('Alt')) ? 3 : 1;
@@ -281,24 +263,23 @@ export class CypherActorSheetPC extends CypherActorSheet {
   };
 
   // Subtract from supernatural stress
-  static async #minusOneSupernaturalStress(event, target) {
+  static async #onMinusOneSupernaturalStress(event, target) {
     let newValue = Math.max(this.actor.system.combat.stress.supernaturalLevels - 1, 0);
     this.actor.update({ "system.combat.stress.supernaturalLevels": newValue });
   };
 
   // Reset stress
-  static async #resetStress(event, target) {
-    this.actor.update({
+  static async #onResetStress(event, target) {
+    return this.actor.update({
       "system.combat.stress.quantity": 0,
       "system.combat.stress.levels": 0,
     });
   };
 
   // Change Armor Active
-  static async #armorActive(event, target) {
+  static async #onToggleArmor(event, target) {
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
-    let newValue = (item.system.active) ? false : true;
-    item.update({ "system.active": newValue });
+    return item.update({ "system.active": !item.system.active });
   };
 
   /**
@@ -326,17 +307,17 @@ export class CypherActorSheetPC extends CypherActorSheet {
   */
 
   // Might/Speed/Intellect roll button
-  static async #rollPool(event, target) {
+  static async #onRollPool(event, target) {
     rollEngineMain({ actorUuid: this.actor.uuid, pool: target.dataset.pool });
   };
 
   // Recovery roll button
-  static async #recoveryRoll(event, target) {
+  static async #onRecoveryRoll(event, target) {
     recoveryRollMacro(this.actor, "", true);
   };
 
   // d6 roll button
-  static async #rollDiceTray(event, target) {
+  static async #onRollDiceTray(event, target) {
     diceRollMacro(target.dice, this.actor);
   };
 
@@ -344,21 +325,21 @@ export class CypherActorSheetPC extends CypherActorSheet {
   * General PC functions
   */
   // Increase XP
-  static async #increaseXp(event, target) {
+  static async #onIncreaseXp(event, target) {
     let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
     let newValue = this.actor.system.basic.xp + amount;
     this.actor.update({ "system.basic.xp": newValue });
   };
 
   // Decrease XP
-  static async #decreaseXp(event, target) {
+  static async #onDecreaseXp(event, target) {
     let amount = (game.keyboard.isModifierActive('Alt')) ? 10 : 1;
     let newValue = this.actor.system.basic.xp - amount;
     this.actor.update({ "system.basic.xp": newValue });
   };
 
   // Reset Advancements
-  static async #resetAdvancement(event, target) {
+  static async #onResetAdvancement(event, target) {
     this.actor.update({
       "system.basic.advancement.stats": false,
       "system.basic.advancement.effort": false,
@@ -369,7 +350,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
   };
 
   // Reset Recovery Rolls
-  static async #resetRecoveryRolls(event, target) {
+  static async #onResetRecoveryRolls(event, target) {
     this.actor.update({
       "system.combat.recoveries.oneAction": false,
       "system.combat.recoveries.oneAction2": false,
@@ -386,18 +367,18 @@ export class CypherActorSheetPC extends CypherActorSheet {
   };
 
   // Disable multi roll
-  static async #disableMultiRoll(event, target) {
+  static async #onDisableMultiRoll(event, target) {
     disableMultiRoll(this.actor);
   };
 
   // Toggle Temporary Power Shift
-  static async #powerShiftTemporary(event, target) {
+  static async #onPowerShiftTemporary(event, target) {
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
     item.update({ "system.basic.temporary": !item.system.basic.temporary });
   };
 
   // Toggle Favorite
-  static async #itemFavorite(event, target) {
+  static async #onItemFavorite(event, target) {
     const item = this.actor.items.get(target.closest('.item').dataset.itemId);
     item.update({ "system.favorite": !item.system.favorite });
   };

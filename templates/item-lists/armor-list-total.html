@@ -1,5 +1,5 @@
 <li class="item flexrow" data-item-id="{{item._id}}">
-  <h4 class="item-name"><b>{{localize 'CYPHERSYSTEM.Total'}}</b></h4>
+  <h6 class="item-name"><b>{{localize 'CYPHERSYSTEM.Total'}}</b></h6>
   {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
     <div class="item-quantity">
       <b>{{actor.system.teen.combat.armor.armorValueTotal}}/{{actor.system.teen.combat.armor.speedCostTotal}}</b>
@@ -9,6 +9,6 @@
       <b>{{actor.system.combat.armor.ratingTotal}}/{{actor.system.combat.armor.costTotal}}</b>
     </div>
   {{/if}}
-  <div class="item-controls {{{../sheetSettings.showOnHover}}}">
+  <div  class="item-controls flexrow {{{../sheetSettings.showOnHover}}}">
   </div>
 </li>

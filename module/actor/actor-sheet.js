@@ -1069,35 +1069,43 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
   * Health management for NPCs, Companions, and Communities
   */
 
-  // GENERIC INC/DEC/RESET field
+  // Increase field (data-field = full field path)
   static async #onIncField(event, target) {
     if (!this.isEditable) return;
     const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
     let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-    let newValue = foundry.utils.getProperty(this.actor, field).value + amount;
-    this.actor.update({ [`${field}.value`]: newValue });
+    let newValue = foundry.utils.getProperty(document, field) + amount;
+    return document.update({ [field]: newValue });
   };
 
-  // Decrease Health
+  // Decrease Field (data-field = full field path)
   static async #onDecField(event, target) {
     if (!this.isEditable) return;
     const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
     let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-    let newValue = foundry.utils.getProperty(this.actor, field).value - amount;
-    this.actor.update({ [`${field}.value`]: newValue });
+    let newValue = foundry.utils.getProperty(document, field) - amount;
+    return document.update({ [field]: newValue });
   }
 
-  // Reset Health
+  // Reset Field (data-field = base field name, not including .value or .max)
   static async #onResetField(event, target) {
     if (!this.isEditable) return;
     const field = target.dataset.field;
-    this.actor.update({ [`${field}.value`]: foundry.utils.getProperty(this.actor, field).max });
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    return document.update({ [`${field}.value`]: foundry.utils.getProperty(document, field).max });
   }
 
   static async #onToggleField(event, target) {
     if (!this.isEditable) return;
     const field = target.dataset.field;
-    this.actor.update({ [`${field}`]: !foundry.utils.getProperty(this.actor, field) });
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    document.update({ [`${field}`]: !foundry.utils.getProperty(document, field) });
   }
 
   /**

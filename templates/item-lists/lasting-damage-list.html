@@ -1,7 +1,7 @@
 {{#each itemLists.lastingDamage as |item id|}}
   <li class="item flexrow {{#if item.system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
-    <h4 class="item-name">
-      <a class="item-control item-description" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}" data-action="clickItemDescription">
+    <h6 class="item-name">
+      <a class="item-control" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}" data-action="clickItemDescription">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~item.name}}
       </a>
@@ -31,21 +31,21 @@
           {{/if}}
         </a>
       {{/if}}
-    </h4>
+    </h6>
     <div class="item-quantity">
-      <a class="item-control minus-one-damage" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+      <a class="item-control" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}" data-action="decField" data-field="system.basic.damage">
         <i class="fa-item quantity fa-regular fa-minus-square"></i>
       </a>
       <p class="number">&nbsp;{{item.system.basic.damage}}&nbsp;</p>
-      <a class="item-control plus-one-damage" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
+      <a class="item-control" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}" data-action="incField" data-field="system.basic.damage">
         <i class="fa-item quantity fa-regular fa-plus-square"></i>
       </a>
     </div>
-    <div class="item-controls {{{../sheetSettings.showOnHover}}}">
-      <a class="item-control item-edit {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}" data-action="itemEdit">
+    <div  class="item-controls flexrow {{{../sheetSettings.showOnHover}}}">
+      <a class="item-control {{disabled ../sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}" data-action="itemEdit">
         <i class="fa-solid fa-pen-to-square"></i>
       </a>
-      <a class="item-control item-delete {{disabled ../sheetSettings.isObserver}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}" data-action="itemDelete">
+      <a class="item-control {{disabled ../sheetSettings.isObserver}}" title="{{#if item.system.archived}}{{localize 'CYPHERSYSTEM.UnarchiveItem'}}{{else}}{{localize 'CYPHERSYSTEM.ArchiveItem'}}{{/if}}" data-action="itemDelete">
         {{#if item.system.archived}}
           <i class="fa-item archived fa-solid fa-arrow-rotate-left"></i>
         {{else}}

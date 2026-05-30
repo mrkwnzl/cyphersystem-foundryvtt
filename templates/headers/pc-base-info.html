@@ -92,20 +92,20 @@
       <div class="{{disabled sheetSettings.isObserver}}" style="padding-left: 0px; display: flex; justify-content: center">
         {{#unless sheetSettings.isLimited}}
           <input type="checkbox" name="system.basic.advancement.stats" {{checked actor.system.basic.advancement.stats}} {{sheetSettings.disabledStaticStats}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementPool'}}&nbsp;&nbsp;
+          <label for="system.basic.advancement.stats">{{localize 'CYPHERSYSTEM.AdvancementPool'}}</label>
           <input type="checkbox" name="system.basic.advancement.effort" {{checked actor.system.basic.advancement.effort}} {{sheetSettings.disabledStaticStats}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEffort'}}&nbsp;&nbsp;
+          <label for="system.basic.advancement.effort">{{localize 'CYPHERSYSTEM.AdvancementEffort'}}</label>
           <input type="checkbox" name="system.basic.advancement.edge" {{checked actor.system.basic.advancement.edge}} {{sheetSettings.disabledStaticStats}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementEdge'}}&nbsp;&nbsp;
+          <label for="system.basic.advancement.edge">{{localize 'CYPHERSYSTEM.AdvancementEdge'}}</label>
           <input type="checkbox" name="system.basic.advancement.skill" {{checked actor.system.basic.advancement.skill}} {{sheetSettings.disabledStaticStats}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementSkill'}}&nbsp;&nbsp;
+          <label for="system.basic.advancement.skill">{{localize 'CYPHERSYSTEM.AdvancementSkill'}}</label>
           <input type="checkbox" name="system.basic.advancement.other" {{checked actor.system.basic.advancement.other}} {{sheetSettings.disabledStaticStats}}>
-          &nbsp;{{localize 'CYPHERSYSTEM.AdvancementOther'}}
+          <label for="system.basic.advancement.other">{{localize 'CYPHERSYSTEM.AdvancementOther'}}</label>
         {{/unless}}
       </div>
       {{#unless sheetSettings.isLimited}}
         <div style="max-width: 20px">
-          <a class="item-control reset-advancement {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ResetAdvancement'}}" data-action="resetAdvancement">
             <i class="fa-item fas fa-sync-alt"></i>
           </a>
         </div>

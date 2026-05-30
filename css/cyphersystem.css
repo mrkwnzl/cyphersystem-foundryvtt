@@ -1,5 +1,9 @@
 /* Definitions */
 
+body {
+  --input-height: 26px;
+}
+
 :root {
   --cypher-font: "Signika", sans-serif;
   --cypher-background: url(../ui/parchment.jpg) repeat;
@@ -578,26 +582,6 @@ select.bar-attribute {
   filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
 }
 
-.cyphersystem .sheet-header {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 auto;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  margin-bottom: 0px;
-}
-
 .cyphersystem .sheet-header .profile-img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
@@ -760,11 +744,27 @@ select.bar-attribute {
   height: 100%;
 }
 
+.cyphersystem .resources {
+  flex-wrap: nowrap;
+}
+
+.cyphersystem .resource-content {
+  flex-wrap: nowrap;
+  label {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
 .cyphersystem .resource-label {
   font-weight: bold;
   text-overflow: ellipsis;
   padding-left: 15px;
   /* vertical-align: middle; */
+}
+
+.cyphersystem.sheet h6.item-name {
+  font-size: 14px;
 }
 
 .cyphersystem .resource-label-additional {
@@ -900,13 +900,12 @@ select.bar-attribute {
   -webkit-box-flex: 0 0 5em;
   -ms-flex: 0 0 5em;
   flex: 0 0 5em;
-  text-align: right;
+  text-align: center;
   line-height: 1.4;
 }
 
 .cyphersystem li.item .item-controls.show-on-hover,
 .cyphersystem li.item .item-favorite.show-on-hover,
-.cyphersystem li.item .item-controls-spells.show-on-hover,
 .cyphersystem div.stat-block .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block .stat-controls.show-on-hover {
   opacity: 0;
@@ -919,8 +918,6 @@ select.bar-attribute {
 .cyphersystem li.item:focus-within .item-controls.show-on-hover,
 .cyphersystem li.item:hover .item-favorite.show-on-hover,
 .cyphersystem li.item:focus-within .item-favorite.show-on-hover,
-.cyphersystem li.item:hover .item-controls-spells.show-on-hover,
-.cyphersystem li.item:focus-within .item-controls-spells.show-on-hover,
 .cyphersystem div.stat-block:hover .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block:focus-within .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block:hover .stat-controls.show-on-hover,
@@ -928,16 +925,6 @@ select.bar-attribute {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-}
-
-.cyphersystem .item-control.item-delete,
-.cyphersystem .item-control.toggle-cypher-type,
-.cyphersystem .item-control.item-roll,
-.cyphersystem .item-control.item-pay,
-.cyphersystem .item-control.might-roll,
-.cyphersystem .item-control.speed-roll,
-.cyphersystem .item-control.intellect-roll {
-  text-align: center;
 }
 
 .cyphersystem .fa-item.archived,
@@ -1110,7 +1097,6 @@ select.bar-attribute {
 .cyphersystem input[type="checkbox"] {
   flex: 0 0 15px;
   margin: auto 0px;
-  height: 13px;
   width: 13px;
 }
 
@@ -1343,13 +1329,6 @@ select.bar-attribute {
 
 .cyphersystem .Specialized {
   color: blue;
-}
-
-.cyphersystem .item-controls-spells {
-  -webkit-box-flex: 0 0 5em;
-  -ms-flex: 0 0 5em;
-  flex: 0 0 5em;
-  text-align: right;
 }
 
 .cyphersystem input.settings-input,

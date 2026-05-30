@@ -8,7 +8,7 @@
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control might-roll {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}" data-action="rollPool" data-pool="Might">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}" data-action="rollPool" data-pool="Might">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -33,11 +33,11 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"
-            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might' 'system.pools.might'}}">
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might.value' 'system.pools.might.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}"
-            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might' 'system.pools.might'}}">
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might.value' 'system.pools.might.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}"
@@ -66,7 +66,7 @@
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control speed-roll {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}" data-action="rollPool" data-pool="Speed">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}" data-action="rollPool" data-pool="Speed">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -91,11 +91,11 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}"
-            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed' 'system.pools.speed'}}">
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed.value' 'system.pools.speed.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}"
-            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed' 'system.pools.speed'}}">
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed.value' 'system.pools.speed.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}"
@@ -124,7 +124,7 @@
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control intellect-roll {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}" data-action="rollPool" data-pool="Intellect">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}" data-action="rollPool" data-pool="Intellect">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -149,11 +149,11 @@
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}"
-            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect' 'system.pools.intellect'}}">
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect.value' 'system.pools.intellect.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}"
-            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect' 'system.pools.intellect'}}">
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect.value' 'system.pools.intellect.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
           <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}"
@@ -193,11 +193,11 @@
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls {{{sheetSettings.showOnHover}}}">
               <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"
-              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
+              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
               <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"
-              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
+              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
               <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"
@@ -231,11 +231,11 @@
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls {{{sheetSettings.showOnHover}}}">
               <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"
-              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
+              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
               <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"
-              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
+              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
               <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"
