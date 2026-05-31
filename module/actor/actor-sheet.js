@@ -1023,25 +1023,6 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     });
   };
 
-
-  static TODO() {
-
-    // Drag events for macros
-    if (this.actor.isOwner) {
-      let handler = ev => this._onDragStart(ev);
-      // Find all items on the character sheet.
-      html.querySelector("li.item").each((i, li) => {
-        // Ignore for the header row.
-        if (li.classList.contains("item-header")) return;
-        if (li.classList.contains("non-draggable")) return;
-        if (li.classList.contains("item-settings")) return;
-        // Add draggable attribute and dragstart listener.
-        li.setAttribute("draggable", true);
-        li.addEventListener("dragstart", handler, false);
-      });
-    }
-  }
-
   /**
   * Health management for NPCs, Companions, and Communities
   */
