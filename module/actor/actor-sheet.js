@@ -1131,28 +1131,31 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     // Handle unique items
     if (typesUniqueItems.includes(originItem.type)) {
       if (originActor) {
-        let d = new Dialog({
-          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
+        let d = new foundry.applications.api.DialogV2({
+          window: {
+            title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
+          },
           content: "",
-          buttons: {
-            move: {
-              icon: "<i class='fa-item fas fa-archive'></i>",
+          buttons: [
+            {
+              action: 'archive',
+              icon: "fa-item fas fa-archive",
               label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-              callback: (html) => archiveItem()
+              default: true,
+              callback: () => archiveItem()
             },
-            moveAll: {
-              icon: "<i class='fa-item fas fa-trash-xmark'></i>",
+            {
+              action: 'delete',
+              icon: "fa-item fas fa-trash-xmark",
               label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-              callback: (html) => deleteItem()
+              callback: () => deleteItem()
             },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
+            {
+              icon: "fa-item fas fa-times",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => { }
             }
-          },
-          default: "move",
-          close: () => { }
+          ]
         });
         d.render(true, { width: "auto" });
       } else {
@@ -1182,14 +1185,12 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       moveDialog();
 
       function moveDialog() {
-        let d = new Dialog({
-          title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: originItem.name }),
+        let d = new foundry.applications.api.DialogV2({
+          window: { title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: originItem.name }) },
           content: createContent(),
           buttons: createButtons(),
-          default: "move",
-          close: () => { }
         });
-        d.render(true, { width: "auto" });
+        d.render(true, /*{ width: "auto" }*/);
       }
 
       function createContent() {
@@ -1201,36 +1202,45 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
 
       function createButtons() {
         if (maxQuantity == null) {
-          return {
-            move: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+          return [
+            {
+              action: 'move',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.querySelector("#quantity").val(), originItem)
+              callback: (event, target, dialog) => 
+                moveItems(dialog.element.querySelector("#quantity").value, originItem),
+              default: true,
             },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
+            {
+              action: 'cancel',
+              icon: "fa-item fas fa-times",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => { }
             }
-          };
+          ];
         } else {
-          return {
-            move: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+          return [
+            {
+              action: 'move',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.querySelector("#quantity").val(), originItem)
+              callback: (event, target, dialog) =>
+                moveItems(dialog.element.querySelector("#quantity").value, originItem),
+              default: true,
             },
-            moveAll: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+            {
+              action: 'moveAll',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
-              callback: (html) => moveItems(maxQuantity, originItem)
+              callback: () => moveItems(maxQuantity, originItem)
             },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
+            {
+              action: 'cancel',
+              icon: "fa-item fas fa-times",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
               callback: () => { }
             }
-          };
+          ];
         }
       }
 
