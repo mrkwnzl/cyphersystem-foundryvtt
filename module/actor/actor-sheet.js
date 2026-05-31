@@ -919,109 +919,105 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
   */
 
   // Toggle item visibility
+  #keyHandler;
+
+  #swapClass(selector, removeClass, addClass) {
+    const elements = this.element.querySelectorAll(selector);
+    if (!elements) return;
+    for (const element of elements) {
+      element.classList.remove(removeClass.split(' '));
+      element.classList.add(addClass.split(' '));
+    }
+  }
+
+  #setStyle(selector, attribute, value) {
+    const elements = this.element.querySelectorAll(selector);
+    if (!elements) return;
+    for (const element of elements) {
+      element.style[attribute] = value;
+    }
+  }
+
+  #showAlt() {
+    // Favorite star
+    this.#setStyle('.item-favorite.alt', 'visibility', 'visible');
+
+    // Archive icons
+    this.#swapClass('.fa-item.archived', 'fa-arrow-rotate-left', 'fa-trash-xmark');
+    this.#swapClass('.fa-item.unarchived', 'fa-archive', 'fa-trash-xmark');
+
+    // Cypher icons
+    this.#swapClass('.fa-item.cypher.no-type', 'fa-regular fa-circle', 'fa-solid fa-fire-flame-curved');
+    this.#swapClass('.fa-item.cypher.subtle', 'fa-circle-half-stroke', 'fa-fire-flame-curved');
+    this.#swapClass('.fa-item.cypher.manifest', 'fa-circle', 'fa-fire-flame-curved');
+
+    // Roll buttons
+    this.#swapClass('.fa-item.initiative', 'fa-sword', 'fa-ballot');
+    this.#swapClass('.fa-item.pay-pool-points', 'fa-coins', 'fa-ballot');
+    this.#swapClass('.fa-item.stat-roll', 'fa-dice-d20', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-initiative', 'fa-ballot', 'fa-swords');
+    this.#swapClass('.fa-item.aio-stat-roll', 'fa-ballot', 'fa-dice-d20');
+    this.#swapClass('.fa-item.aio-pay-pool-points', 'fa-ballot', 'fa-coins');
+
+    // Recovery roll icon
+    this.#swapClass('.fa-recovery', 'fa-solid', 'fa-regular');
+
+    // Quantity
+    this.#swapClass('.fa-item.quantity', 'fa-regular', 'fa-solid');
+  }
+
+  #unshowAlt() {
+    // Favorite star
+    this.#setStyle('.item-favorite.alt', 'visibility', 'hidden');
+
+    // Archive icons
+    this.#swapClass('.fa-item.archived', 'fa-trash-xmark', 'fa-arrow-rotate-left');
+    this.#swapClass('.fa-item.unarchived', 'fa-trash-xmark', 'fa-archive');
+
+    // Cypher icons
+    this.#swapClass('.fa-item.cypher.no-type', 'fa-solid fa-fire-flame-curved', 'fa-regular fa-circle');
+    this.#swapClass('.fa-item.cypher.subtle', 'fa-fire-flame-curved', 'fa-circle-half-stroke');
+    this.#swapClass('.fa-item.cypher.manifest', 'fa-fire-flame-curved', 'fa-circle');
+
+    // Roll buttons
+    this.#swapClass('.fa-item.initiative', 'fa-ballot', 'fa-swords');
+    this.#swapClass('.fa-item.pay-pool-points', 'fa-ballot', 'fa-coins');
+    this.#swapClass('.fa-item.stat-roll', 'fa-ballot', 'fa-dice-d20');
+    this.#swapClass('.fa-item.aio-initiative', 'fa-swords', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-stat-roll', 'fa-dice-d20', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-pay-pool-points', 'fa-coins', 'fa-ballot');
+
+    // Recovery roll icon
+    this.#swapClass('.fa-recovery', 'fa-regular', 'fa-solid');
+
+    // Quantity
+    this.#swapClass('.fa-item.quantity', 'fa-solid', 'fa-regular');
+  }
+
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
-    const html = this.element;
+    if (game.keyboard.isModifierActive("Alt"))
+      this.#showAlt();
 
-    const itemFavorite = html.querySelectorAll('.item-favorite.alt');
-    const itemArchived = html.querySelectorAll('.fa-item.archived');
-    const itemUnarchived = html.querySelectorAll('.fa-item.unarchived');
-    const itemCypherNoType = html.querySelectorAll('.fa-item.cypher.no-type');
-    const itemCyherSubtle = html.querySelectorAll('.fa-item.cypher.subtle');
-    const itemCypherManifest = html.querySelectorAll('.fa-item.cypher.manifest');
-    const itemInitiative = html.querySelectorAll('.fa-item.initiative');
-    const itemPayPoolPoints = html.querySelectorAll('.fa-item.pay-pool-points');
-    const statRoll = html.querySelectorAll('.fa-item.stat-roll');
-    const itemAIOInitiative = html.querySelectorAll('.fa-item.aio-initiative');
-    const itemAIOStatRoll = html.querySelectorAll('.fa-item.aio-stat-roll');
-    const itemAIOPayPoolPoints = html.querySelectorAll('.fa-item.aio-pay-pool-points');
-    const recoveryRoll = html.querySelectorAll('.fa-recovery');
-    const quantity = html.querySelectorAll('.fa-item.quantity');
-
-    function swapClass(elements, removeClass, addClass) {
-      if (!elements) return;
-      for (const element of elements) {
-        element.classList.remove(removeClass.split(' '));
-        element.classList.add(addClass.split(' '));
-      }
-    }
-
-    function setStyle(elements, attribute, value) {
-      if (!elements) return;
-      for (const element of elements) {
-        element.style[attribute] = value;
-      }
-    }
-
-    function showAlt() {
-      // Favorite star
-      setStyle(itemFavorite, 'visibility', 'visible');
-
-      // Archive icons
-      swapClass(itemArchived, 'fa-arrow-rotate-left', 'fa-trash-xmark');
-      swapClass(itemUnarchived, 'fa-archive', 'fa-trash-xmark');
-
-      // Cypher icons
-      swapClass(itemCypherNoType, 'fa-regular fa-circle', 'fa-solid fa-fire-flame-curved');
-      swapClass(itemCyherSubtle, 'fa-circle-half-stroke', 'fa-fire-flame-curved');
-      swapClass(itemCypherManifest, 'fa-circle', 'fa-fire-flame-curved');
-
-      // Roll buttons
-      swapClass(itemInitiative, 'fa-sword', 'fa-ballot');
-      swapClass(itemPayPoolPoints, 'fa-coins', 'fa-ballot');
-      swapClass(statRoll, 'fa-dice-d20', 'fa-ballot');
-      swapClass(itemAIOInitiative, 'fa-ballot', 'fa-swords');
-      swapClass(itemAIOStatRoll, 'fa-ballot', 'fa-dice-d20');
-      swapClass(itemAIOPayPoolPoints, 'fa-ballot', 'fa-coins');
-
-      // Recovery roll icon
-      swapClass(recoveryRoll, 'fa-solid', 'fa-regular');
-
-      // Quantity
-      swapClass(quantity, 'fa-regular', 'fa-solid');
-    }
-
-    function unshowAlt() {
-      // Favorite star
-      setStyle(itemFavorite, 'visibility', 'hidden');
-
-      // Archive icons
-      swapClass(itemArchived, 'fa-trash-xmark', 'fa-arrow-rotate-left');
-      swapClass(itemUnarchived, 'fa-trash-xmark', 'fa-archive');
-
-      // Cypher icons
-      swapClass(itemCypherNoType, 'fa-solid fa-fire-flame-curved', 'fa-regular fa-circle');
-      swapClass(itemCyherSubtle, 'fa-fire-flame-curved', 'fa-circle-half-stroke');
-      swapClass(itemCypherManifest, 'fa-fire-flame-curved', 'fa-circle');
-
-      // Roll buttons
-      swapClass(itemInitiative, 'fa-ballot', 'fa-swords');
-      swapClass(itemPayPoolPoints, 'fa-ballot', 'fa-coins');
-      swapClass(statRoll, 'fa-ballot', 'fa-dice-d20');
-      swapClass(itemAIOInitiative, 'fa-swords', 'fa-ballot');
-      swapClass(itemAIOStatRoll, 'fa-dice-d20', 'fa-ballot');
-      swapClass(itemAIOPayPoolPoints, 'fa-coins', 'fa-ballot');
-
-      // Recovery roll icon
-      swapClass(recoveryRoll, 'fa-regular', 'fa-solid');
-
-      // Quantity
-      swapClass(quantity, 'fa-solid', 'fa-regular');
-    }
-
-    if (game.keyboard.isModifierActive("Alt")) {
-      showAlt();
-    }
-
-    document.addEventListener('keydown', event => {
-      if (event.altKey) showAlt();
-    });
-
-    document.addEventListener('keyup', event => {
-      if (!event.altKey) unshowAlt();
-    });
+    this.#keyHandler ??= this.#onKeyUpDown.bind(this);
+    document.addEventListener('keydown', this.#keyHandler);
+    document.addEventListener('keyup', this.#keyHandler);
   };
+
+  #onKeyUpDown(event) {
+    if (event.type === 'keydown' && event.altKey)
+      this.#showAlt();
+    else if (event.type === 'keyup' && !event.altKey)
+      this.#unshowAlt();
+  }
+
+  _onClose(options) {
+    super._onClose(options);
+    document.removeEventListener('keydown', this.#keyHandler);
+    document.removeEventListener('keyup', this.#keyHandler);
+    this.#keyHandler = undefined;
+  }
 
   /**
   * Health management for NPCs, Companions, and Communities
