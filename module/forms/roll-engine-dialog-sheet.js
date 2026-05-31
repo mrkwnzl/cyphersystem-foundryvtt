@@ -20,7 +20,6 @@ export class RollEngineDialogSheet extends HandlebarsApplicationMixin(Applicatio
     classes: ["cyphersystem", "sheet", "dialog"],
     position: {
       width: 745,
-      height: 630,
     },
     window: {
       title: "All-in-One Roll",

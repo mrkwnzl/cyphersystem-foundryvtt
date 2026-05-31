@@ -17,7 +17,6 @@ export class SheetCustomization extends HandlebarsApplicationMixin(ApplicationV2
     position: {
       top: 150,
       width: 650,
-      height: 170,
     },
     window: {
       title: "CYPHERSYSTEM.SettingSheetCustomizationLabel",

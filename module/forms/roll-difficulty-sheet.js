@@ -11,7 +11,6 @@ export class RollDifficultySheet extends HandlebarsApplicationMixin(ApplicationV
     classes: ["cyphersystem", "sheet", "gmi-form"],
     position: {
       width: 300,
-      height: "auto",
       top: 71,
       left: 110,
     },
