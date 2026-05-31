@@ -1460,8 +1460,6 @@ select.settings-input {
 }
 
 .cyphersystem .roll-engine-summary-bottom {
-  position: absolute;
-  bottom: 10px;
   width: 361px;
   text-align: center;
 }

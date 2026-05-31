@@ -3,191 +3,211 @@
  * @extends {FormApplication}
  */
 
-import {rollEngineComputation} from "../utilities/roll-engine/roll-engine-computation.js";
-import {useEffectiveDifficulty} from "../utilities/roll-engine/roll-engine-main.js";
+import { rollEngineComputation } from "../utilities/roll-engine/roll-engine-computation.js";
+import { useEffectiveDifficulty } from "../utilities/roll-engine/roll-engine-main.js";
 import {
   getBackgroundImage,
   getBackgroundImageOverlayOpacity,
   getBackgroundImagePath
 } from "./sheet-customization.js";
 
-export class RollEngineDialogSheet extends FormApplication {
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet"],
-      template: "systems/cyphersystem/templates/forms/roll-engine-dialog-sheet.html",
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
+
+export class RollEngineDialogSheet extends HandlebarsApplicationMixin(ApplicationV2) {
+
+  static DEFAULT_OPTIONS = {
+    tag: "form",
+    classes: ["cyphersystem", "sheet", "dialog"],
+    position: {
+      width: 745,
+      height: 630,
+    },
+    window: {
       title: "All-in-One Roll",
+      resizable: false
+    },
+    form: {
+      handler: this.#onSubmit,
       closeOnSubmit: false,
       submitOnChange: true,
       submitOnClose: false,
-      width: 745,
-      height: false,
-      resizable: false
-    });
+    },
+    actions: {
+      roll: this.#onRoll,
+      pay: this.#onPay,
+      cancel: this.#onCancel,
+    }
   }
 
-  getData() {
+  static PARTS = {
+    form: {
+      template: "systems/cyphersystem/templates/forms/roll-engine-dialog-sheet.html",
+    }
+  }
+
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
     // Basic data
-    const data = super.getData().object;
-
+    let data = this.options.data;
     let actor = fromUuidSync(data.actorUuid);
-    data.actor = actor;
+    context.actor = actor;
+    Object.assign(context, data);
 
-    if (!data.title) data.title = game.i18n.localize("CYPHERSYSTEM.StatRoll");
+    context.title = data.title ?? game.i18n.localize("CYPHERSYSTEM.StatRoll");
 
-    data.useGlobalDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
+    context.useGlobalDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
 
-    data.effortValue = Math.min(actor.system.basic.effort + data.freeEffort, 6);
+    context.effortValue = Math.min(actor.system.basic.effort + data.freeEffort, 6);
 
     // Base stats
-    data.mightValue = data.teen
+    context.mightValue = context.teen
       ? actor.system.teen.pools.might.value
       : actor.system.pools.might.value;
-    data.mightMax = data.teen ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
-    data.mightEdge = data.teen ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
+    context.mightMax = context.teen ? actor.system.teen.pools.might.max : actor.system.pools.might.max;
+    context.mightEdge = context.teen ? actor.system.teen.pools.might.edge : actor.system.pools.might.edge;
 
-    data.speedValue = data.teen
+    context.speedValue = context.teen
       ? actor.system.teen.pools.speed.value
       : actor.system.pools.speed.value;
-    data.speedMax = data.teen ? actor.system.teen.pools.speed.max : actor.system.pools.speed.max;
-    data.speedEdge = data.teen ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
+    context.speedMax = context.teen ? actor.system.teen.pools.speed.max : actor.system.pools.speed.max;
+    context.speedEdge = context.teen ? actor.system.teen.pools.speed.edge : actor.system.pools.speed.edge;
 
-    data.intellectValue = data.teen
+    context.intellectValue = context.teen
       ? actor.system.teen.pools.intellect.value
       : actor.system.pools.intellect.value;
-    data.intellectMax = data.teen
+    context.intellectMax = context.teen
       ? actor.system.teen.pools.intellect.max
       : actor.system.pools.intellect.max;
-    data.intellectEdge = data.teen
+    context.intellectEdge = context.teen
       ? actor.system.teen.pools.intellect.edge
       : actor.system.pools.intellect.edge;
 
     // Effort
-    data.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
-    data.effortUltimateDamageTotal = data.effortToEase + data.effortOtherUses - data.freeEffort;
-    data.effortApplied = data.effortToEase + data.effortOtherUses + data.effortDamage;
+    context.effortTotal = data.effortToEase + data.effortOtherUses + data.effortDamage - data.freeEffort;
+    context.effortUltimateDamageTotal = data.effortToEase + data.effortOtherUses - data.freeEffort;
+    context.effortApplied = data.effortToEase + data.effortOtherUses + data.effortDamage;
 
     // Damage Track
-    data.impairedString = "";
+    context.impairedString = "";
     if (
       actor.system.combat.damageTrack.state == "Impaired" &&
       actor.system.combat.damageTrack.applyImpaired
     ) {
-      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
+      context.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsImpaired");
     } else if (
       actor.system.combat.damageTrack.state == "Debilitated" &&
       actor.system.combat.damageTrack.applyDebilitated
     ) {
-      data.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
+      context.impairedString = game.i18n.localize("CYPHERSYSTEM.PCIsDebilitated");
     }
 
     // Stress
-    data.stressModifier = 0;
-    if (actor.system.settings.combat.stress.active && !data.teen) {
-      data.stressModifier = actor.system.combat.stress.levels;
+    context.stressModifier = 0;
+    if (actor.system.settings.combat.stress.active && !context.teen) {
+      context.stressModifier = actor.system.combat.stress.levels;
     }
 
     // Armor
-    data.armorCost = !data.teen
+    context.armorCost = !context.teen
       ? actor.system.combat.armor.costTotal
       : actor.system.teen.combat.armor.speedCostTotal;
-    data.speedCostArmor =
-      data.pool == "Speed" && data.armorCost > 0
+    context.speedCostArmor =
+      context.pool == "Speed" && data.armorCost > 0
         ? game.i18n.format("CYPHERSYSTEM.SpeedEffortAdditionalCostPerLevel", {
           armorCost: data.armorCost
         })
         : "";
 
     // Summary
-    data.summaryFinalDifficulty = summaryFinalDifficulty(data);
-    data.summaryTaskModified = summaryTaskModified(data);
-    data.summaryStressLevels = summaryStressLevels(data);
-    data.summaryTotalDamage = summaryTotalDamage(data);
-    data.summaryTotalCostArray = summaryTotalCost(actor, data, data.teen);
-    data.summaryTotalCost = data.summaryTotalCostArray[0];
-    data.summaryTotalCostString = data.summaryTotalCostArray[1];
-    data.summaryTitle = data.title + ".";
-    data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
-    data.summaryNotEnoughPointsString = summaryCheckPoints(data);
-    data.summaryAllocatePoints =
-      data.pool == "Pool" ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
-    data.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {
-      gmiRange: data.gmiRange
+    context.summaryFinalDifficulty = summaryFinalDifficulty(context);
+    context.summaryTaskModified = summaryTaskModified(context);
+    context.summaryStressLevels = summaryStressLevels(context);
+    context.summaryTotalDamage = summaryTotalDamage(context);
+    context.summaryTotalCostArray = summaryTotalCost(actor, context, context.teen);
+    context.summaryTotalCost = context.summaryTotalCostArray[0];
+    context.summaryTotalCostString = context.summaryTotalCostArray[1];
+    context.summaryTitle = context.title + ".";
+    context.summaryTooMuchEffort = summaryCheckEffort(actor, context);
+    context.summaryNotEnoughPointsString = summaryCheckPoints(context);
+    context.summaryAllocatePoints =
+      context.pool == "Pool" ? game.i18n.localize("CYPHERSYSTEM.AllocatePointsYourself") : "";
+    context.summaryGMIRange = game.i18n.format("CYPHERSYSTEM.CurrentGMIRange", {
+      gmiRange: context.gmiRange
     });
-    data.summaryMacro = summaryMacro(data);
-    data.summaryUltimateDamage = summaryUltimateDamage(data);
+    context.summaryMacro = summaryMacro(context);
+    context.summaryUltimateDamage = summaryUltimateDamage(context);
 
     // Summary results
-    data.exceedEffort = data.summaryTooMuchEffort ? "exceeded" : "";
-    data.exceedMight = data.pool == "Might" && data.summaryNotEnoughPointsString ? "exceeded" : "";
-    data.exceedSpeed = data.pool == "Speed" && data.summaryNotEnoughPointsString ? "exceeded" : "";
-    data.exceedIntellect = data.pool == "Intellect" && data.summaryNotEnoughPointsString ? "exceeded" : "";
+    context.exceedEffort = context.summaryTooMuchEffort ? "exceeded" : "";
+    context.exceedMight = context.pool == "Might" && context.summaryNotEnoughPointsString ? "exceeded" : "";
+    context.exceedSpeed = context.pool == "Speed" && context.summaryNotEnoughPointsString ? "exceeded" : "";
+    context.exceedIntellect = context.pool == "Intellect" && context.summaryNotEnoughPointsString ? "exceeded" : "";
 
     let ruleBreakingRolls = game.settings.get("cyphersystem", "ruleBreakingRolls");
-    data.disabledButton = (data.summaryTooMuchEffort || data.summaryNotEnoughPointsString) && !ruleBreakingRolls ? "disabled" : "";
+    context.disabledButton = (context.summaryTooMuchEffort || context.summaryNotEnoughPointsString) && !ruleBreakingRolls ? "disabled" : "";
 
     // Summary stats
-    data.mightValue =
-      data.pool == "Might" ? data.mightValue - data.summaryTotalCost : data.mightValue;
-    data.speedValue =
-      data.pool == "Speed" ? data.speedValue - data.summaryTotalCost : data.speedValue;
-    data.intellectValue =
-      data.pool == "Intellect" ? data.intellectValue - data.summaryTotalCost : data.intellectValue;
+    context.mightValue =
+      context.pool == "Might" ? context.mightValue - context.summaryTotalCost : context.mightValue;
+    context.speedValue =
+      context.pool == "Speed" ? context.speedValue - context.summaryTotalCost : context.speedValue;
+    context.intellectValue =
+      context.pool == "Intellect" ? context.intellectValue - context.summaryTotalCost : context.intellectValue;
 
     // MultiRoll data
-    data.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
-    data.multiRollEffort =
+    context.multiRollActive = actor.getFlag("cyphersystem", "multiRoll.active");
+    context.multiRollEffort =
       actor.getFlag("cyphersystem", "multiRoll.active") === true &&
         actor.getFlag("cyphersystem", "multiRoll.modifiers.effort") != 0
         ? "multi-roll-active"
         : "";
-    data.multiRollMightEdge =
+    context.multiRollMightEdge =
       actor.getFlag("cyphersystem", "multiRoll.active") === true &&
         actor.getFlag("cyphersystem", "multiRoll.modifiers.might.edge") != 0
         ? "multi-roll-active"
         : "";
-    data.multiRollSpeedEdge =
+    context.multiRollSpeedEdge =
       actor.getFlag("cyphersystem", "multiRoll.active") === true &&
         actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0
         ? "multi-roll-active"
         : "";
-    data.multiRollIntellectEdge =
+    context.multiRollIntellectEdge =
       actor.getFlag("cyphersystem", "multiRoll.active") === true &&
         actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0
         ? "multi-roll-active"
         : "";
 
-    data.sheetSettings = {};
-    data.sheetSettings.backgroundImageBaseSetting = "background-image";
-    data.sheetSettings.backgroundImage = getBackgroundImage();
-    if (data.sheetSettings.backgroundImage == "custom") {
-      data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
-      data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    context.sheetSettings = {};
+    context.sheetSettings.backgroundImageBaseSetting = "background-image";
+    context.sheetSettings.backgroundImage = getBackgroundImage();
+    if (context.sheetSettings.backgroundImage == "custom") {
+      context.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+      context.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     }
 
     // Select choices
-    data.baseDifficultyChoices = [
-      {key: "-1", label: game.i18n.localize("CYPHERSYSTEM.None")},
-      {key: "0", label: "0"},
-      {key: "1", label: "1"},
-      {key: "2", label: "2"},
-      {key: "3", label: "3"},
-      {key: "4", label: "4"},
-      {key: "5", label: "5"},
-      {key: "6", label: "6"},
-      {key: "7", label: "7"},
-      {key: "8", label: "8"},
-      {key: "9", label: "9"},
-      {key: "10", label: "10"},
-      {key: "11", label: "11"},
-      {key: "12", label: "12"},
-      {key: "13", label: "13"},
-      {key: "14", label: "14"},
-      {key: "15", label: "15"}
+    context.baseDifficultyChoices = [
+      { key: "-1", label: game.i18n.localize("CYPHERSYSTEM.None") },
+      { key: "0", label: "0" },
+      { key: "1", label: "1" },
+      { key: "2", label: "2" },
+      { key: "3", label: "3" },
+      { key: "4", label: "4" },
+      { key: "5", label: "5" },
+      { key: "6", label: "6" },
+      { key: "7", label: "7" },
+      { key: "8", label: "8" },
+      { key: "9", label: "9" },
+      { key: "10", label: "10" },
+      { key: "11", label: "11" },
+      { key: "12", label: "12" },
+      { key: "13", label: "13" },
+      { key: "14", label: "14" },
+      { key: "15", label: "15" }
     ];
 
-    data.poolChoices = {
+    context.poolChoices = {
       "basic": {
         "Might": "CYPHERSYSTEM.Might",
         "Speed": "CYPHERSYSTEM.Speed",
@@ -214,20 +234,20 @@ export class RollEngineDialogSheet extends FormApplication {
       }
     };
 
-    data.skillRatingChoices = [
-      {key: "-1", label: "CYPHERSYSTEM.Inability"},
-      {key: "0", label: "CYPHERSYSTEM.Practiced"},
-      {key: "1", label: "CYPHERSYSTEM.Trained"},
-      {key: "2", label: "CYPHERSYSTEM.Specialized"}
+    context.skillRatingChoices = [
+      { key: "-1", label: "CYPHERSYSTEM.Inability" },
+      { key: "0", label: "CYPHERSYSTEM.Practiced" },
+      { key: "1", label: "CYPHERSYSTEM.Trained" },
+      { key: "2", label: "CYPHERSYSTEM.Specialized" }
     ];
 
-    data.numberAssetChoices = {
+    context.numberAssetChoices = {
       "0": 0,
       "1": 1,
       "2": 2
     };
 
-    data.effortLevelChoices = {
+    context.effortLevelChoices = {
       "0": game.i18n.localize("CYPHERSYSTEM.None"),
       "1": "1 " + game.i18n.localize("CYPHERSYSTEM.level"),
       "2": "2 " + game.i18n.localize("CYPHERSYSTEM.levels"),
@@ -237,19 +257,20 @@ export class RollEngineDialogSheet extends FormApplication {
       "6": "6 " + game.i18n.localize("CYPHERSYSTEM.levels")
     };
 
-    data.stepModifierChoices = {
+    context.stepModifierChoices = {
       "eased": "CYPHERSYSTEM.easedBy",
       "hindered": "CYPHERSYSTEM.hinderedBy"
     };
 
     // Return data
-    return data;
+    return context;
   }
 
-  _updateObject(event, formData) {
-    let data = this.object;
-
+  static #onSubmit(event, form, formData) {
+    let data = this.options.data;
     let actor = fromUuidSync(data.actorUuid);
+
+    formData = formData.object;
 
     // Basic data
     data.baseDifficulty = parseInt(formData.baseDifficulty);
@@ -294,11 +315,11 @@ export class RollEngineDialogSheet extends FormApplication {
 
     // Stress
     data.stressModifier = 0;
-    if (actor.system.settings.combat.stress.active && !data.teen) {
+    if (actor.system.settings.combat.stress.active && !context.teen) {
       data.stressModifier = actor.system.combat.stress.levels;
     }
 
-    data.armorCost = !data.teen
+    data.armorCost = !context.teen
       ? actor.system.combat.armor.costTotal
       : actor.system.teen.combat.armor.speedCostTotal;
     data.speedCostArmor =
@@ -342,7 +363,7 @@ export class RollEngineDialogSheet extends FormApplication {
     data.summaryTaskModified = summaryTaskModified(formData);
     data.summaryStressLevels = summaryStressLevels(data);
     data.summaryTotalDamage = summaryTotalDamage(formData);
-    data.summaryTotalCostArray = summaryTotalCost(actor, formData, data.teen);
+    data.summaryTotalCostArray = summaryTotalCost(actor, formData, context.teen);
     data.summaryTotalCost = data.summaryTotalCostArray[0];
     data.summaryTotalCostString = data.summaryTotalCostArray[1];
     data.summaryTooMuchEffort = summaryCheckEffort(actor, data);
@@ -359,56 +380,62 @@ export class RollEngineDialogSheet extends FormApplication {
   /**
    * Event listeners for roll engine dialog sheets
    */
-  activateListeners(html) {
-    super.activateListeners(html);
 
-    let data = this.object;
+  static async #onRoll(event, target) {
+    let data = this.options.data;
     let actor = fromUuidSync(data.actorUuid);
 
-    html.find(".roll-engine-roll").click(async (clickEvent) => {
-      data.skipRoll = false;
-      if (actor.system.basic.unmaskedForm != "Teen") {
-        if (clickEvent.altKey) {
-          await enableMultiRoll(actor, data);
-          await rollEngineComputation(data);
-        } else {
-          await rollEngineComputation(data);
-          await disableMultiRoll(actor);
-        }
+    // Update data with latest from dialog
+    const fd = new foundry.applications.ux.FormDataExtended(this.form);
+    foundry.utils.mergeObject(data, fd.object, {inplace: true});     
+
+    data.skipRoll = false;
+    if (actor.system.basic.unmaskedForm != "Teen") {
+      if (event.altKey) {
+        await enableMultiRoll(actor, data);
+        await rollEngineComputation(data);
       } else {
         await rollEngineComputation(data);
+        await disableMultiRoll(actor);
       }
-      this.close();
-    });
+    } else {
+      await rollEngineComputation(data);
+    }
+    this.close();
+  }
 
-    html.find(".roll-engine-pay").click(async (clickEvent) => {
-      data.skipRoll = true;
-      if (actor.system.basic.unmaskedForm != "Teen") {
-        if (clickEvent.altKey) {
-          await enableMultiRoll(actor, data);
-          await rollEngineComputation(data);
-        } else {
-          await rollEngineComputation(data);
-          await disableMultiRoll(actor);
-        }
+  static async #onPay(event, target) {
+    let data = this.options.data;
+    let actor = fromUuidSync(data.actorUuid);
+
+    // Update data with latest from dialog
+    const fd = new foundry.applications.ux.FormDataExtended(this.form);
+    foundry.utils.mergeObject(data, fd.object, {inplace: true});     
+
+    data.skipRoll = true;
+    if (actor.system.basic.unmaskedForm != "Teen") {
+      if (event.altKey) {
+        await enableMultiRoll(actor, data);
+        await rollEngineComputation(data);
       } else {
         await rollEngineComputation(data);
+        await disableMultiRoll(actor);
       }
-      this.close();
-    });
+    } else {
+      await rollEngineComputation(data);
+    }
+    this.close();
+  }
 
-    html.find(".roll-engine-cancel").click(async (clickEvent) => {
-      if (actor.system.basic.unmaskedForm != "Teen") {
-        if (clickEvent.altKey) {
-          // do nothing
-        } else {
-          await disableMultiRoll(actor);
-        }
-      }
-      this.close();
-    });
+  static async #onCancel(event, target) {
+    let actor = fromUuidSync(this.options.actorUuid);
+    if (actor.system.basic.unmaskedForm !== "Teen" && !event.altKey) {
+      await disableMultiRoll(actor);
+    }
+    this.close();
   }
 }
+
 
 async function enableMultiRoll(actor, data) {
   let pool = actor.system.pools;
@@ -499,7 +526,7 @@ function summaryStressLevels(data) {
     stressLevelString =
       game.i18n.localize("CYPHERSYSTEM.Stress") +
       ": " +
-      game.i18n.format("CYPHERSYSTEM.TaskHinderedBySteps", {amount: data.stressModifier});
+      game.i18n.format("CYPHERSYSTEM.TaskHinderedBySteps", { amount: data.stressModifier });
   }
 
   return stressLevelString;
@@ -525,7 +552,7 @@ function summaryTaskModified(data) {
   } else if (sum == 1) {
     taskModifiedString = game.i18n.localize("CYPHERSYSTEM.TaskEasedByStep");
   } else if (sum >= 2) {
-    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskEasedBySteps", {amount: sum});
+    taskModifiedString = game.i18n.format("CYPHERSYSTEM.TaskEasedBySteps", { amount: sum });
   }
 
   return taskModifiedString;
@@ -537,9 +564,9 @@ function summaryTotalDamage(data) {
   let totalDamageString = "";
 
   if (sum == 1) {
-    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointDamage", {amount: sum});
+    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointDamage", { amount: sum });
   } else if (sum >= 2) {
-    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointsDamage", {amount: sum});
+    totalDamageString = game.i18n.format("CYPHERSYSTEM.AttackDealsPointsDamage", { amount: sum });
   }
 
   return totalDamageString;
@@ -642,7 +669,7 @@ function summaryMacro(data) {
 
   if (data.macroUuid) {
     let macro = fromUuidSync(data.macroUuid);
-    summaryMacroString = game.i18n.format("CYPHERSYSTEM.MacroUsed", {macro: macro.name});
+    summaryMacroString = game.i18n.format("CYPHERSYSTEM.MacroUsed", { macro: macro.name });
   }
 
   return summaryMacroString;
