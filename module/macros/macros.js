@@ -1,10 +1,10 @@
-import {spendEffortString, calculateAttackDifficultyString} from "./macro-strings.js";
-import {chatCardProposeIntrusion, chatCardAskForIntrusion} from "../utilities/chat-cards.js";
-import {useRecoveries, payPoolPoints} from "../utilities/actor-utilities.js";
-import {barBrawlData} from "../utilities/token-utilities.js";
-import {rollEngineMain, useEffectiveDifficulty} from "../utilities/roll-engine/roll-engine-main.js";
-import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
-import {updateRollDifficultyForm} from "../forms/roll-difficulty-sheet.js";
+import { spendEffortString, calculateAttackDifficultyString } from "./macro-strings.js";
+import { chatCardProposeIntrusion, chatCardAskForIntrusion } from "../utilities/chat-cards.js";
+import { useRecoveries, payPoolPoints } from "../utilities/actor-utilities.js";
+import { barBrawlData } from "../utilities/token-utilities.js";
+import { rollEngineMain, useEffectiveDifficulty } from "../utilities/roll-engine/roll-engine-main.js";
+import { taggingEngineMain } from "../utilities/tagging-engine/tagging-engine-main.js";
+import { updateRollDifficultyForm } from "../forms/roll-difficulty-sheet.js";
 
 /* -------------------------------------------- */
 /*  Roll Macros                                 */
@@ -17,7 +17,7 @@ export function quickRollMacro(title) {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Open dialog
-  rollEngineMain({title: title});
+  rollEngineMain({ title: title });
 }
 
 export function easedRollMacro() {
@@ -27,29 +27,30 @@ export function easedRollMacro() {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Open dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.EasedStatRoll"),
+  let d = new foundry.applications.api.DialogV2({
+    window: { title: game.i18n.localize("CYPHERSYSTEM.EasedStatRoll") },
     content: `<div align="center"><label style="display: inline-block; text-align: right"><b>${game.i18n.localize("CYPHERSYSTEM.EasedBy")}: </b></label>
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
-    buttons: {
-      roll: {
-        icon: '<i class="fa-item fas fa-dice-d20"></i>',
+    buttons: [
+      {
+        action: 'roll',
+        default: true,
+        icon: "fa-item fas fa-dice-d20",
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) =>
+        callback: (event, target, dialog) =>
           rollEngineMain({
             title: game.i18n.localize("CYPHERSYSTEM.StatRoll"),
-            difficultyModifier: parseInt(html.find("input").val()),
+            difficultyModifier: parseInt(dialog.element.querySelector("input").value),
             easedOrHindered: "eased"
           })
       },
-      cancel: {
-        icon: '<i class="fa-item fas fa-times"></i>',
+      {
+        action: 'cancel',
+        icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
+        callback: () => { }
       }
-    },
-    default: "roll",
-    close: () => {}
+    ],
   });
   d.render(true);
 }
@@ -61,33 +62,34 @@ export function hinderedRollMacro() {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Open dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll"),
+  let d = new foundry.applications.api.DialogV2({
+    window: {title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll")},
     content: `
     <div align="center">
     <label style="display: inline-block; text-align: right">
     <b>${game.i18n.localize("CYPHERSYSTEM.HinderedBy")}: </b>
     </label>
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
-    buttons: {
-      roll: {
-        icon: '<i class="fa-item fas fa-dice-d20"></i>',
+    buttons: [
+       {
+        action: 'roll',
+        default: true,
+        icon: "fa-item fas fa-dice-d20",
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) =>
+        callback: (event, target, dialog) =>
           rollEngineMain({
             title: game.i18n.localize("CYPHERSYSTEM.StatRoll"),
-            difficultyModifier: parseInt(html.find("input").val()),
+            difficultyModifier: parseInt(dialog.element.querySelector("input").value),
             easedOrHindered: "hindered"
           })
       },
-      cancel: {
-        icon: '<i class="fa-item fas fa-times"></i>',
+       {
+        action: 'cancel',
+        icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
+        callback: () => { }
       }
-    },
-    default: "roll",
-    close: () => {}
+    ],
   });
   d.render(true);
 }
@@ -106,8 +108,8 @@ export async function selectedTokenRollMacro(actor, title) {
     ? game.settings.get("cyphersystem", "itemMacrosUseAllInOne")
     : !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
 
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.StatRoll"),
+  let d = new foundry.applications.api.DialogV2({
+    window: {title: game.i18n.localize("CYPHERSYSTEM.StatRoll")},
     content: `
     <div align="center">
       <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}:</label>
@@ -138,27 +140,28 @@ export async function selectedTokenRollMacro(actor, title) {
       <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="0" style='width: 57px; margin-left: 0px; margin-bottom: 5px; text-align: center'/><br>
     </div>
     `,
-    buttons: {
-      roll: {
-        icon: '<i class="fa-item fas fa-dice-d20"></i>',
+    buttons: [
+      {
+        action: 'roll',
+        default: true,
+        icon: "fa-item fas fa-dice-d20",
         label: game.i18n.localize("CYPHERSYSTEM.Roll"),
-        callback: (html) =>
+        callback: (event, target, dialog) =>
           rollDice({
             actorUuid: actorUuid,
             title: game.i18n.localize("CYPHERSYSTEM.StatRoll"),
-            baseDifficulty: html.find("#baseDifficulty").val(),
-            difficultyModifier: html.find("#difficultyModifier").val(),
-            easedOrHindered: html.find("#easedOrHindered").val()
+            baseDifficulty: dialog.element.querySelector("#baseDifficulty").value,
+            difficultyModifier: dialog.element.querySelector("#difficultyModifier").value,
+            easedOrHindered: dialog.element.querySelector("#easedOrHindered").value
           })
       },
-      cancel: {
-        icon: '<i class="fa-item fas fa-times"></i>',
+       {
+        action: 'cancel',
+        icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
+        callback: () => { }
       }
-    },
-    default: "roll",
-    close: () => {}
+    ],
   });
 
   if (!skipDialog) {
@@ -278,7 +281,7 @@ export async function selectedTokenRollMacro(actor, title) {
       "</div>";
 
     roll.toMessage({
-      speaker: ChatMessage.getSpeaker({actor: actor}),
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavor,
       flags: {
         "itemID": data.itemID,
@@ -300,7 +303,7 @@ export async function diceRollMacro(dice, actor) {
 
   // Send chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker({actor: actor}),
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
     flavor:
       "<div class='roll-flavor'><b>" +
       dice +
@@ -373,7 +376,7 @@ export async function allInOneRollDialogV2(rollObject) {
     ? actor.items.get(itemID).system.settings.general.initiative
     : false;
 
-  rollObject = Object.assign({initiativeRoll: initiativeRoll}, rollObject);
+  rollObject = Object.assign({ initiativeRoll: initiativeRoll }, rollObject);
 
   // Apply to roll eninge
   rollEngineMain(rollObject);
@@ -405,7 +408,7 @@ export async function itemRollMacro(
   // Check for actor that owns the item
   if (!actor || actor.type != "pc")
     return ui.notifications.warn(
-      game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name})
+      game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", { name: owner.name })
     );
 
   // Determine the item based on item ID
@@ -414,7 +417,7 @@ export async function itemRollMacro(
   // Check whether the item still exists on the actor
   if (item == null)
     return ui.notifications.warn(
-      game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", {name: owner.name})
+      game.i18n.format("CYPHERSYSTEM.MacroOnlyUsedBy", { name: owner.name })
     );
 
   // Check for combat-readiness
@@ -424,7 +427,7 @@ export async function itemRollMacro(
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoCombatActive"));
     if (actor.getActiveTokens().length == 0)
       return ui.notifications.warn(
-        game.i18n.format("CYPHERSYSTEM.NoTokensOnScene", {name: actor.name})
+        game.i18n.format("CYPHERSYSTEM.NoTokensOnScene", { name: actor.name })
       );
   }
 
@@ -563,13 +566,13 @@ export async function recoveryRollMacro(actor, dice, useRecovery) {
 
   // Send chat message
   roll.toMessage({
-    speaker: ChatMessage.getSpeaker({actor: actor}),
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
     flavor:
       game.i18n.format("CYPHERSYSTEM.UseARecoveryRoll", {
         name: actor.name,
         recoveryUsed: recoveryUsed
       }) + reRollButton,
-    flags: {"itemID": "recovery-roll"}
+    flags: { "itemID": "recovery-roll" }
   });
 }
 
@@ -579,23 +582,25 @@ export function spendEffortMacro(actor) {
     return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
 
   // Create dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.SpendEffort"),
+  let d = new foundry.applications.api.DialogV2({
+    window: {title: game.i18n.localize("CYPHERSYSTEM.SpendEffort")},
     content: spendEffortString(),
-    buttons: {
-      roll: {
-        icon: '<i class="fa-item fas fa-check"></i>',
+    buttons: [
+       {
+        action: 'roll',
+        default: true,
+        icon: "fa-item fas fa-check",
         label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-        callback: (html) => applyToPool(html.find("select").val(), html.find("input").val())
+        callback: (event, target, dialog) => 
+          applyToPool(dialog.element.querySelector("select").value, dialog.element.querySelector("input").value)
       },
-      cancel: {
-        icon: '<i class="fa-item fas fa-times"></i>',
+       {
+        action: 'cancel',
+        icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
+        callback: () => { }
       }
-    },
-    default: "roll",
-    close: () => {}
+    ],
   });
   d.render(true);
 
@@ -651,10 +656,10 @@ export function toggleDragRuler(token) {
 
   if (!token.document.data.flags.cyphersystem.toggleDragRuler) {
     token.document.setFlag("cyphersystem", "toggleDragRuler", true);
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", {name: token.name}));
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.EnabledDragRuler", { name: token.name }));
   } else if (token.document.data.flags.cyphersystem.toggleDragRuler) {
     token.document.setFlag("cyphersystem", "toggleDragRuler", false);
-    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", {name: token.name}));
+    ui.notifications.info(game.i18n.format("CYPHERSYSTEM.DisabledDragRuler", { name: token.name }));
   }
 }
 
@@ -713,42 +718,42 @@ export function quickStatChange(token, stat, modifier) {
     case "xp":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.XP"))) return;
       statData = calculateStatData(token.actor.system.basic.xp);
-      token.actor.update({"system.basic.xp": statData});
+      token.actor.update({ "system.basic.xp": statData });
       break;
     case "might":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Might"))) return;
       statData = calculateStatData(token.actor.system.pools.might.value);
-      token.actor.update({"system.pools.might.value": statData});
+      token.actor.update({ "system.pools.might.value": statData });
       break;
     case "speed":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Speed"))) return;
       statData = calculateStatData(token.actor.system.pools.speed.value);
-      token.actor.update({"system.pools.speed.value": statData});
+      token.actor.update({ "system.pools.speed.value": statData });
       break;
     case "intellect":
       if (!checkToken(["pc"], game.i18n.localize("CYPHERSYSTEM.Intellect"))) return;
       statData = calculateStatData(token.actor.system.pools.intellect.value);
-      token.actor.update({"system.pools.intellect.value": statData});
+      token.actor.update({ "system.pools.intellect.value": statData });
       break;
     case "health":
       if (!checkToken(["npc", "community", "companion"], game.i18n.localize("CYPHERSYSTEM.Health")))
         return;
       statData = calculateStatData(token.actor.system.pools.health.value);
-      token.actor.update({"system.pools.health.value": statData});
+      token.actor.update({ "system.pools.health.value": statData });
       break;
     case "infrastructure":
       if (!checkToken(["community"], game.i18n.localize("CYPHERSYSTEM.Infrastructure"))) return;
       statData = calculateStatData(token.actor.system.pools.infrastructure.value);
-      token.actor.update({"system.pools.infrastructure.value": statData});
+      token.actor.update({ "system.pools.infrastructure.value": statData });
       break;
     case "quantity":
       if (!checkToken(["marker"], game.i18n.localize("CYPHERSYSTEM.Quantity"))) return;
       statData = calculateStatData(token.actor.system.pools.quantity.value);
-      token.actor.update({"system.pools.quantity.value": statData});
+      token.actor.update({ "system.pools.quantity.value": statData });
       break;
     default:
       return ui.notifications.warn(
-        game.i18n.format("CYPHERSYSTEM.StatNotCompatible", {stat: stat})
+        game.i18n.format("CYPHERSYSTEM.StatNotCompatible", { stat: stat })
       );
   }
 
@@ -756,7 +761,7 @@ export function quickStatChange(token, stat, modifier) {
   function checkToken(actorTypes, statString) {
     if (!token || !actorTypes.includes(token.actor.type)) {
       ui.notifications.warn(
-        game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", {stat: statString})
+        game.i18n.format("CYPHERSYSTEM.PleaseSelectTokenStat", { stat: statString })
       );
       return false;
     } else {
@@ -821,25 +826,26 @@ export async function proposeIntrusion(actor, notification) {
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.NoPCsNoIntrusion"));
 
     // Create dialog
-    let d = new Dialog({
-      title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion"),
+    let d = new foundry.applications.api.DialogV2({
+      window: {title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion")},
       content: chatCardProposeIntrusion(selectOptions),
-      buttons: {
-        apply: {
-          icon: '<i class="fa-item fas fa-check"></i>',
+      buttons: [
+         {
+          action: 'apply',
+          default: true,
+          icon: "fa-item fas fa-check",
           label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-          callback: (html) => askForIntrusion(html.find("#selectPC").val())
+          callback: (event, target, dialog) => askForIntrusion(dialog.element.querySelector("#selectPC").value)
         },
-        cancel: {
-          icon: '<i class="fa-item fas fa-times"></i>',
+         {
+          action: 'cancel',
+          icon: "fa-item fas fa-times",
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-          callback: () => {}
+          callback: () => { }
         }
-      },
-      default: "apply",
-      close: () => {}
+      ],
     });
-    d.render(true, {width: "auto"});
+    d.render(true, { width: "auto" });
   } else {
     if (actor.type != "pc")
       return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.MacroOnlyAppliesToPC"));
@@ -873,10 +879,10 @@ export function changeSymbolForFractions() {
   game.settings.set("cyphersystem", "useSlashForFractions", slash);
 }
 
-export function toggleCostOfFirstLOE(){
+export function toggleCostOfFirstLOE() {
   if (game.settings.get("cyphersystem", "FirstLOECosts2Points")) {
     game.settings.set("cyphersystem", "FirstLOECosts2Points", false);
-      ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.FirstLOECosts2PointsFalse"));
+    ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.FirstLOECosts2PointsFalse"));
   } else {
     game.settings.set("cyphersystem", "FirstLOECosts2Points", true);
     ui.notifications.info(game.i18n.localize("CYPHERSYSTEM.FirstLOECosts2PointsTrue"));
@@ -971,8 +977,8 @@ export async function calculateAttackDifficulty(
   }
 
   // Create All-in-One dialog
-  let d = new Dialog({
-    title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
+  let d = new foundry.applications.api.DialogV2({
+    window: {title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty") },
     content: calculateAttackDifficultyString(
       difficulty,
       pcRole,
@@ -999,68 +1005,58 @@ export async function calculateAttackDifficulty(
       additionalThreeName,
       persistentRollDifficulty
     ),
-    buttons: {
-      calculate: {
-        icon: '<i class="fa-item fas fa-calculator"></i>',
+    buttons: [
+       {
+        action: 'calculate',
+        default: true,
+        icon: "fa-item fas fa-calculator",
         label: game.i18n.localize("CYPHERSYSTEM.Calculate"),
-        callback: (html) => {
-          additionalOneValue =
-            html.find("#additionalOne").val() != ""
-              ? html.find("#additionalOne").val()
-              : html.find("#additionalOne").attr("placeholder");
-          additionalTwoValue =
-            html.find("#additionalTwo").val() != ""
-              ? html.find("#additionalTwo").val()
-              : html.find("#additionalTwo").attr("placeholder");
-          additionalThreeValue =
-            html.find("#additionalThree").val() != ""
-              ? html.find("#additionalThree").val()
-              : html.find("#additionalThree").attr("placeholder");
+        callback: (event, target, dialog) => {
+          const html = dialog.element;
           calculate(
-            html.find("#difficulty").val(),
-            html.find("#pcRole").val(),
-            html.find("#chatMessage").val(),
-            html.find("#cover").prop("checked"),
-            html.find("#positionProne").val(),
-            html.find("#positionHighGround").prop("checked"),
-            html.find("#surprise").val(),
-            html.find("#range").val(),
-            html.find("#illumination").val(),
-            html.find("#mist").prop("checked"),
-            html.find("#hiding").prop("checked"),
-            html.find("#invisible").prop("checked"),
-            html.find("#water").val(),
-            html.find("#targetMoving").prop("checked"),
-            html.find("#attackerMoving").prop("checked"),
-            html.find("#attackerJostled").prop("checked"),
-            html.find("#gravity").prop("checked"),
-            additionalOneValue,
-            html.find("#additionalOneName").val(),
-            additionalTwoValue,
-            html.find("#additionalTwoName").val(),
-            additionalThreeValue,
-            html.find("#additionalThreeName").val(),
-            html.find("#stepModifierOne").val(),
-            html.find("#stepModifierTwo").val(),
-            html.find("#stepModifierThree").val(),
+            html.querySelector("#difficulty").value,
+            html.querySelector("#pcRole").value,
+            html.querySelector("#chatMessage").value,
+            html.querySelector("#cover").checked,
+            html.querySelector("#positionProne").value,
+            html.querySelector("#positionHighGround").checked,
+            html.querySelector("#surprise").value,
+            html.querySelector("#range").value,
+            html.querySelector("#illumination").value,
+            html.querySelector("#mist").checked,
+            html.querySelector("#hiding").checked,
+            html.querySelector("#invisible").checked,
+            html.querySelector("#water").value,
+            html.querySelector("#targetMoving").checked,
+            html.querySelector("#attackerMoving").checked,
+            html.querySelector("#attackerJostled").checked,
+            html.querySelector("#gravity").checked,
+            html.querySelector("#additionalOne").value || html.querySelector("#additionalOne").placeholder,
+            html.querySelector("#additionalOneName").value,
+            html.querySelector("#additionalTwo").value || html.querySelector("#additionalTwo").placeholder,
+            html.querySelector("#additionalTwoName").value,
+            html.querySelector("#additionalThree").value || html.querySelector("#additionalThree").placeholder,
+            html.querySelector("#additionalThreeName").value,
+            html.querySelector("#stepModifierOne").value,
+            html.querySelector("#stepModifierTwo").value,
+            html.querySelector("#stepModifierThree").value,
             description1,
             description2,
             description3,
             description4,
             description5,
             description6,
-            html.find("#persistentRollDifficulty").val()
+            html.querySelector("#persistentRollDifficulty").value
           );
         }
       },
-      cancel: {
-        icon: '<i class="fa-item fas fa-times"></i>',
+       {
+        action: 'cancel',
+        icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-        callback: () => {}
+        callback: () => { }
       }
-    },
-    default: "calculate",
-    close: () => {}
+    ]
   });
 
   if (game.keyboard.isModifierActive("Alt")) {
@@ -1443,14 +1439,14 @@ export async function calculateAttackDifficulty(
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalOneValue)});
+        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalOneValue) });
     } else if (
       (additionalOneValue >= 2 && pcRole == 1) ||
       (additionalOneValue <= -2 && pcRole == 0)
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalOneValue)});
+        game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalOneValue) });
     }
 
     if (additionalTwoValue != 0) {
@@ -1476,14 +1472,14 @@ export async function calculateAttackDifficulty(
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalTwoValue)});
+        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalTwoValue) });
     } else if (
       (additionalTwoValue >= 2 && pcRole == 1) ||
       (additionalTwoValue <= -2 && pcRole == 0)
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalTwoValue)});
+        game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalTwoValue) });
     }
 
     if (additionalThreeValue != 0) {
@@ -1509,14 +1505,14 @@ export async function calculateAttackDifficulty(
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", {amount: Math.abs(additionalThreeValue)});
+        game.i18n.format("CYPHERSYSTEM.HinderedBySteps", { amount: Math.abs(additionalThreeValue) });
     } else if (
       (additionalThreeValue >= 2 && pcRole == 1) ||
       (additionalThreeValue <= -2 && pcRole == 0)
     ) {
       additionalInfo =
         additionalInfo +
-        game.i18n.format("CYPHERSYSTEM.EasedBySteps", {amount: Math.abs(additionalThreeValue)});
+        game.i18n.format("CYPHERSYSTEM.EasedBySteps", { amount: Math.abs(additionalThreeValue) });
     }
 
     if (pcRole == 1) {
@@ -1531,7 +1527,7 @@ export async function calculateAttackDifficulty(
 
     resultInfo =
       "<hr class='hr-chat'><div class='difficulty-result'>" +
-      game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", {difficulty: difficultyResult}) +
+      game.i18n.format("CYPHERSYSTEM.ThisIsADifficultyTask", { difficulty: difficultyResult }) +
       "</div>";
 
     let noteForRollDialog = "";
@@ -1596,7 +1592,7 @@ export async function calculateAttackDifficulty(
     if (chatMessage == 0) {
       ChatMessage.create({
         content: chatMessageText,
-        flags: {"difficulty": finalDifficulty}
+        flags: { "difficulty": finalDifficulty }
       });
       await game.settings.set("cyphersystem", "rollDifficulty", finalDifficulty);
     } else if (chatMessage == 1) {
@@ -1660,7 +1656,7 @@ export function disasterModeMacro(token, mode, genre) {
 
   async function changeGMIRange(token, level, genre) {
     genre = !genre || genre == "modern" ? "" : genre + "-";
-    await token.actor.update({"system.basic.level": level});
+    await token.actor.update({ "system.basic.level": level });
     await token.document.update({
       "img":
         "/systems/cyphersystem/icons/actors/disaster-mode/disastermode-" + genre + level + ".webp"
