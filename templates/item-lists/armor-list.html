@@ -12,11 +12,7 @@
         </a>
       {{else}}
         <a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
-          {{#if item.system.favorite}}
-            <i class="fa-item fa-solid fa-star"></i>
-          {{else}}
-            <i class="fa-item fa-regular fa-star"></i>
-          {{/if}}
+          <i class="fa-item {{ifThen item.system.favorite 'fa-solid' 'fa-regular'}} fa-star"></i>
         </a>
       {{/if}}
     </h6>

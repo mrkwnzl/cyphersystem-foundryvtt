@@ -36,16 +36,12 @@
         {{localize 'CYPHERSYSTEM.CloseParenthesis'}}
       {{/unless}}
       {{#if (and item.system.favorite (eq ../this.actor.system.settings.general.hideFavoriteButton false))}}
-        <a class="item-favorite {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
+        <a class="item-favorite {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
           <i class="fa-item fa-solid fa-star"></i>
         </a>
       {{else}}
-        <a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}">
-          {{#if item.system.favorite}}
-            <i class="fa-item fa-solid fa-star"></i>
-          {{else}}
-            <i class="fa-item fa-regular fa-star"></i>
-          {{/if}}
+        <a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
+          <i class="fa-item {{ifThen item.system.favorite 'fa-solid' 'fa-regular'}} fa-star"></i>
         </a>
       {{/if}}
     </h6>

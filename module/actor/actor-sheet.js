@@ -919,115 +919,110 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
   */
 
   // Toggle item visibility
-  _onRender22(context, options) {
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
     const html = this.element;
 
-    const itemFavorite = html.querySelector('.item-favorite.alt');
-    const itemArchived = html.querySelector('.fa-item.archived');
-    const itemUnarchived = html.querySelector('.fa-item.unarchived');
-    const itemCypherNoType = html.querySelector('.fa-item.cypher.no-type');
-    const itemCyherSubtle = html.querySelector('.fa-item.cypher.subtle');
-    const itemCypherManifest = html.querySelector('.fa-item.cypher.manifest');
-    const itemInitiative = html.querySelector('.fa-item.initiative');
-    const itemPayPoolPoints = html.querySelector('.fa-item.pay-pool-points');
-    const statRoll = html.querySelector('.fa-item.stat-roll');
-    const itemAIOInitiative = html.querySelector('.fa-item.aio-initiative');
-    const itemAIOStatRoll = html.querySelector('.fa-item.aio-stat-roll');
-    const itemAIOPayPoolPoints = html.querySelector('.fa-item.aio-pay-pool-points');
-    const recoveryRoll = html.querySelector('.fa-recovery');
-    const quantity = html.querySelector('.fa-item.quantity');
+    const itemFavorite = html.querySelectorAll('.item-favorite.alt');
+    const itemArchived = html.querySelectorAll('.fa-item.archived');
+    const itemUnarchived = html.querySelectorAll('.fa-item.unarchived');
+    const itemCypherNoType = html.querySelectorAll('.fa-item.cypher.no-type');
+    const itemCyherSubtle = html.querySelectorAll('.fa-item.cypher.subtle');
+    const itemCypherManifest = html.querySelectorAll('.fa-item.cypher.manifest');
+    const itemInitiative = html.querySelectorAll('.fa-item.initiative');
+    const itemPayPoolPoints = html.querySelectorAll('.fa-item.pay-pool-points');
+    const statRoll = html.querySelectorAll('.fa-item.stat-roll');
+    const itemAIOInitiative = html.querySelectorAll('.fa-item.aio-initiative');
+    const itemAIOStatRoll = html.querySelectorAll('.fa-item.aio-stat-roll');
+    const itemAIOPayPoolPoints = html.querySelectorAll('.fa-item.aio-pay-pool-points');
+    const recoveryRoll = html.querySelectorAll('.fa-recovery');
+    const quantity = html.querySelectorAll('.fa-item.quantity');
 
-    if (game.keyboard.isModifierActive("Alt")) {
-      // Copy from keydown function to keep icons after clicking
-
-      // Favorite star
-      itemFavorite.css('visibility', 'visible');
-
-      // Archive icons
-      itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
-      itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
-
-      // Cypher icons
-      itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
-      itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
-      itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
-
-      // Roll buttons
-      itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
-      itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-      statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-      itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
-      itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-      itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-
-      // Recovery roll icon
-      recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
-
-      // Quantity
-      quantity.removeClass('fa-regular').addClass('fa-solid');
+    function swapClass(elements, removeClass, addClass) {
+      if (!elements) return;
+      for (const element of elements) {
+        element.classList.remove(removeClass.split(' '));
+        element.classList.add(addClass.split(' '));
+      }
     }
 
-    $(document).keydown(function (event) {
-      if (event.altKey) {
-        // Favorite star
-        itemFavorite.css('visibility', 'visible');
-
-        // Archive icons
-        itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
-        itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
-
-        // Cypher icons
-        itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
-        itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
-        itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
-
-        // Roll buttons
-        itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
-        itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-        statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-        itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
-        itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-        itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-
-        // Recovery roll icon
-        recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
-
-        // Quantity
-        quantity.removeClass('fa-regular').addClass('fa-solid');
+    function setStyle(elements, attribute, value) {
+      if (!elements) return;
+      for (const element of elements) {
+        element.style[attribute] = value;
       }
+    }
+
+    function showAlt() {
+      // Favorite star
+      setStyle(itemFavorite, 'visibility', 'visible');
+
+      // Archive icons
+      swapClass(itemArchived, 'fa-arrow-rotate-left', 'fa-trash-xmark');
+      swapClass(itemUnarchived, 'fa-archive', 'fa-trash-xmark');
+
+      // Cypher icons
+      swapClass(itemCypherNoType, 'fa-regular fa-circle', 'fa-solid fa-fire-flame-curved');
+      swapClass(itemCyherSubtle, 'fa-circle-half-stroke', 'fa-fire-flame-curved');
+      swapClass(itemCypherManifest, 'fa-circle', 'fa-fire-flame-curved');
+
+      // Roll buttons
+      swapClass(itemInitiative, 'fa-sword', 'fa-ballot');
+      swapClass(itemPayPoolPoints, 'fa-coins', 'fa-ballot');
+      swapClass(statRoll, 'fa-dice-d20', 'fa-ballot');
+      swapClass(itemAIOInitiative, 'fa-ballot', 'fa-swords');
+      swapClass(itemAIOStatRoll, 'fa-ballot', 'fa-dice-d20');
+      swapClass(itemAIOPayPoolPoints, 'fa-ballot', 'fa-coins');
+
+      // Recovery roll icon
+      swapClass(recoveryRoll, 'fa-solid', 'fa-regular');
+
+      // Quantity
+      swapClass(quantity, 'fa-regular', 'fa-solid');
+    }
+
+    function unshowAlt() {
+      // Favorite star
+      setStyle(itemFavorite, 'visibility', 'hidden');
+
+      // Archive icons
+      swapClass(itemArchived, 'fa-trash-xmark', 'fa-arrow-rotate-left');
+      swapClass(itemUnarchived, 'fa-trash-xmark', 'fa-archive');
+
+      // Cypher icons
+      swapClass(itemCypherNoType, 'fa-solid fa-fire-flame-curved', 'fa-regular fa-circle');
+      swapClass(itemCyherSubtle, 'fa-fire-flame-curved', 'fa-circle-half-stroke');
+      swapClass(itemCypherManifest, 'fa-fire-flame-curved', 'fa-circle');
+
+      // Roll buttons
+      swapClass(itemInitiative, 'fa-ballot', 'fa-swords');
+      swapClass(itemPayPoolPoints, 'fa-ballot', 'fa-coins');
+      swapClass(statRoll, 'fa-ballot', 'fa-dice-d20');
+      swapClass(itemAIOInitiative, 'fa-swords', 'fa-ballot');
+      swapClass(itemAIOStatRoll, 'fa-dice-d20', 'fa-ballot');
+      swapClass(itemAIOPayPoolPoints, 'fa-coins', 'fa-ballot');
+
+      // Recovery roll icon
+      swapClass(recoveryRoll, 'fa-regular', 'fa-solid');
+
+      // Quantity
+      swapClass(quantity, 'fa-solid', 'fa-regular');
+    }
+
+    if (game.keyboard.isModifierActive("Alt")) {
+      showAlt();
+    }
+
+    document.addEventListener('keydown', event => {
+      if (event.altKey) showAlt();
     });
 
-    $(document).keyup(function (event) {
-      if (!event.altKey) {
-        // Favorite star
-        itemFavorite.css('visibility', 'hidden');
-        // itemFavorite.attr('display', 'none');
-
-        // Archive icons
-        itemArchived.removeClass('fa-trash-xmark').addClass('fa-arrow-rotate-left');
-        itemUnarchived.removeClass('fa-trash-xmark').addClass('fa-archive');
-
-        // Cypher icons
-        itemCypherNoType.removeClass('fa-solid fa-fire-flame-curved').addClass('fa-regular fa-circle');
-        itemCyherSubtle.removeClass('fa-fire-flame-curved').addClass('fa-circle-half-stroke');
-        itemCypherManifest.removeClass('fa-fire-flame-curved').addClass('fa-circle');
-
-        // Roll buttons
-        itemInitiative.removeClass('fa-ballot').addClass('fa-swords');
-        itemPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-        statRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-        itemAIOInitiative.removeClass('fa-swords').addClass('fa-ballot');
-        itemAIOStatRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-        itemAIOPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-
-        // Recovery roll icon
-        recoveryRoll.removeClass('fa-regular').addClass('fa-solid');
-
-        // Quantity
-        quantity.removeClass('fa-solid').addClass('fa-regular');
-      }
+    document.addEventListener('keyup', event => {
+      if (!event.altKey) unshowAlt();
     });
   };
+
 
   static TODO() {
 
