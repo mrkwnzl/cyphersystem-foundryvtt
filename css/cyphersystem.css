@@ -453,11 +453,10 @@ select.bar-attribute {
 .cyphersystem .window-content {
   overflow: hidden;
   font-family: var(--cypher-font);
-  padding: var(--spacer-8);
+  padding: 0;
 }
 
 .cyphersystem .background-image {
-  margin: -8px;
   padding: 8px;
   height: 100%;
 }
