@@ -173,6 +173,12 @@ input[type="checkbox"].dialog-checkbox {
   width: 13px;
 }
 
+.calculateDifficulty hr {
+  margin: unset;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
 input[type="text"].dialog-input {
   width: 100%;
 }

@@ -63,7 +63,7 @@ export function hinderedRollMacro() {
 
   // Open dialog
   let d = new foundry.applications.api.DialogV2({
-    window: {title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll")},
+    window: { title: game.i18n.localize("CYPHERSYSTEM.HinderedStatRoll") },
     content: `
     <div align="center">
     <label style="display: inline-block; text-align: right">
@@ -71,7 +71,7 @@ export function hinderedRollMacro() {
     </label>
     <input style="width: 50px; margin-left: 5px; margin-bottom: 5px;text-align: center" type="number" value=1 /></div>`,
     buttons: [
-       {
+      {
         action: 'roll',
         default: true,
         icon: "fa-item fas fa-dice-d20",
@@ -83,7 +83,7 @@ export function hinderedRollMacro() {
             easedOrHindered: "hindered"
           })
       },
-       {
+      {
         action: 'cancel',
         icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
@@ -109,7 +109,7 @@ export async function selectedTokenRollMacro(actor, title) {
     : !game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
 
   let d = new foundry.applications.api.DialogV2({
-    window: {title: game.i18n.localize("CYPHERSYSTEM.StatRoll")},
+    window: { title: game.i18n.localize("CYPHERSYSTEM.StatRoll") },
     content: `
     <div align="center">
       <label style='display: inline-block; width: 170px; text-align: right'>${game.i18n.localize("CYPHERSYSTEM.BaseDifficulty")}:</label>
@@ -155,7 +155,7 @@ export async function selectedTokenRollMacro(actor, title) {
             easedOrHindered: dialog.element.querySelector("#easedOrHindered").value
           })
       },
-       {
+      {
         action: 'cancel',
         icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
@@ -583,18 +583,18 @@ export function spendEffortMacro(actor) {
 
   // Create dialog
   let d = new foundry.applications.api.DialogV2({
-    window: {title: game.i18n.localize("CYPHERSYSTEM.SpendEffort")},
+    window: { title: game.i18n.localize("CYPHERSYSTEM.SpendEffort") },
     content: spendEffortString(),
     buttons: [
-       {
+      {
         action: 'roll',
         default: true,
         icon: "fa-item fas fa-check",
         label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-        callback: (event, target, dialog) => 
+        callback: (event, target, dialog) =>
           applyToPool(dialog.element.querySelector("select").value, dialog.element.querySelector("input").value)
       },
-       {
+      {
         action: 'cancel',
         icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
@@ -827,17 +827,17 @@ export async function proposeIntrusion(actor, notification) {
 
     // Create dialog
     let d = new foundry.applications.api.DialogV2({
-      window: {title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion")},
+      window: { title: game.i18n.localize("CYPHERSYSTEM.ProposeIntrusion") },
       content: chatCardProposeIntrusion(selectOptions),
       buttons: [
-         {
+        {
           action: 'apply',
           default: true,
           icon: "fa-item fas fa-check",
           label: game.i18n.localize("CYPHERSYSTEM.Apply"),
           callback: (event, target, dialog) => askForIntrusion(dialog.element.querySelector("#selectPC").value)
         },
-         {
+        {
           action: 'cancel',
           icon: "fa-item fas fa-times",
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
@@ -978,7 +978,11 @@ export async function calculateAttackDifficulty(
 
   // Create All-in-One dialog
   let d = new foundry.applications.api.DialogV2({
-    window: {title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty") },
+    window: {
+      title: game.i18n.localize("CYPHERSYSTEM.CalculateAttackDifficulty"),
+      contentClasses: ["calculateDifficulty"]
+    },
+    position: { width: 420 },
     content: calculateAttackDifficultyString(
       difficulty,
       pcRole,
@@ -1006,7 +1010,7 @@ export async function calculateAttackDifficulty(
       persistentRollDifficulty
     ),
     buttons: [
-       {
+      {
         action: 'calculate',
         default: true,
         icon: "fa-item fas fa-calculator",
@@ -1050,7 +1054,7 @@ export async function calculateAttackDifficulty(
           );
         }
       },
-       {
+      {
         action: 'cancel',
         icon: "fa-item fas fa-times",
         label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
