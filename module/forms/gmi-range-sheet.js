@@ -2,8 +2,9 @@
 * Extend the basic ActorSheet with some very simple modifications
 * @extends {FormApplication}
 */
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
-export class GMIRangeSheet extends FormApplication {
+export class GMIRangeSheet extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
