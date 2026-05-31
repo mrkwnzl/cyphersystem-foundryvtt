@@ -98,7 +98,7 @@ export class CypherItem extends Item {
     }
 
     const container = document.createElement("div");
-    container.innerHTML = await TextEditor.enrichHTML(toEnrich);
+    container.innerHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(toEnrich);
     return container.children;
   }
 }

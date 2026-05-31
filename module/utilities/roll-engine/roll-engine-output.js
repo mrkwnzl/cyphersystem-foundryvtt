@@ -20,7 +20,7 @@ export async function rollEngineOutput(data) {
   if (actor.items.get(data.itemID)) {
     let item = actor.items.get(data.itemID);
 
-    itemDescription = (item.system.description) ? `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + await TextEditor.enrichHTML(item.system.description, {async: true, relativeTo: item}) : `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>`;
+    itemDescription = (item.system.description) ? `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description, {async: true, relativeTo: item}) : `<img class="description-image-chat" src="${item.img}" width="50" height="50"/>`;
 
     let styleDescriptionHidden = `<div style="display: none" class="chat-card-item-description">`;
     let styleDescriptionShow = `<div class="chat-card-item-description expanded">`;
