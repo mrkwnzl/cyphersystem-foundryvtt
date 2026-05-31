@@ -835,6 +835,6 @@ Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
     game.modules.get("barbrawl")?.active &&
     game.settings.get("cyphersystem", "barBrawlDefaults")
   ) {
-    html.find("a[data-tab='resources']").addClass("hidden");
+    html.querySelector("a[data-tab='resources']").classList.add("hidden");
   }
 });
