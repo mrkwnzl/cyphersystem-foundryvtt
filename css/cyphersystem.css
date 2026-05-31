@@ -183,10 +183,6 @@ input[type="text"].dialog-input {
   width: 100%;
 }
 
-form.cyphersystem {
-  height: 100%;
-}
-
 .grid,
 .grid-2col {
   display: grid;
@@ -685,11 +681,6 @@ select.bar-attribute {
   margin-right: 5px;
 }
 
-.gmi-form .window-content {
-  margin: -8px;
-  background: unset;
-}
-
 .cyphersystem .gmi-body {
   text-shadow: 1px 1px 4px var(--color-shadow-dark);
   color: var(--color-text-light-highlight);
@@ -707,7 +698,7 @@ select.bar-attribute {
   padding-left: 2px;
 }
 
-.cyphersystem .gmi-h4 {
+.cyphersystem .gmi-h {
   flex: 0 0 14px;
   line-height: 14px;
   margin: 0 0 2px;

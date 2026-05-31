@@ -1,4 +1,4 @@
-<form class="flexcol" autocomplete="off">
+<div class="flexcol" autocomplete="off">
 
   {{!-- Sheet Body --}}
   <section class="sheet-body gmi-body">
@@ -12,13 +12,9 @@
               {{localize "CYPHERSYSTEM.IndividualGMIRange"}}
             {{/if}}
           </label>&nbsp;
-          <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
+          <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}" data-action="toggleGlobalRange">
             {{#if isGM}}
-              {{#if useGlobalGMIRange}}
-                <a class="toggle-global-gmi-range"><i class="fa-item fas fa-toggle-on"></i></a>
-              {{else}}
-                <a class="toggle-global-gmi-range"><i class="fa-item fas fa-toggle-off"></i></a>
-              {{/if}}
+              <a><i class="fa-item fas {{ifThen useGlobalGMIRange 'fa-toggle-on' 'fa-toggle-off'}}"></i></a>
             {{/if}}
           </div>
         </li>
@@ -30,31 +26,26 @@
               </div>
               <div class="flexrow">
                 <div class="gmi-actor-name flexcol">
-                  <h4 class="gmi-h4">{{actor.name}}</h4>
+                  <h6 class="gmi-h">{{actor.name}}</h6>
                   {{#if actor.isOwner}}
                     <div class="gmi-controls">
-                      <a class="item-control decrease-gmi-range" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}">
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}" data-action="decRange">
                         <i class="fa-item quantity fa-regular fa-minus-square"></i>
                       </a>
-                      <a class="item-control increase-gmi-range" title="{{localize 'CYPHERSYSTEM.AddGMI'}}">
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.AddGMI'}}" data-action="incRange">
                         <i class="fa-item quantity fa-regular fa-plus-square"></i>
                       </a>
                       &nbsp;
-                      <a class="item-control reset-gmi-range" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}">
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}" data-action="resetRange">
                         <i class="fa-item fas fa-sync-alt stat"></i>
                       </a>
                     </div>
                   {{/if}}
                 </div>
                 <div class="gmi-range-value-container">
-
-                  <h4 class="gmi-range-value">
-                    {{#if (eq actor.system.basic.gmiRange 1)}}
-                      1
-                    {{else}}
-                      1–{{actor.system.basic.gmiRange}}
-                    {{/if}}
-                  </h4>
+                  <h6 class="gmi-range-value">
+                    {{#if (eq actor.system.basic.gmiRange 1)}}1{{else}}1–{{actor.system.basic.gmiRange}}{{/if}}
+                  </h6>
                 </div>
               </div>
             </li>
@@ -66,16 +57,16 @@
               </div>
               <div class="flexrow">
                 <div class="gmi-actor-name flexcol">
-                  <h4 class="gmi-h4">{{localize "CYPHERSYSTEM.AllPCs"}}</h4>
+                  <h6 class="gmi-h">{{localize "CYPHERSYSTEM.AllPCs"}}</h6>
                   <div class="gmi-controls">
-                    <a class="item-control decrease-gmi-range" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}" data-action="decRange">
                       <i class="fa-item quantity fa-regular fa-minus-square"></i>
                     </a>
-                    <a class="item-control increase-gmi-range" title="{{localize 'CYPHERSYSTEM.AddGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.AddGMI'}}" data-action="incRange">
                       <i class="fa-item quantity fa-regular fa-plus-square"></i>
                     </a>
                     &nbsp;
-                    <a class="item-control reset-gmi-range" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}" data-action="resetRange">
                       <i class="fa-item fas fa-sync-alt stat"></i>
                     </a>
                   </div>
@@ -93,30 +84,26 @@
             </div>
             <div class="flexrow">
               <div class="gmi-actor-name flexcol">
-                <h4 class="gmi-h4">{{localize "CYPHERSYSTEM.AllPCs"}}</h4>
+                <h6 class="gmi-h">{{localize "CYPHERSYSTEM.AllPCs"}}</h6>
                 {{#if isGM}}
                   <div class="gmi-controls">
-                    <a class="item-control decrease-gmi-range" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.SubtractGMI'}}" data-action="decRange">
                       <i class="fa-item quantity fa-regular fa-minus-square"></i>
                     </a>
-                    <a class="item-control increase-gmi-range" title="{{localize 'CYPHERSYSTEM.AddGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.AddGMI'}}" data-action="incRange">
                       <i class="fa-item quantity fa-regular fa-plus-square"></i>
                     </a>
                     &nbsp;
-                    <a class="item-control reset-gmi-range" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}">
+                    <a class="item-control" title="{{localize 'CYPHERSYSTEM.ResetGMI'}}" data-action="resetRange">
                       <i class="fa-item fas fa-sync-alt stat"></i>
                     </a>
                   </div>
                 {{/if}}
               </div>
               <div class="gmi-range-value-container">
-                <h4 class="gmi-range-value">
-                  {{#if (eq globalGMIRange 1)}}
-                    1
-                  {{else}}
-                    1–{{globalGMIRange}}
-                  {{/if}}
-                </h4>
+                <h6 class="gmi-range-value">
+                  {{#if (eq globalGMIRange 1)}}1{{else}}1–{{globalGMIRange}}{{/if}}
+                </h6>
               </div>
             </div>
           </li>
@@ -124,4 +111,4 @@
       </ol>
     </div>
   </section>
-</form>
+</div>

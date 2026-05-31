@@ -1,6 +1,6 @@
 /**
  * Extend the basic ActorSheet with some very simple modifications
- * @extends {FormApplication}
+ * @extends {ApplicationV2}
  */
 
 import { rollEngineComputation } from "../utilities/roll-engine/roll-engine-computation.js";
