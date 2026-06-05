@@ -6,14 +6,6 @@ import {CypherActorSheet} from "./actor-sheet.js";
 
 export class CypherActorSheetNPC extends CypherActorSheet {
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".settings", ".items", ".editor-content"]
-    });
-  }
-
   static DEFAULT_OPTIONS = {
     classes: ["npc"],
   }

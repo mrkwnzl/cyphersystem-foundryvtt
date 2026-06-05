@@ -14,15 +14,6 @@ import { disableMultiRoll } from "../forms/roll-engine-dialog-sheet.js";
 
 export class CypherActorSheetPC extends CypherActorSheet {
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body" }],
-      scrollY: [".sheet-body", ".tab", ".skills", ".description", ".combat", ".items", ".abilities", ".settings", ".tags", ".editor-content"]
-    });
-  }
-
-
   static DEFAULT_OPTIONS = {
     classes: ["pc"],
     position: {
