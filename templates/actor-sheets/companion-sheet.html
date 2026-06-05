@@ -51,7 +51,7 @@
               {{localize 'CYPHERSYSTEM.Health'}}
             </label>
             {{#unless sheetSettings.isLimited}}
-              <div class="nonPC-stat-buttons">
+              <div class="nonPC-stat-buttons flexrow">
                 <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"
                   data-action="decField" data-field="system.pools.health.value">
                   <i class="fa-item quantity fa-regular fa-minus-square"></i>

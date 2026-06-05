@@ -31,13 +31,13 @@
                     {{localize 'CYPHERSYSTEM.Health'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
-                    <div class="nonPC-stat-buttons">
+                    <div class="nonPC-stat-buttons flexrow">
                       <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractHealth'}}"
                       data-action="decField" data-field="system.pools.health.value">
                         <i class="fa-item quantity fa-regular fa-minus-square"></i>
                       </a>
                       <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddHealth'}}"
-                      data-action="incField" data-field="system.pools.health.value>
+                      data-action="incField" data-field="system.pools.health.value">
                         <i class="fa-item quantity fa-regular fa-plus-square"></i>
                       </a>
                       <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetHealth'}}"
@@ -59,7 +59,7 @@
                     {{localize 'CYPHERSYSTEM.Infrastructure'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
-                    <div class="nonPC-stat-buttons">
+                    <div class="nonPC-stat-buttons flexrow">
                       <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractInfrastructure'}}"
                       data-action="decField" data-field="system.pools.infrastructure.value">
                         <i class="fa-item quantity fa-regular fa-minus-square"></i>
