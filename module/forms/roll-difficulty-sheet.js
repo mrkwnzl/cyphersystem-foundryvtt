@@ -1,86 +1,97 @@
 /**
 * Extend the basic ActorSheet with some very simple modifications
-* @extends {FormApplication}
+* @extends {ApplicationV2}
 */
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
-export class RollDifficultySheet extends FormApplication {
+export class RollDifficultySheet extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "gmi-form"],
-      template: "systems/cyphersystem/templates/forms/roll-difficulty-sheet.html",
-      title: game.i18n.localize("CYPHERSYSTEM.DifficultyControlPanel"),
+
+  static DEFAULT_OPTIONS = {
+    classes: ["cyphersystem", "sheet", "gmi-form"],
+    position: {
+      width: 300,
+      top: 71,
+      left: 110,
+    },
+    window: {
+      title: "CYPHERSYSTEM.DifficultyControlPanel",
+      resizable: false,
+    },
+    form: {
       closeOnSubmit: false,
       submitOnChange: true,
       submitOnClose: false,
-      width: 300,
-      height: "auto",
-      top: 71,
-      left: 110,
-      resizable: false
-    });
+    },
+    actions: {
+      togglePersistent: this.#togglePersistentRollDifficulty,
+      toggleNpc: this.#toggleDifficultyNpcInitiative,
+      incDifficulty: this.#increaseRollDifficulty,
+      decDifficulty: this.#decreaseRollDifficulty,
+      resetDifficulty: this.#resetRollDifficulty,
+    }
   }
 
-  getData() {
-    // Basic data
-    const data = super.getData().object;
+  static PARTS = {
+    form: {
+      template: "systems/cyphersystem/templates/forms/roll-difficulty-sheet.html",
+    }
+  }
 
-    data.rollDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
-    data.targetNumber = parseInt(data.rollDifficulty) * 3;
-    data.persistentRollDifficulty = game.settings.get("cyphersystem", "persistentRollDifficulty");
-    data.difficultyNPCInitiative = game.settings.get("cyphersystem", "difficultyNPCInitiative");
-    data.isGM = game.user.isGM;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options)
+    // Basic data
+    context.rollDifficulty = game.settings.get("cyphersystem", "rollDifficulty");
+    context.targetNumber = parseInt(context.rollDifficulty) * 3;
+    context.persistentRollDifficulty = game.settings.get("cyphersystem", "persistentRollDifficulty");
+    context.difficultyNPCInitiative = game.settings.get("cyphersystem", "difficultyNPCInitiative");
+    context.isGM = game.user.isGM;
 
     // Return data
-    return data;
+    return context;
   }
 
   /**
   * Event listeners for roll engine dialog sheets
   */
-  activateListeners(html) {
-    super.activateListeners(html);
 
-    let data = this.object;
+  static async #togglePersistentRollDifficulty(event, button) {
+    const notes = this.element.querySelectorAll("ol#chat-log .note-roll-dialog");
+    if (notes.length) notes[notes.length-1].classList.add("hidden");
+    await game.settings.set("cyphersystem", "persistentRollDifficulty", !game.settings.get("cyphersystem", "persistentRollDifficulty"));
+    game.socket.emit("system.cyphersystem", { operation: "updateRollDifficultyForm" });
+    this.render(true);
+  }
 
-    html.find('.toggle-persistent-roll-difficulty').click(async clickEvent => {
-      let lastChatMessage = game.messages.contents[game.messages.contents.length - 1];
-      html.find("ol#chat-log .note-roll-dialog").last().addClass("hidden");
-      await game.settings.set("cyphersystem", "persistentRollDifficulty", !game.settings.get("cyphersystem", "persistentRollDifficulty"));
-      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
-      this.render(true);
-    });
+  static async #toggleDifficultyNpcInitiative(event, button) {
+    await game.settings.set("cyphersystem", "difficultyNPCInitiative", !game.settings.get("cyphersystem", "difficultyNPCInitiative"));
+    game.socket.emit("system.cyphersystem", { operation: "updateRollDifficultyForm" });
+    this.render(true);
+  }
 
-    html.find('.toggle-difficulty-npc-initiative').click(async clickEvent => {
-      await game.settings.set("cyphersystem", "difficultyNPCInitiative", !game.settings.get("cyphersystem", "difficultyNPCInitiative"));
-      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
-      this.render(true);
-    });
+  static async #increaseRollDifficulty(event, button) {
+    await game.settings.set("cyphersystem", "rollDifficulty", Math.min((game.settings.get("cyphersystem", "rollDifficulty") + 1), 15));
+    game.socket.emit("system.cyphersystem", { operation: "updateRollDifficultyForm" });
+    this.render(true);
+  }
 
-    html.find(".increase-roll-difficulty").click(async clickEvent => {
-      await game.settings.set("cyphersystem", "rollDifficulty", Math.min((game.settings.get("cyphersystem", "rollDifficulty") + 1), 15));
-      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
-      this.render(true);
-    });
+  static async #decreaseRollDifficulty(event, button) {
+    await game.settings.set("cyphersystem", "rollDifficulty", Math.max((game.settings.get("cyphersystem", "rollDifficulty") - 1), -1));
+    game.socket.emit("system.cyphersystem", { operation: "updateRollDifficultyForm" });
+    this.render(true);
+  }
 
-    html.find(".decrease-roll-difficulty").click(async clickEvent => {
-      await game.settings.set("cyphersystem", "rollDifficulty", Math.max((game.settings.get("cyphersystem", "rollDifficulty") - 1), -1));
-      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
-      this.render(true);
-    });
-
-    html.find(".reset-roll-difficulty").click(async clickEvent => {
-      await game.settings.set("cyphersystem", "rollDifficulty", -1);
-      game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
-      this.render(true);
-    });
+  static async #resetRollDifficulty(event, button) {
+    await game.settings.set("cyphersystem", "rollDifficulty", -1);
+    game.socket.emit("system.cyphersystem", { operation: "updateRollDifficultyForm" });
+    this.render(true);
   }
 }
 
 // This is used to create a new RollDifficulty form, unless there is already one there
 export async function renderRollDifficultyForm() {
   // Create rollDifficultyForm
-  let rollDifficultyForm = Object.values(ui.windows).find((app) => app instanceof RollDifficultySheet) || new RollDifficultySheet();
+  let rollDifficultyForm = foundry.applications.instances.values().find((app) => app instanceof RollDifficultySheet) || new RollDifficultySheet();
 
   // Render sheet
   rollDifficultyForm.render(true);
@@ -88,9 +99,9 @@ export async function renderRollDifficultyForm() {
 
 // This is used to check whether a GMI Range for is already there and re-render it when it is
 export async function updateRollDifficultyForm() {
-  let rollDifficultyForm = Object.values(ui.windows).find((app) => app instanceof RollDifficultySheet);
+  let rollDifficultyForm = foundry.applications.instances.values().find((app) => app instanceof RollDifficultySheet);
 
   if (rollDifficultyForm) {
-    rollDifficultyForm.render(true, {focus: false});
+    rollDifficultyForm.render(true, { focus: false });
   }
 }

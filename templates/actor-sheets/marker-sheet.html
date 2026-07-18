@@ -1,4 +1,4 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
+<div class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}});" autocomplete="off">
 
   {{!-- Background Image --}}
   <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
@@ -31,24 +31,27 @@
               </div>
               <div class="resource flex-group-center">
                 <div class="flexrow">
-                  <label for="system.pools.quantity.value" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                  <label for="system.pools.quantity.value" class="resource-label-additional {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
                     {{localize 'CYPHERSYSTEM.Quantity'}}
                   </label>
                   {{#unless sheetSettings.isLimited}}
-                    <div class="nonPC-stat-buttons">
-                      <a class="item-control decrease-quantity {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+                    <div class="nonPC-stat-buttons flexrow">
+                      <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"
+                        data-action="decField" data-field="system.pools.quantity.value">
                         <i class="fa-item quantity fa-regular fa-minus-square"></i>
                       </a>
-                      <a class="item-control increase-quantity {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}">
+                      <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddQuantity'}}"
+                        data-action="incField" data-field="system.pools.quantity.value">
                         <i class="fa-item quantity fa-regular fa-plus-square"></i>
                       </a>
-                      <a class="item-control reset-quantity {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}">
+                      <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetQuantity'}}"
+                        data-action="resetField" data-field="system.pools.quantity">
                         <i class="fa-item fas fa-sync-alt stat"></i>
                       </a>
                     </div>
                   {{/unless}}
                 </div>
-                <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+                <div class="resource-content flexrow flex-center stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
                   <input class="stat-input" name="system.pools.quantity.value" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.quantity.value}}{{/if}}" />
                   &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
                   <input class="stat-input" name="system.pools.quantity.max" type="number" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.quantity.max}}{{/if}}" />
@@ -62,43 +65,23 @@
   </header>
 
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{#unless sheetSettings.isLimited}}
-      {{#unless actor.system.settings.general.hideNotes}}
-        <a class="item" data-tab="notes">{{localize 'CYPHERSYSTEM.Notes'}}</a>
-      {{/unless}}
-    {{/unless}}
-    {{#unless actor.system.settings.general.hideDescription}}
-      <a class="item" data-tab="description">{{localize 'CYPHERSYSTEM.Description'}}</a>
-    {{/unless}}
-    {{#unless sheetSettings.isLimited}}
-      {{#unless actor.system.settings.general.hideEquipment}}
-        <a class="item" data-tab="items">{{localize 'CYPHERSYSTEM.Items'}}</a>
-      {{/unless}}
-      {{#if (and actor.system.settings.general.hideNotes actor.system.settings.general.hideDescription actor.system.settings.general.hideEquipment)}}
-        <i class="item">&nbsp;</i>
-      {{/if}}
-      <a class="item" data-tab="settings" style="flex: 0 0 45px;">
-        <i class="fa-item fa-solid fa-gear"></i>
-      </a>
-    {{/unless}}
-  </nav>
+  {{> "templates/generic/tab-navigation.hbs"}}
 
   {{!-- Sheet Body --}}
   <section class="sheet-body marker">
 
     {{!-- Notes Tab --}}
-    <div class="tab description" data-group="primary" data-tab="notes">
-      {{editor enrichedHTML.notes target="system.notes" button=true engine=sheetSettings.editor owner=owner editable=true}}
+    <div class="tab notes {{tabs.notes.cssClass}}" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
+      <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}">{{{enrichedHTML.notes}}}</prose-mirror>
     </div>
 
     {{!-- Description Tab --}}
-    <div class="tab description" data-group="primary" data-tab="description">
-      {{editor enrichedHTML.description target="system.description" button=true engine=sheetSettings.editor owner=owner editable=true}}
+    <div class="tab description {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
+      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
     </div>
 
     {{!-- Equipment Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
+    <div class="tab items {{tabs.items.cssClass}}" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
@@ -133,7 +116,7 @@
     </div>
 
     {{!-- Settings Tab --}}
-    <div class="tab settings" data-group="primary" data-tab="settings">
+    <div class="tab settings {{tabs.settings.cssClass}}" data-group="{{tabs.settings.group}}" data-tab="{{tabs.settings.id}}">
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">
@@ -181,4 +164,4 @@
     </div>
 
   </section>
-</form>
+</div>

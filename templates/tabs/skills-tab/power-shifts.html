@@ -14,7 +14,7 @@
             {{localize 'CYPHERSYSTEM.Shifts'}}
           </div>
           <div class="item-controls">
-            <a class="item-control item-create {{#if sheetSettings.isObserver}}disabled{{/if}}" title="Create item" data-type="power-shift">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="Create item" data-type="power-shift" data-action="itemCreate">
               <i class="fa-item fas fa-plus"></i>
             </a>
           </div>

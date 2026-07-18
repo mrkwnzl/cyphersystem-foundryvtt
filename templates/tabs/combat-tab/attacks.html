@@ -4,7 +4,7 @@
       <div class="item-name">{{localize 'CYPHERSYSTEM.Attacks'}}</div>
       <div class="item-quantity">{{localize 'CYPHERSYSTEM.Damage'}}</div>
       <div class="item-controls">
-        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="attack">
+        <a class="item-control {{disabled ./sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="attack" data-action="itemCreate">
           <i class="fa-item fas fa-plus"></i>
         </a>
       </div>

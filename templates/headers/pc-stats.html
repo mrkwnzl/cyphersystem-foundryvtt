@@ -3,12 +3,12 @@
     {{!-- Might --}}
     <div class="resource flex-group-center stat-block">
       <div class="flexrow">
-        <label for="actor.system.pools.might" class="resource-label {{#if sheetSettings.isObserver}}disabled{{/if}}">
+        <label for="actor.system.pools.might" class="resource-label {{disabled sheetSettings.isObserver}}">
           {{localize 'CYPHERSYSTEM.Might'}}
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control might-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MightRollButton'}}" data-action="rollPool" data-pool="Might">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -18,7 +18,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="resource-content flexrow flex-center stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+      <div class="resource-content flexrow flex-center stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.might.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.might.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
@@ -32,18 +32,21 @@
       <hr class="hr-pool" />
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
-          <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractMight'}}"
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might.value' 'system.pools.might.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
-          <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddMight'}}"
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might.value' 'system.pools.might.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
-          <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}might {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMight'}}"
+            data-action="resetPool" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.might' 'system.pools.might'}}">
             <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
-          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0" for="actor.system.pools.might.edge" class="resource-label-normal">
+          <label class="edge-label {{disabled sheetSettings.isObserver}}" style="flex: 0 0 0" for="actor.system.pools.might.edge" class="resource-label-normal">
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
@@ -58,12 +61,12 @@
     {{!-- Speed --}}
     <div class="resource flex-group-center stat-block">
       <div class="flexrow">
-        <label for="actor.system.pools.speed" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+        <label for="actor.system.pools.speed" class="resource-label {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
           {{localize 'CYPHERSYSTEM.Speed'}}
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control speed-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SpeedRollButton'}}" data-action="rollPool" data-pool="Speed">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -73,7 +76,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+      <div class="resource-content flexrow flex-center flex-between stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.speed.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.speed.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
@@ -87,18 +90,21 @@
       <hr class="hr-pool" />
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
-          <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractSpeed'}}"
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed.value' 'system.pools.speed.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
-          <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddSpeed'}}"
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed.value' 'system.pools.speed.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
-          <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}speed {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetSpeed'}}"
+            data-action="resetPool" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.speed' 'system.pools.speed'}}">
             <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
-          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0" for="actor.system.pools.speed.edge" class="resource-label-normal">
+          <label class="edge-label {{disabled sheetSettings.isObserver}}" style="flex: 0 0 0" for="actor.system.pools.speed.edge" class="resource-label-normal">
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
@@ -113,12 +119,12 @@
     {{!-- Intellect --}}
     <div class="resource flex-group-center stat-block">
       <div class="flexrow">
-        <label for="actor.system.pools.intellect" class="resource-label {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+        <label for="actor.system.pools.intellect" class="resource-label {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
           {{localize 'CYPHERSYSTEM.Intellect'}}
         </label>
         <div class="stat-roll-button {{{sheetSettings.showOnHover}}}">
           {{#if (gte sheetSettings.rollButtons 1)}}
-            <a class="item-control intellect-roll {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}">
+            <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IntellectRollButton'}}" data-action="rollPool" data-pool="Intellect">
               {{#if sheetSettings.useAllInOne}}
                 <i class="fa-item aio-stat-roll fa-solid fa-ballot"></i>
               {{else}}
@@ -128,7 +134,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+      <div class="resource-content flexrow flex-center flex-between stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
         {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
           <input class="stat-input" type="number" name="system.teen.pools.intellect.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.intellect.value}}{{/if}}" />
           &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
@@ -142,18 +148,21 @@
       <hr class="hr-pool" />
       <div class="resource-content flexrow flex-center">
         <div class="stat-controls {{{sheetSettings.showOnHover}}}">
-          <a class="item-control decrease-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractIntellect'}}"
+            data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect.value' 'system.pools.intellect.value'}}">
             <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
           </a>
-          <a class="item-control increase-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.AddIntellect'}}"
+            data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect.value' 'system.pools.intellect.value'}}">
             <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
           </a>
-          <a class="item-control reset-{{#if (eq actor.system.basic.unmaskedForm 'Teen')}}teen-{{/if}}intellect {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}">
+          <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetIntellect'}}"
+            data-action="resetPool" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.intellect' 'system.pools.intellect'}}">
             <i class="fa-item fas fa-sync-alt stat"></i>
           </a>
         </div>
         <div class="align-edge">
-          <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0" for="actor.system.pools.intellect.edge" class="resource-label-normal">
+          <label class="edge-label {{disabled sheetSettings.isObserver}}" style="flex: 0 0 0" for="actor.system.pools.intellect.edge" class="resource-label-normal">
             {{localize 'CYPHERSYSTEM.Edge'}}
           </label>
           {{#if (eq actor.system.basic.unmaskedForm 'Teen')}}
@@ -168,14 +177,14 @@
     {{!-- Additional Pool --}} {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
       {{#if actor.system.teen.settings.general.additionalPool.active}}
         <div class="resource flex-group-center stat-block">
-          <label for="actor.system.teen.settings.general.additionalPool.name" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          <label for="actor.system.teen.settings.general.additionalPool.name" class="resource-label-additional {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
             {{#if (eq actor.system.teen.settings.general.additionalPool.name "")}}
               {{localize 'CYPHERSYSTEM.AdditionalPool'}}
             {{else}}
               {{actor.system.teen.settings.general.additionalPool.name}} {{/if}}
           </label>
           <div class="stat-roll-button {{{sheetSettings.showOnHover}}}"></div>
-          <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          <div class="resource-content flexrow flex-center flex-between stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
             <input class="stat-input" type="number" name="system.teen.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.value}}{{/if}}" />
             &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
             <input class="stat-input" type="number" name="system.teen.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.teen.pools.additional.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />;
@@ -183,13 +192,16 @@
           <hr class="hr-pool" />
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls {{{sheetSettings.showOnHover}}}">
-              <a class="item-control decrease-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"
+              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
-              <a class="item-control increase-teen-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"
+              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
-              <a class="item-control reset-teen-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"
+              data-action="resetField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
                 <i class="fa-item fas fa-sync-alt stat"></i>
               </a>
             </div>
@@ -201,17 +213,16 @@
           </div>
         {{/unless}}
       {{/if}}
-    {{else}} {{#if
-  actor.system.settings.general.additionalPool.active}}
+    {{else}} {{#if actor.system.settings.general.additionalPool.active}}
         <div class="resource flex-group-center stat-block">
-          <label for="actor.system.settings.general.additionalPool.label" class="resource-label-additional {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          <label for="actor.system.settings.general.additionalPool.label" class="resource-label-additional {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
             {{#if (eq actor.system.settings.general.additionalPool.label "")}}
               {{localize 'CYPHERSYSTEM.AdditionalPool'}}
             {{else}}
               {{actor.system.settings.general.additionalPool.label}} {{/if}}
           </label>
           <div class="stat-roll-button {{{sheetSettings.showOnHover}}}"></div>
-          <div class="resource-content flexrow flex-center flex-between stat-pool {{#if (or sheetSettings.isLimited sheetSettings.isObserver)}}disabled{{/if}}">
+          <div class="resource-content flexrow flex-center flex-between stat-pool {{disabled (or sheetSettings.isLimited sheetSettings.isObserver)}}">
             <input class="stat-input" type="number" name="system.pools.additional.value" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.value}}{{/if}}" />
             &nbsp;{{sheetSettings.slashForFractions}}&nbsp;
             <input class="stat-input" type="number" name="system.pools.additional.max" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.max}}{{/if}}" {{sheetSettings.disabledStaticStats}} />
@@ -219,19 +230,22 @@
           <hr class="hr-pool" />
           <div class="resource-content flexrow flex-center">
             <div class="stat-controls {{{sheetSettings.showOnHover}}}">
-              <a class="item-control decrease-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.SubtractQuantity'}}"
+              data-action="decField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
               </a>
-              <a class="item-control increase-additional {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.IncreaseQuantity'}}"
+              data-action="incField" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional.value' 'system.pools.additional.value'}}">
                 <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
               </a>
-              <a class="item-control reset-additionalPool {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}">
+              <a class="item-control {{disabled sheetSettings.isObserver}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetAdditionalPool'}}"
+              data-action="resetPool" data-field="{{ifThen (eq actor.system.basic.unmaskedForm 'Teen') 'system.teen.pools.additional' 'system.pools.additional'}}">
                 <i class="fa-item fas fa-sync-alt stat"></i>
               </a>
             </div>
             {{#if actor.system.settings.general.additionalPool.hasEdge}}
               <div class="align-edge">
-                <label class="edge-label {{#if sheetSettings.isObserver}}disabled{{/if}}" style="flex: 0 0 0" for="actor.system.pools.additional.edge" class="resource-label-normal">
+                <label class="edge-label {{disabled sheetSettings.isObserver}}" style="flex: 0 0 0" for="actor.system.pools.additional.edge" class="resource-label-normal">
                   {{localize 'CYPHERSYSTEM.Edge'}}
                 </label>
                 <input class="edge-input" type="number" name="system.pools.additional.edge" value="{{#if sheetSettings.isLimited}}{{localize 'CYPHERSYSTEM.?'}}{{else}}{{actor.system.pools.additional.edge}}{{/if}}" {{sheetSettings.disabledStaticStats}} />

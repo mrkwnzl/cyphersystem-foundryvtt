@@ -3,86 +3,169 @@
 * @extends {ItemSheet}
 */
 
-import {getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath} from "../forms/sheet-customization.js";
-import {byNameAscending} from "../utilities/sorting.js";
-import {archiveItems} from "../utilities/tagging-engine/tagging-engine-computation.js";
+import { getBackgroundIcon, getBackgroundIconOpacity, getBackgroundIconPath, getBackgroundImage, getBackgroundImageOverlayOpacity, getBackgroundImagePath } from "../forms/sheet-customization.js";
+import { byNameAscending } from "../utilities/sorting.js";
+import { archiveItems } from "../utilities/tagging-engine/tagging-engine-computation.js";
 
-export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
+export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2) {
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cyphersystem", "sheet", "item", "item-sheet"],
-      width: 575,
-      height: 675,
-      resizable: true,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
       scrollY: [".sheet-body", ".tab"]
     });
   }
 
-  /** @override */
-  get template() {
-    const path = "systems/cyphersystem/templates/item-sheets";
-    const itemType = this.item.type;
-    return `${path}/${itemType}-sheet.html`;
+  static DEFAULT_OPTIONS = {
+    classes: ["cyphersystem", "item-sheet"],
+    position: {
+      width: 575,
+      height: 675,
+    },
+    window: {
+      resizable: true,
+    },
+    form: {
+      submitOnChange: true
+    },
+    actions: {
+      identifyItem: this.#onIdentifyItem,
+      toggleCypherType: this.#onToggleCypherType,
+      copyAsSkill: this.#onCopyAsSkill,
+      copyAsAttack: this.#onCopyAsAttack,
+      copyAsEquipment: this.#onCopyAsEquipment,
+      copyAsArmor: this.#onCopyAsArmor,
+      addTag: this.#onAddTag,
+    }
+  }
+
+  static PARTS = {
+    ability: { template: "systems/cyphersystem/templates/item-sheets/ability-sheet.html", scrollable: [".scrollable"] },
+    ammo: { template: "systems/cyphersystem/templates/item-sheets/ammo-sheet.html", scrollable: [".scrollable"] },
+    armor: { template: "systems/cyphersystem/templates/item-sheets/armor-sheet.html", scrollable: [".scrollable"] },
+    artifact: { template: "systems/cyphersystem/templates/item-sheets/artifact-sheet.html", scrollable: [".scrollable"] },
+    attack: { template: "systems/cyphersystem/templates/item-sheets/attack-sheet.html", scrollable: [".scrollable"] },
+    cypher: { template: "systems/cyphersystem/templates/item-sheets/cypher-sheet.html", scrollable: [".scrollable"] },
+    equipment: { template: "systems/cyphersystem/templates/item-sheets/equipment-sheet.html", scrollable: [".scrollable"] },
+    "lasting-damage": { template: "systems/cyphersystem/templates/item-sheets/lasting-damage-sheet.html", scrollable: [".scrollable"] },
+    material: { template: "systems/cyphersystem/templates/item-sheets/material-sheet.html", scrollable: [".scrollable"] },
+    oddity: { template: "systems/cyphersystem/templates/item-sheets/oddity-sheet.html", scrollable: [".scrollable"] },
+    "power-shift": { template: "systems/cyphersystem/templates/item-sheets/power-shift-sheet.html", scrollable: [".scrollable"] },
+    recursion: { template: "systems/cyphersystem/templates/item-sheets/recursion-sheet.html", scrollable: [".scrollable"] },
+    skill: { template: "systems/cyphersystem/templates/item-sheets/skill-sheet.html", scrollable: [".scrollable"] },
+    tag: { template: "systems/cyphersystem/templates/item-sheets/tag-sheet.html", scrollable: [".scrollable"] },
+  }
+
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'tags', cssClass: "item narrow", tooltip: "CYPHERSYSTEM.Tags", icon: "fa-item fa-solid fa-hashtag" },
+        { id: 'settings', cssClass: "item narrow", icon: "fa-item fa-solid fa-gear" } // not limited
+      ],
+      initial: "description",
+    },
+    notags: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'settings', cssClass: "item narrow", icon: "fa-item fa-solid fa-gear" } // not limited
+      ],
+      initial: "description",
+    },
+    nosettings: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'tags', cssClass: "item narrow", tooltip: "CYPHERSYSTEM.Tags", icon: "fa-item fa-solid fa-hashtag" },
+      ],
+      initial: "description",
+    },
+  }
+
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    options.parts = [this.document.type];
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
-    const data = await super.getData();
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.item = this.document;
+    context.actor = this.document.parent ?? null;
+
+    switch (this.document.type) {
+      case "lasting-damage":
+      case "power-shift":
+        context.tabs = this._prepareTabs("nosettings");
+        break;
+      case "recursion":
+      case "tag":
+        context.tabs = this._prepareTabs("notags");
+        break;
+      default:
+        context.tabs = this._prepareTabs("primary");
+        break;
+    }
+    if (context.tabs.tags) {
+      if (context.actor?.system.settings.general.gameMode === "Strange") {
+        context.tabs.tags.tooltip = "CYPHERSYSTEM.Recursions";
+        context.tabs.tags.icon = "fa-item fa-solid fa-at";
+      } else if (!context.actor?.system.settings.general.tags.active || this.item.system?.settings?.general?.unmaskedForm === "Teen")
+        delete context.tabs.tags;
+    }
+
 
     // Fallback for empty input fields
-    if (data.isEditable) {
+    if (this.isEditable) {
       if (["skill", "ability", "attack"].includes(this.item.type)) {
         if (!this.item.system.basic?.cost) {
-          this.item.update({"system.basic.cost": 0});
+          this.item.update({ "system.basic.cost": 0 });
         }
         if (!this.item.system.basic?.damage) {
-          this.item.update({"system.basic.damage": 0});
+          this.item.update({ "system.basic.damage": 0 });
         }
         if (!this.item.system.basic?.steps) {
-          this.item.update({"system.basic.steps": 0});
+          this.item.update({ "system.basic.steps": 0 });
         }
         if (!this.item.system.settings?.rollButton?.additionalCost) {
-          this.item.update({"system.settings.rollButton.additionalCost": 0});
+          this.item.update({ "system.settings.rollButton.additionalCost": 0 });
         }
         if (!this.item.system.settings?.rollButton?.bonus) {
-          this.item.update({"system.settings.rollButton.bonus": 0});
+          this.item.update({ "system.settings.rollButton.bonus": 0 });
         }
         if (!this.item.system.settings?.rollButton?.additionalSteps) {
-          this.item.update({"system.settings.rollButton.additionalSteps": 0});
+          this.item.update({ "system.settings.rollButton.additionalSteps": 0 });
         }
         if (!this.item.system.settings?.rollButton?.damage) {
-          this.item.update({"system.settings.rollButton.damage": 0});
+          this.item.update({ "system.settings.rollButton.damage": 0 });
         }
         if (!this.item.system.settings?.rollButton?.damagePerLOE) {
-          this.item.update({"system.settings.rollButton.damagePerLOE": 0});
+          this.item.update({ "system.settings.rollButton.damagePerLOE": 0 });
         }
       }
     }
 
     // Sheet settings
-    data.sheetSettings = {};
-    data.sheetSettings.isGM = game.user.isGM;
-    data.sheetSettings.isObserver = !this.isEditable;
-    data.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
-    data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
-    data.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
-    data.sheetSettings.identified = this.item.system.basic?.identified;
-    data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
-    data.sheetSettings.isMaskForm = (this.item.system?.settings?.general?.unmaskedForm == "Teen") ? false : true;
+    context.sheetSettings = {};
+    context.sheetSettings.isGM = game.user.isGM;
+    context.sheetSettings.isObserver = !this.isEditable;
+    context.sheetSettings.rollButtons = game.settings.get("cyphersystem", "rollButtons");
+    context.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
+    context.sheetSettings.spells = game.i18n.localize("CYPHERSYSTEM.Spells");
+    context.sheetSettings.identified = this.item.system.basic?.identified;
+    context.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
+    context.sheetSettings.isMaskForm = (this.item.system?.settings?.general?.unmaskedForm == "Teen") ? false : true;
 
     // Enriched HTML
-    data.enrichedHTML = {};
-    data.enrichedHTML.description = await TextEditor.enrichHTML(this.item.system.description, {async: true, secrets: this.item.isOwner, relativeTo: this.item});
+    context.enrichedHTML = {};
+    context.enrichedHTML.description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.item.system.description, { async: true, secrets: this.item.isOwner, relativeTo: this.item });
 
-    data.actor = data.item.parent ? data.item.parent : null;
 
     // Determine cypher type
-    data.cypherType = {};
+    context.cypherType = {};
     if (this.item.type == "cypher") {
       let color = "rgb(0, 0, 0)";
       let title = "";
@@ -111,19 +194,19 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
 
       if (this.item.system.basic.type[0] == 0) {
         // No type
-        data.cypherType[this.item.id] = `<i class="fa-item fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
+        context.cypherType[this.item.id] = `<i class="fa-item fa-regular fa-circle cypher-type" style="${color}" title="${title}"></i>`;
       } else if (this.item.system.basic.type[0] == 1) {
         // Subtle cypher
-        data.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
+        context.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
       } else if (this.item.system.basic.type[0] == 2) {
         // Manifest cypher
-        data.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle" style="${color}" title="${title}"></i>`;
+        context.cypherType[this.item.id] = `<i class="fa-item fa-solid fa-circle" style="${color}" title="${title}"></i>`;
       }
     }
 
     // Tag & recursion lists
-    data.itemLists = {};
-    if (data.actor) {
+    context.itemLists = {};
+    if (context.actor) {
       const tags = [];
       const tagsTwo = [];
       const tagsThree = [];
@@ -132,7 +215,7 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       const tagsOnItem = this.item.flags.cyphersystem?.tags || [];
       const recursionsOnItem = this.item.flags.cyphersystem?.recursions || [];
 
-      for (let item of data.actor.items) {
+      for (let item of context.actor.items) {
         if (item.type === "tag" && item.system.settings.general.sorting == "Tag") {
           tags.push(item);
         }
@@ -156,33 +239,33 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       tagsThree.sort(byNameAscending);
       tagsFour.sort(byNameAscending);
 
-      data.itemLists.recursions = recursions;
-      data.itemLists.recursionsOnItem = recursionsOnItem;
-      data.itemLists.tags = tags;
-      data.itemLists.tagsTwo = tagsTwo;
-      data.itemLists.tagsThree = tagsThree;
-      data.itemLists.tagsFour = tagsFour;
-      data.itemLists.tagsOnItem = tagsOnItem;
+      context.itemLists.recursions = recursions;
+      context.itemLists.recursionsOnItem = recursionsOnItem;
+      context.itemLists.tags = tags;
+      context.itemLists.tagsTwo = tagsTwo;
+      context.itemLists.tagsThree = tagsThree;
+      context.itemLists.tagsFour = tagsFour;
+      context.itemLists.tagsOnItem = tagsOnItem;
 
       // Check for tags category 2
       if (tagsTwo.length > 0) {
-        data.sheetSettings.showTagsTwo = true;
+        context.sheetSettings.showTagsTwo = true;
       } else {
-        data.sheetSettings.showTagsTwo = false;
+        context.sheetSettings.showTagsTwo = false;
       }
 
       // Check for tags category 3
       if (tagsThree.length > 0) {
-        data.sheetSettings.showTagsThree = true;
+        context.sheetSettings.showTagsThree = true;
       } else {
-        data.sheetSettings.showTagsThree = false;
+        context.sheetSettings.showTagsThree = false;
       }
 
       // Check for tags category 4
       if (tagsFour.length > 0) {
-        data.sheetSettings.showTagsFour = true;
+        context.sheetSettings.showTagsFour = true;
       } else {
-        data.sheetSettings.showTagsFour = false;
+        context.sheetSettings.showTagsFour = false;
       }
     }
 
@@ -191,27 +274,27 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
     let root = document.querySelector(':root');
 
     // -- Sheet settings
-    data.sheetSettings.backgroundImageBaseSetting = "background-image";
+    context.sheetSettings.backgroundImageBaseSetting = "background-image";
 
-    data.sheetSettings.backgroundImage = getBackgroundImage();
-    if (data.sheetSettings.backgroundImage == "custom") {
-      data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
-      data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+    context.sheetSettings.backgroundImage = getBackgroundImage();
+    if (context.sheetSettings.backgroundImage == "custom") {
+      context.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+      context.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
     }
-    data.sheetSettings.backgroundIcon = getBackgroundIcon();
-    data.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
-    data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
+    context.sheetSettings.backgroundIcon = getBackgroundIcon();
+    context.sheetSettings.backgroundIconPath = "/" + getBackgroundIconPath();
+    context.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
 
-    if (data.sheetSettings.backgroundIcon == "custom") {
-      if (!data.sheetSettings.backgroundIconPath) {
-        data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+    if (context.sheetSettings.backgroundIcon == "custom") {
+      if (!context.sheetSettings.backgroundIconPath) {
+        context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
       }
     } else {
-      data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
+      context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + getBackgroundIcon() + ".svg";
     }
 
     // Select choices
-    data.poolChoices = {
+    context.poolChoices = {
       "basic": {
         "Might": "CYPHERSYSTEM.Might",
         "Speed": "CYPHERSYSTEM.Speed",
@@ -238,7 +321,7 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       }
     };
 
-    data.armorTypeChoices = {
+    context.armorTypeChoices = {
       "light armor": "CYPHERSYSTEM.LightArmor",
       "medium armor": "CYPHERSYSTEM.MediumArmor",
       "heavy armor": "CYPHERSYSTEM.HeavyArmor",
@@ -247,14 +330,14 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       "n/a": "CYPHERSYSTEM.n/a"
     };
 
-    data.skillRatingChoices = {
+    context.skillRatingChoices = {
       "Specialized": "CYPHERSYSTEM.Specialized",
       "Trained": "CYPHERSYSTEM.Trained",
       "Practiced": "CYPHERSYSTEM.Practiced",
       "Inability": "CYPHERSYSTEM.Inability"
     };
 
-    data.attackTypeChoices = {
+    context.attackTypeChoices = {
       "light weapon": "CYPHERSYSTEM.LightWeapon",
       "medium weapon": "CYPHERSYSTEM.MediumWeapon",
       "heavy weapon": "CYPHERSYSTEM.HeavyWeapon",
@@ -263,34 +346,34 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       "n/a": "CYPHERSYSTEM.n/a"
     };
 
-    data.stepModifierChoices = {
+    context.stepModifierChoices = {
       "eased": "CYPHERSYSTEM.easedBy",
       "hindered": "CYPHERSYSTEM.hinderedBy"
     };
 
-    data.lastingDamageTypeChoices = {
+    context.lastingDamageTypeChoices = {
       "Lasting": "CYPHERSYSTEM.lastingDamage",
       "Permanent": "CYPHERSYSTEM.permanent"
     };
 
-    data.spellTierChoices = {
+    context.spellTierChoices = {
       "low": "CYPHERSYSTEM.LowTier",
       "mid": "CYPHERSYSTEM.MidTier",
       "high": "CYPHERSYSTEM.HighTier"
     };
 
-    data.unmaskedFormChoices = {
+    context.unmaskedFormChoices = {
       "Mask": "CYPHERSYSTEM.Mask",
       "Teen": "CYPHERSYSTEM.Teen"
     };
 
-    data.numberAssetChoices = {
+    context.numberAssetChoices = {
       "0": 0,
       "1": 1,
       "2": 2
     };
 
-    data.effortLevelChoices = {
+    context.effortLevelChoices = {
       "0": game.i18n.localize("CYPHERSYSTEM.None"),
       "1": "1 " + game.i18n.localize("CYPHERSYSTEM.level"),
       "2": "2 " + game.i18n.localize("CYPHERSYSTEM.levels"),
@@ -300,7 +383,7 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       "6": "6 " + game.i18n.localize("CYPHERSYSTEM.levels")
     };
 
-    data.priceCategoryChoices = {
+    context.priceCategoryChoices = {
       "none": game.i18n.localize("CYPHERSYSTEM.None"),
       "inexpensive": game.i18n.localize("CYPHERSYSTEM.PriceInexpensive"),
       "moderate": game.i18n.localize("CYPHERSYSTEM.PriceModerate"),
@@ -309,243 +392,219 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
       "exorbitant": game.i18n.localize("CYPHERSYSTEM.PriceExorbitant")
     };
 
-    if (data.actor?.type == "pc") {
+    if (context.actor?.type == "pc") {
       // Select options for ability categories
-      let labelAbilityCategory1 = data.actor?.system.settings.abilities.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Abilities");
-      let labelAbilityCategory2 = data.actor?.system.settings.abilities.labelCategory2 || "";
-      let labelAbilityCategory3 = data.actor?.system.settings.abilities.labelCategory3 || "";
-      let labelAbilityCategory4 = data.actor?.system.settings.abilities.labelCategory4 || "";
-      let labelSpells = data.actor?.system.settings.abilities.labelSpells || game.i18n.localize("CYPHERSYSTEM.Spells");
+      let labelAbilityCategory1 = context.actor?.system.settings.abilities.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Abilities");
+      let labelAbilityCategory2 = context.actor?.system.settings.abilities.labelCategory2 || "";
+      let labelAbilityCategory3 = context.actor?.system.settings.abilities.labelCategory3 || "";
+      let labelAbilityCategory4 = context.actor?.system.settings.abilities.labelCategory4 || "";
+      let labelSpells = context.actor?.system.settings.abilities.labelSpells || game.i18n.localize("CYPHERSYSTEM.Spells");
 
-      data.abilityCategoryChoices = {"Ability": labelAbilityCategory1};
-      if (labelAbilityCategory2) data.abilityCategoryChoices["AbilityTwo"] = labelAbilityCategory2;
-      if (labelAbilityCategory3) data.abilityCategoryChoices["AbilityThree"] = labelAbilityCategory3;
-      if (labelAbilityCategory4) data.abilityCategoryChoices["AbilityFour"] = labelAbilityCategory4;
-      data.abilityCategoryChoices["Spell"] = labelSpells;
+      context.abilityCategoryChoices = { "Ability": labelAbilityCategory1 };
+      if (labelAbilityCategory2) context.abilityCategoryChoices["AbilityTwo"] = labelAbilityCategory2;
+      if (labelAbilityCategory3) context.abilityCategoryChoices["AbilityThree"] = labelAbilityCategory3;
+      if (labelAbilityCategory4) context.abilityCategoryChoices["AbilityFour"] = labelAbilityCategory4;
+      context.abilityCategoryChoices["Spell"] = labelSpells;
 
       // Select options for skill categories
-      let labelSkillCategory1 = data.actor?.system.settings.skills.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Skills");
-      let labelSkillCategory2 = data.actor?.system.settings.skills.labelCategory2 || "";
-      let labelSkillCategory3 = data.actor?.system.settings.skills.labelCategory3 || "";
-      let labelSkillCategory4 = data.actor?.system.settings.skills.labelCategory4 || "";
+      let labelSkillCategory1 = context.actor?.system.settings.skills.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Skills");
+      let labelSkillCategory2 = context.actor?.system.settings.skills.labelCategory2 || "";
+      let labelSkillCategory3 = context.actor?.system.settings.skills.labelCategory3 || "";
+      let labelSkillCategory4 = context.actor?.system.settings.skills.labelCategory4 || "";
 
-      data.skillCategoryChoices = {"Skill": labelSkillCategory1};
-      if (labelSkillCategory2) data.skillCategoryChoices["SkillTwo"] = labelSkillCategory2;
-      if (labelSkillCategory3) data.skillCategoryChoices["SkillThree"] = labelSkillCategory3;
-      if (labelSkillCategory4) data.skillCategoryChoices["SkillFour"] = labelSkillCategory4;
+      context.skillCategoryChoices = { "Skill": labelSkillCategory1 };
+      if (labelSkillCategory2) context.skillCategoryChoices["SkillTwo"] = labelSkillCategory2;
+      if (labelSkillCategory3) context.skillCategoryChoices["SkillThree"] = labelSkillCategory3;
+      if (labelSkillCategory4) context.skillCategoryChoices["SkillFour"] = labelSkillCategory4;
 
       // Select options for equipment categories
-      let labelEquipmentCategory1 = data.actor?.system.settings.equipment.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Equipment");
-      let labelEquipmentCategory2 = data.actor?.system.settings.equipment.labelCategory2 || "";
-      let labelEquipmentCategory3 = data.actor?.system.settings.equipment.labelCategory3 || "";
-      let labelEquipmentCategory4 = data.actor?.system.settings.equipment.labelCategory4 || "";
+      let labelEquipmentCategory1 = context.actor?.system.settings.equipment.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Equipment");
+      let labelEquipmentCategory2 = context.actor?.system.settings.equipment.labelCategory2 || "";
+      let labelEquipmentCategory3 = context.actor?.system.settings.equipment.labelCategory3 || "";
+      let labelEquipmentCategory4 = context.actor?.system.settings.equipment.labelCategory4 || "";
 
-      data.equipmentCategoryChoices = {"Equipment": labelEquipmentCategory1};
-      if (labelEquipmentCategory2) data.equipmentCategoryChoices["EquipmentTwo"] = labelEquipmentCategory2;
-      if (labelEquipmentCategory3) data.equipmentCategoryChoices["EquipmentThree"] = labelEquipmentCategory3;
-      if (labelEquipmentCategory4) data.equipmentCategoryChoices["EquipmentFour"] = labelEquipmentCategory4;
+      context.equipmentCategoryChoices = { "Equipment": labelEquipmentCategory1 };
+      if (labelEquipmentCategory2) context.equipmentCategoryChoices["EquipmentTwo"] = labelEquipmentCategory2;
+      if (labelEquipmentCategory3) context.equipmentCategoryChoices["EquipmentThree"] = labelEquipmentCategory3;
+      if (labelEquipmentCategory4) context.equipmentCategoryChoices["EquipmentFour"] = labelEquipmentCategory4;
 
       // Select options for tag categories
-      let labelTagsCategory1 = data.actor?.system.settings.general.tags.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Tags");
-      let labelTagsCategory2 = data.actor?.system.settings.general.tags.labelCategory2 || "";
-      let labelTagsCategory3 = data.actor?.system.settings.general.tags.labelCategory3 || "";
-      let labelTagsCategory4 = data.actor?.system.settings.general.tags.labelCategory4 || "";
+      let labelTagsCategory1 = context.actor?.system.settings.general.tags.labelCategory1 || game.i18n.localize("CYPHERSYSTEM.Tags");
+      let labelTagsCategory2 = context.actor?.system.settings.general.tags.labelCategory2 || "";
+      let labelTagsCategory3 = context.actor?.system.settings.general.tags.labelCategory3 || "";
+      let labelTagsCategory4 = context.actor?.system.settings.general.tags.labelCategory4 || "";
 
-      data.tagsCategoryChoices = {"Tag": labelTagsCategory1};
-      if (labelTagsCategory2) data.tagsCategoryChoices["TagTwo"] = labelTagsCategory2;
-      if (labelTagsCategory3) data.tagsCategoryChoices["TagThree"] = labelTagsCategory3;
-      if (labelTagsCategory4) data.tagsCategoryChoices["TagFour"] = labelTagsCategory4;
+      context.tagsCategoryChoices = { "Tag": labelTagsCategory1 };
+      if (labelTagsCategory2) context.tagsCategoryChoices["TagTwo"] = labelTagsCategory2;
+      if (labelTagsCategory3) context.tagsCategoryChoices["TagThree"] = labelTagsCategory3;
+      if (labelTagsCategory4) context.tagsCategoryChoices["TagFour"] = labelTagsCategory4;
     }
 
-    return data;
+    return context;
   }
 
-  /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
+  static async #onIdentifyItem(event, target) {
+    if (!this.isEditable) return;
+    this.item.update({ "system.basic.identified": !this.item.system.basic.identified });
+  }
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
+  // Toggle cypher type
+  static async #onToggleCypherType(event, target) {
+    if (!this.isEditable) return;
+    // Get state
+    let typeArray = this.item.system.basic.type;
+    let type = typeArray[0];
+    let fantastic = typeArray[1];
 
-    // html.find("input[name='system.basic.cost']").change(changeEvent => {
-    //   if ($(changeEvent.currentTarget.value) == "") {
-    //     $(changeEvent.currentTarget.value) = 0;
-    //   }
-    // });
+    // New state
+    if (game.keyboard.isModifierActive("Alt")) {
+      fantastic = !fantastic;
+    } else {
+      type = (type === 2) ? 0 : type + 1;
+    }
 
-    html.find('.identify-item').click(clickEvent => {
-      if (this.item.system.basic.identified) {
-        this.item.update({"system.basic.identified": false});
+    // Update
+    this.item.update({ "system.basic.type": [type, fantastic] });
+  }
+
+  static async #onCopyAsSkill(event, button) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const actor = this.item.actor;
+    if (!actor) return;
+    if (!["ability"].includes(item.type)) return;
+
+    let itemData = {
+      name: item.name,
+      type: "skill",
+      "system.settings.rollButton": item.system.settings.rollButton,
+      "system.description": item.system.description,
+      "system.basic.rating": item.system.settings.rollButton.skill,
+      "system.settings.rollButton.pool": item.system.basic.pool,
+      "system.settings.rollButton.additionalCost": item.system.basic.cost
+    };
+
+    await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
+
+    return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsSkill", { item: item.name }));
+  }
+
+  static async #onCopyAsAttack(event, target) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const actor = item.actor;
+    if (!actor) return;
+    if (!["ability"].includes(item.type)) return;
+
+    let itemData = {
+      name: item.name,
+      type: "attack",
+      "system.settings.rollButton": item.system.settings.rollButton,
+      "system.description": item.system.description,
+      "system.basic.type": "special ability",
+      "system.basic.damage": item.system.settings.rollButton.damage,
+      "system.basic.modifier": item.system.settings.rollButton.stepModifier,
+      "system.basic.steps": item.system.settings.rollButton.additionalSteps,
+      "system.basic.skillRating": item.system.settings.rollButton.skill,
+      "system.settings.rollButton.pool": item.system.basic.pool,
+      "system.settings.rollButton.additionalCost": item.system.basic.cost
+    };
+
+    await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
+
+    return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsAttack", { item: item.name }));
+  }
+
+  static async #onCopyAsEquipment(event, target) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const actor = this.item.actor;
+    if (!actor) return;
+    if (!["attack", "armor"].includes(item.type)) return;
+
+    let itemData = {
+      name: item.name,
+      type: "equipment",
+      "system.description": item.system.description
+    };
+
+    await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
+
+    return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsEquipment", { item: item.name }));
+  }
+
+  static async #onCopyAsArmor(event, target) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const actor = this.item.actor;
+    if (!actor) return;
+    if (!["ability"].includes(item.type)) return;
+
+    let itemData = {
+      name: item.name,
+      type: "armor",
+      "system.description": item.system.description,
+      "system.basic.type": "special ability"
+    };
+
+    await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
+
+    return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", { item: item.name }));
+  }
+
+  static async #onAddTag(event, target) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const tag = this.item.actor.items.get(target.dataset.itemId);
+
+    if (tag.type === "tag") {
+      const array = (Array.isArray(item.flags.cyphersystem?.tags)) ? item.flags.cyphersystem?.tags : [];
+      await addOrRemoveFromArray(array);
+      const tagFound = await archiveItem(array);
+      await item.update({
+        "flags.cyphersystem.tags": array,
+        "system.archived": !tagFound
+      });
+    } else if (tag.type === "recursion") {
+      const array = (Array.isArray(item.flags.cyphersystem?.recursions)) ? item.flags.cyphersystem?.recursions : [];
+      await addOrRemoveFromArray(array);
+      const tagFound = await archiveItem(array);
+      await item.update({
+        "flags.cyphersystem.recursions": array,
+        "system.archived": !tagFound
+      });
+    }
+    this.render(true);
+
+    async function addOrRemoveFromArray(array) {
+      if (array.includes(tag._id)) {
+        const index = array.indexOf(tag._id);
+        array.splice(index, 1);
       } else {
-        this.item.update({"system.basic.identified": true});
+        array.push(tag._id);
       }
-    });
+    }
 
-    // Toggle cypher type
-    html.find(".toggle-cypher-type").click(clickEvent => {
-      // Get state
-      let typeArray = this.item.system.basic.type;
-      let type = typeArray[0];
-      let fantastic = typeArray[1];
+    async function archiveItem(array) {
+      // Do nothing if it’s the last tag
+      if (array.length == 0) return !item.system.archived;
 
-      // New state
-      if (game.keyboard.isModifierActive("Alt")) {
-        fantastic = (fantastic === 1) ? 0 : 1;
-      } else {
-        type = (type === 2) ? 0 : type + 1;
-      }
+      // If it should always be unarchived
+      // if (array.length == 0) return true;
 
-      // Update
-      typeArray[0] = type;
-      typeArray[1] = fantastic;
-      this.item.update({"system.basic.type": typeArray});
-    });
-
-    html.find('.copy-as-skill').click(async clickEvent => {
-      let actor = this.item.actor;
-      if (!actor) return;
-      let item = this.item;
-      if (!["ability"].includes(item.type)) return;
-
-      let itemData = {
-        name: item.name,
-        type: "skill",
-        "system.settings.rollButton": item.system.settings.rollButton,
-        "system.description": item.system.description,
-        "system.basic.rating": item.system.settings.rollButton.skill,
-        "system.settings.rollButton.pool": item.system.basic.pool,
-        "system.settings.rollButton.additionalCost": item.system.basic.cost
-      };
-
-      await actor.createEmbeddedDocuments("Item", [itemData]);
-
-      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsSkill", {item: item.name}));
-    });
-
-    html.find('.copy-as-attack').click(async clickEvent => {
-      let actor = this.item.actor;
-      if (!actor) return;
-      let item = this.item;
-      if (!["ability"].includes(item.type)) return;
-
-      let itemData = {
-        name: item.name,
-        type: "attack",
-        "system.settings.rollButton": item.system.settings.rollButton,
-        "system.description": item.system.description,
-        "system.basic.type": "special ability",
-        "system.basic.damage": item.system.settings.rollButton.damage,
-        "system.basic.modifier": item.system.settings.rollButton.stepModifier,
-        "system.basic.steps": item.system.settings.rollButton.additionalSteps,
-        "system.basic.skillRating": item.system.settings.rollButton.skill,
-        "system.settings.rollButton.pool": item.system.basic.pool,
-        "system.settings.rollButton.additionalCost": item.system.basic.cost
-      };
-
-      await actor.createEmbeddedDocuments("Item", [itemData]);
-
-      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsAttack", {item: item.name}));
-    });
-
-    html.find('.copy-as-equipment').click(async clickEvent => {
-      let actor = this.item.actor;
-      if (!actor) return;
-      let item = this.item;
-      if (!["attack", "armor"].includes(item.type)) return;
-
-      let itemData = {
-        name: item.name,
-        type: "equipment",
-        "system.description": item.system.description
-      };
-
-      await actor.createEmbeddedDocuments("Item", [itemData]);
-
-      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsEquipment", {item: item.name}));
-    });
-
-    html.find('.copy-as-armor').click(async clickEvent => {
-      let actor = this.item.actor;
-      if (!actor) return;
-      let item = this.item;
-      if (!["ability"].includes(item.type)) return;
-
-      let itemData = {
-        name: item.name,
-        type: "armor",
-        "system.description": item.system.description,
-        "system.basic.type": "special ability"
-      };
-
-      await actor.createEmbeddedDocuments("Item", [itemData]);
-
-      return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", {item: item.name}));
-    });
-
-    html.find('.tag-items').click(async clickEvent => {
-      let item = this.item;
-      let tag = this.item.actor.items.get($(clickEvent.currentTarget).data("item-id"));
-
-      if (tag.type == "tag") {
-        let array = (Array.isArray(item.flags.cyphersystem?.tags)) ? item.flags.cyphersystem?.tags : [];
-        await addOrRemoveFromArray(array);
-        var tagFound = await archiveItem(array);
-        await item.update({
-          "flags.cyphersystem.tags": array,
-          "system.archived": !tagFound
-        });
-      } else if (tag.type == "recursion") {
-        let array = (Array.isArray(item.flags.cyphersystem?.recursions)) ? item.flags.cyphersystem?.recursions : [];
-        await addOrRemoveFromArray(array);
-        var tagFound = await archiveItem(array);
-        await item.update({
-          "flags.cyphersystem.recursions": array,
-          "system.archived": !tagFound
-        });
-      }
-      this.render(true);
-
-      async function addOrRemoveFromArray(array) {
-        if (array.includes(tag._id)) {
-          let index = array.indexOf(tag._id);
-          array.splice(index, 1);
-        } else {
-          array.push(tag._id);
+      // Collect all active tags of the actor
+      let activeTags = [];
+      for (let tag of item.actor.items) {
+        if (["tag", "recursion"].includes(tag.type) && tag.system.active) {
+          activeTags.push(tag._id);
         }
       }
 
-      async function archiveItem(array) {
-        // Do nothing if it’s the last tag
-        if (array.length == 0) return !item.system.archived;
+      // Check if any of the enabled tags on the item is an active tag on the actor
+      const tagFound = activeTags.some(id => array.includes(id));
 
-        // If it should always be unarchived
-        // if (array.length == 0) return true;
-
-        // Collect all active tags of the actor
-        let activeTags = [];
-        for (let tag of item.actor.items) {
-          if (["tag", "recursion"].includes(tag.type) && tag.system.active) {
-            activeTags.push(tag._id);
-          }
-        }
-
-        // Check if any of the enabled tags on the item is an active tag on the actor
-        var tagFound = activeTags.some(id => array.includes(id));
-
-        // Return whether a tag has been found
-        return tagFound;
-      }
-    });
-  }
-
-  /**
-  * Support for TinyMCE dynamic size
-  */
-
-  async activateEditor(name, options = {}, initialContent = "") {
-    options.fitToSize = true;
-    const editor = await super.activateEditor(name, options, initialContent);
-    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
-    return editor;
+      // Return whether a tag has been found
+      return tagFound;
+    }
   }
 }

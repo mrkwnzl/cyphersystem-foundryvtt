@@ -5,17 +5,30 @@
 import {CypherActorSheet} from "./actor-sheet.js";
 
 export class CypherActorSheetVehicle extends CypherActorSheet {
+  
+  static DEFAULT_OPTIONS = {
+    classes: ["vehicle"],
+  }
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "actor", "vehicle"],
-      template: "systems/cyphersystem/templates/actor-sheets/vehicle-sheet.html",
-      width: 650,
-      height: 700,
-      resizable: true,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body"}],
-      scrollY: [".sheet-body", ".tab", ".description", ".items", ".settings", ".editor-content"]
-    });
+  static PARTS = {
+    vehicle: { template: "systems/cyphersystem/templates/actor-sheets/vehicle-sheet.html", scrollable: [".scrollable"] }
+  }
+
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: 'notes', cssClass: "item", label: "CYPHERSYSTEM.Notes" },
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+        { id: 'items', cssClass: "item", label: "CYPHERSYSTEM.Storage" }, // not limited
+        { id: 'settings', cssClass: "item narrow", icon: "fa-item fa-solid fa-gear" } // not limited
+      ],
+      initial: 'notes'
+    },
+    limited: {
+      tabs: [
+        { id: 'description', cssClass: "item", label: "CYPHERSYSTEM.Description" },
+      ],
+      initial: 'description'
+    },
   }
 }

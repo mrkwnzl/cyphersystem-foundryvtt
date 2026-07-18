@@ -19,8 +19,8 @@ import {
   byCypherType,
   byPriceCategory
 } from "../utilities/sorting.js";
-import {useRecoveries} from "../utilities/actor-utilities.js";
-import {taggingEngineMain} from "../utilities/tagging-engine/tagging-engine-main.js";
+import { useRecoveries } from "../utilities/actor-utilities.js";
+import { taggingEngineMain } from "../utilities/tagging-engine/tagging-engine-main.js";
 import {
   getBackgroundIcon,
   getBackgroundIconOpacity,
@@ -37,42 +37,77 @@ import {
   removeTagFromItem
 } from "../utilities/tagging-engine/tagging-engine-computation.js";
 
-export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
+export class CypherActorSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+
+  static DEFAULT_OPTIONS = {
+    classes: ["cyphersystem", "actor"],
+    position: {
+      width: 650,
+      height: 700,
+    },
+    window: {
+      resizable: true,
+    },
+    form: {
+      submitOnChange: true
+    },
+    actions: {
+      clickItemDescription: this.#onClickItemDescription,
+      itemCreate: this.#onItemCreate,
+      itemEdit: this.#onItemEdit,
+      identifyItem: this.#onItemIdentify,
+      itemDelete: this.#onItemDelete,
+      toggleTag: this.#onToggleTag,
+      toggleCypherType: this.#onToggleCypherType,
+      rollForLevel: this.#onRollForLevel,
+      itemRoll: this.#onItemRoll,
+      itemRollPay: this.#onItemRollPay,
+      castSpell: this.#onCastSpell,
+      incField: this.#onIncField,
+      decField: this.#onDecField,
+      resetField: this.#onResetField,
+      toggleField: this.#onToggleField,
+    }
+  }
 
   /** @override */
-  async getData() {
-    const data = await super.getData();
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.tabs = this._prepareTabs((this.actor.permission === CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED) ? "limited" : "primary");
+
+    context.actor = context.document;
+    context.items = Array.from(context.document.items);
 
     // Item Data
-    data.itemLists = {};
+    context.itemLists = {};
 
     // Sheet settings
-    data.sheetSettings = {};
-    data.sheetSettings.isGM = game.user.isGM;
-    data.sheetSettings.isLimited = (this.actor.permission == 1) ? true : false;
-    data.sheetSettings.isObserver = (this.actor.permission == 2 || this.actor.compendium?.locked) ? true : false;
-    data.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
-    data.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
-    data.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
-    data.sheetSettings.showOnHover = (game.settings.get("cyphersystem", "showButtonsOnHover")) ? "show-on-hover" : "";
+    context.sheetSettings = {};
+    context.sheetSettings.isGM = game.user.isGM;
+    context.sheetSettings.isLimited = (this.actor.permission === CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED);
+    context.sheetSettings.isObserver = (this.actor.permission === CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER || this.actor.compendium?.locked) ? true : false;
+    context.sheetSettings.useAllInOne = game.settings.get("cyphersystem", "itemMacrosUseAllInOne");
+    context.sheetSettings.slashForFractions = game.settings.get("cyphersystem", "useSlashForFractions") ? "/" : "|";
+    context.sheetSettings.editor = (game.settings.get("cyphersystem", "sheetEditor") == 1) ? "tinymce" : "prosemirror";
+    context.sheetSettings.showOnHover = (game.settings.get("cyphersystem", "showButtonsOnHover")) ? "show-on-hover" : "";
 
     // Enriched HTML
-    data.enrichedHTML = {};
+    context.enrichedHTML = {};
 
     // --Notes and description
-    data.enrichedHTML.notes = await TextEditor.enrichHTML(this.actor.system.notes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
-    data.enrichedHTML.gmNotes = await TextEditor.enrichHTML(this.actor.system.gmNotes, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
-    data.enrichedHTML.description = await TextEditor.enrichHTML(this.actor.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: this.actor});
+    context.enrichedHTML.notes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.actor.system.notes, { secrets: this.actor.isOwner, relativeTo: this.actor });
+    context.enrichedHTML.gmNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.actor.system.gmNotes, { secrets: this.actor.isOwner, relativeTo: this.actor });
+    context.enrichedHTML.description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.actor.system.description, { secrets: this.actor.isOwner, relativeTo: this.actor });
 
-    data.enrichedHTML.itemDescription = {};
-    data.enrichedHTML.itemLevel = {};
-    data.enrichedHTML.itemDepletion = {};
-    data.cypherType = {};
+    context.enrichedHTML.itemDescription = {};
+    context.enrichedHTML.itemLevel = {};
+    context.enrichedHTML.itemDepletion = {};
+    context.cypherType = {};
 
     for (let item of this.actor.items) {
-      data.enrichedHTML.itemDescription[item.id] = await TextEditor.enrichHTML(item.system.description, {async: true, secrets: this.actor.isOwner, relativeTo: item});
-      data.enrichedHTML.itemLevel[item.id] = await TextEditor.enrichHTML(item.system.basic?.level, {async: true, relativeTo: item});
-      data.enrichedHTML.itemDepletion[item.id] = await TextEditor.enrichHTML(item.system.basic?.depletion, {async: true, relativeTo: item});
+      context.enrichedHTML.itemDescription[item.id] = await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description, { secrets: this.actor.isOwner, relativeTo: item });
+      context.enrichedHTML.itemLevel[item.id] = await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.basic?.level, { relativeTo: item });
+      context.enrichedHTML.itemDepletion[item.id] = await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.basic?.depletion, { relativeTo: item });
 
       // Determine cypher type
       if (item.type == "cypher") {
@@ -103,34 +138,34 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
 
         if (item.system.basic.type[0] == 0) {
           // No type
-          data.cypherType[item.id] = `<i class="fa-item cypher no-type fa-regular fa-circle" style="${color}" title="${title}"></i>`;
+          context.cypherType[item.id] = `<i class="fa-item cypher no-type fa-regular fa-circle" style="${color}" title="${title}"></i>`;
         } else if (item.system.basic.type[0] == 1) {
           // Subtle cypher
-          data.cypherType[item.id] = `<i class="fa-item cypher subtle fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
+          context.cypherType[item.id] = `<i class="fa-item cypher subtle fa-solid fa-circle-half-stroke" style="${color}" title="${title}"></i>`;
         } else if (item.system.basic.type[0] == 2) {
           // Manifest cypher
-          data.cypherType[item.id] = `<i class="fa-item cypher manifest fa-solid fa-circle" style="${color}" title="${title}"></i>`;
+          context.cypherType[item.id] = `<i class="fa-item cypher manifest fa-solid fa-circle" style="${color}" title="${title}"></i>`;
         }
       }
     }
 
     // Prepare items and return
-    this.cyphersystem(data);
+    this.cyphersystem(context);
 
     // Select options
-    data.materialsDisplayModeChoices = {
+    context.materialsDisplayModeChoices = {
       "price": game.i18n.localize("CYPHERSYSTEM.Price"),
       "level": game.i18n.localize("CYPHERSYSTEM.Level")
     };
 
-    data.showPriceChoices = {
+    context.showPriceChoices = {
       "none": game.i18n.localize("CYPHERSYSTEM.None"),
       "category": game.i18n.localize("CYPHERSYSTEM.pricecategory"),
       "priceTag": game.i18n.localize("CYPHERSYSTEM.pricetag"),
       "both": game.i18n.localize("CYPHERSYSTEM.PriceBoth")
     };
 
-    return data;
+    return context;
   }
 
   /**
@@ -140,9 +175,9 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
   *
   * @return {undefined}
   */
-  cyphersystem(data) {
-    const actorData = data.actor;
-    const itemLists = data.itemLists;
+  cyphersystem(context) {
+    const actorData = this.actor;
+    const itemLists = context.itemLists;
 
     // Initialize containers
     const equipment = [];
@@ -179,7 +214,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     const tagsFour = [];
 
     // Iterate through items, allocating to containers
-    for (let item of data.items) {
+    for (let item of context.items) {
       // let item = item.system;
       item.img = item.img || DEFAULT_TOKEN;
 
@@ -437,93 +472,93 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     if (this.actor.type == "pc") {
       // Check for equipment category 2
       if (equipmentTwo.length > 0 || (this.actor.system.settings.equipment.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showEquipmentTwo = true;
+        context.sheetSettings.showEquipmentTwo = true;
       } else {
-        data.sheetSettings.showEquipmentTwo = false;
+        context.sheetSettings.showEquipmentTwo = false;
       }
 
       // Check for equipment category 3
       if (equipmentThree.length > 0 || (this.actor.system.settings.equipment.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showEquipmentThree = true;
+        context.sheetSettings.showEquipmentThree = true;
       } else {
-        data.sheetSettings.showEquipmentThree = false;
+        context.sheetSettings.showEquipmentThree = false;
       }
 
       // Check for equipment category 4
       if (equipmentFour.length > 0 || (this.actor.system.settings.equipment.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showEquipmentFour = true;
+        context.sheetSettings.showEquipmentFour = true;
       } else {
-        data.sheetSettings.showEquipmentFour = false;
+        context.sheetSettings.showEquipmentFour = false;
       }
 
       // Check for spells
       if (spells.length > 0 || (this.actor.system.settings.abilities.labelSpells && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showSpells = true;
+        context.sheetSettings.showSpells = true;
       } else {
-        data.sheetSettings.showSpells = false;
+        context.sheetSettings.showSpells = false;
       }
 
       // Check for ability category 2
       if (abilitiesTwo.length > 0 || (this.actor.system.settings.abilities.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showAbilitiesTwo = true;
+        context.sheetSettings.showAbilitiesTwo = true;
       } else {
-        data.sheetSettings.showAbilitiesTwo = false;
+        context.sheetSettings.showAbilitiesTwo = false;
       }
 
       // Check for ability category 3
       if (abilitiesThree.length > 0 || (this.actor.system.settings.abilities.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showAbilitiesThree = true;
+        context.sheetSettings.showAbilitiesThree = true;
       } else {
-        data.sheetSettings.showAbilitiesThree = false;
+        context.sheetSettings.showAbilitiesThree = false;
       }
 
       // Check for ability category 4
       if (abilitiesFour.length > 0 || (this.actor.system.settings.abilities.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showAbilitiesFour = true;
+        context.sheetSettings.showAbilitiesFour = true;
       } else {
-        data.sheetSettings.showAbilitiesFour = false;
+        context.sheetSettings.showAbilitiesFour = false;
       }
 
       // Check for skill category 2
       if (skillsTwo.length > 0 || (this.actor.system.settings.skills.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showSkillsTwo = true;
+        context.sheetSettings.showSkillsTwo = true;
       } else {
-        data.sheetSettings.showSkillsTwo = false;
+        context.sheetSettings.showSkillsTwo = false;
       }
 
       // Check for skill category 3
       if (skillsThree.length > 0 || (this.actor.system.settings.skills.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showSkillsThree = true;
+        context.sheetSettings.showSkillsThree = true;
       } else {
-        data.sheetSettings.showSkillsThree = false;
+        context.sheetSettings.showSkillsThree = false;
       }
 
       // Check for skill category 4
       if (skillsFour.length > 0 || (this.actor.system.settings.skills.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showSkillsFour = true;
+        context.sheetSettings.showSkillsFour = true;
       } else {
-        data.sheetSettings.showSkillsFour = false;
+        context.sheetSettings.showSkillsFour = false;
       }
 
       // Check for tags category 2
       if (tagsTwo.length > 0 || (this.actor.system.settings.general.tags?.labelCategory2 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showTagsTwo = true;
+        context.sheetSettings.showTagsTwo = true;
       } else {
-        data.sheetSettings.showTagsTwo = false;
+        context.sheetSettings.showTagsTwo = false;
       }
 
       // Check for tags category 3
       if (tagsThree.length > 0 || (this.actor.system.settings.general.tags?.labelCategory3 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showTagsThree = true;
+        context.sheetSettings.showTagsThree = true;
       } else {
-        data.sheetSettings.showTagsThree = false;
+        context.sheetSettings.showTagsThree = false;
       }
 
       // Check for tags category 4
       if (tagsFour.length > 0 || (this.actor.system.settings.general.tags?.labelCategory4 && !this.actor.system.settings.general.hideEmptyCategories)) {
-        data.sheetSettings.showTagsFour = true;
+        context.sheetSettings.showTagsFour = true;
       } else {
-        data.sheetSettings.showTagsFour = false;
+        context.sheetSettings.showTagsFour = false;
       }
     }
 
@@ -569,100 +604,100 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     let customSheetDesign = (this.actor.type == "pc") ? actorData.system.settings.general.customSheetDesign : false;
 
     if (game.modules.get("cyphersheets")?.active) {
-      data.sheetSettings.backgroundImage = "foundry";
-      data.sheetSettings.backgroundIcon = "none";
-      data.sheetSettings.cyphersheetsModuleActive = true;
-      data.sheetSettings.backgroundImageBaseSetting = "";
+      context.sheetSettings.backgroundImage = "foundry";
+      context.sheetSettings.backgroundIcon = "none";
+      context.sheetSettings.cyphersheetsModuleActive = true;
+      context.sheetSettings.backgroundImageBaseSetting = "";
     } else {
       customBackgroundData();
     }
 
     function customBackgroundData() {
       // Sheet settings
-      data.sheetSettings.cyphersheetsModuleActive = false;
-      data.sheetSettings.backgroundImageBaseSetting = "background-image";
+      context.sheetSettings.cyphersheetsModuleActive = false;
+      context.sheetSettings.backgroundImageBaseSetting = "background-image";
 
       // Create image & icon
       if (actorData.system.basic.unmaskedForm == "Teen" && teenCustomSheetDesign) {
-        data.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
-        data.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
+        context.sheetSettings.backgroundImage = actorData.system.teen.settings.general.background.image;
+        context.sheetSettings.backgroundIcon = actorData.system.teen.settings.general.background.icon;
         if (actorData.system.teen.settings.general.background.image == "custom") {
-          data.sheetSettings.backgroundImagePath = "/" + actorData.system.teen.settings.general.background.imagePath;
-          data.sheetSettings.backgroundOverlayOpacity = actorData.system.teen.settings.general.background.overlayOpacity;
+          context.sheetSettings.backgroundImagePath = "/" + actorData.system.teen.settings.general.background.imagePath;
+          context.sheetSettings.backgroundOverlayOpacity = actorData.system.teen.settings.general.background.overlayOpacity;
         }
         if (actorData.system.teen.settings.general.background.icon == "custom") {
-          data.sheetSettings.backgroundIconPath = (actorData.system.teen.settings.general.background.iconPath) ? actorData.system.teen.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          data.sheetSettings.backgroundIconOpacity = actorData.system.teen.settings.general.background.iconOpacity;
+          context.sheetSettings.backgroundIconPath = (actorData.system.teen.settings.general.background.iconPath) ? actorData.system.teen.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          context.sheetSettings.backgroundIconOpacity = actorData.system.teen.settings.general.background.iconOpacity;
         } else {
-          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.teen.settings.general.background.icon + ".svg";
+          context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.teen.settings.general.background.icon + ".svg";
         }
       } else if (customSheetDesign) {
-        data.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
-        data.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
+        context.sheetSettings.backgroundImage = actorData.system.settings.general.background.image;
+        context.sheetSettings.backgroundIcon = actorData.system.settings.general.background.icon;
         if (actorData.system.settings.general.background.image == "custom") {
-          data.sheetSettings.backgroundImagePath = "/" + actorData.system.settings.general.background.imagePath;
-          data.sheetSettings.backgroundOverlayOpacity = actorData.system.settings.general.background.overlayOpacity;
+          context.sheetSettings.backgroundImagePath = "/" + actorData.system.settings.general.background.imagePath;
+          context.sheetSettings.backgroundOverlayOpacity = actorData.system.settings.general.background.overlayOpacity;
         }
         if (actorData.system.settings.general.background.icon == "custom") {
-          data.sheetSettings.backgroundIconPath = (actorData.system.settings.general.background.iconPath) ? actorData.system.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
-          data.sheetSettings.backgroundIconOpacity = actorData.system.settings.general.background.iconOpacity;
+          context.sheetSettings.backgroundIconPath = (actorData.system.settings.general.background.iconPath) ? actorData.system.settings.general.background.iconPath : "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          context.sheetSettings.backgroundIconOpacity = actorData.system.settings.general.background.iconOpacity;
         } else {
-          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.settings.general.background.icon + ".svg";
+          context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + actorData.system.settings.general.background.icon + ".svg";
         }
       } else {
-        data.sheetSettings.backgroundImage = getBackgroundImage();
-        data.sheetSettings.backgroundIcon = getBackgroundIcon();
-        data.sheetSettings.backgroundIconPath = getBackgroundIconPath();
-        if (data.sheetSettings.backgroundImage == "custom") {
-          data.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
-          data.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
+        context.sheetSettings.backgroundImage = getBackgroundImage();
+        context.sheetSettings.backgroundIcon = getBackgroundIcon();
+        context.sheetSettings.backgroundIconPath = getBackgroundIconPath();
+        if (context.sheetSettings.backgroundImage == "custom") {
+          context.sheetSettings.backgroundImagePath = "/" + getBackgroundImagePath();
+          context.sheetSettings.backgroundOverlayOpacity = getBackgroundImageOverlayOpacity();
         }
-        if (data.sheetSettings.backgroundIcon == "custom") {
-          if (!data.sheetSettings.backgroundIconPath) {
-            data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+        if (context.sheetSettings.backgroundIcon == "custom") {
+          if (!context.sheetSettings.backgroundIconPath) {
+            context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
           }
-          data.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
+          context.sheetSettings.backgroundIconOpacity = getBackgroundIconOpacity();
         } else {
-          data.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + data.sheetSettings.backgroundIcon + ".svg";
+          context.sheetSettings.backgroundIconPath = "/systems/cyphersystem/icons/background/icon-" + context.sheetSettings.backgroundIcon + ".svg";
         }
       }
     }
 
     // Create logo
     if (actorData.system.basic.unmaskedForm == "Teen" && teenCustomSheetDesign) {
-      data.sheetSettings.logoImage = actorData.system.teen.settings.general.logo.image;
+      context.sheetSettings.logoImage = actorData.system.teen.settings.general.logo.image;
       if (actorData.system.teen.settings.general.logo.image == "custom") {
         if (!actorData.system.teen.settings.general.logo.imagePath) {
-          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          context.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
         } else {
-          data.sheetSettings.logoPath = actorData.system.teen.settings.general.logo.imagePath;
+          context.sheetSettings.logoPath = actorData.system.teen.settings.general.logo.imagePath;
         }
-        data.sheetSettings.logoImageOpacity = actorData.system.teen.settings.general.logo.imageOpacity;
+        context.sheetSettings.logoImageOpacity = actorData.system.teen.settings.general.logo.imageOpacity;
       } else {
-        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.teen.settings.general.logo.image + ".webp";
+        context.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.teen.settings.general.logo.image + ".webp";
       }
     } else if (customSheetDesign) {
-      data.sheetSettings.logoImage = actorData.system.settings.general.logo.image;
+      context.sheetSettings.logoImage = actorData.system.settings.general.logo.image;
       if (actorData.system.settings.general.logo.image == "custom") {
         if (!actorData.system.settings.general.logo.imagePath) {
-          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+          context.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
         } else {
-          data.sheetSettings.logoPath = actorData.system.settings.general.logo.imagePath;
+          context.sheetSettings.logoPath = actorData.system.settings.general.logo.imagePath;
         }
-        data.sheetSettings.logoImageOpacity = actorData.system.settings.general.logo.imageOpacity;
+        context.sheetSettings.logoImageOpacity = actorData.system.settings.general.logo.imageOpacity;
       } else {
-        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.settings.general.logo.image + ".webp";
+        context.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + actorData.system.settings.general.logo.image + ".webp";
       }
     } else {
-      data.sheetSettings.logoImage = getLogoImage();
-      data.sheetSettings.logoPath = getLogoImagePath();
-      data.sheetSettings.logoImageOpacity = getLogoImageOpacity();
-      if (data.sheetSettings.logoImage == "custom") {
-        if (!data.sheetSettings.logoPath) {
-          data.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
+      context.sheetSettings.logoImage = getLogoImage();
+      context.sheetSettings.logoPath = getLogoImagePath();
+      context.sheetSettings.logoImageOpacity = getLogoImageOpacity();
+      if (context.sheetSettings.logoImage == "custom") {
+        if (!context.sheetSettings.logoPath) {
+          context.sheetSettings.logoPath = "/systems/cyphersystem/icons/background/icon-transparent.webp";
         }
       } else {
-        data.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + data.sheetSettings.logoImage + ".webp";
+        context.sheetSettings.logoPath = "systems/cyphersystem/icons/background/compatible-cypher-system-" + context.sheetSettings.logoImage + ".webp";
       }
     }
   }
@@ -672,387 +707,359 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
   */
 
   /** @override */
-  async activateListeners(html) {
-    super.activateListeners(html);
+  static async #onClickItemDescription(event, target) {
+    const itemID = target.closest('.item').dataset.itemId;
+    if (game.keyboard.isModifierActive("Alt"))
+      return this.#sendItemToChat(itemID);
+    else
+      return this.#expandItem(itemID);
+  }
 
-    html.find(".item-description").click(async clickEvent => {
-      if (!game.keyboard.isModifierActive("Alt")) {
-        const shownItem = $(clickEvent.currentTarget).parents(".item");
-        const itemID = shownItem.data("itemId");
-
-        if (game.user.expanded == undefined) {
-          game.user.expanded = {};
-        }
-
-        if (game.user.expanded[itemID] == undefined || game.user.expanded[itemID] == false) {
-          game.user.expanded[itemID] = true;
-        } else {
-          game.user.expanded[itemID] = false;
-        }
-        this._render(false);
-      }
-    });
-
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
-
-    /**
-    * Inventory management
-    */
-
-    // Add Inventory Item
-    html.find(".item-create").click(clickEvent => {
-      const itemCreatedPromise = this._onItemCreate(clickEvent);
-      itemCreatedPromise.then(itemData => {
-        this.actor.items.get(itemData.id).sheet.render(true);
-      });
-    });
-
-    // Edit Inventory Item
-    html.find(".item-edit").click(clickEvent => {
-      this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId")).sheet.render(true);
-    });
-
-    // Mark Item Identified
-    html.find(".identify-item").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-
-      if (game.user.isGM) {
-        item.update({"system.basic.identified": true});
-      } else {
-        ChatMessage.create({
-          content: chatCardMarkItemIdentified(this.actor, item),
-          whisper: ChatMessage.getWhisperRecipients("GM"),
-          blind: true
-        });
-      }
-    });
-
-    // Delete Inventory Item
-    html.find(".item-delete").click(async clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      if (game.keyboard.isModifierActive("Alt")) {
-        if (["tag", "recursion"].includes(item.type)) {
-          if (item.system.active) {
-            await changeTagStats(this.actor, {
-              mightModifier: item.system.settings.statModifiers.might.value,
-              mightEdgeModifier: item.system.settings.statModifiers.might.edge,
-              speedModifier: item.system.settings.statModifiers.speed.value,
-              speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
-              intellectModifier: item.system.settings.statModifiers.intellect.value,
-              intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
-              itemActive: item.system.active
-            });
-          }
-          await removeTagFromItem(this.actor, item._id);
-        }
-        await item.delete();
-      } else {
-        let archived = (item.system.archived) ? false : true;
-        await item.update({"system.archived": archived});
-      }
-    });
-
-    // (Un)Archive tag
-    html.find(".toggle-tag").click(async clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).data("item-id"));
-      await taggingEngineMain(this.actor, {
-        item: item,
-        macroUuid: item.system.settings.macroUuid,
-        statChanges: {
-          mightModifier: item.system.settings.statModifiers.might.value,
-          mightEdgeModifier: item.system.settings.statModifiers.might.edge,
-          speedModifier: item.system.settings.statModifiers.speed.value,
-          speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
-          intellectModifier: item.system.settings.statModifiers.intellect.value,
-          intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
-          itemActive: item.system.active
-        }
-      });
-    });
-
-    // Toggle cypher type
-    html.find(".toggle-cypher-type").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-
-      // Get state
-      let typeArray = item.system.basic.type;
-      let type = typeArray[0];
-      let fantastic = typeArray[1];
-
-      // New state
-      if (game.keyboard.isModifierActive("Alt")) {
-        fantastic = (fantastic === 1) ? 0 : 1;
-      } else {
-        type = (type === 2) ? 0 : type + 1;
-      }
-
-      // Update
-      typeArray[0] = type;
-      typeArray[1] = fantastic;
-      item.update({"system.basic.type": typeArray});
-    });
-
-    // Add to Quantity
-    html.find(".plus-one").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-      let newValue = item.system.basic.quantity + amount;
-      item.update({"system.basic.quantity": newValue});
-    });
-
-    // Subtract from Quantity
-    html.find(".minus-one").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-      let newValue = item.system.basic.quantity - amount;
-      item.update({"system.basic.quantity": newValue});
-    });
-
-    // Roll for level
-    html.find(".rollForLevel").click(async clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      let roll = await new Roll(item.system.basic.level).evaluate();
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker(),
-        flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", {item: item.name})
-      });
-      item.update({"system.basic.level": roll.total});
-    });
-
-    /**
-    * Roll buttons
-    */
-
-    // Item roll buttons
-    html.find(".item-roll").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      const macroUuid = item.system.settings.rollButton.macroUuid;
-
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroUuid, "");
-    });
-
-    // Item pay pool points buttons
-    html.find(".item-pay").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-      const macroUuid = item.system.settings.rollButton.macroUuid;
-
-      itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroUuid, "");
-    });
-
-    // Item cast spell button
-    html.find(".cast-spell").click(clickEvent => {
-      const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-
-      let recoveryUsed = useRecoveries(this.actor, true);
-      if (!recoveryUsed) return;
-
-      ChatMessage.create({
-        speaker: ChatMessage.getSpeaker({actor: this.actor}),
-        content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
-          name: this.actor.name,
-          recoveryUsed: recoveryUsed,
-          spellName: item.name
-        }),
-        flags: {"itemID": item.id}
-      });
-    });
-
-    /**
-    * General sheet functions
-    */
-
-    // Toggle item visibility
-    $(document).ready(function () {
-      const itemFavorite = html.find('.item-favorite.alt');
-      const itemArchived = html.find('.fa-item.archived');
-      const itemUnarchived = html.find('.fa-item.unarchived');
-      const itemCypherNoType = html.find('.fa-item.cypher.no-type');
-      const itemCyherSubtle = html.find('.fa-item.cypher.subtle');
-      const itemCypherManifest = html.find('.fa-item.cypher.manifest');
-      const itemInitiative = html.find('.fa-item.initiative');
-      const itemPayPoolPoints = html.find('.fa-item.pay-pool-points');
-      const statRoll = html.find('.fa-item.stat-roll');
-      const itemAIOInitiative = html.find('.fa-item.aio-initiative');
-      const itemAIOStatRoll = html.find('.fa-item.aio-stat-roll');
-      const itemAIOPayPoolPoints = html.find('.fa-item.aio-pay-pool-points');
-      const recoveryRoll = html.find('.fa-recovery');
-      const quantity = html.find('.fa-item.quantity');
-
-      if (game.keyboard.isModifierActive("Alt")) {
-        // Copy from keydown function to keep icons after clicking
-
-        // Favorite star
-        itemFavorite.css('visibility', 'visible');
-
-        // Archive icons
-        itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
-        itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
-
-        // Cypher icons
-        itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
-        itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
-        itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
-
-        // Roll buttons
-        itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
-        itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-        statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-        itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
-        itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-        itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-
-        // Recovery roll icon
-        recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
-
-        // Quantity
-        quantity.removeClass('fa-regular').addClass('fa-solid');
-      }
-
-      $(document).keydown(function (event) {
-        if (event.altKey) {
-          // Favorite star
-          itemFavorite.css('visibility', 'visible');
-
-          // Archive icons
-          itemArchived.removeClass('fa-arrow-rotate-left').addClass('fa-trash-xmark');
-          itemUnarchived.removeClass('fa-archive').addClass('fa-trash-xmark');
-
-          // Cypher icons
-          itemCypherNoType.removeClass('fa-regular fa-circle').addClass('fa-solid fa-fire-flame-curved');
-          itemCyherSubtle.removeClass('fa-circle-half-stroke').addClass('fa-fire-flame-curved');
-          itemCypherManifest.removeClass('fa-circle').addClass('fa-fire-flame-curved');
-
-          // Roll buttons
-          itemInitiative.removeClass('fa-sword').addClass('fa-ballot');
-          itemPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-          statRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-          itemAIOInitiative.removeClass('fa-ballot').addClass('fa-swords');
-          itemAIOStatRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-          itemAIOPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-
-          // Recovery roll icon
-          recoveryRoll.removeClass('fa-solid').addClass('fa-regular');
-
-          // Quantity
-          quantity.removeClass('fa-regular').addClass('fa-solid');
-        }
-      });
-
-      $(document).keyup(function (event) {
-        if (!event.altKey) {
-          // Favorite star
-          itemFavorite.css('visibility', 'hidden');
-          // itemFavorite.attr('display', 'none');
-
-          // Archive icons
-          itemArchived.removeClass('fa-trash-xmark').addClass('fa-arrow-rotate-left');
-          itemUnarchived.removeClass('fa-trash-xmark').addClass('fa-archive');
-
-          // Cypher icons
-          itemCypherNoType.removeClass('fa-solid fa-fire-flame-curved').addClass('fa-regular fa-circle');
-          itemCyherSubtle.removeClass('fa-fire-flame-curved').addClass('fa-circle-half-stroke');
-          itemCypherManifest.removeClass('fa-fire-flame-curved').addClass('fa-circle');
-
-          // Roll buttons
-          itemInitiative.removeClass('fa-ballot').addClass('fa-swords');
-          itemPayPoolPoints.removeClass('fa-ballot').addClass('fa-coins');
-          statRoll.removeClass('fa-ballot').addClass('fa-dice-d20');
-          itemAIOInitiative.removeClass('fa-swords').addClass('fa-ballot');
-          itemAIOStatRoll.removeClass('fa-dice-d20').addClass('fa-ballot');
-          itemAIOPayPoolPoints.removeClass('fa-coins').addClass('fa-ballot');
-
-          // Recovery roll icon
-          recoveryRoll.removeClass('fa-regular').addClass('fa-solid');
-
-          // Quantity
-          quantity.removeClass('fa-solid').addClass('fa-regular');
-        }
-      });
-    });
-
-    // Send item description to chat
-    html.find(".item-description").click(clickEvent => {
-      if (game.keyboard.isModifierActive("Alt")) {
-        const item = this.actor.items.get($(clickEvent.currentTarget).parents(".item").data("itemId"));
-        if (item.system.basic.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
-        let message = "";
-        let brackets = "";
-        let description = `<hr style="margin:3px 0;"><img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + item.system.description;
-        let points = "";
-        let notes = "";
-        let name = item.name;
-        if (item.system.basic.notes != "") notes = ", " + item.system.basic.notes;
-        if (item.type == "skill") {
-          brackets = " (" + item.system.basic.rating + ")";
-        } else if (item.type == "power-shift") {
-          brackets = " (" + item.system.basic.shifts + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
-        } else if (item.type == "ability") {
-          points = (item.system.basic.cost == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.point") : " " + game.i18n.localize("CYPHERSYSTEM.points");
-          if (item.system.basic.cost != 0 && item.system.basic.cost != 0) brackets = " (" + item.system.basic.cost + " " + item.system.basic.pool + points + ")";
-        } else if (item.type == "attack") {
-          points = (item.system.basic.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
-          let damage = ", " + item.system.basic.damage + " " + points;
-          let attackType = item.system.basic.type;
-          let range = "";
-          if (item.system.basic.range != "") range = ", " + item.system.basic.range;
-          brackets = " (" + attackType + damage + range + notes + ")";
-        } else if (item.type == "armor") {
-          brackets = " (" + item.system.basic.type + notes + ")";
-        } else if (item.type == "lasting-damage") {
-          let permanent = "";
-          if (item.system.basic.type == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
-          brackets = " (" + item.system.basic.pool + permanent + ")";
-        } else {
-          if (item.system.basic.level) brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
-        }
-        message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
-        ChatMessage.create({
-          speaker: ChatMessage.getSpeaker(),
-          content: message
-        });
-      }
-    });
-
-    // Drag events for macros
-    if (this.actor.isOwner) {
-      let handler = ev => this._onDragStart(ev);
-      // Find all items on the character sheet.
-      html.find("li.item").each((i, li) => {
-        // Ignore for the header row.
-        if (li.classList.contains("item-header")) return;
-        if (li.classList.contains("non-draggable")) return;
-        if (li.classList.contains("item-settings")) return;
-        // Add draggable attribute and dragstart listener.
-        li.setAttribute("draggable", true);
-        li.addEventListener("dragstart", handler, false);
-      });
+  async #expandItem(itemID) {
+    if (game.user.expanded == undefined) {
+      game.user.expanded = {};
     }
 
-    /**
-    * Health management for NPCs, Companions, and Communities
-    */
+    if (game.user.expanded[itemID] == undefined || game.user.expanded[itemID] == false) {
+      game.user.expanded[itemID] = true;
+    } else {
+      game.user.expanded[itemID] = false;
+    }
+    return this.render(false);
+  }
 
-    // Increase Health
-    html.find(".increase-health").click(clickEvent => {
-      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-      let newValue = this.actor.system.pools.health.value + amount;
-      this.actor.update({"system.pools.health.value": newValue});
+  // Send item description to chat
+  async #sendItemToChat(itemId) {
+    const item = this.actor.items.get(itemId);
+
+    if (item.system.basic.identified === false) return ui.notifications.warn(game.i18n.localize("CYPHERSYSTEM.WarnSentUnidentifiedToChat"));
+    let message = "";
+    let brackets = "";
+    let description = `<hr style="margin:3px 0;"><img class="description-image-chat" src="${item.img}" width="50" height="50"/>` + item.system.description;
+    let points = "";
+    let notes = "";
+    let name = item.name;
+    if (item.system.basic.notes != "") notes = ", " + item.system.basic.notes;
+    if (item.type == "skill") {
+      brackets = " (" + item.system.basic.rating + ")";
+    } else if (item.type == "power-shift") {
+      brackets = " (" + item.system.basic.shifts + " " + game.i18n.localize("CYPHERSYSTEM.Shifts") + ")";
+    } else if (item.type == "ability") {
+      points = (item.system.basic.cost == "1") ? " " + game.i18n.localize("CYPHERSYSTEM.point") : " " + game.i18n.localize("CYPHERSYSTEM.points");
+      if (item.system.basic.cost != 0 && item.system.basic.cost != 0) brackets = " (" + item.system.basic.cost + " " + item.system.basic.pool + points + ")";
+    } else if (item.type == "attack") {
+      points = (item.system.basic.damage == 1) ? " " + game.i18n.localize("CYPHERSYSTEM.PointOfDamage") : " " + game.i18n.localize("CYPHERSYSTEM.PointsOfDamage");
+      let damage = ", " + item.system.basic.damage + " " + points;
+      let attackType = item.system.basic.type;
+      let range = "";
+      if (item.system.basic.range != "") range = ", " + item.system.basic.range;
+      brackets = " (" + attackType + damage + range + notes + ")";
+    } else if (item.type == "armor") {
+      brackets = " (" + item.system.basic.type + notes + ")";
+    } else if (item.type == "lasting-damage") {
+      let permanent = "";
+      if (item.system.basic.type == "Permanent") permanent = ", " + game.i18n.localize("CYPHERSYSTEM.permanent");
+      brackets = " (" + item.system.basic.pool + permanent + ")";
+    } else {
+      if (item.system.basic.level) brackets = " (" + game.i18n.localize("CYPHERSYSTEM.level") + " " + item.system.basic.level + ")";
+    }
+    message = "<b>" + item.type.capitalize() + ": " + name + "</b>" + brackets + description;
+    ChatMessage.create({
+      speaker: ChatMessage.getSpeaker(),
+      content: message
     });
+  }
 
-    // Decrease Health
-    html.find(".decrease-health").click(clickEvent => {
-      let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
-      let newValue = this.actor.system.pools.health.value - amount;
-      this.actor.update({"system.pools.health.value": newValue});
-    });
+  /**
+  * Inventory management
+  */
 
-    // Reset Health
-    html.find(".reset-health").click(clickEvent => {
-      this.actor.update({
-        "system.pools.health.value": this.actor.system.pools.health.max
+  // Add Inventory Item
+  static async #onItemCreate(event, target) {
+    const itemData = await this._onItemCreate(event, target);
+    this.actor.items.get(itemData.id).sheet.render(true);
+  }
+
+  // Edit Inventory Item
+  static async #onItemEdit(event, target) {
+    this.actor.items.get(target.closest('.item').dataset.itemId).sheet.render(true);
+  }
+
+  // Mark Item Identified
+  static async #onItemIdentify(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+
+    if (game.user.isGM) {
+      item.update({ "system.basic.identified": true });
+    } else {
+      ChatMessage.create({
+        content: chatCardMarkItemIdentified(this.actor, item),
+        whisper: ChatMessage.getWhisperRecipients("GM"),
+        blind: true
       });
+    }
+  }
+
+  // Delete Inventory Item
+  static async #onItemDelete(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+    if (game.keyboard.isModifierActive("Alt")) {
+      if (["tag", "recursion"].includes(item.type)) {
+        if (item.system.active) {
+          await changeTagStats(this.actor, {
+            mightModifier: item.system.settings.statModifiers.might.value,
+            mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+            speedModifier: item.system.settings.statModifiers.speed.value,
+            speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+            intellectModifier: item.system.settings.statModifiers.intellect.value,
+            intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+            itemActive: item.system.active
+          });
+        }
+        await removeTagFromItem(this.actor, item._id);
+      }
+      await item.delete();
+    } else {
+      let archived = (item.system.archived) ? false : true;
+      await item.update({ "system.archived": archived });
+    }
+  }
+
+  // (Un)Archive tag
+  static async #onToggleTag(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+    await taggingEngineMain(this.actor, {
+      item: item,
+      macroUuid: item.system.settings.macroUuid,
+      statChanges: {
+        mightModifier: item.system.settings.statModifiers.might.value,
+        mightEdgeModifier: item.system.settings.statModifiers.might.edge,
+        speedModifier: item.system.settings.statModifiers.speed.value,
+        speedEdgeModifier: item.system.settings.statModifiers.speed.edge,
+        intellectModifier: item.system.settings.statModifiers.intellect.value,
+        intellectEdgeModifier: item.system.settings.statModifiers.intellect.edge,
+        itemActive: item.system.active
+      }
     });
+  }
+
+  // Toggle cypher type
+  static async #onToggleCypherType(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+
+    // Get state
+    let typeArray = item.system.basic.type;
+    let type = typeArray[0];
+    let fantastic = typeArray[1];
+
+    // New state
+    if (game.keyboard.isModifierActive("Alt")) {
+      fantastic = (fantastic === 1) ? 0 : 1;
+    } else {
+      type = (type === 2) ? 0 : type + 1;
+    }
+
+    // Update
+    typeArray[0] = type;
+    typeArray[1] = fantastic;
+    item.update({ "system.basic.type": typeArray });
+  }
+
+  // Roll for level
+  static async #onRollForLevel(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+    let roll = await new Roll(item.system.basic.level).evaluate();
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker(),
+      flavor: game.i18n.format("CYPHERSYSTEM.RollForLevel", { item: item.name })
+    });
+    item.update({ "system.basic.level": roll.total });
+  }
+
+  /**
+  * Roll buttons
+  */
+
+  // Item roll buttons
+  static async #onItemRoll(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+    const macroUuid = item.system.settings.rollButton.macroUuid;
+
+    itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", false, "", macroUuid, "");
+  }
+
+  // Item pay pool points buttons
+  static async #onItemRollPay(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+    const macroUuid = item.system.settings.rollButton.macroUuid;
+
+    itemRollMacro(this.actor, item.id, "", "", "", "", "", "", "", "", "", "", "", "", true, "", macroUuid, "");
+  }
+
+  // Item cast spell button
+  static async #onCastSpell(event, target) {
+    const item = this.actor.items.get(target.closest('.item').dataset.itemId);
+
+    let recoveryUsed = useRecoveries(this.actor, true);
+    if (!recoveryUsed) return;
+
+    ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: game.i18n.format("CYPHERSYSTEM.CastingASpell", {
+        name: this.actor.name,
+        recoveryUsed: recoveryUsed,
+        spellName: item.name
+      }),
+      flags: { "itemID": item.id }
+    });
+  }
+
+  /**
+  * General sheet functions
+  */
+
+  // Toggle item visibility
+  #keyHandler;
+
+  #swapClass(selector, removeClass, addClass) {
+    const elements = this.element.querySelectorAll(selector);
+    if (!elements) return;
+    for (const element of elements) {
+      element.classList.remove(removeClass.split(' '));
+      element.classList.add(addClass.split(' '));
+    }
+  }
+
+  #setStyle(selector, attribute, value) {
+    const elements = this.element.querySelectorAll(selector);
+    if (!elements) return;
+    for (const element of elements) {
+      element.style[attribute] = value;
+    }
+  }
+
+  #showAlt() {
+    // Favorite star
+    this.#setStyle('.item-favorite.alt', 'visibility', 'visible');
+
+    // Archive icons
+    this.#swapClass('.fa-item.archived', 'fa-arrow-rotate-left', 'fa-trash-xmark');
+    this.#swapClass('.fa-item.unarchived', 'fa-archive', 'fa-trash-xmark');
+
+    // Cypher icons
+    this.#swapClass('.fa-item.cypher.no-type', 'fa-regular fa-circle', 'fa-solid fa-fire-flame-curved');
+    this.#swapClass('.fa-item.cypher.subtle', 'fa-circle-half-stroke', 'fa-fire-flame-curved');
+    this.#swapClass('.fa-item.cypher.manifest', 'fa-circle', 'fa-fire-flame-curved');
+
+    // Roll buttons
+    this.#swapClass('.fa-item.initiative', 'fa-sword', 'fa-ballot');
+    this.#swapClass('.fa-item.pay-pool-points', 'fa-coins', 'fa-ballot');
+    this.#swapClass('.fa-item.stat-roll', 'fa-dice-d20', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-initiative', 'fa-ballot', 'fa-swords');
+    this.#swapClass('.fa-item.aio-stat-roll', 'fa-ballot', 'fa-dice-d20');
+    this.#swapClass('.fa-item.aio-pay-pool-points', 'fa-ballot', 'fa-coins');
+
+    // Recovery roll icon
+    this.#swapClass('.fa-recovery', 'fa-solid', 'fa-regular');
+
+    // Quantity
+    this.#swapClass('.fa-item.quantity', 'fa-regular', 'fa-solid');
+  }
+
+  #unshowAlt() {
+    // Favorite star
+    this.#setStyle('.item-favorite.alt', 'visibility', 'hidden');
+
+    // Archive icons
+    this.#swapClass('.fa-item.archived', 'fa-trash-xmark', 'fa-arrow-rotate-left');
+    this.#swapClass('.fa-item.unarchived', 'fa-trash-xmark', 'fa-archive');
+
+    // Cypher icons
+    this.#swapClass('.fa-item.cypher.no-type', 'fa-solid fa-fire-flame-curved', 'fa-regular fa-circle');
+    this.#swapClass('.fa-item.cypher.subtle', 'fa-fire-flame-curved', 'fa-circle-half-stroke');
+    this.#swapClass('.fa-item.cypher.manifest', 'fa-fire-flame-curved', 'fa-circle');
+
+    // Roll buttons
+    this.#swapClass('.fa-item.initiative', 'fa-ballot', 'fa-swords');
+    this.#swapClass('.fa-item.pay-pool-points', 'fa-ballot', 'fa-coins');
+    this.#swapClass('.fa-item.stat-roll', 'fa-ballot', 'fa-dice-d20');
+    this.#swapClass('.fa-item.aio-initiative', 'fa-swords', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-stat-roll', 'fa-dice-d20', 'fa-ballot');
+    this.#swapClass('.fa-item.aio-pay-pool-points', 'fa-coins', 'fa-ballot');
+
+    // Recovery roll icon
+    this.#swapClass('.fa-recovery', 'fa-regular', 'fa-solid');
+
+    // Quantity
+    this.#swapClass('.fa-item.quantity', 'fa-solid', 'fa-regular');
+  }
+
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
+    if (game.keyboard.isModifierActive("Alt"))
+      this.#showAlt();
+
+    this.#keyHandler ??= this.#onKeyUpDown.bind(this);
+    document.addEventListener('keydown', this.#keyHandler);
+    document.addEventListener('keyup', this.#keyHandler);
+  };
+
+  #onKeyUpDown(event) {
+    if (event.type === 'keydown' && event.altKey)
+      this.#showAlt();
+    else if (event.type === 'keyup' && !event.altKey)
+      this.#unshowAlt();
+  }
+
+  _onClose(options) {
+    super._onClose(options);
+    document.removeEventListener('keydown', this.#keyHandler);
+    document.removeEventListener('keyup', this.#keyHandler);
+    this.#keyHandler = undefined;
+  }
+
+  /**
+  * Health management for NPCs, Companions, and Communities
+  */
+
+  // Increase field (data-field = full field path)
+  static async #onIncField(event, target) {
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+    let newValue = foundry.utils.getProperty(document, field) + amount;
+    return document.update({ [field]: newValue });
+  };
+
+  // Decrease Field (data-field = full field path)
+  static async #onDecField(event, target) {
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    let amount = (game.keyboard.isModifierActive("Alt")) ? 10 : 1;
+    let newValue = foundry.utils.getProperty(document, field) - amount;
+    return document.update({ [field]: newValue });
+  }
+
+  // Reset Field (data-field = base field name, not including .value or .max)
+  static async #onResetField(event, target) {
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    return document.update({ [`${field}.value`]: foundry.utils.getProperty(document, field).max });
+  }
+
+  static async #onToggleField(event, target) {
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    const item = this.actor.items.get(target.closest('.item')?.dataset.itemId);
+    const document = item ?? this.actor;
+    document.update({ [`${field}`]: !foundry.utils.getProperty(document, field) });
   }
 
   /**
@@ -1124,30 +1131,33 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     // Handle unique items
     if (typesUniqueItems.includes(originItem.type)) {
       if (originActor) {
-        let d = new Dialog({
-          title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
-          content: "",
-          buttons: {
-            move: {
-              icon: "<i class='fa-item fas fa-archive'></i>",
-              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
-              callback: (html) => archiveItem()
-            },
-            moveAll: {
-              icon: "<i class='fa-item fas fa-trash-xmark'></i>",
-              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
-              callback: (html) => deleteItem()
-            },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
-              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => {}
-            }
+        let d = new foundry.applications.api.DialogV2({
+          window: {
+            title: game.i18n.localize("CYPHERSYSTEM.ItemShouldBeArchivedOrDeleted"),
           },
-          default: "move",
-          close: () => {}
+          content: "",
+          buttons: [
+            {
+              action: 'archive',
+              icon: "fa-item fas fa-archive",
+              label: game.i18n.localize("CYPHERSYSTEM.Archive"),
+              default: true,
+              callback: () => archiveItem()
+            },
+            {
+              action: 'delete',
+              icon: "fa-item fas fa-trash-xmark",
+              label: game.i18n.localize("CYPHERSYSTEM.Delete"),
+              callback: () => deleteItem()
+            },
+            {
+              icon: "fa-item fas fa-times",
+              label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
+              callback: () => { }
+            }
+          ]
         });
-        d.render(true, {width: "auto"});
+        d.render(true, { width: "auto" });
       } else {
         // Handle cypher & artifact identification from world items
         if (["cypher", "artifact"].includes(originItem.type)) {
@@ -1175,14 +1185,12 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       moveDialog();
 
       function moveDialog() {
-        let d = new Dialog({
-          title: game.i18n.format("CYPHERSYSTEM.MoveItem", {name: originItem.name}),
+        let d = new foundry.applications.api.DialogV2({
+          window: { title: game.i18n.format("CYPHERSYSTEM.MoveItem", { name: originItem.name }) },
           content: createContent(),
           buttons: createButtons(),
-          default: "move",
-          close: () => {}
         });
-        d.render(true, {width: "auto"});
+        d.render(true, /*{ width: "auto" }*/);
       }
 
       function createContent() {
@@ -1194,49 +1202,58 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
 
       function createButtons() {
         if (maxQuantity == null) {
-          return {
-            move: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+          return [
+            {
+              action: 'move',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.find("#quantity").val(), originItem)
+              callback: (event, target, dialog) => 
+                moveItems(dialog.element.querySelector("#quantity").value, originItem),
+              default: true,
             },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
+            {
+              action: 'cancel',
+              icon: "fa-item fas fa-times",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => {}
+              callback: () => { }
             }
-          };
+          ];
         } else {
-          return {
-            move: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+          return [
+            {
+              action: 'move',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.Move"),
-              callback: (html) => moveItems(html.find("#quantity").val(), originItem)
+              callback: (event, target, dialog) =>
+                moveItems(dialog.element.querySelector("#quantity").value, originItem),
+              default: true,
             },
-            moveAll: {
-              icon: "<i class='fa-item fas fa-share-square'></i>",
+            {
+              action: 'moveAll',
+              icon: "fa-item fas fa-share-square",
               label: game.i18n.localize("CYPHERSYSTEM.MoveAll"),
-              callback: (html) => moveItems(maxQuantity, originItem)
+              callback: () => moveItems(maxQuantity, originItem)
             },
-            cancel: {
-              icon: "<i class='fa-item fas fa-times'></i>",
+            {
+              action: 'cancel',
+              icon: "fa-item fas fa-times",
               label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-              callback: () => {}
+              callback: () => { }
             }
-          };
+          ];
         }
       }
 
       function moveItems(quantity) {
         quantity = parseInt(quantity);
-        if (quantity == null) {quantity = 0;};
+        if (quantity == null) { quantity = 0; };
         if (originActor && (quantity > originItem.system.basic.quantity || quantity <= 0)) {
           moveDialog(quantity);
-          return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", {max: originItem.system.basic.quantity}));
+          return ui.notifications.warn(game.i18n.format("CYPHERSYSTEM.CanOnlyMoveCertainAmountOfItems", { max: originItem.system.basic.quantity }));
         }
         if (originActor) {
           let oldQuantity = parseInt(originItem.system.basic.quantity) - quantity;
-          originItem.update({"system.basic.quantity": oldQuantity});
+          originItem.update({ "system.basic.quantity": oldQuantity });
           enableItemLists();
         }
         if (!targetItem) {
@@ -1245,7 +1262,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
           enableItemLists();
         } else {
           let newQuantity = parseInt(targetItem.system.basic.quantity) + quantity;
-          targetItem.update({"system.basic.quantity": newQuantity});
+          targetItem.update({ "system.basic.quantity": newQuantity });
           enableItemLists();
         }
       }
@@ -1253,42 +1270,42 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     async function enableItemLists() {
       if (originItem.type == "artifact") {
-        targetActor.update({"system.settings.equipment.artifacts.active": true});
+        targetActor.update({ "system.settings.equipment.artifacts.active": true });
       }
       else if (originItem.type == "cypher") {
-        targetActor.update({"system.settings.equipment.cyphers.active": true});
+        targetActor.update({ "system.settings.equipment.cyphers.active": true });
       }
       else if (originItem.type == "oddity") {
-        targetActor.update({"system.settings.equipment.oddities.active": true});
+        targetActor.update({ "system.settings.equipment.oddities.active": true });
       }
       else if (originItem.type == "material") {
-        targetActor.update({"system.settings.equipment.materials.active": true});
+        targetActor.update({ "system.settings.equipment.materials.active": true });
       }
       else if (originItem.type == "ammo" && targetActor.type == "pc") {
-        targetActor.update({"system.settings.combat.ammo.active": true});
+        targetActor.update({ "system.settings.combat.ammo.active": true });
       }
       else if (originItem.type == "ammo" && targetActor.type != "pc") {
-        targetActor.update({"system.settings.equipment.ammo.active": true});
+        targetActor.update({ "system.settings.equipment.ammo.active": true });
       }
       else if (originItem.type == "power-shift" && targetActor.type == "pc") {
-        targetActor.update({"system.settings.skills.powerShifts.active": true});
+        targetActor.update({ "system.settings.skills.powerShifts.active": true });
       }
       else if (originItem.type == "lasting-damage" && targetActor.type == "pc") {
-        targetActor.update({"system.settings.combat.lastingDamage.active": true});
+        targetActor.update({ "system.settings.combat.lastingDamage.active": true });
       }
       else if (originItem.type == "attack" && targetActor.type != "pc") {
-        targetActor.update({"system.settings.equipment.attacks.active": true});
+        targetActor.update({ "system.settings.equipment.attacks.active": true });
       }
       else if (originItem.type == "armor" && targetActor.type != "pc") {
-        targetActor.update({"system.settings.equipment.armor.active": true});
+        targetActor.update({ "system.settings.equipment.armor.active": true });
       }
       else if (originItem.type == "tag" && targetActor.type == "pc") {
-        targetActor.update({"system.settings.general.tags.active": true});
+        targetActor.update({ "system.settings.general.tags.active": true });
       }
     }
 
     async function archiveItem() {
-      originItem.update({"system.archived": true});
+      originItem.update({ "system.archived": true });
       targetActor.createEmbeddedDocuments("Item", [originItemData]);
       enableItemLists();
     }
@@ -1340,9 +1357,9 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
   * @param {Event} event   The originating click event
   * @private
   */
-  _onItemCreate(event) {
+  _onItemCreate(event, target) {
     event.preventDefault();
-    const header = event.currentTarget;
+    const header = target;
 
     // Get the type of item to create.
     const type = header.dataset.type;
@@ -1371,17 +1388,6 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     const name = (types[type] || types["default"]);
 
     // Finally, create the item!
-    return Item.create({type: type, data, name: name}, {parent: this.actor});
-  }
-
-  /**
-   * Support for TinyMCE dynamic size
-   */
-
-  async activateEditor(name, options = {}, initialContent = "") {
-    options.fitToSize = true;
-    const editor = await super.activateEditor(name, options, initialContent);
-    this.form.querySelector('[role="application"]')?.style.removeProperty("height");
-    return editor;
+    return Item.create({ type: type, data, name: name }, { parent: this.actor });
   }
 }

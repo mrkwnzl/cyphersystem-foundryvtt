@@ -1,22 +1,22 @@
 // Import actors & items
-import {CypherActor} from "./actor/actor.js";
-import {CypherItem} from "./item/item.js";
+import { CypherActor } from "./actor/actor.js";
+import { CypherItem } from "./item/item.js";
 
 // Import actor & item sheets
-import {CypherItemSheet} from "./item/item-sheet.js";
-import {CypherActorSheet} from "./actor/actor-sheet.js";
-import {CypherActorSheetPC} from "./actor/pc-sheet.js";
-import {CypherActorSheetNPC} from "./actor/npc-sheet.js";
-import {CypherActorSheetCommunity} from "./actor/community-sheet.js";
-import {CypherActorSheetCompanion} from "./actor/companion-sheet.js";
-import {CypherActorSheetMarker} from "./actor/marker-sheet.js";
-import {CypherActorSheetVehicle} from "./actor/vehicle-sheet.js";
+import { CypherItemSheet } from "./item/item-sheet.js";
+import { CypherActorSheet } from "./actor/actor-sheet.js";
+import { CypherActorSheetPC } from "./actor/pc-sheet.js";
+import { CypherActorSheetNPC } from "./actor/npc-sheet.js";
+import { CypherActorSheetCommunity } from "./actor/community-sheet.js";
+import { CypherActorSheetCompanion } from "./actor/companion-sheet.js";
+import { CypherActorSheetMarker } from "./actor/marker-sheet.js";
+import { CypherActorSheetVehicle } from "./actor/vehicle-sheet.js";
 
 // Import utility functions
-import {preloadTemplates} from "./utilities/template-paths.js";
-import {applyXPFromIntrusion, regainPoolPoints} from "./utilities/actor-utilities.js";
-import {sendWelcomeMessage} from "./utilities/welcome-message.js";
-import {createCyphersystemMacro} from "./utilities/create-macros.js";
+import { preloadTemplates } from "./utilities/template-paths.js";
+import { applyXPFromIntrusion, regainPoolPoints } from "./utilities/actor-utilities.js";
+import { sendWelcomeMessage } from "./utilities/welcome-message.js";
+import { createCyphersystemMacro } from "./utilities/create-macros.js";
 
 import {initActorModels} from './datamodels/actors/index.js';
 import {initItemModels} from './datamodels/items/index.js';
@@ -65,19 +65,19 @@ import {
   chatCardWelcomeMessage,
   chatCardRegainPoints
 } from "./utilities/chat-cards.js";
-import {barBrawlOverwrite} from "./utilities/token-utilities.js";
-import {registerGameSettings} from "./utilities/game-settings.js";
-import {registerHandlebars} from "./utilities/handlebars.js";
-import {gameSockets} from "./utilities/game-sockets.js";
-import {initiativeSettings} from "./utilities/initiative-settings.js";
-import {dataMigration, dataMigrationPacks} from "./utilities/migration.js";
-import {rollEngineMain} from "./utilities/roll-engine/roll-engine-main.js";
-import {rollEngineComputation} from "./utilities/roll-engine/roll-engine-computation.js";
-import {rollEngineForm} from "./utilities/roll-engine/roll-engine-form.js";
-import {rollEngineOutput} from "./utilities/roll-engine/roll-engine-output.js";
-import {gmiRangeForm, renderGMIForm} from "./forms/gmi-range-sheet.js";
-import {changeTagStats} from "./utilities/tagging-engine/tagging-engine-computation.js";
-import {renderRollDifficultyForm} from "./forms/roll-difficulty-sheet.js";
+import { barBrawlOverwrite } from "./utilities/token-utilities.js";
+import { registerGameSettings } from "./utilities/game-settings.js";
+import { registerHandlebars } from "./utilities/handlebars.js";
+import { gameSockets } from "./utilities/game-sockets.js";
+import { initiativeSettings } from "./utilities/initiative-settings.js";
+import { dataMigration, dataMigrationPacks } from "./utilities/migration.js";
+import { rollEngineMain } from "./utilities/roll-engine/roll-engine-main.js";
+import { rollEngineComputation } from "./utilities/roll-engine/roll-engine-computation.js";
+import { rollEngineForm } from "./utilities/roll-engine/roll-engine-form.js";
+import { rollEngineOutput } from "./utilities/roll-engine/roll-engine-output.js";
+import { gmiRangeForm, renderGMIForm } from "./forms/gmi-range-sheet.js";
+import { changeTagStats } from "./utilities/tagging-engine/tagging-engine-computation.js";
+import { renderRollDifficultyForm } from "./forms/roll-difficulty-sheet.js";
 import {
   changePortraitAndToken,
   executeSeriesOfMacros,
@@ -85,7 +85,7 @@ import {
   payXP,
   useAmmo
 } from "./macros/macros-scripting.js";
-import {CypherSystemTokenRuler, CypherSystemToken} from "./utilities/token-ruler.js";
+import { CypherSystemTokenRuler, CypherSystemToken } from "./utilities/token-ruler.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -465,7 +465,7 @@ Hooks.on("preUpdateItem", async function (item, changes, options, userId) {
   }
 });
 
-Hooks.on("updateItem", async function (item, changes, options, userId) {});
+Hooks.on("updateItem", async function (item, changes, options, userId) { });
 
 Hooks.on("preCreateToken", function (document, data) {
   if (!data.actorId) return;
@@ -480,7 +480,7 @@ Hooks.on("preCreateToken", function (document, data) {
   }
 });
 
-Hooks.on("preMoveToken", function (document, movement, operation) {});
+Hooks.on("preMoveToken", function (document, movement, operation) { });
 
 Hooks.on("moveToken", async function (document, movement, operation, user) {
   if (document.movement.state === "completed") {
@@ -546,8 +546,9 @@ Hooks.on("updateCombat", function () {
   }
 });
 
-Hooks.on("renderChatMessage", function (message, html, data) {
+Hooks.on("renderChatMessageHTML", function (message, html) {
   // Hide buttons
+  html = $(html);  // convert to jQuery (until we fix this function)
   if (html.find(".chat-card-buttons").data("actor")) {
     let actor = game.actors.get(html.find(".chat-card-buttons").data("actor"));
     if (!actor.isOwner) html.find("div[class='chat-card-buttons']").addClass("chat-hidden");
@@ -680,14 +681,14 @@ Hooks.on("renderChatMessage", function (message, html, data) {
 
     // Create list of PCs
     let list = "";
-    for (let actor of game.actors.contents) {
+    for (const actor of game.actors) {
       if (
         actor.type === "pc" &&
         actor._id != html.find(".accept-intrusion").data("actor") &&
         actor.hasPlayerOwner
       ) {
-        let owners = "";
-        for (let user of game.users.contents) {
+        const owners = "";
+        for (const user of game.users) {
           if (!user.isGM) {
             let ownerID = user._id;
             if (actor.ownership[ownerID] == 3) {
@@ -707,31 +708,30 @@ Hooks.on("renderChatMessage", function (message, html, data) {
       `</select></div>`;
 
     // Create dialog
-    let d = new Dialog({
-      title: game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXP"),
+    let d = new foundry.applications.api.DialogV2({
+      window: { title: game.i18n.localize("CYPHERSYSTEM.GiveAdditionalXP") },
       content: content,
-      buttons: {
-        apply: {
-          icon: '<i class="fa-item fas fa-check"></i>',
+      buttons: [
+        {
+          action: 'apply',
+          icon: "fa-item fas fa-check",
           label: game.i18n.localize("CYPHERSYSTEM.Apply"),
-          callback: (html) =>
-            applyXPFromIntrusion(actor, html.find("#selectPC").val(), data.message._id, 1)
+          default: true,
+          callback: (event, target, dialog) =>
+            applyXPFromIntrusion(actor, dialog.element.querySelector("#selectPC").value, message.id, 1)
         },
-        cancel: {
-          icon: '<i class="fa-item fas fa-times"></i>',
+        {
+          action: 'cancel',
+          icon: "fa-item fas fa-times",
           label: game.i18n.localize("CYPHERSYSTEM.Cancel"),
-          callback: () => {}
+          callback: () => { }
         }
-      },
-      default: "apply",
-      close: () => {}
+      ],
     });
     if (list == "") {
-      applyXPFromIntrusion(actor, "", data.message._id, 1);
+      applyXPFromIntrusion(actor, "", message.id, 1);
     } else {
-      d.render(true, {
-        width: "auto"
-      });
+      d.render(true, { width: "auto" });
     }
   });
 
@@ -840,6 +840,6 @@ Hooks.on("renderTokenConfig", function (tokenConfig, html, data) {
     game.modules.get("barbrawl")?.active &&
     game.settings.get("cyphersystem", "barBrawlDefaults")
   ) {
-    html.find("a[data-tab='resources']").addClass("hidden");
+    html.querySelector("a[data-tab='resources']").classList.add("hidden");
   }
 });

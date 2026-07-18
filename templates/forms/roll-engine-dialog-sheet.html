@@ -1,4 +1,4 @@
-<form class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}}" autocomplete="off">
+<div class="{{sheetSettings.backgroundImageBaseSetting}} {{sheetSettings.backgroundImage}} flexcol" style="background-image: url({{sheetSettings.backgroundImagePath}}" autocomplete="off">
 
   {{!-- Transparent Overlay --}}
   <div class="background-image-rectangle {{sheetSettings.backgroundImage}}" style="opacity: {{sheetSettings.backgroundOverlayOpacity}};"></div>
@@ -70,7 +70,7 @@
       </div>
 
 
-      <div align="center">
+      <div class="flexcol" align="center">
         <label class="roll-engine-heading"><b>{{localize "CYPHERSYSTEM.Summary"}}</b></label><br>
         <label class="roll-engine-label-summary">{{this.summaryTitle}}</label>
         <label class="roll-engine-label-summary">{{this.summaryTaskModified}}</label>
@@ -82,6 +82,7 @@
         {{/if}}
         <label class="roll-engine-label-summary">{{this.summaryTotalCostString}}</label>
 
+        <p class="flex1"></p>
         <div class="roll-engine-summary-bottom">
           {{#if (gt this.gmiRange 1)}}
             <label class="roll-engine-label-summary">{{this.summaryGMIRange}}</label>
@@ -126,19 +127,20 @@
           <input class="roll-engine-input {{this.multiRollIntellectEdge}} {{this.exceedIntellect}}" name="intellect" id="intellect" type="text" value="{{this.intellectValue}}/{{this.intellectMax}} ({{this.intellectEdge}})" disabled /><br>
           <hr class="hr-roll-engine">
 
-          <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.RollButtonTooltip'}}" data-button="roll">
+          <div class="flexrow dialog-buttons">
+          <button type="button" class="dialog-button roll-engine-roll roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.RollButtonTooltip'}}" data-button="roll" data-action="roll">
             <i class="fa-item fas fa-dice-d20"></i> {{localize "CYPHERSYSTEM.Roll"}}
           </button>
-          <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.PayButtonTooltip'}}" data-button="pay">
+          <button type="button" class="dialog-button roll-engine-pay roll-engine-button {{this.disabledButton}}" title="{{localize 'CYPHERSYSTEM.PayButtonTooltip'}}" data-button="pay" data-action="pay">
             <i class="fa-item fas fa-coins"></i> {{localize "CYPHERSYSTEM.Pay"}}
           </button>
-          <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" title="{{localize 'CYPHERSYSTEM.CancelButtonTooltip'}}" data-button="cancel">
+          <button type="button" class="dialog-button roll-engine-cancel roll-engine-button" title="{{localize 'CYPHERSYSTEM.CancelButtonTooltip'}}" data-button="cancel" data-action="cancel">
             <i class="fa-item fas fa-times"></i> {{localize "CYPHERSYSTEM.Cancel"}}
           </button>
-
+          </div>
         </div>
       </div>
 
     </div>
   </section>
-</form>
+</div>

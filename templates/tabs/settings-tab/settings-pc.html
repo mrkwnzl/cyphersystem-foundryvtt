@@ -1,4 +1,4 @@
-<div class="tab settings" data-group="primary" data-tab="settings">
+<div class="tab settings {{tabs.settings.cssClass}}" data-group="{{tabs.settings.group}}" data-tab="{{tabs.settings.id}}">
 
   <div class="flexrow">
     <ol class="items-list">
@@ -498,11 +498,11 @@
         </li>
         <li class="item flexrow item-settings" style="border-top-style: dashed">
           <div class="grid grid-6col" style="margin: 0px">
-            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory6" type="text" value="{{actor.system.settings.equipment.currency.labelCategory6}}" placeholder="{{localize 'CYPHERSYSTEM.Adamantine'}}" {{#unless (gte actor.system.settings.equipment.currency.numberCategories 6)}}disabled{{/unless}}>
-            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory5" type="text" value="{{actor.system.settings.equipment.currency.labelCategory5}}" placeholder="{{localize 'CYPHERSYSTEM.Mithral'}}" {{#unless (gte actor.system.settings.equipment.currency.numberCategories 5)}}disabled{{/unless}}>
-            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory4" type="text" value="{{actor.system.settings.equipment.currency.labelCategory4}}" placeholder="{{localize 'CYPHERSYSTEM.Platinum'}}" {{#unless (gte actor.system.settings.equipment.currency.numberCategories 4)}}disabled{{/unless}}>
-            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory3" type="text" value="{{actor.system.settings.equipment.currency.labelCategory3}}" placeholder="{{localize 'CYPHERSYSTEM.Gold'}}" {{#unless (gte actor.system.settings.equipment.currency.numberCategories 3)}}disabled{{/unless}}>
-            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory2" type="text" value="{{actor.system.settings.equipment.currency.labelCategory2}}" placeholder="{{localize 'CYPHERSYSTEM.Silver'}}" {{#unless (gte actor.system.settings.equipment.currency.numberCategories 2)}}disabled{{/unless}}>
+            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory6" type="text" value="{{actor.system.settings.equipment.currency.labelCategory6}}" placeholder="{{localize 'CYPHERSYSTEM.Adamantine'}}" {{disabled (lt actor.system.settings.equipment.currency.numberCategories 6)}}>
+            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory5" type="text" value="{{actor.system.settings.equipment.currency.labelCategory5}}" placeholder="{{localize 'CYPHERSYSTEM.Mithral'}}" {{disabled (lt actor.system.settings.equipment.currency.numberCategories 5)}}>
+            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory4" type="text" value="{{actor.system.settings.equipment.currency.labelCategory4}}" placeholder="{{localize 'CYPHERSYSTEM.Platinum'}}" {{disabled (lt actor.system.settings.equipment.currency.numberCategories 4)}}>
+            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory3" type="text" value="{{actor.system.settings.equipment.currency.labelCategory3}}" placeholder="{{localize 'CYPHERSYSTEM.Gold'}}" {{disabled (lt actor.system.settings.equipment.currency.numberCategories 3)}}>
+            <input class="auto-margin" name="system.settings.equipment.currency.labelCategory2" type="text" value="{{actor.system.settings.equipment.currency.labelCategory2}}" placeholder="{{localize 'CYPHERSYSTEM.Silver'}}" {{disabled (lt actor.system.settings.equipment.currency.numberCategories 2)}}>
             <input class="auto-margin" name="system.settings.equipment.currency.labelCategory1" type="text" value="{{actor.system.settings.equipment.currency.labelCategory1}}" placeholder="{{#if (eq actor.system.settings.equipment.currency.numberCategories '1')}}{{localize 'CYPHERSYSTEM.Shins'}}{{else}}{{localize 'CYPHERSYSTEM.Copper'}}{{/if}}">
           </div>
         </li>

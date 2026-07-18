@@ -1,5 +1,9 @@
 /* Definitions */
 
+body {
+  --input-height: 26px;
+}
+
 :root {
   --cypher-font: "Signika", sans-serif;
   --cypher-background: url(../ui/parchment.jpg) repeat;
@@ -43,7 +47,7 @@ ol {
 }
 
 .chat-log .message .flavor-text p:first-of-type,
-.flavor-text p > p {
+.flavor-text p>p {
   margin: 0 0 0.5em 0;
 }
 
@@ -169,12 +173,14 @@ input[type="checkbox"].dialog-checkbox {
   width: 13px;
 }
 
-input[type="text"].dialog-input {
-  width: 100%;
+.calculateDifficulty hr {
+  margin: unset;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
 }
 
-form.cyphersystem {
-  height: 100%;
+input[type="text"].dialog-input {
+  width: 100%;
 }
 
 .grid,
@@ -319,7 +325,6 @@ a.entity-link,
 a.content-link,
 a.inline-roll,
 a.pdfoundry-link,
-a.rollForLevel,
 a.tag-items {
   font-size: smaller;
 }
@@ -328,10 +333,6 @@ a.tag-items {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
-
-/* :is(a.entity-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.content-link:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.inline-roll:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.rollForLevel:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items)), a.tag-items:has(+ :is(a.entity-link, a.content-link, a.inline-roll, a.pdfoundry-link, a.rollForLevel, a.tag-items))) {
-  margin: 0 2px 0 0;
-} */
 
 select.bar-attribute {
   width: 0;
@@ -454,10 +455,10 @@ select.bar-attribute {
 .cyphersystem .window-content {
   overflow: hidden;
   font-family: var(--cypher-font);
+  padding: 0;
 }
 
 .cyphersystem .background-image {
-  margin: -8px;
   padding: 8px;
   height: 100%;
 }
@@ -577,26 +578,6 @@ select.bar-attribute {
   filter: drop-shadow(0px 0px 3px rgb(0, 0, 0, 0.5));
 }
 
-.cyphersystem .sheet-header {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 auto;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  margin-bottom: 0px;
-}
-
 .cyphersystem .sheet-header .profile-img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
@@ -673,6 +654,7 @@ select.bar-attribute {
   border-bottom: none;
   margin: 5px 0 0 0;
   padding: 0px;
+  column-gap: 0px;
 }
 
 .cyphersystem .sheet-body,
@@ -682,7 +664,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .sheet-body {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
 }
 
@@ -697,11 +679,6 @@ select.bar-attribute {
   max-width: 48px;
   height: 48px;
   margin-right: 5px;
-}
-
-.gmi-form .window-content {
-  margin: -8px;
-  background: unset;
 }
 
 .cyphersystem .gmi-body {
@@ -721,7 +698,7 @@ select.bar-attribute {
   padding-left: 2px;
 }
 
-.cyphersystem .gmi-h4 {
+.cyphersystem .gmi-h {
   flex: 0 0 14px;
   line-height: 14px;
   margin: 0 0 2px;
@@ -758,11 +735,28 @@ select.bar-attribute {
   height: 100%;
 }
 
+.cyphersystem .resources {
+  flex-wrap: nowrap;
+}
+
+.cyphersystem .centered-fields .resource-content {
+  flex-wrap: nowrap;
+
+  label {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
 .cyphersystem .resource-label {
   font-weight: bold;
   text-overflow: ellipsis;
   padding-left: 15px;
   /* vertical-align: middle; */
+}
+
+.cyphersystem.sheet h6.item-name {
+  font-size: 14px;
 }
 
 .cyphersystem .resource-label-additional {
@@ -786,6 +780,10 @@ select.bar-attribute {
   width: -moz-available;
   padding: 0px 6px;
   height: 27px;
+
+  &.narrow {
+    flex: 0 0 45px;
+  }
 }
 
 .cyphersystem .tabs .item.active {
@@ -833,12 +831,12 @@ select.bar-attribute {
   padding-left: 0;
 }
 
-.cyphersystem .tabs .item ~ .item {
+.cyphersystem .tabs .item~.item {
   border-left: none;
   padding: 0px 6px;
 }
 
-.cyphersystem .items-list .item ~ .item {
+.cyphersystem .items-list .item~.item {
   border-top: 1px solid #bbb;
 }
 
@@ -895,13 +893,18 @@ select.bar-attribute {
   -webkit-box-flex: 0 0 5em;
   -ms-flex: 0 0 5em;
   flex: 0 0 5em;
-  text-align: right;
+  text-align: center;
   line-height: 1.4;
+  column-gap: 2px;
+  justify-content: right;
+
+  .item-control {
+    flex-grow: 0;
+  }
 }
 
 .cyphersystem li.item .item-controls.show-on-hover,
 .cyphersystem li.item .item-favorite.show-on-hover,
-.cyphersystem li.item .item-controls-spells.show-on-hover,
 .cyphersystem div.stat-block .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block .stat-controls.show-on-hover {
   opacity: 0;
@@ -914,8 +917,6 @@ select.bar-attribute {
 .cyphersystem li.item:focus-within .item-controls.show-on-hover,
 .cyphersystem li.item:hover .item-favorite.show-on-hover,
 .cyphersystem li.item:focus-within .item-favorite.show-on-hover,
-.cyphersystem li.item:hover .item-controls-spells.show-on-hover,
-.cyphersystem li.item:focus-within .item-controls-spells.show-on-hover,
 .cyphersystem div.stat-block:hover .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block:focus-within .stat-roll-button.show-on-hover,
 .cyphersystem div.stat-block:hover .stat-controls.show-on-hover,
@@ -923,16 +924,6 @@ select.bar-attribute {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-}
-
-.cyphersystem .item-control.item-delete,
-.cyphersystem .item-control.toggle-cypher-type,
-.cyphersystem .item-control.item-roll,
-.cyphersystem .item-control.item-pay,
-.cyphersystem .item-control.might-roll,
-.cyphersystem .item-control.speed-roll,
-.cyphersystem .item-control.intellect-roll {
-  text-align: center;
 }
 
 .cyphersystem .fa-item.archived,
@@ -1105,7 +1096,6 @@ select.bar-attribute {
 .cyphersystem input[type="checkbox"] {
   flex: 0 0 15px;
   margin: auto 0px;
-  height: 13px;
   width: 13px;
 }
 
@@ -1175,17 +1165,18 @@ select.bar-attribute {
   padding: 0 3px 0 6px;
 }
 
-.cyphersystem .rollForLevel {
+.cyphersystem [data-action="rollForLevel"] {
+  font-size: smaller;
   background: #ddd;
   padding: 1px 4px;
   border: 1px solid #4b4a44;
   border-radius: 2px;
   white-space: nowrap;
   word-break: break-all;
-}
 
-.cyphersystem .rollForLevel i {
-  color: #7a7971;
+  i {
+    color: #7a7971;
+  }
 }
 
 .cyphersystem .tag-list {
@@ -1256,7 +1247,7 @@ select.bar-attribute {
   margin-top: 5px;
 }
 
-.cyphersystem .stat-block + .stat-block {
+.cyphersystem .stat-block+.stat-block {
   margin-left: 5px;
 }
 
@@ -1294,7 +1285,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .nonPC-stat-buttons {
-  flex: 0 0 50px;
+  flex: 0 0 60px;
   text-align: right;
   padding-right: 3px;
 }
@@ -1338,13 +1329,6 @@ select.bar-attribute {
 
 .cyphersystem .Specialized {
   color: blue;
-}
-
-.cyphersystem .item-controls-spells {
-  -webkit-box-flex: 0 0 5em;
-  -ms-flex: 0 0 5em;
-  flex: 0 0 5em;
-  text-align: right;
 }
 
 .cyphersystem input.settings-input,
@@ -1467,8 +1451,6 @@ select.settings-input {
 }
 
 .cyphersystem .roll-engine-summary-bottom {
-  position: absolute;
-  bottom: 10px;
   width: 361px;
   text-align: center;
 }
@@ -1573,7 +1555,7 @@ select.settings-input {
   width: 75px;
 }
 
-.cyphersystem input[type="range"] + .range-value {
+.cyphersystem input[type="range"]+.range-value {
   min-width: 147.75px;
   max-width: 147.75px;
   border-color: var(--color-border-light-tertiary);
@@ -1604,7 +1586,7 @@ select.settings-input {
   margin: 1rem 0rem;
 }
 
-section.cypher-note > p {
+section.cypher-note>p {
   margin-top: 0px;
 }
 

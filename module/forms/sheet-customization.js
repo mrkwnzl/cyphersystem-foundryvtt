@@ -1,46 +1,57 @@
 /**
 * Extend the basic ActorSheet with some very simple modifications
-* @extends {FormApplication}
+* @extends {ApplicationV2}
 */
 
 import {CypherActorSheet} from "../actor/actor-sheet.js";
 import {CypherItemSheet} from "../item/item-sheet.js";
 
-export class SheetCustomization extends FormApplication {
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["cyphersystem", "sheet", "sheet-customization"],
-      template: "systems/cyphersystem/templates/forms/sheet-customization.html",
-      title: game.i18n.localize("CYPHERSYSTEM.SettingSheetCustomizationLabel"),
-      id: "sheet-cusomization-defaults",
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
+
+export class SheetCustomization extends HandlebarsApplicationMixin(ApplicationV2) {
+  
+  static DEFAULT_OPTIONS = {
+    tag: 'form',
+    id: "sheet-cusomization-defaults",
+    classes: ["cyphersystem", "sheet", "sheet-customization"],
+    position: {
+      top: 150,
+      width: 650,
+    },
+    window: {
+      title: "CYPHERSYSTEM.SettingSheetCustomizationLabel",
+      resizable: false,
+    },
+    form: {
+      handler: this.#onSubmitForm,
       closeOnSubmit: false,
       submitOnChange: true,
       submitOnClose: true,
-      width: 650,
-      height: "auto",
-      top: 150,
-      resizable: false
-    });
+    }
   }
 
-  getData() {
+  static PARTS = {
+    form: {
+      template: "systems/cyphersystem/templates/forms/sheet-customization.html",
+    }
+  }
+
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options)
     // Basic data
-    const data = super.getData().object;
+    context.backgroundImage = getBackgroundImage();
+    context.backgroundImagePath = getBackgroundImagePath();
+    context.backgroundImageOverlayOpacity = getBackgroundImageOverlayOpacity();
 
-    data.backgroundImage = getBackgroundImage();
-    data.backgroundImagePath = getBackgroundImagePath();
-    data.backgroundImageOverlayOpacity = getBackgroundImageOverlayOpacity();
+    context.backgroundIcon = getBackgroundIcon();
+    context.backgroundIconPath = getBackgroundIconPath();
+    context.backgroundIconOpacity = getBackgroundIconOpacity();
 
-    data.backgroundIcon = getBackgroundIcon();
-    data.backgroundIconPath = getBackgroundIconPath();
-    data.backgroundIconOpacity = getBackgroundIconOpacity();
+    context.logoImage = getLogoImage();
+    context.logoImagePath = getLogoImagePath();
+    context.logoImageOpacity = getLogoImageOpacity();
 
-    data.logoImage = getLogoImage();
-    data.logoImagePath = getLogoImagePath();
-    data.logoImageOpacity = getLogoImageOpacity();
-
-    data.sheetCustomizationChoices = {
+    context.sheetCustomizationChoices = {
       "backgroundImage": {
         "foundry": "CYPHERSYSTEM.BGImageFoundry",
         "cypher-blue": "CYPHERSYSTEM.BGImageCypherBlue",
@@ -82,7 +93,7 @@ export class SheetCustomization extends FormApplication {
     };
 
     // Return data
-    return data;
+    return context;
   }
 
   /**
@@ -94,7 +105,8 @@ export class SheetCustomization extends FormApplication {
   //   let data = this.object;
   // }
 
-  async _updateObject(event, data) {
+  static async #onSubmitForm(event, form, formData) {
+    const data = formData.object;
     await setBackgroundImage(data.backgroundImage);
     await setBackgroundImagePath(data.backgroundImagePath);
     await setBackgroundImageOverlayOpacity(data.backgroundImageOverlayOpacity);
@@ -110,8 +122,9 @@ export class SheetCustomization extends FormApplication {
 }
 
 async function rerenderAllActorWindows() {
-  for (let window of Object.values(ui.windows)) {
-    if (window instanceof CypherActorSheet || window instanceof CypherItemSheet || window instanceof FormApplication) {
+  for (const window of foundry.applications.instances.values()) {
+    if (window.rendered && 
+      (window instanceof CypherActorSheet || window instanceof CypherItemSheet)) {
       window.render(false);
     }
   }

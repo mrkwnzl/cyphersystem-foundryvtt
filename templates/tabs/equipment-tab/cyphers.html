@@ -10,7 +10,7 @@
       </div>
       {{#if (eq actor.type "pc")}}
         <div class="item-cypher-limit-label">
-          <label for="system.basic.cypherLimit" class="resource-label {{#if (or actor.system.isLimited system.isObserver)}}disabled{{/if}}">
+          <label for="system.basic.cypherLimit" class="resource-label {{disabled (or actor.system.isLimited system.isObserver)}}">
             {{localize 'CYPHERSYSTEM.CypherLimit'}}:&nbsp;
           </label>
         </div>
@@ -22,7 +22,7 @@
         {{localize 'CYPHERSYSTEM.Level'}}
       </div>
       <div class="item-controls">
-        <a class="item-control item-create {{#if ./sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher">
+        <a class="item-control {{disabled ./sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.CreateItem'}}" data-type="cypher" data-action="itemCreate">
           <i class="fa-item fas fa-plus"></i>
         </a>
       </div>
