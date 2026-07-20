@@ -89,7 +89,7 @@
     </div>
 
     <div class="resource-content flexrow flex-center" style="margin-top: 4px">
-      <div class="{{disabled sheetSettings.isObserver}}" style="padding-left: 0px; display: flex; justify-content: center">
+      <div class="advancement {{disabled sheetSettings.isObserver}}" style="padding-left: 0px; display: flex; justify-content: center">
         {{#unless sheetSettings.isLimited}}
           <input type="checkbox" name="system.basic.advancement.stats" {{checked actor.system.basic.advancement.stats}} {{sheetSettings.disabledStaticStats}}>
           <label for="system.basic.advancement.stats">{{localize 'CYPHERSYSTEM.AdvancementPool'}}</label>

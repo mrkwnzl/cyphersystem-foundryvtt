@@ -1,6 +1,6 @@
 {{#each itemLists.artifacts as |item id|}}
   <li class="item draggable flexrow {{#if item.system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
-    <h6 class="item-name">
+    <h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
       <a class="item-control" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}" data-action="clickItemDescription">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~#if item.system.basic.identified ~}}
@@ -38,7 +38,7 @@
         {{localize 'CYPHERSYSTEM.?'}}
       {{/if}}
     </div>
-    <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
+    <div class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
       {{#unless item.system.basic.identified}}
         <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.MarkIdentified'}}" data-action="identifyItem">
           <i class="fa-item far fa-eye-slash"></i>

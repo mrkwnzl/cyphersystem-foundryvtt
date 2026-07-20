@@ -5,14 +5,14 @@
         <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
         <div class="item-quantity">{{localize 'CYPHERSYSTEM.Points'}}</div>
         <div class="item-quantity">{{localize 'CYPHERSYSTEM.Levels'}}</div>
-        <div class="item-controls"></div>
+        <div class="item-controls flexrow"></div>
       {{else}}
         <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
       {{/if}}
     </li>
     {{#if (and (eq actor.system.basic.unmaskedForm "Mask") actor.system.settings.combat.stress.active)}}
       <li class="item flexrow non-draggable">
-        <h6 class="item-name">
+        <h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
           {{#if actor.system.settings.combat.stress.label}}
             {{actor.system.settings.combat.stress.label}}
           {{else}}
@@ -37,7 +37,7 @@
             <i class="fa-item quantity-no-alt fa-regular fa-plus-square"></i>
           </a>
         </div>
-        <div class="item-controls">
+        <div class="item-controls flexrow">
           <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ResetStress'}}" data-action="resetStress">
             <i class="fa-item fas fa-sync-alt"></i>
           </a>
@@ -45,7 +45,7 @@
       </li>
       {{#if actor.system.settings.combat.stress.supernaturalStressActive}}
         <li class="item flexrow non-draggable" style="border-top-style: dashed">
-          <h6 class="item-name">
+          <h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
             {{#if actor.system.settings.combat.stress.supernaturalStressLabel}}
               {{actor.system.settings.combat.stress.supernaturalStressLabel}}
             {{else}}
@@ -61,7 +61,7 @@
               <i class="fa-item quantity-no-alt fa-regular fa-plus-square"></i>
             </a>
           </div>
-          <div class="item-controls"></div>
+          <div class="item-controls flexrow"></div>
         </li>
       {{/if}}
     {{/if}}
@@ -179,7 +179,7 @@
           <input type="checkbox" name="system.combat.recoveries.tenHours" {{checked actor.system.combat.recoveries.tenHours}} />
           &nbsp;{{localize 'CYPHERSYSTEM.RecoveryHours'}}
         </div>
-        <div class="item-controls">
+        <div class="item-controls flexrow">
           {{#if (gte sheetSettings.rollButtons 1)}}
             <a class="item-control {{disabled sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.RecoveryRoll'}}" data-action="recoveryRoll">
               <i class="fa-recovery fa-solid fa-heart"></i>

@@ -1,3 +1,24 @@
-2026/05/10-19:11:58.398796 176167000 Recovering log #1368
-2026/05/10-19:11:58.399215 176167000 Delete type=0 #1368
-2026/05/10-19:11:58.399252 176167000 Delete type=3 #1367
+2026/07/18-14:02:42.201476 176e6b000 Recovering log #1382
+2026/07/18-14:02:42.201639 176e6b000 Level-0 table #1384: started
+2026/07/18-14:02:42.201896 176e6b000 Level-0 table #1384: 5056 bytes OK
+2026/07/18-14:02:42.202326 176e6b000 Delete type=0 #1382
+2026/07/18-14:02:42.202410 176e6b000 Delete type=3 #1381
+2026/07/18-16:44:23.626546 16f4bb000 Level-0 table #1387: started
+2026/07/18-16:44:23.626690 16f4bb000 Level-0 table #1387: 0 bytes OK
+2026/07/18-16:44:23.626961 16f4bb000 Delete type=0 #1385
+2026/07/18-16:44:23.627939 16f4bb000 Manual compaction at level-0 from '!scenes!cyegwAT3gg2ReiDd' @ 72057594037927935 : 1 .. '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 0 : 0; will stop at '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 89 : 1
+2026/07/18-16:44:23.627948 16f4bb000 Compacting 2@0 + 0@1 files
+2026/07/18-16:44:23.628214 16f4bb000 Generated table #1388@0: 24 keys, 5056 bytes
+2026/07/18-16:44:23.628223 16f4bb000 Compacted 2@0 + 0@1 files => 5056 bytes
+2026/07/18-16:44:23.628272 16f4bb000 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/07/18-16:44:23.628306 16f4bb000 Delete type=2 #1384
+2026/07/18-16:44:23.628387 16f4bb000 Delete type=2 #1365
+2026/07/18-16:44:23.628498 16f4bb000 Manual compaction at level-0 from '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 89 : 1 .. '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 0 : 0; will stop at (end)
+2026/07/18-16:44:23.629427 16f4bb000 Manual compaction at level-1 from '!scenes!cyegwAT3gg2ReiDd' @ 72057594037927935 : 1 .. '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 0 : 0; will stop at '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 113 : 1
+2026/07/18-16:44:23.629432 16f4bb000 Compacting 1@1 + 1@2 files
+2026/07/18-16:44:23.629641 16f4bb000 Generated table #1389@1: 24 keys, 5056 bytes
+2026/07/18-16:44:23.629646 16f4bb000 Compacted 1@1 + 1@2 files => 5056 bytes
+2026/07/18-16:44:23.629689 16f4bb000 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/07/18-16:44:23.629715 16f4bb000 Delete type=2 #1282
+2026/07/18-16:44:23.629771 16f4bb000 Delete type=2 #1388
+2026/07/18-16:44:23.630289 16f4bb000 Manual compaction at level-1 from '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 113 : 1 .. '!scenes.tiles!zGOpPJI2pfmCRiwr.oJ1bePM16XIyXFV2' @ 0 : 0; will stop at (end)

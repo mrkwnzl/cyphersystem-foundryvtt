@@ -60,17 +60,17 @@
   <section class="sheet-body vehicle">
 
     {{!-- Notes Tab --}}
-    <div class="tab notes {{tabs.notes.cssClass}}" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
+    <div class="tab notes {{tabs.notes.cssClass}} scrollable" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
       <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}">{{{enrichedHTML.notes}}}</prose-mirror>
     </div>
 
     {{!-- Description Tab --}}
-    <div class="tab description {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
+    <div class="tab description {{tabs.description.cssClass}} scrollable" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
       <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
     </div>
 
     {{!-- Owned Items Tab --}}
-    <div class="tab items {{tabs.items.cssClass}}" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
+    <div class="tab items {{tabs.items.cssClass}} scrollable" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
 
       {{> systems/cyphersystem/templates/tabs/equipment-tab/equipment.html}}
 
@@ -105,7 +105,7 @@
     </div>
 
     {{!-- Settings Tab --}}
-    <div class="tab settings {{tabs.settings.cssClass}}" data-group="{{tabs.settings.group}}" data-tab="{{tabs.settings.id}}">
+    <div class="tab settings {{tabs.settings.cssClass}} scrollable" data-group="{{tabs.settings.group}}" data-tab="{{tabs.settings.id}}">
       <div class="flexrow">
         <ol class="items-list">
           <li class="item flexrow item-header">

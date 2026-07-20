@@ -35,7 +35,7 @@
   <section class="sheet-body pc {{#if sheetSettings.isLimited}}limited{{/if}}">
 
     {{!-- Skills Tab --}}
-    <div class="tab skills {{tabs.skills.cssClass}}" data-group="{{tabs.skills.group}}" data-tab="{{tabs.skills.id}}">
+    <div class="tab skills {{tabs.skills.cssClass}} scrollable" data-group="{{tabs.skills.group}}" data-tab="{{tabs.skills.id}}">
       {{!-- Skills --}}
       {{> systems/cyphersystem/templates/tabs/skills-tab/skills.html}}
 
@@ -44,7 +44,7 @@
     </div>
 
     {{!-- Combat Tab --}}
-    <div class="tab combat {{tabs.combat.cssClass}}" data-group="{{tabs.combat.group}}" data-tab="{{tabs.combat.id}}">
+    <div class="tab combat {{tabs.combat.cssClass}} scrollable" data-group="{{tabs.combat.group}}" data-tab="{{tabs.combat.id}}">
       {{!-- Damage Track --}}
       {{> systems/cyphersystem/templates/tabs/combat-tab/damage-track.html}}
 
@@ -62,7 +62,7 @@
     </div>
 
     {{!-- Equipment Tab --}}
-    <div class="tab items {{tabs.items.cssClass}}" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
+    <div class="tab items {{tabs.items.cssClass}} scrollable" data-group="{{tabs.items.group}}" data-tab="{{tabs.items.id}}">
       {{!-- Currency --}}
       {{> systems/cyphersystem/templates/tabs/equipment-tab/currency.html}}
 
@@ -91,7 +91,7 @@
     </div>
 
     {{!-- Abilities Tab --}}
-    <div class="tab abilities {{tabs.abilities.cssClass}}" data-group="{{tabs.abilities.group}}" data-tab="{{tabs.abilities.id}}">
+    <div class="tab abilities {{tabs.abilities.cssClass}} scrollable" data-group="{{tabs.abilities.group}}" data-tab="{{tabs.abilities.id}}">
       {{!-- Abilities --}}
       {{> systems/cyphersystem/templates/tabs/abilities-tab/abilities.html}}
 
@@ -100,22 +100,22 @@
     </div>
 
     {{!-- Notes Tab --}}
-    <div class="tab notes {{tabs.notes.cssClass}}" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
+    <div class="tab notes {{tabs.notes.cssClass}} scrollable" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
       <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}">{{{enrichedHTML.notes}}}</prose-mirror>
     </div>
 
     {{!-- GM-Notes Tab --}}
-    <div class="tab gm-notes {{tabs.gm-notes.cssClass}}" data-group="{{tabs.gm-notes.group}}" data-tab="{{tabs.gm-notes.id}}">
+    <div class="tab gm-notes {{tabs.gm-notes.cssClass}} scrollable" data-group="{{tabs.gm-notes.group}}" data-tab="{{tabs.gm-notes.id}}">
       <prose-mirror toggled name="system.gmNotes" value="{{enrichedHTML.gmNotes}}">{{{enrichedHTML.gmNotes}}}</prose-mirror>
     </div>
 
     {{!-- Description Tab --}}
-    <div class="tab description {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
+    <div class="tab description {{tabs.description.cssClass}} scrollable" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
       <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
     </div>
 
     {{!-- Tags and Recursions Tab --}}
-    <div class="tab tags {{tabs.tags.cssClass}}" data-group="{{tabs.tags.group}}" data-tab="{{tabs.tags.id}}">
+    <div class="tab tags {{tabs.tags.cssClass}} scrollable" data-group="{{tabs.tags.group}}" data-tab="{{tabs.tags.id}}">
       {{!-- Recursions --}}
       {{#if (eq actor.system.settings.general.gameMode "Strange")}}
         {{> systems/cyphersystem/templates/tabs/tags-tab/recursions.html}}

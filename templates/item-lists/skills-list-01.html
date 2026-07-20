@@ -1,6 +1,6 @@
 {{#each itemLists.skills as |item id|}}
 	<li class="item draggable flexrow {{#if item.system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
-		<h6 class="item-name">
+		<h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
 			<a class="item-control" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}" data-action="clickItemDescription">
 				<i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
 				{{~item.name}}
@@ -11,7 +11,7 @@
 				</a>
 			{{else}}
 				<a class="item-favorite show-on-hover {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.ItemFavorite'}}" data-action="itemFavorite">
-          <i class="fa-item {{ifThen item.system.favorite 'fa-solid' 'fa-regular'}} fa-star"></i>
+					<i class="fa-item {{ifThen item.system.favorite 'fa-solid' 'fa-regular'}} fa-star"></i>
 				</a>
 			{{/if}}
 		</h6>
@@ -26,7 +26,7 @@
 				{{localize 'CYPHERSYSTEM.Practiced'}}
 			{{/if}}
 		</div>
-		<div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
+		<div class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
 			{{#if (eq @root.sheetSettings.rollButtons 1)}}
 				<a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{#if @root.sheetSettings.useAllInOne}}{{localize 'CYPHERSYSTEM.RollItemSkip'}}{{else}}{{localize 'CYPHERSYSTEM.RollItem'}}{{/if}}" data-action="itemRoll">
 					{{#if @root.sheetSettings.useAllInOne}}

@@ -47,7 +47,7 @@ ol {
 }
 
 .chat-log .message .flavor-text p:first-of-type,
-.flavor-text p>p {
+.flavor-text p > p {
   margin: 0 0 0.5em 0;
 }
 
@@ -401,6 +401,10 @@ select.bar-attribute {
   margin: 0px;
 }
 
+.cyphersystem .editor.prosemirror button {
+  padding: 0px;
+}
+
 .editor-content hr {
   margin: 0;
   border-bottom: 0;
@@ -518,8 +522,8 @@ select.bar-attribute {
   opacity: 0;
   position: absolute;
   width: calc(100% - 10px);
-  height: calc(100% - 39px);
-  top: 34px;
+  height: calc(100% - 46px);
+  top: 41px;
   left: 5px;
   border-radius: 2px;
   filter: blur(1px);
@@ -735,6 +739,11 @@ select.bar-attribute {
   height: 100%;
 }
 
+.cyphersystem .scrollable {
+  margin-right: 0px;
+  padding-right: 0px;
+}
+
 .cyphersystem .resources {
   flex-wrap: nowrap;
 }
@@ -746,6 +755,11 @@ select.bar-attribute {
     margin-left: 5px;
     margin-right: 5px;
   }
+}
+
+.cyphersystem .advancement label {
+  margin-left: 2px !important;
+  margin-right: 8px !important;
 }
 
 .cyphersystem .resource-label {
@@ -825,18 +839,19 @@ select.bar-attribute {
 
 .cyphersystem .items-list .item {
   padding: 3px 5px;
+  margin-bottom: 0px;
 }
 
 .cyphersystem .items-list .item.gmi-item {
   padding-left: 0;
 }
 
-.cyphersystem .tabs .item~.item {
+.cyphersystem .tabs .item ~ .item {
   border-left: none;
   padding: 0px 6px;
 }
 
-.cyphersystem .items-list .item~.item {
+.cyphersystem .items-list .item ~ .item {
   border-top: 1px solid #bbb;
 }
 
@@ -890,10 +905,10 @@ select.bar-attribute {
 }
 
 .cyphersystem .items-list .item-controls {
-  -webkit-box-flex: 0 0 5em;
-  -ms-flex: 0 0 5em;
-  flex: 0 0 5em;
-  text-align: center;
+  -webkit-box-flex: 0 0 6em;
+  -ms-flex: 0 0 6em;
+  flex: 0 0 6em;
+  text-align: right;
   line-height: 1.4;
   column-gap: 2px;
   justify-content: right;
@@ -1008,6 +1023,10 @@ select.bar-attribute {
   margin-right: 60px;
 }
 
+.cyphersystem .items-list .description .secret.revealed button {
+  display: none;
+}
+
 .cyphersystem .items-list .description ul {
   list-style-type: disc;
 }
@@ -1070,6 +1089,7 @@ select.bar-attribute {
   margin-top: 2px;
   width: 100%;
   text-align: center;
+  padding: 0px;
 }
 
 .cyphersystem input[type="text"].input-cypher-limit,
@@ -1094,9 +1114,11 @@ select.bar-attribute {
 }
 
 .cyphersystem input[type="checkbox"] {
-  flex: 0 0 15px;
+  --checkbox-size: var(--font-size-16);
+  flex: 0 0 16px;
   margin: auto 0px;
-  width: 13px;
+  width: 16px;
+  height: 16px;
 }
 
 .cyphersystem input:disabled {
@@ -1152,6 +1174,8 @@ select.bar-attribute {
   float: right;
   margin: 0 3px 0 5px;
   background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgb(122, 121, 113);
+  border-radius: 3px;
 }
 
 .description-image-chat {
@@ -1247,7 +1271,7 @@ select.bar-attribute {
   margin-top: 5px;
 }
 
-.cyphersystem .stat-block+.stat-block {
+.cyphersystem .stat-block + .stat-block {
   margin-left: 5px;
 }
 
@@ -1312,6 +1336,7 @@ select.bar-attribute {
 
 .cyphersystem .archived-image {
   opacity: 60%;
+  border-color: rgba(122, 121, 113, 0.6);
 }
 
 .cyphersystem .tag-inactive {
@@ -1555,7 +1580,7 @@ select.settings-input {
   width: 75px;
 }
 
-.cyphersystem input[type="range"]+.range-value {
+.cyphersystem input[type="range"] + .range-value {
   min-width: 147.75px;
   max-width: 147.75px;
   border-color: var(--color-border-light-tertiary);
@@ -1586,7 +1611,7 @@ select.settings-input {
   margin: 1rem 0rem;
 }
 
-section.cypher-note>p {
+section.cypher-note > p {
   margin-top: 0px;
 }
 

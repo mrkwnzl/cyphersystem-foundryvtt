@@ -1,6 +1,6 @@
 {{#each itemLists.ammo as |item id|}}
   <li class="item draggable resource-content flexrow {{#if item.system.archived}}archived{{/if}}" data-item-id="{{item._id}}">
-    <h6 class="item-name">
+    <h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
       <a class="item-control" title="{{localize 'CYPHERSYSTEM.ShowDescription'}}" data-action="clickItemDescription">
         <i id="arrow-{{item._id}}" class="fas fa-angle-{{#if (expanded item._id)}}down{{else}}right{{/if}} item-angle" aria-hidden="true"></i>
         {{~item.name}}
@@ -24,7 +24,7 @@
         <i class="fa-item quantity fa-regular fa-plus-square"></i>
       </a>
     </div>
-    <div  class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
+    <div class="item-controls flexrow {{{@root.sheetSettings.showOnHover}}}">
       <a class="item-control {{disabled @root.sheetSettings.isObserver}}" title="{{localize 'CYPHERSYSTEM.EditItem'}}" data-action="itemEdit">
         <i class="fa-solid fa-pen-to-square"></i>
       </a>

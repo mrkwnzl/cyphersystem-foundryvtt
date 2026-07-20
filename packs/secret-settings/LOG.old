@@ -1,3 +1,21 @@
-2026/05/10-19:11:58.405250 17514f000 Recovering log #1368
-2026/05/10-19:11:58.405645 17514f000 Delete type=0 #1368
-2026/05/10-19:11:58.405671 17514f000 Delete type=3 #1367
+2026/07/18-14:02:42.207704 175e53000 Recovering log #1382
+2026/07/18-14:02:42.208103 175e53000 Delete type=0 #1382
+2026/07/18-14:02:42.208133 175e53000 Delete type=3 #1381
+2026/07/18-16:44:23.630031 16f4bb000 Level-0 table #1386: started
+2026/07/18-16:44:23.630111 16f4bb000 Level-0 table #1386: 0 bytes OK
+2026/07/18-16:44:23.630247 16f4bb000 Delete type=0 #1384
+2026/07/18-16:44:23.630306 16f4bb000 Manual compaction at level-0 from '!folders!8ErwbQwBInWCNZrK' @ 72057594037927935 : 1 .. '!macros!zKoXNFTgRvzhyQ80' @ 0 : 0; will stop at '!macros!hkzKF7vjz66xduge' @ 49 : 1
+2026/07/18-16:44:23.630310 16f4bb000 Compacting 1@0 + 0@1 files
+2026/07/18-16:44:23.630440 16f4bb000 Generated table #1387@0: 1 keys, 676 bytes
+2026/07/18-16:44:23.630446 16f4bb000 Compacted 1@0 + 0@1 files => 676 bytes
+2026/07/18-16:44:23.630499 16f4bb000 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/07/18-16:44:23.630658 16f4bb000 Delete type=2 #1365
+2026/07/18-16:44:23.631597 16f4bb000 Manual compaction at level-0 from '!macros!hkzKF7vjz66xduge' @ 49 : 1 .. '!macros!zKoXNFTgRvzhyQ80' @ 0 : 0; will stop at (end)
+2026/07/18-16:44:23.632172 16f4bb000 Manual compaction at level-1 from '!folders!8ErwbQwBInWCNZrK' @ 72057594037927935 : 1 .. '!macros!zKoXNFTgRvzhyQ80' @ 0 : 0; will stop at '!macros!hkzKF7vjz66xduge' @ 51 : 1
+2026/07/18-16:44:23.632180 16f4bb000 Compacting 1@1 + 1@2 files
+2026/07/18-16:44:23.632599 16f4bb000 Generated table #1388@1: 16 keys, 4268 bytes
+2026/07/18-16:44:23.632606 16f4bb000 Compacted 1@1 + 1@2 files => 4268 bytes
+2026/07/18-16:44:23.632663 16f4bb000 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/07/18-16:44:23.632705 16f4bb000 Delete type=2 #1387
+2026/07/18-16:44:23.632752 16f4bb000 Delete type=2 #1282
+2026/07/18-16:44:23.633610 16f4bb000 Manual compaction at level-1 from '!macros!hkzKF7vjz66xduge' @ 51 : 1 .. '!macros!zKoXNFTgRvzhyQ80' @ 0 : 0; will stop at (end)
