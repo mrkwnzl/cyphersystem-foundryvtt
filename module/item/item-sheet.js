@@ -113,7 +113,7 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
       if (context.actor?.system.settings.general.gameMode === "Strange") {
         context.tabs.tags.tooltip = "CYPHERSYSTEM.Recursions";
         context.tabs.tags.icon = "fa-item fa-solid fa-at";
-      } else if (!context.actor?.system.settings.general.tags.active || this.item.system?.settings?.general?.unmaskedForm === "Teen")
+      } else if (!context.actor?.system?.settings?.general?.tags?.active || this.item.system?.settings?.general?.unmaskedForm === "Teen")
         delete context.tabs.tags;
     }
 
@@ -575,6 +575,7 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
       });
     }
     this.render(true);
+
 
     async function addOrRemoveFromArray(array) {
       if (array.includes(tag._id)) {

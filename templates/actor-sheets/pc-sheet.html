@@ -101,17 +101,50 @@
 
     {{!-- Notes Tab --}}
     <div class="tab notes {{tabs.notes.cssClass}} scrollable" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
-      <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}">{{{enrichedHTML.notes}}}</prose-mirror>
+        {{#if @root.editable}}
+            <prose-mirror
+                name="system.notes"
+                button="true"
+                editable="{{@root.editable}}"
+                toggled="false"
+                value="{{actor.system.notes}}">
+                {{{enrichedHTML.notes}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.notes}}}
+        {{/if}}
     </div>
 
     {{!-- GM-Notes Tab --}}
     <div class="tab gm-notes {{tabs.gm-notes.cssClass}} scrollable" data-group="{{tabs.gm-notes.group}}" data-tab="{{tabs.gm-notes.id}}">
-      <prose-mirror toggled name="system.gmNotes" value="{{enrichedHTML.gmNotes}}">{{{enrichedHTML.gmNotes}}}</prose-mirror>
+        {{#if @root.editable}}
+            <prose-mirror
+                name="system.gmNotes"
+                button="true"
+                editable="{{@root.editable}}"
+                toggled="false"
+                value="{{actor.system.gmNotes}}">
+                {{{enrichedHTML.gmNotes}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.gmNotes}}}
+        {{/if}}
     </div>
 
     {{!-- Description Tab --}}
     <div class="tab description {{tabs.description.cssClass}} scrollable" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
-      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
+        {{#if @root.editable}}
+            <prose-mirror
+                name="system.description"
+                button="true"
+                editable="{{@root.editable}}"
+                toggled="false"
+                value="{{actor.system.description}}">
+                {{{enrichedHTML.description}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.description}}}
+        {{/if}}
     </div>
 
     {{!-- Tags and Recursions Tab --}}

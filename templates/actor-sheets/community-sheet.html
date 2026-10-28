@@ -14,7 +14,7 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        <img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" title="{{actor.name}}" />
         <div style="margin-top: auto; margin-bottom: auto;">
           <div class="resource-content flexrow flex-center">
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" style="font-weight:bold" />
@@ -111,12 +111,34 @@
 
     {{!-- Notes Tab --}}
     <div class="tab notes {{tabs.notes.cssClass}} scrollable" data-group="{{tabs.notes.group}}" data-tab="{{tabs.notes.id}}">
-      <prose-mirror toggled name="system.notes" value="{{enrichedHTML.notes}}" {{disabled (not @root.editable)}}>{{{enrichedHTML.notes}}}</prose-mirror>
+        {{#if @root.editable}}
+            <prose-mirror
+                name="system.notes"
+                button="true"
+                editable="{{@root.editable}}"
+                toggled="false"
+                value="{{actor.system.notes}}">
+                {{{enrichedHTML.notes}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.notes}}}
+        {{/if}}
     </div>
 
     {{!-- Description Tab --}}
     <div class="tab description {{tabs.description.cssClass}} scrollable" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
-      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}" >{{{enrichedHTML.description}}}</prose-mirror>
+        {{#if @root.editable}}
+            <prose-mirror
+                name="system.description"
+                button="true"
+                editable="{{@root.editable}}"
+                toggled="false"
+                value="{{actor.system.description}}">
+                {{{enrichedHTML.description}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.description}}}
+        {{/if}}
     </div>
 
     {{!-- Equipment Tab --}}

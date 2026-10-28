@@ -1,4 +1,4 @@
-import {PricedItemData} from './priceditem.js';
+import { PricedItemData } from "./priceditem.js";
 
 export class EquipmentData extends PricedItemData {
   static defineSchema() {
@@ -7,13 +7,13 @@ export class EquipmentData extends PricedItemData {
       ...super.defineSchema(),
       basic: new fields.SchemaField({
         level: new fields.NumberField({ integer: true }),
-        quantity: new fields.NumberField({ integer: true, initial: 1 })
+        quantity: new fields.NumberField({ integer: true, initial: 1 }),
       }),
       settings: new fields.SchemaField({
         general: new fields.SchemaField({
-          sorting: new fields.StringField({ initial: "Equipment}" })
-        })
-      })
-    }
+          sorting: new fields.StringField({ initial: "Equipment" }),
+        }),
+      }),
+    };
   }
 }

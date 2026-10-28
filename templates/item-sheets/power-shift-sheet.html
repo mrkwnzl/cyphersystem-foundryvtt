@@ -13,7 +13,7 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="flexrow">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <img class="profile-img" src="{{item.img}}" data-action="editImage" data-edit="img" title="{{item.name}}" />
         <div class="centered-fields">
           <div class="resource-content flexrow flex-center">
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'CYPHERSYSTEM.Name'}}" />
@@ -39,7 +39,18 @@
 
     {{!-- Description Tab --}}
     <div class="tab {{tabs.description.cssClass}}" data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
-      <prose-mirror toggled name="system.description" value="{{enrichedHTML.description}}">{{{enrichedHTML.description}}}</prose-mirror>
+        {{#if editable}}
+            <prose-mirror
+                name="system.description"
+                button="true"
+                editable="{{editable}}"
+                toggled="false"
+                value="{{item.system.description}}">
+                {{{enrichedHTML.description}}}
+            </prose-mirror>
+        {{else}}
+            {{{enrichedHTML.description}}}
+        {{/if}}
     </div>
 
     {{!-- Tags and Recursions Tab --}}
