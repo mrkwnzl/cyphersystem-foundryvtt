@@ -66,6 +66,35 @@ export class PCData extends BaseActorData {
           applyImpaired: new fields.BooleanField({ initial: true }),
           applyDebilitated: new fields.BooleanField({ initial: true })
         }),
+        wounds: new fields.SchemaField({
+          minor: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 3 }),
+          }),
+          moderate: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 3 }),
+          }),
+          major: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 3 }),
+          }),
+        }),
+        hasShield: new fields.BooleanField({ initial: false }),
+        shield: new fields.SchemaField({
+          minor: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 3 }),
+          }),
+          moderate: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 2 }),
+          }),
+          major: new fields.SchemaField({
+            current: new fields.NumberField({integer: true,  initial: 0 }),
+            max: new fields.NumberField({integer: true,  initial: 1 }),
+          }),
+        }),
         stress: new fields.SchemaField({
           quantity: new fields.NumberField({integer: true,  initial: 0 }),
           levels: new fields.NumberField({integer: true,  initial: 0 }),
@@ -155,6 +184,9 @@ export class PCData extends BaseActorData {
             active: new fields.BooleanField({ initial: false })
           }),
           armor: new fields.SchemaField({
+            active: new fields.BooleanField({ initial: true }),
+          }),
+          shield: new fields.SchemaField({
             active: new fields.BooleanField({ initial: true }),
           }),
         }),

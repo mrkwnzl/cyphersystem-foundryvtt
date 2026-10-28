@@ -38,6 +38,10 @@
           {{selectOptions stepModifierChoices selected=this.easedOrHindered localize=true}}
         </select>
         <input class="roll-engine-input-eased-hindered" name="difficultyModifier" id="difficultyModifier" type="number" value="{{this.difficultyModifier}}" /><br>
+        {{#if sheetSettings.useWounds}}
+          <label class="roll-engine-label">{{localize "CYPHERSYSTEM.DifficultyModifierByWounds"}}:</label>
+          <input class="roll-engine-input" name="difficultyFromWounds" id="difficultyFromWounds" type="number" value="{{this.difficultyFromWounds}}" /><br>
+        {{/if}}
         <label class="roll-engine-label">{{localize "CYPHERSYSTEM.Bonus"}}:</label>
         <input name="bonus" id="bonus" type="number" value="{{this.bonus}}" class="roll-engine-input" /><br>
         <hr class="hr-roll-engine">

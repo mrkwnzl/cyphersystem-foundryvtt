@@ -10,6 +10,7 @@ import {MaterialData} from './material.js';
 import {OddityData} from './oddity.js';
 import {PowerShiftData} from './power-shift.js';
 import {RecursionData} from './recursion.js';
+import {ShieldData} from './shield.js';
 import {SkillData} from './skill.js';
 import {TagData} from './tag.js';
 
@@ -17,6 +18,7 @@ export function initItemModels() {
   CONFIG.Item.dataModels = {
     ability: AbilityData,
     ammo: AmmoData,
+    shield: ShieldData,
     armor: ArmorData,
     artifact: ArtifactData,
     attack: AttackData,

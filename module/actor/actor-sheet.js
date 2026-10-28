@@ -77,6 +77,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
 
     context.actor = context.document;
     context.items = Array.from(context.document.items);
+    context.activeShield = null;
 
     // Item Data
     context.itemLists = {};
@@ -147,6 +148,16 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
           context.cypherType[item.id] = `<i class="fa-item cypher manifest fa-solid fa-circle" style="${color}" title="${title}"></i>`;
         }
       }
+      // get active shield
+      if (item.type == "shield") {
+        if (item.system.active){
+          if (context.activeShield != null){
+            // warning : only one active shield at a time
+          }else{
+            context.activeShield = item;
+          }
+        }
+      }
     }
 
     // Prepare items and return
@@ -195,6 +206,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     const skillsFour = [];
     const attacks = [];
     const armor = [];
+    const shield = [];
     const lastingDamage = [];
     const powerShifts = [];
     const cyphers = [];
@@ -212,6 +224,12 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     const tagsTwo = [];
     const tagsThree = [];
     const tagsFour = [];
+    const minor = [];
+    const minorMax = 0;
+    const moderate = [];
+    const moderateMax = 0;
+    const major = [];
+    const majorMax = 0;
 
     // Iterate through items, allocating to containers
     for (let item of context.items) {
@@ -280,6 +298,9 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       else if (item.type === "armor" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
         armor.push(item);
       }
+      else if (item.type === "shield" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
+        shield.push(item);
+      }
       else if (item.type === "lasting-damage" && item.system.settings.general.unmaskedForm == "Mask" && !hidden) {
         lastingDamage.push(item);
       }
@@ -346,6 +367,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     skillsFour.sort(byNameAscending);
     attacks.sort(byNameAscending);
     armor.sort(byNameAscending);
+    shield.sort(byNameAscending);
     lastingDamage.sort(byNameAscending);
     powerShifts.sort(byNameAscending);
     cyphers.sort(byNameAscending);
@@ -416,6 +438,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     skillsFour.sort(byFavoriteStatus);
     attacks.sort(byFavoriteStatus);
     armor.sort(byFavoriteStatus);
+    shield.sort(byFavoriteStatus);
     lastingDamage.sort(byFavoriteStatus);
     powerShifts.sort(byFavoriteStatus);
     cyphers.sort(byFavoriteStatus);
@@ -450,6 +473,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     skillsFour.sort(byArchiveStatus);
     attacks.sort(byArchiveStatus);
     armor.sort(byArchiveStatus);
+    shield.sort(byArchiveStatus);
     lastingDamage.sort(byArchiveStatus);
     powerShifts.sort(byArchiveStatus);
     cyphers.sort(byArchiveStatus);
@@ -578,6 +602,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     itemLists.skillsFour = skillsFour;
     itemLists.attacks = attacks;
     itemLists.armor = armor;
+    itemLists.shield = shield;
     itemLists.lastingDamage = lastingDamage;
     itemLists.powerShifts = powerShifts;
     itemLists.cyphers = cyphers;
@@ -755,6 +780,8 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       if (item.system.basic.range != "") range = ", " + item.system.basic.range;
       brackets = " (" + attackType + damage + range + notes + ")";
     } else if (item.type == "armor") {
+      brackets = " (" + item.system.basic.type + notes + ")";
+    }  else if (item.type == "shield") {
       brackets = " (" + item.system.basic.type + notes + ")";
     } else if (item.type == "lasting-damage") {
       let permanent = "";
@@ -1073,7 +1100,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     event.preventDefault();
     // Define item type categories
     const typesCharacterProperties = ["ability", "lasting-damage", "power-shift", "skill", "recursion", "tag"];
-    const typesUniqueItems = ["armor", "artifact", "attack", "cypher", "oddity"];
+    const typesUniqueItems = ["armor", "artifact", "attack", "cypher", "oddity", "shield"];
     const typesQuantityItems = ["ammo", "equipment", "material"];
 
     // Define items & actors
@@ -1299,6 +1326,9 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       else if (originItem.type == "armor" && targetActor.type != "pc") {
         targetActor.update({ "system.settings.equipment.armor.active": true });
       }
+      else if (originItem.type == "shield" && targetActor.type != "pc") {
+        targetActor.update({ "system.settings.equipment.shield.active": true });
+      }
       else if (originItem.type == "tag" && targetActor.type == "pc") {
         targetActor.update({ "system.settings.general.tags.active": true });
       }
@@ -1372,6 +1402,7 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
       "ability": game.i18n.localize("CYPHERSYSTEM.NewAbility"),
       "ammo": game.i18n.localize("CYPHERSYSTEM.NewAmmo"),
       "armor": game.i18n.localize("CYPHERSYSTEM.NewArmor"),
+      "shield": game.i18n.localize("CYPHERSYSTEM.NewShield"),
       "artifact": game.i18n.localize("CYPHERSYSTEM.NewArtifact"),
       "attack": game.i18n.localize("CYPHERSYSTEM.NewAttack"),
       "cypher": game.i18n.localize("CYPHERSYSTEM.NewCypher"),
@@ -1391,3 +1422,4 @@ export class CypherActorSheet extends foundry.applications.api.HandlebarsApplica
     return Item.create({ type: type, data, name: name }, { parent: this.actor });
   }
 }
+

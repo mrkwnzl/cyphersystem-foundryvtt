@@ -10,6 +10,7 @@
         <div class="item-name">{{localize 'CYPHERSYSTEM.DamageTrackAndRecoveryRolls'}}</div>
       {{/if}}
     </li>
+    {{!-- Unmasked - Mask form --}}
     {{#if (and (eq actor.system.basic.unmaskedForm "Mask") actor.system.settings.combat.stress.active)}}
       <li class="item flexrow non-draggable">
         <h6 class="item-name {{#if item.system.archived}}archived{{/if}}">
@@ -66,6 +67,7 @@
       {{/if}}
     {{/if}}
     <li class="item flexrow non-draggable">
+      {{!-- Unmasked - Teen form --}}
       {{#if (eq actor.system.basic.unmaskedForm "Teen")}}
         <div class="item-damage">
           <select class="damage-track-select" name="system.teen.combat.damageTrack.state">
@@ -100,6 +102,141 @@
           {{/if}}
         </div>
       {{else}}
+      {{!-- Any other than Unmasked --}}
+        {{#if sheetSettings.useWounds}}
+        {{!-- Use Wounds (Cypher v2) --}}
+        <div class="cs-grid-woundhealing">
+          <div class="cs-woundgrid">
+            <div class="cs-woundgridheader">{{localize 'CYPHERSYSTEM.Wounds'}}</div>
+            <div class="cs-woundflexrow">
+              <div class="cs-woundrow">
+                <div class="cs-woundlabel">{{localize 'CYPHERSYSTEM.MinorWounds'}}</div>
+                <div class="cs-woundcheckbox">{{{eachWoundCheckBox actor.system.combat.wounds.minor "pc_minor" }}}</div>
+                <div class="cs-woundwarning">
+                  {{#if (eq actor.system.combat.wounds.minor.current actor.system.combat.wounds.minor.max)}}
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.MinorWoundsMaxWarning'}}">
+                        <i class="fa-item fas fa-warning stat"></i>
+                      </a>
+                  {{/if}}
+                </div>
+                <!--<div class="cs-woundnumerical">{{actor.system.combat.wounds.minor.current}}/{{actor.system.combat.wounds.minor.max}}</div>-->
+                <div class="cs-woundcontrol stat-controls {{{sheetSettings.showOnHover}}}">
+                  <a class="item-control decrease-minor-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractWounds'}}" data-action="decWound" data-field="system.combat.wounds.minor">
+                    <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
+                  </a>
+                  <a class="item-control increase-minor-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddWounds'}}" data-action="incWound" data-field="system.combat.wounds.minor">
+                    <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
+                  </a>
+                  <a class="item-control reset-minor-wound {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMinorWounds'}}" data-action="resetWound" data-field="system.combat.wounds.minor">
+                    <i class="fa-item fas fa-sync-alt stat"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="cs-woundrow">
+                <div class="cs-woundlabel">{{localize 'CYPHERSYSTEM.ModerateWounds'}}</div>
+                <div class="cs-woundcheckbox">{{{eachWoundCheckBox actor.system.combat.wounds.moderate "pc_moderate" }}}</div>
+                <div class="cs-woundwarning">
+                    {{#if (eq actor.system.combat.wounds.moderate.current actor.system.combat.wounds.moderate.max)}}
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.ModerateWoundsMaxWarning'}}">
+                        <i class="fa-item fas fa-warning stat"></i>
+                      </a>
+                    {{/if}}
+                </div>
+                <!--<div class="cs-woundnumerical">{{actor.system.combat.wounds.moderate.current}}/{{actor.system.combat.wounds.moderate.max}}</div>-->
+                <div class="cs-woundcontrol stat-controls {{{sheetSettings.showOnHover}}}">
+                    <a class="item-control decrease-moderate-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractWounds'}}" data-action="decWound" data-field="system.combat.wounds.moderate">
+                      <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
+                    </a>
+                    <a class="item-control increase-moderate-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddWounds'}}" data-action="incWound" data-field="system.combat.wounds.moderate">
+                      <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
+                    </a>
+                    <a class="item-control reset-moderate-wound {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetModerateWounds'}}" data-action="resetWound" data-field="system.combat.wounds.moderate">
+                      <i class="fa-item fas fa-sync-alt stat"></i>
+                    </a>
+                  </div>
+              </div>
+              <div class="cs-woundrow">
+                <div class="cs-woundlabel">{{localize 'CYPHERSYSTEM.MajorWounds'}}</div>
+                <div class="cs-woundcheckbox">{{{eachWoundCheckBox actor.system.combat.wounds.major "pc_major" }}}</div>
+                <div class="cs-woundwarning">
+                    {{#if (eq actor.system.combat.wounds.major.current actor.system.combat.wounds.major.max)}}
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.MajorWoundsMaxWarning'}}">
+                        <i class="fa-solid fa-skull-crossbones"></i>
+                      </a>
+                    {{/if}}
+                  </div>
+                <!--<div class="cs-woundnumerical">{{actor.system.combat.wounds.major.current}}/{{actor.system.combat.wounds.major.max}}</div>-->
+                <div class="cs-woundcontrol stat-controls {{{sheetSettings.showOnHover}}}">
+                    <a class="item-control decrease-major-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.SubtractWounds'}}" data-action="decWound" data-field="system.combat.wounds.major">
+                      <i class="fa-item quantity fa-regular fa-minus-square stat"></i>
+                    </a>
+                    <a class="item-control increase-major-wound {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.AddWounds'}}" data-action="incWound" data-field="system.combat.wounds.major">
+                      <i class="fa-item quantity fa-regular fa-plus-square stat"></i>
+                    </a>
+                    <a class="item-control reset-major-wound {{#if sheetSettings.isObserver}}disabled{{/if}} reset-stat" title="{{localize 'CYPHERSYSTEM.ResetMajorWounds'}}" data-action="resetWound" data-field="system.combat.wounds.major">
+                      <i class="fa-item fas fa-sync-alt stat"></i>
+                    </a>
+                  </div>
+              </div>
+              <!--  display shield wound status -->
+              <div class="cs-shieldgrid">
+                <div class="cs-shield-label">{{localize 'CYPHERSYSTEM.ShieldWounds'}}</div>
+                    <div class="cs-shield-minorwounds">
+                      <div class="cs-shieldcheckbox">
+                        <div class="cs-shieldcheckboxinput">{{{eachWoundCheckBox actor.system.combat.shield.minor "shield_minor" }}}</div>
+                        <div class="cs-shieldcheckboxlabel">{{localize 'CYPHERSYSTEM.ShieldWoundsMinor'}}</div>
+                      </div>
+                    </div>
+                    <div class="cs-shield-moderatewounds">
+                      <div class="cs-shieldcheckbox">
+                        <div class="cs-shieldcheckboxinput">{{{eachWoundCheckBox actor.system.combat.shield.moderate "shield_moderate" }}}</div>
+                        <div class="cs-shieldcheckboxlabel">{{localize 'CYPHERSYSTEM.ShieldWoundsModerate'}}</div>
+                      </div>
+                    </div>
+                    <div class="cs-shield-majorwounds">
+                      <div class="cs-shieldcheckbox">
+                        <div class="cs-shieldcheckboxinput">{{{eachWoundCheckBox actor.system.combat.shield.major "shield_major" }}}</div>
+                        <div class="cs-shieldcheckboxlabel">{{localize 'CYPHERSYSTEM.ShieldWoundsMajor'}}</div>
+                      </div>
+                    </div>
+                    <div class="cs-shield-reset">
+                      <div class="stat-controls {{{sheetSettings.showOnHover}}}">
+                        <a class="item-control reset-shield-wounds {{#if sheetSettings.isObserver}}disabled{{/if}}" title="{{localize 'CYPHERSYSTEM.ResetShieldWounds'}}"  data-action="resetWound" data-field="system.combat.shield">
+                          <i class="fa-item fas fa-sync-alt stat"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="cs-shield-warning">
+                      {{#if (eq actor.system.combat.shield.major.current actor.system.combat.shield.major.max)}}
+                      <a class="item-control" title="{{localize 'CYPHERSYSTEM.ShieldDestroyed'}}"  data-action="resetWound" data-field="system.combat.shield">
+                        <i class="fa-solid fa-skull-crossbones"></i>
+                      </a>
+                      {{/if}}
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- Healing block -->
+            <div class="cs-healinggrid">
+              <div class="healing-header">{{localize 'CYPHERSYSTEM.Healing'}}</div>
+                <div class="cs-healingflexrow">
+                  <div class="cs-healingrow">
+                      <div class="cs-healing-label">{{localize 'CYPHERSYSTEM.Rallying'}}</div>
+                      <div class="cs-healing-details">spend Might to recover</div>
+                  </div>
+                  <div class="cs-healingrow">
+                      <div class="cs-healing-label">{{localize 'CYPHERSYSTEM.Treatment'}}</div>
+                      <div class="cs-healing-details">Use Skill to heal</div>
+                  </div>
+                  <div class="cs-healingrow">
+                      <div class="cs-healing-label">{{localize 'CYPHERSYSTEM.Rest'}}</div>
+                      <div class="cs-healing-details">spend Time to recover</div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          {{else}}
+          {{!-- Use Damage Track (Cypher System v1) --}}
         <div class="item-damage">
           <select class="damage-track-select" name="system.combat.damageTrack.state">
             {{selectOptions damageTrackChoices selected=actor.system.combat.damageTrack.state localize=true}}
@@ -135,8 +272,10 @@
             </a>
           {{/if}}
         </div>
+         {{/if}}
       {{/if}}
     </li>
+    {{!-- Recovery Rolls --}}
     <li class="item flexrow non-draggable">
       <div class="item-quantity">
         <input style="line-height: normal; margin: auto; width: 95px; display: flex; align-content: center;" name="system.combat.recoveries.roll" type="text" value="{{actor.system.combat.recoveries.roll}}" placeholder="1d6+1" {{sheetSettings.disabledStaticStats}} />

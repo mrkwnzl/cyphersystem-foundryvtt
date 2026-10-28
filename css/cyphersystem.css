@@ -507,7 +507,7 @@ select.bar-attribute {
 }
 
 .cyphersystem .background-image.cypher-blue {
-  background-image: linear-gradient(rgb(203, 203, 218), white) !important;
+  //background-image: linear-gradient(rgb(203, 203, 218), white) !important;
   background-size: cover;
 }
 
@@ -1641,4 +1641,136 @@ section.cypher-note > p {
   border: 1px solid var(--color-border-light-tertiary);
   background: rgba(0, 0, 0, 0.05);
   font-family: var(--cypher-font);
+}
+
+/* Style for Wound & healing grids in the combat tab */
+.cs-grid-woundhealing{
+  display: grid;
+  grid-template-areas:
+    "cs-woundgrid cs-healinggrid";
+  grid-template-columns: auto auto;
+  padding: 5px;
+  gap: 5px;
+}
+
+.cs-woundgrid {
+  grid-area: cs-woundgrid;
+  display: grid;
+  grid-template-areas:
+    "cs-woundgridheader"
+    "cs-woundflexrow";
+  grid-template-columns: auto;
+  padding: 5px;
+  gap: 5px;
+}
+.cs-woundgrid  div.cs-woundgridheader {
+  grid-area: cs-woundgridheader;
+  text-align: center;
+}
+.cs-woundflexrow{
+    grid-area: cs-woundflexrow;
+    display: flex;
+    flex-direction: column;
+}
+.cs-woundflexrow div.cs-woundrow{
+    display: grid;
+    grid-template-areas:
+    "cs-woundlabel cs-woundcheckbox cs-woundwarning"
+    "cs-woundlabel cs-woundcheckbox cs-woundwarning"
+    "cs-woundlabel cs-woundcontrol cs-woundwarning";
+}
+.cs-woundlabel {
+  grid-area: cs-woundlabel;
+  width: 100px;
+}
+.cs-woundgrid  div.cs-woundcheckbox {
+  grid-area: cs-woundcheckbox;
+  width: 100px;
+}
+.cs-woundgrid div.cs-woundwarning {
+  grid-area: cs-woundwarning;
+  width: 50px;
+}
+.cs-woundgrid div.cs-woundnumerical {
+  grid-area: cs-woundnumerical;
+}
+.cs-woundgrid div.cs-woundcontrol {
+  grid-area: cs-woundcontrol;
+}
+
+.cs-healinggrid {
+  grid-area: cs-healinggrid;
+  display: grid;
+  grid-template-areas:
+    "healing-header"
+    "healing-flexrow";
+  grid-template-columns: auto;
+  padding: 5px;
+  gap: 5px;
+}
+.healing-header {
+  grid-area: healing-header;
+  text-align: center;
+}
+.cs-healingflexrow{
+    grid-area: healing-flexrow;
+    display: flex;
+    flex-direction: column;
+  gap: 5px;
+  padding:5px;
+}
+.cs-healingflexrow div.cs-healingrow{
+    display: grid;
+    grid-template-areas:
+    "healing-label healing-details";
+  gap: 5px;
+  padding:5px;
+}
+.cs-healing-label{
+    grid-area: healing-label;
+    text-align: left;
+}
+.cs-healing-details{
+    grid-area: healing-details;
+    text-align: left;
+}
+.cs-shieldgrid {
+  grid-area: cs-shieldgrid;
+  display: grid;
+  grid-template-areas:
+    "cs-shield-label cs-shield-minorwounds cs-shield-moderatewounds cs-shield-majorwounds cs-shield-reset cs-shield-warning";
+  grid-template-columns: auto auto auto auto auto auto;
+  padding: 5px;
+  gap: 5px;
+}
+.cs-shieldcheckbox{
+  display: grid;
+  grid-template-areas:
+  "cs-shieldcheckboxlabel"
+  "cs-shieldcheckboxinput";
+  grid-template-columns: auto
+}
+.cs-shieldcheckboxlabel{
+  grid-area:cs-shieldcheckboxlabel;
+}
+.cs-shieldcheckboxinput{
+  grid-area: cs-shieldcheckboxinput;
+}
+.cs-shield-label{
+  grid-area: cs-shield-label;
+}
+.cs-shield-minorwounds{
+  grid-area: cs-shield-minorwounds;
+}
+.cs-shield-moderatewounds{
+  grid-area: cs-shield-moderatewounds;
+}
+.cs-shield-majorwounds{
+  grid-area: cs-shield-majorwounds;
+}
+.cs-shield-reset{
+  grid-area: cs-shield-reset;
+}
+.cs-shield-warning{
+  grid-area: cs-shield-warning;
 }

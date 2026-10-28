@@ -39,6 +39,10 @@ export class CypherActorSheetPC extends CypherActorSheet {
       disableMultiRoll: this.#onDisableMultiRoll,
       powerShiftTemporary: this.#onPowerShiftTemporary,
       itemFavorite: this.#onItemFavorite,
+      incWound: this.#onIncWound,
+      decWound: this.#onDecWound,
+      resetWound: this.#onResetWound,
+      toggleWound: this.#onToggleWound,
     }
   }
 
@@ -107,6 +111,7 @@ export class CypherActorSheetPC extends CypherActorSheet {
     context.sheetSettings.multiRollSpeedEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") === true && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.speed.edge") != 0) ? "multi-roll-active" : "";
     context.sheetSettings.multiRollIntellectEdge = (this.actor.getFlag("cyphersystem", "multiRoll.active") === true && this.actor.getFlag("cyphersystem", "multiRoll.modifiers.intellect.edge") != 0) ? "multi-roll-active" : "";
     context.sheetSettings.isExclusiveTagActive = isExclusiveTagActive(this.actor);
+    context.sheetSettings.useWounds = game.settings.get("cyphersystem", "useWounds");
     const diceTraySettings = ["hidden", "left", "right"];
     context.sheetSettings.diceTray = diceTraySettings[game.settings.get("cyphersystem", "diceTray")];
 
@@ -133,6 +138,12 @@ export class CypherActorSheetPC extends CypherActorSheet {
         "Impaired": "CYPHERSYSTEM.Impaired",
         "Debilitated": "CYPHERSYSTEM.Debilitated"
       };
+      // initialize wounds data
+      /*
+      if (data.sheetSettings.useWounds){
+
+      }
+      */
     }
 
     context.gameModeChoices = {
@@ -280,7 +291,6 @@ export class CypherActorSheetPC extends CypherActorSheet {
     if (!this.isEditable) return;
     const field = target.dataset.field;
     const isTeen = field.includes('.teen.');
-
     let lastingDamage = 0;
     for (let item of this.actor.items) {
       if (item.type == "lasting-damage" && !item.system.archived && field.endsWith(item.system.basic.pool.toLowerCase()) &&
@@ -369,6 +379,148 @@ export class CypherActorSheetPC extends CypherActorSheet {
     item.update({ "system.basic.temporary": !item.system.basic.temporary });
   };
 
+  // Increase Wounds max
+  static async #onIncWound(event, target){
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    return this.actor.update({ [`${field}.max`]: foundry.utils.getProperty(this.actor, field).max + 1 });
+  };
+
+  // Decrease Wounds max
+  static async #onDecWound(event, target){
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    const current_max = foundry.utils.getProperty(this.actor, field).max;
+    if(current_max == 1) return;
+    return this.actor.update({ [`${field}.max`]: current_max - 1 });
+  };
+
+  // Reset Wounds
+  static async #onResetWound(event,target){
+    if (!this.isEditable) return;
+    const field = target.dataset.field;
+    if(field.includes("shield")){
+      return this.actor.update({
+        [`${field}.minor.current`]: 0,
+        [`${field}.moderate.current`]: 0,
+        [`${field}.major.current`]: 0
+      });
+    }else{
+      return this.actor.update({ [`${field}.current`]: 0 });
+    }
+  };
+
+  // toggle wounds checkbox
+  static async #onToggleWound(event,target){
+    if (!this.isEditable) return;
+    // get field name from the target name (input element)
+    const targetName = target.name.replace("checkwounds_","");
+    let field = "";
+    if(targetName.slice(0,3) == "pc_"){
+      field = "system.combat.wounds." + targetName.replace("pc_","");
+    }else if(targetName.slice(0,7) == "shield_"){
+      field = "system.combat.shield." + targetName.replace("shield_","");
+    }else{
+      return;
+    }
+    field = field.slice(0,field.lastIndexOf("_"));
+    // get the toal number of checked input on the same level
+    const parentOfInputNodes = target.parentNode;
+    let countChecked = 0;
+    for(let i=0;i<parentOfInputNodes.childNodes.length;i++){
+      let currentInput = parentOfInputNodes.childNodes[i];
+      if(currentInput.checked){
+        countChecked = countChecked + 1;
+      }
+    }
+    return this.actor.update({ [`${field}.current`]: countChecked });
+  };
+/*
+    // toggle minor wounds checkbox
+    html.find(".checkwounds_minor > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_minor > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.wounds.minor.current": countChecked});
+    });
+    // toggle moderate wounds checkbox
+    html.find(".checkwounds_moderate > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_moderate > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.wounds.moderate.current": countChecked});
+    });
+    // toggle major wounds checkbox
+    html.find(".checkwounds_major > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_major > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.wounds.major.current": countChecked});
+    });
+
+     // Handle shield inputbox
+
+    // toggle shield minor wounds checkbox
+    html.find(".checkwounds_shield_minor > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_shield_minor > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.shield.minor.current": countChecked});
+    });
+    // toggle shield moderate wounds checkbox
+    html.find(".checkwounds_shield_moderate > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_shield_moderate > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.shield.moderate.current": countChecked});
+    });
+    // toggle shield major wounds checkbox
+    html.find(".checkwounds_shield_major > input").change(changeEvent => {
+      let countChecked = 0;
+      const inputBoxes = $(".checkwounds_shield_major > input");
+      for(let i=0;i< inputBoxes.length;i++){
+        const inputbox = inputBoxes[i];
+        if(inputbox.checked){
+            countChecked = countChecked + 1;
+          }
+      }
+      this.actor.update({"system.combat.shield.major.current": countChecked});
+    });
+
+    // Reset shield Wounds
+    html.find('.reset-shield-wounds').click(clickEvent => {
+      this.actor.update({
+        "system.combat.shield.minor.current": 0,
+        "system.combat.shield.moderate.current": 0,
+        "system.combat.shield.major.current": 0
+      });
+    });
+*/
   // Toggle Favorite
   static async #onItemFavorite(event, target) {
     if (!this.isEditable) return;
@@ -376,3 +528,4 @@ export class CypherActorSheetPC extends CypherActorSheet {
     item.update({ "system.favorite": !item.system.favorite });
   };
 }
+

@@ -6,6 +6,8 @@ import {
 import {htmlEscape} from "../html-escape.js";
 import {resetDifficulty, useEffectiveDifficulty} from "./roll-engine-main.js";
 
+const TextEditor = foundry.applications.ux.TextEditor.implementation;
+
 export async function rollEngineOutput(data) {
   let actor = fromUuidSync(data.actorUuid);
   let teen = actor.system.basic.unmaskedForm == "Teen" ? true : false;

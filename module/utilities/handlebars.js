@@ -108,6 +108,32 @@ export async function registerHandlebars() {
     return output;
   });
 
+  Handlebars.registerHelper("createShieldNotes", function (item) {
+    const outputArray = [];
+    let output = "";
+
+    // Add shield type
+    if (item.system.basic.type == "simple shield") {
+      outputArray.push(game.i18n.localize("CYPHERSYSTEM.SimpleShield"));
+    } else if (item.system.basic.type == "artifact") {
+      outputArray.push(game.i18n.localize("CYPHERSYSTEM.Artifact"));
+    } else if (item.system.basic.type == "special ability") {
+      outputArray.push(game.i18n.localize("CYPHERSYSTEM.SpecialAbility"));
+    }
+
+    // Add notes
+    if (item.system.basic.notes) {
+      outputArray.push(item.system.basic.notes);
+    }
+
+    // Put everything together in the output
+    if (outputArray.length >= 1) {
+      output = "(" + outputArray.join(", ") + ")";
+    }
+
+    return output;
+  });
+
   Handlebars.registerHelper("tagOnItem", function (array, value) {
     if (!Array.isArray(array)) array = [];
     if (!value) value = "";
@@ -216,5 +242,21 @@ export async function registerHandlebars() {
     else if (price == "exorbitant") priceString = game.i18n.localize("CYPHERSYSTEM.PriceExorbitant");
 
     return priceString;
+  });
+
+  Handlebars.registerHelper("eachWoundCheckBox", function(wound, name,options){
+    // returns a set of checkbox some checked if the actor suffered some wounds
+//    let ret = "<div class=\"checkwounds_"+name+"\">";
+    let ret = "";
+    for (let index = 0; index < wound.max; index++) {
+      const input_name = name+"_"+index.toString();
+      if ( index >= wound.current){
+        ret = ret + "<input type=\"checkbox\" name=\""+input_name+"\" data-action=\"toggleWound\" />";
+      }else{
+        ret = ret + "<input type=\"checkbox\" name=\""+input_name+"\" checked  data-action=\"toggleWound\" />";
+      }
+    }
+  //  ret = ret + "</div>";
+    return ret;
   });
 }

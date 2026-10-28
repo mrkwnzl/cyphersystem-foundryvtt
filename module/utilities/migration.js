@@ -66,6 +66,8 @@ export async function dataMigrationPacks(packageName) {
   // Disable macro in v3.0.0
   return ui.notifications.warn("This macro is no longer supported.");
 
+  /*
+  * code no longer supported 
   if (!game.modules.get(packageName)?.active) return ui.notifications.error("Package " + packageName + " not found in active modules!");
 
   // Warn about migration
@@ -106,6 +108,8 @@ export async function dataMigrationPacks(packageName) {
 
   // Notify about finished migration
   await ui.notifications.info(game.i18n.format("CYPHERSYSTEM.MigrationDone", {version: game.system.version}), {permanent: true, console: true});
+  * end code no longer supported
+  */
 }
 
 async function migrationRoutineActor(actor) {
@@ -133,6 +137,11 @@ async function migrationRoutineActor(actor) {
     const updateDataActorV3 = await migrationActorV3ToV4(actor);
     if (!foundry.utils.isEmpty(updateDataActorV3)) {
       await actor.update(updateDataActorV3, {enforceTypes: false});
+    }
+    // adding support for Wounds
+    const updateDataActorv4 = await migrationActorV4ToV5(actor);
+    if (!foundry.utils.isEmpty(updateDataActorv4)) {
+      await actor.update(updateDataActorv4, {enforceTypes: false});
     }
   } catch (error) {
     error.message = `Failed Cypher system migration for Actor ${actor.name}: ${error.message}`;
@@ -797,6 +806,55 @@ async function migrationActorV3ToV4(actor) {
     actor.unsetFlag("cyphersystem", "recursionIntellectEdgeModifier");
     actor.unsetFlag("cyphersystem", "recursion");
   }
+};
+
+async function migrationActorV4ToV5(actor) {
+  // Create updateData object
+  console.log("migrationActorV4ToV5 - start");
+  let updateData = foundry.utils.deepClone(actor.toObject());
+
+  if (actor.system.version == 4) {
+    if (actor.type == "pc") {
+      if(updateData.system.combat.wounds == null){
+        // if wounds are not in the actor data model, add it
+        updateData.system.combat.wounds = {
+            "minor":{
+              "max": 3,
+              "current":0
+            },
+            "moderate":{
+              "max": 3,
+              "current":0
+            },
+            "major":{
+              "max": 3,
+              "current":0
+            },
+            "shield":{
+              "minor":{
+                "max": 3,
+                "current": 0
+              },
+              "moderate":{
+                "max": 3,
+                "current": 0
+              },
+              "major":{
+                "max": 3,
+                "current": 0
+              },
+
+            }
+          };
+      }
+    }
+
+    // Update to version 5
+    updateData.system.version = 5;
+    console.log("migrationActorV4ToV5 - end");
+    return updateData;
+  }
+  
 };
 
 async function migrationItemV1ToV2(item) {

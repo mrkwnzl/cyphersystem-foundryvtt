@@ -37,6 +37,7 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
       copyAsAttack: this.#onCopyAsAttack,
       copyAsEquipment: this.#onCopyAsEquipment,
       copyAsArmor: this.#onCopyAsArmor,
+      copyAsShield: this.#onCopyAsShield,
       addTag: this.#onAddTag,
     }
   }
@@ -54,6 +55,7 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
     oddity: { template: "systems/cyphersystem/templates/item-sheets/oddity-sheet.html", scrollable: [".scrollable"] },
     "power-shift": { template: "systems/cyphersystem/templates/item-sheets/power-shift-sheet.html", scrollable: [".scrollable"] },
     recursion: { template: "systems/cyphersystem/templates/item-sheets/recursion-sheet.html", scrollable: [".scrollable"] },
+    shield: { template: "systems/cyphersystem/templates/item-sheets/shield-sheet.html", scrollable: [".scrollable"] },
     skill: { template: "systems/cyphersystem/templates/item-sheets/skill-sheet.html", scrollable: [".scrollable"] },
     tag: { template: "systems/cyphersystem/templates/item-sheets/tag-sheet.html", scrollable: [".scrollable"] },
   }
@@ -330,6 +332,13 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
       "n/a": "CYPHERSYSTEM.n/a"
     };
 
+    context.shieldTypeChoices = {
+      "simple shield": "CYPHERSYSTEM.ShieldSimple",
+      "artifact": "CYPHERSYSTEM.Artifact",
+      "special ability": "CYPHERSYSTEM.SpecialAbility",
+      "n/a": "CYPHERSYSTEM.n/a"
+    };
+
     context.skillRatingChoices = {
       "Specialized": "CYPHERSYSTEM.Specialized",
       "Trained": "CYPHERSYSTEM.Trained",
@@ -368,7 +377,8 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
     };
 
     context.numberAssetChoices = {
-      "0": 0,
+      "0": 0,      "medium armor": "CYPHERSYSTEM.MediumArmor",
+      "heavy armor": "CYPHERSYSTEM.HeavyArmor",
       "1": 1,
       "2": 2
     };
@@ -550,6 +560,25 @@ export class CypherItemSheet extends foundry.applications.api.HandlebarsApplicat
     await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
 
     return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsArmor", { item: item.name }));
+  }
+
+  static async #onCopyAsShield(event, target) {
+    if (!this.isEditable) return;
+    const item = this.item;
+    const actor = this.item.actor;
+    if (!actor) return;
+    if (!["ability"].includes(item.type)) return;
+
+    let itemData = {
+      name: item.name,
+      type: "shield",
+      "system.description": item.system.description,
+      "system.basic.type": "special ability"
+    };
+
+    await foundry.documents.Item.implementation.createDocuments([itemData], {parent: actor});
+
+    return ui.notifications.info(game.i18n.format("CYPHERSYSTEM.ItemCreatedAsShield", { item: item.name }));
   }
 
   static async #onAddTag(event, target) {

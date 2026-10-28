@@ -3,3 +3,7 @@ __MACOSX
 cyphersystem.lock
 .VSCodeCounter
 .prettierrc.json
+MANIFEST*
+*.ldb
+*.log
+packs/

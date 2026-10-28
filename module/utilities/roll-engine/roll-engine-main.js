@@ -29,6 +29,7 @@ export async function rollEngineMain(data) {
       damagePerLOE: 3,
       freeEffort: 0,
       difficultyModifier: 0,
+      difficultyFromWounds: 0,
       easedOrHindered: "eased",
       bonus: 0,
       poolPointCost: 0
@@ -78,6 +79,14 @@ export async function rollEngineMain(data) {
   }
   if (!data.difficultyModifier) {
     data.difficultyModifier = 0;
+  }
+  if (!data.difficultyFromWounds) {
+    let hinderedFromWound = 0;
+    if(actor.system.combat.wounds.moderate.max == actor.system.combat.wounds.moderate.current){
+      hinderedFromWound++;
+    }
+    hinderedFromWound += actor.system.combat.wounds.major.current;
+    data.difficultyFromWounds = hinderedFromWound;
   }
   if (!data.damage) {
     data.damage = 0;
@@ -142,3 +151,4 @@ export async function resetDifficulty() {
     await game.socket.emit("system.cyphersystem", {operation: "updateRollDifficultyForm"});
   }
 }
+

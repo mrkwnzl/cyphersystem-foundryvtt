@@ -2,6 +2,9 @@
 * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Cypher system.
 * @extends {Actor}
 */
+
+const TextEditor = foundry.applications.ux.TextEditor.implementation;
+
 export class CypherItem extends Item {
   /** @override */
   prepareData() {
